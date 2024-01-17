@@ -11,7 +11,7 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-// Next AUTH
+// SECTION: Next AUTH
 
 model Account {
   id                String  @id @default(cuid())
@@ -48,12 +48,10 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// Application de base
 enum UserRole {
   USER
   ADMIN
   EDITOR
-  // ajouter d'autres rôles au besoin
 }
 
 model User {
@@ -68,3 +66,5 @@ model User {
   accounts       Account[]
   sessions       Session[]
 }
+
+// SECTION -> Reste du schema

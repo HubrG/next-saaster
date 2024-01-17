@@ -7,6 +7,15 @@
 1. Supprimer le dossier .git : `rm -rf .git`
 2. Recréer le dossier git : `git init`
 
+### .env
+
+1. Créer un fichier `.env` à la racine du projet
+2. Copier le contenu du fichier `.env.example` dans le fichier `.env`
+
+### next.config.js
+
+1. Modifier le host de votre gestionnaire d'assets (example : cloudinary) dans le fichier `next.config.js`
+
 ### Installer les dépendances
 
 1. En terminal : `pnpm install`
@@ -31,7 +40,7 @@
 
 ---
 
-## Local, ou server
+## Local, et server
 
 ### Initialiser le projet
 

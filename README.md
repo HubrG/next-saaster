@@ -1,77 +1,70 @@
-# Débuter
+# Get started
 
-## En local
+## Configure locally
 
-### .git
+### 1. .git
 
-1. Supprimer le dossier .git : `rm -rf .git`
-2. Recréer le dossier git : `git init`
+1. Delete the .git folder: `rm -rf .git`
+2. Recreate the git folder: `git init`
 
-### .env
+### 2. .env
 
-1. Créer un fichier `.env` à la racine du projet
-2. Copier le contenu du fichier `.env.example` dans le fichier `.env`
+1. Create a `.env` file at the root of the project
+2. Copy the contents of the `.env.example` file into the `.env` file and fill the fields
 
-### next.config.js
+### 3. next.config.js
 
-1. Modifier le host de votre gestionnaire d'assets (example : cloudinary) dans le fichier `next.config.js`
+1. Modify the host of your asset manager (example: cloudinary) in the `next.config.js` file
 
-### Installer les dépendances
+### 4. Install dependencies
 
-1. En terminal : `pnpm install`
+1. In terminal: `pnpm install`
 
-### Gestion de la base de donnée <sub><sup>_(uniquement en local)_</sup></sub>
+### 5. Creation of the database (local)
 
-#### a) Création de la base de donnée (local)
+1. In terminal: `CREATE DATABASE my_database;`
+2. Check the creation of the database: `\l`
+3. Modify the `PROJECT_NAME` environment variable in the `.env` file with the value of the database name `my_database`
+4. Generate Prisma: `pnpm prisma generate`
+5. Create a first migration: `pnpm prisma migrate dev --name init`
 
-1. En terminal : `CREATE DATABASE ma_base_de_donnees;`
-2. Vérifier la création de la BDD : `\l`
+### 6. Modify all environment variables
 
-#### b) Prisma (local)
-
-1. Modifier la variable d'environnement `PROJECT_NAME` dans le fichier `.env` avec la valeur du nom de la BDD `ma_base_de_donnees`
-2. Générer Prisma : `pnpm prisma generate`
-3. Créer une première migration : `pnpm prisma migrate dev --name init`
-
-#### c) Modifier toutes les variables d'environnements
-
-
-### Deployer le projet
+### 7. Deploy the project
 
 ---
 
-## Local, et server
+## Lunch the project on local, and server
 
-### Initialiser le projet
+### Initialization of the project
 
-1. Lancer le projet et se rendre sur la page d'accueil `/`
-2. Créer un compte admin
-3. Modifier les informations du projet (nom, description, etc...)
-4. Se rendre sur la page d'administration `/admin`
-5. Modifier vos clés API (Stripe, Mailjet, Google, etc...)
+1. Launch the project and go to the home page `/`
+2. Create an admin account
+3. Edit project information (name, description, etc.)
+4. Go to the `/admin` administration page
+5. Change your API keys (Stripe, Mailjet, Google, etc...)
 
-## *Libraries* :
+## ℹ️ Libraries used
 
-- Typage : `TypeScript` & `zod`
-- Gestion des dates : `day.js`
-- Éditeur de texte : `Editor.js`
-- Hooks personnalisés : `react-use`
-- Stores/Contexts : `Zustand`
-- Upload/Gestion d'upload : `Filepond`
-- UI/UX (sortable/drag&drop/masonry...) : `Muuri`
-- Gestion des cookies : `js-cookie`
-- Gestion des formulaires : `react-hook-form`
-- Gestion des queries : `tanstack/react-query`
-- Charts et graphiques : `recharts`
-- Icones : `lucide`
-- Gestion des PDF (création, modification, lecture, téléchargement) : `react-pdf`
-- Toasts : `react-toastify`
-- Animations : `framer-motion`
+- Typing: `TypeScript` & `zod`
+- Date format : `day.js`
+- Text editor: `Editor.js`
+- Custom hooks: `react-use`
+- Stores/Contexts: `Zustand`
+- Upload/Upload management: `Filepond`
+- UI/UX (sortable/drag&drop/masonry...): `Muuri`
+- Cookie management: `js-cookie`
+- Form management: `react-hook-form`
+- Query management: `tanstack/react-query`
+- Charts and graphs: `recharts`
+- Icons: `lucide`
+- PDF management (creation, modification, reading, downloading): `react-pdf`
+- Toasts: `react-toastify`
+- Animations: `framer-motion`
 
-## *Services* : 
+## ℹ️ Services used :
 
-- Gestion de la BDD : `Prisma` & `PostgreSQL` & `supabase` 
-- Déployer le projet : `Vercel`
-- Gestion des emails : `Mailjet`
-
-
+- Database management: `Prisma` & `PostgreSQL` 
+- Deploy the project: `Vercel`
+- Email management: `Mailjet`
+- Assets management: `Cloudinary`

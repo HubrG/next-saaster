@@ -65,7 +65,7 @@
 
 ## ℹ️ Services used :
 
-- Database management: `Prisma` & `PostgreSQL`
-- Deploy the project: `Vercel`
-- Email management: `Mailjet`
-- Assets management: `Cloudinary`
+- Database management: [Prisma](https://github.com/prisma/prisma) & `PostgreSQL`
+- Deploy the project: [Vercel](https://vercel.com/)
+- Email management: [Mailjet](https://www.mailjet.com/)
+- Assets management: [Cloudinary](https://cloudinary.com/)

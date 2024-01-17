@@ -46,25 +46,26 @@
 
 ## ℹ️ Libraries used
 
-- Typing: `TypeScript` & `zod`
-- Date format : `day.js`
-- Text editor: `Editor.js`
-- Custom hooks: `react-use`
-- Stores/Contexts: `Zustand`
-- Upload/Upload management: `Filepond`
-- UI/UX (sortable/drag&drop/masonry...): `Muuri`
-- Cookie management: `js-cookie`
-- Form management: `react-hook-form`
-- Query management: `tanstack/react-query`
-- Charts and graphs: `recharts`
-- Icons: `lucide`
-- PDF management (creation, modification, reading, downloading): `react-pdf`
-- Toasts: `react-toastify`
-- Animations: `framer-motion`
+- Typing: [TypeScript](https://github.com/microsoft/TypeScript) & [zod](https://github.com/colinhacks/zod)
+- Auth management: [next-auth](https://github.com/nextauthjs/next-auth)
+- Date format : [day.js](https://github.com/iamkun/dayjs)
+- Text editor: [editor.js](https://github.com/editor-js/awesome-editorjs)
+- Custom hooks: [react-use](https://github.com/streamich/react-use)
+- Stores/Contexts: [zustand](https://github.com/pmndrs/zustand)
+- Upload/Upload management: [filepond](https://github.com/pqina/react-filepond)
+- UI/UX (sortable/drag&drop/masonry...): [muuri](https://github.com/haltu/muuri)
+- Cookie management: [js-cookie](https://www.npmjs.com/package/js-cookie)
+- Form management: [react-hook-form](https://github.com/react-hook-form/react-hook-form)
+- Query management: [tanstack/react-query](https://github.com/TanStack/query)
+- Charts and graphs: [recharts](https://github.com/recharts/recharts)
+- Icons: [lucide icons](https://github.com/lucide-icons/lucide)
+- PDF management (creation, updating, reading, downloading): [react-pdf](https://github.com/wojtekmaj/react-pdf)
+- Toasts: [react-toastify](https://github.com/fkhadra/react-toastify#readme)
+- Animations: [framer-motion](https://github.com/framer/motion)
 
 ## ℹ️ Services used :
 
-- Database management: `Prisma` & `PostgreSQL` 
+- Database management: `Prisma` & `PostgreSQL`
 - Deploy the project: `Vercel`
 - Email management: `Mailjet`
 - Assets management: `Cloudinary`

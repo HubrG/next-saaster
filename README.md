@@ -24,6 +24,9 @@
 2. Générer Prisma : `pnpm prisma generate`
 3. Créer une première migration : `pnpm prisma migrate dev --name init`
 
+#### c) Modifier toutes les variables d'environnements
+
+
 ### Deployer le projet
 
 ---
@@ -34,8 +37,9 @@
 
 1. Lancer le projet et se rendre sur la page d'accueil `/`
 2. Créer un compte admin
-3. Se rendre sur la page d'administration `/admin`
-4. Modifier vos clés API (Stripe, Mailjet, Google, etc...)
+3. Modifier les informations du projet (nom, description, etc...)
+4. Se rendre sur la page d'administration `/admin`
+5. Modifier vos clés API (Stripe, Mailjet, Google, etc...)
 
 ## *Libraries* :
 
@@ -52,6 +56,8 @@
 - Charts et graphiques : `recharts`
 - Icones : `lucide`
 - Gestion des PDF (création, modification, lecture, téléchargement) : `react-pdf`
+- Toasts : `react-toastify`
+- Animations : `framer-motion`
 
 ## *Services* : 
 

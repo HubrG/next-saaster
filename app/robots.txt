@@ -2,5 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-#FIX ajouter le sitemap
-Sitemap: 
+# FIX ajouter le sitemap et décommenter
+# Sitemap: 

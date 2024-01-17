@@ -55,16 +55,25 @@ enum UserRole {
 }
 
 model User {
-  id             String       @id @default(cuid())
+  id             String    @id @default(cuid())
   name           String?
-  email          String?      @unique
+  email          String?   @unique
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  date           DateTime?    @default(now())
-  role           UserRole     @default(USER)
+  date           DateTime? @default(now())
+  role           UserRole  @default(USER)
   accounts       Account[]
   sessions       Session[]
 }
 
 // SECTION -> Reste du schema
+
+model appSettings {
+  id        String   @id @default(cuid())
+  name      String
+  baseline  String
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

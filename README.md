@@ -56,12 +56,13 @@
 - UI/UX (sortable/drag&drop/masonry...): [muuri](https://github.com/haltu/muuri)
 - Cookie management: [js-cookie](https://www.npmjs.com/package/js-cookie)
 - Form management: [react-hook-form](https://github.com/react-hook-form/react-hook-form)
-- Query management: [tanstack/react-query](https://github.com/TanStack/query)
+- Query management: [tanstack/react-query](https://github.com/TanStack/query) 
 - Charts and graphs: [recharts](https://github.com/recharts/recharts)
 - Icons: [lucide icons](https://github.com/lucide-icons/lucide)
 - PDF management (creation, updating, reading, downloading): [react-pdf](https://github.com/wojtekmaj/react-pdf)
 - Toasts: [react-toastify](https://github.com/fkhadra/react-toastify#readme)
 - Animations: [framer-motion](https://github.com/framer/motion)
+- SEO: [next-seo]() 
 
 ## ℹ️ Services used :
 

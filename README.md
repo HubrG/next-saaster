@@ -6,7 +6,7 @@
 
 1. Delete the .git folder: `rm -rf .git`
 2. Recreate the git folder: `git init`
-3. Create a `.env.local` file at the root of the project and pase the content of the `.env` file
+3. Create a `.env.local` file at the root of the project and pase the content of the `.env.example` file
 4. _Gitignore_ the `.env.local` file: `echo ".env.local" >> .gitignore`
 5. Go to the [Github settings and create a new OAuth app](https://github.com/settings/developers)
 6. Copy the `Client ID` and `Client Secret` and paste them into the `.env.local` file in the `GITHUB_ID` and `GITHUB_SECRET` fields.

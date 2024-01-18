@@ -1,7 +1,7 @@
 
 {
   "Index": {
-    "title": "Welcome",
+    "title": "Welcome !",
     "first-connexion": "First connexion"
   },
   "Components": {
@@ -10,7 +10,7 @@
         "Index": {
           "FirstConnexion": {
             "title": "First connexion",
-            "description": "Please connect to your GitHub account to continue and create your project. You will be considered as ADMIN",
+            "description": "Log in with Github to create the admin account and start configuring the <strong>SaaSter</strong>",
             "button-github": "Connect to GitHub"
           }
         }

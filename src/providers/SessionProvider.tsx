@@ -7,7 +7,7 @@ type ProviderProps = {
     session: Session;
 };
 
-export default function Provider({ children, session }: ProviderProps) {
+export default function SessProvider({ children, session }: ProviderProps) {
 
     return (
         <SessionProvider session={session}>

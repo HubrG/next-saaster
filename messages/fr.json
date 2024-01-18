@@ -1,5 +1,19 @@
 {
   "Index": {
-    "title": "bonjour world!"
+    "title": "Bienvenue",
+    "first-connexion": "Première connexion"
+  },
+  "Components": {
+    "Features": {
+      "Pages": {
+        "Index": {
+          "FirstConnexion": {
+            "title": "Première connexion",
+            "description": "Veuillez vous connecter à votre GitHub pour continuer et créer votre projet. Vous serez dès lors considéré comme ADMIN",
+            "button-github": "Se connecter à GitHub"
+          }
+        }
+      }
+    }
   }
 }

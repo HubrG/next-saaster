@@ -2,35 +2,35 @@
 
 ## Configure locally
 
-### 1. .git
+### 1. Github & Environment variables
 
 1. Delete the .git folder: `rm -rf .git`
 2. Recreate the git folder: `git init`
+3. Create a `.env.local` file at the root of the project and pase the content of the `.env` file
+4. _Gitignore_ the `.env.local` file: `echo ".env.local" >> .gitignore`
+5. Go to the [Github settings and create a new OAuth app](https://github.com/settings/developers)
+6. Copy the `Client ID` and `Client Secret` and paste them into the `.env.local` file in the `GITHUB_ID` and `GITHUB_SECRET` fields.
+7. First commit: `git add . && git commit -m "Initial commit" && git push origin main`
 
-### 2. .env
+### 2. next.config.js
 
-1. Create a `.env` file at the root of the project
-2. Copy the contents of the `.env.example` file into the `.env` file and fill the fields
+1. Modify the host of your assets manager if needed (by default: [cloudinary](https://cloudinary.com) — freemium) in the `next.config.js` file
 
-### 3. next.config.js
-
-1. Modify the host of your asset manager (example: cloudinary) in the `next.config.js` file
-
-### 4. Install dependencies
+### 3. Install dependencies
 
 1. In terminal: `pnpm install`
 
-### 5. Creation of the database (local)
+### 4. Creation of the database (local)
 
 1. In terminal: `CREATE DATABASE my_database;`
 2. Check the creation of the database: `\l`
-3. Modify the `PROJECT_NAME` environment variable in the `.env` file with the value of the database name `my_database`
+3. Modify the `PROJECT_NAME` environment variable in the `.env.local` file with the value of the database name `my_database`
 4. Generate Prisma: `pnpm prisma generate`
 5. Create a first migration: `pnpm prisma migrate dev --name init`
 
-### 6. Modify all environment variables
+### 5. Modify all environment variables
 
-### 7. Deploy the project
+### 6. Deploy the project
 
 ---
 
@@ -46,7 +46,7 @@
 
 ## ℹ️ Libraries used
 
-- Typing: [TypeScript](https://github.com/microsoft/TypeScript) & [zod](https://github.com/colinhacks/zod)
+- Typing: [typeScript](https://github.com/microsoft/TypeScript) & [zod](https://github.com/colinhacks/zod)
 - Auth management: [next-auth](https://github.com/nextauthjs/next-auth)
 - Date format : [day.js](https://github.com/iamkun/dayjs)
 - Text editor: [editor.js](https://github.com/editor-js/awesome-editorjs)
@@ -56,13 +56,13 @@
 - UI/UX (sortable/drag&drop/masonry...): [muuri](https://github.com/haltu/muuri)
 - Cookie management: [js-cookie](https://www.npmjs.com/package/js-cookie)
 - Form management: [react-hook-form](https://github.com/react-hook-form/react-hook-form)
-- Query management: [tanstack/react-query](https://github.com/TanStack/query) 
+- Query management: [tanstack/react-query](https://github.com/TanStack/query)
 - Charts and graphs: [recharts](https://github.com/recharts/recharts)
 - Icons: [lucide icons](https://github.com/lucide-icons/lucide)
 - PDF management (creation, updating, reading, downloading): [react-pdf](https://github.com/wojtekmaj/react-pdf)
 - Toasts: [react-toastify](https://github.com/fkhadra/react-toastify#readme)
 - Animations: [framer-motion](https://github.com/framer/motion)
-- Internationalisation: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation)
+- Internationalization: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation)
 
 ## ℹ️ Services used :
 

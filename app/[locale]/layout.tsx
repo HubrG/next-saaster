@@ -1,5 +1,4 @@
 import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
 import { cn } from "@/src/lib/utils";
 import { Session } from "next-auth";
 import Provider from "@/src/contexts/Provider";
@@ -7,15 +6,9 @@ import NextTopLoader from "nextjs-toploader";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "@/src/themes/ThemeProvider";
 import dynamic from "next/dynamic";
-import createMetadata from "@/src/lib/metadatas";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
-import { locales } from "@/src/lib/intl/navigation";
-
-export const metadata = createMetadata({
-  // Voir la configuration des métadonnées dans metadatas.ts
-  // @/src/lib/metadatas
-});
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 const ToastProvider = dynamic(
   () => import("@/src/components/layout/toastify/ToastProvider")
 );
@@ -25,8 +18,7 @@ export const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-
-export default function RootLayout(props: {
+export default function LocaleLayout(props: {
   children: React.ReactNode;
   session: Session;
   params: {
@@ -39,13 +31,15 @@ export default function RootLayout(props: {
     params: { locale },
   } = props;
 
-  
   // Show a 404 page if the locale is not supported
   const loc = useLocale();
   if (loc === undefined || loc !== locale) {
     notFound();
   }
-  // 
+
+  const messages = useMessages();
+  
+  //
   return (
     <html lang={locale}>
       <Provider session={session}>
@@ -55,25 +49,30 @@ export default function RootLayout(props: {
             fontSans.variable
           )}
           suppressHydrationWarning={true}>
-          <ToastProvider>
-            <NextTopLoader
-              template='<div class="bar" role="bar"><div class="peg"></div></div> 
+        <NextIntlClientProvider locale={locale} messages={messages}>
+            <ToastProvider>
+              <NextTopLoader
+                template='<div class="bar" role="bar"><div class="peg"></div></div> 
               <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
-              color="#3d3d3d"
-              initialPosition={0.08}
-              crawlSpeed={200}
-              height={2}
-              crawl={true}
-              showSpinner={true}
-              easing="ease"
-              speed={200}
-              shadow={false}
-            />
-            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-              {children}
-            </ThemeProvider>
-          </ToastProvider>
-          <ToastContainer />
+                color="#3d3d3d"
+                initialPosition={0.08}
+                crawlSpeed={200}
+                height={2}
+                crawl={true}
+                showSpinner={true}
+                easing="ease"
+                speed={200}
+                shadow={false}
+              />
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="light"
+                enableSystem>
+                {children}
+              </ThemeProvider>
+            </ToastProvider>
+            <ToastContainer />
+          </NextIntlClientProvider>
         </body>
       </Provider>
     </html>

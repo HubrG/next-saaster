@@ -71,7 +71,7 @@ export const authOptions: AuthOptions = {
       if (user) {
         token.userId = user.id;
         token.role = (user as any).role;
-        token.tokenRemaining = (user as any).tokenRemaining;
+        // token.tokenRemaining = (user as any).tokenRemaining;
       }
       return token;
     },
@@ -81,7 +81,7 @@ export const authOptions: AuthOptions = {
           ...session.user,
           id: token.userId,
           role: token.role,
-          tokenRemaining: token.tokenRemaining,
+          // tokenRemaining: token.tokenRemaining,
         };
         const newSession = { ...session, user };
         return newSession;
@@ -90,8 +90,8 @@ export const authOptions: AuthOptions = {
     },
   },
   pages: {
-    signIn: "/connexion",
-    error: "/connexion/error",
+    signIn: "/",
+    error: "/",
   },
 };
 

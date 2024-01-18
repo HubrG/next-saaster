@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/src/lib/utils";
@@ -9,11 +8,14 @@ import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "@/src/themes/ThemeProvider";
 import dynamic from "next/dynamic";
 import createMetadata from "@/src/lib/metadatas";
+import { useLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { locales } from "@/src/lib/intl/navigation";
+
 export const metadata = createMetadata({
   // Voir la configuration des métadonnées dans metadatas.ts
   // @/src/lib/metadatas
 });
-
 const ToastProvider = dynamic(
   () => import("@/src/components/layout/toastify/ToastProvider")
 );
@@ -27,10 +29,25 @@ export const fontSans = FontSans({
 export default function RootLayout(props: {
   children: React.ReactNode;
   session: Session;
+  params: {
+    locale: string;
+  };
 }) {
-  const { children, session } = props;
+  const {
+    children,
+    session,
+    params: { locale },
+  } = props;
+
+  
+  // Show a 404 page if the locale is not supported
+  const loc = useLocale();
+  if (loc === undefined || loc !== locale) {
+    notFound();
+  }
+  // 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <Provider session={session}>
         <body
           className={cn(

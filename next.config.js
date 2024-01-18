@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
+
+// Intl config
+const withNextIntl = require('next-intl/plugin')(
+    "./src/lib/intl/i18n.config.ts",
+);
+
 const nextConfig = {
-  // Change the host of your assets management
-  images: {
+   images: {
     remotePatterns: [
       {
         protocol: "https",
@@ -32,4 +37,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig);

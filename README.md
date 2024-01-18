@@ -62,7 +62,7 @@
 - PDF management (creation, updating, reading, downloading): [react-pdf](https://github.com/wojtekmaj/react-pdf)
 - Toasts: [react-toastify](https://github.com/fkhadra/react-toastify#readme)
 - Animations: [framer-motion](https://github.com/framer/motion)
-- SEO: [next-seo]() 
+- Internationalisation: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation)
 
 ## ℹ️ Services used :
 

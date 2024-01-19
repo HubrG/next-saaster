@@ -1,16 +1,48 @@
 {
   "Index": {
-    "title": "Bienvenue",
+    "title": "Bienvenue !",
     "first-connexion": "Première connexion"
   },
   "Components": {
     "Features": {
+      "Layout": {
+        "Header": {
+          "Navbar": {
+            "buttons": {
+              "try": "Essayer gratuitement"
+            }
+          },
+          "MainMenu": {
+            "links" : {
+              "how-it-works": "Comment ça marche ?",
+              "features": "Fonctionnalités",
+              "home": "Accueil",
+              "pricing": "Tarifs",
+              "contact": "Contact"
+            }
+          },
+          "Auth": {
+            "UserProfile" : {
+              "tooltips": {
+                "credits": "Crédits restants"
+              },
+              "links": {
+                "buy": "Acheter des crédits",
+                "account": "Mon compte"
+              }
+            },
+            "LogoutButton" : {
+              "title": "Deconnexion"
+            }
+          }
+        }
+      },
       "Pages": {
         "Index": {
           "FirstConnexion": {
             "title": "Première connexion",
-            "description": "Veuillez vous connecter à votre GitHub pour continuer et créer votre projet. Vous serez dès lors considéré comme ADMIN",
-            "button-github": "Se connecter à GitHub"
+            "description": "Connectez-vous avec Github pour créer le compte administrateur et commencer à configurer le <strong>SaaSter</strong>",
+            "button-github": "Connecter mon GitHub"
           }
         }
       }

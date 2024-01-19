@@ -63,6 +63,7 @@
 - Toasts: [react-toastify](https://github.com/fkhadra/react-toastify#readme)
 - Animations: [framer-motion](https://github.com/framer/motion)
 - Internationalization: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation)
+- Tooltips : [react-tooltip](https://github.com/ReactTooltip/react-tooltip)
 
 ## ℹ️ Services used :
 
@@ -70,3 +71,10 @@
 - Deploy the project: [Vercel](https://vercel.com/)
 - Email management: [Mailjet](https://www.mailjet.com/)
 - Assets management: [Cloudinary](https://cloudinary.com/)
+
+## ℹ️ Notes :
+
+- You can add or remove a new main pages in `src/components/layout/header/Navbar.ts`
+- Change de favicon in `app/favicon.ico`
+- Change the robots.txt in `app/robots.txt` and put the correct url of sitemap.
+

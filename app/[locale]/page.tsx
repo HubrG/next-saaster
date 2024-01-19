@@ -8,15 +8,13 @@ import { authOptions } from "@/src/lib/next-auth/auth";
 export default async function Home() {
   const t = await getTranslations("Index");
   const session = await getServerSession(authOptions);
-  console.log(session)
+
   if (!session) {
     const numberOfUsers = await getNumberOfUsers();
     // If the database is empty, we create a first user who will be Admin with the github provider
     if (numberOfUsers === 0) {
       return (
-        <main className="flex min-h-screen flex-col justify-center items-center  p-24">
           <FirstConnexion />
-        </main>
       );
     }
   }
@@ -29,7 +27,6 @@ export default async function Home() {
       <Link href="/" locale="fr">
         En français
       </Link>
-      <FirstConnexion />
       <Link href="/admin">Admin</Link>
     </main>
   );

@@ -1,4 +1,3 @@
-
 {
   "Index": {
     "title": "Welcome !",
@@ -6,6 +5,38 @@
   },
   "Components": {
     "Features": {
+      "Layout": {
+        "Header": {
+          "Navbar": {
+            "buttons": {
+              "try": "Try us for free"
+            }
+          },
+          "MainMenu": {
+            "links" : {
+              "how-it-works": "How it works ?",
+              "features": "Features",
+              "home": "Home",
+              "pricing": "Pricing",
+              "contact": "Contact"
+            }
+          },
+          "Auth": {
+            "UserProfile" : {
+              "tooltips": {
+                "credits": "Remaining credits"
+              },
+              "links": {
+                "buy": "Buy credits",
+                "account": "My account"
+              }
+            },
+            "LogoutButton" : {
+              "title": "Log out"
+            }
+          }
+        }
+      },
       "Pages": {
         "Index": {
           "FirstConnexion": {

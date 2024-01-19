@@ -1,23 +1,31 @@
-import { Inter as FontSans } from "next/font/google";
+import { Inter, Playfair_Display, Caveat, Nunito } from "next/font/google";
 import { cn } from "@/src/lib/utils";
 import { Session } from "next-auth";
 import SessProvider from "@/src/providers/SessionProvider";
 import NextTopLoader from "nextjs-toploader";
-import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import dynamic from "next/dynamic";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
-const ToastProvider = dynamic(
-  () => import("@/src/components/layout/toastify/ToastProvider")
-);
+import { Navbar } from "@/src/components/layout/header/Navbar";
 
-export const fontSans = FontSans({
+const ToastProvider = dynamic(() => import("@/src/providers/ToastProvider"));
+
+const inter = Inter({ subsets: ["latin"] });
+
+const sans = Nunito({
   subsets: ["latin"],
+  display: "swap",
   variable: "--font-sans",
 });
+const serif = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-serif",
+});
+const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
 export default function LocaleLayout(props: {
   children: React.ReactNode;
@@ -43,13 +51,13 @@ export default function LocaleLayout(props: {
   //
   return (
     <ReactQueryClientProvider>
-      <html lang={locale}>
+      <html
+        lang={locale}
+        suppressHydrationWarning={true}
+        className={`${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
         <SessProvider session={session}>
           <body
-            className={cn(
-              "min-h-screen bg-background font-sans antialiased",
-              fontSans.variable
-            )}
+            className={cn("min-h-screen bg-background font-sans antialiased")}
             suppressHydrationWarning={true}>
             <NextIntlClientProvider locale={locale} messages={messages}>
               <ToastProvider>
@@ -70,10 +78,12 @@ export default function LocaleLayout(props: {
                   attribute="class"
                   defaultTheme="light"
                   enableSystem>
+                  {/*  */}
+                  <Navbar />
                   {children}
+                  {/*  */}
                 </ThemeProvider>
               </ToastProvider>
-              <ToastContainer />
             </NextIntlClientProvider>
           </body>
         </SessProvider>

@@ -2,15 +2,12 @@
 import { Card } from "@/src/components/ui/card";
 import React, { ReactNode } from "react";
 import {
-  RichTranslationValues,
-  TranslationValues,
   useTranslations,
 } from "next-intl";
-import { getSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/src/components/ui/button";
 import { Separator } from "@/src/components/ui/separator";
 import { HandMetal } from "lucide-react";
+import { signIn, signOut } from "next-auth/react";
 
 export const FirstConnexion = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -21,7 +18,7 @@ export const FirstConnexion = () => {
   }
   const onGithubSignIn = async () => {
     setIsLoading(true);
-    await signIn("github", { callbackUrl: `/${locale}/admin?first=true` });
+    await signIn("github", { callbackUrl: `/${locale}/admin` });
     setIsLoading(false);
   };
   return (
@@ -56,6 +53,8 @@ export const FirstConnexion = () => {
           </svg>
           {t("Components.Features.Pages.Index.FirstConnexion.button-github")}{" "}
         </Button>
+        <Button onClick={() => signOut()}>Sign out</Button>
+
       </Card>
     </>
   );

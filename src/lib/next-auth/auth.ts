@@ -1,13 +1,17 @@
 import GithubProvider from "next-auth/providers/github";
 import { env } from "./env";
-import { AuthOptions, Session, getServerSession } from "next-auth";
-import { JWT } from "next-auth/jwt"; 
+import { AuthOptions, getServerSession } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { User } from "@prisma/client";
-
+type ExtendedUser = {
+  id: string;
+  email: string;
+  name: string;
+  role: string; // Ajoutez les champs supplémentaires ici
+};
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   // Configure one or more authentication providers
@@ -67,24 +71,29 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.userId = user.id;
-        token.role = (user as any).role;
-        // token.tokenRemaining = (user as any).tokenRemaining;
+    async jwt({ token, user, account }) {
+      const extendedUser = user as ExtendedUser;
+      if (account && extendedUser && account.provider === "github") {
+        // We check if this is the user's first connection via GitHub
+        const isFirstUser = (await prisma.user.count()) === 1;
+        const role = isFirstUser ? "ADMIN" : "USER";
+        // We update the role in the database
+        await prisma.user.update({
+          where: { email: extendedUser.email },
+          data: { role: role },
+        });
+        // We change the role of the user in the JWT to admin
+        extendedUser.role = role;
+        token.user = { ...extendedUser, role: extendedUser.role };
+      } else if (token.user) {
+        // For subsequent logins, the role is already in the token
+        token.user = { ...(token.user as ExtendedUser) };
       }
       return token;
     },
-    async session({ session, token }: { session: Session; token: JWT }) {
-      if (token.userId) {
-        const user = {
-          ...session.user,
-          id: token.userId,
-          role: token.role,
-          // tokenRemaining: token.tokenRemaining,
-        };
-        const newSession = { ...session, user };
-        return newSession;
+    async session({ session, token }) {
+      if (token?.user) {
+        session.user = token.user;
       }
       return session;
     },

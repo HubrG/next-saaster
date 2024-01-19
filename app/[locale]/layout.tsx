@@ -1,4 +1,5 @@
-import { Inter, Playfair_Display, Caveat, Nunito } from "next/font/google";
+import "@/app/globals.css";
+import { Playfair_Display, Caveat, Nunito } from "next/font/google";
 import { cn } from "@/src/lib/utils";
 import { Session } from "next-auth";
 import SessProvider from "@/src/providers/SessionProvider";
@@ -10,10 +11,13 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
 import { Navbar } from "@/src/components/layout/header/Navbar";
+import createMetadata from "@/src/lib/metadatas";
 
+export const metadata = createMetadata({
+  // Voir la configuration des métadonnées dans metadatas.ts
+  // @/src/lib/metadatas
+});
 const ToastProvider = dynamic(() => import("@/src/providers/ToastProvider"));
-
-const inter = Inter({ subsets: ["latin"] });
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -47,14 +51,14 @@ export default function LocaleLayout(props: {
   }
 
   const messages = useMessages();
-
   //
+
   return (
     <ReactQueryClientProvider>
       <html
         lang={locale}
         suppressHydrationWarning={true}
-        className={`${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
+        className={`pink2 grayscale ${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
         <SessProvider session={session}>
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}

@@ -1,4 +1,4 @@
-@import "../src/styles/pink2.css";
+@import "../src/styles/color-themes.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,14 +56,14 @@
   }
 
   * {
-    @apply border-border font-sans;
+    @apply border-border font-sans text-base;
   }
   body {
-    @apply text-text-900 dark:text-text-900/80;
+    @apply text-text-900 dark:text-text-900/80 text-base;
   }
 }
 main {
-  @apply min-h-screen min-w-full bg-background   mx-auto gap-4 text-center !important;
+  @apply min-h-screen min-w-full bg-background  mx-auto gap-4 text-center !important;
 }
 .container {
   @apply w-full max-w-6xl flex flex-col min-h-screen pt-28;
@@ -178,7 +178,7 @@ ul.ul {
   /* Icon size will relative to font-size of .text-wrapper */
   width: 1em;
   height: 1em;
-  @apply mx-1
+  @apply mx-1;
 }
 /* NOTE - Navbar - Profil */
 div.progressTokenVoid {

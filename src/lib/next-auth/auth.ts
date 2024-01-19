@@ -76,15 +76,24 @@ export const authOptions: AuthOptions = {
       if (account && extendedUser && account.provider === "github") {
         // We check if this is the user's first connection via GitHub
         const isFirstUser = (await prisma.user.count()) === 1;
+        const isSettingsEmpty = (await prisma.appSettings.count()) === 0;
         const role = isFirstUser ? "ADMIN" : "USER";
         // We update the role in the database
-        await prisma.user.update({
-          where: { email: extendedUser.email },
-          data: { role: role },
-        });
-        // We change the role of the user in the JWT to admin
-        extendedUser.role = role;
-        token.user = { ...extendedUser, role: extendedUser.role };
+        if (isFirstUser) {
+          await prisma.user.update({
+            where: { email: extendedUser.email },
+            data: { role: role },
+          });
+          // We change the role of the user in the JWT to admin
+          extendedUser.role = role;
+          token.user = { ...extendedUser, role: extendedUser.role };
+        }
+        if (isSettingsEmpty) {
+          await prisma.appSettings.createMany({
+            data: {},
+            skipDuplicates: true,
+          });
+        }
       } else if (token.user) {
         // For subsequent logins, the role is already in the token
         token.user = { ...(token.user as ExtendedUser) };

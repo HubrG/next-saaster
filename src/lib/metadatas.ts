@@ -1,5 +1,5 @@
 // metadata.ts
-const projectName = "Starter";
+const projectName = "NextSaater";
 const projectBaseline = "Begin a SaaS project with Next.js, Prisma, and Stripe";
 const projectDescription = "Begin a SaaS project with Next.js, Prisma, and Stripe"
 

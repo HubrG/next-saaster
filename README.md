@@ -74,7 +74,7 @@
 
 ## 🎨 Todo for customizing the project :
 
-- You can add or remove a new main static (or dynamic) page in `src/components/layout/header/Navbar.ts` and create the pages in `app/[locale]/` for displaying it on the "Main Menu" in the header.
+- You can add or remove a new main static (or dynamic) page in `src/components/layout/header/Navbar.ts` for displaying it on the "Main Menu" in the header, and create the pages in `app/[locale]/`.
 - Change de favicon in `app/favicon.ico`
 - Change the robots.txt in `app/robots.txt` and put the correct url of sitemap.
 - Update the sitemap (dynamicly generated) in `app/sitemap.ts`

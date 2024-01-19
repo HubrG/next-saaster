@@ -7,3 +7,10 @@ export const getNumberOfUsers = async () => {
     return users;
 }
 
+export const getColorTheme = async () => {
+    const theme = await prisma.appSettings.findFirst();
+    if (!theme) {
+        return 'pink2';
+    }
+    return theme.theme;
+}

@@ -14,6 +14,9 @@ export const Navbar = async () => {
   const session = await getServerSession(authOptions);
   const t = await getTranslations("Components");
 
+   
+
+
   const prefix = "/";
   /* NOTE : Change the links of main menu here.
    NOTE : Create your new pages on the app router for each new link, except for "Pricing" and "Contact" which are special pages

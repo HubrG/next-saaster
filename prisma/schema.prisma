@@ -70,11 +70,12 @@ model User {
 // SECTION -> Reste du schema
 
 model appSettings {
-  id          String   @id @default(cuid())
-  name        String?   @default("NextSaater")
-  baseline    String?   @default("Begin a SaaS project with Next.js, Prisma, and Stripe")
-  description String?   @default("Begin a SaaS project with Next.js, Prisma, and Stripe")
-  theme       String?   @default("pink2")
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @updatedAt
+  id              String    @id @default(cuid())
+  name            String?   @default("NextSaater")
+  baseline        String?   @default("Begin a SaaS project with Next.js, Prisma, and Stripe")
+  description     String?   @default("Begin a SaaS project with Next.js, Prisma, and Stripe")
+  theme           String?   @default("purple")
+  activeTopLoader Boolean?  @default(true)
+  createdAt       DateTime? @default(now())
+  updatedAt       DateTime? @updatedAt
 }

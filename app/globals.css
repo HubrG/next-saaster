@@ -65,14 +65,14 @@
 main {
   @apply min-h-screen min-w-full bg-background  mx-auto gap-4 text-center !important;
 }
-main > div {
+main > div:not(.first-connection) {
   @apply container;
 }
-.container {
+.container:not(.first-connection) {
   @apply w-full max-w-6xl flex flex-col min-h-screen pt-28 !important;
 }
 nav {
-  @apply fixed w-full z-40 top-0 left-0  bg-background  border-b border-border;
+  @apply fixed w-full z-40 top-0 left-0  bg-background  border-b border-dashed border-border;
 }
 nav div:first-child:not(.userNavbarDiv > *) {
   @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
@@ -83,7 +83,7 @@ a {
   position: relative;
 }
 a.nunderline {
-  @apply hover:no-underline  font-semibold !important;
+  @apply hover:no-underline dark:hover:text-app-300 hover:text-app-700 text-app-900 dark:text-app-50 font-semibold !important;
 }
 a.special-uderline::after,
 a.special-uderline-active::after {
@@ -107,9 +107,10 @@ a.special-uderline-active::after {
   transition: none;
 }
 
-/* a.special-uderline-active {
+a.special-uderline-active {
   @apply text-app-700 dark:text-app-300 !important;
-} */
+}
+
 /* Main Menu */
 ul.main-menu {
   @apply flex flex-col p-4 lg:p-0 mt-4 font-medium border border-slate-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 lg:border-0   dark:border-slate-700 text-base;
@@ -203,5 +204,8 @@ div.progressToken {
 }
 
 .user-profile-buy-credit {
-@apply nunderline bg-secondary hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
+@apply hover:no-underline bg-secondary hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
+}
+.first-connection {
+  @apply  w-full h-full -mt-24  absolute bg-white z-[9999999999] !important;
 }

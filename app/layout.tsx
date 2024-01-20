@@ -7,6 +7,7 @@ import { getLocale } from "next-intl/server";
 import { Session } from "next-auth";
 import SessProvider from "@/src/providers/SessionProvider";
 import { cn } from "@/src/lib/utils";
+import NextTopLoader from "nextjs-toploader";
 
 type Props = {
   children: ReactNode;
@@ -26,17 +27,35 @@ const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
 export default async function RootLayout({ children, session }: Props) {
   const locale = await getLocale();
-  const themeCss = await getAppSettings();
+  const appSettings = await getAppSettings();
+  if (!appSettings) {
+    return null;
+  }
   return (
     <SessProvider session={session}>
       <ReactQueryClientProvider>
         <html
           lang={locale}
           suppressHydrationWarning={true}
-          className={`${themeCss?.theme} ${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
+          className={`${appSettings.theme} ${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}
             suppressHydrationWarning={true}>
+            {appSettings.activeTopLoader && (
+              <NextTopLoader
+                template='<div class="bar" role="bar"><div class="peg"></div></div> 
+              <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+                color="#3d3d3d"
+                initialPosition={0.08}
+                crawlSpeed={200}
+                height={2}
+                crawl={true}
+                showSpinner={true}
+                easing="ease"
+                speed={200}
+                shadow={false}
+              />
+            )}
             {children}
           </body>
         </html>

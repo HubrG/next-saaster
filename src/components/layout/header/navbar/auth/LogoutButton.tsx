@@ -22,7 +22,7 @@ export const DropdownMenuItemLogout = () => {
         <LogOut className="mr-2 h-4 w-4" />
       )}
       {/* Logout */}
-      {t("Features.Layout.Header.Auth.LogoutButton.title")}
+      {t("Features.Layout.Header.Navbar.Auth.LogoutButton.title")}
     </DropdownMenuItem>
   );
 };

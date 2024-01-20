@@ -39,6 +39,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
                 <Image
                   src={user.image}
                   alt="Profil picture"
+                  sizes="50px"
                   fill
                   className="object-cover rounded-full w-20 h-20"
                 />
@@ -70,7 +71,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
               className="tooltip flex flex-col">
               <span className="font-bold">
                 {/* Crédit remaining */}
-                {t("Features.Layout.Header.Auth.UserProfile.tooltips.credits")}{" "}
+                {t("Features.Layout.Header.Navbar.Auth.UserProfile.tooltips.credits")}{" "}
                 : x%
               </span>
               <small>50 &nbsp;/&nbsp; 100</small>
@@ -86,7 +87,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             className="user-profile-buy-credit">
             <CreditCard className="icon" />
             {/* Buy credits */}
-            {t("Features.Layout.Header.Auth.UserProfile.links.buy")}
+            {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.buy")}
           </Link>
         </DropdownMenuItem>
         <Separator />
@@ -96,7 +97,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             className="nunderline text-left pr-10  cursor-pointer">
             <User className="mr-2 h-4 w-4" />
             {/* My account */}
-            {t("Features.Layout.Header.Auth.UserProfile.links.account")}
+            {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.account")}
           </Link>
         </DropdownMenuItem>
         <Separator className="my-1 h-0.5" />

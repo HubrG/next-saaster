@@ -1,7 +1,7 @@
 import { Link } from "@/src/lib/intl/navigation";
 import { getTranslations } from "next-intl/server";
 import { FirstConnexion } from "@/src/components/features/pages/index/FirstConnexion/FirstConnexion";
-import { getNumberOfUsers } from "./server.actions";
+import { isEmptyUser } from "./server.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/src/lib/next-auth/auth";
 
@@ -12,9 +12,9 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    const numberOfUsers = await getNumberOfUsers();
+    const emptyUser = await isEmptyUser();
     // If the database is empty, we create a first user who will be Admin with the github provider
-    if (numberOfUsers === 0) {
+    if (emptyUser) {
       return <FirstConnexion />;
     }
   }

@@ -5,7 +5,7 @@ import { useTransition } from "react";
 import { User } from "lucide-react";
 import { signIn } from "next-auth/react";
 
-export const LoginButton = async () => {
+export const LoginButton =  () => {
   const [isPending, startTransition] = useTransition();
 
   const onGithubSignIn = async () => {

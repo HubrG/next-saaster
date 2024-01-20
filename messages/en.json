@@ -8,31 +8,31 @@
       "Layout": {
         "Header": {
           "Navbar": {
-            "buttons": {
+            "TryUsButton": {
               "try": "Try us for free"
-            }
-          },
-          "MainMenu": {
-            "links" : {
-              "how-it-works": "How it works ?",
-              "features": "Features",
-              "home": "Home",
-              "pricing": "Pricing",
-              "contact": "Contact"
-            }
-          },
-          "Auth": {
-            "UserProfile" : {
-              "tooltips": {
-                "credits": "Remaining credits"
-              },
+            },
+            "MainMenu": {
               "links": {
-                "buy": "Buy credits",
-                "account": "My account"
+                "how-it-works": "How it works ?",
+                "features": "Features",
+                "home": "Home",
+                "pricing": "Pricing",
+                "contact": "Contact"
               }
             },
-            "LogoutButton" : {
-              "title": "Log out"
+            "Auth": {
+              "UserProfile": {
+                "tooltips": {
+                  "credits": "Remaining credits"
+                },
+                "links": {
+                  "buy": "Buy credits",
+                  "account": "My account"
+                }
+              },
+              "LogoutButton": {
+                "title": "Log out"
+              }
             }
           }
         }

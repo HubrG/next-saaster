@@ -65,8 +65,11 @@
 main {
   @apply min-h-screen min-w-full bg-background  mx-auto gap-4 text-center !important;
 }
+main > div {
+  @apply container;
+}
 .container {
-  @apply w-full max-w-6xl flex flex-col min-h-screen pt-28;
+  @apply w-full max-w-6xl flex flex-col min-h-screen pt-28 !important;
 }
 nav {
   @apply fixed w-full z-40 top-0 left-0  bg-background  border-b border-border;
@@ -197,4 +200,8 @@ div.progressToken {
 /* NOTE - Tooltip */
 .tooltip {
   @apply bg-secondary-foreground  rounded-md  text-accent-foreground  text-base px-2 py-1 z-50 max-w-xs !important;
+}
+
+.user-profile-buy-credit {
+@apply nunderline bg-secondary hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }

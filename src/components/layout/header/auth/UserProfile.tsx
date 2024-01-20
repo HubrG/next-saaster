@@ -34,7 +34,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
               : "flex flex-row items-center gap-2 justify-center w-32 pr-5"
           }`}>
           <div className="w-10 h-10 p-0 userNavbarDiv">
-            <div className="relative rounded-full w-full border-[3px] border-app-300 dark:border-app-950 p-0">
+            <div className="relative rounded-full w-full border-[2px] border-secondary border-opacity-50 dark:border-app-950 p-0">
               {user?.image && (
                 <Image
                   src={user.image}
@@ -83,14 +83,14 @@ export const UserProfile = ({ className }: UserProfileProps) => {
         <DropdownMenuItem className="w-full" asChild>
           <Link
             href="/pricing"
-            className="nunderline bg-secondary hover:bg-secondary text-secondary-foreground text-left pr-10  cursor-pointer">
+            className="user-profile-buy-credit">
             <CreditCard className="icon" />
             {/* Buy credits */}
             {t("Features.Layout.Header.Auth.UserProfile.links.buy")}
           </Link>
         </DropdownMenuItem>
         <Separator />
-        <DropdownMenuItem className="w-full px-2" asChild>
+        <DropdownMenuItem className="w-full px-2 mt-1" asChild>
           <Link
             href="/profil/mon-compte"
             className="nunderline text-left pr-10  cursor-pointer">

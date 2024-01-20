@@ -23,7 +23,7 @@ export const FirstConnexion = () => {
     <>
       <div className="w-full h-full absolute bg-white z-[9999999999]">
         <div className="flex min-h-screen flex-col justify-center items-center  p-24 ">
-          <Card className="w-1/2 flex flex-col text-center gap-2">
+          <Card className="w-1/2 flex flex-col text-center gap-6">
             <h1 className="flex flex-row gap-2 justify-center items-center text-center">
               {t("Index.title")}
               <HandMetal className="icon" />
@@ -36,11 +36,11 @@ export const FirstConnexion = () => {
                 }
               )}
             </p>
-            <Separator decorative={true} />
+            <Separator decorative={true} className="border-slate-500 bg-slate-500" />
             <Button
               onClick={onGithubSignIn}
-              variant={"secondary"}
-              className="w-full mt-1 flex justify-center items-center gap-x-2"
+              variant={"outline"}
+              className="w-full mt-1 flex justify-center items-center gap-x-2 bg-slate-800 hover:bg-slate-700 hover:text-slate-100 text-slate-200 border-slate-950"
               type="button"
               disabled={isLoading}>
               <svg

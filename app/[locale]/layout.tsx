@@ -1,46 +1,31 @@
-import "@/app/globals.css";
-import { Playfair_Display, Caveat, Nunito } from "next/font/google";
-import { cn } from "@/src/lib/utils";
-import { Session } from "next-auth";
-import SessProvider from "@/src/providers/SessionProvider";
 import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import dynamic from "next/dynamic";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, useMessages } from "next-intl";
-import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
 import { Navbar } from "@/src/components/layout/header/Navbar";
-import createMetadata from "@/src/lib/metadatas";
+import createMetadata  from "@/src/lib/metadatas";
 
-export const metadata = createMetadata({
-  // Voir la configuration des métadonnées dans metadatas.ts
-  // @/src/lib/metadatas
-});
+export const generateMetadata = async () => {
+  return createMetadata({
+    // Voir la configuration des métadonnées dans metadatas.ts
+    // @/src/lib/metadatas
+  });
+};
+
+
 const ToastProvider = dynamic(() => import("@/src/providers/ToastProvider"));
 
-const sans = Nunito({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sans",
-});
-const serif = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-serif",
-});
-const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
-
-export default function LocaleLayout(props: {
+type Props = {
   children: React.ReactNode;
-  session: Session;
   params: {
     locale: string;
   };
-}) {
+};
+export default function LocaleLayout(props: Props) {
   const {
     children,
-    session,
     params: { locale },
   } = props;
 
@@ -49,49 +34,30 @@ export default function LocaleLayout(props: {
   if (loc === undefined || loc !== locale) {
     notFound();
   }
-
   const messages = useMessages();
   //
 
   return (
-    <ReactQueryClientProvider>
-      <html
-        lang={locale}
-        suppressHydrationWarning={true}
-        className={`pink2 grayscale ${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
-        <SessProvider session={session}>
-          <body
-            className={cn("min-h-screen bg-background font-sans antialiased")}
-            suppressHydrationWarning={true}>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              <ToastProvider>
-                <NextTopLoader
-                  template='<div class="bar" role="bar"><div class="peg"></div></div> 
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <ToastProvider>
+        <NextTopLoader
+          template='<div class="bar" role="bar"><div class="peg"></div></div> 
               <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
-                  color="#3d3d3d"
-                  initialPosition={0.08}
-                  crawlSpeed={200}
-                  height={2}
-                  crawl={true}
-                  showSpinner={true}
-                  easing="ease"
-                  speed={200}
-                  shadow={false}
-                />
-                <ThemeProvider
-                  attribute="class"
-                  defaultTheme="light"
-                  enableSystem>
-                  {/*  */}
-                  <Navbar />
-                  {children}
-                  {/*  */}
-                </ThemeProvider>
-              </ToastProvider>
-            </NextIntlClientProvider>
-          </body>
-        </SessProvider>
-      </html>
-    </ReactQueryClientProvider>
+          color="#3d3d3d"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={2}
+          crawl={true}
+          showSpinner={true}
+          easing="ease"
+          speed={200}
+          shadow={false}
+        />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <Navbar />
+          <main>{children}</main>
+        </ThemeProvider>
+      </ToastProvider>
+    </NextIntlClientProvider>
   );
 }

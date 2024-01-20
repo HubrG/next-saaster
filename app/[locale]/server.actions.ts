@@ -1,4 +1,3 @@
-"use server";
 import { prisma } from "@/src/lib/prisma";
 
 
@@ -7,10 +6,10 @@ export const getNumberOfUsers = async () => {
     return users;
 }
 
-export const getColorTheme = async () => {
-    const theme = await prisma.appSettings.findFirst();
-    if (!theme) {
-        return 'pink2';
+export const getAppSettings = async () => {
+    const settings = await prisma.appSettings.findFirst();
+    if (!settings) {
+        return null;
     }
-    return theme.theme;
+    return settings;
 }

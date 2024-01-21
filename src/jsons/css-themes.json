@@ -1,0 +1,111 @@
+{
+  "pink2": {
+    "name" : "Sandra",
+    "light": {
+      "primary": "#F6D5E7",
+      "secondary": "#290B1B",
+      "background": "#FDF7FA",
+      "color": "#541238"
+    },
+    "dark": {
+      "color": "#ADA8B0",
+      "primary": "#171020",
+      "secondary": "#352145",
+      "background": "#0B070E"
+    }
+  },
+  "purple": {
+    "name" : "Joséphine",
+    "light": {
+      "primary": "#E1E1EC",
+      "secondary": "#14141F",
+      "background": "#F0F0F4",
+      "color": "#282841"
+    },
+    "dark": {
+      "color": "#AAAAB0",
+      "primary": "#12121E",
+      "secondary": "#29293D",
+      "background": "#0A0A10"
+    }
+  },
+  "purpleOrange": {
+    "name" : "Côme",
+    "light": {
+      "primary": "#DAD4FB",
+      "secondary": "#283003",
+      "background": "#FCFFF5",
+      "color": "#333333"
+    },
+    "dark": {
+      "color": "#AFB0AA",
+      "primary": "#0C0330",
+      "secondary": "#526006",
+      "background": "#111301"
+    }
+  },
+ 
+
+  "fabrizio": {
+    "name": "Fabrizio",
+    "light": {
+      "primary": "#CED8FD",
+      "secondary": "#1C0231",
+      "background": "#FBF6FF",
+      "color": "#052A61"
+    },
+    "dark": {
+        "primary": "#020D31",
+        "secondary": "#370363",
+        "background": "#0B0113",
+        "color": "#A5A8B7"
+    }
+  },
+
+  "florence": {
+    "name": "Florence",
+    "light": {
+      "primary": "#D6F8EA",
+      "secondary": "#1A1A1A",
+      "background": "#FAFAFA",
+      "color": "#105735"
+    },
+    "dark": {
+      "color": "#A7B2AC",
+      "primary": "#072C1C",
+      "secondary": "#333333",
+      "background": "#0A0A0A"
+    }
+  },
+
+  "gray": {
+    "name": "Nanny",
+    "light": {
+      "primary": "#E6E9E8",
+      "secondary": "#191A19",
+      "background": "#FAFAFA",
+      "color": "#313531"
+    },
+    "dark": {
+      "color": "#ACADAC",
+      "primary": "#171918",
+      "secondary": "#313531",
+      "background": "#0A0B0A"
+    }
+  },
+  "orange": {
+    "name": "Dharma",
+    "light": {
+      "primary": "#FDE8CD",
+      "secondary": "#1A1A1A",
+      "background": "#FAFAFA",
+      "color": "#643A02"
+    },
+    "dark": {
+      "color": "#B6AFA5",
+      "primary": "#2E1B02",
+      "secondary": "#333333",
+      "background": "#0D0D0D"
+    }
+  }
+}

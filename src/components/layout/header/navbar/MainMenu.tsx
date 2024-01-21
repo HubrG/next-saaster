@@ -1,6 +1,6 @@
 "use client";
-import { Link } from "@/src/lib/intl/navigation";
-import { usePathname } from "next/navigation";
+import { Link } from '@/src/lib/intl/navigation';
+import { usePathname } from 'next/navigation';
 interface Link {
   url: string;
   name: string;

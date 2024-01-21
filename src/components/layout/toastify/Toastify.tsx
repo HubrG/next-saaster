@@ -7,9 +7,11 @@ type Toast = {
 	type?: string;
 	theme?: Theme;
 	autoClose?: number | false;
+	callbackOnOpen?: () => void;
+	callbackOnClose?: () => void;
 }
 
-export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-center", theme = "colored", autoClose = 3000 } : Toast) => {
+export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-center", theme = "colored", autoClose = 3000, callbackOnOpen, callbackOnClose } : Toast) => {
 	if (type === "error") {
 		return toast.error(value, {
 			position: position,
@@ -20,6 +22,8 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 			draggable: true,
 			progress: undefined,
 			theme: theme,
+			onClose: callbackOnClose,
+			onOpen: callbackOnOpen,
 		});
 	} else if (type === "success") {
 		return toast.success(value, {
@@ -31,7 +35,8 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 			draggable: true,
 			progress: undefined,
 			theme: theme,
-
+			onClose: callbackOnClose,
+			onOpen: callbackOnOpen,
 		});
 	} else if (type === "warning") {
 		return toast.warning(value, {
@@ -43,7 +48,8 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 			draggable: true,
 			progress: undefined,
 			theme: theme,
-
+			onClose: callbackOnClose,
+			onOpen: callbackOnOpen,
 		});
 	} else if (type === "info") {
 		return toast.info(value, {
@@ -55,7 +61,8 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 			draggable: true,
 			progress: undefined,
 			theme: theme,
-
+			onClose: callbackOnClose,
+			onOpen: callbackOnOpen,
 		});
 	}
 	else if (type === "default") {
@@ -68,7 +75,8 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 			draggable: true,
 			progress: undefined,
 			theme: theme,
-
+			onClose: callbackOnClose,
+			onOpen: callbackOnOpen,
 		});
 	}
  

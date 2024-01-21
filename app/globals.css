@@ -116,10 +116,10 @@ ul.main-menu {
   @apply flex flex-col p-4 lg:p-0 mt-4 font-medium border border-slate-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 lg:border-0   dark:border-slate-700 text-base;
 }
 div.main-menu {
-  @apply items-center justify-between hidden w-full lg:flex md:w-auto md:order-1;
+  @apply items-center  justify-between hidden w-full lg:flex md:w-auto md:order-1;
 }
 ul.main-menu li a {
-  @apply nunderline block py-2 pl-3  pr-4 rounded  md:p-0;
+  @apply nunderline block py-2 pl-3  pr-4 rounded text-text-800 dark:text-text-900  md:p-0 !important;
 }
 /* LOGO */
 .logo {
@@ -204,8 +204,43 @@ div.progressToken {
 }
 
 .user-profile-buy-credit {
-@apply hover:no-underline bg-secondary hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
+  @apply hover:no-underline bg-secondary hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }
 .first-connection {
-  @apply  w-full h-full -mt-24  absolute bg-white z-[9999999999] !important;
+  @apply w-full h-full -mt-24  absolute bg-white z-[9999999999] !important;
+}
+.Toastify__toast-container {
+  @apply rounded-sm z-[99999] !important;
+}
+.Toastify__toast {
+  @apply rounded-xl !important;
+}
+.Toastify__toast--rtl {
+  @apply rounded-xl !important;
+}
+.Toastify__toast-body {
+  @apply rounded-xl !important;
+}
+.Toastify__toast-theme--dark {
+  @apply bg-primary;
+}
+/* .Toastify__toast-theme--light {
+} */
+.Toastify__toast-theme--colored.Toastify__toast--default {
+  @apply bg-primary rounded-md  border-border !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  @apply bg-primary-foreground dark:bg-primary border-border rounded-md !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  @apply bg-primary-foreground dark:bg-primary text-text-100 dark:text-text-900 rounded-sm !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  @apply bg-yellow-600 rounded-sm !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  @apply bg-red-600 rounded-sm !important;
+}
+.my-card {
+  @apply border-secondary/20 border p-10 rounded-xl;
 }

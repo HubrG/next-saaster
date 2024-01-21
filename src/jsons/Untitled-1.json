@@ -1,0 +1,91 @@
+{
+  "green": {
+    "light": {
+      "primary": "",
+      "secondary": "",
+      "background": "",
+      "color": ""
+    },
+    "dark": {
+      "color": "",
+      "primary": "",
+      "secondary": "",
+      "background": ""
+    }
+  },
+
+  "nanny": {
+    "light": {
+      "primary": "",
+      "secondary": "",
+      "background": "",
+      "color": ""
+    },
+    "dark": {
+      "color": "",
+      "primary": "",
+      "secondary": "",
+      "background": ""
+    }
+  },
+
+  "pink": {
+    "light": {
+      "primary": "",
+      "secondary": "",
+      "background": "",
+      "color": ""
+    },
+    "dark": {
+      "color": "",
+      "primary": "",
+      "secondary": "",
+      "background": ""
+    }
+  },
+
+  "purpleAndYellow": {
+    "light": {
+      "primary": "",
+      "secondary": "",
+      "background": "",
+      "color": ""
+    },
+    "dark": {
+      "color": "",
+      "primary": "",
+      "secondary": "",
+      "background": ""
+    }
+  },
+
+  "sandra": {
+    "light": {
+      "primary": "",
+      "secondary": "",
+      "background": "",
+      "color": ""
+    },
+    "dark": {
+      "color": "",
+      "primary": "",
+      "secondary": "",
+      "background": ""
+    }
+  },
+
+  "slate": {
+    "light": {
+      "primary": "",
+      "secondary": "",
+      "background": "",
+      "color": ""
+    },
+    "dark": {
+      "color": "",
+      "primary": "",
+      "secondary": "",
+      "background": ""
+    }
+  }
+}

@@ -9,11 +9,14 @@ import { getTranslations } from "next-intl/server";
 import TryUsButton from "./navbar/TryUsButton";
 import Logo from "./navbar/Logo";
 import { getLocale } from "next-intl/server";
+import { getAppSettings } from "@/app/[locale]/server.actions";
+import { appSettings } from "@prisma/client";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
   const t = await getTranslations("Components");
   const locale = await getLocale();
+  const settings = (await getAppSettings()) as appSettings;
   /* NOTE --> Change the links of main menu here.
      NOTE --> Create your new pages on the app router for each new link, except for "Pricing" and "Contact" which are special pages
      NOTE --> example : {url: "your-new-page", name: t(`Features.Layout.Header.Navbar.MainMenu.links.your-new-page`),}
@@ -40,18 +43,19 @@ export const Navbar = async () => {
           <Logo />
           <div className="flex gap-x-2 lg:order-2 items-center lg:text-base">
             <div className="flex items-center gap-x-2">
-              {session ? (
-                // NOTE : Create component to access to the main feature of SaaS et put it here
-                <TryUsButton />
-              ) : (
-                <TryUsButton />
-              )}
+              {settings.activeCtaOnNavbar &&
+                (session ? <TryUsButton /> : <TryUsButton />)}
               <div className="sm:block hidden">
                 {session ? <UserProfile /> : <LoginButton />}
               </div>
-              <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
+              {settings.activeDarkMode && (
+                <ThemeToggle
+                  className="sm:block hidden"
+                  classNameMoon="-mt-6"
+                />
+              )}
             </div>
-            <BurgerMenu links={links} locale={locale} />
+            <BurgerMenu links={links} locale={locale} settings={settings} />
           </div>
           <div className="main-menu" id="navbar-sticky">
             <ul className="main-menu">

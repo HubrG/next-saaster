@@ -1,6 +1,5 @@
 "use client";
 import { Link } from "@/src/lib/intl/navigation";
-import { usePathname } from "next/navigation";
 import { LoginButton } from "./auth/LoginButton";
 import { UserProfile } from "./auth/UserProfile";
 import { useSession } from "next-auth/react";
@@ -18,19 +17,20 @@ import {
 } from "@/src/components/ui/sheet";
 import { ThemeToggle } from "./ThemeToggle";
 import MainMenu from "./MainMenu";
+import { appSettings } from "@prisma/client";
 //
 interface Link {
   url: string;
   name: string;
 }
 
-interface MenuProps {
+interface Props {
   links: Link[];
   locale: string;
+  settings: appSettings;
 }
 
-export default function BurgerMenu(props: MenuProps) {
-  const pathname = usePathname();
+export default function BurgerMenu(props: Props) {
   const user = useSession().data?.user;
   const { links } = props;
 
@@ -48,9 +48,16 @@ export default function BurgerMenu(props: MenuProps) {
                   <MainMenu links={links} locale={props.locale} />
                 </SheetClose>
                 <li className="md:hidden flex w-full justify-center ">
-                  <SheetClose asChild>
-                    <TryUsButton className="sm:hidden block" />
-                  </SheetClose>
+                  {props.settings.activeCtaOnNavbar &&
+                    (user ? (
+                      <SheetClose asChild>
+                        <TryUsButton className="sm:hidden block" />
+                      </SheetClose>
+                    ) : (
+                      <SheetClose asChild>
+                        <TryUsButton className="sm:hidden block" />
+                      </SheetClose>
+                    ))}
                 </li>
                 <li className="sm:hidden flex w-full justify-center">
                   <SheetClose asChild>
@@ -64,11 +71,13 @@ export default function BurgerMenu(props: MenuProps) {
               </ul>
             </SheetDescription>
           </SheetHeader>
-          <SheetFooter>
-            <SheetClose asChild>
-              <ThemeToggle className="sm:hidden" />
-            </SheetClose>
-          </SheetFooter>
+          {props.settings.activeDarkMode && (
+            <SheetFooter>
+              <SheetClose asChild>
+                <ThemeToggle className="sm:hidden" />
+              </SheetClose>
+            </SheetFooter>
+          )}
         </SheetContent>
       </Sheet>
     </>

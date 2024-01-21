@@ -8,6 +8,7 @@ import { Session } from "next-auth";
 import SessProvider from "@/src/providers/SessionProvider";
 import { cn } from "@/src/lib/utils";
 import NextTopLoader from "nextjs-toploader";
+import { ThemeProvider } from "@/src/providers/ThemeProvider";
 
 type Props = {
   children: ReactNode;
@@ -26,11 +27,13 @@ const serif = Playfair_Display({
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
 export default async function RootLayout({ children, session }: Props) {
+  
   const locale = await getLocale();
   const appSettings = await getAppSettings();
   if (!appSettings) {
     return null;
-  }
+  } 
+
   return (
     <SessProvider session={session}>
       <ReactQueryClientProvider>
@@ -56,7 +59,9 @@ export default async function RootLayout({ children, session }: Props) {
                 shadow={false}
               />
             )}
+             <ThemeProvider attribute="class" defaultTheme={appSettings.defaultDarkMode ? "dark" : "light"} enableSystem>
             {children}
+            </ThemeProvider>
           </body>
         </html>
       </ReactQueryClientProvider>

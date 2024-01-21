@@ -120,7 +120,7 @@
   --accent-900: 272 37% 90%;
   --accent-950: 267 36% 95%;
 }
-.blueAndPurple {
+.purpleOrange{
   --text-50: 0 0% 95%;
   --text-100: 0 0% 90%;
   --text-200: 0 0% 80%;
@@ -181,7 +181,7 @@
   --accent-900: 221 88% 10%;
   --accent-950: 219 92% 5%;
 }
-.blueAndPurple.dark {
+.purpleOrange.dark {
   --text-50: 0 0% 5%;
   --text-100: 0 0% 10%;
   --text-200: 0 0% 20%;

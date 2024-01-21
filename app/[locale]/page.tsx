@@ -4,10 +4,17 @@ import { FirstConnexion } from "@/src/components/features/pages/index/FirstConne
 import { isEmptyUser } from "./server.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/src/lib/next-auth/auth";
+import createMetadata from "@/src/lib/metadatas";
 
+export const generateMetadata = async () => {
+  return createMetadata({
+    // Voir la configuration des métadonnées dans metadatas.ts
+    // @/src/lib/metadatas
+    title: "Accueil",
+  });
+};
 // Utiliser la fonction loadAndCreateMetadata pour obtenir les métadonnées
 export default async function Home() {
- 
   const t = await getTranslations("Index");
   const session = await getServerSession(authOptions);
 

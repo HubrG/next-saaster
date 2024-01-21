@@ -1,7 +1,7 @@
-import React from 'react'
-
-export default function Pricing() {
+export default async function Pricing() {
   return (
-    <div>page</div>
-  )
+    <div>
+     ffff
+    </div>
+  );
 }

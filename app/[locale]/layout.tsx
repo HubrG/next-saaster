@@ -1,10 +1,10 @@
-import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import dynamic from "next/dynamic";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { Navbar } from "@/src/components/layout/header/Navbar";
-import createMetadata  from "@/src/lib/metadatas";
+import createMetadata from "@/src/lib/metadatas";
+import "react-toastify/dist/ReactToastify.css";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -12,7 +12,6 @@ export const generateMetadata = async () => {
     // @/src/lib/metadatas
   });
 };
-
 
 const ToastProvider = dynamic(() => import("@/src/providers/ToastProvider"));
 
@@ -39,10 +38,8 @@ export default function LocaleLayout(props: Props) {
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <ToastProvider>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Navbar />
-          <main>{children}</main>
-        </ThemeProvider>
+        <Navbar />
+        <main>{children}</main>
       </ToastProvider>
     </NextIntlClientProvider>
   );

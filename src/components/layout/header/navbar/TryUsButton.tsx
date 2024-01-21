@@ -1,6 +1,5 @@
 "use client";
 import { Link } from "@/src/lib/intl/navigation";
-import React from "react";
 import { Button } from "../../../ui/button";
 import { Box } from "lucide-react";
 import { useTranslations } from "next-intl";

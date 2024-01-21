@@ -8,31 +8,31 @@
       "Layout": {
         "Header": {
           "Navbar": {
-            "buttons": {
-              "try": "Essayer gratuitement"
-            }
-          },
-          "MainMenu": {
-            "links" : {
-              "how-it-works": "Comment ça marche ?",
-              "features": "Fonctionnalités",
-              "home": "Accueil",
-              "pricing": "Tarifs",
-              "contact": "Contact"
-            }
-          },
-          "Auth": {
-            "UserProfile" : {
-              "tooltips": {
-                "credits": "Crédits restants"
-              },
+            "TryUsButton": {
+              "try": "Essayez-nous gratuitement"
+            },
+            "MainMenu": {
               "links": {
-                "buy": "Acheter des crédits",
-                "account": "Mon compte"
+                "how-it-works": "Comment ça marche ?",
+                "features": "Fonctionnalités",
+                "home": "Accueil",
+                "pricing": "Tarification",
+                "contact": "Contact"
               }
             },
-            "LogoutButton" : {
-              "title": "Deconnexion"
+            "Auth": {
+              "UserProfile": {
+                "tooltips": {
+                  "credits": "Crédits restants"
+                },
+                "links": {
+                  "buy": "Acheter des crédits",
+                  "account": "Mon compte"
+                }
+              },
+              "LogoutButton": {
+                "title": "Déconnexion"
+              }
             }
           }
         }
@@ -42,7 +42,7 @@
           "FirstConnexion": {
             "title": "Première connexion",
             "description": "Connectez-vous avec Github pour créer le compte administrateur et commencer à configurer le <strong>SaaSter</strong>",
-            "button-github": "Connecter mon GitHub"
+            "button-github": "Se connecter à GitHub"
           }
         }
       }

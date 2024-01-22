@@ -1,17 +1,13 @@
 "use client";
-import { Label } from "@/src/components/ui/label";
-import { Switch } from "@/src/components/ui/switch";
 import { useEffect, useState } from "react";
-import { changeActiveDarkMode } from "./actions.server";
+import { changeActiveDarkMode } from "../actions.server";
 import { Toastify } from "@/src/components/layout/toastify/Toastify";
-import { appSettings } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { ToggleWrapper } from "./ui/ToggleWrapper";
+import { toggleProps } from "@/src/types/admin/toggleProps";
+import { Eclipse } from "lucide-react";
 
-type Props = {
-  data: appSettings;
-};
-
-export default function ToggleActiveDarkMode({ data }: Props) {
+export default function ToggleActiveDarkMode({ data }: toggleProps) {
   const [activeDarkmode, setActiveDarkmode] = useState<boolean>(true);
   const router = useRouter();
 
@@ -28,6 +24,7 @@ export default function ToggleActiveDarkMode({ data }: Props) {
           type: "success",
           value: `Active darkmode ${e ? "enabled" : "disabled"}`,
           callbackOnOpen: () => router.refresh(),
+          position: "bottom-right",
         });
       } else {
         return Toastify({
@@ -39,16 +36,13 @@ export default function ToggleActiveDarkMode({ data }: Props) {
   };
 
   return (
-    <div className="my-card">
-      <Switch
-        onCheckedChange={handleChangeActiveDarkmode}
-        id="switch-active-dark-mode"
-        checked={activeDarkmode}
-      />
-      <Label htmlFor="switch-active-dark-mode">
-        Permettre à l&apos;utilisateur de changer le thème en{" "}
-        <strong>dark</strong> ou <strong>ligth</strong> mode
-      </Label>
-    </div>
+    <ToggleWrapper 
+      handleChange={handleChangeActiveDarkmode}
+      checked={activeDarkmode}
+      id="switch-active-dark-mode">
+      <Eclipse className="icon" />
+      Permettre à l&apos;utilisateur de <strong>changer le thème en{" "}
+      dark ou ligth</strong> mode
+    </ToggleWrapper>
   );
 }

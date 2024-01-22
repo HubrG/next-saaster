@@ -20,7 +20,7 @@
     --muted-foreground: var(--text-900);
     --accent: var(--accent-100);
     --accent-foreground: var(--accent-900);
-    --destructive: var(--secondary-50);
+    /* --destructive: var(--secondary-800); */
     --destructive-foreground: var(--text-900);
     --border: var(--background-900);
     --input: var(--background-200);
@@ -50,7 +50,7 @@
     --destructive: var(--secondary-50);
     --destructive-foreground: var(--text-900);
     --border: var(--background-200);
-    --input: var(--background-100);
+    --input: var(--background-200);
     --ring: var(--background-100);
     --radius: 0.28rem;
   }
@@ -71,10 +71,10 @@ main > div:not(.first-connection) {
 .container:not(.first-connection) {
   @apply w-full max-w-6xl flex flex-col min-h-screen pt-28 !important;
 }
-nav {
+header nav {
   @apply fixed w-full z-40 top-0 left-0  bg-background  border-b border-dashed border-border;
 }
-nav div:first-child:not(.userNavbarDiv > *) {
+header nav div:first-child:not(.userNavbarDiv > *) {
   @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
 }
 
@@ -200,9 +200,12 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply bg-secondary-foreground  rounded-md  text-accent-foreground  text-base px-2 py-1 z-50 max-w-xs !important;
+  @apply bg-secondary-foreground  rounded-md  text-accent-foreground  text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
 }
-
+.theme-card .card-tooltip {
+  @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
+}
+/* NOTE - Button */
 .user-profile-buy-credit {
   @apply hover:no-underline bg-secondary hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }
@@ -241,6 +244,81 @@ div.progressToken {
 .Toastify__toast-theme--colored.Toastify__toast--error {
   @apply bg-red-600 rounded-sm !important;
 }
+
+/* SECTION : ADMIN */
 .my-card {
-  @apply border-secondary/20 border p-10 rounded-xl;
+  @apply border-secondary/20 border p-7 rounded-xl;
+}
+.admin .theme-card {
+  @apply p-2 rounded-lg flex flex-col gap-1 justify-center items-center w-full col-span-2 border;
+}
+.admin .theme-card button {
+  @apply p-5 rounded-full w-10 h-10;
+}
+
+.admin .toggle-wrapper {
+  @apply my-card flex flex-col gap-3 justify-center w-full hover:bg-secondary-foreground/10 cursor-pointer;
+}
+.admin .toggle-wrapper label {
+  @apply text-base;
+}
+.admin .toggle-wrapper .icon {
+  @apply absolute -mt-14 -ml-5 -z-10;
+}
+.admin aside {
+  @apply col-span-3 text-left rounded-lg rounded-r-none border-secondary/10 p-5 border-r  relative ;
+}
+.admin aside nav {
+  @apply flex flex-col gap-y-5 sticky top-24;
+}
+.admin aside nav ul {
+  @apply text-left flex flex-col gap-y-0.5 mt-1;
+}
+.admin aside nav ul li {
+  @apply text-left font-semibold p-0.5 hover:bg-primary-foreground/10 rounded-md cursor-pointer px-2;
+}
+.admin aside nav ul li.active {
+  @apply bg-primary-foreground/20;
+}
+.admin aside nav h3 {
+  @apply text-lg font-bold flex flex-row items-center justify-between;
+}
+.admin div.admin-main {
+  @apply col-span-9 relative text-center flex flex-col gap-y-5;
+}
+.admin div.admin-main #headerAdminNavbar {
+  @apply sticky top-16 bg-background z-30;
+}
+.admin div.admin-main #headerAdminNavbar h1 {
+  @apply text-right pt-5;
+}
+.admin div.admin-main #headerAdminNavbar .separator {
+  @apply mt-5 border-[1.5px] rounded-full opacity-50;
+}
+.admin div .admin-main .admin-header-section {
+  @apply bg-background z-20;
+}
+.admin div.admin-main .admin-main-content {
+  @apply flex flex-col gap-y-5 px-2 mt-2;
+}
+.admin div.admin-main .admin-main-content .admin-section .multiple-components {
+  @apply  grid grid-cols-2 gap-5 px-2 mt-2;
+}
+.admin div.admin-main .admin-section {
+  @apply min-h-[30vh]
+}
+form div {
+  @apply flex flex-col shadow border-b border-accent p-3 px-4 rounded !important;
+}
+form label {
+  @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col md:items-center !important;
+}
+form p {
+ @apply text-left italic font-light justify-start flex mt-1 !important;
+}
+form p.error {
+  @apply font-bold not-italic !important;
+ }
+form button {
+  @apply self-end float-right text-center !important;
 }

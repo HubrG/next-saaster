@@ -1,17 +1,12 @@
 "use client";
-import { Label } from "@/src/components/ui/label";
-import { Switch } from "@/src/components/ui/switch";
 import { useEffect, useState } from "react";
-import { changeDefaultDarkMode } from "./actions.server";
 import { Toastify } from "@/src/components/layout/toastify/Toastify";
-import { appSettings } from '@prisma/client';
+import { ToggleWrapper } from "@/src/components/features/pages/admin/setup/layout-settings/ui/ToggleWrapper";
+import { toggleProps } from "@/src/types/admin/toggleProps";
+import { MoonStar } from "lucide-react";
+import { changeDefaultDarkMode } from "../actions.server";
 
-type Props = {
-  data: appSettings;
-};
-
-export default function ToggleDefaultDarkMode({data} : Props) {
-  
+export default function ToggleDefaultDarkMode({ data }: toggleProps) {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
 
   useEffect(() => {
@@ -26,6 +21,7 @@ export default function ToggleDefaultDarkMode({data} : Props) {
         return Toastify({
           type: "success",
           value: `Default darkmode ${e ? "enabled" : "disabled"}`,
+          position: "bottom-right",
         });
       } else {
         return Toastify({
@@ -37,15 +33,12 @@ export default function ToggleDefaultDarkMode({data} : Props) {
   };
 
   return (
-    <div className="my-card">
-      <Switch
-        onCheckedChange={handleChangeDefaultDarkmode}
-        id="switch-default-dark-mode"
-        checked={defaultDarkmode}
-      />
-      <Label htmlFor="switch-default-dark-mode">
-        Activer le Darkmode par défaut lors d&apos;une première visite
-      </Label>
-    </div>
+    <ToggleWrapper
+      handleChange={handleChangeDefaultDarkmode}
+      checked={defaultDarkmode}
+      id="switch-default-dark-mode">
+      <MoonStar  className="icon" />
+      Activer le <strong>darkmode par défaut</strong> lors d&apos;une première visite
+    </ToggleWrapper>
   );
 }

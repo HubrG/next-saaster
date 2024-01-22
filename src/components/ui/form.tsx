@@ -12,6 +12,7 @@ import {
 
 import { cn } from "@/src/lib/utils"
 import { Label } from "@/src/components/ui/label"
+import { Info } from "lucide-react"
 
 const Form = FormProvider
 
@@ -100,7 +101,29 @@ const FormLabel = React.forwardRef<
   )
 })
 FormLabel.displayName = "FormLabel"
+const FormMessage = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, children, ...props }, ref) => {
+  const { error, formMessageId } = useFormField()
+  const body = error ? String(error?.message) : children
 
+  if (!body) {
+    return null
+  }
+
+  return (
+    <p
+      ref={ref}
+      id={formMessageId}
+      className={cn("text-[0.8rem] flex flex-row items-center font-medium error", className)}
+      {...props}
+    >
+      <Info className="icon text-destructive/70" /> {body}
+    </p>
+  )
+})
+FormMessage.displayName = "FormMessage"
 const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
@@ -140,29 +163,7 @@ const FormDescription = React.forwardRef<
 })
 FormDescription.displayName = "FormDescription"
 
-const FormMessage = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message) : children
 
-  if (!body) {
-    return null
-  }
-
-  return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-[0.8rem] font-medium text-destructive", className)}
-      {...props}
-    >
-      {body}
-    </p>
-  )
-})
-FormMessage.displayName = "FormMessage"
 
 export {
   useFormField,

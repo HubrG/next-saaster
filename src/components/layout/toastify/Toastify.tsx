@@ -11,7 +11,7 @@ type Toast = {
 	callbackOnClose?: () => void;
 }
 
-export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-center", theme = "colored", autoClose = 3000, callbackOnOpen, callbackOnClose } : Toast) => {
+export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-right", theme = "colored", autoClose = 3000, callbackOnOpen, callbackOnClose } : Toast) => {
 	if (type === "error") {
 		return toast.error(value, {
 			position: position,

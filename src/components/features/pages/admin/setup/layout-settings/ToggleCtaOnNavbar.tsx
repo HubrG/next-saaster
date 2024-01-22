@@ -1,17 +1,13 @@
 "use client";
-import { Label } from "@/src/components/ui/label";
-import { Switch } from "@/src/components/ui/switch";
 import { useEffect, useState } from "react";
-import { changeActiveCtaOnNavbar } from "./actions.server";
+import { changeActiveCtaOnNavbar } from "../actions.server";
 import { Toastify } from "@/src/components/layout/toastify/Toastify";
-import { appSettings } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { ToggleWrapper } from "./ui/ToggleWrapper";
+import { toggleProps } from "@/src/types/admin/toggleProps";
+import { Box } from "lucide-react";
 
-type Props = {
-  data: appSettings;
-};
-
-export default function ToggleCtaOnNavbar({ data }: Props) {
+export default function ToggleCtaOnNavbar({ data }: toggleProps) {
   const [activeCtaOnNavbar, setActiveCtaOnNavbar] = useState<boolean>(true);
   const router = useRouter();
 
@@ -19,7 +15,7 @@ export default function ToggleCtaOnNavbar({ data }: Props) {
     setActiveCtaOnNavbar(data?.activeCtaOnNavbar ?? false);
   }, [data]);
 
-  const handleChangeActiveDarkmode = async (e: any) => {
+  const handleChangeCtaOnNavbar = async (e: any) => {
     if (data?.id) {
       const dataToSet = await changeActiveCtaOnNavbar(data?.id, e);
       if (dataToSet === true) {
@@ -28,6 +24,7 @@ export default function ToggleCtaOnNavbar({ data }: Props) {
           type: "success",
           value: `Active CTA on navbar ${e ? "enabled" : "disabled"}`,
           callbackOnOpen: () => router.refresh(),
+          position: "bottom-right",
         });
       } else {
         return Toastify({
@@ -39,15 +36,12 @@ export default function ToggleCtaOnNavbar({ data }: Props) {
   };
 
   return (
-    <div className="my-card">
-      <Switch
-        onCheckedChange={handleChangeActiveDarkmode}
-        id="switch-active-cta-on-navbar"
-        checked={activeCtaOnNavbar}
-      />
-      <Label htmlFor="switch-active-cta-on-navbar">
-        Afficher le CTA de la navbar
-      </Label>
-    </div>
+    <ToggleWrapper
+      handleChange={handleChangeCtaOnNavbar}
+      checked={activeCtaOnNavbar}
+      id="switch-active-cta-on-navbar">
+      <Box  className="icon" />
+      Afficher le <strong>CTA de la navbar</strong>
+    </ToggleWrapper>
   );
 }

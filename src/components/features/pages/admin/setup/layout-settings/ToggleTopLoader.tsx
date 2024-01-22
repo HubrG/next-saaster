@@ -1,16 +1,13 @@
 "use client";
-import { Label } from "@/src/components/ui/label";
-import { Switch } from "@/src/components/ui/switch";
 import { useEffect, useState } from "react";
-import { changeActiveTopLoader } from "./actions.server";
+import { changeActiveTopLoader } from "../actions.server";
 import { Toastify } from "@/src/components/layout/toastify/Toastify";
-import { appSettings } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { ToggleWrapper } from "./ui/ToggleWrapper";
+import { toggleProps } from "@/src/types/admin/toggleProps";
+import { Loader } from "lucide-react";
 
-type Props = {
-  data: appSettings;
-};
-export default function ToggleTopLoader({ data }: Props) {
+export default function ToggleTopLoader({ data }: toggleProps) {
   const [activeTopLoader, setActiveTopLoader] = useState(true);
   const router = useRouter();
 
@@ -27,6 +24,7 @@ export default function ToggleTopLoader({ data }: Props) {
           type: "success",
           value: `Top loader ${e ? "enabled" : "disabled"}`,
           callbackOnOpen: () => router.refresh(),
+          position: "bottom-right",
         });
       } else {
         return Toastify({
@@ -38,13 +36,12 @@ export default function ToggleTopLoader({ data }: Props) {
   };
 
   return (
-    <div className="my-card">
-      <Switch
-        onCheckedChange={handleChangeTopLoader}
-        id="switch-top-loader"
-        checked={activeTopLoader}
-      />
-      <Label htmlFor="switch-top-loader">Activer le Top loader</Label>
-    </div>
+    <ToggleWrapper
+      handleChange={handleChangeTopLoader}
+      checked={activeTopLoader}
+      id="switch-top-loader">
+      <Loader className="icon" />
+      Afficher le <strong>top loader lors du chargement</strong> d&apos;une page
+    </ToggleWrapper>
   );
 }

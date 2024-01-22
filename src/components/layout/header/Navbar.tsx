@@ -38,7 +38,7 @@ export const Navbar = async () => {
   //
   return (
     <header className=" z-20 w-full">
-      <nav>
+      <nav id ="navbar">
         <div>
           <Logo />
           <div className="flex gap-x-2 lg:order-2 items-center lg:text-base">

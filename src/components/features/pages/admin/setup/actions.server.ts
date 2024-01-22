@@ -1,13 +1,11 @@
 "use server";
-import { authOptions } from "@/src/lib/next-auth/auth";
-import { prisma } from "@/src/lib/prisma";
-import { getServerSession } from "next-auth/next";
-import { appSettings } from "@prisma/client";
+import { appSettings } from '@prisma/client';
+import { isAdmin } from '@/src/functions/isAdmin';
+import { prisma } from '@/src/lib/prisma';
 
 export const changeCssTheme = async (settingsId: string, theme: string) => {
-  const session = await getServerSession(authOptions);
+  const session =  await isAdmin();
   if (!session) return false;
-  if (session.user.role !== "ADMIN") return false;
   const updateSetting = await prisma.appSettings.update({
     where: { id: settingsId },
     data: { theme: theme },
@@ -22,9 +20,8 @@ export const changeDefaultDarkMode = async (
   settingsId: string,
   toggle: boolean
 ) => {
-  const session = await getServerSession(authOptions);
+  const session = await isAdmin();
   if (!session) return false;
-  if (session.user.role !== "ADMIN") return false;
   const updateSetting = await prisma.appSettings.update({
     where: { id: settingsId },
     data: { defaultDarkMode: toggle },
@@ -39,9 +36,8 @@ export const changeActiveDarkMode = async (
   settingsId: string,
   toggle: boolean
 ) => {
-  const session = await getServerSession(authOptions);
+  const session = await isAdmin();
   if (!session) return false;
-  if (session.user.role !== "ADMIN") return false;
   const updateSetting = await prisma.appSettings.update({
     where: { id: settingsId },
     data: { activeDarkMode: toggle },
@@ -56,9 +52,8 @@ export const changeActiveTopLoader = async (
   settingsId: string,
   toggle: boolean
 ) => {
-  const session = await getServerSession(authOptions);
+  const session = await isAdmin();
   if (!session) return false;
-  if (session.user.role !== "ADMIN") return false;
   const updateSetting = await prisma.appSettings.update({
     where: { id: settingsId },
     data: { activeTopLoader: toggle },
@@ -73,9 +68,8 @@ export const changeActiveCtaOnNavbar = async (
   settingsId: string,
   toggle: boolean
 ) => {
-  const session = await getServerSession(authOptions);
+  const session = await isAdmin();
   if (!session) return false;
-  if (session.user.role !== "ADMIN") return false;
   const updateSetting = await prisma.appSettings.update({
     where: { id: settingsId },
     data: { activeCtaOnNavbar: toggle },

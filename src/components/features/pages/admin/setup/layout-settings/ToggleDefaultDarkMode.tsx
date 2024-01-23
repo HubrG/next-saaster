@@ -1,13 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Toastify } from "@/src/components/ui/toastify/Toastify";
-import { ToggleWrapper } from "@/src/components/features/pages/admin/ui/ToggleWrapper";
-import { toggleProps } from "@/src/types/admin/toggleProps";
+import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { MoonStar } from "lucide-react";
-import { changeDefaultDarkMode } from "@/src/components/features/pages/admin/setup/actions.server";
+import { changeDefaultDarkMode } from "@/src/components/features/pages/admin/actions.server";
+import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
-export default function ToggleDefaultDarkMode({ data }: toggleProps) {
+export default function ToggleDefaultDarkMode() {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
+  const { appSettings } = useAppSettingsStore();
+  const data = appSettings;
 
   useEffect(() => {
     setDefaultDarkmode(data.defaultDarkMode ?? false);

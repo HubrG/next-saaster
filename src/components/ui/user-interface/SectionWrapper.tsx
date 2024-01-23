@@ -6,7 +6,7 @@ type Props = {
   sectionName: string;
   className?: string;
 };
-export const AdminSectionWrapper = ({
+export const SectionWrapper = ({
   children,
   id,
   sectionName,

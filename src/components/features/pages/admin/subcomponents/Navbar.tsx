@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import useIntersectionObserver from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
-import { AdminMenuItem } from "@/src/components/features/pages/admin/ui/AdminMenuItem";
+import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
 import {
   BadgeDollarSign,
   BarChart2,
@@ -12,7 +12,6 @@ import {
   Contact2,
   Cookie,
   FilePenLine,
-  Gift,
   Hash,
   Languages,
   LayoutDashboard,
@@ -21,10 +20,10 @@ import {
   Palette,
   Receipt,
   RefreshCcw,
+  Rss,
   Scale,
   Settings2,
   SquarePen,
-  StickyNote,
   UserCheck,
   View,
 } from "lucide-react";
@@ -49,30 +48,30 @@ export const AdminNavbar = () => {
             <Cog className="icon" />
           </h3>
           <ul>
-            <AdminMenuItem
+            <MenuItem
               activeSection={activeSection}
               sectionObserve="InfosApp"
               handleScroll={handleScroll}>
               <Info className="icon" /> Info
-            </AdminMenuItem>
-            <AdminMenuItem
+            </MenuItem>
+            <MenuItem
               activeSection={activeSection}
               sectionObserve="Design"
               handleScroll={handleScroll}>
               <Palette className="icon" /> Design
-            </AdminMenuItem>
-            <AdminMenuItem
+            </MenuItem>
+            <MenuItem
               activeSection={activeSection}
               sectionObserve="Layout"
               handleScroll={handleScroll}>
               <LayoutDashboard className="icon" /> Layout
-            </AdminMenuItem>
-            <AdminMenuItem
+            </MenuItem>
+            <MenuItem
               activeSection={activeSection}
               sectionObserve="testt"
               handleScroll={handleScroll}>
               <Languages className="icon" /> Langs
-            </AdminMenuItem>
+            </MenuItem>
             <li onClick={() => handleScroll("theme-section")}>
               <Cable className="icon" /> APIs
             </li>
@@ -92,12 +91,12 @@ export const AdminNavbar = () => {
             <li onClick={() => handleScroll("theme-section")}>
               <Settings2 className="icon" /> Settings
             </li>
-            <AdminMenuItem
+            <MenuItem
               activeSection={activeSection}
               sectionObserve="Pricing"
               handleScroll={handleScroll}>
               <Coins className="icon" /> Pricing
-            </AdminMenuItem>
+            </MenuItem>
             <li onClick={() => handleScroll("theme-section")}>
               <Contact2 className="icon" /> Customers
             </li>
@@ -111,7 +110,7 @@ export const AdminNavbar = () => {
         </div>
         <div>
           <h3>
-            Blog <StickyNote className="icon" />
+            Blog <Rss className="icon" />
           </h3>
           <ul>
             <li onClick={() => handleScroll("theme-section")}>

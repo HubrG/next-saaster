@@ -55,16 +55,21 @@ enum UserRole {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String?   @unique
-  emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  date           DateTime? @default(now())
-  role           UserRole  @default(USER)
-  accounts       Account[]
-  sessions       Session[]
+  id                       String                     @id @default(cuid())
+  name                     String?
+  email                    String?                    @unique
+  emailVerified            DateTime?
+  image                    String?
+  hashedPassword           String?
+  date                     DateTime?                  @default(now())
+  role                     UserRole                   @default(USER)
+  accounts                 Account[]
+  sessions                 Session[]
+  UserFeatureCreditBalance UserFeatureCreditBalance[]
+  createdAt                DateTime?                  @default(now())
+  updatedAt                DateTime?                  @updatedAt
+  transactions             Transaction[]
+  subscriptions            Subscription[]
 }
 
 // SECTION -> Reste du schema
@@ -80,31 +85,36 @@ model appSettings {
   activeTopLoader   Boolean?  @default(true)
   activeDarkMode    Boolean?  @default(true)
   activeCtaOnNavbar Boolean?  @default(true)
+  uniqueCreditType  Boolean?  @default(true) // token ? or more features
+  activeRefill      Boolean?  @default(true) // token ? or more features
   createdAt         DateTime? @default(now())
   updatedAt         DateTime? @updatedAt
 }
 
+// SECTION: Pricing
+
 model Pricing {
-  id               String             @id @default(cuid())
-  name             String
-  description      String?
-  isCustom         Boolean?           @default(false)
-  isPopular        Boolean?           @default(false)
-  isRecommended    Boolean?           @default(false)
-  isFree           Boolean?           @default(false)
-  isTrial          Boolean?           @default(false)
-  trialDays        Int?               @default(0)
-  monthlyPrice     Int?               @default(0)
-  yearlyPrice      Int?               @default(0)
-  monthlyTax       Int?               @default(0)
-  yearlyTax        Int?               @default(0)
-  monthlyPromotion Int?               @default(0)
-  yearlyPromotion  Int?               @default(0)
-  currency         String?            @default("usd")
-  active           Boolean?           @default(false)
-  features         PricingToFeature[]
-  createdAt        DateTime?          @default(now())
-  updatedAt        DateTime?          @updatedAt
+  id                       String                     @id @default(cuid())
+  name                     String
+  description              String?
+  isCustom                 Boolean?                   @default(false)
+  isPopular                Boolean?                   @default(false)
+  isRecommended            Boolean?                   @default(false)
+  isFree                   Boolean?                   @default(false)
+  isTrial                  Boolean?                   @default(false)
+  trialDays                Int?                       @default(0)
+  isMonthly                Boolean?                   @default(false)
+  price                    Int?                       @default(0)
+  isYearly                 Boolean?                   @default(false)
+  tax                      Int?                       @default(0)
+  monthlyPromotion         Int?                       @default(0)
+  yearlyPromotion          Int?                       @default(0)
+  currency                 String?                    @default("usd")
+  active                   Boolean?                   @default(false)
+  features                 PricingToFeature[]
+  createdAt                DateTime?                  @default(now())
+  updatedAt                DateTime?                  @updatedAt
+  Subscriptions            Subscription[]
 }
 
 model PricingToFeature {
@@ -118,21 +128,78 @@ model PricingToFeature {
 }
 
 model PricingFeature {
-  id          String                  @id @default(cuid())
-  name        String?
-  description String?
-  categoryId  String?
-  pricings    PricingToFeature[]
-  category    PricingFeatureCategory? @relation(fields: [categoryId], references: [id])
-  createdAt   DateTime?               @default(now())
-  updatedAt   DateTime?               @updatedAt
+  id                       String                     @id @default(cuid())
+  name                     String?
+  description              String?
+  categoryId               String?
+  creditMonthly            Int?                       @default(0)
+  creditYearly             Int?                       @default(0)
+  yearly                   Boolean?                   @default(false)
+  yearlyText               String?
+  createdAt                DateTime?                  @default(now())
+  updatedAt                DateTime?                  @updatedAt
+  pricings                 PricingToFeature[]
+  category                 PricingFeatureCategory?    @relation(fields: [categoryId], references: [id])
+  UserFeatureCreditBalance UserFeatureCreditBalance[]
 }
 
 model PricingFeatureCategory {
   id          String           @id @default(cuid())
   name        String?
   description String?
-  features    PricingFeature[]
   createdAt   DateTime?        @default(now())
   updatedAt   DateTime?        @updatedAt
+  features    PricingFeature[]
+}
+
+model UserFeatureCreditBalance {
+  id        String         @id @default(cuid())
+  userId    String
+  featureId String
+  balance   Int?           @default(0)
+  user      User           @relation(fields: [userId], references: [id])
+  feature   PricingFeature @relation(fields: [featureId], references: [id])
+
+  @@unique([userId, featureId])
+}
+
+model Transaction {
+  id          String    @id @default(cuid())
+  userId      String
+  sessionId   String
+  amount      Int?
+  currency    String?
+  invoice     String?
+  description String?
+  status      String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model Subscription {
+  id          String    @id @default(cuid())
+  userId      String
+  sessionId   String
+  amount      Int?
+  pricingId   String?
+  currency    String?   @default("usd")
+  description String?
+  status      String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+  pricing     Pricing?  @relation(fields: [pricingId], references: [id])
+}
+
+// SECTION END: Pricing
+
+model ApiKey {
+  id        String    @id @default(cuid())
+  name      String?
+  key       String?   @unique
+  secret    String?   @unique
+  active    Boolean?  @default(false)
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 }

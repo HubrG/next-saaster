@@ -2,17 +2,18 @@
 import { Fragment, useEffect, useState } from "react";
 import colorThemes from "@/src/jsons/css-themes.json";
 import { useTheme } from "next-themes";
-import { appSettings } from "@prisma/client";
 import { ThemeCard } from "@/src/components/features/pages/admin/setup/design-settings/subsections/ui/ThemeCard";
+import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
 type Props = {
-  data: appSettings;
   set: (value: string) => void;
 };
 // FIX: refactoriser
-export const ThemeColorChange = ({ data, set }: Props) => {
+export const ThemeColorChange = ({ set }: Props) => {
   const { theme } = useTheme(); // is dark or light
   const [cssTheme, setCssTheme] = useState<string | null>("sandra");
+  const { appSettings } = useAppSettingsStore();
+  const data = appSettings;
   const actualTheme = data.theme;
 
   useEffect(() => {

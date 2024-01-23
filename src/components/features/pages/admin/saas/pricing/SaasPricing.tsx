@@ -1,45 +1,15 @@
-import { appSettings } from "@prisma/client";
-import React from "react";
-type Props = {
-  appSettings: appSettings;
-};
-export const SaasPricing = ({ appSettings }: Props) => {
+"use client";
+
+import { PricingFeatureCategory, appSettings } from "@prisma/client";
+import { ManagePricing } from "@/src/components/features/pages/admin/saas/pricing/subsections/ManagePricing";
+import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";
+
+export const SaasPricing = () => {
   return (
     <div>
-          <h1>Pricing</h1>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+      <SubSectionWrapper id="ManagePricing" sectionName="Manage Pricing">
+        <ManagePricing />
+      </SubSectionWrapper>
     </div>
   );
 };

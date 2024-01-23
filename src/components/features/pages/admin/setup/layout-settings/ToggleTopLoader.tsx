@@ -1,14 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
-import { changeActiveTopLoader } from "@/src/components/features/pages/admin/setup/actions.server";
+import { changeActiveTopLoader } from "@/src/components/features/pages/admin/actions.server";
 import { Toastify } from "@/src/components/ui/toastify/Toastify";
 import { useRouter } from "next/navigation";
-import { ToggleWrapper } from "@/src/components/features/pages/admin/ui/ToggleWrapper";
-import { toggleProps } from "@/src/types/admin/toggleProps";
+import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { Loader } from "lucide-react";
+import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
-export default function ToggleTopLoader({ data }: toggleProps) {
+export default function ToggleTopLoader() {
   const [activeTopLoader, setActiveTopLoader] = useState(true);
+  const { appSettings } = useAppSettingsStore();
+  const data = appSettings;
   const router = useRouter();
 
   useEffect(() => {

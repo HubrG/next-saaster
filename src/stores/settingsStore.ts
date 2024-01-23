@@ -2,12 +2,12 @@ import { appSettings } from "@prisma/client";
 import { create } from "zustand";
 
 type Store = {
-  appSet: appSettings;
+  appSettings: appSettings;
   setAppSettings: (partialSettings: Partial<appSettings>) => void;
 };
 
 export const useAppSettingsStore = create<Store>()((set) => ({
-  appSet: {
+  appSettings: {
     id: "",
     theme: "",
     name: "",
@@ -18,12 +18,14 @@ export const useAppSettingsStore = create<Store>()((set) => ({
     activeCtaOnNavbar: false,
     activeTopLoader: false,
     activeDarkMode: false,
+    uniqueCreditType: false,
+    activeRefill: false,
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   setAppSettings: (partialSettings) =>
     set((state) => ({
       ...state,
-      appSet: { ...state.appSet, ...partialSettings },
+      appSettings: { ...state.appSettings, ...partialSettings }, // Correction ici
     })),
 }));

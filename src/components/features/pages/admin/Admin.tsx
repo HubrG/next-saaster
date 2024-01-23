@@ -1,38 +1,46 @@
 "use client";
 import { Loader } from "@/src/components/ui/loader";
-import { appSettings } from "@prisma/client";
+import { PricingFeatureCategory, appSettings } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { AdminMain } from "@/src/components/features/pages/admin/subcomponents/Main";
 import { AdminNavbar } from "@/src/components/features/pages/admin/subcomponents/Navbar";
+import { useFeatureCategoryStore } from "@/src/stores/featureCategoryStore";
 import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
 type Props = {
   appSettings: appSettings;
+  featureCategories: PricingFeatureCategory[];
 };
 
-export const AdminComponent = ({ appSettings }: Props) => {
-  const { appSet, setAppSettings } = useAppSettingsStore();
+export const AdminComponent = ({ appSettings, featureCategories }: Props) => {
+  const { setPricingFeatCat } = useFeatureCategoryStore();
+  const { setAppSettings } = useAppSettingsStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    setAppSettings(appSettings);
-  }, [appSettings, setAppSettings]);
+    if (appSettings) {
+      setMounted(true);
+      setAppSettings(appSettings); // Déplacer cette logique ici
+      setPricingFeatCat(featureCategories);
+    }
+  }, [appSettings, setAppSettings, setPricingFeatCat, featureCategories]);
+
+  if (!mounted) {
+    return (
+      <div className="flex justify-center w-full h-[90vh] items-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
-      {mounted ? (
-        <div>
-          <div className="grid grid-cols-12 gap-10">
-            <AdminNavbar />
-            <AdminMain appSettings={appSettings} />
-          </div>
+      <div>
+        <div className="grid grid-cols-12 gap-10">
+          <AdminNavbar />
+          <AdminMain />
         </div>
-      ) : (
-        <div className="flex justify-center w-full h-[90vh] items-center">
-          <Loader />
-        </div>
-      )}
+      </div>
     </>
   );
 };

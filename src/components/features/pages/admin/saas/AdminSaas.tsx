@@ -1,17 +1,19 @@
-import { appSettings } from "@prisma/client";
-import { AdminSectionWrapper } from "@/src/components/features/pages/admin/ui/AdminSectionWrapper";
+"use client";
+import { PricingFeatureCategory, appSettings } from "@prisma/client";
+import { SectionWrapper } from "@/src/components/ui/user-interface/SectionWrapper";
 import { SaasPricing } from './pricing/SaasPricing';
 
 type Props = {
-  appSettings: appSettings;
+	appSettings: appSettings;
+	featureCategories: PricingFeatureCategory[];
 };
 
-export const AdminSaas = ({ appSettings }: Props) => {
-  return (
-    <>
-      <AdminSectionWrapper id="Pricing" sectionName="Pricing">
-        <SaasPricing appSettings={appSettings} />
-      </AdminSectionWrapper>
-    </>
-  );
+export const AdminSaas = () => {
+	return (
+		<>
+			<SectionWrapper id="Pricing" sectionName="Pricing">
+				<SaasPricing  />
+			</SectionWrapper>
+		</>
+	);
 };

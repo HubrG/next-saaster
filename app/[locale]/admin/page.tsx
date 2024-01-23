@@ -3,8 +3,9 @@ import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { getAppSettings } from "../server.actions";
-import { appSettings } from "@prisma/client";
+import { PricingFeatureCategory, appSettings } from "@prisma/client";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
+import { getFeatureCategories } from '@/src/components/features/pages/admin/actions.server';
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -21,13 +22,17 @@ export default async function Admin() {
     redirect("/");
   }
   const appSettings = await getAppSettings();
+  const featureCategories = await getFeatureCategories();
   if (!appSettings) {
+    return null;
+  }
+  if (!getFeatureCategories) {
     return null;
   }
 
   return (
     <div className="admin">
-      <AdminComponent appSettings={appSettings as appSettings} />
+      <AdminComponent featureCategories={featureCategories as PricingFeatureCategory[]} appSettings={appSettings as appSettings} />
     </div>
   );
 }

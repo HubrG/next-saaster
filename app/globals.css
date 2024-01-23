@@ -7,15 +7,15 @@
     --background-25: 96.5%;
     /*  */
     --background: var(--background-50);
-    --foreground: var(--background-900);
+    --foreground: var(--background-200);
     --card: var(--background-100);
-    --card-foreground: var(--text-900);
+    --card-foreground: var(--text-500);
     --popover: var(--background-50);
     --popover-foreground: var(--background-900);
     --primary: var(--primary-200);
     --primary-foreground: var(--text-900);
-    --secondary: var(--secondary-800);
-    --secondary-foreground: var(--secondary-400);
+    --secondary: var(--secondary-300);
+    --secondary-foreground: var(--secondary-200);
     --muted: var(--secondary-50);
     --muted-foreground: var(--text-900);
     --accent: var(--accent-200);
@@ -187,7 +187,7 @@ ul.ul {
 
 /* NOTE - Navbar - Profil */
 div.progressTokenVoid {
-  @apply w-full   absolute z-10 rounded-full h-2 p-0 -mt-1 bg-secondary-foreground !important;
+  @apply w-full   absolute z-10 rounded-full h-2 p-0 -mt-1 bg-secondary/30 !important;
 }
 div.progressToken {
   @apply bg-secondary h-2 p-0 z-20 rounded-full absolute -mt-1 !important;
@@ -201,14 +201,14 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply bg-secondary-foreground  rounded-default  text-accent-foreground  text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
+  @apply bg-secondary-foreground   rounded-default  text-accent-foreground  text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
 }
 .theme-card .card-tooltip {
   @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
 }
 /* NOTE - Button */
 .user-profile-buy-credit {
-  @apply hover:no-underline bg-secondary hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
+  @apply hover:no-underline bg-primary-foreground hover:bg-secondary hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }
 .first-connection {
   @apply w-full h-full -mt-24  absolute bg-white z-[9999999999] !important;
@@ -279,7 +279,7 @@ div.progressToken {
   @apply text-left font-semibold p-0.5 hover:bg-primary-foreground/10 rounded-default cursor-pointer px-2 flex flex-row items-center gap-x-2 text-opacity-75;
 }
 .admin aside nav ul li.active {
-  @apply bg-secondary/10 font-bold !important;
+  @apply bg-primary-foreground/10 font-bold !important;
 }
 .admin aside nav h3 {
   @apply text-lg font-bold flex flex-row items-center justify-between;

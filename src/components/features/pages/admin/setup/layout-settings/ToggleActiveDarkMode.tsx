@@ -1,14 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
-import { changeActiveDarkMode } from "@/src/components/features/pages/admin/setup/actions.server";
+import { changeActiveDarkMode } from "@/src/components/features/pages/admin/actions.server";
 import { Toastify } from "@/src/components/ui/toastify/Toastify";
 import { useRouter } from "next/navigation";
-import { ToggleWrapper } from "@/src/components/features/pages/admin/ui/ToggleWrapper";
-import { toggleProps } from "@/src/types/admin/toggleProps";
+import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { Eclipse } from "lucide-react";
+import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
-export default function ToggleActiveDarkMode({ data }: toggleProps) {
+export default function ToggleActiveDarkMode() {
   const [activeDarkmode, setActiveDarkmode] = useState<boolean>(true);
+  const { appSettings } = useAppSettingsStore();
+  const data = appSettings;
   const router = useRouter();
 
   useEffect(() => {

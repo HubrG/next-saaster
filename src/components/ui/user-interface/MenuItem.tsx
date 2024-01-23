@@ -1,4 +1,3 @@
-import React from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -6,7 +5,7 @@ type Props = {
   activeSection: string;
   sectionObserve: string;
 };
-export const AdminMenuItem = ({
+export const MenuItem = ({
   children,
   handleScroll,
   activeSection,

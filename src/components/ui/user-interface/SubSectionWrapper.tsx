@@ -1,4 +1,3 @@
-import { Separator } from "@/src/components/ui/separator";
 import React from "react";
 type Props = {
   children: React.ReactNode;
@@ -7,7 +6,7 @@ type Props = {
   className?: string;
   info?: string;
 };
-export const AdminSubSectionWrapper = ({
+export const SubSectionWrapper = ({
   children,
   id,
   sectionName,

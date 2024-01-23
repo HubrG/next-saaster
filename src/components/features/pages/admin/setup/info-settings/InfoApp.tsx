@@ -1,18 +1,15 @@
 "use client";
 import * as z from "zod";
-import { appSettings } from "@prisma/client";
 import { Button } from "@/src/components/ui/button";
 import { Form } from "@/src/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateInfosApp } from "@/src/components/features/pages/admin/setup/info-settings/actions.server";
 import { Toastify } from "@/src/components/ui/toastify/Toastify";
 import { useRouter } from "next/navigation";
 import { Field } from "@/src/components/ui/form-field";
+import { updateInfosApp } from '@/src/components/features/pages/admin/actions.server';
+import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
-type Props = {
-  data: appSettings;
-};
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -26,8 +23,11 @@ const formSchema = z.object({
   }),
 });
 
-export const InfoApp = ({ data }: Props) => {
+export const InfoApp = () => {
   const router = useRouter();
+  const { appSettings } = useAppSettingsStore();
+  const data = appSettings;
+
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

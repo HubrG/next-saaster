@@ -1,20 +1,22 @@
+"use client";
 import { useEffect } from "react";
 
 interface UseIntersectionObserverOptions extends IntersectionObserverInit {
   targetClass: string;
 }
 
-const useIntersectionObserver = (
+const useIntersectionObserver = async (
   setActiveSection: (id: string) => void,
   options: UseIntersectionObserverOptions
 ) => {
+  
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       const visibleSections = entries.filter((entry) => entry.isIntersecting);
       if (visibleSections.length) {
         visibleSections.sort(
           (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
-        );
+        );  
         setActiveSection(visibleSections[0].target.id);
       }
     }, options);
@@ -25,7 +27,7 @@ const useIntersectionObserver = (
     return () => {
       sections.forEach((section) => observer.unobserve(section as Element));
     };
-  }, [setActiveSection, options]);
+  }, [setActiveSection, options,]);
 };
 
 export default useIntersectionObserver;

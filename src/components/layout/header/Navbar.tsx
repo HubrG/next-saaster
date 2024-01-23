@@ -11,6 +11,7 @@ import Logo from "./navbar/Logo";
 import { getLocale } from "next-intl/server";
 import { getAppSettings } from "@/app/[locale]/server.actions";
 import { appSettings } from "@prisma/client";
+import { Button } from "../../ui/button";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -45,6 +46,7 @@ export const Navbar = async () => {
             <div className="flex items-center gap-x-2">
               {settings.activeCtaOnNavbar &&
                 (session ? <TryUsButton /> : <TryUsButton />)}
+               <Button className="hidden"></Button>
               <div className="sm:block hidden">
                 {session ? <UserProfile /> : <LoginButton />}
               </div>

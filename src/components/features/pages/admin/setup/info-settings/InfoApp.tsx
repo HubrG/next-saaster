@@ -10,30 +10,26 @@ import { updateInfosApp } from "./actions.server";
 import { Toastify } from "@/src/components/layout/toastify/Toastify";
 import { useRouter } from "next/navigation";
 import { Field } from "@/src/components/ui/form-field";
-import { Loader } from "@/src/components/ui/loader";
 
 type Props = {
   data: appSettings;
 };
 
 const formSchema = z.object({
-  name: z.string().min(50, {
+  name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  description: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  description: z.string().min(50, {
+    message: "Description must be at least 50 characters.",
   }),
   baseline: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Baseline must be at least 2 characters.",
   }),
 });
 
 export const InfoApp = ({ data }: Props) => {
   const router = useRouter();
-  const [mounted, setMounted] = React.useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, [data]);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,7 +54,7 @@ export const InfoApp = ({ data }: Props) => {
 
   return (
     <div>
-      {mounted ? (
+     
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <Field
@@ -71,7 +67,7 @@ export const InfoApp = ({ data }: Props) => {
             <Field
               label="Baseline"
               name="baseline"
-              description="Meta title for SEO"
+              description="On base meta title for SEO"
               placeholder="baseline"
               form={form}
             />
@@ -86,11 +82,7 @@ export const InfoApp = ({ data }: Props) => {
             <Button type="submit">Submit</Button>
           </form>
         </Form>
-      ) : (
-        <div className="flex justify-center">
-          <Loader />
-        </div>
-      )}
+     
     </div>
   );
 };

@@ -34,13 +34,15 @@ export default async function RootLayout({ children, session }: Props) {
     return null;
   } 
 
+  console.log(appSettings)
+
   return (
     <SessProvider session={session}>
       <ReactQueryClientProvider>
         <html
           lang={locale}
           suppressHydrationWarning={true}
-          className={`${appSettings.theme} ${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
+          className={`${appSettings.theme} radius-${appSettings.roundedCorner} ${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}
             suppressHydrationWarning={true}>

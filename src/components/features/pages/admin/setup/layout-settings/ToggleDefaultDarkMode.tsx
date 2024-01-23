@@ -10,12 +10,12 @@ export default function ToggleDefaultDarkMode({ data }: toggleProps) {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
 
   useEffect(() => {
-    setDefaultDarkmode(data?.defaultDarkMode ?? false);
+    setDefaultDarkmode(data.defaultDarkMode ?? false);
   }, [data]);
 
   const handleChangeDefaultDarkmode = async (e: any) => {
-    if (data?.id) {
-      const dataToSet = await changeDefaultDarkMode(data?.id, e);
+    if (data.id) {
+      const dataToSet = await changeDefaultDarkMode(data.id, e);
       if (dataToSet === true) {
         setDefaultDarkmode(e);
         return Toastify({

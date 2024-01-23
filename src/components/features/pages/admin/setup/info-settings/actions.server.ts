@@ -11,7 +11,7 @@ export const updateInfosApp = async (
 ) => {
   const session = await isAdmin();
   if (!session) return false;
-    console.log("ok")
+
   const updateSetting = await prisma.appSettings.update({
     where: { id: settingsId },
     data: data,

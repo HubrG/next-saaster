@@ -16,11 +16,11 @@ export const AdminSectionWrapper = ({
     <>
       <div className={`admin-section bg-background`} id={id}>
         <div className="admin-header-section">
-          <h4 className="text-right mb-10">{sectionName}</h4>
+          <h2 className="text-right text-2xl mb-10">{sectionName}</h2>
         </div>
         <div className={`${className}`}>{children}</div>
       </div>
-      <Separator decorative={true}  className="opacity-30 bg-transparent border-b border-dashed" />
+      <Separator decorative={true}  className="opacity-30 dark:opacity-80 border-2  bg-transparent border-b light:border-dashed" />
     </>
   );
 };

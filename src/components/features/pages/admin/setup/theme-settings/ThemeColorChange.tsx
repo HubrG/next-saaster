@@ -12,20 +12,18 @@ import { ThemeCard } from "./ui/ThemeCard";
 type Props = {
   data: appSettings;
 };
-
+// FIX: refactoriser
 export const ThemeColorChange = ({ data }: Props) => {
   const { theme } = useTheme(); // is dark or light
-  const [cssTheme, setCssTheme] = useState(data?.theme);
-  const actualTheme = data?.theme ?? "slate";
-  const [mounted, setMounted] = useState(false);
+  const [cssTheme, setCssTheme] = useState<string | null>(null);
+  const actualTheme = data.theme;
 
   useEffect(() => {
-    setCssTheme(data?.theme);
-    setMounted(true);
-  }, [theme, data]);
+    setCssTheme(actualTheme);
+  }, [actualTheme]);
 
   const handleChangeColorTheme = async (themes: string) => {
-    if (actualTheme && theme && cssTheme) {
+    if (actualTheme && cssTheme) {
       const htmlTag = document.getElementsByTagName("html")[0];
       htmlTag.classList.remove(cssTheme);
       htmlTag.classList.remove(actualTheme);
@@ -35,8 +33,8 @@ export const ThemeColorChange = ({ data }: Props) => {
   };
 
   const handleSaveColorTheme = async () => {
-    if (cssTheme && data?.id) {
-      const dataToSet = await changeCssTheme(data?.id, cssTheme);
+    if (cssTheme) {
+      const dataToSet = await changeCssTheme(data.id, cssTheme);
       if (dataToSet === true) {
         return Toastify({
           type: "success",
@@ -62,8 +60,6 @@ export const ThemeColorChange = ({ data }: Props) => {
 
   return (
     <div>
-      {mounted && theme ? (
-        <>
           <div className="grid grid-cols-12 gap-5 mx-auto">
             {Object.entries(colorThemes).map(([themeKey, themeVariants]) => (
               <Fragment key={themeKey}>
@@ -81,13 +77,8 @@ export const ThemeColorChange = ({ data }: Props) => {
               Apply&nbsp;<strong>{getNameForTheme(cssTheme)}</strong>&nbsp;for
               all users
             </Button>
-          </div>
-        </>
-      ) : (
-        <div className="flex justify-center">
-          <Loader />
-        </div>
-      )}
+      </div>
     </div>
+        
   );
 };

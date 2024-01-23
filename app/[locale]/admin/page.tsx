@@ -2,9 +2,9 @@ import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import createMetadata from "@/src/lib/metadatas";
-import { AdminNavbar } from "@/src/components/features/pages/admin/AdminNavbar";
-import { AdminWrapper } from "@/src/components/features/pages/admin/ui/AdminWrapper";
-import { AdminMain } from "@/src/components/features/pages/admin/AdminMain";
+import { getAppSettings } from "../server.actions";
+import { appSettings } from "@prisma/client";
+import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -20,13 +20,14 @@ export default async function Admin() {
   if (!session || session.user.role !== "ADMIN") {
     redirect("/");
   }
+  const appSettings = await getAppSettings();
+  if (!appSettings) {
+    return null;
+  }
 
   return (
     <div className="admin">
-      <AdminWrapper>
-        <AdminNavbar />
-        <AdminMain />
-      </AdminWrapper>
+      <AdminComponent appSettings={appSettings as appSettings} />
     </div>
   );
 }

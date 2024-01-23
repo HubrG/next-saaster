@@ -4,7 +4,8 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background-25: 98%;
+   
+    --background-25: 95%;
     /*  */
     --background: var(--background-50);
     --foreground: var(--background-900);
@@ -12,47 +13,47 @@
     --card-foreground: var(--text-900);
     --popover: var(--background-50);
     --popover-foreground: var(--background-900);
-    --primary: var(--primary-100);
+    --primary: var(--primary-200);
     --primary-foreground: var(--text-900);
     --secondary: var(--secondary-800);
-    --secondary-foreground: var(--secondary-200);
+    --secondary-foreground: var(--secondary-400);
     --muted: var(--secondary-50);
     --muted-foreground: var(--text-900);
-    --accent: var(--accent-100);
-    --accent-foreground: var(--accent-900);
-    /* --destructive: var(--secondary-800); */
-    --destructive-foreground: var(--text-900);
-    --border: var(--background-900);
-    --input: var(--background-200);
-    --ring: var(--background-200);
-    --radius: 0.28rem;
-    /*  */
-    --background-bg: var(--background-50);
-  }
-
-  .dark {
-    /*  */
-    --background-25: 4%;
-    --background: var(--background-50);
-    --foreground: var(--background-900);
-    --card: var(--background-100);
-    --card-foreground: var(--text-900);
-    --popover: var(--background-50);
-    --popover-foreground: var(--background-900);
-    --primary: var(--primary-100);
-    --primary-foreground: var(--text-900);
-    --secondary: var(--secondary-800);
-    --secondary-foreground: var(--secondary-200);
-    --muted: var(--secondary-50);
-    --muted-foreground: var(--text-900);
-    --accent: var(--accent-100);
+    --accent: var(--accent-200);
     --accent-foreground: var(--accent-900);
     --destructive: var(--secondary-50);
     --destructive-foreground: var(--text-900);
-    --border: var(--background-200);
+    --border: var(--primary-100);
+    --input: var(--background-300);
+    --ring: var(--background-200);
+    --radius: var(--rad);
+    /*  */
+    --background-bg: var(--background-100);
+    /*  */
+  }
+  .dark {
+    /*  */
+    --background-25: 10%;
+    --background: var(--background-50);
+    --foreground: var(--background-900);
+    --card: var(--background-100);
+    --card-foreground: var(--text-900);
+    --popover: var(--background-50);
+    --popover-foreground: var(--background-900);
+    --primary: var(--primary-300);
+    --primary-foreground: var(--text-900);
+    --secondary: var(--secondary-800);
+    --secondary-foreground: var(--secondary-400);
+    --muted: var(--secondary-50);
+    --muted-foreground: var(--text-900);
+    --accent: var(--accent-200);
+    --accent-foreground: var(--accent-900);
+    --destructive: var(--secondary-50);
+    --destructive-foreground: var(--text-900);
+    --border: var(--primary-200);
     --input: var(--background-200);
-    --ring: var(--background-100);
-    --radius: 0.28rem;
+    --ring: var(--background-200);
+    --radius: var(--rad);
   }
 
   * {
@@ -72,7 +73,7 @@ main > div:not(.first-connection) {
   @apply w-full max-w-6xl flex flex-col min-h-screen pt-28 !important;
 }
 header nav {
-  @apply fixed w-full z-40 top-0 left-0  bg-background  border-b border-dashed border-border;
+  @apply fixed w-full z-40 top-0 left-0  bg-background  border-b border-dashed border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
   @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
@@ -113,31 +114,31 @@ a.special-uderline-active {
 
 /* Main Menu */
 ul.main-menu {
-  @apply flex flex-col p-4 lg:p-0 mt-4 font-medium border border-slate-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 lg:border-0   dark:border-slate-700 text-base;
+  @apply flex flex-col p-4 lg:p-0 mt-4 font-medium border border-primary rounded-default  md:flex-row md:space-x-8 md:mt-0 lg:border-0  text-base;
 }
 div.main-menu {
   @apply items-center  justify-between hidden w-full lg:flex md:w-auto md:order-1;
 }
 ul.main-menu li a {
-  @apply nunderline block py-2 pl-3  pr-4 rounded text-text-800 dark:text-text-900  md:p-0 !important;
+  @apply nunderline block py-2 pl-3  pr-4 rounded-default text-text-800 dark:text-text-900  md:p-0 !important;
 }
 /* LOGO */
 .logo {
   @apply flex font-bold items-center nunderline  gap-x-1 md:text-base text-xs;
 }
 .logo span {
-  @apply self-center text-3xl whitespace-nowrap dark:text-white;
+  @apply self-center text-3xl whitespace-nowrap text-text-900;
 }
 
 /* Burger Menu */
 div.burger-menu {
-  @apply -z-10 lg:hidden absolute top-[4.5rem] left-0 w-full bg-app-200 dark:bg-slate-800 border-b-2 border-t-2 border-app-300;
+  @apply -z-10 lg:hidden absolute top-[4.5rem] left-0 w-full bg-app-200  border-b-2 border-t-2 border-app-300;
 }
 div.burger-menu ul {
   @apply text-base w-full text-center;
 }
 div.burger-menu ul li a {
-  @apply no-underline block w-full hover:no-underline py-4 px-2 text-base font-bold  hover:bg-app-100 lg:hover:bg-transparent lg:hover:text-app lg:p-0 lg:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-slate-700;
+  @apply no-underline block w-full hover:no-underline py-4 px-2 text-base font-bold  hover:bg-app-100 lg:hover:bg-transparent lg:hover:text-app lg:p-0 lg:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white lg:dark:hover:bg-transparent ;
 }
 h1,
 h2,
@@ -145,7 +146,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply dark:text-text-800/70 text-text-800 !important;
+  @apply dark:text-text-800/80 text-text-800 !important;
 }
 h1 {
   @apply text-4xl font-bold;
@@ -182,8 +183,9 @@ ul.ul {
   /* Icon size will relative to font-size of .text-wrapper */
   width: 1em;
   height: 1em;
-  @apply mx-1;
+  @apply mx-1 min-w-4;
 }
+
 /* NOTE - Navbar - Profil */
 div.progressTokenVoid {
   @apply w-full   absolute z-10 rounded-full h-2 p-0 -mt-1 bg-secondary-foreground !important;
@@ -200,7 +202,7 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply bg-secondary-foreground  rounded-md  text-accent-foreground  text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
+  @apply bg-secondary-foreground  rounded-default  text-accent-foreground  text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
 }
 .theme-card .card-tooltip {
   @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
@@ -213,16 +215,16 @@ div.progressToken {
   @apply w-full h-full -mt-24  absolute bg-white z-[9999999999] !important;
 }
 .Toastify__toast-container {
-  @apply rounded-sm z-[99999] !important;
+  @apply rounded-default z-[99999] shadow-sm !important;
 }
 .Toastify__toast {
-  @apply rounded-xl !important;
+  @apply rounded-default   !important;
 }
 .Toastify__toast--rtl {
-  @apply rounded-xl !important;
+  @apply rounded-default   !important;
 }
 .Toastify__toast-body {
-  @apply rounded-xl !important;
+  @apply rounded-default    !important;
 }
 .Toastify__toast-theme--dark {
   @apply bg-primary;
@@ -230,27 +232,27 @@ div.progressToken {
 /* .Toastify__toast-theme--light {
 } */
 .Toastify__toast-theme--colored.Toastify__toast--default {
-  @apply bg-primary rounded-md  border-border !important;
+  @apply bg-primary rounded-default   border-border !important;
 }
 .Toastify__toast-theme--colored.Toastify__toast--info {
-  @apply bg-primary-foreground dark:bg-primary border-border rounded-md !important;
+  @apply bg-primary-foreground dark:bg-primary  border-border rounded-default !important;
 }
 .Toastify__toast-theme--colored.Toastify__toast--success {
-  @apply bg-primary-foreground dark:bg-primary text-text-100 dark:text-text-900 rounded-sm !important;
+  @apply bg-primary-foreground dark:bg-secondary text-text-100 dark:text-text-100 rounded-default !important;
 }
 .Toastify__toast-theme--colored.Toastify__toast--warning {
-  @apply bg-yellow-600 rounded-sm !important;
+  @apply bg-yellow-600 rounded-default !important;
 }
 .Toastify__toast-theme--colored.Toastify__toast--error {
-  @apply bg-red-600 rounded-sm !important;
+  @apply bg-red-600 rounded-default !important;
 }
 
 /* SECTION : ADMIN */
 .my-card {
-  @apply border-secondary/20 border p-7 rounded-xl;
+  @apply border-secondary/20 border p-7 rounded-default;
 }
 .admin .theme-card {
-  @apply p-2 rounded-lg flex flex-col gap-1 justify-center items-center w-full col-span-2 border;
+  @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border;
 }
 .admin .theme-card button {
   @apply p-5 rounded-full w-10 h-10;
@@ -263,22 +265,22 @@ div.progressToken {
   @apply text-base;
 }
 .admin .toggle-wrapper .icon {
-  @apply absolute -mt-14 -ml-5 -z-10;
+  @apply absolute -mt-12 -ml-5 z-10;
 }
 .admin aside {
-  @apply col-span-3 text-left rounded-lg rounded-r-none border-secondary/10 p-5 border-r  relative ;
+  @apply col-span-3 text-left rounded-default rounded-r-none border-secondary/10 p-5 border-r  relative;
 }
 .admin aside nav {
-  @apply flex flex-col gap-y-5 sticky top-24;
+  @apply flex flex-col gap-y-5 sticky top-24 overflow-y-auto max-h-[80vh];
 }
 .admin aside nav ul {
   @apply text-left flex flex-col gap-y-0.5 mt-1;
 }
 .admin aside nav ul li {
-  @apply text-left font-semibold p-0.5 hover:bg-primary-foreground/10 rounded-md cursor-pointer px-2;
+  @apply text-left font-semibold p-0.5 hover:bg-primary-foreground/10 rounded-default cursor-pointer px-2 flex flex-row items-center gap-x-2 text-opacity-75;
 }
 .admin aside nav ul li.active {
-  @apply bg-primary-foreground/20;
+  @apply bg-secondary/10 font-bold !important;
 }
 .admin aside nav h3 {
   @apply text-lg font-bold flex flex-row items-center justify-between;
@@ -293,7 +295,7 @@ div.progressToken {
   @apply text-right pt-5;
 }
 .admin div.admin-main #headerAdminNavbar .separator {
-  @apply mt-5 border-[1.5px] rounded-full opacity-50;
+  @apply mt-5 border-[1.5px]  rounded-full opacity-50;
 }
 .admin div .admin-main .admin-header-section {
   @apply bg-background z-20;
@@ -302,23 +304,23 @@ div.progressToken {
   @apply flex flex-col gap-y-5 px-2 mt-2;
 }
 .admin div.admin-main .admin-main-content .admin-section .multiple-components {
-  @apply  grid grid-cols-2 gap-5 px-2 mt-2;
+  @apply grid grid-cols-2 gap-5 px-2 mt-2;
 }
 .admin div.admin-main .admin-section {
-  @apply min-h-[30vh]
+  @apply min-h-[30vh];
 }
-form div {
-  @apply flex flex-col shadow border-b border-accent p-3 px-4 rounded !important;
+form {
+  @apply flex flex-col shadow-lg  p-10 rounded-default !important;
 }
 form label {
   @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col md:items-center !important;
 }
 form p {
- @apply text-left italic font-light justify-start flex mt-1 !important;
+  @apply text-left italic font-light justify-start flex mt-1 !important;
 }
 form p.error {
   @apply font-bold not-italic !important;
- }
+}
 form button {
   @apply self-end float-right text-center !important;
 }

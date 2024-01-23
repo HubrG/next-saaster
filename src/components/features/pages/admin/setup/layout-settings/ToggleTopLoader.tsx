@@ -12,12 +12,12 @@ export default function ToggleTopLoader({ data }: toggleProps) {
   const router = useRouter();
 
   useEffect(() => {
-    setActiveTopLoader(data?.activeTopLoader ?? false);
+    setActiveTopLoader(data.activeTopLoader ?? false);
   }, [data]);
 
   const handleChangeTopLoader = async (e: any) => {
-    if (data?.id) {
-      const dataToSet = await changeActiveTopLoader(data?.id, e);
+    if (data.id) {
+      const dataToSet = await changeActiveTopLoader(data.id, e);
       if (dataToSet === true) {
         setActiveTopLoader(e);
         return Toastify({

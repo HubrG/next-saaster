@@ -1,21 +1,29 @@
-import { getAppSettings } from "@/app/[locale]/server.actions";
-import { create } from "zustand";
 import { appSettings } from "@prisma/client";
+import { create } from "zustand";
 
-type UseAppSettingsStore = {
-    settings: appSettings | null;
-    loadSettings: () => Promise<void>;
+type Store = {
+  appSet: appSettings;
+  setAppSettings: (partialSettings: Partial<appSettings>) => void;
 };
 
-export const useAppSettingsStore = create<UseAppSettingsStore>((set) => ({
-    settings: null, // Valeur initiale
-    loadSettings: async () => {
-      try {
-        const settings = await getAppSettings();
-        set({ settings });
-      } catch (error) {
-        console.error("Erreur lors du chargement des paramètres de l'application:", error);
-        // Gérer l'erreur comme nécessaire
-      }
-    },
+export const useAppSettingsStore = create<Store>()((set) => ({
+  appSet: {
+    id: "",
+    theme: "",
+    name: "",
+    baseline: "",
+    description: "",
+    roundedCorner: 0,
+    defaultDarkMode: false,
+    activeCtaOnNavbar: false,
+    activeTopLoader: false,
+    activeDarkMode: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  setAppSettings: (partialSettings) =>
+    set((state) => ({
+      ...state,
+      appSet: { ...state.appSet, ...partialSettings },
+    })),
 }));

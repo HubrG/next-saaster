@@ -5,7 +5,7 @@ import React from "react";
 import { Tooltip } from "react-tooltip";
 
 type Props = {
-  theme: string;
+  theme: string | undefined;
   themeKey: string;
   themeVariants: ThemeVariants;
   handleClick: (e: any) => void;
@@ -31,6 +31,7 @@ export const ThemeCard = ({
             : themeVariants.light.secondary,
       }}>
       <p
+        className="font-bold"
         style={{
           color:
             theme === "dark"

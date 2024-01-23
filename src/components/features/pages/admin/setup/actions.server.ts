@@ -16,6 +16,19 @@ export const changeCssTheme = async (settingsId: string, theme: string) => {
   return true;
 };
 
+export const changeRoundedCorner = async (settingsId: string, radius: number) => {
+  const session =  await isAdmin();
+  if (!session) return false;
+  const updateSetting = await prisma.appSettings.update({
+    where: { id: settingsId },
+    data: { roundedCorner: radius },
+  });
+  if (updateSetting.roundedCorner !== radius) {
+    return false;
+  }
+  return true;
+};
+
 export const changeDefaultDarkMode = async (
   settingsId: string,
   toggle: boolean

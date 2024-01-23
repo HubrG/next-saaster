@@ -12,12 +12,12 @@ export default function ToggleCtaOnNavbar({ data }: toggleProps) {
   const router = useRouter();
 
   useEffect(() => {
-    setActiveCtaOnNavbar(data?.activeCtaOnNavbar ?? false);
+    setActiveCtaOnNavbar(data.activeCtaOnNavbar ?? false);
   }, [data]);
 
   const handleChangeCtaOnNavbar = async (e: any) => {
-    if (data?.id) {
-      const dataToSet = await changeActiveCtaOnNavbar(data?.id, e);
+    if (data.id) {
+      const dataToSet = await changeActiveCtaOnNavbar(data.id, e);
       if (dataToSet === true) {
         setActiveCtaOnNavbar(e);
         return Toastify({

@@ -40,9 +40,7 @@
 
 1. Launch the project and go to the home page `/`
 2. Create an admin account
-3. Edit project information (name, description, etc.)
-4. Go to the `/admin` administration page
-5. Change your API keys (Stripe, Mailjet, Google, etc...)
+3. Go to the `/admin` administration page and let's go ! 🤘
 
 ## ℹ️ Libraries used
 

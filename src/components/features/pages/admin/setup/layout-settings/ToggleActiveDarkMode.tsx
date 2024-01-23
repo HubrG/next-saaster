@@ -12,12 +12,12 @@ export default function ToggleActiveDarkMode({ data }: toggleProps) {
   const router = useRouter();
 
   useEffect(() => {
-    setActiveDarkmode(data?.activeDarkMode ?? false);
+    setActiveDarkmode(data.activeDarkMode ?? false);
   }, [data]);
 
   const handleChangeActiveDarkmode = async (e: any) => {
-    if (data?.id) {
-      const dataToSet = await changeActiveDarkMode(data?.id, e);
+    if (data.id) {
+      const dataToSet = await changeActiveDarkMode(data.id, e);
       if (dataToSet === true) {
         setActiveDarkmode(e);
         return Toastify({

@@ -6,17 +6,18 @@ type Toast = {
 	value?: string;
 	type?: string;
 	theme?: Theme;
+	hideProgressBar?: boolean;
 	autoClose?: number | false;
 	callbackOnOpen?: () => void;
 	callbackOnClose?: () => void;
 }
 
-export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-right", theme = "colored", autoClose = 3000, callbackOnOpen, callbackOnClose } : Toast) => {
+export const Toastify = ({ type = "default", hideProgressBar = true, value = "Il se passe quelque chose...", position = "bottom-right", theme = "colored", autoClose = 1250, callbackOnOpen, callbackOnClose } : Toast) => {
 	if (type === "error") {
 		return toast.error(value, {
-			position: position,
+			position: position ?? "bottom-center",
 			autoClose: autoClose,
-			hideProgressBar: false,
+			hideProgressBar: hideProgressBar,
 			closeOnClick: true,
 			pauseOnHover: true,
 			draggable: true,
@@ -29,7 +30,7 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 		return toast.success(value, {
 			position: position,
 			autoClose: autoClose,
-			hideProgressBar: false,
+			hideProgressBar: hideProgressBar,
 			closeOnClick: true,
 			pauseOnHover: true,
 			draggable: true,
@@ -42,7 +43,7 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 		return toast.warning(value, {
 			position: position,
 			autoClose: autoClose,
-			hideProgressBar: false,
+			hideProgressBar: hideProgressBar,
 			closeOnClick: true,
 			pauseOnHover: true,
 			draggable: true,
@@ -55,7 +56,7 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 		return toast.info(value, {
 			position: position,
 			autoClose: autoClose,
-			hideProgressBar: false,
+			hideProgressBar: hideProgressBar,
 			closeOnClick: true,
 			pauseOnHover: true,
 			draggable: true,
@@ -69,7 +70,7 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 		return toast(value, {
 			position: position,
 			autoClose: autoClose,
-			hideProgressBar: false,
+			hideProgressBar: hideProgressBar,
 			closeOnClick: true,
 			pauseOnHover: true,
 			draggable: true,
@@ -79,5 +80,4 @@ export const Toastify = ({ type = "default", value = "Il se passe quelque chose.
 			onOpen: callbackOnOpen,
 		});
 	}
- 
 }

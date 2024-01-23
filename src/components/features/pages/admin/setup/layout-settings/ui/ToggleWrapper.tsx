@@ -23,18 +23,17 @@ export const ToggleWrapper = ({
     document.getElementById(id)?.click();
   };
   return (
-    <div
-      className="toggle-wrapper"
-      onClick={(e) => handleClick(e)}>
+    <div className="toggle-wrapper" onClick={(e) => handleClick(e)}>
       <Switch
         onCheckedChange={handleChange}
         className="mx-auto"
         id={id}
         checked={checked}
       />
-      <Label htmlFor={id} className="disabled select-none cursor-pointer font-semibold relative">
-        {children}
-      </Label>
+      <Label
+        htmlFor={id}
+        className="disabled select-none hidden cursor-pointer font-semibold relative"></Label>
+      <div>{children}</div>
     </div>
   );
 };

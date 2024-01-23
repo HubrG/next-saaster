@@ -807,11 +807,22 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        
+        linearPA: {
+          DEFAULT: "var(--linearPA)",
+          // foreground: "hsl(var(--linearPA-foreground))",
+        },
+        linearPS: {
+          DEFAULT: "var(--linearPS)",
+          // foreground: "hsl(var(--linearPB-foreground))",
+        },
+        
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        default: "var(--radius)",
       },
       keyframes: {
         "accordion-down": {

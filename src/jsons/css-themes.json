@@ -1,20 +1,20 @@
 {
-  "pink2": {
+  "sandra": {
     "name" : "Sandra",
     "light": {
       "primary": "#F6D5E7",
       "secondary": "#290B1B",
-      "background": "#FDF7FA",
+      "background": "#FBF3F8",
       "color": "#541238"
     },
     "dark": {
-      "color": "#ADA8B0",
-      "primary": "#171020",
-      "secondary": "#352145",
-      "background": "#0B070E"
+      "color": "#A897B8",
+      "primary": "#302041",
+      "secondary": "#281934",
+      "background": "#1B1123"
     }
   },
-  "purple": {
+  "josephine": {
     "name" : "Joséphine",
     "light": {
       "primary": "#E1E1EC",
@@ -29,23 +29,6 @@
       "background": "#0A0A10"
     }
   },
-  "purpleOrange": {
-    "name" : "Côme",
-    "light": {
-      "primary": "#DAD4FB",
-      "secondary": "#283003",
-      "background": "#FCFFF5",
-      "color": "#333333"
-    },
-    "dark": {
-      "color": "#AFB0AA",
-      "primary": "#0C0330",
-      "secondary": "#526006",
-      "background": "#111301"
-    }
-  },
- 
-
   "fabrizio": {
     "name": "Fabrizio",
     "light": {
@@ -78,7 +61,7 @@
     }
   },
 
-  "gray": {
+  "nanny": {
     "name": "Nanny",
     "light": {
       "primary": "#E6E9E8",
@@ -93,7 +76,7 @@
       "background": "#0A0B0A"
     }
   },
-  "orange": {
+  "dharma": {
     "name": "Dharma",
     "light": {
       "primary": "#FDE8CD",
@@ -107,5 +90,36 @@
       "secondary": "#333333",
       "background": "#0D0D0D"
     }
+  },
+  "hubert" : {
+    "name" : "Hubert",
+    "light": {
+      "primary": "#F3D9E3",
+      "secondary": "#908086",
+      "background": "#F7F7F7",
+      "color": "#50152B"
+    },
+    "dark": {
+      "color": "#ADA8B0",
+      "primary": "#171020",
+      "secondary": "#352145",
+      "background": "#0B070E"
+    }
+  },
+  "blade" : {
+    "name" : "Slate",
+    "light": {
+      "primary": "#F3D9E3",
+      "secondary": "#908086",
+      "background": "#F7F7F7",
+      "color": "#50152B"
+    },
+    "dark": {
+      "color": "#ADA8B0",
+      "primary": "#171020",
+      "secondary": "#352145",
+      "background": "#0B070E"
+    }
   }
+
 }

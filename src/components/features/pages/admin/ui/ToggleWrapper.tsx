@@ -1,7 +1,6 @@
 "use client";
 import { Label } from "@/src/components/ui/label";
 import { Switch } from "@/src/components/ui/switch";
-import React from "react";
 
 type Props = {
   children: React.ReactNode;

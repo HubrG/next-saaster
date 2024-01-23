@@ -4,8 +4,7 @@
 @tailwind utilities;
 @layer base {
   :root {
-   
-    --background-25: 95%;
+    --background-25: 96.5%;
     /*  */
     --background: var(--background-50);
     --foreground: var(--background-900);
@@ -23,17 +22,17 @@
     --accent-foreground: var(--accent-900);
     --destructive: var(--secondary-50);
     --destructive-foreground: var(--text-900);
-    --border: var(--primary-100);
+    --border: var(--primary-400);
     --input: var(--background-300);
     --ring: var(--background-200);
     --radius: var(--rad);
     /*  */
-    --background-bg: var(--background-100);
+    --background-bg: var(--background-50);
     /*  */
   }
   .dark {
     /*  */
-    --background-25: 10%;
+    --background-25: 5%;
     --background: var(--background-50);
     --foreground: var(--background-900);
     --card: var(--background-100);
@@ -252,7 +251,7 @@ div.progressToken {
   @apply border-secondary/20 border p-7 rounded-default;
 }
 .admin .theme-card {
-  @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border;
+  @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border-2;
 }
 .admin .theme-card button {
   @apply p-5 rounded-full w-10 h-10;
@@ -310,7 +309,7 @@ div.progressToken {
   @apply min-h-[30vh];
 }
 form {
-  @apply flex flex-col shadow-lg  p-10 rounded-default !important;
+  @apply flex flex-col p-10 rounded-default !important;
 }
 form label {
   @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col md:items-center !important;

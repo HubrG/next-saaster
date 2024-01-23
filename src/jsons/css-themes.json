@@ -109,16 +109,16 @@
   "blade" : {
     "name" : "Slate",
     "light": {
-      "primary": "#F3D9E3",
-      "secondary": "#908086",
-      "background": "#F7F7F7",
-      "color": "#50152B"
+      "primary": "#E1E7EF",
+      "secondary": "#E8EEF6",
+      "background": "#EEF6FE",
+      "color": "#0E1729"
     },
     "dark": {
-      "color": "#ADA8B0",
-      "primary": "#171020",
-      "secondary": "#352145",
-      "background": "#0B070E"
+      "color": "#B5BBC5",
+      "primary": "#313F52",
+      "secondary": "#182333",
+      "background": "#010D18"
     }
   }
 

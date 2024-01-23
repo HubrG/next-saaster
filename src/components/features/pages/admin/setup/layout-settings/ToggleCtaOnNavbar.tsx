@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { changeActiveCtaOnNavbar } from "../actions.server";
-import { Toastify } from "@/src/components/layout/toastify/Toastify";
+import { changeActiveCtaOnNavbar } from "@/src/components/features/pages/admin/setup/actions.server";
+import { Toastify } from "@/src/components/ui/toastify/Toastify";
 import { useRouter } from "next/navigation";
-import { ToggleWrapper } from "./ui/ToggleWrapper";
+import { ToggleWrapper } from "@/src/components/features/pages/admin/ui/ToggleWrapper";
 import { toggleProps } from "@/src/types/admin/toggleProps";
 import { Box } from "lucide-react";
 
@@ -41,7 +41,7 @@ export default function ToggleCtaOnNavbar({ data }: toggleProps) {
       checked={activeCtaOnNavbar}
       id="switch-active-cta-on-navbar">
       <Box  className="icon" />
-      Afficher le <strong>CTA de la navbar</strong>
+      Display the <strong>navbar&apos;s CTA</strong>
     </ToggleWrapper>
   );
 }

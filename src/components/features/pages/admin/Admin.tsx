@@ -2,8 +2,8 @@
 import { Loader } from "@/src/components/ui/loader";
 import { appSettings } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { AdminMain } from "@/src/components/features/pages/admin/AdminMain";
-import { AdminNavbar } from "./AdminNavbar";
+import { AdminMain } from "@/src/components/features/pages/admin/subcomponents/Main";
+import { AdminNavbar } from "@/src/components/features/pages/admin/subcomponents/Navbar";
 import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
 type Props = {

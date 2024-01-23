@@ -83,3 +83,56 @@ model appSettings {
   createdAt         DateTime? @default(now())
   updatedAt         DateTime? @updatedAt
 }
+
+model Pricing {
+  id               String             @id @default(cuid())
+  name             String
+  description      String?
+  isCustom         Boolean?           @default(false)
+  isPopular        Boolean?           @default(false)
+  isRecommended    Boolean?           @default(false)
+  isFree           Boolean?           @default(false)
+  isTrial          Boolean?           @default(false)
+  trialDays        Int?               @default(0)
+  monthlyPrice     Int?               @default(0)
+  yearlyPrice      Int?               @default(0)
+  monthlyTax       Int?               @default(0)
+  yearlyTax        Int?               @default(0)
+  monthlyPromotion Int?               @default(0)
+  yearlyPromotion  Int?               @default(0)
+  currency         String?            @default("usd")
+  active           Boolean?           @default(false)
+  features         PricingToFeature[]
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+}
+
+model PricingToFeature {
+  id        String         @id @default(cuid())
+  pricingId String
+  featureId String
+  pricing   Pricing        @relation(fields: [pricingId], references: [id])
+  feature   PricingFeature @relation(fields: [featureId], references: [id])
+
+  @@unique([pricingId, featureId])
+}
+
+model PricingFeature {
+  id          String                  @id @default(cuid())
+  name        String?
+  description String?
+  categoryId  String?
+  pricings    PricingToFeature[]
+  category    PricingFeatureCategory? @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime?               @default(now())
+  updatedAt   DateTime?               @updatedAt
+}
+
+model PricingFeatureCategory {
+  id          String           @id @default(cuid())
+  name        String?
+  description String?
+  features    PricingFeature[]
+  createdAt   DateTime?        @default(now())
+  updatedAt   DateTime?        @updatedAt
+}

@@ -1,5 +1,4 @@
 import { Button } from "@/src/components/ui/button";
-import { Card } from "@/src/components/ui/card";
 import { ThemeVariants } from "@/src/types/admin/cssThemes";
 import React from "react";
 import { Tooltip } from "react-tooltip";
@@ -18,7 +17,7 @@ export const ThemeCard = ({
   handleClick,
 }: Props) => {
   return (
-    <Card
+    <div
       className={`theme-card`}
       style={{
         backgroundColor:
@@ -70,6 +69,6 @@ export const ThemeCard = ({
           Apply <strong>{themeVariants.name}</strong>
         </span>
       </Tooltip>
-    </Card>
+    </div>
   );
 };

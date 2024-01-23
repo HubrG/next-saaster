@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Toastify } from "@/src/components/layout/toastify/Toastify";
-import { ToggleWrapper } from "@/src/components/features/pages/admin/setup/layout-settings/ui/ToggleWrapper";
+import { Toastify } from "@/src/components/ui/toastify/Toastify";
+import { ToggleWrapper } from "@/src/components/features/pages/admin/ui/ToggleWrapper";
 import { toggleProps } from "@/src/types/admin/toggleProps";
 import { MoonStar } from "lucide-react";
-import { changeDefaultDarkMode } from "../actions.server";
+import { changeDefaultDarkMode } from "@/src/components/features/pages/admin/setup/actions.server";
 
 export default function ToggleDefaultDarkMode({ data }: toggleProps) {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
@@ -38,7 +38,7 @@ export default function ToggleDefaultDarkMode({ data }: toggleProps) {
       checked={defaultDarkmode}
       id="switch-default-dark-mode">
       <MoonStar  className="icon" />
-      Activer le <strong>darkmode par défaut</strong> lors d&apos;une première visite
+      Activate <strong>dark mode by default</strong> on a first visit
     </ToggleWrapper>
   );
 }

@@ -1,13 +1,12 @@
 "use client";
 import * as z from "zod";
-import React, { useEffect } from "react";
 import { appSettings } from "@prisma/client";
 import { Button } from "@/src/components/ui/button";
 import { Form } from "@/src/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateInfosApp } from "./actions.server";
-import { Toastify } from "@/src/components/layout/toastify/Toastify";
+import { updateInfosApp } from "@/src/components/features/pages/admin/setup/info-settings/actions.server";
+import { Toastify } from "@/src/components/ui/toastify/Toastify";
 import { useRouter } from "next/navigation";
 import { Field } from "@/src/components/ui/form-field";
 
@@ -54,7 +53,6 @@ export const InfoApp = ({ data }: Props) => {
 
   return (
     <div>
-     
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <Field

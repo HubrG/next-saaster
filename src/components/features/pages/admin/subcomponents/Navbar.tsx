@@ -2,11 +2,13 @@
 import React, { useState } from "react";
 import useIntersectionObserver from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
-import { AdminMenuItem } from "./ui/AdminMenuItem";
+import { AdminMenuItem } from "@/src/components/features/pages/admin/ui/AdminMenuItem";
 import {
   BadgeDollarSign,
+  BarChart2,
   Cable,
   Cog,
+  Coins,
   Contact2,
   Cookie,
   FilePenLine,
@@ -51,13 +53,13 @@ export const AdminNavbar = () => {
               activeSection={activeSection}
               sectionObserve="InfosApp"
               handleScroll={handleScroll}>
-              <Info className="icon" /> Informations
+              <Info className="icon" /> Info
             </AdminMenuItem>
             <AdminMenuItem
               activeSection={activeSection}
-              sectionObserve="ThemeColorChange"
+              sectionObserve="Design"
               handleScroll={handleScroll}>
-              <Palette className="icon" /> Thème
+              <Palette className="icon" /> Design
             </AdminMenuItem>
             <AdminMenuItem
               activeSection={activeSection}
@@ -69,16 +71,16 @@ export const AdminNavbar = () => {
               activeSection={activeSection}
               sectionObserve="testt"
               handleScroll={handleScroll}>
-              <Languages className="icon" /> Langues
+              <Languages className="icon" /> Langs
             </AdminMenuItem>
             <li onClick={() => handleScroll("theme-section")}>
               <Cable className="icon" /> APIs
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <Hash className="icon" /> Réseaux
+              <Hash className="icon" /> Networks
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <UserCheck className="icon" /> Administrateurs
+              <UserCheck className="icon" /> Administrators
             </li>
           </ul>
         </div>
@@ -90,14 +92,20 @@ export const AdminNavbar = () => {
             <li onClick={() => handleScroll("theme-section")}>
               <Settings2 className="icon" /> Settings
             </li>
+            <AdminMenuItem
+              activeSection={activeSection}
+              sectionObserve="Pricing"
+              handleScroll={handleScroll}>
+              <Coins className="icon" /> Pricing
+            </AdminMenuItem>
             <li onClick={() => handleScroll("theme-section")}>
-              <Gift className="icon" /> Offres
+              <Contact2 className="icon" /> Customers
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <Contact2 className="icon" /> Clients
+              <RefreshCcw className="icon" /> Subscriptions
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <RefreshCcw className="icon" /> Abonnements
+              <BarChart2 className="icon" /> Metrics
             </li>
           </ul>
         </div>
@@ -107,10 +115,10 @@ export const AdminNavbar = () => {
           </h3>
           <ul>
             <li onClick={() => handleScroll("theme-section")}>
-              <SquarePen className="icon" /> Créer un billet
+              <SquarePen className="icon" /> Create a post
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <View className="icon" /> Voir les billets
+              <View className="icon" /> View posts
             </li>
           </ul>
         </div>
@@ -120,16 +128,16 @@ export const AdminNavbar = () => {
           </h3>
           <ul className="text-left">
             <li onClick={() => handleScroll("theme-section")}>
-              <Receipt className="icon" /> CGV
+              <Receipt className="icon" /> GSC
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <MousePointerClick className="icon" /> CGU
+              <MousePointerClick className="icon" /> GCU
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <Scale className="icon" /> Mentions légales
+              <Scale className="icon" /> Legal
             </li>
             <li onClick={() => handleScroll("theme-section")}>
-              <Cookie className="icon" /> Confidentialité
+              <Cookie className="icon" /> Privacy
             </li>
             <li onClick={() => handleScroll("theme-section")}>
               <MessageCircleQuestion className="icon" /> FAQ

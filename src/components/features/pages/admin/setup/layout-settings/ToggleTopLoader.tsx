@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { changeActiveTopLoader } from "../actions.server";
-import { Toastify } from "@/src/components/layout/toastify/Toastify";
+import { changeActiveTopLoader } from "@/src/components/features/pages/admin/setup/actions.server";
+import { Toastify } from "@/src/components/ui/toastify/Toastify";
 import { useRouter } from "next/navigation";
-import { ToggleWrapper } from "./ui/ToggleWrapper";
+import { ToggleWrapper } from "@/src/components/features/pages/admin/ui/ToggleWrapper";
 import { toggleProps } from "@/src/types/admin/toggleProps";
 import { Loader } from "lucide-react";
 
@@ -41,7 +41,7 @@ export default function ToggleTopLoader({ data }: toggleProps) {
       checked={activeTopLoader}
       id="switch-top-loader">
       <Loader className="icon" />
-      Afficher le <strong>top loader lors du chargement</strong> d&apos;une page
+      Display the <strong>top loader during page loading</strong>
     </ToggleWrapper>
   );
 }

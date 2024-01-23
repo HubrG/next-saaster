@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { changeActiveDarkMode } from "../actions.server";
-import { Toastify } from "@/src/components/layout/toastify/Toastify";
+import { changeActiveDarkMode } from "@/src/components/features/pages/admin/setup/actions.server";
+import { Toastify } from "@/src/components/ui/toastify/Toastify";
 import { useRouter } from "next/navigation";
-import { ToggleWrapper } from "./ui/ToggleWrapper";
+import { ToggleWrapper } from "@/src/components/features/pages/admin/ui/ToggleWrapper";
 import { toggleProps } from "@/src/types/admin/toggleProps";
 import { Eclipse } from "lucide-react";
 
@@ -41,8 +41,8 @@ export default function ToggleActiveDarkMode({ data }: toggleProps) {
       checked={activeDarkmode}
       id="switch-active-dark-mode">
       <Eclipse className="icon" />
-      Permettre à l&apos;utilisateur de <strong>changer le thème en{" "}
-      dark ou ligth</strong> mode
+      Enable the user to <strong>switch the theme to{" "}
+      dark or light</strong> mode
     </ToggleWrapper>
   );
 }

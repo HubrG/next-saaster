@@ -3,6 +3,24 @@ import { appSettings } from '@prisma/client';
 import { isAdmin } from '@/src/functions/isAdmin';
 import { prisma } from '@/src/lib/prisma';
 
+type  DesignSettingsData = {
+  roundedCorner: number;
+  theme: string;
+}
+
+export const changeDesignSettings = async (settingsId: string, data: DesignSettingsData) => {
+  const session = await isAdmin();
+  if (!session) return false;
+  const updateSetting = await prisma.appSettings.update({
+    where: { id: settingsId },
+    data: data,
+  });
+  if (updateSetting.roundedCorner !== data.roundedCorner || updateSetting.theme !== data.theme) {
+    return false;
+  }
+  return true;
+}
+
 export const changeCssTheme = async (settingsId: string, theme: string) => {
   const session =  await isAdmin();
   if (!session) return false;

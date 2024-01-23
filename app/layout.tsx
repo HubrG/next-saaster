@@ -34,7 +34,6 @@ export default async function RootLayout({ children, session }: Props) {
     return null;
   } 
 
-  console.log(appSettings)
 
   return (
     <SessProvider session={session}>

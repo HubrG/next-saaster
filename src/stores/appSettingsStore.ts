@@ -20,8 +20,6 @@ export const useAppSettingsStore = create<Store>()((set) => ({
     activeTopLoader: false,
     activeDarkMode: false,
     activeCtaOnNavbar: false,
-    activeRefill: false,
-    // date now
     createdAt: new Date(),
     updatedAt: new Date(),
   },
@@ -32,6 +30,6 @@ export const useAppSettingsStore = create<Store>()((set) => ({
   setAppSettings: (partialSettings) =>
     set((state) => ({
       ...state,
-      appSettings: { ...state.appSettings, ...partialSettings }, // Correction ici
+      appSettings: { ...state.appSettings, ...partialSettings }, 
     })),
 }));

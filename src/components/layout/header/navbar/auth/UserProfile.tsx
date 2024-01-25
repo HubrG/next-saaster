@@ -6,19 +6,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { Link } from "@/src/lib/intl/navigation";
-import { DropdownMenuItemLogout } from "./LogoutButton";
 import { Separator } from "@/src/components/ui/separator";
-import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { Link } from "@/src/lib/intl/navigation";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { CreditCard, User, Wrench } from "lucide-react";
-import { Tooltip } from "react-tooltip";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { Tooltip } from "react-tooltip";
+import { DropdownMenuItemLogout } from "./LogoutButton";
 
 type UserProfileProps = {
   className?: string;
 };
 export const UserProfile = ({ className }: UserProfileProps) => {
+  const { saasSettings } = useSaasSettingsStore();
   const userInfo = useSession().data?.user;
   const user = useSession().data?.user;
   const t = useTranslations("Components");
@@ -71,7 +73,9 @@ export const UserProfile = ({ className }: UserProfileProps) => {
               className="tooltip flex flex-col">
               <span className="font-bold">
                 {/* Crédit remaining */}
-                {t("Features.Layout.Header.Navbar.Auth.UserProfile.tooltips.credits")}{" "}
+                {t(
+                  "Features.Layout.Header.Navbar.Auth.UserProfile.tooltips.credits"
+                )}{" "}
                 : x%
               </span>
               <small>50 &nbsp;/&nbsp; 100</small>
@@ -81,16 +85,18 @@ export const UserProfile = ({ className }: UserProfileProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
-        <DropdownMenuItem className="w-full" asChild>
-          <Link
-            href="/pricing"
-            className="user-profile-buy-credit">
-            <CreditCard className="icon" />
-            {/* Buy credits */}
-            {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.buy")}
-          </Link>
-        </DropdownMenuItem>
-        <Separator />
+        {saasSettings.activeRefillCredit && (
+          <>
+            <DropdownMenuItem className="w-full" asChild>
+              <Link href="/pricing" className="user-profile-buy-credit">
+                <CreditCard className="icon" />
+                {/* Buy credits */}
+                {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.buy")}
+              </Link>
+            </DropdownMenuItem>
+            <Separator />
+          </>
+        )}
         <DropdownMenuItem className="w-full px-2 mt-1" asChild>
           <Link
             href="/profil/mon-compte"

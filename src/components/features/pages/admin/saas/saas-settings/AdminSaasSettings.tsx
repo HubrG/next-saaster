@@ -5,10 +5,12 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasTypes } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { changeSaasSettings } from "../../actions.server";
-import { SetSaasType } from "./subcomponents/SetSaasType";
-import { SetTax } from "./subcomponents/SetTax";
-import ToggleActiveMonthlyPlan from "./subcomponents/toggles/ToggleActiveMonthlyPlan";
-import ToggleActiveYearlyPlan from "./subcomponents/toggles/ToggleActiveYearlyPlan";
+import { SetSaasType } from "./@subcomponents/SetSaasType";
+import { SetTax } from "./@subcomponents/SetTax";
+import ToggleActiveCreditSystem from "./@subcomponents/toggles/ToggleActiveCreditSystem";
+import ToggleActiveMonthlyPlan from "./@subcomponents/toggles/ToggleActiveMonthlyPlan";
+import ToggleActiveRefillCredit from "./@subcomponents/toggles/ToggleActiveRefillCredit";
+import ToggleActiveYearlyPlan from "./@subcomponents/toggles/ToggleActiveYearlyPlan";
 
 export const AdminSaasSettings = () => {
   const { saasSettings } = useSaasSettingsStore();
@@ -63,6 +65,8 @@ export const AdminSaasSettings = () => {
           <div className="multiple-components grid grid-cols-2">
             <ToggleActiveMonthlyPlan />
             <ToggleActiveYearlyPlan />
+            <ToggleActiveCreditSystem />
+            <ToggleActiveRefillCredit />
           </div>
         </SubSectionWrapper>
       )}

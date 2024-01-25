@@ -330,3 +330,7 @@ form button {
 .toast-success > button {
   @apply bg-primary text-text-900 dark:text-text-900 border-primary shadow-lg  !important;
 }
+
+.toggle-info {
+  @apply text-sm opacity-75 mt-2;
+}

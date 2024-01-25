@@ -1,6 +1,6 @@
 import { changeDesignSettings } from "@/src/components/features/pages/admin/actions.server";
-import { RoundedCornerChange } from "@/src/components/features/pages/admin/setup/design-settings/subsections/RoundedCornerChange";
-import { ThemeColorChange } from "@/src/components/features/pages/admin/setup/design-settings/subsections/ThemeColorChange";
+import { RoundedCornerChange } from "@/src/components/features/pages/admin/setup/design-settings/@subsections/RoundedCornerChange";
+import { ThemeColorChange } from "@/src/components/features/pages/admin/setup/design-settings/@subsections/ThemeColorChange";
 import { Button } from "@/src/components/ui/button";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";

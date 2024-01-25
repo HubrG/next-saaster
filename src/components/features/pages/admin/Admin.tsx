@@ -1,6 +1,6 @@
 "use client";
-import { AdminMain } from "@/src/components/features/pages/admin/subcomponents/Main";
-import { AdminNavbar } from "@/src/components/features/pages/admin/subcomponents/Navbar";
+import { AdminMain } from "@/src/components/features/pages/admin/@subcomponents/Main";
+import { AdminNavbar } from "@/src/components/features/pages/admin/@subcomponents/Navbar";
 import { Loader } from "@/src/components/ui/loader";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useFeatureCategoryStore } from "@/src/stores/featureCategoryStore";

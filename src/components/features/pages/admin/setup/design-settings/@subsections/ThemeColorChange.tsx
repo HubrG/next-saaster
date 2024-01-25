@@ -1,5 +1,5 @@
 "use client";
-import { ThemeCard } from "@/src/components/features/pages/admin/setup/design-settings/subsections/ui/ThemeCard";
+import { ThemeCard } from "@/src/components/features/pages/admin/setup/design-settings/@subsections/@ui/ThemeCard";
 import colorThemes from "@/src/jsons/css-themes.json";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useTheme } from "next-themes";

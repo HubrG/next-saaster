@@ -204,3 +204,38 @@ export const changeActiveMonthlyPlans = async (
   }
   return true;
 };
+
+
+
+export const changeActiveCreditSystem = async (
+  settingsId: string,
+  toggle: boolean
+) => {
+  const session = await isAdmin();
+  if (!session) return false;
+  const updateSetting = await prisma.saasSettings.update({
+    where: { id: settingsId },
+    data: { activeCreditSystem: toggle },
+  });
+  if (updateSetting.activeCreditSystem !== toggle) {
+    return false;
+  }
+  return true;
+};
+
+
+export const changeActiveRefillCredit = async (
+  settingsId: string,
+  toggle: boolean
+) => {
+  const session = await isAdmin();
+  if (!session) return false;
+  const updateSetting = await prisma.saasSettings.update({
+    where: { id: settingsId },
+    data: { activeRefillCredit: toggle },
+  });
+  if (updateSetting.activeRefillCredit !== toggle) {
+    return false;
+  }
+  return true;
+};

@@ -10,11 +10,13 @@ export const useSaasSettingsStore = create<Store>()((set) => ({
   saasSettings: {
     id: "",
     saasType: SaasTypes.MRR_SIMPLE,
-    activeYearlyPlans: null,
-    activeMonthlyPlans: null,
-    tax: null,
-    createdAt: null,
-    updatedAt: null,
+    activeYearlyPlans: false,
+    activeMonthlyPlans: false,
+    activeRefillCredit: false,
+    activeCreditSystem: false,
+    tax: 0,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   setSaasSettings: (partialSettings) =>
     set((state) => ({

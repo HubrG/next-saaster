@@ -85,7 +85,6 @@ model appSettings {
   activeTopLoader   Boolean?  @default(true)
   activeDarkMode    Boolean?  @default(true)
   activeCtaOnNavbar Boolean?  @default(true)
-  activeRefill      Boolean?  @default(true) // token ? or more features
   createdAt         DateTime? @default(now())
   updatedAt         DateTime? @updatedAt
 }
@@ -229,7 +228,9 @@ model SaasSettings {
   saasType           SaasTypes @default(MRR_SIMPLE)
   activeYearlyPlans  Boolean?  @default(true)
   activeMonthlyPlans Boolean?  @default(true)
-  tax                Int?      @default(0)
+  activeCreditSystem Boolean?  @default(true)
+  activeRefillCredit Boolean?  @default(true)
+  tax                Float?    @default(0)
   createdAt          DateTime? @default(now())
   updatedAt          DateTime? @updatedAt
 }

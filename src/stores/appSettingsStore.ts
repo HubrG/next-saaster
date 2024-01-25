@@ -1,27 +1,33 @@
+import { getAppSettings } from "@/app/[locale]/server.actions";
 import { appSettings } from "@prisma/client";
 import { create } from "zustand";
 
 type Store = {
   appSettings: appSettings;
   setAppSettings: (partialSettings: Partial<appSettings>) => void;
+  getAppSettings: () => void;
 };
 
 export const useAppSettingsStore = create<Store>()((set) => ({
   appSettings: {
     id: "",
-    theme: "",
     name: "",
     baseline: "",
     description: "",
-    roundedCorner: 0,
+    theme: "",
+    roundedCorner: 5,
     defaultDarkMode: false,
-    activeCtaOnNavbar: false,
     activeTopLoader: false,
     activeDarkMode: false,
-    uniqueCreditType: false,
+    activeCtaOnNavbar: false,
     activeRefill: false,
+    // date now
     createdAt: new Date(),
     updatedAt: new Date(),
+  },
+  getAppSettings: async () => {
+    const res = await getAppSettings();
+    set({ appSettings: res });
   },
   setAppSettings: (partialSettings) =>
     set((state) => ({

@@ -1,9 +1,7 @@
-import dynamic from "next/dynamic";
-import { useLocale } from "next-intl";
-import { notFound } from "next/navigation";
-import { NextIntlClientProvider, useMessages } from "next-intl";
 import { Navbar } from "@/src/components/layout/header/Navbar";
 import createMetadata from "@/src/lib/metadatas";
+import { NextIntlClientProvider, useLocale, useMessages } from "next-intl";
+import { notFound } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 
 export const generateMetadata = async () => {
@@ -12,8 +10,6 @@ export const generateMetadata = async () => {
     // @/src/lib/metadatas
   });
 };
-
-const ToastProvider = dynamic(() => import("@/src/providers/ToastProvider"));
 
 type Props = {
   children: React.ReactNode;
@@ -37,10 +33,8 @@ export default function LocaleLayout(props: Props) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <ToastProvider>
-        <Navbar />
-        <main>{children}</main>
-      </ToastProvider>
+      <Navbar />
+      <main>{children}</main>
     </NextIntlClientProvider>
   );
 }

@@ -1,24 +1,19 @@
 "use client";
 
-import { Card } from "@/src/components/ui/card";
-import React, { ReactNode } from "react";
-import { useTranslations } from "next-intl";
 import { Button } from "@/src/components/ui/button";
+import { Card } from "@/src/components/ui/card";
+import { Loader } from "@/src/components/ui/loader";
 import { Separator } from "@/src/components/ui/separator";
 import { HandMetal } from "lucide-react";
-import { Loader } from "@/src/components/ui/loader";
 import { signIn } from "next-auth/react";
+import React from "react";
 
 export const FirstConnexion = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const t = useTranslations();
-  let locale: string | undefined | null = "en";
-  if (typeof window !== "undefined") {
-    locale = document.querySelector("html")?.getAttribute("lang");
-  }
+
   const onGithubSignIn = async () => {
     setIsLoading(true);
-    await signIn("github", { callbackUrl: `/${locale}/admin` });
+    await signIn("github", { callbackUrl: `/en/admin` });
   };
 
   return (
@@ -27,16 +22,12 @@ export const FirstConnexion = () => {
         <div className="flex mx-auto  h-screen  w-screen justify-center items-center">
           <Card className="w-1/3 flex flex-col text-center gap-6 justify-center">
             <h1 className="flex flex-row gap-2 justify-center items-center text-center">
-              {t("Index.title")}
+              First connexion
               <HandMetal size={30} />
             </h1>
             <p>
-              {t.rich(
-                "Components.Features.Pages.Index.FirstConnexion.description",
-                {
-                  strong: (chunks: ReactNode) => <strong>{chunks}</strong>,
-                }
-              )}
+              Log in with Github to create the admin account and start
+              configuring the <strong>SaaSter</strong>
             </p>
             <Separator
               decorative={true}
@@ -66,9 +57,7 @@ export const FirstConnexion = () => {
                   <path d="M9 18c-4.51 2-5-2-7-2" />
                 </svg>
               )}
-              {t(
-                "Components.Features.Pages.Index.FirstConnexion.button-github"
-              )}{" "}
+              Connect to GitHub
             </Button>
           </Card>
         </div>

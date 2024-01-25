@@ -1,11 +1,12 @@
+import { getAppSettings } from "@/app/[locale]/server.actions";
+import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
+import { getFeatureCategories } from "@/src/components/features/pages/admin/actions.server";
+import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
+import { PricingFeatureCategory, appSettings } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import createMetadata from "@/src/lib/metadatas";
-import { getAppSettings } from "../server.actions";
-import { PricingFeatureCategory, appSettings } from "@prisma/client";
-import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
-import { getFeatureCategories } from '@/src/components/features/pages/admin/actions.server';
+import { getSaasSettings } from "../server.actions";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -23,16 +24,19 @@ export default async function Admin() {
   }
   const appSettings = await getAppSettings();
   const featureCategories = await getFeatureCategories();
-  if (!appSettings) {
-    return null;
-  }
-  if (!getFeatureCategories) {
+  const saasSettings = await getSaasSettings();
+
+  if (!appSettings || !featureCategories || !saasSettings) {
     return null;
   }
 
   return (
     <div className="admin">
-      <AdminComponent featureCategories={featureCategories as PricingFeatureCategory[]} appSettings={appSettings as appSettings} />
+      <AdminComponent
+        featureCategories={featureCategories as PricingFeatureCategory[]}
+        appSettings={appSettings as appSettings}
+        saasSettings={saasSettings}
+      />
     </div>
   );
 }

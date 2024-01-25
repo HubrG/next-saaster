@@ -1,12 +1,9 @@
 "use client";
-import { Separator } from "@/src/components/ui/separator";
 import { AdminSaas } from "@/src/components/features/pages/admin/saas/AdminSaas";
 import { AdminSetup } from "@/src/components/features/pages/admin/setup/AdminSetup";
+import { Separator } from "@/src/components/ui/separator";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useFeatureCategoryStore } from "@/src/stores/featureCategoryStore";
-import { useAppSettingsStore } from "@/src/stores/settingsStore";
-import { appSettings } from "@prisma/client";
-
-
 
 export const AdminMain = () => {
   const { appSettings } = useAppSettingsStore();
@@ -20,7 +17,7 @@ export const AdminMain = () => {
       </div>
       <div className="admin-main-content">
         {/* Setup */}
-        <AdminSetup  />
+        <AdminSetup />
         {/* SaaS */}
         <AdminSaas />
       </div>

@@ -1,11 +1,11 @@
-import GithubProvider from "next-auth/providers/github";
-import { env } from "./env";
-import { AuthOptions, getServerSession } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "../prisma";
-import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
 import { User } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { AuthOptions, getServerSession } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
+import { prisma } from "../prisma";
+import { env } from "./env";
 type ExtendedUser = {
   id: string;
   email: string;
@@ -76,7 +76,6 @@ export const authOptions: AuthOptions = {
       if (account && extendedUser && account.provider === "github") {
         // We check if this is the user's first connection via GitHub
         const isFirstUser = (await prisma.user.count()) === 1;
-        const isSettingsEmpty = (await prisma.appSettings.count()) === 0;
         const role = isFirstUser ? "ADMIN" : "USER";
         // We update the role in the database
         if (isFirstUser) {
@@ -87,12 +86,6 @@ export const authOptions: AuthOptions = {
           // We change the role of the user in the JWT to admin
           extendedUser.role = role;
           token.user = { ...extendedUser, role: extendedUser.role };
-        }
-        if (isSettingsEmpty) {
-          await prisma.appSettings.createMany({
-            data: {},
-            skipDuplicates: true,
-          });
         }
       } else if (token.user) {
         // For subsequent logins, the role is already in the token

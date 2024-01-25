@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Toastify } from "@/src/components/ui/toastify/Toastify";
-import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
-import { MoonStar } from "lucide-react";
 import { changeDefaultDarkMode } from "@/src/components/features/pages/admin/actions.server";
-import { useAppSettingsStore } from "@/src/stores/settingsStore";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
+import { MoonStar } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function ToggleDefaultDarkMode() {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
@@ -20,15 +20,14 @@ export default function ToggleDefaultDarkMode() {
       const dataToSet = await changeDefaultDarkMode(data.id, e);
       if (dataToSet === true) {
         setDefaultDarkmode(e);
-        return Toastify({
+        return toaster({
+          description: `Default darkmode ${e ? "enabled" : "disabled"}`,
           type: "success",
-          value: `Default darkmode ${e ? "enabled" : "disabled"}`,
-          position: "bottom-right",
         });
       } else {
-        return Toastify({
+        return toaster({
           type: "error",
-          value: "Default darkmode not changed, please try again",
+          description: "Default darkmode not changed, please try again",
         });
       }
     }
@@ -39,8 +38,8 @@ export default function ToggleDefaultDarkMode() {
       handleChange={handleChangeDefaultDarkmode}
       checked={defaultDarkmode}
       id="switch-default-dark-mode">
-      <MoonStar  className="icon" />
-      Activate <strong>dark mode by default</strong> on a first visit
+      <MoonStar className="icon" />
+      Activate <strong>dark mode by default</strong> on a first visit instead user&apos;s system settings.
     </ToggleWrapper>
   );
 }

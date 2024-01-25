@@ -1,15 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
 import { changeActiveCtaOnNavbar } from "@/src/components/features/pages/admin/actions.server";
-import { Toastify } from "@/src/components/ui/toastify/Toastify";
-import { useRouter } from "next/navigation";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Box } from "lucide-react";
-import { useAppSettingsStore } from "@/src/stores/settingsStore";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ToggleCtaOnNavbar() {
   const [activeCtaOnNavbar, setActiveCtaOnNavbar] = useState<boolean>(true);
-  const { appSettings } = useAppSettingsStore();
+  const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
   const router = useRouter();
 
@@ -22,28 +22,37 @@ export default function ToggleCtaOnNavbar() {
       const dataToSet = await changeActiveCtaOnNavbar(data.id, e);
       if (dataToSet === true) {
         setActiveCtaOnNavbar(e);
-        return Toastify({
+        useAppSettingsStore
+          .getState()
+          .setAppSettings({ ...appSettings, activeCtaOnNavbar: e });
+        return toaster({
+          description: `Active CTA on navbar ${e ? "enabled" : "disabled"}`,
           type: "success",
-          value: `Active CTA on navbar ${e ? "enabled" : "disabled"}`,
-          callbackOnOpen: () => router.refresh(),
-          position: "bottom-right",
+          // onAutoClose: () => {
+          //   router.refresh();
+          // },
+          // onDismiss: () => {
+          //   router.refresh();
+          // },
         });
       } else {
-        return Toastify({
+        return toaster({
           type: "error",
-          value: "CTA on navbar not changed, please try again",
+          description: "CTA on navbar not changed, please try again",
         });
       }
     }
   };
 
   return (
-    <ToggleWrapper
-      handleChange={handleChangeCtaOnNavbar}
-      checked={activeCtaOnNavbar}
-      id="switch-active-cta-on-navbar">
-      <Box className="icon" />
-      Display the <strong>navbar&apos;s CTA</strong>
-    </ToggleWrapper>
+    <>
+      <ToggleWrapper
+        handleChange={handleChangeCtaOnNavbar}
+        checked={activeCtaOnNavbar}
+        id="switch-active-cta-on-navbar">
+        <Box className="icon" />
+        Display the <strong>navbar&apos;s CTA</strong>
+      </ToggleWrapper>
+    </>
   );
 }

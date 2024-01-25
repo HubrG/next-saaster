@@ -1,7 +1,7 @@
 import { toast, ToastPosition, Theme } from "react-toastify";
 
 type Toast = {
-  position?: ToastPosition; // Utilisez ToastPosition ici
+  position?: ToastPosition; 
   value?: string;
   type?: string;
   theme?: Theme;

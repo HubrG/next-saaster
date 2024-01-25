@@ -1,8 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
 import useIntersectionObserver from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
-import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
 import {
   BadgeDollarSign,
   BarChart2,
@@ -13,6 +12,7 @@ import {
   Cookie,
   FilePenLine,
   Hash,
+  Info,
   Languages,
   LayoutDashboard,
   MessageCircleQuestion,
@@ -27,7 +27,7 @@ import {
   UserCheck,
   View,
 } from "lucide-react";
-import { Info } from "lucide-react";
+import { useState } from "react";
 
 export const AdminNavbar = () => {
   const [activeSection, setActiveSection] = useState("");
@@ -88,9 +88,12 @@ export const AdminNavbar = () => {
             SaaS <BadgeDollarSign className="icon" />
           </h3>
           <ul>
-            <li onClick={() => handleScroll("theme-section")}>
+            <MenuItem
+              activeSection={activeSection}
+              sectionObserve="SaasSettings"
+              handleScroll={handleScroll}>
               <Settings2 className="icon" /> Settings
-            </li>
+            </MenuItem>
             <MenuItem
               activeSection={activeSection}
               sectionObserve="Pricing"

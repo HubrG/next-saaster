@@ -1,8 +1,8 @@
 "use client";
 
 import { Slider } from "@/src/components/ui/slider";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useEffect, useState } from "react";
-import { useAppSettingsStore } from "@/src/stores/settingsStore";
 
 type Props = {
   set: (value: number) => void;

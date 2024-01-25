@@ -1,14 +1,17 @@
 import "@/app/globals.css";
-import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
-import { ReactNode } from "react";
-import { Playfair_Display, Caveat, Nunito } from "next/font/google";
-import { getAppSettings } from "./[locale]/server.actions";
-import { getLocale } from "next-intl/server";
-import { Session } from "next-auth";
-import SessProvider from "@/src/providers/SessionProvider";
+import { Init } from "@/src/components/layout/init";
 import { cn } from "@/src/lib/utils";
-import NextTopLoader from "nextjs-toploader";
+import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
+import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
+import { Session } from "next-auth";
+import { getLocale } from "next-intl/server";
+import { Caveat, Nunito, Playfair_Display } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import { ReactNode, Suspense } from "react";
+import { Toaster } from "sonner";
+import { getAppSettings } from "./[locale]/server.actions";
 
 type Props = {
   children: ReactNode;
@@ -27,13 +30,9 @@ const serif = Playfair_Display({
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
 export default async function RootLayout({ children, session }: Props) {
-  
   const locale = await getLocale();
   const appSettings = await getAppSettings();
-  if (!appSettings) {
-    return null;
-  } 
-
+  useAppSettingsStore.getState().setAppSettings(await getAppSettings());
 
   return (
     <SessProvider session={session}>
@@ -45,6 +44,7 @@ export default async function RootLayout({ children, session }: Props) {
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}
             suppressHydrationWarning={true}>
+            <Toaster richColors={true} closeButton={true} />
             {appSettings.activeTopLoader && (
               <NextTopLoader
                 template='<div class="bar" role="bar"><div class="peg"></div></div> 
@@ -60,8 +60,14 @@ export default async function RootLayout({ children, session }: Props) {
                 shadow={false}
               />
             )}
-             <ThemeProvider attribute="class" defaultTheme={appSettings.defaultDarkMode ? "dark" : "light"} enableSystem>
-            {children}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme={appSettings.defaultDarkMode ? "dark" : "system"}
+              enableSystem>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Init settings={appSettings} />
+                {children}
+              </Suspense>
             </ThemeProvider>
           </body>
         </html>

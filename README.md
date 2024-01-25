@@ -28,7 +28,7 @@
 4. Generate Prisma: `pnpm prisma generate`
 5. Create a first migration: `pnpm prisma migrate dev --name init`
 
-### 5. Modify all environment variables
+### 5. Modify all environment variables (URI etc.)
 
 ### 6. Deploy the project
 
@@ -58,7 +58,7 @@
 - Charts and graphs: [recharts](https://github.com/recharts/recharts)
 - Icons: [lucide icons](https://github.com/lucide-icons/lucide)
 - PDF management (creation, updating, reading, downloading): [react-pdf](https://github.com/wojtekmaj/react-pdf)
-- Toasts: [react-toastify](https://github.com/fkhadra/react-toastify#readme)
+- Toasts: [sonner](https://github.com/emilkowalski/sonner)
 - Animations: [framer-motion](https://github.com/framer/motion)
 - Internationalization: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation)
 - Tooltips : [react-tooltip](https://github.com/ReactTooltip/react-tooltip)
@@ -77,4 +77,3 @@
 - Change de favicon in `app/favicon.ico`
 - Change the robots.txt in `app/robots.txt` and put the correct url of sitemap.
 - Update the sitemap (dynamicly generated) in `app/sitemap.ts`
-

@@ -1,11 +1,16 @@
 "use server";
-import { appSettings } from "@prisma/client";
 import { isAdmin } from "@/src/functions/isAdmin";
 import { prisma } from "@/src/lib/prisma";
+import { SaasSettings, appSettings } from "@prisma/client";
 
 type DesignSettingsData = {
   roundedCorner: number;
   theme: string;
+};
+
+type SaasSettingsData = {
+  tax: SaasSettings["tax"];
+  saasType: SaasSettings["saasType"];
 };
 
 export const changeDesignSettings = async (
@@ -21,6 +26,25 @@ export const changeDesignSettings = async (
   if (
     updateSetting.roundedCorner !== data.roundedCorner ||
     updateSetting.theme !== data.theme
+  ) {
+    return false;
+  }
+  return true;
+};
+
+export const changeSaasSettings = async (
+  settingsId: string,
+  data: SaasSettingsData
+) => {
+  const session = await isAdmin();
+  if (!session) return false;
+  const updateSetting = await prisma.saasSettings.update({
+    where: { id: settingsId },
+    data: data,
+  });
+  if (
+    updateSetting.tax !== data.tax ||
+    updateSetting.saasType !== data.saasType
   ) {
     return false;
   }
@@ -147,4 +171,36 @@ export const getFeatureCategories = async () => {
   if (!session) return false;
   const categories = await prisma.pricingFeatureCategory.findMany();
   return categories || null;
+};
+
+export const changeActiveYearlyPlans = async (
+  settingsId: string,
+  toggle: boolean
+) => {
+  const session = await isAdmin();
+  if (!session) return false;
+  const updateSetting = await prisma.saasSettings.update({
+    where: { id: settingsId },
+    data: { activeYearlyPlans: toggle },
+  });
+  if (updateSetting.activeYearlyPlans !== toggle) {
+    return false;
+  }
+  return true;
+};
+
+export const changeActiveMonthlyPlans = async (
+  settingsId: string,
+  toggle: boolean
+) => {
+  const session = await isAdmin();
+  if (!session) return false;
+  const updateSetting = await prisma.saasSettings.update({
+    where: { id: settingsId },
+    data: { activeMonthlyPlans: toggle },
+  });
+  if (updateSetting.activeMonthlyPlans !== toggle) {
+    return false;
+  }
+  return true;
 };

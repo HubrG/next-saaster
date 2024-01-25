@@ -1,7 +1,6 @@
 "use client";
 
-import { PricingFeatureCategory, appSettings } from "@prisma/client";
-import { ManagePricing } from "@/src/components/features/pages/admin/saas/pricing/subsections/ManagePricing";
+import { ManagePricing } from "@/src/components/features/pages/admin/saas/pricing-settings/subsections/ManagePricing";
 import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";
 
 export const SaasPricing = () => {

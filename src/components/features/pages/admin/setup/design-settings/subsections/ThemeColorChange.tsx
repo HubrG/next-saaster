@@ -1,9 +1,9 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
-import colorThemes from "@/src/jsons/css-themes.json";
-import { useTheme } from "next-themes";
 import { ThemeCard } from "@/src/components/features/pages/admin/setup/design-settings/subsections/ui/ThemeCard";
-import { useAppSettingsStore } from "@/src/stores/settingsStore";
+import colorThemes from "@/src/jsons/css-themes.json";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
+import { useTheme } from "next-themes";
+import { Fragment, useEffect, useState } from "react";
 
 type Props = {
   set: (value: string) => void;

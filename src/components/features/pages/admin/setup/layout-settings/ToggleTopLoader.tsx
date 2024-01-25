@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
 import { changeActiveTopLoader } from "@/src/components/features/pages/admin/actions.server";
-import { Toastify } from "@/src/components/ui/toastify/Toastify";
-import { useRouter } from "next/navigation";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Loader } from "lucide-react";
-import { useAppSettingsStore } from "@/src/stores/settingsStore";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ToggleTopLoader() {
   const [activeTopLoader, setActiveTopLoader] = useState(true);
@@ -22,16 +22,16 @@ export default function ToggleTopLoader() {
       const dataToSet = await changeActiveTopLoader(data.id, e);
       if (dataToSet === true) {
         setActiveTopLoader(e);
-        return Toastify({
+        return toaster({
+          description: `Top loader ${e ? "enabled" : "disabled"}`,
           type: "success",
-          value: `Top loader ${e ? "enabled" : "disabled"}`,
-          callbackOnOpen: () => router.refresh(),
-          position: "bottom-right",
+          onDismiss: () => router.refresh(),
+          onAutoClose: () => router.refresh(),
         });
       } else {
-        return Toastify({
+        return toaster({
           type: "error",
-          value: "Top loader not changed, please try again",
+          description: "Top loader not changed, please try again",
         });
       }
     }

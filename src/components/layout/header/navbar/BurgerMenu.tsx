@@ -1,10 +1,10 @@
 "use client";
 import { Link } from "@/src/lib/intl/navigation";
+import { Menu } from "lucide-react";
+import { useSession } from "next-auth/react";
+import TryUsButton from "./TryUsButton";
 import { LoginButton } from "./auth/LoginButton";
 import { UserProfile } from "./auth/UserProfile";
-import { useSession } from "next-auth/react";
-import { Menu } from "lucide-react";
-import TryUsButton from "./TryUsButton";
 //
 import {
   Sheet,
@@ -15,9 +15,9 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/src/components/ui/sheet";
-import { ThemeToggle } from "./ThemeToggle";
-import MainMenu from "./MainMenu";
 import { appSettings } from "@prisma/client";
+import MainMenu from "./MainMenu";
+import { ThemeToggle } from "./ThemeToggle";
 //
 interface Link {
   url: string;

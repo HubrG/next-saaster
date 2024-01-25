@@ -85,7 +85,6 @@ model appSettings {
   activeTopLoader   Boolean?  @default(true)
   activeDarkMode    Boolean?  @default(true)
   activeCtaOnNavbar Boolean?  @default(true)
-  uniqueCreditType  Boolean?  @default(true) // token ? or more features
   activeRefill      Boolean?  @default(true) // token ? or more features
   createdAt         DateTime? @default(now())
   updatedAt         DateTime? @updatedAt
@@ -94,27 +93,27 @@ model appSettings {
 // SECTION: Pricing
 
 model Pricing {
-  id                       String                     @id @default(cuid())
-  name                     String
-  description              String?
-  isCustom                 Boolean?                   @default(false)
-  isPopular                Boolean?                   @default(false)
-  isRecommended            Boolean?                   @default(false)
-  isFree                   Boolean?                   @default(false)
-  isTrial                  Boolean?                   @default(false)
-  trialDays                Int?                       @default(0)
-  isMonthly                Boolean?                   @default(false)
-  price                    Int?                       @default(0)
-  isYearly                 Boolean?                   @default(false)
-  tax                      Int?                       @default(0)
-  monthlyPromotion         Int?                       @default(0)
-  yearlyPromotion          Int?                       @default(0)
-  currency                 String?                    @default("usd")
-  active                   Boolean?                   @default(false)
-  features                 PricingToFeature[]
-  createdAt                DateTime?                  @default(now())
-  updatedAt                DateTime?                  @updatedAt
-  Subscriptions            Subscription[]
+  id               String             @id @default(cuid())
+  name             String
+  description      String?
+  isCustom         Boolean?           @default(false)
+  isPopular        Boolean?           @default(false)
+  isRecommended    Boolean?           @default(false)
+  isFree           Boolean?           @default(false)
+  isTrial          Boolean?           @default(false)
+  trialDays        Int?               @default(0)
+  isMonthly        Boolean?           @default(false)
+  price            Int?               @default(0)
+  isYearly         Boolean?           @default(false)
+  tax              Int?               @default(0)
+  monthlyPromotion Int?               @default(0)
+  yearlyPromotion  Int?               @default(0)
+  currency         String?            @default("usd")
+  active           Boolean?           @default(false)
+  features         PricingToFeature[]
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+  Subscriptions    Subscription[]
 }
 
 model PricingToFeature {
@@ -202,4 +201,76 @@ model ApiKey {
   active    Boolean?  @default(false)
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+enum SaasTypes {
+  CREDIT
+  // Alias : CREDIT
+  // Ce modèle, basé sur l'achat de crédits, est souvent utilisé dans les SaaS où les clients paient pour la consommation de ressources ou
+  // l'accès à des fonctionnalités spécifiques. 
+  // Cela offre une grande flexibilité et permet aux utilisateurs de payer uniquement pour ce qu'ils consomment.
+  // NOTE -> NON PRIORITAIRE —> UNIQUE
+  // Pour une prochiane MAJ. 
+  // L'achat unique pour l'accès à une fonctionnalité spécifique est moins courant dans les SaaS traditionnels,
+  // mais il peut être pertinent pour des services spécifiques ou des extensions/add-ons.
+  MRR_SIMPLE
+  // Alias : MRRS
+  // Ce modèle est basé sur des plans d'abonnement mensuels ou annuels.
+  // Offrir différents plans à différents prix permet de cibler divers segments de clients.
+  MRR_COMPLEXE
+  // Alias : MRRC
+  // Ce modèle est une variation plus avancée du MRR, où chaque plan inclut non seulement des fonctionnalités supplémentaires
+  // mais aussi des limites de crédits pour chaque fonctionnalité. 
+  // Cela convient aux SaaS qui offrent des services modulaires ou une utilisation basée sur des quotas.
+}
+
+model SaasSettings {
+  id                 String    @id @default(cuid())
+  saasType           SaasTypes @default(MRR_SIMPLE)
+  activeYearlyPlans  Boolean?  @default(true)
+  activeMonthlyPlans Boolean?  @default(true)
+  tax                Int?      @default(0)
+  createdAt          DateTime? @default(now())
+  updatedAt          DateTime? @updatedAt
+}
+
+model MRRSPlan {
+  id                   String              @id @default(cuid())
+  isCustom             Boolean?            @default(false) // Custom plan, contact us for...
+  isPopular            Boolean?            @default(false) // Display popular plan on top
+  isRecommended        Boolean?            @default(false) // Display recommended plan on top
+  isTrial              Boolean?            @default(false) // Trial plan
+  trialDays            Int?                @default(0) // Trial days
+  isMonthly            Boolean?            @default(false) // Monthly plan
+  monthlyPrice         Float?              @default(0) // Monthly price
+  isYearly             Boolean?            @default(false) // Yearly plan
+  yearlyPrice          Float?              @default(0) // Yearly price
+  isCredit             Boolean?            @default(false) // Credit plan
+  creditAllouedByMonth Int?                @default(0) // Monthly credit
+  currency             String?             @default("usd")
+  active               Boolean?            @default(false) // Active plan
+  createdAt            DateTime?           @default(now())
+  updatedAt            DateTime?           @updatedAt
+  MRRSFeatures         MRRSPlanToFeature[]
+}
+
+model MRRSFeature {
+  id          String              @id @default(cuid())
+  name        String?
+  alias       String?             @unique
+  description String?
+  active      Boolean?            @default(false)
+  createdAt   DateTime?           @default(now())
+  updatedAt   DateTime?           @updatedAt
+  MRRSPlans   MRRSPlanToFeature[]
+}
+
+model MRRSPlanToFeature {
+  id        String      @id @default(cuid())
+  planId    String
+  featureId String
+  plan      MRRSPlan    @relation(fields: [planId], references: [id])
+  feature   MRRSFeature @relation(fields: [featureId], references: [id])
+
+  @@unique([planId, featureId])
 }

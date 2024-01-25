@@ -1,19 +1,23 @@
+"use client";
 import { Link } from "@/src/lib/intl/navigation";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
+import { appSettings } from "@prisma/client";
 import { Bot } from "lucide-react";
-import { getAppSettings } from "@/app/[locale]/server.actions";
+type Props = {
+  settings: appSettings;
+};
+export default function Logo({ settings }: Props) {
+  const { appSettings } = useAppSettingsStore();
+  let name = settings.name;
+  if (appSettings.name) name = appSettings.name;
 
-export default async function Logo() {
-  const settings = await getAppSettings();
-  if (!settings) {
-    return "NextSaaster";
-  }
   return (
     <Link href="/" className="logo mr-2">
       <span className="sm:text-xs flex flex-row">
         <span className="mr-1">
-        <Bot className="icon" />
+          <Bot className="icon" />
         </span>
-        <span>{settings.name}</span>
+        <span>{name}</span>
         {/* <sup className="mt-1 ml-2 text-sm text-secondary/60">ai</sup> */}
       </span>
     </Link>

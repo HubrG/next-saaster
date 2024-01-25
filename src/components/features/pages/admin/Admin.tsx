@@ -1,20 +1,31 @@
 "use client";
-import { Loader } from "@/src/components/ui/loader";
-import { PricingFeatureCategory, appSettings } from "@prisma/client";
-import { useEffect, useState } from "react";
 import { AdminMain } from "@/src/components/features/pages/admin/subcomponents/Main";
 import { AdminNavbar } from "@/src/components/features/pages/admin/subcomponents/Navbar";
+import { Loader } from "@/src/components/ui/loader";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useFeatureCategoryStore } from "@/src/stores/featureCategoryStore";
-import { useAppSettingsStore } from "@/src/stores/settingsStore";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import {
+  PricingFeatureCategory,
+  SaasSettings,
+  appSettings,
+} from "@prisma/client";
+import { useEffect, useState } from "react";
 
 type Props = {
   appSettings: appSettings;
   featureCategories: PricingFeatureCategory[];
+  saasSettings: SaasSettings;
 };
 
-export const AdminComponent = ({ appSettings, featureCategories }: Props) => {
+export const AdminComponent = ({
+  appSettings,
+  featureCategories,
+  saasSettings,
+}: Props) => {
   const { setPricingFeatCat } = useFeatureCategoryStore();
   const { setAppSettings } = useAppSettingsStore();
+  const { setSaasSettings } = useSaasSettingsStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -22,8 +33,16 @@ export const AdminComponent = ({ appSettings, featureCategories }: Props) => {
       setMounted(true);
       setAppSettings(appSettings); // Déplacer cette logique ici
       setPricingFeatCat(featureCategories);
+      setSaasSettings(saasSettings);
     }
-  }, [appSettings, setAppSettings, setPricingFeatCat, featureCategories]);
+  }, [
+    appSettings,
+    setAppSettings,
+    setPricingFeatCat,
+    featureCategories,
+    saasSettings,
+    setSaasSettings,
+  ]);
 
   if (!mounted) {
     return (

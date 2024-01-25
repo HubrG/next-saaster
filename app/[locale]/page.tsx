@@ -1,10 +1,10 @@
-import { Link } from "@/src/lib/intl/navigation";
-import { getTranslations } from "next-intl/server";
 import { FirstConnexion } from "@/src/components/features/pages/index/FirstConnexion/FirstConnexion";
-import { isEmptyUser } from "./server.actions";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/src/lib/next-auth/auth";
+import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
+import { authOptions } from "@/src/lib/next-auth/auth";
+import { getServerSession } from "next-auth/next";
+import { getTranslations } from "next-intl/server";
+import { isEmptyUser } from "./server.actions";
 
 export const generateMetadata = async () => {
   return createMetadata({

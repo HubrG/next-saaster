@@ -2,46 +2,46 @@
   "sandra": {
     "name" : "Sandra",
     "light": {
-      "primary": "#F6D5E7",
-      "secondary": "#290B1B",
-      "background": "#FBF3F8",
-      "color": "#541238"
+      "primary": "#F0C1DA",
+      "secondary": "#EBA7CB",
+      "background": "#F7F5F6",
+      "color": "#541136"
     },
     "dark": {
-      "color": "#A897B8",
-      "primary": "#302041",
-      "secondary": "#281934",
-      "background": "#1B1123"
+      "color": "#C18BA8",
+      "primary": "#521636",
+      "secondary": "#320F22",
+      "background": "#0F0B0D"
     }
   },
   "josephine": {
     "name" : "Joséphine",
     "light": {
-      "primary": "#E1E1EC",
-      "secondary": "#14141F",
-      "background": "#F0F0F4",
-      "color": "#282841"
+      "primary": "#CFCFE2",
+      "secondary": "#B9B9D6",
+      "background": "#F4F4F8",
+      "color": "#262640"
     },
     "dark": {
-      "color": "#AAAAB0",
-      "primary": "#12121E",
-      "secondary": "#29293D",
-      "background": "#0A0A10"
+      "color": "#9B9BB1",
+      "primary": "#262640",
+      "secondary": "#181828",
+      "background": "#0F0B0D"
     }
   },
   "fabrizio": {
     "name": "Fabrizio",
     "light": {
-      "primary": "#CED8FD",
-      "secondary": "#1C0231",
-      "background": "#FBF6FF",
-      "color": "#052A61"
+      "primary": "#B8CFFB",
+      "secondary": "#9CBAFB",
+      "background": "#F8EEFE",
+      "color": "#042A62"
     },
     "dark": {
-        "primary": "#020D31",
-        "secondary": "#370363",
-        "background": "#0B0113",
-        "color": "#A5A8B7"
+        "primary": "#0E2662",
+        "secondary": "#0D153D",
+        "background": "#0F0018",
+        "color": "#829CCE"
     }
   },
 
@@ -49,15 +49,15 @@
     "name": "Florence",
     "light": {
       "primary": "#D6F8EA",
-      "secondary": "#1A1A1A",
-      "background": "#FAFAFA",
+      "secondary": "#ABECCA",
+      "background": "#F6F6F6",
       "color": "#105735"
     },
     "dark": {
-      "color": "#A7B2AC",
-      "primary": "#072C1C",
-      "secondary": "#333333",
-      "background": "#0A0A0A"
+      "color": "#8AC4A8",
+      "primary": "#185336",
+      "secondary": "#12492E",
+      "background": "#0C0D0C"
     }
   },
 
@@ -65,14 +65,14 @@
     "name": "Nanny",
     "light": {
       "primary": "#E6E9E8",
-      "secondary": "#191A19",
-      "background": "#FAFAFA",
+      "secondary": "#D9DBD9",
+      "background": "#F6F6F6",
       "color": "#313531"
     },
     "dark": {
       "color": "#ACADAC",
-      "primary": "#171918",
-      "secondary": "#313531",
+      "primary": "#303531",
+      "secondary": "#292D29",
       "background": "#0A0B0A"
     }
   },
@@ -80,30 +80,30 @@
     "name": "Dharma",
     "light": {
       "primary": "#FDE8CD",
-      "secondary": "#1A1A1A",
-      "background": "#FAFAFA",
+      "secondary": "#FACE9B",
+      "background": "#F7F6F5",
       "color": "#643A02"
     },
     "dark": {
       "color": "#B6AFA5",
-      "primary": "#2E1B02",
-      "secondary": "#333333",
-      "background": "#0D0D0D"
+      "primary": "#7B4709",
+      "secondary": "#533105",
+      "background": "#0F0D0C"
     }
   },
   "hubert" : {
     "name" : "Hubert",
     "light": {
-      "primary": "#F3D9E3",
-      "secondary": "#908086",
-      "background": "#F7F7F7",
+      "primary": "#EAADC4",
+      "secondary": "#EAA8BE",
+      "background": "#FCF0F4",
       "color": "#50152B"
     },
     "dark": {
-      "color": "#ADA8B0",
-      "primary": "#171020",
-      "secondary": "#352145",
-      "background": "#0B070E"
+      "color": "#C08C9E",
+      "primary": "#50152B",
+      "secondary": "#461124",
+      "background": "#14050A"
     }
   },
   "blade" : {

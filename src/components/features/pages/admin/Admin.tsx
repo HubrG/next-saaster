@@ -4,8 +4,10 @@ import { AdminNavbar } from "@/src/components/features/pages/admin/@subcomponent
 import { Loader } from "@/src/components/ui/loader";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useFeatureCategoryStore } from "@/src/stores/featureCategoryStore";
+import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
+  MRRSPlan,
   PricingFeatureCategory,
   SaasSettings,
   appSettings,
@@ -16,16 +18,19 @@ type Props = {
   appSettings: appSettings;
   featureCategories: PricingFeatureCategory[];
   saasSettings: SaasSettings;
+  saasMRRSPlans: MRRSPlan[];
 };
 
 export const AdminComponent = ({
   appSettings,
   featureCategories,
   saasSettings,
+  saasMRRSPlans,
 }: Props) => {
   const { setPricingFeatCat } = useFeatureCategoryStore();
   const { setAppSettings } = useAppSettingsStore();
   const { setSaasSettings } = useSaasSettingsStore();
+  const { setSaasMRRSPlans } = useSaasMRRSPlans();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -33,15 +38,18 @@ export const AdminComponent = ({
       setMounted(true);
       setAppSettings(appSettings); // Déplacer cette logique ici
       setPricingFeatCat(featureCategories);
+      setSaasMRRSPlans(saasMRRSPlans);
       setSaasSettings(saasSettings);
     }
   }, [
     appSettings,
+    saasMRRSPlans,
     setAppSettings,
     setPricingFeatCat,
     featureCategories,
     saasSettings,
     setSaasSettings,
+    setSaasMRRSPlans,
   ]);
 
   if (!mounted) {

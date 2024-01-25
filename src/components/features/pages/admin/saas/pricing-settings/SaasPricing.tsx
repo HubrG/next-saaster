@@ -8,6 +8,19 @@ export const SaasPricing = () => {
     <div>
       <SubSectionWrapper id="ManagePricing" sectionName="Manage Plans">
         <ManagePricing />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </SubSectionWrapper>
     </div>
   );

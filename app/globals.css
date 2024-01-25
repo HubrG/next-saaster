@@ -248,7 +248,7 @@ div.progressToken {
 
 /* SECTION : ADMIN */
 .my-card {
-  @apply border-secondary/20 border p-7 rounded-default;
+  @apply dark:border-primary/40 border-primary bg-primary/10 border p-7 rounded-default;
 }
 .admin .theme-card {
   @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border-2;
@@ -334,3 +334,37 @@ form button {
 .toggle-info {
   @apply text-sm opacity-75 mt-2;
 }
+.add-card {
+  @apply my-card hover:bg-primary/20 hover:cursor-pointer !p-20 border-dashed flex flex-col justify-center gap-2 w-full;
+}
+.admin .admin-plan-display.active {
+  @apply border-green-700  !important;
+}
+.admin .admin-plan-display .switch {
+  @apply grid grid-cols-12 items-start w-full;
+}
+
+.admin .admin-plan-display .switch button {
+  @apply col-span-3;
+}
+
+.admin .admin-plan-display .switch label {
+  @apply col-span-9 font-bold text-left cursor-pointer !important;
+}
+
+.admin .admin-plan-display .inputs {
+  @apply grid grid-cols-12 items-center w-full gap-x-2;
+}
+
+
+.admin .admin-plan-display .inputs label {
+  @apply col-span-4 font-semibold text-left cursor-pointer !important;
+}
+.admin .admin-plan-display .inputs input, .admin .admin-plan-display .inputs select, .admin .admin-plan-display .inputs textarea {
+  @apply col-span-6;
+}
+.admin .admin-plan-display .inputs p {
+  @apply  font-semibold text-left cursor-pointer text-sm opacity-60 !important;
+}
+
+

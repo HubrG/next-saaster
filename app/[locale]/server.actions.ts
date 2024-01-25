@@ -1,3 +1,4 @@
+import { isAdmin } from "@/src/functions/isAdmin";
 import { prisma } from "@/src/lib/prisma";
 
 export const isEmptyUser = async () => {
@@ -42,3 +43,13 @@ export const getSaasSettings = async () => {
   }
   return settings;
 };
+
+export const getSaasMRRSPlans = async () => {
+   const session = await isAdmin();
+  if (!session) return false;
+  const plans = await prisma.mRRSPlan.findMany();
+  if (!plans) return false;
+  return plans;
+};
+
+

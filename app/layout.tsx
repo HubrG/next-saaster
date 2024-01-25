@@ -64,7 +64,7 @@ export default async function RootLayout({ children, session }: Props) {
               attribute="class"
               defaultTheme={appSettings.defaultDarkMode ? "dark" : "system"}
               enableSystem>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<></>}>
                 <Init settings={appSettings} />
                 {children}
               </Suspense>

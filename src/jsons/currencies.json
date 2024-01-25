@@ -1,0 +1,106 @@
+{
+    "eur": {
+        "sigle" :"€",
+        "name" : "Euro"
+    },
+    "usd": {
+        "sigle" : "$",
+        "name" : "Dollar"
+    },
+    "gbp": {
+        "sigle" : "£",
+        "name" : "Pound sterling"
+    },
+    "jpy": {
+        "sigle" : "¥",
+        "name" : "Japanese yen"
+    },
+    "aud": {
+        "sigle" : "$",
+        "name" : "Australian dollar"
+    },
+    "cad": {
+        "sigle" : "$",
+        "name" : "Canadian dollar"
+    },
+    "chf": {
+        "sigle" : "Fr",
+        "name" : "Swiss franc"
+    },
+    "cny": {
+        "sigle" : "¥",
+        "name" : "Renminbi"
+    },
+    "sek": {
+        "sigle" : "kr",
+        "name" : "Swedish krona"
+    },
+    "nok": {
+        "sigle" : "kr",
+        "name" : "Norwegian krone"
+    },
+    "dkk": {
+        "sigle" : "kr",
+        "name" : "Danish krone"
+    },
+    "rub": {
+        "sigle" : "₽",
+        "name" : "Russian ruble"
+    },
+    "inr": {
+        "sigle" : "₹",
+        "name" : "Indian rupee"
+    },
+    "mxn": {
+        "sigle" : "$",
+        "name" : "Mexican peso"
+    },
+    "brl": {
+        "sigle" : "R$",
+        "name" : "Brazilian real"
+    },
+    "krw": {
+        "sigle" : "₩",
+        "name" : "South Korean won"
+    },
+    "try": {
+        "sigle" : "₺",
+        "name" : "Turkish lira"
+    },
+    "zar": {
+        "sigle" : "R",
+        "name" : "South African rand"
+    },
+    "hkd": {
+        "sigle" : "$",
+        "name" : "Hong Kong dollar"
+    },
+    "idr": {
+        "sigle" : "Rp",
+        "name" : "Indonesian rupiah"
+    },
+    "sgd": {
+        "sigle" : "$",
+        "name" : "Singapore dollar"
+    },
+    "thb": {
+        "sigle" : "฿",
+        "name" : "Thai baht"
+    },
+    "myr": {
+        "sigle" : "RM",
+        "name" : "Malaysian ringgit"
+    },
+    "php": {
+        "sigle" : "₱",
+        "name" : "Philippine peso"
+    },
+    "czk": {
+        "sigle" : "Kč",
+        "name" : "Czech koruna"
+    },
+    "pln": {
+        "sigle" : "zł",
+        "name" : "Polish złoty"
+    }
+}

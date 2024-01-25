@@ -11,6 +11,7 @@ type DesignSettingsData = {
 type SaasSettingsData = {
   tax: SaasSettings["tax"];
   saasType: SaasSettings["saasType"];
+  currency: SaasSettings["currency"];
 };
 
 export const changeDesignSettings = async (
@@ -238,4 +239,10 @@ export const changeActiveRefillCredit = async (
     return false;
   }
   return true;
+};
+export const addNewMRRSPlan = async () => {
+  const newPlan = await prisma.mRRSPlan.create({
+    data: {},
+  });
+  return newPlan;
 };

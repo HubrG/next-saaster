@@ -230,6 +230,7 @@ model SaasSettings {
   activeMonthlyPlans Boolean?  @default(true)
   activeCreditSystem Boolean?  @default(true)
   activeRefillCredit Boolean?  @default(true)
+  currency           String?   @default("usd")
   tax                Float?    @default(0)
   createdAt          DateTime? @default(now())
   updatedAt          DateTime? @updatedAt
@@ -237,6 +238,8 @@ model SaasSettings {
 
 model MRRSPlan {
   id                   String              @id @default(cuid())
+  name                 String?             @default("Plan name")
+  description          String?             @default("Plan description")
   isCustom             Boolean?            @default(false) // Custom plan, contact us for...
   isPopular            Boolean?            @default(false) // Display popular plan on top
   isRecommended        Boolean?            @default(false) // Display recommended plan on top
@@ -248,8 +251,8 @@ model MRRSPlan {
   yearlyPrice          Float?              @default(0) // Yearly price
   isCredit             Boolean?            @default(false) // Credit plan
   creditAllouedByMonth Int?                @default(0) // Monthly credit
-  currency             String?             @default("usd")
   active               Boolean?            @default(false) // Active plan
+  position             Int?                @default(0) // Position in list
   createdAt            DateTime?           @default(now())
   updatedAt            DateTime?           @updatedAt
   MRRSFeatures         MRRSPlanToFeature[]

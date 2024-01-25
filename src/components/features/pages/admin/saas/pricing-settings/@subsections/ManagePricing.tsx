@@ -1,8 +1,11 @@
 "use client";
-import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { ManagePlans } from "./@subcomponents/manage-pricing/ManagePlans";
 
 export const ManagePricing = () => {
-  const { saasSettings } = useSaasSettingsStore();
 
-  return <div>ManagePricing</div>;
+  return (
+    <div>
+      <ManagePlans />
+    </div>
+  );
 };

@@ -15,12 +15,12 @@ export const useSaasSettingsStore = create<Store>()((set) => ({
     activeRefillCredit: false,
     activeCreditSystem: false,
     tax: 0,
+    currency: "usd",
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   setSaasSettings: (partialSettings) =>
     set((state) => ({
-      ...state,
-      saasSettings: { ...state.saasSettings, ...partialSettings }, // Correction ici
+      saasSettings: { ...state.saasSettings, ...partialSettings },
     })),
 }));

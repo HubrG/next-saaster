@@ -23,7 +23,7 @@ export const SetTax = ({ set }: Props) => {
         type="number"
         placeholder="Enter tax"
         value={tax}
-        onChange={(e) => { set(parseFloat(e.target.value));setTax(parseFloat(e.target.value)); }}
+        onChange={(e) => { set(parseFloat(e.target.value)); setTax(parseFloat(e.target.value)); }}
         className="w-full"
       />{" "}
       <span className="font-bold">%</span>

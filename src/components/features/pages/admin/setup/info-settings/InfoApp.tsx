@@ -1,12 +1,11 @@
 "use client";
-import { updateInfosApp } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
 import { Button } from "@/src/components/ui/button";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -23,7 +22,6 @@ const formSchema = z.object({
 });
 
 export const InfoApp = () => {
-  const router = useRouter();
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
 
@@ -37,20 +35,12 @@ export const InfoApp = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const updateInfo = await updateInfosApp(data?.id, values);
+    const updateInfo = await updateAppSettings(appSettings.id, values);
     if (updateInfo) {
-      useAppSettingsStore
-        .getState()
-        .setAppSettings({ ...appSettings, name: values.name });
+      setAppSettings({ ...appSettings, ...values })
       return toaster({
         description: `Informations updated`,
         type: "success",
-        // onAutoClose: () => {
-        //   router.refresh();
-        // },
-        // onDismiss: () => {
-        //   router.refresh();
-        // },
       });
     } else {
       return toaster({

@@ -7,6 +7,7 @@ type Props = {
   handleChange?: (e: any) => void;
   checked: boolean;
   id: string;
+  disabled?: boolean;
 };
 
 export const ToggleWrapper = ({
@@ -14,6 +15,7 @@ export const ToggleWrapper = ({
   id,
   checked,
   handleChange,
+  disabled = false
 }: Props) => {
   const handleClick = (e: any) => {
     if (e.target.tagName === "LABEL") {
@@ -26,6 +28,7 @@ export const ToggleWrapper = ({
       <Switch
         onCheckedChange={handleChange}
         className="mx-auto"
+        disabled={disabled}
         id={id}
         checked={checked}
       />

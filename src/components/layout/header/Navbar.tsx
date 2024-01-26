@@ -44,18 +44,15 @@ export const Navbar = async () => {
           <Logo settings={settings} />
           <div className="flex gap-x-2 lg:order-2 items-center lg:text-base">
             <div className="flex items-center gap-x-2">
-              {settings.activeCtaOnNavbar &&
-                (session ? <TryUsButton /> : <TryUsButton />)}
+              {(session ? <TryUsButton /> : <TryUsButton />)}
               <Button className="hidden"></Button>
               <div className="sm:block hidden">
                 {session ? <UserProfile /> : <LoginButton />}
               </div>
-              {settings.activeDarkMode && (
                 <ThemeToggle
                   className="sm:block hidden"
                   classNameMoon="-mt-6"
                 />
-              )}
             </div>
             <BurgerMenu links={links} locale={locale} settings={settings} />
           </div>

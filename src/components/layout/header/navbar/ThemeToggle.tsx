@@ -10,7 +10,9 @@ type ThemeToggleProps = {
 export const ThemeToggle = ({ className, classNameMoon }: ThemeToggleProps) => {
   const { setTheme, theme } = useTheme();
   const { appSettings } = useAppSettingsStore();
-   if (appSettings.activeDarkMode === false) return null;
+
+  if (!appSettings.activeDarkMode) return null;
+  
      return (
        <Button
          variant="ghost"

@@ -1,212 +1,321 @@
 "use client";
+import { updateMRRSPlan } from "@/src/components/features/pages/admin/actions.server";
+import { manageClashes } from "@/src/components/features/pages/admin/saas/pricing-settings/@subsections/@subcomponents/manage-pricing/@subcomponents/@functions/manageClashes";
 import { Badge } from "@/src/components/ui/badge";
+import { Button } from "@/src/components/ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/src/components/ui/collapsible";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { parseIntInput } from "@/src/functions/parse";
+import { sliced } from "@/src/functions/slice";
+import { cn } from "@/src/lib/utils";
+import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
-import { useState } from "react";
+import {
+  ChevronsUpDown,
+  Eye,
+  EyeOff
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { PlanCardButtons } from "./PlanCardButtons";
+import { PlanCardSwitch } from "./PlanCardSwitch";
 
 type Props = {
   plan: MRRSPlan;
-  modeAdmin: boolean;
+  modeAdmin?: boolean;
+  className?: string;
 };
-
-type Currency = {
-  name: string;
-  sigle: string;
-  // autres propriétés si nécessaire
-};
-export const PlanCard = ({ plan, modeAdmin }: Props) => {
+export const PlanCard = ({ plan, modeAdmin, className }: Props) => {
   const [planState, setPlanState] = useState(plan);
-  const { saasSettings } = useSaasSettingsStore()
-  const [open, setOpen] = useState(false);
-  const [comboCurrency, setComboCurrency] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [initialPlanState, setInitialPlanState] = useState({ ...plan });
+  const [cancel, setCancel] = useState(false);
+  const [save, setSave] = useState(false);
+  const { saasSettings } = useSaasSettingsStore();
+  const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlans();
 
+  // Handle input change, and manage clashes
   const handleInputChange = (e: any, name: string) => {
-    // Vérifiez si 'e.target' est défini
     let value: any;
-    if (e && e.target && e.target.value !== undefined) {
+    if (e?.target?.value !== undefined) {
       value = e.target.value;
     } else {
       value = e;
     }
-    setPlanState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    value = parseIntInput(
+      ["trialDays", "monthlyPrice", "yearlyPrice", "creditAllouedByMonth"],
+      name,
+      value
+    ); 
+    setPlanState((prevState) => {
+      const newData = { ...prevState, [name]: value };
+      return manageClashes(newData, name);
+    });
   };
 
-  if (modeAdmin && plan.name) {
+  // Check if the plan has changed
+  useEffect(() => {
+    const initialPlanStr = JSON.stringify(initialPlanState);
+    const currentPlanStr = JSON.stringify(planState);
+    initialPlanStr !== currentPlanStr
+      ? setSaveAndCancel(true)
+      : setSaveAndCancel(false);
+  }, [initialPlanState, planState]);
+
+  const handleSave = async () => {
+    const dataToSet = await updateMRRSPlan(planState.id, {
+      ...planState,
+      trialDays: planState.trialDays ?? 0,
+    });
+    if (dataToSet) {
+      setSaveAndCancel(false);
+      setInitialPlanState({ ...dataToSet });
+      return toaster({
+        description: `Plan ${planState.name} changed successfully`,
+        type: "success",
+      });
+    } else {
+      return toaster({
+        description: `Error while changing plan ${planState.name}, please try again later`,
+        type: "error",
+      });
+    }
+  };
+
+  // Set save and cancel to true or false
+  const setSaveAndCancel = (value: boolean) => {
+    setSave(value);
+    setCancel(value);
+  };
+
+  // Handle delete plan
+  const handleDelete = async () => {
+    const dataToSet = await updateMRRSPlan(planState.id, {
+      ...planState,
+      deleted: true,
+      deletedAt: new Date(),
+    });
+    if (dataToSet) {
+      setSaasMRRSPlans(
+        saasMRRSPlans.map((plan) =>
+          plan.id === planState.id
+            ? { ...plan, deleted: true, deletedAt: new Date() }
+            : plan
+        )
+      );
+      setSaveAndCancel(false);
+      setInitialPlanState({ ...dataToSet });
+      return toaster({
+        description: `« ${planState.name} » deleted successfully, you can restore it in the trash.`,
+        type: "success",
+        duration: 8000,
+      });
+    } else {
+      return toaster({
+        description: `Error while deleting plan ${planState.name}, please try again later`,
+        type: "error",
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    setPlanState(initialPlanState);
+    setCancel(false);
+  };
+
+  if (!plan.deleted) {
     return (
       <div
-        key={plan.id}
-        className={`my-card ${
+        className={`admin-plan-card  ${className}  ${
           planState.active && "active"
-        } !border-2 admin-plan-display flex flex-col gap-5 justify-start items-center relative`}>
+        } `}>
         {planState.active && (
-          <Badge className="absolute dark:bg-emerald-900 dark:text-emerald-50  text-emerald-800 bg-emerald-400 !font-bold -mt-10 -left-2">
-            <strong>Active</strong>
+          <Badge className="absolute badge !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-8 left-0  bg-primary dark:text-text-900 text-text-900">
+            <strong className="!text-xs !font-semibold">Active</strong>
           </Badge>
         )}
         <Input
           name="name"
           value={planState.name ?? ""}
+          onClick={(e) => {
+            planState.name === "Plan name" && e.currentTarget.select();
+          }}
+          className="font-bold text-lg text-center"
           onChange={(e) => handleInputChange(e, "name")}
         />
         <Textarea
           name="description"
+          onClick={(e) => {
+            planState.description === "Plan description" &&
+              e.currentTarget.select();
+          }}
+          className="text-center"
           value={planState.description ?? ""}
           onChange={(e) => handleInputChange(e, "description")}
         />
 
         <Separator />
-        <div className="switch">
-          <Switch
-            name="active"
-            id={`${plan.id}active`}
-            onCheckedChange={(e) => handleInputChange(e, "active")}
-          />
-          <Label htmlFor={`${plan.id}active`}>Is an active plan</Label>
-        </div>
-        <Separator />
+        <Collapsible
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          className="space-y-2 w-full">
+          <div className="switch">
+            <Switch
+              name="active"
+              id={`${plan.id}active`}
+              checked={planState.active ?? false}
+              onCheckedChange={(e) => handleInputChange(e, "active")}
+            />
+            <Label htmlFor={`${plan.id}active`}>Active this plan</Label>
+          </div>
+          <div className="flex items-center justify-between rounded-default  p-2 bg-primary space-x-4">
+            <h4 className="text-sm font-bold italic flex gap-x-2  flex-row items-center">
+              {!isOpen && (
+                <>
+                  <Eye className="w-8" /> Show
+                </>
+              )}
+              {isOpen && (
+                <>
+                  <EyeOff className="w-8" /> Hide
+                </>
+              )}{" "}
+              all options
+            </h4>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="sm" className="w-9 p-0">
+                <ChevronsUpDown className="h-4 w-4" />
+                <span className="sr-only">Toggle</span>
+              </Button>
+            </CollapsibleTrigger>
+          </div>
 
-        <div className="switch">
-          <Switch
-            name="isCustom"
-            id={`${plan.id}isCustom`}
-            onCheckedChange={(e) => handleInputChange(e, "isCustom")}
-          />
-          <Label className="col-span-10" htmlFor={`${plan.id}isCustom`}>
-            Is a custom plan
-          </Label>
-        </div>
-        <div className="switch">
-          <Switch
-            name="isPopular"
-            id={`${plan.id}isPopular`}
-            onCheckedChange={(e) => handleInputChange(e, "isPopular")}
-          />
-          <Label className="col-span-10" htmlFor={`${plan.id}isPopular`}>
-            Is a popular plan
-          </Label>
-        </div>
-        <div className="switch">
-          <Switch
-            name="isRecommended"
-            id={`${plan.id}isRecommended`}
-            onCheckedChange={(e) => handleInputChange(e, "isRecommended")}
-          />
-          <Label htmlFor={`${plan.id}isRecommended`}>
-            Is a recommended plan
-          </Label>
-        </div>
-        <div className="switch">
-          <Switch
-            name="isTrial"
-            id={`${plan.id}isTrial`}
-            onCheckedChange={(e) => handleInputChange(e, "isTrial")}
-          />
-          <Label htmlFor={`${plan.id}isTrial`}>Is a trial plan</Label>
-        </div>
-        <div className="switch">
-          <Switch
-            name="isMonthly"
-            id={`${plan.id}isMonthly`}
-            onCheckedChange={(e) => handleInputChange(e, "isMonthly")}
-          />
-          <Label htmlFor={`${plan.id}isMonthly`}>Is a monthly plan</Label>
-        </div>
-        <div className="switch">
-          <Switch
-            name="isYearly"
-            id={`${plan.id}isYearly`}
-            onCheckedChange={(e) => handleInputChange(e, "isYearly")}
-          />
-          <Label htmlFor={`${plan.id}isYearly`}>Is a yearly plan</Label>
-        </div>
-        <div className="switch">
-          <Switch
-            name="isCredit"
-            id={`${plan.id}isCredit`}
-            onCheckedChange={(e) => handleInputChange(e, "isCredit")}
-          />
-          <Label htmlFor={`${plan.id}isCredit`}>Is a credit plan</Label>
-        </div>
-        <Separator />
+          <CollapsibleContent className="space-y-2">
+            <PlanCardSwitch
+              plan={plan}
+              label="Free plan"
+              planState={planState.isFree}
+              name="isFree"
+              handleInputChange={handleInputChange}
+            />
+            <PlanCardSwitch
+              plan={plan}
+              label="Custom plan"
+              planState={planState.isCustom}
+              name="isCustom"
+              handleInputChange={handleInputChange}
+            />
+            <PlanCardSwitch
+              plan={plan}
+              label="Trial plan"
+              planState={planState.isTrial}
+              name="isTrial"
+              handleInputChange={handleInputChange}
+            />
+            <Separator className="border-b bg-transparent border-dashed" />
 
-        <div className="inputs">
-          <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
-          <Input
-            type="number"
-            name="trialDays"
-            value={planState.trialDays ?? ""}
-            onChange={(e) => handleInputChange(e, "trialDays")}
-          />
-          <p>days</p>
+            <PlanCardSwitch
+              plan={plan}
+              label="Popular plan"
+              planState={planState.isPopular}
+              name="isPopular"
+              handleInputChange={handleInputChange}
+            />
+
+            <PlanCardSwitch
+              plan={plan}
+              label="Recommended plan"
+              planState={planState.isRecommended}
+              name="isRecommended"
+              handleInputChange={handleInputChange}
+            />
+            <Separator
+              className={cn(
+                {
+                  hidden:
+                    planState.isCustom ||
+                    ((planState.isFree || planState.isCustom) &&
+                      !saasSettings.activeCreditSystem),
+                },
+                "!mb-4"
+              )}
+            />
+
+            {planState.isTrial && (
+              <div className="inputs">
+                <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
+                <Input
+                  type="number"
+                  name="trialDays"
+                  value={planState.trialDays ?? ""}
+                  onChange={(e) => handleInputChange(e, "trialDays")}
+                />
+                <p>days</p>
+              </div>
+            )}
+            {saasSettings.activeYearlyPlans &&
+              !planState.isFree &&
+              !planState.isCustom && (
+                <div className="inputs">
+                  <Label htmlFor={`${plan.id}yearlyPrice`}>Yearly price</Label>
+                  <Input
+                    name="yearlyPrice"
+                    value={planState.yearlyPrice ?? ""}
+                    onChange={(e) => handleInputChange(e, "yearlyPrice")}
+                  />
+                  <p>{saasSettings.currency}</p>
+                </div>
+              )}
+            {saasSettings.activeMonthlyPlans &&
+              !planState.isFree &&
+              !planState.isCustom && (
+                <div className="inputs">
+                  <Label htmlFor={`${plan.id}monthlyPrice`}>
+                    Monthly price
+                  </Label>
+                  <Input
+                    id={`${plan.id}monthlyPrice`}
+                    name="monthlyPrice"
+                    value={planState.monthlyPrice ?? ""}
+                    onChange={(e) => handleInputChange(e, "monthlyPrice")}
+                  />
+                  <p>{saasSettings.currency}</p>
+                </div>
+              )}
+            {saasSettings.activeCreditSystem && !planState.isCustom && (
+              <div className="inputs">
+                <Label htmlFor={`${plan.id}creditAllouedByMonth`}>
+                  Credit alloued
+                </Label>
+                <Input
+                  id={`${plan.id}creditAllouedByMonth`}
+                  name="creditAllouedByMonth"
+                  value={planState.creditAllouedByMonth ?? ""}
+                  onChange={(e) => handleInputChange(e, "creditAllouedByMonth")}
+                />
+                <p>
+                  <span>{sliced(saasSettings.creditName + "s", 5)}</span>
+                  <span>/months</span>
+                </p>
+              </div>
+            )}
+          </CollapsibleContent>
+        </Collapsible>
+
+        <Separator className="-mt-2 border-t border !border-dashed" />
+        <div className="flex flex-row w-full justify-self-end justify-between place-items-end flex-1">
+          <PlanCardButtons {...{ save, cancel, handleSave, handleCancel, handleDelete, setCancel }} />
         </div>
-        <div className="inputs">
-          <Label htmlFor={`${plan.id}yearlyPrice`}>Yearly price</Label>
-          <Input
-            name="yearlyPrice"
-            value={planState.yearlyPrice ?? ""}
-            onChange={(e) => handleInputChange(e, "yearlyPrice")}
-          />
-          <p>{saasSettings.currency}</p>
-        </div>
-        <div className="inputs">
-          <Label htmlFor={`${plan.id}monthlyPrice`}>Monthly price</Label>
-          <Input
-            id={`${plan.id}monthlyPrice`}
-            name="monthlyPrice"
-            value={planState.monthlyPrice ?? ""}
-            onChange={(e) => handleInputChange(e, "monthlyPrice")}
-          />
-          <p>{saasSettings.currency}</p>
-        </div>
-        <div className="inputs">
-          <Label htmlFor={`${plan.id}creditAllouedByMonth`}>
-            Credit alloued by month
-          </Label>
-          <Input
-            id={`${plan.id}creditAllouedByMonth`}
-            name="creditAllouedByMonth"
-            value={planState.creditAllouedByMonth ?? ""}
-            onChange={(e) => handleInputChange(e, "creditAllouedByMonth")}
-          />
-          <p>credits</p>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div
-        key={planState.id}
-        className="my-card flex flex-col justify-center items-center">
-        <h5>{planState.name}</h5>
       </div>
     );
   }
 };
-/* 
- id                   String              @id @default(cuid())
-  name                 String?             @default("Plan name")
-  description          String?             @default("Plan description")
-  isCustom             Boolean?            @default(false) // Custom plan, contact us for...
-  isPopular            Boolean?            @default(false) // Display popular plan on top
-  isRecommended        Boolean?            @default(false) // Display recommended plan on top
-  isTrial              Boolean?            @default(false) // Trial plan
-  trialDays            Int?                @default(0) // Trial days
-  isMonthly            Boolean?            @default(false) // Monthly plan
-  monthlyPrice         Float?              @default(0) // Monthly price
-  isYearly             Boolean?            @default(false) // Yearly plan
-  yearlyPrice          Float?              @default(0) // Yearly price
-  isCredit             Boolean?            @default(false) // Credit plan
-  creditAllouedByMonth Int?                @default(0) // Monthly credit
-  currency             String?             @default("usd")
-  active               Boolean?            @default(false) // Active plan
-  createdAt            DateTime?           @default(now())
-  updatedAt            DateTime?           @updatedAt
-  */

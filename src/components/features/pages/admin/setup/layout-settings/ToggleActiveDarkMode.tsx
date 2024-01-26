@@ -1,17 +1,15 @@
 "use client";
-import { changeActiveDarkMode } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Eclipse } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ToggleActiveDarkMode() {
   const [activeDarkmode, setActiveDarkmode] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
-  const router = useRouter();
 
   useEffect(() => {
     setActiveDarkmode(data.activeDarkMode ?? false);
@@ -19,21 +17,15 @@ export default function ToggleActiveDarkMode() {
 
   const handleChangeActiveDarkmode = async (e: any) => {
     if (data.id) {
-      const dataToSet = await changeActiveDarkMode(data.id, e);
-      if (dataToSet === true) {
+      const dataToSet = await updateAppSettings(appSettings.id, {
+        activeDarkMode: e,
+      });
+      if (dataToSet) {
         setActiveDarkmode(e);
-        useAppSettingsStore
-          .getState()
-          .setAppSettings({ ...appSettings, activeDarkMode: e });
+        setAppSettings({ ...appSettings, activeDarkMode: e });
         return toaster({
           description: `Active darkmode ${e ? "enabled" : "disabled"}`,
           type: "success",
-          // onAutoClose: () => {
-          //   router.refresh();
-          // },
-          // onDismiss: () => {
-          //   router.refresh();
-          // },
         });
       } else {
         return toaster({
@@ -43,7 +35,6 @@ export default function ToggleActiveDarkMode() {
       }
     }
   };
-
   return (
     <ToggleWrapper
       handleChange={handleChangeActiveDarkmode}

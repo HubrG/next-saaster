@@ -14,6 +14,7 @@ export const useSaasSettingsStore = create<Store>()((set) => ({
     activeMonthlyPlans: false,
     activeRefillCredit: false,
     activeCreditSystem: false,
+    creditName: "",
     tax: 0,
     currency: "usd",
     createdAt: new Date(),

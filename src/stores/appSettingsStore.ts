@@ -1,11 +1,9 @@
-import { getAppSettings } from "@/app/[locale]/server.actions";
 import { appSettings } from "@prisma/client";
 import { create } from "zustand";
 
 type Store = {
   appSettings: appSettings;
   setAppSettings: (partialSettings: Partial<appSettings>) => void;
-  getAppSettings: () => void;
 };
 
 export const useAppSettingsStore = create<Store>()((set) => ({
@@ -23,10 +21,7 @@ export const useAppSettingsStore = create<Store>()((set) => ({
     createdAt: new Date(),
     updatedAt: new Date(),
   },
-  getAppSettings: async () => {
-    const res = await getAppSettings();
-    set({ appSettings: res });
-  },
+
   setAppSettings: (partialSettings) =>
     set((state) => ({
       ...state,

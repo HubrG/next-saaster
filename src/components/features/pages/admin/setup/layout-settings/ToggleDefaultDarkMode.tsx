@@ -1,5 +1,7 @@
 "use client";
-import { changeDefaultDarkMode } from "@/src/components/features/pages/admin/actions.server";
+import {
+  updateAppSettings
+} from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -8,7 +10,7 @@ import { useEffect, useState } from "react";
 
 export default function ToggleDefaultDarkMode() {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
-  const { appSettings } = useAppSettingsStore();
+  const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
 
   useEffect(() => {
@@ -17,8 +19,10 @@ export default function ToggleDefaultDarkMode() {
 
   const handleChangeDefaultDarkmode = async (e: any) => {
     if (data.id) {
-      const dataToSet = await changeDefaultDarkMode(data.id, e);
-      if (dataToSet === true) {
+      const dataToSet = await updateAppSettings(appSettings.id, {
+        defaultDarkMode: e,
+      });
+      if (dataToSet) {
         setDefaultDarkmode(e);
         return toaster({
           description: `Default darkmode ${e ? "enabled" : "disabled"}`,
@@ -39,7 +43,8 @@ export default function ToggleDefaultDarkMode() {
       checked={defaultDarkmode}
       id="switch-default-dark-mode">
       <MoonStar className="icon" />
-      Activate <strong>dark mode by default</strong> on a first visit instead user&apos;s system settings.
+      Activate <strong>dark mode by default</strong> on a first visit instead
+      user&apos;s system settings.
     </ToggleWrapper>
   );
 }

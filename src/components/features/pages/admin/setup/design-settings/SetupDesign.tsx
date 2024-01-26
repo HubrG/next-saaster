@@ -1,4 +1,6 @@
-import { changeDesignSettings } from "@/src/components/features/pages/admin/actions.server";
+import {
+  updateAppSettings
+} from "@/src/components/features/pages/admin/actions.server";
 import { RoundedCornerChange } from "@/src/components/features/pages/admin/setup/design-settings/@subsections/RoundedCornerChange";
 import { ThemeColorChange } from "@/src/components/features/pages/admin/setup/design-settings/@subsections/ThemeColorChange";
 import { Button } from "@/src/components/ui/button";
@@ -20,14 +22,14 @@ export const SetupDesign = () => {
   }, [data]);
 
   const handleSaveAll = async () => {
-    const dataToSet = await changeDesignSettings(data.id, {
+    const dataToSet = await updateAppSettings(data.id, {
       roundedCorner: roundedCorner,
       theme: cssTheme,
     });
 
-    if (dataToSet === true) {
+    if (dataToSet) {
       return toaster({
-        description: `Design changed for all`,
+        description: `Design changed for all users`,
         type: "success",
       });
     } else {

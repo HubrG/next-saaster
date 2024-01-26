@@ -182,7 +182,7 @@ ul.ul {
   /* Icon size will relative to font-size of .text-wrapper */
   width: 1em;
   height: 1em;
-  @apply mx-1 min-w-4;
+  @apply mx-2 min-w-4;
 }
 
 /* NOTE - Navbar - Profil */
@@ -213,38 +213,6 @@ div.progressToken {
 .first-connection {
   @apply w-screen h-screen  absolute bg-white z-[9999999999] !important;
 }
-.Toastify__toast-container {
-  @apply rounded-default z-[99999] shadow-sm !important;
-}
-.Toastify__toast {
-  @apply rounded-default   !important;
-}
-.Toastify__toast--rtl {
-  @apply rounded-default   !important;
-}
-.Toastify__toast-body {
-  @apply rounded-default    !important;
-}
-.Toastify__toast-theme--dark {
-  @apply bg-primary;
-}
-/* .Toastify__toast-theme--light {
-} */
-.Toastify__toast-theme--colored.Toastify__toast--default {
-  @apply bg-primary rounded-default   border-border !important;
-}
-.Toastify__toast-theme--colored.Toastify__toast--info {
-  @apply bg-primary-foreground dark:bg-primary  border-border rounded-default !important;
-}
-.Toastify__toast-theme--colored.Toastify__toast--success {
-  @apply bg-primary-foreground dark:bg-secondary text-text-100 dark:text-text-100 rounded-default !important;
-}
-.Toastify__toast-theme--colored.Toastify__toast--warning {
-  @apply bg-yellow-600 rounded-default !important;
-}
-.Toastify__toast-theme--colored.Toastify__toast--error {
-  @apply bg-red-600 rounded-default !important;
-}
 
 /* SECTION : ADMIN */
 .my-card {
@@ -254,20 +222,26 @@ div.progressToken {
   @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border-2;
 }
 .admin .theme-card button {
-  @apply p-5 rounded-full w-10 h-10;
+  @apply md:p-5 p-2 rounded-full md:w-10 md:h-10 w-5 h-5;
+}
+.admin .theme-card p {
+  @apply  max-md:text-sm max-sm:hidden  !important;
+}
+button {
+  @apply max-sm:text-xs !important;
 }
 
 .admin .toggle-wrapper {
-  @apply my-card flex flex-col gap-3 justify-center w-full hover:bg-secondary-foreground/10 cursor-pointer;
+  @apply my-card flex relative flex-col gap-3 justify-center w-full hover:bg-secondary-foreground/10 cursor-pointer;
 }
 .admin .toggle-wrapper label {
-  @apply text-base;
+  @apply md:text-base sm:text-sm text-xs !important;
 }
 .admin .toggle-wrapper .icon {
-  @apply absolute -mt-12 -ml-5 z-10;
+  @apply absolute top-0 -ml-5 mt-2 z-10;
 }
 .admin aside {
-  @apply col-span-3 text-left rounded-default rounded-r-none border-secondary/10 p-5 border-r  relative;
+  @apply md:col-span-3 md:block hidden text-left rounded-default rounded-r-none border-secondary/10 p-5 border-r  relative;
 }
 .admin aside nav {
   @apply flex flex-col gap-y-5 sticky top-24 overflow-y-auto max-h-[80vh];
@@ -285,7 +259,7 @@ div.progressToken {
   @apply text-lg font-bold flex flex-row items-center justify-between;
 }
 .admin div.admin-main {
-  @apply col-span-9 relative text-center flex flex-col gap-y-5;
+  @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5;
 }
 .admin div.admin-main #headerAdminNavbar {
   @apply sticky top-16 bg-background z-30;
@@ -325,7 +299,7 @@ form button {
 }
 /* NOTE --> Toaster  */
 .toast-success {
-  @apply bg-primary-foreground text-primary border-0 shadow-lg !important;
+  @apply bg-primary-foreground dark:bg-primary text-primary dark:text-primary-foreground border-0 shadow-lg !important;
 }
 .toast-success > button {
   @apply bg-primary text-text-900 dark:text-text-900 border-primary shadow-lg  !important;
@@ -335,36 +309,46 @@ form button {
   @apply text-sm opacity-75 mt-2;
 }
 .add-card {
-  @apply my-card hover:bg-primary/20 hover:cursor-pointer !p-20 border-dashed flex flex-col justify-center gap-2 w-full;
+  @apply my-card hover:bg-transparent hover:cursor-pointer !p-20 border-dashed flex flex-col justify-center gap-2 w-full !important;
 }
-.admin .admin-plan-display.active {
-  @apply border-green-700  !important;
-}
-.admin .admin-plan-display .switch {
-  @apply grid grid-cols-12 items-start w-full;
+.admin-plan-card {
+  @apply my-card bg-primary/20 grayscale-[100%] !border-[3px] flex flex-col h-fit flex-1 gap-5 items-center relative;
 }
 
-.admin .admin-plan-display .switch button {
-  @apply col-span-3;
+.admin .admin-plan-card.active {
+  @apply border-primary  border-4 grayscale-0  !important;
 }
 
-.admin .admin-plan-display .switch label {
-  @apply col-span-9 font-bold text-left cursor-pointer !important;
+.admin .admin-plan-card .switch {
+  @apply flex flex-row w-full justify-between  items-start  rounded-default  px-4 py-1 ;
 }
 
-.admin .admin-plan-display .inputs {
+.admin .admin-plan-card .switch button {
+  @apply col-span-3 order-2;
+}
+
+.admin .admin-plan-card .switch label {
+  @apply col-span-9 order-1 justify-self-end font-bold text-right cursor-pointer mt-1 !important;
+}
+
+.admin .admin-plan-card .inputs {
   @apply grid grid-cols-12 items-center w-full gap-x-2;
 }
 
-
-.admin .admin-plan-display .inputs label {
-  @apply col-span-4 font-semibold text-left cursor-pointer !important;
+.admin .admin-plan-card .inputs label {
+  @apply col-span-4 font-semibold text-left mt-2 cursor-pointer !important;
 }
-.admin .admin-plan-display .inputs input, .admin .admin-plan-display .inputs select, .admin .admin-plan-display .inputs textarea {
+.admin .admin-plan-card .inputs input,
+.admin .admin-plan-card .inputs select,
+.admin .admin-plan-card .inputs textarea {
   @apply col-span-6;
 }
-.admin .admin-plan-display .inputs p {
-  @apply  font-semibold text-left cursor-pointer text-sm opacity-60 !important;
+.admin .admin-plan-card .inputs p span {
+  @apply font-semibold text-left flex flex-col gap-y-1  text-xs opacity-60 !important;
 }
-
-
+label {
+  @apply text-left font-semibold flex justify-start mb-2 !important;
+}
+.shadcn-inputs {
+  @apply bg-secondary/10 dark:bg-primary/20;
+}

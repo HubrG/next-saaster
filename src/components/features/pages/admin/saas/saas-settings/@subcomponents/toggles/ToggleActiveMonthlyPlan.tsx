@@ -1,5 +1,5 @@
 "use client";
-import { changeActiveMonthlyPlans } from "@/src/components/features/pages/admin/actions.server";
+import { updateSaasSettings } from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -24,8 +24,8 @@ export default function ToggleActiveMonthlyPlan() {
             "You can't disable both yearly and monthly plans, please enable one of them",
         });
       }
-      const dataToSet = await changeActiveMonthlyPlans(saasSettings.id, e);
-      if (dataToSet === true) {
+      const dataToSet = await updateSaasSettings(saasSettings.id, { activeMonthlyPlans: e });
+      if (dataToSet) {
         setActiveMonthlyPlans(e);
         setSaasSettings({ ...saasSettings, activeMonthlyPlans: e });
         return toaster({

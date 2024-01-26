@@ -2,9 +2,10 @@
 import { addNewMRRSPlan } from "@/src/components/features/pages/admin/actions.server";
 import { Button } from "@/src/components/ui/button";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { SaasTypeReadableName } from "@/src/functions/SaasTypeReadableName";
+import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
 import { useSaasMRRSPlans } from '@/src/stores/saasMRRSPlans';
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { PlusSquare } from "lucide-react";
 
 export const AddPlan = () => {
   const { saasSettings } = useSaasSettingsStore();
@@ -28,6 +29,7 @@ export const AddPlan = () => {
       <div className="flex justify-center my-5 mb-12">
         <Button className="" onClick={handleAddPlan}>
           Add a new {saasType} plan
+          <PlusSquare className="icon" />
         </Button>
       </div>
     </>

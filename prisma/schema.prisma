@@ -216,8 +216,8 @@ enum SaasTypes {
   // Alias : MRRS
   // Ce modèle est basé sur des plans d'abonnement mensuels ou annuels.
   // Offrir différents plans à différents prix permet de cibler divers segments de clients.
-  MRR_COMPLEXE
-  // Alias : MRRC
+  PAY_ONCE
+  // Alias : PO
   // Ce modèle est une variation plus avancée du MRR, où chaque plan inclut non seulement des fonctionnalités supplémentaires
   // mais aussi des limites de crédits pour chaque fonctionnalité. 
   // Cela convient aux SaaS qui offrent des services modulaires ou une utilisation basée sur des quotas.
@@ -232,6 +232,7 @@ model SaasSettings {
   activeRefillCredit Boolean?  @default(true)
   currency           String?   @default("usd")
   tax                Float?    @default(0)
+  creditName         String?   @default("Credit name")
   createdAt          DateTime? @default(now())
   updatedAt          DateTime? @updatedAt
 }
@@ -244,6 +245,7 @@ model MRRSPlan {
   isPopular            Boolean?            @default(false) // Display popular plan on top
   isRecommended        Boolean?            @default(false) // Display recommended plan on top
   isTrial              Boolean?            @default(false) // Trial plan
+  isFree               Boolean?            @default(false) // Free plan
   trialDays            Int?                @default(0) // Trial days
   isMonthly            Boolean?            @default(false) // Monthly plan
   monthlyPrice         Float?              @default(0) // Monthly price
@@ -251,9 +253,12 @@ model MRRSPlan {
   yearlyPrice          Float?              @default(0) // Yearly price
   isCredit             Boolean?            @default(false) // Credit plan
   creditAllouedByMonth Int?                @default(0) // Monthly credit
+  saasType             SaasTypes           @default(MRR_SIMPLE) // Saas type
   active               Boolean?            @default(false) // Active plan
   position             Int?                @default(0) // Position in list
+  deleted              Boolean?            @default(false) // Deleted plan
   createdAt            DateTime?           @default(now())
+  deletedAt            DateTime?           @default(now())
   updatedAt            DateTime?           @updatedAt
   MRRSFeatures         MRRSPlanToFeature[]
 }

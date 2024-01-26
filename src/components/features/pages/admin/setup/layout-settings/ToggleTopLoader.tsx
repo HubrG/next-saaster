@@ -1,5 +1,7 @@
 "use client";
-import { changeActiveTopLoader } from "@/src/components/features/pages/admin/actions.server";
+import {
+  updateAppSettings
+} from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -18,22 +20,22 @@ export default function ToggleTopLoader() {
   }, [data]);
 
   const handleChangeTopLoader = async (e: any) => {
-    if (data.id) {
-      const dataToSet = await changeActiveTopLoader(data.id, e);
-      if (dataToSet === true) {
-        setActiveTopLoader(e);
-        return toaster({
-          description: `Top loader ${e ? "enabled" : "disabled"}`,
-          type: "success",
-          onDismiss: () => router.refresh(),
-          onAutoClose: () => router.refresh(),
-        });
-      } else {
-        return toaster({
-          type: "error",
-          description: "Top loader not changed, please try again",
-        });
-      }
+    const dataToSet = await updateAppSettings(appSettings.id, {
+      activeDarkMode: e,
+    });
+    if (dataToSet) {
+      setActiveTopLoader(e);
+      return toaster({
+        description: `Top loader ${e ? "enabled" : "disabled"}`,
+        type: "success",
+        onDismiss: () => router.refresh(),
+        onAutoClose: () => router.refresh(),
+      });
+    } else {
+      return toaster({
+        type: "error",
+        description: "Top loader not changed, please try again",
+      });
     }
   };
 

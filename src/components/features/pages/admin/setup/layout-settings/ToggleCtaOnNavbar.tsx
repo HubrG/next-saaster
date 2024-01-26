@@ -1,17 +1,15 @@
 "use client";
-import { changeActiveCtaOnNavbar } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Box } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ToggleCtaOnNavbar() {
   const [activeCtaOnNavbar, setActiveCtaOnNavbar] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
-  const router = useRouter();
 
   useEffect(() => {
     setActiveCtaOnNavbar(data.activeCtaOnNavbar ?? false);
@@ -19,8 +17,10 @@ export default function ToggleCtaOnNavbar() {
 
   const handleChangeCtaOnNavbar = async (e: any) => {
     if (data.id) {
-      const dataToSet = await changeActiveCtaOnNavbar(data.id, e);
-      if (dataToSet === true) {
+      const dataToSet = await updateAppSettings(appSettings.id, {
+        activeCtaOnNavbar: e,
+      });
+      if (dataToSet) {
         setActiveCtaOnNavbar(e);
         useAppSettingsStore
           .getState()
@@ -28,12 +28,6 @@ export default function ToggleCtaOnNavbar() {
         return toaster({
           description: `Active CTA on navbar ${e ? "enabled" : "disabled"}`,
           type: "success",
-          // onAutoClose: () => {
-          //   router.refresh();
-          // },
-          // onDismiss: () => {
-          //   router.refresh();
-          // },
         });
       } else {
         return toaster({

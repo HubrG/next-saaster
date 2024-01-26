@@ -1,5 +1,5 @@
 "use client";
-import { changeActiveCreditSystem } from "@/src/components/features/pages/admin/actions.server";
+import { updateSaasSettings } from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -16,26 +16,30 @@ export default function ToggleActiveMonthlyPlan() {
 
   const handleChangeActiveCreditSystem = async (e: any) => {
     if (saasSettings.id) {
-      if (saasSettings.activeYearlyPlans === false && e === false) {
-        return toaster({
-          type: "error",
-          duration: 8000,
-          description:
-            "You can't disable both yearly and monthly plans, please enable one of them",
-        });
-      }
-      const dataToSet = await changeActiveCreditSystem(saasSettings.id, e);
-      if (dataToSet === true) {
+      const dataToSet = await updateSaasSettings(saasSettings.id, {
+        activeCreditSystem: e,
+        activeRefillCredit: !e && false,
+      });
+      if (dataToSet) {
         setActiveCreditSystem(e);
-        setSaasSettings({ ...saasSettings, activeCreditSystem: e });
+        if (saasSettings.activeRefillCredit === true && e === false) {
+          setSaasSettings({ ...saasSettings, activeRefillCredit: false });
+          toaster({
+            type: "info",
+            duration: 8000,
+            description:
+              "The credit refill has been disabled because it is linked to the credit system",
+          });
+        }
+        setSaasSettings({ ...saasSettings, activeCreditSystem: e, activeRefillCredit: false});
         return toaster({
-          description: `Monthly plans ${e ? "enabled" : "disabled"}`,
+          description: `Credit system ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
         return toaster({
           type: "error",
-          description: "Monthly plans otpion not changed, please try again",
+          description: "Credit system option not changed, please try again",
         });
       }
     }

@@ -1,5 +1,5 @@
 "use client";
-import { changeActiveYearlyPlans } from "@/src/components/features/pages/admin/actions.server";
+import { updateSaasSettings } from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -24,8 +24,10 @@ export default function ToggleActiveYearlyPlan() {
             "You can't disable both yearly and monthly plans, please enable one of them",
         });
       }
-      const dataToSet = await changeActiveYearlyPlans(saasSettings.id, e);
-      if (dataToSet === true) {
+      const dataToSet = await updateSaasSettings(saasSettings.id, {
+        activeYearlyPlans: e,
+      });
+      if (dataToSet) {
         setActiveYearlyPlans(e);
         setSaasSettings({ ...saasSettings, activeYearlyPlans: e });
         return toaster({
@@ -35,7 +37,7 @@ export default function ToggleActiveYearlyPlan() {
       } else {
         return toaster({
           type: "error",
-          description: "Yearly plans otpion not changed, please try again",
+          description: "Yearly plans option not changed, please try again",
         });
       }
     }

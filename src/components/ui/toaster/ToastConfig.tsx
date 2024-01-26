@@ -83,8 +83,7 @@ export const toaster = ({
     className: `toast toast-${type}`,
     duration: duration,
     icon: toastIcon(type ?? "default"),
-    position:
-      type === "error" || type === "warning" ? "bottom-center" : position,
+    position : position,
     invert: invert,
     important: important,
     dismissible: dismissible,

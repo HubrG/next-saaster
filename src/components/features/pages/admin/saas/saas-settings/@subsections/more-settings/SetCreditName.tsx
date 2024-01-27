@@ -6,8 +6,9 @@ import { HelpCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 type Props = {
   set: (value: string) => void;
+  disabled: boolean | null;
 };
-export const SetCreditName = ({ set }: Props) => {
+export const SetCreditName = ({ set, disabled }: Props) => {
   const { saasSettings } = useSaasSettingsStore();
   const [creditName, setCreditName] = useState<string>("credit");
 
@@ -22,12 +23,12 @@ export const SetCreditName = ({ set }: Props) => {
   return (
     <div>
       <Label htmlFor={`creditName`}>
-        How would you like to name the credit (credit, token, coin...) ?
-        Enter it in the singular
+        How would you like to name the credit (credits, tokens, coins...) ?
       </Label>
       <div className="flex flex-row items-center gap-2">
         <Input
           type="text"
+          disabled={disabled??true}
           id="creditName"
           placeholder="Enter creditName"
           value={creditName}

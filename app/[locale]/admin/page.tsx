@@ -2,7 +2,7 @@ import { getAppSettings, getSaasMRRSPlans } from "@/app/[locale]/server.actions"
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
-import { MRRSPlan, SaasSettings, appSettings } from "@prisma/client";
+import { MRRSPlan, SaasSettings, UserRole, appSettings } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { getSaasSettings } from "../server.actions";
@@ -18,7 +18,7 @@ export const generateMetadata = async () => {
 export default async function Admin() {
   const session = await getServerSession(authOptions);
 
-  if (!session || session.user.role !== "ADMIN") {
+  if (!session || session.user.role === "USER" as UserRole) {
     redirect("/");
   }
   const appSettings = await getAppSettings() as appSettings;

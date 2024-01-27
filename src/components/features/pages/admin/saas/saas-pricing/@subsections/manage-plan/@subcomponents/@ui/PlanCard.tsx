@@ -1,6 +1,6 @@
 "use client";
 import { updateMRRSPlan } from "@/src/components/features/pages/admin/actions.server";
-import { manageClashes } from "@/src/components/features/pages/admin/saas/pricing-settings/@subsections/@subcomponents/manage-pricing/@subcomponents/@functions/manageClashes";
+import { manageClashes } from "@/src/components/features/pages/admin/saas/saas-pricing/@subsections/manage-plan/@subcomponents/@functions/manageClashes";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {
@@ -303,8 +303,8 @@ export const PlanCard = ({ plan, modeAdmin, className }: Props) => {
                   onChange={(e) => handleInputChange(e, "creditAllouedByMonth")}
                 />
                 <p>
-                  <span>{sliced(saasSettings.creditName + "s", 5)}</span>
-                  <span>/months</span>
+                  <span>{sliced(saasSettings.creditName ?? "credits", 5)}</span>
+                  <span>/month</span>
                 </p>
               </div>
             )}

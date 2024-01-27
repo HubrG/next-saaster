@@ -31,7 +31,11 @@ export default function ToggleActiveMonthlyPlan() {
               "The credit refill has been disabled because it is linked to the credit system",
           });
         }
-        setSaasSettings({ ...saasSettings, activeCreditSystem: e, activeRefillCredit: false});
+        setSaasSettings({
+          ...saasSettings,
+          activeCreditSystem: e,
+          activeRefillCredit: false,
+        });
         return toaster({
           description: `Credit system ${e ? "enabled" : "disabled"}`,
           type: "success",
@@ -46,16 +50,16 @@ export default function ToggleActiveMonthlyPlan() {
   };
 
   return (
-    <ToggleWrapper
-      handleChange={handleChangeActiveCreditSystem}
-      checked={activeCreditSystem}
-      id="switch-active-credit-system">
-      <MoonStar className="icon" />
-      Active the <strong>credit system</strong> for your SaaS
-      <div className="toggle-info">
-        All features will be linked to the spending
-        of a single resource (tokens, credits, etc.).
-      </div>
-    </ToggleWrapper>
+      <ToggleWrapper
+        handleChange={handleChangeActiveCreditSystem}
+        checked={activeCreditSystem}
+        id="switch-active-credit-system">
+        <MoonStar className="icon" />
+        Active the <strong>credit system</strong> for your SaaS
+        <div className="toggle-info">
+          All features will be linked to the spending of a single resource
+          (tokens, credits, etc.).
+        </div>
+      </ToggleWrapper>
   );
 }

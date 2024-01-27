@@ -1,15 +1,15 @@
 "use server";
-import { isAdmin } from "@/src/functions/isAdmin";
+import { isSuperAdmin } from "@/src/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
 import { SaasSettings, appSettings } from "@prisma/client";
 
 
-export const getFeatureCategories = async () => {
-  const session = await isAdmin();
-  if (!session) return false;
-  const categories = await prisma.pricingFeatureCategory.findMany();
-  return categories || null;
-};
+// export const getFeatureCategories = async () => {
+//   const session = await isAdmin();
+//   if (!session) return false;
+//   const categories = await prisma.pricingFeatureCategory.findMany();
+//   return categories || null;
+// };
 
 
 export const addNewMRRSPlan = async () => {
@@ -20,7 +20,7 @@ export const addNewMRRSPlan = async () => {
 };
 
 export const updateMRRSPlan = async (planId: string, data: any) => {
-  const session = await isAdmin();
+  const session = await isSuperAdmin();
   if (!session) return false;
   const updatePlan = await prisma.mRRSPlan.update({
     where: { id: planId },
@@ -30,7 +30,7 @@ export const updateMRRSPlan = async (planId: string, data: any) => {
 };
 
 export const updateAppSettings = async (settingsId: string, data: any) => {
-  const session = await isAdmin();
+  const session = await isSuperAdmin();
   if (!session) return false;
 
   const updateSetting = await prisma.appSettings.update({
@@ -51,7 +51,7 @@ export const updateAppSettings = async (settingsId: string, data: any) => {
 };
 
 export const updateSaasSettings = async (settingsId: string, data: any) => {
-  const session = await isAdmin();
+  const session = await isSuperAdmin();
   if (!session) return false;
 
   const updateSetting = await prisma.saasSettings.update({

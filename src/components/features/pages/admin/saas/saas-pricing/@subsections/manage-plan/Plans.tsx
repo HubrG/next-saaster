@@ -1,12 +1,12 @@
 import { AddPlan } from "./@subcomponents/AddPlan";
-import { Plans } from "./@subcomponents/Plans";
+import { PlansList } from "./@subcomponents/PlansList";
 
 
 export const ManagePlans = () => {
   return (
     <>
       <AddPlan />
-      <Plans />
+      <PlansList />
     </>
   );
 };

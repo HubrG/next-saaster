@@ -9,7 +9,7 @@ type Store = {
 export const useSaasSettingsStore = create<Store>()((set) => ({
   saasSettings: {
     id: "",
-    saasType: SaasTypes.MRR_SIMPLE,
+    saasType: SaasTypes.MRR_SIMPLE as SaasTypes,
     activeYearlyPlans: false,
     activeMonthlyPlans: false,
     activeRefillCredit: false,

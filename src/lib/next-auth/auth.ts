@@ -76,7 +76,7 @@ export const authOptions: AuthOptions = {
       if (account && extendedUser && account.provider === "github") {
         // We check if this is the user's first connection via GitHub
         const isFirstUser = (await prisma.user.count()) === 1;
-        const role = isFirstUser ? "ADMIN" : "USER";
+        const role = isFirstUser ? "SUPER_ADMIN" : "USER";
         // We update the role in the database
         if (isFirstUser) {
           await prisma.user.update({

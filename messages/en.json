@@ -23,10 +23,10 @@
             "Auth": {
               "UserProfile": {
                 "tooltips": {
-                  "credits": "Remaining credits"
+                  "credits": "Remaining"
                 },
                 "links": {
-                  "buy": "Buy more credits",
+                  "buy": "Buy more",
                   "account": "My account"
                 }
               },

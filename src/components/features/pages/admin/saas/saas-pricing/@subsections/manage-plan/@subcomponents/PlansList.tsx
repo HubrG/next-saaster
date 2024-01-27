@@ -1,9 +1,9 @@
 "use client";
 
-import { PlanCard } from "@/src/components/features/pages/admin/saas/pricing-settings/@subsections/@subcomponents/manage-pricing/@subcomponents/@ui/PlanCard";
+import { PlanCard } from "@/src/components/features/pages/admin/saas/saas-pricing/@subsections/manage-plan/@subcomponents/@ui/PlanCard";
 import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-export const Plans = () => {
+export const PlansList = () => {
   const { saasMRRSPlans } = useSaasMRRSPlans();
   const { saasSettings } = useSaasSettingsStore();
 

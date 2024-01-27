@@ -1,4 +1,4 @@
-import { isAdmin } from "@/src/functions/isAdmin";
+import { isAdmin } from "@/src/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
 
 export const isEmptyUser = async () => {

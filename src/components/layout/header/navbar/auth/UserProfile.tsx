@@ -9,6 +9,7 @@ import {
 import { Separator } from "@/src/components/ui/separator";
 import { Link } from "@/src/lib/intl/navigation";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { UserRole } from "@prisma/client";
 import { CreditCard, User, Wrench } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -48,40 +49,46 @@ export const UserProfile = ({ className }: UserProfileProps) => {
               )}
             </div>
           </div>
-          <div className="w-full userNavbarDiv">
-            <div className="relative w-full" data-tooltip-id="remainingTooltip">
-              <div
-                className={`${
-                  tokenPercentage <= 0
-                    ? "progressTokenVoid"
-                    : tokenPercentage < 10
-                    ? "progressToken bg-red-500"
-                    : "progressToken"
-                }`}
-                style={{
-                  width: `${tokenPercentage}%`,
-                }}>
-                &nbsp;
+          {saasSettings.activeCreditSystem && (
+            <>
+              <div className="w-full userNavbarDiv">
+                <div
+                  className="relative w-full"
+                  data-tooltip-id="remainingTooltip">
+                  <div
+                    className={`${
+                      tokenPercentage <= 0
+                        ? "progressTokenVoid"
+                        : tokenPercentage < 10
+                        ? "progressToken bg-red-500"
+                        : "progressToken"
+                    }`}
+                    style={{
+                      width: `${tokenPercentage}%`,
+                    }}>
+                    &nbsp;
+                  </div>
+                  <div className="progressTokenVoid"></div>
+                </div>
+                <Tooltip
+                  id="remainingTooltip"
+                  opacity={1}
+                  classNameArrow="hidden"
+                  variant="dark"
+                  className="tooltip flex flex-col">
+                  <span className="font-bold">
+                    {/* Crédit remaining */}
+                    {t(
+                      "Features.Layout.Header.Navbar.Auth.UserProfile.tooltips.credits"
+                    )}{" "}
+                    {saasSettings.creditName}: x%
+                  </span>
+                  <small>50 &nbsp;/&nbsp; 100</small>
+                </Tooltip>
               </div>
-              <div className="progressTokenVoid"></div>
-            </div>
-            <Tooltip
-              id="remainingTooltip"
-              opacity={1}
-              classNameArrow="hidden"
-              variant="dark"
-              className="tooltip flex flex-col">
-              <span className="font-bold">
-                {/* Crédit remaining */}
-                {t(
-                  "Features.Layout.Header.Navbar.Auth.UserProfile.tooltips.credits"
-                )}{" "}
-                : x%
-              </span>
-              <small>50 &nbsp;/&nbsp; 100</small>
-            </Tooltip>
-          </div>
-          {className && <div className="ml-5">2%</div>}
+              {className && <div className="ml-5">2%</div>}
+            </>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
@@ -91,7 +98,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
               <Link href="/pricing" className="user-profile-buy-credit">
                 <CreditCard className="icon" />
                 {/* Buy credits */}
-                {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.buy")}
+                {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.buy")} {saasSettings.creditName}
               </Link>
             </DropdownMenuItem>
             <Separator />
@@ -107,7 +114,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
           </Link>
         </DropdownMenuItem>
         <Separator className="my-1 h-0.5" />
-        {userInfo?.role === "ADMIN" && (
+        {userInfo?.role !== "USER" as UserRole && (
           <>
             <DropdownMenuItem className="w-full" asChild>
               <Link

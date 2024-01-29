@@ -51,7 +51,7 @@
 - Custom hooks: [react-use](https://github.com/streamich/react-use)
 - Stores/Contexts: [zustand](https://github.com/pmndrs/zustand)
 - Upload/Upload management: [filepond](https://github.com/pqina/react-filepond)
-- UI/UX (sortable/drag&drop/masonry...): [muuri](https://github.com/haltu/muuri)
+- Sortable DD: [react-easy-sort](https://github.com/ValentinH/react-easy-sort)
 - Cookie management: [js-cookie](https://www.npmjs.com/package/js-cookie)
 - Form management: [react-hook-form](https://github.com/react-hook-form/react-hook-form)
 - Query management: [tanstack/react-query](https://github.com/TanStack/query)

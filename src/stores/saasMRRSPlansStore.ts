@@ -6,7 +6,7 @@ type Store = {
   setSaasMRRSPlans: (saasMRRSPlans: MRRSPlan[]) => void;
 };
 
-export const useSaasMRRSPlans = create<Store>()((set) => ({
+export const useSaasMRRSPlansStore = create<Store>()((set) => ({
   saasMRRSPlans: [],
   setSaasMRRSPlans: (saasMRRSPlans) => set({ saasMRRSPlans }),
 }));

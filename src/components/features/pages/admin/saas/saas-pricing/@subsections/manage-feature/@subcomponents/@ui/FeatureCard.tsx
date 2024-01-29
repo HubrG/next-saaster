@@ -4,7 +4,7 @@ import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
-import { useSaasMRRSFeatures } from "@/src/stores/saasMRRSFeature";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
 import { MRRSFeature } from "@prisma/client";
 import { Grip } from "lucide-react";
 import { useState } from "react";
@@ -22,7 +22,7 @@ export const FeatureCard = ({ feature }: Props) => {
     ...feature,
   });
 
-  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeatures();
+  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
 
   // Set save and cancel to true or false
   const setSaveAndCancel = (value: boolean) => {
@@ -62,12 +62,18 @@ export const FeatureCard = ({ feature }: Props) => {
     <>
       <div className="col-span-1">
         <SortableKnob>
-          <Grip className="top-0 right-0.5 text-primary hover:cursor-move w-5" />
+          <Grip
+            data-tooltip-id={"tt-knob-" + feature.id}
+            className="dd-icon top-0 right-0.5 w-5"
+          />
         </SortableKnob>
+        {/* <Tooltip id={"tt-knob-" + feature.id} place="top" className="tooltip">
+          Drag and drop to reorder
+        </Tooltip> */}
       </div>
-      <div className="col-span-1">
-        <Switch data-tooltip-id={"tooltip"} />
-      </div>
+      <div className="col-span-2 font-bold">{feature.name}</div>
+      <div className="col-span-2">{feature.description}</div>
+
       <div className="col-span-1">
         <CopySomething
           what="Feature ID"
@@ -77,11 +83,13 @@ export const FeatureCard = ({ feature }: Props) => {
         </CopySomething>
       </div>
       <div className="col-span-1">{feature.alias}</div>
-      <div className="col-span-2">{feature.name}</div>
-      <div className="col-span-2">{feature.description}</div>
+      <div className="col-span-1">
+        <Switch data-tooltip-id={"tooltip"} />
+      </div>
       <div className="col-span-2">
         <LinkPlanToFeature />
       </div>
+
       <div className="col-span-1">
         <PopoverDelete
           what="this feature"

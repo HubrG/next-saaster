@@ -48,6 +48,10 @@ export const getSaasMRRSPlans = async () => {
     orderBy: {
       position: "asc",
     },
+    include: {
+      MRRSFeatures: {
+      },
+    },
   });
   return plans;
 };
@@ -57,6 +61,9 @@ export const getSaasMRRSFeatures = async () => {
   const features = await prisma.mRRSFeature.findMany({
     orderBy: {
       position: "asc",
+    },
+    include: {
+      MRRSPlans: {},
     },
   });
   return features;

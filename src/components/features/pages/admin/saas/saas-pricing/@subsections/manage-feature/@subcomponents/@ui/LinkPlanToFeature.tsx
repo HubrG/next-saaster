@@ -9,9 +9,8 @@ import {
 import { Switch } from "@/src/components/ui/switch";
 import { capitalizeFirstLetter } from "@/src/functions/capitalizeFirstLetter";
 import { sliced } from "@/src/functions/slice";
-import { sortByActiveAndDate } from "@/src/functions/sortPlans";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
+import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { Info, ListTodo } from "lucide-react";
 import { Tooltip } from "react-tooltip";
@@ -19,7 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 export const LinkPlanToFeature = () => {
-  const { saasMRRSPlans } = useSaasMRRSPlans();
+  const { saasMRRSPlans } = useSaasMRRSPlansStore();
   const { saasSettings } = useSaasSettingsStore();
   const randUuid = uuidv4();
   return (
@@ -33,9 +32,6 @@ export const LinkPlanToFeature = () => {
         {saasMRRSPlans
           .slice()
           .filter((plan) => !plan.deleted)
-          .sort((a, b) => {
-            return sortByActiveAndDate(a, b);
-          })
           .map((plan, index) => (
             <div
               key={"fp" + plan.id}

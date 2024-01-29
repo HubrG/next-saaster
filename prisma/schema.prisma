@@ -200,22 +200,24 @@ model MRRSFeature {
   alias       String?             @unique
   description String?             @default("Feature description")
   active      Boolean?            @default(false)
+  onlyOnSelectedPlans Boolean?    @default(false)
   position    Int?                @default(999)
   deleted     Boolean?            @default(false)
   deletedAt   DateTime?           @default(now())
   createdAt   DateTime?           @default(now())
   updatedAt   DateTime?           @updatedAt
-  MRRSPlans   MRRSPlanToFeature[]
+  MRRSPlans   MRRSPlanToFeature[] 
 }
 
 model MRRSPlanToFeature {
   id                   String      @id @default(cuid())
   creditCost           Int?        @default(0)
   creditAllouedByMonth Int?        @default(0)
+  active               Boolean?    @default(false)
   planId               String
   featureId            String
-  plan                 MRRSPlan    @relation(fields: [planId], references: [id])
-  feature              MRRSFeature @relation(fields: [featureId], references: [id])
+  plan                 MRRSPlan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  feature              MRRSFeature @relation(fields: [featureId], references: [id], onDelete: Cascade)
 
   @@unique([planId, featureId])
 }

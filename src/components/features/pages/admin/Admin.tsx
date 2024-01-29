@@ -3,8 +3,8 @@ import { AdminMain } from "@/src/components/features/pages/admin/@subcomponents/
 import { AdminNavbar } from "@/src/components/features/pages/admin/@subcomponents/Navbar";
 import { Loader } from "@/src/components/ui/loader";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
-import { useSaasMRRSFeatures } from "@/src/stores/saasMRRSFeature";
-import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
+import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
   MRRSFeature,
@@ -29,8 +29,8 @@ export const AdminComponent = ({
 }: Props) => {
   const { setAppSettings } = useAppSettingsStore();
   const { setSaasSettings } = useSaasSettingsStore();
-  const { setSaasMRRSPlans } = useSaasMRRSPlans();
-  const { setSaasMRRSFeatures } = useSaasMRRSFeatures();
+  const { setSaasMRRSPlans } = useSaasMRRSPlansStore();
+  const { setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

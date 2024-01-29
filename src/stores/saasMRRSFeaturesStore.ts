@@ -6,7 +6,7 @@ type Store = {
   setSaasMRRSFeatures: (saasMRRSFeatures: MRRSFeature[]) => void;
 };
 
-export const useSaasMRRSFeatures = create<Store>()((set) => ({
+export const useSaasMRRSFeaturesStore = create<Store>()((set) => ({
   saasMRRSFeatures: [],
   setSaasMRRSFeatures: (saasMRRSFeatures) => set({ saasMRRSFeatures }),
 }));

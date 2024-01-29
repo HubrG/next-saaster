@@ -352,3 +352,6 @@ label {
 .shadcn-inputs {
   @apply bg-secondary/10 dark:bg-primary/20;
 }
+.dd-icon {
+  @apply hover:cursor-move text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
+}

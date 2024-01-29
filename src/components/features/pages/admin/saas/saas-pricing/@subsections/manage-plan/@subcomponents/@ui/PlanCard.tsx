@@ -18,9 +18,10 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/functions/parse";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
+import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
+import isEqual from "lodash/isEqual";
 import { ChevronsUpDown, Eye, EyeOff, Grip } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SortableKnob } from "react-easy-sort";
@@ -39,7 +40,13 @@ export const PlanCard = ({ plan, className }: Props) => {
   const [cancel, setCancel] = useState(false);
   const [save, setSave] = useState(false);
   const { saasSettings } = useSaasSettingsStore();
-  const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlans();
+  const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
+
+  // Check if the plan has changed
+  useEffect(() => {
+    const hasChanged = !isEqual(initialPlanState, planState);
+    hasChanged ? setSaveAndCancel(true) : setSaveAndCancel(false);
+  }, [initialPlanState, planState]);
 
   // Handle input change, and manage clashes
   const handleInputChange = (e: any, name: string) => {
@@ -60,15 +67,7 @@ export const PlanCard = ({ plan, className }: Props) => {
     });
   };
 
-  // Check if the plan has changed
-  useEffect(() => {
-    const initialPlanStr = JSON.stringify(initialPlanState);
-    const currentPlanStr = JSON.stringify(planState);
-    initialPlanStr !== currentPlanStr
-      ? setSaveAndCancel(true)
-      : setSaveAndCancel(false);
-  }, [initialPlanState, planState]);
-
+  // Handle save plan
   const handleSave = async () => {
     const dataToSet = await updateMRRSPlan(planState.id, {
       ...planState,
@@ -76,7 +75,20 @@ export const PlanCard = ({ plan, className }: Props) => {
     });
     if (dataToSet) {
       setSaveAndCancel(false);
-      setInitialPlanState({ ...dataToSet });
+      setInitialPlanState({ ...planState });
+      setSaasMRRSPlans(
+        saasMRRSPlans.map((plan) =>
+          plan.id === planState.id ? { ...planState } : plan
+        )
+      );
+      // setSaasMRRSPlans(
+      //   saasMRRSPlans.map((plan) =>
+      //     plan.id === planState.id ? { ...dataToSet } : plan
+      //   )
+      // );
+
+      //  console.log("planState", planState, "initialPlanState", initialPlanState);
+
       return toaster({
         description: `Plan ${planState.name} changed successfully`,
         type: "success",
@@ -142,8 +154,15 @@ export const PlanCard = ({ plan, className }: Props) => {
           </Badge>
         )}
         <SortableKnob>
-          <Grip className="absolute top-0 right-0.5 text-primary hover:cursor-move w-5" />
+          <Grip
+            className="dd-icon absolute top-0 right-0.5 w-5"
+            data-tooltip-id={"tt-knob-" + plan.id}
+          />
         </SortableKnob>
+        {/* <Tooltip id={"tt-knob-" + plan.id} place="top" className="tooltip">
+          Drag and drop to reorder
+        </Tooltip> */}
+
         <Input
           name="name"
           value={planState.name ?? ""}

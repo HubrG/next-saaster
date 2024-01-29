@@ -8,6 +8,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/src/components/ui/collapsible";
+import { CopySomething } from "@/src/components/ui/copy-something";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { Separator } from "@/src/components/ui/separator";
@@ -20,21 +21,18 @@ import { cn } from "@/src/lib/utils";
 import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
-import {
-  ChevronsUpDown,
-  Eye,
-  EyeOff
-} from "lucide-react";
+import { ChevronsUpDown, Eye, EyeOff, Grip } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
 
 type Props = {
   plan: MRRSPlan;
-  modeAdmin?: boolean;
   className?: string;
+  draggableId?: string;
 };
-export const PlanCard = ({ plan, modeAdmin, className }: Props) => {
+export const PlanCard = ({ plan, className }: Props) => {
   const [planState, setPlanState] = useState(plan);
   const [isOpen, setIsOpen] = useState(false);
   const [initialPlanState, setInitialPlanState] = useState({ ...plan });
@@ -55,7 +53,7 @@ export const PlanCard = ({ plan, modeAdmin, className }: Props) => {
       ["trialDays", "monthlyPrice", "yearlyPrice", "creditAllouedByMonth"],
       name,
       value
-    ); 
+    );
     setPlanState((prevState) => {
       const newData = { ...prevState, [name]: value };
       return manageClashes(newData, name);
@@ -108,7 +106,7 @@ export const PlanCard = ({ plan, modeAdmin, className }: Props) => {
       setSaasMRRSPlans(
         saasMRRSPlans.map((plan) =>
           plan.id === planState.id
-            ? { ...plan, deleted: true, deletedAt: new Date() }
+            ? { ...plan, deleted: true, position: 999, deletedAt: new Date() }
             : plan
         )
       );
@@ -127,22 +125,25 @@ export const PlanCard = ({ plan, modeAdmin, className }: Props) => {
     }
   };
 
-  const handleCancel = () => {
+  const handleReset = () => {
     setPlanState(initialPlanState);
     setCancel(false);
   };
 
-  if (!plan.deleted) {
-    return (
+  return (
+    <div className="item-content" id={"dd" + plan.id}>
       <div
-        className={`admin-plan-card  ${className}  ${
+        className={`admin-plan-card !pb-4  ${className}  ${
           planState.active && "active"
         } `}>
         {planState.active && (
-          <Badge className="absolute badge !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-8 left-0  bg-primary dark:text-text-900 text-text-900">
-            <strong className="!text-xs !font-semibold">Active</strong>
+          <Badge className="absolute badge !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-8 left-0  bg-secondary dark:bg-primary dark:text-text-900 text-text-900">
+            Active
           </Badge>
         )}
+        <SortableKnob>
+          <Grip className="absolute top-0 right-0.5 text-primary hover:cursor-move w-5" />
+        </SortableKnob>
         <Input
           name="name"
           value={planState.name ?? ""}
@@ -310,12 +311,29 @@ export const PlanCard = ({ plan, modeAdmin, className }: Props) => {
             )}
           </CollapsibleContent>
         </Collapsible>
-
         <Separator className="-mt-2 border-t border !border-dashed" />
         <div className="flex flex-row w-full justify-self-end justify-between place-items-end flex-1">
-          <PlanCardButtons {...{ save, cancel, handleSave, handleCancel, handleDelete, setCancel }} />
+          <PlanCardButtons
+            {...{
+              save,
+              cancel,
+              handleSave,
+              handleReset,
+              handleDelete,
+            }}
+          />
         </div>
       </div>
-    );
-  }
+      <div>
+        <p className="!text-xs mb-0 text-center pt-2 ">
+          <CopySomething
+            what="Plan ID"
+            copyText={plan.id}
+            id={"plan-id-copy-" + plan.id}>
+            <strong className="!text-xs opacity-70 ">ID :</strong> {plan.id}
+          </CopySomething>
+        </p>
+      </div>
+    </div>
+  );
 };

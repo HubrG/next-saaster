@@ -81,7 +81,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
                     {t(
                       "Features.Layout.Header.Navbar.Auth.UserProfile.tooltips.credits"
                     )}{" "}
-                    {saasSettings.creditName}: x%
+                    {saasSettings.creditName} : x%
                   </span>
                   <small>50 &nbsp;/&nbsp; 100</small>
                 </Tooltip>

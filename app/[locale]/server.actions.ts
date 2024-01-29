@@ -1,4 +1,3 @@
-import { isAdmin } from "@/src/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
 
 export const isEmptyUser = async () => {
@@ -45,11 +44,20 @@ export const getSaasSettings = async () => {
 };
 
 export const getSaasMRRSPlans = async () => {
-   const session = await isAdmin();
-  if (!session) return false;
-  const plans = await prisma.mRRSPlan.findMany();
-  if (!plans) return false;
+  const plans = await prisma.mRRSPlan.findMany({
+    orderBy: {
+      position: "asc",
+    },
+  });
   return plans;
 };
 
 
+export const getSaasMRRSFeatures = async () => {
+  const features = await prisma.mRRSFeature.findMany({
+    orderBy: {
+      position: "asc",
+    },
+  });
+  return features;
+};

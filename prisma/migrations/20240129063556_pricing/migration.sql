@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "MRRSPlan" ALTER COLUMN "position" SET DEFAULT 999;

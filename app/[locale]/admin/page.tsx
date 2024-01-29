@@ -1,8 +1,9 @@
-import { getAppSettings, getSaasMRRSPlans } from "@/app/[locale]/server.actions";
+import { getAppSettings, getSaasMRRSFeatures, getSaasMRRSPlans } from "@/app/[locale]/server.actions";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
-import { MRRSPlan, SaasSettings, UserRole, appSettings } from "@prisma/client";
+import { MRRSFeature, MRRSPlan, SaasSettings, UserRole, appSettings } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { getSaasSettings } from "../server.actions";
@@ -23,10 +24,15 @@ export default async function Admin() {
   }
   const appSettings = await getAppSettings() as appSettings;
   const saasSettings = await getSaasSettings() as SaasSettings;
-  const saasMRRSPlans = await getSaasMRRSPlans() as MRRSPlan[];
+  const saasMRRSPlans = (await getSaasMRRSPlans()) as MRRSPlan[];
+  const saasMRRSFeatures = (await getSaasMRRSFeatures()) as MRRSFeature[];
 
-  if (!appSettings  || !saasSettings || !saasMRRSPlans) {
-    return null;
+  if (!appSettings || !saasSettings || !saasMRRSPlans || !saasMRRSFeatures) {
+    toaster({
+      type: "error",
+      description: "An error occured while loading the data",
+    });
+    redirect("/");
   }
 
   return (
@@ -35,6 +41,7 @@ export default async function Admin() {
         appSettings={appSettings}
         saasSettings={saasSettings}
         saasMRRSPlans={saasMRRSPlans}
+        saasMRRSFeatures={saasMRRSFeatures}
       />
     </div>
   );

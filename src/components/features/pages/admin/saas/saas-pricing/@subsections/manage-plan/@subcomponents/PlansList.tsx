@@ -1,31 +1,42 @@
 "use client";
-
+import { updateMRRSPlanPosition } from "@/src/components/features/pages/admin/actions.server";
 import { PlanCard } from "@/src/components/features/pages/admin/saas/saas-pricing/@subsections/manage-plan/@subcomponents/@ui/PlanCard";
+import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
 import { useSaasMRRSPlans } from "@/src/stores/saasMRRSPlans";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { MRRSPlan } from "@prisma/client";
+import SortableList, { SortableItem } from "react-easy-sort";
+
 export const PlansList = () => {
-  const { saasMRRSPlans } = useSaasMRRSPlans();
+  const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlans();
   const { saasSettings } = useSaasSettingsStore();
 
+  const onSortEnd = async (oldIndex: number, newIndex: number) => {
+    const newSaasMRRSPlans = await sortADminFeatureAndPlan(saasMRRSPlans, oldIndex, newIndex) as MRRSPlan[];
+    if (newSaasMRRSPlans) {
+      setSaasMRRSPlans(newSaasMRRSPlans);
+      const update = await updateMRRSPlanPosition(newSaasMRRSPlans);
+    }
+    // if (update) {
+    //   setSaasMRRSPlans(update);
+    // }
+  };
+
   return (
-    <div className="grid grid-flow-row lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-x-20 gap-y-14">
+    <SortableList
+      onSortEnd={onSortEnd}
+      className="grid grid-flow-row lg:grid-cols-3 md:grid-cols-2  grid-cols-1 md:gap-x-5 md:gap-y-14"
+      draggedItemClassName="dragged">
       {saasSettings.saasType === "MRR_SIMPLE" &&
         saasMRRSPlans
-          .slice()
-          .sort((a, b) => {
-            if (a.active && !b.active) {
-              return -1;
-            }
-            if (!a.active && b.active) {
-              return 1;
-            }
-            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-            return dateA - dateB;
-          })
+          .filter((plan) => !plan.deleted)
           .map((plan, index) => (
-            <PlanCard key={index + plan.id} modeAdmin={true} plan={plan} />
+            <SortableItem key={plan.id}>
+              <div className="!select-none">
+                <PlanCard plan={plan} />
+              </div>
+            </SortableItem>
           ))}
-    </div>
+    </SortableList>
   );
 };

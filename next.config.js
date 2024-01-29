@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 
 // Intl config
-const withNextIntl = require('next-intl/plugin')(
-    "./src/lib/intl/i18n.config.ts",
+const withNextIntl = require("next-intl/plugin")(
+  "./src/lib/intl/i18n.config.ts"
 );
 
 const nextConfig = {
-   images: {
+  images: {
     remotePatterns: [
       {
         protocol: "https",

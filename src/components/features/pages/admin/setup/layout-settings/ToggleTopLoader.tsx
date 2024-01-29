@@ -1,7 +1,5 @@
 "use client";
-import {
-  updateAppSettings
-} from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -11,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function ToggleTopLoader() {
   const [activeTopLoader, setActiveTopLoader] = useState(true);
-  const { appSettings } = useAppSettingsStore();
+  const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
   const router = useRouter();
 
@@ -21,10 +19,12 @@ export default function ToggleTopLoader() {
 
   const handleChangeTopLoader = async (e: any) => {
     const dataToSet = await updateAppSettings(appSettings.id, {
-      activeDarkMode: e,
+      activeTopLoader: e,
     });
     if (dataToSet) {
       setActiveTopLoader(e);
+      setAppSettings({ ...appSettings, activeTopLoader: e });
+
       return toaster({
         description: `Top loader ${e ? "enabled" : "disabled"}`,
         type: "success",

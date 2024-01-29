@@ -23,3 +23,9 @@ export const isSuperAdmin = async () => {
     if (session.user.role !== ("SUPER_ADMIN" as UserRole)) return false;
     return true;
 }
+
+export const isConnected = async () => {
+    const session = await getServerSession(authOptions);
+    if (!session) return false;
+    return true;
+}

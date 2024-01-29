@@ -77,3 +77,9 @@
 - Change de favicon in `app/favicon.ico`
 - Change the robots.txt in `app/robots.txt` and put the correct url of sitemap.
 - Update the sitemap (dynamicly generated) in `app/sitemap.ts`
+
+
+## Notes :
+
+- User roles can be modified in the schema, and a function can verify the authorization in `src/functions/isUserRole.ts`
+- The project is configured for a deployment on Vercel, but you can deploy it on any other platform.

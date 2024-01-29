@@ -56,20 +56,20 @@ enum UserRole {
 }
 
 model User {
-  id                       String                     @id @default(cuid())
-  name                     String?
-  email                    String?                    @unique
-  emailVerified            DateTime?
-  image                    String?
-  hashedPassword           String?
-  date                     DateTime?                  @default(now())
-  role                     UserRole                   @default(USER)
-  accounts                 Account[]
-  sessions                 Session[]
-  createdAt                DateTime?                  @default(now())
-  updatedAt                DateTime?                  @updatedAt
-  transactions             Transaction[]
-  subscriptions            Subscription[]
+  id             String         @id @default(cuid())
+  name           String?
+  email          String?        @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  date           DateTime?      @default(now())
+  role           UserRole       @default(USER)
+  accounts       Account[]
+  sessions       Session[]
+  createdAt      DateTime?      @default(now())
+  updatedAt      DateTime?      @updatedAt
+  transactions   Transaction[]
+  subscriptions  Subscription[]
 }
 
 // SECTION -> Reste du schema
@@ -90,7 +90,6 @@ model appSettings {
 }
 
 // SECTION: Pricing
-
 
 model Transaction {
   id          String    @id @default(cuid())
@@ -186,7 +185,7 @@ model MRRSPlan {
   creditAllouedByMonth Int?                @default(0) // Monthly credit
   saasType             SaasTypes           @default(MRR_SIMPLE) // Saas type
   active               Boolean?            @default(false) // Active plan
-  position             Int?                @default(0) // Position in list
+  position             Int?                @default(999) // Position in list
   deleted              Boolean?            @default(false) // Deleted plan
   createdAt            DateTime?           @default(now())
   deletedAt            DateTime?           @default(now())
@@ -197,21 +196,26 @@ model MRRSPlan {
 
 model MRRSFeature {
   id          String              @id @default(cuid())
-  name        String?
+  name        String?             @default("Feature name")
   alias       String?             @unique
-  description String?
+  description String?             @default("Feature description")
   active      Boolean?            @default(false)
+  position    Int?                @default(999)
+  deleted     Boolean?            @default(false)
+  deletedAt   DateTime?           @default(now())
   createdAt   DateTime?           @default(now())
   updatedAt   DateTime?           @updatedAt
   MRRSPlans   MRRSPlanToFeature[]
 }
 
 model MRRSPlanToFeature {
-  id        String      @id @default(cuid())
-  planId    String
-  featureId String
-  plan      MRRSPlan    @relation(fields: [planId], references: [id])
-  feature   MRRSFeature @relation(fields: [featureId], references: [id])
+  id                   String      @id @default(cuid())
+  creditCost           Int?        @default(0)
+  creditAllouedByMonth Int?        @default(0)
+  planId               String
+  featureId            String
+  plan                 MRRSPlan    @relation(fields: [planId], references: [id])
+  feature              MRRSFeature @relation(fields: [featureId], references: [id])
 
   @@unique([planId, featureId])
 }

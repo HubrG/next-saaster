@@ -26,10 +26,13 @@ export const AddPlan = () => {
 
   return (
     <>
-      <div className="flex justify-center my-5 mb-12">
-        <Button className="" onClick={handleAddPlan}>
-          Add a new {saasType} plan
+      <div className="flex justify-end my-5 mb-12">
+        <Button
+          className=""
+          size={"sm"}
+          onClick={handleAddPlan}>
           <PlusSquare className="icon" />
+          Add a new {saasType} plan
         </Button>
       </div>
     </>

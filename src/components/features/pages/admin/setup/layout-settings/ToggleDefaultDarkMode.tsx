@@ -1,7 +1,5 @@
 "use client";
-import {
-  updateAppSettings
-} from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -24,6 +22,7 @@ export default function ToggleDefaultDarkMode() {
       });
       if (dataToSet) {
         setDefaultDarkmode(e);
+        setAppSettings({ ...appSettings, defaultDarkMode: e });
         return toaster({
           description: `Default darkmode ${e ? "enabled" : "disabled"}`,
           type: "success",

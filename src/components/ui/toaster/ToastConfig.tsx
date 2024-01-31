@@ -1,12 +1,40 @@
 import { AlertTriangle, CheckCircle2, Info, XCircle } from "lucide-react";
 import {
-  Position,
-  PromiseT,
-  ToastClassnames,
+  ExternalToast,
   ToastT,
-  ToastTypes,
   toast,
 } from "sonner";
+type ToastTypes =
+  | "normal"
+  | "action"
+  | "success"
+  | "info"
+  | "warning"
+  | "error"
+  | "loading"
+  | "default";
+type PromiseT<Data = any> = Promise<Data> | (() => Promise<Data>);
+type PromiseExternalToast = Omit<ExternalToast, "description">;
+type PromiseData<ToastData = any> = PromiseExternalToast & {
+  loading?: string | React.ReactNode;
+  success?:
+    | string
+    | React.ReactNode
+    | ((data: ToastData) => React.ReactNode | string);
+  error?: string | React.ReactNode | ((error: any) => React.ReactNode | string);
+  description?:
+    | string
+    | React.ReactNode
+    | ((data: any) => React.ReactNode | string);
+  finally?: () => void | Promise<void>;
+};
+type Position =
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "top-center"
+  | "bottom-center";
 
 import { Loader } from "../loader";
 
@@ -44,7 +72,21 @@ interface ToastProps {
   richColors?: boolean;
   closeButton?: boolean;
 }
-
+interface ToastClassnames {
+  toast?: string;
+  title?: string;
+  description?: string;
+  loader?: string;
+  closeButton?: string;
+  cancelButton?: string;
+  actionButton?: string;
+  success?: string;
+  error?: string;
+  info?: string;
+  warning?: string;
+  loading?: string;
+  default?: string;
+}
 export const toaster = ({
   description,
   type,

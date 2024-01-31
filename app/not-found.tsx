@@ -1,6 +1,5 @@
+"use client";
 export const dynamic = "force-dynamic";
-("use client");
-
 import Error from "next/error";
 
 // Render the default Next.js 404 page when a route

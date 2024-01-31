@@ -19,7 +19,7 @@ type Props = {
   };
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 

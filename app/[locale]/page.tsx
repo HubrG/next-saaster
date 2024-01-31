@@ -17,14 +17,9 @@ export const generateMetadata = async () => {
   });
 };
 // Utiliser la fonction loadAndCreateMetadata pour obtenir les métadonnées
-type Props = {
-  children: React.ReactNode;
-  params: {
-    locale: string;
-  };
-};
-export default async function Home({ params }: Props) {
-  unstable_setRequestLocale(params.locale);
+
+export default async function Home({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
 
   const t = await getTranslations("Index");
   const session = await getServerSession(authOptions);

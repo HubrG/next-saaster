@@ -5,7 +5,7 @@ import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvid
 import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
-import { getLocale, unstable_setRequestLocale } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { Caveat, Nunito, Playfair_Display } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { ReactNode, Suspense } from "react";
@@ -34,9 +34,9 @@ type Props = {
   session: Session;
 };
 export default async function RootLayout({ children, session }: { children: ReactNode; session: Session}) {
+  // unstable_setRequestLocale(locale);
   const locale = await getLocale();
   const appSettings = await getAppSettings();
-  unstable_setRequestLocale(locale);
 
   return (
     <SessProvider session={session}>

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -48,6 +48,7 @@
     "@tsparticles/engine": "^3.2.1",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.2.1",
+    "@vercel/postgres": "^0.7.2",
     "accept-language": "^3.0.18",
     "ai": "^2.2.31",
     "array-move": "^4.0.0",

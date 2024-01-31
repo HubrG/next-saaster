@@ -5,7 +5,6 @@ import {
   getSaasMRRSPlanToFeature,
   getSaasMRRSPlans,
 } from "@/app/[locale]/server.actions";
-// lazy
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import { Loader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";

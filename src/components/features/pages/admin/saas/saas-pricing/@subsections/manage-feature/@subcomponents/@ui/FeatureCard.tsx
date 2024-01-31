@@ -4,7 +4,6 @@ import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
 import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
-import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSFeature } from "@prisma/client";
 import { Grip } from "lucide-react";
 import { useState } from "react";
@@ -21,7 +20,6 @@ export const FeatureCard = ({ feature }: Props) => {
   const [initialFeatureState, setInitialFeatureState] = useState({
     ...feature,
   });
-  const { saasSettings} = useSaasSettingsStore();
   const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
   // Set save and cancel to true or false
 
@@ -56,60 +54,60 @@ export const FeatureCard = ({ feature }: Props) => {
 
   return (
     <>
-      <div>
+      <td>
         <SortableKnob>
           <Grip
             data-tooltip-id={"tt-knob-" + feature.id}
             className="dd-icon top-0 ml-2 w-5"
           />
         </SortableKnob>
-      </div>
+      </td>
 
-      <div className="col-span-2">
+      <td className="col-span-2">
         <FeatureCardCategory feature={feature} />
-      </div>
-      <div className="col-span-2 text-left">
+      </td>
+      <td className="col-span-2 text-left">
         <FeatureCardInfoPopover
           feature={feature}
           toChangeValue={feature.name ?? ""}
           toChange="name"
         />
-      </div>
-      <div className="col-span-2 text-left">
+      </td>
+      <td className="col-span-2 text-left">
         <FeatureCardInfoPopover
           feature={feature}
           toChangeValue={feature.description ?? ""}
           toChange="description"
           textarea
         />
-      </div>
-      <div className="col-span-1 text-left">
+      </td>
+      <td className="col-span-1 text-left">
         {" "}
         <FeatureCardInfoPopover
           feature={feature}
           toChangeValue={feature.alias}
           toChange="alias"
         />
-      </div>
-      <div className="col-span-2">
+      </td>
+      <td className="col-span-2">
         <LinkPlanToFeature feature={feature} />
-      </div>
+      </td>
 
-      <div className="col-span-1">
+      <td className="col-span-1">
         <CopySomething
           what="Feature ID"
           copyText={feature.id}
           id={"full-id" + feature.id}>
           {sliced(feature.id, 10)}
         </CopySomething>
-      </div>
-      <div>
+      </td>
+      <td>
         <PopoverDelete
           what="this feature"
           size="icon"
           handleDelete={handleDelete}
         />
-      </div>
+      </td>
     </>
   );
 };

@@ -42,7 +42,8 @@ export const PlanCard = ({ plan, className }: Props) => {
   const [save, setSave] = useState(false);
   const { saasSettings } = useSaasSettingsStore();
   const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
-  const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } = useSaasMRRSPlanToFeatureStore();
+  const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
+    useSaasMRRSPlanToFeatureStore();
 
   // Check if the plan has changed
   useEffect(() => {
@@ -163,9 +164,7 @@ export const PlanCard = ({ plan, className }: Props) => {
           planState.active && "active"
         } `}>
         {planState.active && (
-          <Badge className="plan-card-active-badge">
-            Active
-          </Badge>
+          <Badge className="plan-card-active-badge">Active</Badge>
         )}
         <SortableKnob>
           <Grip
@@ -211,29 +210,9 @@ export const PlanCard = ({ plan, className }: Props) => {
             />
             <Label htmlFor={`${plan.id}active`}>Active this plan</Label>
           </div>
-          <div className="flex items-center justify-between rounded-default  p-2 bg-primary space-x-4">
-            <h4 className="text-sm font-bold italic flex gap-x-2  flex-row items-center">
-              {!isOpen && (
-                <>
-                  <Eye className="w-8" /> Show
-                </>
-              )}
-              {isOpen && (
-                <>
-                  <EyeOff className="w-8" /> Hide
-                </>
-              )}{" "}
-              all options
-            </h4>
-            <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="sm" className="w-9 p-0">
-                <ChevronsUpDown className="h-4 w-4" />
-                <span className="sr-only">Toggle</span>
-              </Button>
-            </CollapsibleTrigger>
-          </div>
 
           <CollapsibleContent className="space-y-2">
+            <Separator className="border-b bg-transparent mt-4" />
             <PlanCardSwitch
               plan={plan}
               label="Free plan"
@@ -343,6 +322,29 @@ export const PlanCard = ({ plan, className }: Props) => {
               </div>
             )}
           </CollapsibleContent>
+          <div className="flex items-center justify-between rounded-default  p-2  space-x-4">
+            <CollapsibleTrigger asChild>
+              <h4 className="text-sm cursor-pointer w-full font-bold italic flex gap-x-2  flex-row items-center">
+                {!isOpen && (
+                  <>
+                    <Eye className="w-8" /> Show
+                  </>
+                )}
+                {isOpen && (
+                  <>
+                    <EyeOff className="w-8" /> Hide
+                  </>
+                )}{" "}
+                all options
+              </h4>
+            </CollapsibleTrigger>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="sm" className="w-9 p-0">
+                <ChevronsUpDown className="h-4 w-4" />
+                <span className="sr-only">Toggle</span>
+              </Button>
+            </CollapsibleTrigger>
+          </div>
         </Collapsible>
         <Separator className="-mt-2 border-t border !border-dashed" />
         <div className="flex flex-row w-full justify-self-end justify-between place-items-end flex-1">

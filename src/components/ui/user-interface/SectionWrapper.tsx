@@ -24,7 +24,7 @@ export const SectionWrapper = ({
         </div>
         <div className={`${className}`}>{children}</div>
       </div>
-      <Separator className=" dark:opacity-80 border-b-4 my-20 border-dotted h-[1px] border-primary-foreground dark:border-primary  bg-transparent " />
+      <Separator className=" dark:opacity-80 border-b-4 my-20 border-dotted h-[1px]   bg-transparent " />
     </>
   );
 };

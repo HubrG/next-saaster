@@ -140,7 +140,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
           <ListTodo />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[500px] flex flex-col items-center gap-2 shadow-2xl  border-2">
+      <PopoverContent className="w-[500px] flex flex-col items-center gap-2">
           <LinkPlanToFeatureOptions feature={feature} />
         {Object.keys(linksState).map((linkId) => {
           const planState = linksState[linkId];

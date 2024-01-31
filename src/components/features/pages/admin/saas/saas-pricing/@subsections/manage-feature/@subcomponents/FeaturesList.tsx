@@ -9,7 +9,6 @@ import { MRRSFeature } from "@prisma/client";
 import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { FeatureCard } from "./@ui/FeatureCard";
-import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
   const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
@@ -32,49 +31,44 @@ export const FeaturesList = () => {
   };
 
   return (
-    <ScrollArea className="whitespace-nowrap relative !pt-0 overflow-y-auto !rounded-none overflow-x-auto overflow-visible max-lg:shadow-right py-5">
+    <ScrollArea className="whitespace-nowrap relative overflow-x-auto -mt-5 overflow-y-auto py-5 max-lg:shadow-right">
       <SortableList
         lockAxis="y"
         onSortEnd={onSortEnd}
-        className={cn(
-          `gap-x-[4rem] relative gap-y-14 grid grid-cols-12 !rounded-t-none `
-        )}
+        className="gap-x-[4rem] gap-y-14 grid grid-cols-12"
         draggedItemClassName="dragged">
-        <div
-          className={cn(
-            `grid  border-t-2  grid-cols-12 bg-primary/20 dark:bg-accent/20 col-span-12 w-full   -z-0 !rounded-t-none select-none  py-5 font-bold border-b border-dashed  `
-          )}>
-          <div className="grid-cols-1"></div>
-          <div className="col-span-2 flex flex-row gap-x-0.5 justify-center items-center">
-            Category
-            <FeaturesCategoriesList />
-          </div>
-          <div className="col-span-2 text-left pl-4">Name</div>
-          <div className="col-span-2 text-left  pl-4">Description</div>
-          <div className="col-span-1 text-left  pl-4">Alias</div>
-          <div className="col-span-2">Link to plan</div>
-          <div className="col-span-1">ID</div>
-          <div className="col-span-1"></div>
-        </div>
-        {saasSettings.saasType === "MRR_SIMPLE" &&
-          saasMRRSFeatures
-            .slice()
-            .filter((feature) => !feature.deleted)
-            .map((feature) => (
-              <SortableItem key={feature.id}>
-                <div
-                  onClick={() => handleRowClick(feature.id)}
-                  className={cn(
-                    {
-                      "bg-primary/20":
-                        selectedRowId === feature.id,
-                    },
-                    "hover:bg-primary/10  dark:hover:bg-primary/10 grid col-span-12 grid-cols-12 py-1 -mt-14 !text-sm items-center w-full select-none "
-                  )}>
-                  <FeatureCard feature={feature} />
-                </div>
-              </SortableItem>
-            ))}
+        <table className="w-full">
+          <thead>
+            <th className="hidden"></th>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Alias</th>
+            <th>Link to plan</th>
+            <th>ID</th>
+            <th className="hidden"></th>
+          </thead>
+          <tbody>
+            {saasSettings.saasType === "MRR_SIMPLE" &&
+              saasMRRSFeatures
+                .filter((feature) => !feature.deleted)
+                .map((feature) => (
+                  <tr
+                    key={feature.id}
+                    onClick={() => handleRowClick(feature.id)}
+                    className={cn(
+                      {
+                        "bg-primary/20": selectedRowId === feature.id,
+                      },
+                      "hover:bg-primary/10 dark:hover:bg-primary/10 grid col-span-12 grid-cols-12 py-1 -mt-10 text-sm items-center w-full select-none"
+                    )}>
+                    <SortableItem>
+                      <FeatureCard feature={feature} />
+                    </SortableItem>
+                  </tr>
+                ))}
+          </tbody>
+        </table>
       </SortableList>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>

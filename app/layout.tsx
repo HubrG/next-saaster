@@ -4,7 +4,6 @@ import { cn } from "@/src/lib/utils";
 import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
 import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
-import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Session } from "next-auth";
 import { getLocale } from "next-intl/server";
 import { Caveat, Nunito, Playfair_Display } from "next/font/google";
@@ -32,7 +31,6 @@ const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 export default async function RootLayout({ children, session }: Props) {
   const locale = await getLocale();
   const appSettings = await getAppSettings();
-  useAppSettingsStore.getState().setAppSettings(await getAppSettings());
 
   return (
     <SessProvider session={session}>

@@ -3,13 +3,11 @@ import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
   appSettings,
-  PricingFeatureCategory,
   SaasSettings,
 } from "@prisma/client";
 import React, { useEffect } from "react";
 type Props = {
   settings: appSettings;
-  featureCategories?: PricingFeatureCategory[];
   saasSettings?: SaasSettings;
 };
 export const Init = ({ settings }: Props) => {

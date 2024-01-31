@@ -26,6 +26,7 @@
     --input: var(--background-300);
     --ring: var(--background-200);
     --radius: var(--rad);
+    --text-primary: var(--text-900);
     /*  */
     --background-bg: var(--background-50);
     /*  */
@@ -72,7 +73,7 @@ main > div:not(.first-connection) {
   @apply w-full max-w-6xl flex flex-col min-h-screen pt-28 !important;
 }
 header nav {
-  @apply fixed w-full z-40 top-0 left-0  bg-background  border-b border-dashed border-secondary dark:border-secondary/30;
+  @apply fixed w-full z-40 top-0 left-0  bg-background  border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
   @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
@@ -218,7 +219,7 @@ div.progressToken {
 
 /* SECTION : ADMIN */
 .my-card {
-  @apply dark:border-primary/40 border-primary bg-primary/10 border p-7 rounded-default;
+  @apply dark:border-primary/40 border-primary  border p-7 rounded-default;
 }
 .admin .theme-card {
   @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border-2;
@@ -234,10 +235,10 @@ button {
 }
 
 .user-interface .toggle-wrapper {
-  @apply my-card flex relative flex-col gap-3 justify-center w-full hover:bg-secondary-foreground/10 cursor-pointer;
+  @apply my-card flex relative flex-col gap-3 justify-center w-full cursor-pointer;
 }
 .user-interface .toggle-wrapper label {
-  @apply md:text-base sm:text-sm text-xs !important;
+  @apply md:text-base sm:text-sm text-xs text-left !important;
 }
 .user-interface .toggle-wrapper .icon {
   @apply absolute top-0 -ml-5 mt-2 z-10;
@@ -269,28 +270,28 @@ button {
 .user-interface aside nav h3 {
   @apply text-lg font-bold flex flex-row items-center justify-between;
 }
-.admin div.user-inteface-main {
+.user-interface div.user-inteface-main {
   @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5;
 }
-.admin div.user-inteface-main #headerAdminNavbar {
+.user-interface div.user-inteface-main #headerAdminNavbar {
   @apply sticky top-16 bg-background z-30;
 }
-.admin div.user-inteface-main #headerAdminNavbar h1 {
+.user-interface div.user-inteface-main #headerAdminNavbar h1 {
   @apply text-right pt-5;
 }
-.admin div.user-inteface-main #headerAdminNavbar .separator {
+.user-interface div.user-inteface-main #headerAdminNavbar .separator {
   @apply mt-5 border-[1.5px]  rounded-full opacity-50;
 }
-.admin div .user-inteface-main .user-inteface-main-content-section-header {
+.user-interface div .user-inteface-main .user-inteface-main-content-section-header {
   @apply bg-background z-20;
 }
-.admin div.user-inteface-main .user-inteface-main-content {
+.user-interface div.user-inteface-main .user-inteface-main-content {
   @apply flex flex-col gap-y-5 px-2 mt-2;
 }
-.admin div.user-inteface-main .user-inteface-main-content .user-inteface-main-content-section .multiple-components {
+.user-interface div.user-inteface-main .user-inteface-main-content .user-inteface-main-content-section .multiple-components {
   @apply grid grid-cols-2 gap-5 px-2 mt-2;
 }
-.admin div.user-inteface-main .user-inteface-main-content-section {
+.user-interface div.user-inteface-main .user-inteface-main-content-section {
   @apply min-h-[30vh];
 }
 form {
@@ -323,11 +324,19 @@ form button {
   @apply my-card hover:bg-transparent hover:cursor-pointer !p-20 border-dashed flex flex-col justify-center gap-2 w-full !important;
 }
 .admin-plan-card {
-  @apply my-card bg-primary/20  !border-[3px] flex flex-col h-fit flex-1 gap-5 items-center relative;
+  @apply my-card   !border-[3px] flex flex-col h-fit flex-1 gap-5 items-center relative;
 }
-
+.admin-plan-card input,.admin-plan-card textarea {
+  @apply border-0;
+}
+.admin-plan-card input {
+  @apply text-4xl;
+}
+.admin-plan-card textarea {
+  @apply text-xl min-h-2 h-14 !important;
+}
 .admin .admin-plan-card.active {
-  @apply border-secondary dark:border-primary  border-4 grayscale-0  !important;
+  @apply border-secondary dark:border-primary  border-2 grayscale-0  !important;
 }
 
 .admin .admin-plan-card .switch {
@@ -358,7 +367,7 @@ form button {
   @apply font-semibold text-left flex flex-col gap-y-1  text-xs opacity-60 !important;
 }
 label {
-  @apply text-left font-bold   !important;
+  @apply !text-left font-bold   !important;
 }
 .shadcn-inputs {
   @apply bg-secondary/10 dark:bg-primary/20;

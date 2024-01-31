@@ -5,7 +5,7 @@ import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeatureCategoriesStore";
 import { MRRSFeatureCategory } from "@prisma/client";
-import { Grip, Save } from "lucide-react";
+import { Check, Grip } from "lucide-react";
 import { useState } from "react";
 import { SortableKnob } from "react-easy-sort";
 type Props = {
@@ -93,7 +93,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
         </div>
         <div className="col-span-2">
           <Button size={"icon"} onClick={handleSave}>
-            <Save className="icon" />
+            <Check className="icon" />
           </Button>
         </div>
         <div className="col-span-2">

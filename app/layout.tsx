@@ -12,10 +12,7 @@ import { ReactNode, Suspense } from "react";
 import { Toaster } from "sonner";
 import { getAppSettings } from "./[locale]/server.actions";
 
-type Props = {
-  children: ReactNode;
-  session: Session;
-};
+
 const sans = Nunito({
   subsets: ["latin"],
   display: "swap",
@@ -32,7 +29,11 @@ const locales = ["en", "fr"];
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
-export default async function RootLayout({ children, session }: Props) {
+type Props = {
+  children: ReactNode;
+  session: Session;
+};
+export default async function RootLayout({ children, session }: { children: ReactNode; session: Session}) {
   const locale = await getLocale();
   const appSettings = await getAppSettings();
   unstable_setRequestLocale(locale);

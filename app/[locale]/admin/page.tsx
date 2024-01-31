@@ -18,6 +18,7 @@ import {
   appSettings,
 } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getSaasSettings } from "../server.actions";
@@ -30,7 +31,8 @@ export const generateMetadata = async () => {
   });
 };
 
-export default async function Admin() {
+export default async function Admin({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role === ("USER" as UserRole)) {

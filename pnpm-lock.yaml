@@ -209,6 +209,9 @@ dependencies:
   react-resizable-panels:
     specifier: ^1.0.9
     version: 1.0.9(react-dom@18.2.0)(react@18.2.0)
+  react-slugify:
+    specifier: ^3.0.3
+    version: 3.0.3
   react-toastify:
     specifier: ^10.0.3
     version: 10.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -5396,6 +5399,10 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-slugify@3.0.3:
+    resolution: {integrity: sha512-CWQvLIyG8vOH8DWBY+fKvJHtd2IWLHVk0mfQlFS28kVckQBv06NGJajAOurS3+HSgsmYP/6R9qDAdJYSotXMWA==}
     dev: false
 
   /react-smooth@2.0.5(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):

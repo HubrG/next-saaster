@@ -225,7 +225,7 @@ div.progressToken {
   @apply md:p-5 p-2 rounded-full md:w-10 md:h-10 w-5 h-5;
 }
 .admin .theme-card p {
-  @apply  max-md:text-sm max-sm:hidden  !important;
+  @apply max-md:text-sm max-sm:hidden  !important;
 }
 button {
   @apply max-sm:text-xs !important;
@@ -320,7 +320,7 @@ form button {
 }
 
 .admin .admin-plan-card .switch {
-  @apply flex flex-row w-full justify-between  items-start  rounded-default  px-4 py-1 ;
+  @apply flex flex-row w-full justify-between  items-start  rounded-default  px-4 py-1;
 }
 
 .admin .admin-plan-card .switch button {
@@ -354,4 +354,13 @@ label {
 }
 .dd-icon {
   @apply hover:cursor-move text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
+}
+.dragged {
+  @apply bg-background shadow-2xl border opacity-50 border-dashed rounded-default grayscale !important;
+}
+.plan-card-active-badge {
+  @apply absolute hover:bg-secondary dark:hover:bg-primary  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-secondary dark:bg-primary dark:text-text-900 text-text-900 !important;
+}
+.shadow-right {
+  box-shadow: inset -8px 0 8px -10px rgba(128, 108, 156, 0.55);
 }

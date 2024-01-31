@@ -122,16 +122,6 @@ model Subscription {
 
 // SECTION END: Pricing
 
-model ApiKey {
-  id        String    @id @default(cuid())
-  name      String?
-  key       String?   @unique
-  secret    String?   @unique
-  active    Boolean?  @default(false)
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-}
-
 enum SaasTypes {
   CREDIT
   // Alias : CREDIT
@@ -154,17 +144,20 @@ enum SaasTypes {
 }
 
 model SaasSettings {
-  id                 String    @id @default(cuid())
-  saasType           SaasTypes @default(MRR_SIMPLE)
-  activeYearlyPlans  Boolean?  @default(true)
-  activeMonthlyPlans Boolean?  @default(true)
-  activeCreditSystem Boolean?  @default(true)
-  activeRefillCredit Boolean?  @default(true)
-  currency           String?   @default("usd")
-  tax                Float?    @default(0)
-  creditName         String?   @default("Credit name")
-  createdAt          DateTime? @default(now())
-  updatedAt          DateTime? @updatedAt
+  id                              String    @id @default(cuid())
+  saasType                        SaasTypes @default(MRR_SIMPLE)
+  activeYearlyPlans               Boolean?  @default(true)
+  activeMonthlyPlans              Boolean?  @default(true)
+  activeCreditSystem              Boolean?  @default(true)
+  activeRefillCredit              Boolean?  @default(true)
+  displayFeaturesByCategory       Boolean?  @default(false)
+  activeFeatureComparison         Boolean?  @default(false)
+  activeFeatureAdvancedComparison Boolean?  @default(false)
+  currency                        String?   @default("usd")
+  tax                             Float?    @default(0)
+  creditName                      String?   @default("Credit name")
+  createdAt                       DateTime? @default(now())
+  updatedAt                       DateTime? @updatedAt
 }
 
 model MRRSPlan {
@@ -185,7 +178,7 @@ model MRRSPlan {
   creditAllouedByMonth Int?                @default(0) // Monthly credit
   saasType             SaasTypes           @default(MRR_SIMPLE) // Saas type
   active               Boolean?            @default(false) // Active plan
-  position             Int?                @default(999) // Position in list
+  position             Int?                @default(9999) // Position in list
   deleted              Boolean?            @default(false) // Deleted plan
   createdAt            DateTime?           @default(now())
   deletedAt            DateTime?           @default(now())
@@ -195,18 +188,20 @@ model MRRSPlan {
 }
 
 model MRRSFeature {
-  id          String              @id @default(cuid())
-  name        String?             @default("Feature name")
-  alias       String?             @unique
-  description String?             @default("Feature description")
-  active      Boolean?            @default(false)
-  onlyOnSelectedPlans Boolean?    @default(false)
-  position    Int?                @default(999)
-  deleted     Boolean?            @default(false)
-  deletedAt   DateTime?           @default(now())
-  createdAt   DateTime?           @default(now())
-  updatedAt   DateTime?           @updatedAt
-  MRRSPlans   MRRSPlanToFeature[] 
+  id                  String               @id @default(cuid())
+  name                String?              @default("")
+  alias               String?              @unique
+  description         String?              @default("")
+  onlyOnSelectedPlans Boolean?             @default(false)
+  categoryId          String?
+  position            Int?                 @default(9999)
+  positionCategory    Int?                 @default(9999)
+  deleted             Boolean?             @default(false)
+  deletedAt           DateTime?            @default(now())
+  createdAt           DateTime?            @default(now())
+  updatedAt           DateTime?            @updatedAt
+  category            MRRSFeatureCategory? @relation(fields: [categoryId], references: [id])
+  MRRSPlans           MRRSPlanToFeature[]
 }
 
 model MRRSPlanToFeature {
@@ -220,4 +215,16 @@ model MRRSPlanToFeature {
   feature              MRRSFeature @relation(fields: [featureId], references: [id], onDelete: Cascade)
 
   @@unique([planId, featureId])
+}
+
+model MRRSFeatureCategory {
+  id           String        @id @default(cuid())
+  name         String?       @unique
+  description  String?       @default("Features category description")
+  position     Int?          @default(9999)
+  deleted      Boolean?      @default(false)
+  deletedAt    DateTime?     @default(now())
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @updatedAt
+  MRRSFeatures MRRSFeature[]
 }

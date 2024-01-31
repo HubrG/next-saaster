@@ -681,6 +681,10 @@ module.exports = {
       display: ["var(--font-display)", "Comic Sans MS"],
     },
     extend: {
+      gridTemplateColumns: {
+        // Définit une grille de 16 colonnes
+        '16': 'repeat(16, minmax(0, 1fr))',
+      },
       boxShadow: {
         "t-sm": "0 -1px 2px 0 rgba(0, 0, 0, 0.05)",
         "t-md":

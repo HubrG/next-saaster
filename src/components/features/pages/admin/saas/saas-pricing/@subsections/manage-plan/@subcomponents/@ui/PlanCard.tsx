@@ -18,6 +18,7 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/functions/parse";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
+import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";
 import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
@@ -41,6 +42,7 @@ export const PlanCard = ({ plan, className }: Props) => {
   const [save, setSave] = useState(false);
   const { saasSettings } = useSaasSettingsStore();
   const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
+  const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } = useSaasMRRSPlanToFeatureStore();
 
   // Check if the plan has changed
   useEffect(() => {
@@ -79,6 +81,11 @@ export const PlanCard = ({ plan, className }: Props) => {
       setSaasMRRSPlans(
         saasMRRSPlans.map((plan) =>
           plan.id === planState.id ? { ...planState } : plan
+        )
+      );
+      setSaasMRRSPlanToFeature(
+        saasMRRSPlanToFeature.map((item) =>
+          item.planId === planState.id ? { ...item, plan: planState } : item
         )
       );
       // setSaasMRRSPlans(
@@ -122,6 +129,13 @@ export const PlanCard = ({ plan, className }: Props) => {
             : plan
         )
       );
+      setSaasMRRSPlanToFeature(
+        saasMRRSPlanToFeature.map((item) =>
+          item.planId === planState.id
+            ? { ...item, plan: { ...planState, deleted: true } }
+            : item
+        )
+      );
       setSaveAndCancel(false);
       setInitialPlanState({ ...dataToSet });
       return toaster({
@@ -149,7 +163,7 @@ export const PlanCard = ({ plan, className }: Props) => {
           planState.active && "active"
         } `}>
         {planState.active && (
-          <Badge className="absolute badge !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-8 left-0  bg-secondary dark:bg-primary dark:text-text-900 text-text-900">
+          <Badge className="plan-card-active-badge">
             Active
           </Badge>
         )}
@@ -344,14 +358,14 @@ export const PlanCard = ({ plan, className }: Props) => {
         </div>
       </div>
       <div>
-        <p className="!text-xs mb-0 text-center pt-2 ">
+        <div className="!text-xs mb-0 text-center py-2 ">
           <CopySomething
             what="Plan ID"
             copyText={plan.id}
             id={"plan-id-copy-" + plan.id}>
             <strong className="!text-xs opacity-70 ">ID :</strong> {plan.id}
           </CopySomething>
-        </p>
+        </div>
       </div>
     </div>
   );

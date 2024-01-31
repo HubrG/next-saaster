@@ -49,12 +49,12 @@ export const getSaasMRRSPlans = async () => {
       position: "asc",
     },
     include: {
-      MRRSFeatures: {
-      },
+      MRRSFeatures: true,
     },
   });
   return plans;
 };
+
 
 
 export const getSaasMRRSFeatures = async () => {
@@ -63,8 +63,43 @@ export const getSaasMRRSFeatures = async () => {
       position: "asc",
     },
     include: {
-      MRRSPlans: {},
+      MRRSPlans: {
+        include: {
+          plan: true,
+        },
+      },
+      category: true,
     },
   });
   return features;
+};
+
+export const getSaasMRRSFeaturesCategories = async () => {
+  const featuresCat = await prisma.mRRSFeatureCategory.findMany({
+    orderBy: {
+      position: "asc",
+    },
+    include: {
+      MRRSFeatures: {
+        include: {
+          MRRSPlans: {
+            include: {
+              plan: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return featuresCat;
+};
+
+export const getSaasMRRSPlanToFeature = async () => {
+  const planToFeatures = await prisma.mRRSPlanToFeature.findMany({
+    include: {
+      plan: true,
+      feature: true,
+    },
+  });
+  return planToFeatures;
 };

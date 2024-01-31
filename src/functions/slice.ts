@@ -4,9 +4,9 @@
  * @param length 
  * @returns 
  */
-export const sliced = (text: string, length: number) => {
-  if (text.length > length) {
-    return text.slice(0, length) + "...";
+export const sliced = (text: string | null | undefined, length: number) => {
+  if (text && text?.length > length) {
+    return text?.slice(0, length) + "...";
   } else {
     return text;
   }

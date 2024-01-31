@@ -1,4 +1,4 @@
-import { getAppSettings, getSaasMRRSFeatures, getSaasMRRSPlans } from "@/app/[locale]/server.actions";
+import { getAppSettings, getSaasMRRSFeatures, getSaasMRRSFeaturesCategories, getSaasMRRSPlanToFeature, getSaasMRRSPlans } from "@/app/[locale]/server.actions";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import createMetadata from "@/src/lib/metadatas";
@@ -26,8 +26,10 @@ export default async function Admin() {
   const saasSettings = await getSaasSettings() as SaasSettings;
   const saasMRRSPlans = (await getSaasMRRSPlans()) as MRRSPlan[];
   const saasMRRSFeatures = (await getSaasMRRSFeatures()) as MRRSFeature[];
+  const saasMRRSPlanToFeatures = await getSaasMRRSPlanToFeature();
+  const saasMRRSFeaturesCategories = await getSaasMRRSFeaturesCategories();
 
-  if (!appSettings || !saasSettings || !saasMRRSPlans || !saasMRRSFeatures) {
+  if (!appSettings || !saasSettings || !saasMRRSPlans || !saasMRRSFeatures || !saasMRRSPlanToFeatures || !saasMRRSFeaturesCategories) {
     toaster({
       type: "error",
       description: "An error occured while loading the data",
@@ -38,9 +40,11 @@ export default async function Admin() {
   return (
     <div className="admin">
       <AdminComponent
+        saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
         appSettings={appSettings}
         saasSettings={saasSettings}
         saasMRRSPlans={saasMRRSPlans}
+        saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
         saasMRRSFeatures={saasMRRSFeatures}
       />
     </div>

@@ -1,8 +1,14 @@
 "use server";
 import { isSuperAdmin } from "@/src/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
-import { MRRSPlan, SaasSettings, appSettings } from "@prisma/client";
-
+import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
+import {
+  MRRSFeature,
+  MRRSFeatureCategory,
+  MRRSPlan,
+  SaasSettings,
+  appSettings,
+} from "@prisma/client";
 
 // export const getFeatureCategories = async () => {
 //   const session = await isAdmin();
@@ -11,18 +17,15 @@ import { MRRSPlan, SaasSettings, appSettings } from "@prisma/client";
 //   return categories || null;
 // };
 
-
 export const addNewMRRSPlan = async () => {
   // Créer un nouveau plan
   const newPlan = await prisma.mRRSPlan.create({
     data: {},
   });
 
-  // Récupérer toutes les fonctionnalités actives
   const features = await prisma.mRRSFeature.findMany();
 
-  // Créer des liens avec toutes les fonctionnalités actives
-  await Promise.all(
+  const newFeatures = await Promise.all(
     features.map((feature) =>
       prisma.mRRSPlanToFeature.create({
         data: {
@@ -32,10 +35,8 @@ export const addNewMRRSPlan = async () => {
       })
     )
   );
-
-  return newPlan;
+  return { newPlan: newPlan, newFeatures: newFeatures };
 };
-
 
 export const addNewMMRSFeature = async () => {
   // Créer une nouvelle fonctionnalité
@@ -47,21 +48,23 @@ export const addNewMMRSFeature = async () => {
   const plans = await prisma.mRRSPlan.findMany();
 
   // Créer des liens avec tous les plans actifs
-  await Promise.all(
+  const newFeatures = await Promise.all(
     plans.map((plan) =>
       prisma.mRRSPlanToFeature.create({
         data: {
           planId: plan.id,
           featureId: newFeature.id,
         },
+        include: {
+          plan: true,
+          feature: true,
+        },
       })
     )
   );
 
-  return newFeature;
+  return { newFeature: newFeature, newFeatures: newFeatures };
 };
-
-
 
 export const updateMRRSPlan = async (planId: string, planData: any) => {
   const session = await isSuperAdmin();
@@ -79,18 +82,25 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
   return updatePlan;
 };
 
-
 export const updateMRRSFeature = async (featureId: string, data: any) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  // Exclure les données de la relation 'MRRSPlans' de l'objet 'data'
-  const { MRRSPlans, ...featureData } = data;
+  const { MRRSPlans, categoryId, ...featureData } = data;
 
-  // Mettre à jour la feature avec les données filtrées (sans les données de relation)
+  let relationUpdate = {};
+  if (categoryId !== undefined) {
+    relationUpdate = categoryId
+      ? { category: { connect: { id: categoryId } } }
+      : { category: { disconnect: true } }; 
+  }
+
   const updateFeature = await prisma.mRRSFeature.update({
     where: { id: featureId },
-    data: featureData,
+    data: {
+      ...featureData,
+      ...relationUpdate,
+    },
   });
 
   return updateFeature;
@@ -143,7 +153,7 @@ export const updateMRRSPlanPosition = async (plans: MRRSPlan[]) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const updatePromises = plans.map((plan) =>
+  const updateOperations = plans.map((plan) =>
     prisma.mRRSPlan.update({
       where: { id: plan.id },
       data: { position: plan.position },
@@ -151,7 +161,8 @@ export const updateMRRSPlanPosition = async (plans: MRRSPlan[]) => {
   );
 
   try {
-    await Promise.all(updatePromises);
+    await prisma.$transaction(updateOperations);
+
     return prisma.mRRSPlan.findMany();
   } catch (error) {
     console.error(
@@ -162,11 +173,11 @@ export const updateMRRSPlanPosition = async (plans: MRRSPlan[]) => {
   }
 };
 
-export const updateMRRSFeaturePosition = async (features: any[]) => {
+export const updateMRRSFeaturePosition = async (features: MRRSFeature[]) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const updatePromises = features.map((feature) =>
+  const updateOperations = features.map((feature) =>
     prisma.mRRSFeature.update({
       where: { id: feature.id },
       data: { position: feature.position },
@@ -174,13 +185,77 @@ export const updateMRRSFeaturePosition = async (features: any[]) => {
   );
 
   try {
-    await Promise.all(updatePromises);
+    await prisma.$transaction(updateOperations);
+
     return prisma.mRRSFeature.findMany();
   } catch (error) {
-    console.error(
-      "Erreur lors de la mise à jour des positions des features :",
-      error
-    );
+    console.error("Error updating feature positions in transaction:", error);
     return false;
   }
+};
+
+export const updateLinkPlanToFeature = async (
+  dataToUpdate: MRRSPlanToFeatureWithPlanAndFeature[]
+) => {
+  try {
+    const session = await isSuperAdmin();
+    if (!session) throw new Error("Unauthorized access");
+
+    const updateOperations = dataToUpdate.map((data) =>
+      prisma.mRRSPlanToFeature.update({
+        where: {
+          planId_featureId: {
+            planId: data.planId,
+            featureId: data.featureId,
+          },
+        },
+        data: {
+          active: data.active,
+          creditCost: data.creditCost,
+          creditAllouedByMonth: data.creditAllouedByMonth,
+        },
+      })
+    );
+    await prisma.$transaction(updateOperations);
+    if (updateOperations.length > 0)
+      return prisma.mRRSPlanToFeature.findMany({
+        where: {
+          planId: dataToUpdate[0].planId,
+        },
+        include: {
+          plan: true,
+          feature: true,
+        },
+      }) as Promise<MRRSPlanToFeatureWithPlanAndFeature[]>;
+    
+  } catch (error) {
+    console.error("Error updating multiple links:", error);
+    throw error;
+  }
+};
+
+type CreateNewCategory = {
+  name: MRRSFeatureCategory["name"];
+  featureId: MRRSFeature["id"];
 }
+export const createNewCategoryFromFeature = async (data: CreateNewCategory) => {
+  const session = await isSuperAdmin();
+  if (!session) return false;
+
+  const newCategory = await prisma.mRRSFeatureCategory.create({
+    data: {
+      name: data.name ?? "",
+    },
+  });
+
+  if (!newCategory) return false;
+  const linkFeatureToCategory = await prisma.mRRSFeature.update({
+    where: { id: data.featureId },
+    data: {
+      categoryId: newCategory.id,
+    },
+  });
+  if (!linkFeatureToCategory) return false;
+
+  return newCategory;
+};

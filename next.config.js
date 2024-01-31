@@ -6,6 +6,8 @@ const withNextIntl = require("next-intl/plugin")(
 );
 
 const nextConfig = {
+  reactStrictMode: true,
+
   images: {
     remotePatterns: [
       {
@@ -22,6 +24,7 @@ const nextConfig = {
       },
     ],
   },
+
   async headers() {
     return [
       {

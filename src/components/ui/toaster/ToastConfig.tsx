@@ -7,6 +7,7 @@ import {
   ToastTypes,
   toast,
 } from "sonner";
+
 import { Loader } from "../loader";
 
 interface ToastProps {

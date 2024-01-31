@@ -5,7 +5,7 @@ import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvid
 import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
-import { getLocale } from "next-intl/server";
+import { getLocale, unstable_setRequestLocale } from "next-intl/server";
 import { Caveat, Nunito, Playfair_Display } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { ReactNode, Suspense } from "react";
@@ -27,10 +27,15 @@ const serif = Playfair_Display({
   variable: "--font-serif",
 });
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
+const locales = ["en", "fr"];
 
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 export default async function RootLayout({ children, session }: Props) {
   const locale = await getLocale();
   const appSettings = await getAppSettings();
+  unstable_setRequestLocale(locale);
 
   return (
     <SessProvider session={session}>

@@ -1,5 +1,5 @@
-import clsx from 'clsx';
-import { Loader2 } from 'lucide-react';
+import clsx from "clsx";
+import { Loader2 } from "lucide-react";
 
 export const Loader = ({
   size,
@@ -8,5 +8,9 @@ export const Loader = ({
   size?: number;
   className?: string;
 }) => {
-  return <Loader2 className={clsx('animate-spin', className)} size={size} />;
+  return (
+    <div className="flex justify-center items-center w-full h-[90vh] ">
+      <Loader2 className={clsx("animate-spin", className)} size={size} />
+    </div>
+  );
 };

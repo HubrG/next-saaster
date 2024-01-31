@@ -24,17 +24,18 @@ export default function ToggleActiveYearlyPlan() {
             "You can't disable both yearly and monthly plans, please enable one of them",
         });
       }
+      setSaasSettings({ ...saasSettings, activeYearlyPlans: e });
       const dataToSet = await updateSaasSettings(saasSettings.id, {
         activeYearlyPlans: e,
       });
       if (dataToSet) {
         setActiveYearlyPlans(e);
-        setSaasSettings({ ...saasSettings, activeYearlyPlans: e });
         return toaster({
           description: `Yearly plans ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
+        setSaasSettings({ ...saasSettings, activeYearlyPlans: !e });
         return toaster({
           type: "error",
           description: "Yearly plans option not changed, please try again",

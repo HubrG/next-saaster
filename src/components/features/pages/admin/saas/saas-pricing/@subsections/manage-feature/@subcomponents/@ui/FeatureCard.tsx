@@ -4,7 +4,7 @@ import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
 import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSFeature } from "@prisma/client";
 import { Grip } from "lucide-react";
 import { useState } from "react";
@@ -21,8 +21,7 @@ export const FeatureCard = ({ feature }: Props) => {
   const [initialFeatureState, setInitialFeatureState] = useState({
     ...feature,
   });
-  const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
-    useSaasMRRSPlanToFeatureStore();
+  const { saasSettings} = useSaasSettingsStore();
   const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
   // Set save and cancel to true or false
 
@@ -61,10 +60,11 @@ export const FeatureCard = ({ feature }: Props) => {
         <SortableKnob>
           <Grip
             data-tooltip-id={"tt-knob-" + feature.id}
-            className="dd-icon top-0 right-0.5 w-5"
+            className="dd-icon top-0 ml-2 w-5"
           />
         </SortableKnob>
       </div>
+
       <div className="col-span-2">
         <FeatureCardCategory feature={feature} />
       </div>

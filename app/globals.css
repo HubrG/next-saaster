@@ -83,7 +83,7 @@ a {
   position: relative;
 }
 a.nunderline {
-  @apply hover:no-underline dark:hover:text-app-300 hover:text-app-700 text-app-900 dark:text-app-50 font-semibold !important;
+  @apply hover:no-underline dark:hover:text-text-300 hover:text-text-700 text-text-900 dark:text-text-50 font-semibold !important;
 }
 a.special-uderline::after,
 a.special-uderline-active::after {
@@ -108,7 +108,7 @@ a.special-uderline-active::after {
 }
 
 a.special-uderline-active {
-  @apply text-app-700 dark:text-app-300 !important;
+  @apply text-text-700 dark:text-text-300 !important;
 }
 
 /* Main Menu */
@@ -131,13 +131,13 @@ ul.main-menu li a {
 
 /* Burger Menu */
 div.burger-menu {
-  @apply -z-10 lg:hidden absolute top-[4.5rem] left-0 w-full bg-app-200  border-b-2 border-t-2 border-app-300;
+  @apply -z-10 lg:hidden absolute top-[4.5rem] left-0 w-full bg-background  border-b-2 border-t-2 border-primary;
 }
 div.burger-menu ul {
   @apply text-base w-full text-center;
 }
 div.burger-menu ul li a {
-  @apply no-underline block w-full hover:no-underline py-4 px-2 text-base font-bold  hover:bg-app-100 lg:hover:bg-transparent lg:hover:text-app lg:p-0 lg:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white lg:dark:hover:bg-transparent;
+  @apply no-underline block w-full hover:no-underline py-4 px-2 text-base font-bold  lg:hover:text-text-500 lg:p-0 lg:dark:hover:text-text-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white lg:dark:hover:bg-transparent;
 }
 h1,
 h2,
@@ -231,55 +231,64 @@ button {
   @apply max-sm:text-xs !important;
 }
 
-.admin .toggle-wrapper {
+.user-interface .toggle-wrapper {
   @apply my-card flex relative flex-col gap-3 justify-center w-full hover:bg-secondary-foreground/10 cursor-pointer;
 }
-.admin .toggle-wrapper label {
+.user-interface .toggle-wrapper label {
   @apply md:text-base sm:text-sm text-xs !important;
 }
-.admin .toggle-wrapper .icon {
+.user-interface .toggle-wrapper .icon {
   @apply absolute top-0 -ml-5 mt-2 z-10;
 }
-.admin aside {
+.user-interface aside {
   @apply md:col-span-3 md:block hidden text-left rounded-default rounded-r-none border-secondary/10 p-5 border-r  relative;
 }
-.admin aside nav {
+.user-interface aside nav {
   @apply flex flex-col gap-y-5 sticky top-24 overflow-y-auto max-h-[80vh];
 }
-.admin aside nav ul {
+.user-interface aside nav ul {
   @apply text-left flex flex-col gap-y-0.5 mt-1;
 }
-.admin aside nav ul li {
-  @apply text-left font-semibold p-0.5 hover:bg-primary-foreground/10 rounded-default cursor-pointer px-2 flex flex-row items-center gap-x-2 text-opacity-75;
+.user-interface aside nav ul li {
+  @apply   flex flex-col  gap-x-2 text-opacity-75;
 }
-.admin aside nav ul li.active {
+.user-interface aside nav ul li div {
+  @apply flex flex-row  items-center text-left hover:bg-primary-foreground/10 justify-start font-semibold p-0.5  rounded-default cursor-pointer ;
+}
+.user-interface aside nav ul li.active div {
   @apply bg-primary-foreground/10 font-bold !important;
 }
-.admin aside nav h3 {
+.user-interface aside nav ul li .subactive {
+  @apply bg-primary font-bold flex flex-row !important;
+}
+.user-interface aside nav ul li.subitem {
+  @apply flex flex-row text-sm text-left hover:bg-primary-foreground/10 justify-start font-semibold p-0.5 pt-1 gap-x-0 rounded-default cursor-pointer ml-3;
+}
+.user-interface aside nav h3 {
   @apply text-lg font-bold flex flex-row items-center justify-between;
 }
-.admin div.admin-main {
+.admin div.user-inteface-main {
   @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5;
 }
-.admin div.admin-main #headerAdminNavbar {
+.admin div.user-inteface-main #headerAdminNavbar {
   @apply sticky top-16 bg-background z-30;
 }
-.admin div.admin-main #headerAdminNavbar h1 {
+.admin div.user-inteface-main #headerAdminNavbar h1 {
   @apply text-right pt-5;
 }
-.admin div.admin-main #headerAdminNavbar .separator {
+.admin div.user-inteface-main #headerAdminNavbar .separator {
   @apply mt-5 border-[1.5px]  rounded-full opacity-50;
 }
-.admin div .admin-main .admin-header-section {
+.admin div .user-inteface-main .user-inteface-main-content-section-header {
   @apply bg-background z-20;
 }
-.admin div.admin-main .admin-main-content {
+.admin div.user-inteface-main .user-inteface-main-content {
   @apply flex flex-col gap-y-5 px-2 mt-2;
 }
-.admin div.admin-main .admin-main-content .admin-section .multiple-components {
+.admin div.user-inteface-main .user-inteface-main-content .user-inteface-main-content-section .multiple-components {
   @apply grid grid-cols-2 gap-5 px-2 mt-2;
 }
-.admin div.admin-main .admin-section {
+.admin div.user-inteface-main .user-inteface-main-content-section {
   @apply min-h-[30vh];
 }
 form {
@@ -347,20 +356,22 @@ form button {
   @apply font-semibold text-left flex flex-col gap-y-1  text-xs opacity-60 !important;
 }
 label {
-  @apply text-left font-semibold flex justify-start mb-2 !important;
+  @apply text-left font-bold   !important;
 }
 .shadcn-inputs {
   @apply bg-secondary/10 dark:bg-primary/20;
 }
 .dd-icon {
-  @apply hover:cursor-move text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
+  @apply hover:cursor-grab text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
 }
 .dragged {
-  @apply bg-background shadow-2xl border opacity-50 border-dashed rounded-default grayscale !important;
+  @apply !cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default grayscale !important;
 }
 .plan-card-active-badge {
   @apply absolute hover:bg-secondary dark:hover:bg-primary  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-secondary dark:bg-primary dark:text-text-900 text-text-900 !important;
 }
-.shadow-right {
-  box-shadow: inset -8px 0 8px -10px rgba(128, 108, 156, 0.55);
+
+.label {
+  @apply   !font-semibold cursor-pointer !text-base !important;
+
 }

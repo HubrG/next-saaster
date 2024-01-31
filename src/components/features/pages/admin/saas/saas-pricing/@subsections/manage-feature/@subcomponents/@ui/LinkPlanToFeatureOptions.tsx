@@ -18,6 +18,11 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
 
   const handleChange = async (name: string, value: boolean) => {
     const updatedFeatureState = { ...featureState, [name]: value };
+    setSaasMRRSFeatures(
+      saasMRRSFeatures.map((f) =>
+        f.id === updatedFeatureState.id ? updatedFeatureState : f
+      )
+    )
     const updateFeature = await updateMRRSFeature(
       feature.id,
       updatedFeatureState
@@ -41,7 +46,7 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
   };
 
   return (
-    <div className="flex flex-row justify-between items-center border-b  mb-2 py-3 pb-5 w-full">
+    <div className="flex flex-row justify-between items-center border-b  mb-2 py-3 pt-1 pb-5 w-full">
       <strong className="flex flex-row items-center gap-x-1">
         <span>Show this feature only on the selected plan(s)</span>
         <Info className="icon" data-tooltip-id={randUuid} />

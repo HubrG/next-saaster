@@ -1,7 +1,9 @@
 "use client";
 import { AdminMain } from "@/src/components/features/pages/admin/@subcomponents/Main";
 import { AdminNavbar } from "@/src/components/features/pages/admin/@subcomponents/Navbar";
-import { Loader } from "@/src/components/ui/loader";
+import { UserInterfaceMainWrapper } from "@/src/components/ui/user-interface/UserInterfaceMainWrapper";
+import { UserInterfaceNavWrapper } from "@/src/components/ui/user-interface/UserInterfaceNavWrapper";
+import { UserInterfaceWrapper } from "@/src/components/ui/user-interface/UserInterfaceWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeatureCategoriesStore";
 import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
@@ -35,6 +37,7 @@ export const AdminComponent = ({
   saasMRRSPlanToFeatures,
   saasMRRSFeaturesCategories,
 }: Props) => {
+  const [mounted, setMounted] = useState<boolean>(false);
   const setAllStores = useCallback(() => {
     useSaasMRRSFeaturesCategoriesStore.getState().setSaasMRRSFeaturesCategories(saasMRRSFeaturesCategories)
     useAppSettingsStore.getState().setAppSettings(appSettings);
@@ -53,7 +56,6 @@ export const AdminComponent = ({
     saasMRRSPlanToFeatures,
   ]);
 
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     if (appSettings.id) {
@@ -62,18 +64,22 @@ export const AdminComponent = ({
     }
   }, [appSettings, setAllStores]);
 
-  if (!mounted) {
-    return (
-      <div className="flex justify-center items-center w-full h-[90vh] ">
-        <Loader />
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-12 md:gap-5 gap-0">
-      <AdminNavbar />
-      <AdminMain />
-    </div>
+ 
+ if (!mounted) {
+   return (
+    //  <div className="flex justify-center items-center w-full h-[90vh] ">
+    //    <Loader />
+     //  </div>
+     <></>
+   );
+ }  return (
+    <UserInterfaceWrapper>
+      <UserInterfaceNavWrapper>
+        <AdminNavbar />
+      </UserInterfaceNavWrapper>
+      <UserInterfaceMainWrapper text="Administration">
+        <AdminMain />
+      </UserInterfaceMainWrapper>
+    </UserInterfaceWrapper>
   );
 };

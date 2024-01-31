@@ -29,17 +29,18 @@ export default function ToggleActiveMonthlyPlan() {
             "You can't enable the refill credit if the credit system is disabled, please enable it",
         });
       }
+      setSaasSettings({ ...saasSettings, activeRefillCredit: e })
       const dataToSet = await updateSaasSettings(saasSettings.id, {
         activeRefillCredit: e,
       });
       if (dataToSet) {
         setActiveRefillCredit(e);
-        setSaasSettings({ ...saasSettings, activeRefillCredit: e });
         return toaster({
           description: `Refill credit ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
+        setSaasSettings({ ...saasSettings, activeRefillCredit: !e });
         return toaster({
           type: "error",
           description: "Refill credit option not changed, please try again",

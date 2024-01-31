@@ -6,6 +6,7 @@ import TryUsButton from "./TryUsButton";
 import { LoginButton } from "./auth/LoginButton";
 import { UserProfile } from "./auth/UserProfile";
 //
+import { Button } from "@/src/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -38,7 +39,7 @@ export default function BurgerMenu(props: Props) {
     <>
       <Sheet>
         <SheetTrigger className="inline-flex lg:hidden">
-          <Menu className="icon" />
+          <Button variant={"ghost"} className="px-1"><Menu className="icon" /></Button>
         </SheetTrigger>
         <SheetContent className="h-full">
           <SheetHeader>

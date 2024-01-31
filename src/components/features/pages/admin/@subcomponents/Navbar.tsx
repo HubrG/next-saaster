@@ -1,15 +1,16 @@
 "use client";
 import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
-import useIntersectionObserver from "@/src/hooks/useIntersectionObserver";
+import { MenuSubItem } from "@/src/components/ui/user-interface/MenuSubItem";
+import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import {
   BadgeDollarSign,
   BarChart2,
-  Cable,
   Cog,
   Coins,
   Contact2,
   Cookie,
+  Dot,
   FilePenLine,
   Hash,
   Info,
@@ -34,119 +35,226 @@ export const AdminNavbar = () => {
 
   useIntersectionObserver(setActiveSection, {
     rootMargin: "-50% 0px -50% 0px",
-    targetClass: ".admin-section",
+    sectionSelector: ".user-inteface-main-content-section",
+    subSectionSelector: ".user-inteface-main-content-subsection",
   });
 
   const handleScroll = useScrollToSection();
 
   return (
-    <aside>
-      <nav>
-        <div>
-          <h3>
-            Setup
-            <Cog className="icon" />
-          </h3>
-          <ul>
-            <MenuItem
+    <>
+      <div>
+        <h3>
+          Setup
+          <Cog className="icon" />
+        </h3>
+        <ul>
+          <MenuItem
+            activeSection={activeSection}
+            icon={<Info className="icon" />}
+            text="Infos"
+            sectionObserve="InfosApp"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            icon={<Palette className="icon" />}
+            text="Design"
+            activeSection={activeSection}
+            sectionObserve=""
+            handleScroll={handleScroll}>
+            <MenuSubItem
               activeSection={activeSection}
-              sectionObserve="InfosApp"
-              handleScroll={handleScroll}>
-              <Info className="icon" /> Info
-            </MenuItem>
-            <MenuItem
+              sectionObserve="sub-theme-color"
+              text="Theme color"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
               activeSection={activeSection}
-              sectionObserve="Design"
-              handleScroll={handleScroll}>
-              <Palette className="icon" /> Design
-            </MenuItem>
-            <MenuItem
+              sectionObserve="sub-rounded-corner"
+              text="Rounded corner"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+          </MenuItem>
+          <MenuItem
+            activeSection={activeSection}
+            text="Layout"
+            icon={<LayoutDashboard className="icon" />}
+            sectionObserve="Layout"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            icon={<Languages className="icon" />}
+            text="Languages"
+            sectionObserve="testt"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            icon={<Hash className="icon" />}
+            text="Networks"
+            sectionObserve="Networks"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            icon={<UserCheck className="icon" />}
+            text="Administrators"
+            sectionObserve="Administrators"
+            handleScroll={handleScroll}
+          />
+        </ul>
+      </div>
+      <div>
+        <h3>
+          SaaS <BadgeDollarSign className="icon" />
+        </h3>
+        <ul>
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve=""
+            icon={<Settings2 className="icon" />}
+            text="Settings"
+            handleScroll={handleScroll}>
+            <MenuSubItem
               activeSection={activeSection}
-              sectionObserve="Layout"
-              handleScroll={handleScroll}>
-              <LayoutDashboard className="icon" /> Layout
-            </MenuItem>
-            <MenuItem
+              sectionObserve="sub-saas-set-saas-type"
+              text="SaaS mode"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
               activeSection={activeSection}
-              sectionObserve="testt"
-              handleScroll={handleScroll}>
-              <Languages className="icon" /> Langs
-            </MenuItem>
-            <li onClick={() => handleScroll("theme-section")}>
-              <Cable className="icon" /> APIs
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <Hash className="icon" /> Networks
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <UserCheck className="icon" /> Administrators
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3>
-            SaaS <BadgeDollarSign className="icon" />
-          </h3>
-          <ul>
-            <MenuItem
+              sectionObserve="sub-saas-set-saas-tax"
+              text="Taxes & currency"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
               activeSection={activeSection}
-              sectionObserve="SaasSettings"
-              handleScroll={handleScroll}>
-              <Settings2 className="icon" /> Settings
-            </MenuItem>
-            <MenuItem
+              sectionObserve="sub-saas-set-saas-settings"
+              text="More settings"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+          </MenuItem>
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve=""
+            text="Pricing"
+            icon={<Coins className="icon" />}
+            handleScroll={handleScroll}>
+            <MenuSubItem
               activeSection={activeSection}
-              sectionObserve="Pricing"
-              handleScroll={handleScroll}>
-              <Coins className="icon" /> Pricing
-            </MenuItem>
-            <li onClick={() => handleScroll("theme-section")}>
-              <Contact2 className="icon" /> Customers
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <RefreshCcw className="icon" /> Subscriptions
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <BarChart2 className="icon" /> Metrics
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3>
-            Blog <Rss className="icon" />
-          </h3>
-          <ul>
-            <li onClick={() => handleScroll("theme-section")}>
-              <SquarePen className="icon" /> Create a post
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <View className="icon" /> View posts
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3>
-            Édition <FilePenLine className="icon" />
-          </h3>
-          <ul className="text-left">
-            <li onClick={() => handleScroll("theme-section")}>
-              <Receipt className="icon" /> GSC
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <MousePointerClick className="icon" /> GCU
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <Scale className="icon" /> Legal
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <Cookie className="icon" /> Privacy
-            </li>
-            <li onClick={() => handleScroll("theme-section")}>
-              <MessageCircleQuestion className="icon" /> FAQ
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </aside>
+              sectionObserve="ManagePricing"
+              text="Manage plans"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
+              activeSection={activeSection}
+              sectionObserve="ManageFeatures"
+              text="Manage features"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+          </MenuItem>
+
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="SaasCustomers"
+            icon={<Contact2 className="icon" />}
+            text="Customers"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="SaasSubscriptions"
+            icon={<RefreshCcw className="icon" />}
+            text="Subscriptions"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="SaasMetrics"
+            icon={<BarChart2 className="icon" />}
+            text="Metrics"
+            handleScroll={handleScroll}
+          />
+        </ul>
+      </div>
+      <div>
+        <h3>
+          Blog <Rss className="icon" />
+        </h3>
+        <ul>
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManageCategories"
+            icon={<SquarePen className="icon" />}
+            text="Create a post"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManageCategories"
+            icon={<SquarePen className="icon" />}
+            text="Manage categories"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManagePosts"
+            icon={<View className="icon" />}
+            text="Manage posts"
+            handleScroll={handleScroll}
+          />
+        </ul>
+      </div>
+      <div>
+        <h3>
+          Édition <FilePenLine className="icon" />
+        </h3>
+        <ul className="text-left">
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManageCategories"
+            icon={<Receipt className="icon" />}
+            text="GSC"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManageCategories"
+            icon={<MousePointerClick className="icon" />}
+            text="GCU"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManageCategories"
+            icon={<Scale className="icon" />}
+            text="Legal"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManageCategories"
+            icon={<Cookie className="icon" />}
+            text="Privacy"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="ManageCategories"
+            icon={<MessageCircleQuestion className="icon" />}
+            text="FAQ"
+            handleScroll={handleScroll}
+          />
+        </ul>
+      </div>
+    </>
   );
 };

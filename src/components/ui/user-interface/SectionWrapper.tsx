@@ -14,13 +14,17 @@ export const SectionWrapper = ({
 }: Props) => {
   return (
     <>
-      <div className={`admin-section bg-background`} id={id}>
-        <div className="admin-header-section">
-          <h2 className="text-right md:text-3xl text-2xl mb-10">{sectionName}</h2>
+      <div
+        className={`user-inteface-main-content-section bg-background`}
+        id={id}>
+        <div className="user-inteface-main-content-section-header">
+          <h2 className="text-right md:text-3xl text-2xl mb-10">
+            {sectionName}
+          </h2>
         </div>
         <div className={`${className}`}>{children}</div>
       </div>
-      <Separator  className=" dark:opacity-80 border-b-4 my-20 border-dotted h-[1px] border-primary-foreground dark:border-primary  bg-transparent " />
+      <Separator className=" dark:opacity-80 border-b-4 my-20 border-dotted h-[1px] border-primary-foreground dark:border-primary  bg-transparent " />
     </>
   );
 };

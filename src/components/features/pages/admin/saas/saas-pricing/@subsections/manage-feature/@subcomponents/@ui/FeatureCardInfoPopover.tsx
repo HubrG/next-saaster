@@ -9,6 +9,7 @@ import {
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
+import { cn } from "@/src/lib/utils";
 import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
 import { MRRSFeature } from "@prisma/client";
 import { Edit } from "lucide-react";
@@ -53,13 +54,15 @@ export const FeatureCardInfoPopover = ({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="link" className="font-normal">
+        <Button variant="link" size={"sm"} className="font-normal !text-sm">
           {toChangeValue ? (
             <>
-              <Edit className="icon opacity-50" />
-              <span data-tooltip-id={"tt-feat-" + toChange + feature.id}>
-                {sliced(toChangeValue, 15)}
-                {toChangeValue.length > 15 && (
+              {/* <Edit className="icon opacity-50" /> */}
+              <span
+                className={cn({ "!font-bold": toChange === "name"}, "")}
+                data-tooltip-id={"tt-feat-" + toChange + feature.id}>
+                {sliced(toChangeValue, 12)}
+                {toChangeValue.length > 12 && (
                   <Tooltip
                     className="tooltip z-50"
                     opacity={100}

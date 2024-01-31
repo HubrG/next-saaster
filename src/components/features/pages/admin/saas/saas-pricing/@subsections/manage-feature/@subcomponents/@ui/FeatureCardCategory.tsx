@@ -114,10 +114,10 @@ export const FeatureCardCategory = ({ feature }: Props) => {
             ? sliced(
                 capitalizeFirstLetter(
                   saasMRRSFeaturesCategories.find(
-                    (framework) => framework.name === value
+                    (category) => category.name === value
                   )?.name??""
                 ),
-                9
+                7
               )
             : "Select..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -130,7 +130,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
             onValueChange={(e) => {
               setSearchInput(e);
             }}
-            placeholder="Search framework..."
+            placeholder="Search category..."
           />
           <CommandEmpty
             className="flex flex-col justify-center p-2 w-full items-center"

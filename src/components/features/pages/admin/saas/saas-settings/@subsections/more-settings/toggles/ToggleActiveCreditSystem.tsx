@@ -16,6 +16,8 @@ export default function ToggleActiveMonthlyPlan() {
 
   const handleChangeActiveCreditSystem = async (e: any) => {
     if (saasSettings.id) {
+              setSaasSettings({ ...saasSettings, activeCreditSystem: e });
+
       const dataToSet = await updateSaasSettings(saasSettings.id, {
         activeCreditSystem: e,
         activeRefillCredit: !e && false,
@@ -41,6 +43,7 @@ export default function ToggleActiveMonthlyPlan() {
           type: "success",
         });
       } else {
+        setSaasSettings({ ...saasSettings, activeCreditSystem: !e });
         return toaster({
           type: "error",
           description: "Credit system option not changed, please try again",

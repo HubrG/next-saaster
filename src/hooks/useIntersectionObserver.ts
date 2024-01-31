@@ -1,33 +1,43 @@
-"use client";
 import { useEffect } from "react";
 
 interface UseIntersectionObserverOptions extends IntersectionObserverInit {
-  targetClass: string;
+  sectionSelector: string; // Sélecteur pour les sections parentes
+  subSectionSelector?: string; // Sélecteur pour les sous-sections
 }
 
-const useIntersectionObserver = async (
-  setActiveSection: (id: string) => void,
+
+export const useIntersectionObserver = (
+  setActiveSection: (id: string, isSubSection?: boolean) => void,
   options: UseIntersectionObserverOptions
 ) => {
-  
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const visibleSections = entries.filter((entry) => entry.isIntersecting);
-      if (visibleSections.length) {
-        visibleSections.sort(
-          (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
-        );  
-        setActiveSection(visibleSections[0].target.id);
-      }
-    }, options);
+    const observerCallback: IntersectionObserverCallback = (
+      entries,
+      observer
+    ) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const isSubSection = entry.target.matches(options.subSectionSelector??'');
+          setActiveSection(entry.target.id, isSubSection);
+        }
+      });
+    };
 
-    const sections = document.querySelectorAll(options.targetClass);
-    sections.forEach((section) => observer.observe(section as Element));
+    const observer = new IntersectionObserver(observerCallback, options);
+
+    // Observer les sections parentes
+    const sections = document.querySelectorAll(options.sectionSelector);
+    sections.forEach((section) => observer.observe(section));
+
+    // Observer les sous-sections, si un sélecteur est fourni
+    if (options.subSectionSelector) {
+      const subSections = document.querySelectorAll(options.subSectionSelector);
+      subSections.forEach((subSection) => observer.observe(subSection));
+    }
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section as Element));
+      // Détacher l'observer de tous les éléments observés
+      observer.disconnect();
     };
-  }, [setActiveSection, options,]);
+  }, [setActiveSection, options]);
 };
-
-export default useIntersectionObserver;

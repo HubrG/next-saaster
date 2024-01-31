@@ -1,3 +1,5 @@
+import { cn } from "@/src/lib/utils";
+
 type Props = {
   children?: React.ReactNode;
   handleScroll: (e: any) => void;
@@ -6,20 +8,21 @@ type Props = {
   icon?: React.ReactNode; // Prop pour l'icône
   text: string; // Prop pour le texte
 };
-export const MenuItem = ({
+export const MenuSubItem = ({
   children,
   handleScroll,
   activeSection,
   sectionObserve,
-  text,
-  icon
+  icon,
+  text
 }: Props) => {
   return (
     <li
-      className={activeSection === sectionObserve ? "active" : ""}
-      onClick={() => { handleScroll(sectionObserve); }}>
-      <div>{icon}{text}</div>
-      {children && <ul>{children}</ul>}
+      className={cn({ subactive: activeSection === sectionObserve }, "subitem")}
+      onClick={() => handleScroll(sectionObserve)}>
+      {icon}
+      {text}
+      {children && children}
     </li>
   );
 };

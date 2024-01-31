@@ -1,3 +1,5 @@
+import { unstable_setRequestLocale } from "next-intl/server";
+
 import { FirstConnexion } from "@/src/components/features/pages/index/FirstConnexion/FirstConnexion";
 import { Index } from "@/src/components/features/pages/index/FirstConnexion/Index";
 import { Link } from "@/src/lib/intl/navigation";
@@ -15,7 +17,15 @@ export const generateMetadata = async () => {
   });
 };
 // Utiliser la fonction loadAndCreateMetadata pour obtenir les métadonnées
-export default async function Home() {
+type Props = {
+  children: React.ReactNode;
+  params: {
+    locale: string;
+  };
+};
+export default async function Home({ params }: Props) {
+  unstable_setRequestLocale(params.locale);
+
   const t = await getTranslations("Index");
   const session = await getServerSession(authOptions);
 

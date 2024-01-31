@@ -1,7 +1,4 @@
+
 export default async function Pricing() {
-  return (
-    <div>
-     ffff
-    </div>
-  );
+  return <div>ffff</div>;
 }

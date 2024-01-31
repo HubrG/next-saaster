@@ -8,10 +8,9 @@ import { Session } from "next-auth";
 import { getLocale } from "next-intl/server";
 import { Caveat, Nunito, Playfair_Display } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import { ReactNode, Suspense } from "react";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 import { getAppSettings } from "./[locale]/server.actions";
-
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -29,15 +28,16 @@ const locales = ["en", "fr"];
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
-type Props = {
-  children: ReactNode;
+interface Props {
+  params: { slug: string };
   session: Session;
-};
-export default async function RootLayout({ children, session }: { children: ReactNode; session: Session}) {
+  children: React.ReactNode
+}
+export default async function RootLayout({ children, params, session }: Props) {
   // unstable_setRequestLocale(locale);
   const locale = await getLocale();
   const appSettings = await getAppSettings();
-// 
+  //
   return (
     <SessProvider session={session}>
       <ReactQueryClientProvider>
@@ -53,7 +53,6 @@ export default async function RootLayout({ children, session }: { children: Reac
               <NextTopLoader
                 template='<div class="bar" role="bar"><div class="peg"></div></div> 
               <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
-                color="#3d3d3d"
                 initialPosition={0.08}
                 crawlSpeed={200}
                 height={2}

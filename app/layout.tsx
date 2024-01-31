@@ -37,7 +37,7 @@ export default async function RootLayout({ children, session }: { children: Reac
   // unstable_setRequestLocale(locale);
   const locale = await getLocale();
   const appSettings = await getAppSettings();
-
+// 
   return (
     <SessProvider session={session}>
       <ReactQueryClientProvider>

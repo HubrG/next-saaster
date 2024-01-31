@@ -29,11 +29,10 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 interface IntProps {
-  params: { slug: string };
   session: Session;
   children: React.ReactNode
 }
-export default async function RootLayout({ children, params, session }: IntProps) {
+export default async function RootLayout({ children, session }: IntProps) {
   // unstable_setRequestLocale(locale);
   const locale = await getLocale();
   const appSettings = await getAppSettings();

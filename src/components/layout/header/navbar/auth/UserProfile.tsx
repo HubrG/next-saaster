@@ -98,7 +98,10 @@ export const UserProfile = ({ className }: UserProfileProps) => {
               <Link href="/pricing" className="user-profile-buy-credit">
                 <CreditCard className="icon" />
                 {/* Buy credits */}
-                {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.buy")} {saasSettings.creditName}
+                {t(
+                  "Features.Layout.Header.Navbar.Auth.UserProfile.links.buy"
+                )}{" "}
+                {saasSettings.creditName}
               </Link>
             </DropdownMenuItem>
             <Separator />
@@ -107,20 +110,20 @@ export const UserProfile = ({ className }: UserProfileProps) => {
         <DropdownMenuItem className="w-full px-2 mt-1" asChild>
           <Link
             href="/profil/mon-compte"
-            className="nunderline text-left pr-10  cursor-pointer">
+            className="nunderline profile-link text-left pr-10  cursor-pointer">
             <User className="mr-2 h-4 w-4" />
             {/* My account */}
             {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.account")}
           </Link>
         </DropdownMenuItem>
         <Separator className="my-1 h-0.5" />
-        {userInfo?.role !== "USER" as UserRole && (
+        {userInfo?.role !== ("USER" as UserRole) && (
           <>
             <DropdownMenuItem className="w-full" asChild>
               <Link
                 prefetch={false}
                 href="/admin"
-                className="nunderline pr-10 text-left cursor-pointer">
+                className="nunderline profile-link  pr-10 text-left cursor-pointer">
                 <Wrench className="mr-2 h-4 w-4" />
                 Admin
               </Link>

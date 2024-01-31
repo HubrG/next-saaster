@@ -42,7 +42,7 @@ export const FeaturesList = () => {
         draggedItemClassName="dragged">
         <div
           className={cn(
-            `grid  border-t-2  grid-cols-12 bg-primary dark:bg-accent/50 col-span-12 w-full   -z-0 !rounded-t-none select-none  py-5 font-bold border-b border-dashed  `
+            `grid  border-t-2  grid-cols-12 bg-primary/20 dark:bg-accent/20 col-span-12 w-full   -z-0 !rounded-t-none select-none  py-5 font-bold border-b border-dashed  `
           )}>
           <div className="grid-cols-1"></div>
           <div className="col-span-2 flex flex-row gap-x-0.5 justify-center items-center">
@@ -66,10 +66,10 @@ export const FeaturesList = () => {
                   onClick={() => handleRowClick(feature.id)}
                   className={cn(
                     {
-                      "bg-primary/50 dark:bg-primary/20":
+                      "bg-primary/20":
                         selectedRowId === feature.id,
                     },
-                    "hover:bg-primary/50  dark:hover:bg-primary/20 grid col-span-12 grid-cols-12 py-1 -mt-14 !text-sm items-center w-full select-none "
+                    "hover:bg-primary/10  dark:hover:bg-primary/10 grid col-span-12 grid-cols-12 py-1 -mt-14 !text-sm items-center w-full select-none "
                   )}>
                   <FeatureCard feature={feature} />
                 </div>

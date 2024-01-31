@@ -1,4 +1,5 @@
 import { FirstConnexion } from "@/src/components/features/pages/index/FirstConnexion/FirstConnexion";
+import { Index } from "@/src/components/features/pages/index/FirstConnexion/Index";
 import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
@@ -35,6 +36,7 @@ export default async function Home() {
         En français
       </Link>
       <Link href="/admin">Admin</Link>
+      <Index />
     </div>
   );
 }

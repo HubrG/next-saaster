@@ -63,6 +63,7 @@
 - Internationalization: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation)
 - Tooltips : [react-tooltip](https://github.com/ReactTooltip/react-tooltip)
 - AI : [Vercel AI](https://vercel.com/ai)
+- UI : Tailwind, Aceternity, Shadcn
 
 ## ℹ️ Services used :
 

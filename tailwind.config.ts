@@ -1,11 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-
-const appColor = "special1";
-const appColorhsl = "special2";
-const appColorSecondary = "special1";
-const appColorRGBA = "fuchsia";
-
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -43,7 +37,7 @@ module.exports = {
           "0 -20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
         "t-2xl": "0 -25px 50px -12px rgba(0, 0, 0, 0.25)",
         "t-3xl": "0 -35px 60px -15px rgba(0, 0, 0, 0.3)",
-        "right": "inset -8px 0 8px -10px rgba(128, 108, 156, 0.55)",
+        right: "inset -8px 0 8px -10px rgba(128, 108, 156, 0.55)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -184,12 +178,31 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
+        meteor: {
+          "0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
+          "70%": { opacity: 1 },
+          "100%": {
+            transform: "rotate(215deg) translateX(-500px)",
+            opacity: 0,
+          },
+        },
       },
       animation: {
+        "meteor-effect": "meteor 5s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
 };

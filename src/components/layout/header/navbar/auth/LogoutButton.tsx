@@ -12,7 +12,7 @@ export const DropdownMenuItemLogout = () => {
   const t = useTranslations("Components");
   return (
     <DropdownMenuItem
-      className=" text-left cursor-pointer  font-medium"
+      className=" text-left profile-link  cursor-pointer  font-medium"
       onClick={() => {
         startTransition(() => signOut());
       }}>

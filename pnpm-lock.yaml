@@ -107,9 +107,21 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.7.3
     version: 0.7.3(typescript@5.3.3)(zod@3.22.4)
+  '@tabler/icons-react':
+    specifier: ^2.46.0
+    version: 2.46.0(react@18.2.0)
   '@tanstack/react-query':
     specifier: ^5.17.19
     version: 5.17.19(react@18.2.0)
+  '@tsparticles/engine':
+    specifier: ^3.2.1
+    version: 3.2.1
+  '@tsparticles/react':
+    specifier: ^3.0.0
+    version: 3.0.0(@tsparticles/engine@3.2.1)(react-dom@18.2.0)(react@18.2.0)
+  '@tsparticles/slim':
+    specifier: ^3.2.1
+    version: 3.2.1
   accept-language:
     specifier: ^3.0.18
     version: 3.0.18
@@ -194,6 +206,9 @@ dependencies:
   react-easy-sort:
     specifier: ^1.6.0
     version: 1.6.0(react-dom@18.2.0)(react@18.2.0)
+  react-element-to-jsx-string:
+    specifier: ^15.0.0
+    version: 15.0.0(react-dom@18.2.0)(react@18.2.0)
   react-filepond:
     specifier: ^7.1.2
     version: 7.1.2(filepond@4.30.6)(react-dom@18.2.0)(react@18.2.0)
@@ -224,6 +239,9 @@ dependencies:
   recharts:
     specifier: ^2.10.4
     version: 2.10.4(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+  simplex-noise:
+    specifier: ^4.0.1
+    version: 4.0.1
   sonner:
     specifier: ^1.3.1
     version: 1.3.1(react-dom@18.2.0)(react@18.2.0)
@@ -250,6 +268,9 @@ devDependencies:
   '@prisma/client':
     specifier: 5.8.1
     version: 5.8.1(prisma@5.8.1)
+  '@tailwindcss/aspect-ratio':
+    specifier: ^0.4.2
+    version: 0.4.2(tailwindcss@3.4.1)
   '@types/array-move':
     specifier: ^2.0.0
     version: 2.0.0
@@ -359,6 +380,10 @@ packages:
       '@babel/helper-string-parser': 7.23.4
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
+    dev: false
+
+  /@base2/pretty-print-object@1.0.1:
+    resolution: {integrity: sha512-4iri8i1AqYHJE2DstZYkyEprg6Pq6sKx3xn5FpySk9sNhH7qN2LLlHJCfDTZRILNwQNPD7mATWM0TBui7uC1pA==}
     dev: false
 
   /@editorjs/editorjs@2.28.2:
@@ -2343,6 +2368,28 @@ packages:
       zod: 3.22.4
     dev: false
 
+  /@tabler/icons-react@2.46.0(react@18.2.0):
+    resolution: {integrity: sha512-X8MRxuslIOFqMjAo+GvUZDpjlOwNYNJTuOsHXf/NBvVI6ygqUf0FUNsDLLA5fQ6k6KtRwxMlgGB+eR8ZG1UP0g==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tabler/icons': 2.46.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /@tabler/icons@2.46.0:
+    resolution: {integrity: sha512-Q5G8Pj5IO+Uhc6pszpu5/hGYY018JwEzzvmuqr+gKJtfIvAHA3umpwUilMRLEy89p+WCP+YsDhicMhfBCCv1qA==}
+    dev: false
+
+  /@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.1):
+    resolution: {integrity: sha512-8QPrypskfBa7QIMuKHg2TA7BqES6vhBrDLOv8Unb6FcFyd3TjKbc6lcmb9UPQHxfl24sXoJ41ux/H7qQQvfaSQ==}
+    peerDependencies:
+      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
+    dependencies:
+      tailwindcss: 3.4.1
+    dev: true
+
   /@tanstack/query-core@5.17.19:
     resolution: {integrity: sha512-Lzw8FUtnLCc9Jwz0sw9xOjZB+/mCCmJev38v2wHMUl/ioXNIhnNWeMxu0NKUjIhAd62IRB3eAtvxAGDJ55UkyA==}
     dev: false
@@ -2354,6 +2401,246 @@ packages:
     dependencies:
       '@tanstack/query-core': 5.17.19
       react: 18.2.0
+    dev: false
+
+  /@tsparticles/basic@3.2.1:
+    resolution: {integrity: sha512-Hg7qg8bnIjgA+M5+eW49hmm6J2njXW0PfiefO91quujzbY6gKgysuO44j+VKs5lZubUS4m3WybyXuG2qvc0blg==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+      '@tsparticles/move-base': 3.2.1
+      '@tsparticles/shape-circle': 3.2.1
+      '@tsparticles/updater-color': 3.2.1
+      '@tsparticles/updater-opacity': 3.2.1
+      '@tsparticles/updater-out-modes': 3.2.1
+      '@tsparticles/updater-size': 3.2.1
+    dev: false
+
+  /@tsparticles/engine@3.2.1:
+    resolution: {integrity: sha512-mVzdwkOtRdT6/UOS0+GPGcKJsdvYCkqTTwg7df43TfXixsdZedpUkuVg30rwtNhTgPMH2nimOXqx2wmgL7bAZw==}
+    requiresBuild: true
+    dev: false
+
+  /@tsparticles/interaction-external-attract@3.2.1:
+    resolution: {integrity: sha512-u3Nc8ZRqaZeV6aOG44lrbjLyyGsDmL/k5YUHpynf8B1h2P7Rh4CUlz1FfFkbyFEe/bxoopTMl3IAGPfH+ZpzYA==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-bounce@3.2.1:
+    resolution: {integrity: sha512-quDVwQpaLcVYFHdPYSM3vEAqRrHPMDsfjpzvtLhAuXVvGX0FW4HLBFF1uuIQg6UTDKaVZSPcw6Y8A8zbUItRmw==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-bubble@3.2.1:
+    resolution: {integrity: sha512-Z5/clQcfQF8ldk1QjXl6cRi/5fH92uL6Ev/W6zskY6L1RG3Y8jisHLU44tWFwXleONu/NB+IDFn39Ei6uNjmzQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-connect@3.2.1:
+    resolution: {integrity: sha512-tY//lUEcu3ZbKFvDc1bUhS9r2LdiwN4jsBU0o4JuGKBWPH/Cd0P9sUVIthEsoxf1lY/6xCV5AgBP8SA+o3Cj2Q==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-grab@3.2.1:
+    resolution: {integrity: sha512-mau9wixUqy+mOiYGMofBUiQ9gsSk7pMkyHKtOZVrE6Lvi0JvJrIAjSndjsUKNt5GmB+kKJPTlPCaN5mpBY/iUQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-pause@3.2.1:
+    resolution: {integrity: sha512-vV5sAls6JyjueheYqeZsESVKhAQCl0Yz5h9yqFIBSllJ8sppVXqtMx/XcGyJValp2R0ptiI0jULAqTBtHqcQBg==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-push@3.2.1:
+    resolution: {integrity: sha512-BchfXv/ltD2oec9xz8mg3H8k7N/oYxNb2gTy8zqkdcnXLZzBlST8ApUx+PMvBh2pZ8LaqcGqVw1GK6/2PjL3zA==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-remove@3.2.1:
+    resolution: {integrity: sha512-NGKPhshUdh5ttatM448k8PxbdgWbAM2sVqpnMyEJQSXoYfDrheuKPg27l5+G+IqmmTnTqorWXmc6cxN+1Es2hg==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-repulse@3.2.1:
+    resolution: {integrity: sha512-HxGzjQuFpfTykHG0w5JPY3jpFNSr9wW4i8d9XHLjzlY/LHpDoRYfarAtpXtwUq0DyLFogZVkhbzo8+euP11PUA==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-external-slow@3.2.1:
+    resolution: {integrity: sha512-Fq3EyozDqwKfRZnnVixO81kxKHlR+N8HtBD2Ga2lJt4ZfncnUTRlyMjX49pL6Cj293o1RAboH1xfR9kyNDWTOQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-particles-attract@3.2.1:
+    resolution: {integrity: sha512-jbBI1RilgJbG/XkV73wmRwBfFWo86NtWqcbIcIwVku7+QtsllYVTpi1ty59JGqklLUWRYiz6i/4i8R31cZDCoA==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-particles-collisions@3.2.1:
+    resolution: {integrity: sha512-30YxBuIOD1XUOpjo5evv0j/5+/K6VP29lAlmxmGDx7EWaInG9UwldJo+lh+1A0xvEVr1hjNMaBOjD5Rbs1iN7A==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/interaction-particles-links@3.2.1:
+    resolution: {integrity: sha512-Py4BLQZbcipVyJ1PrIEPbYzzLDBy/jKIdnaGYRBCgZyf4zuTK5UvACPLS5zeiXXzCh4kx3LBM1z96zMOmJdNsw==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/move-base@3.2.1:
+    resolution: {integrity: sha512-R+ALCs7eJTehoNDNJ6kcGESaLY3kNYmj1OkYwe7XIHSYCpRAq93jRj5NEVqrVTxk1ZIPt8pYdkerDlBuSphDEg==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/move-parallax@3.2.1:
+    resolution: {integrity: sha512-q7ipu/avG2TzPauQpLUVjpLRJeFha8k7IdnpRns1Q286eWgHT0X/6A+qgroV+JLhUkTT9kdGVQGdOntHaOvgkQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/plugin-easing-quad@3.2.1:
+    resolution: {integrity: sha512-l9NPrOh+6PI7v2GGq5GDliimhH+sFg9EUfH0jmsS3ZBMl/jWsD97RdTzutARMelH+PEZKGCtURKj2F0rzQtYtQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/react@3.0.0(@tsparticles/engine@3.2.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-hjGEtTT1cwv6BcjL+GcVgH++KYs52bIuQGW3PWv7z3tMa8g0bd6RI/vWSLj7p//NZ3uTjEIeilYIUPBh7Jfq/Q==}
+    peerDependencies:
+      '@tsparticles/engine': ^3.0.2
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@tsparticles/shape-circle@3.2.1:
+    resolution: {integrity: sha512-DgO21XrwZ5nX/BfO9ItXV3AEhZmTXX0yHf+ogvKiwkkhd9qqCL9yDSAwwUqOPlU5St6AoAWKp8QCByFE7icl6g==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/shape-emoji@3.2.1:
+    resolution: {integrity: sha512-55q5eCQQvEZpk3WO8aMhqGmkca1BRd9az3itZDWJRhi74n+2sln4JYpWgqpEbsWHCP95z/IaVpkLiZalq2Wepw==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/shape-image@3.2.1:
+    resolution: {integrity: sha512-mWBVikRQTIlhHKFlNE5WPOPGwUGdyDKPxAEC1XFJnx7juPADaaLiGaQtc8bgbCRpe7GLALaWwyvn1KmGxBnFlw==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/shape-line@3.2.1:
+    resolution: {integrity: sha512-q1UWB3OT/MDi7vklEiYFWFyjHAQpkLx/lPCU2yzAxU8ikv6XhrbFMNL1/41ozrKoBIAEA50ADn9s7D8W4ZGq/Q==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/shape-polygon@3.2.1:
+    resolution: {integrity: sha512-j8dNbnP03Q8iRde4YiegKP1a6tIZ86m6pqqIFqSJk+Lz2V0EN4Wv2pJMUklyP60VMll4SwBAJO1aLlIdqedSAQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/shape-square@3.2.1:
+    resolution: {integrity: sha512-b6QDajcALbOAUsiKipZLrp6rzl5dbDmwWRjkU7dzrnxfWtkQQShxEGVtn0jOGJQnTQOwB/voce1UgAVjvyNDkQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/shape-star@3.2.1:
+    resolution: {integrity: sha512-iqVsZiQFTLyc3wiU46P8l4k3zl8hJc57WROgQiHCcJxbps8DmlPZhLzaLPE03WgvPSfUQfc8QVtojdNaQh406g==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/slim@3.2.1:
+    resolution: {integrity: sha512-XChPCNOybUFRp7SSbHICnlxGfG0ay0iFBH3kKn5hJ4Wsp8SOGg5vaJlLoArLvL7A555J4kEc5uFdpSRsJDdwKg==}
+    dependencies:
+      '@tsparticles/basic': 3.2.1
+      '@tsparticles/engine': 3.2.1
+      '@tsparticles/interaction-external-attract': 3.2.1
+      '@tsparticles/interaction-external-bounce': 3.2.1
+      '@tsparticles/interaction-external-bubble': 3.2.1
+      '@tsparticles/interaction-external-connect': 3.2.1
+      '@tsparticles/interaction-external-grab': 3.2.1
+      '@tsparticles/interaction-external-pause': 3.2.1
+      '@tsparticles/interaction-external-push': 3.2.1
+      '@tsparticles/interaction-external-remove': 3.2.1
+      '@tsparticles/interaction-external-repulse': 3.2.1
+      '@tsparticles/interaction-external-slow': 3.2.1
+      '@tsparticles/interaction-particles-attract': 3.2.1
+      '@tsparticles/interaction-particles-collisions': 3.2.1
+      '@tsparticles/interaction-particles-links': 3.2.1
+      '@tsparticles/move-parallax': 3.2.1
+      '@tsparticles/plugin-easing-quad': 3.2.1
+      '@tsparticles/shape-emoji': 3.2.1
+      '@tsparticles/shape-image': 3.2.1
+      '@tsparticles/shape-line': 3.2.1
+      '@tsparticles/shape-polygon': 3.2.1
+      '@tsparticles/shape-square': 3.2.1
+      '@tsparticles/shape-star': 3.2.1
+      '@tsparticles/updater-life': 3.2.1
+      '@tsparticles/updater-rotate': 3.2.1
+      '@tsparticles/updater-stroke-color': 3.2.1
+    dev: false
+
+  /@tsparticles/updater-color@3.2.1:
+    resolution: {integrity: sha512-IVUMmCR4amASTkZ/Fhs2Zu6VywRjkC54lJNpZ86jNONhzdHC4bGAmporMfEsNoa2stsPRZpMHvQCSD5dYoSbZg==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/updater-life@3.2.1:
+    resolution: {integrity: sha512-FvdFDvt8zFpel7LgtiVbZil7kkPtom9BVtnIw5r1lGwluSLTkzamwhtvp7KCudSBRZ6PziX4QUWaVk/NI4njxQ==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/updater-opacity@3.2.1:
+    resolution: {integrity: sha512-cvwx21T4bn8s5TArQq3Gq0Zy/WDjqT/S/9jsZcLKC5xgYcpTKptTtWeNaOxSbLR7WRrmIKSx9gUhz6SwHvTePw==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/updater-out-modes@3.2.1:
+    resolution: {integrity: sha512-y1+K05ao6z/oRvl6dBVrXLVQ33Rt9dpPDVJfMeGI9EyafZAzbX28ohBPm+K7pXbXDeoUnSPrKC160KOPPRsGgA==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/updater-rotate@3.2.1:
+    resolution: {integrity: sha512-oVHe6kLFTJz6mfuVBImYVxhqFYeres5d3KyptLIzVguSPG5NNN5ZSBULD/CjjSlFeRCaZNdhLGLCvquxaD1/7A==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/updater-size@3.2.1:
+    resolution: {integrity: sha512-GqkNEjGttjQBdFSteZ6WdhciJqKDTniha2B1vHZrEd+XDoSFwb8JwVw+kdMwHshNfsL4cuM3zQypGMVoQOcldg==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
+    dev: false
+
+  /@tsparticles/updater-stroke-color@3.2.1:
+    resolution: {integrity: sha512-niG2IVlh8O0xCHnTDtfOXxbMWKESCiXTjRouuJfTch1qDEuIMVOwDpynHAemQcVKLiHLAzfJf2b8A6K74+3N+A==}
+    dependencies:
+      '@tsparticles/engine': 3.2.1
     dev: false
 
   /@types/array-move@2.0.0:
@@ -4404,6 +4691,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /is-plain-object@5.0.0:
+    resolution: {integrity: sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
   /is-reference@3.0.2:
     resolution: {integrity: sha512-v3rht/LgVcsdZa3O2Nqs+NMowLOxeOm7Ay9+/ARQ2F+qEoANRcqrjAZKGN0v8ymUetZGgkp26LTnGT7H0Qo9Pg==}
     dependencies:
@@ -5295,6 +5587,19 @@ packages:
       tslib: 2.0.1
     dev: false
 
+  /react-element-to-jsx-string@15.0.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-UDg4lXB6BzlobN60P8fHWVPX3Kyw8ORrTeBtClmIlGdkOOE+GYQSFvmEU5iLLpwp/6v42DINwNcwOhOLfQ//FQ==}
+    peerDependencies:
+      react: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1 || ^18.0.0
+      react-dom: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      '@base2/pretty-print-object': 1.0.1
+      is-plain-object: 5.0.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.1.0
+    dev: false
+
   /react-filepond@7.1.2(filepond@4.30.6)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-vrlx9o/n+jGikh6jLey+PpUGYtEZn8MdeB6JFeX/5/N/Mu75IHG+MFQbv8R27bNXvS41mDtV9Fo5DG+s6siVIA==}
     peerDependencies:
@@ -5346,6 +5651,10 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  /react-is@18.1.0:
+    resolution: {integrity: sha512-Fl7FuabXsJnV5Q1qIOQwx/sagGF18kogb4gpfcG4gjLBWO0WDiiz1ko/ExayuxE7InyQkBLkxRFG5oxY6Uu3Kg==}
+    dev: false
 
   /react-lifecycles-compat@3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
@@ -5779,6 +6088,10 @@ packages:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
     dependencies:
       is-arrayish: 0.3.2
+    dev: false
+
+  /simplex-noise@4.0.1:
+    resolution: {integrity: sha512-zl/+bdSqW7HJOQ0oDbxrNYaF4F5ik0i7M6YOYmEoIJNtg16NpvWaTTM1Y7oV/7T0jFljawLgYPS81Uu2rsfo1A==}
     dev: false
 
   /slash@3.0.0:

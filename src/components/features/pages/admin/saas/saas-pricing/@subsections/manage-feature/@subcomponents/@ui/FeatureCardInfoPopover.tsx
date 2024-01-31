@@ -54,10 +54,8 @@ export const FeatureCardInfoPopover = ({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="link" size={"sm"} className="font-normal !text-sm">
+        <Button variant="link" size={"sm"} className={cn({toChangeValue:"text-center opacity-20 !ml-10"}, "hover:underline decoration-dashed font-normal !text-sm")} >
           {toChangeValue ? (
-            <>
-              {/* <Edit className="icon opacity-50" /> */}
               <span
                 className={cn({ "!font-bold": toChange === "name"}, "")}
                 data-tooltip-id={"tt-feat-" + toChange + feature.id}>
@@ -72,13 +70,13 @@ export const FeatureCardInfoPopover = ({
                   </Tooltip>
                 )}
               </span>
-            </>
           ) : (
-            <Edit className="icon  opacity-50" />
+            <Edit className="icon  mx-auto opacity-20" />
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 flex flex-col items-center">
+        <h5 className="pt-0 pb-2 -mt-2">Change {toChange}</h5>
         {textarea ? (
           <Textarea
             rows={2}

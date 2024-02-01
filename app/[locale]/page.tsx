@@ -1,10 +1,10 @@
-
 import { FirstConnexion } from "@/src/components/features/pages/index/FirstConnexion/FirstConnexion";
 import { Index } from "@/src/components/features/pages/index/FirstConnexion/Index";
 import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth/next";
+import { getTranslations } from "next-intl/server";
 import { isEmptyUser } from "./server.actions";
 
 export const generateMetadata = async () => {
@@ -16,8 +16,11 @@ export const generateMetadata = async () => {
 };
 // Utiliser la fonction loadAndCreateMetadata pour obtenir les métadonnées
 
-export default async function Home({ params: { locale } }: { params: { locale: string } }) {
-
+export default async function Home({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -27,9 +30,10 @@ export default async function Home({ params: { locale } }: { params: { locale: s
       return <FirstConnexion />;
     }
   }
+  const t = await getTranslations("Index");
   return (
     <div className="flex min-h-screen flex-col items-center  p-24">
-      <h1 className="font-mono font-bold">Welcome</h1>
+      <h1 className="font-mono font-bold">{t('title')}</h1>
       <Link href="/" locale="en">
         In english
       </Link>

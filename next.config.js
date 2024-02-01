@@ -5,6 +5,7 @@ const withNextIntl = require("next-intl/plugin")(
   "./src/lib/intl/i18n.config.ts"
 );
 
+
 const nextConfig = {
   reactStrictMode: true,
 
@@ -24,7 +25,11 @@ const nextConfig = {
       },
     ],
   },
-
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
   async headers() {
     return [
       {

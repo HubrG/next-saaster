@@ -14,3 +14,15 @@ export const Loader = ({
     </div>
   );
 };
+
+export const SimpleLoader = ({
+  size,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}) => {
+  return (
+      <Loader2 className={clsx("animate-spin icon", className)} size={size} />
+  );
+}

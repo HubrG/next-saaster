@@ -1,6 +1,7 @@
 import { deleteMRRSFeatureCategory, updateMRRSFeatureCategory } from "@/src/components/features/pages/admin/actions.server";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
+import { SimpleLoader } from "@/src/components/ui/loader";
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeatureCategoriesStore";
@@ -8,11 +9,13 @@ import { MRRSFeatureCategory } from "@prisma/client";
 import { Check, Grip } from "lucide-react";
 import { useState } from "react";
 import { SortableKnob } from "react-easy-sort";
+import { Tooltip } from "react-tooltip";
 type Props = {
   category: MRRSFeatureCategory;
 };
 export const FeatureCategoryCard = ({ category }: Props) => {
   const [data, setData] = useState<string>(category.name ?? "");
+  const [loading, setLoading] = useState<boolean>(false);
   const { saasMRRSFeaturesCategories, setSaasMRRSFeaturesCategories } =
     useSaasMRRSFeaturesCategoriesStore();
 
@@ -37,6 +40,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
   };
 
   const handleSave = async () => {
+    setLoading(true);
     const dataToSet = {
       name: data,
     };
@@ -51,6 +55,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
       dataToSet
     );
     if (!updateCategory) {
+      setLoading(false);
       return toaster({
         type: "error",
         description: `Error while updating category, please try again later`,
@@ -61,6 +66,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
         cat.id === category.id ? updateCategory : cat
       )
     );
+    setLoading(false);
     return toaster({
       type: "success",
       description: `Category « ${updateCategory.name} » updated successfully`,
@@ -92,8 +98,15 @@ export const FeatureCategoryCard = ({ category }: Props) => {
           />
         </div>
         <div className="col-span-2">
-          <Button size={"icon"} onClick={handleSave}>
-            <Check className="icon" />
+          <Button size={"icon"} onClick={handleSave} data-tooltip-id={`${category.id}tt-save-button`}>
+            {loading ? <SimpleLoader className="icon" /> : <Check className="icon" />}
+            <Tooltip
+              className="tooltip"
+              opacity={100}
+              id={`${category.id}tt-save-button`}
+              place="top">
+              Save
+            </Tooltip>
           </Button>
         </div>
         <div className="col-span-2">

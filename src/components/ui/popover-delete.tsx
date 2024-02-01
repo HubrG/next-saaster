@@ -1,6 +1,8 @@
 import { PopoverClose } from "@radix-ui/react-popover";
 import { MessageCircleWarningIcon, Trash } from "lucide-react";
+import { useState } from "react";
 import { Button } from "./button";
+import { SimpleLoader } from "./loader";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 type Props = {
   handleDelete: () => void;
@@ -8,6 +10,7 @@ type Props = {
     what: string;
 };
 export const PopoverDelete = ({ handleDelete, size, what }: Props) => {
+  const [loading, setLoading] = useState(false);
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -26,9 +29,10 @@ export const PopoverDelete = ({ handleDelete, size, what }: Props) => {
               size={size ? size : "default"}
               className="w-full"
               onClick={() => {
+                setLoading(true);
                 handleDelete();
               }}>
-              Yes
+              {loading ? <SimpleLoader /> : "Yes"}
             </Button>
             <PopoverClose asChild>
               <Button className="grayscale w-full">No</Button>

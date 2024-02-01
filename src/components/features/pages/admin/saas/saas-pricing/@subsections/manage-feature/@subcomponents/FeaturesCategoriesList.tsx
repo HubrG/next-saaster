@@ -1,4 +1,5 @@
 import { Button } from "@/src/components/ui/button";
+import { SimpleLoader } from "@/src/components/ui/loader";
 import {
   Popover,
   PopoverContent,
@@ -11,6 +12,7 @@ import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeature
 import { MRRSFeature } from "@prisma/client";
 import { random } from "lodash";
 import { Edit } from "lucide-react";
+import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { Tooltip } from "react-tooltip";
 import {
@@ -18,7 +20,10 @@ import {
   updateMRRSFeatureCategoryPosition,
 } from "../../../../../actions.server";
 import { FeatureCategoryCard } from "./@ui/FeatureCategoryCard";
+
+
 export const FeaturesCategoriesList = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const { saasMRRSFeaturesCategories, setSaasMRRSFeaturesCategories } =
     useSaasMRRSFeaturesCategoriesStore();
 
@@ -33,10 +38,12 @@ export const FeaturesCategoriesList = () => {
   };
 
   const handleAddCategory = async () => {
+    setLoading(true);
     const createCategory = await createNewCategory(
       "New category-" + random(1, 9999)
     );
     if (!createCategory) {
+      setLoading(false);
       return toaster({
         type: "error",
         description: `Error while creating category, please try again later`,
@@ -46,6 +53,7 @@ export const FeaturesCategoriesList = () => {
       ...saasMRRSFeaturesCategories,
       createCategory,
     ]);
+    setLoading(false);
     return toaster({
       type: "success",
       description: `Category « ${createCategory.name} » created successfully`,
@@ -82,7 +90,7 @@ export const FeaturesCategoriesList = () => {
                 </SortableItem>
               ))}
             </SortableList>
-            <Button onClick={handleAddCategory}>Add a new category</Button>
+            <Button onClick={handleAddCategory}>{loading && <SimpleLoader /> } Add a new category</Button>
           </div>
         </PopoverContent>
       </Popover>

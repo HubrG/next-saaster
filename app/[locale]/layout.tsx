@@ -4,6 +4,7 @@ import { Init } from "@/src/components/layout/init";
 import { Loader } from "@/src/components/ui/loader";
 import createMetadata from "@/src/lib/metadatas";
 import { cn } from "@/src/lib/utils";
+import { NextIntlProvider } from "@/src/providers/NextIntlProvider";
 import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
 import SessProvider from "@/src/providers/SessionProvider";
 import { Session } from "next-auth";
@@ -54,20 +55,24 @@ export default async function LocaleLayout(props: Props) {
         <html
           lang={locale}
           suppressHydrationWarning={true}
-          className={`${appSettings.theme} radius-${appSettings.roundedCorner} ${sans.variable} ${serif.variable}  ${display.variable} font-sans ${appSettings.defaultDarkMode&&"dark"}`}>
+          className={`${appSettings.theme} radius-${
+            appSettings.roundedCorner
+          } ${sans.variable} ${serif.variable}  ${display.variable} font-sans ${
+            appSettings.defaultDarkMode && "dark"
+          }`}>
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}
             suppressHydrationWarning={true}>
-            <Toaster richColors={true} closeButton={true} />
-            {appSettings.activeTopLoader && (
-              <TopLoader />
-            )}
-            <Suspense fallback={<Loader />}>
-              <Init settings={appSettings}>
-                <Navbar />
-                <main>{children}</main>
-              </Init>
-            </Suspense>
+            <NextIntlProvider>
+              <Toaster richColors={true} closeButton={true} />
+              {appSettings.activeTopLoader && <TopLoader />}
+              <Suspense fallback={<Loader />}>
+                <Init settings={appSettings} lang={locale}>
+                  <Navbar />
+                  <main>{children}</main>
+                </Init>
+              </Suspense>
+            </NextIntlProvider>
           </body>
         </html>
       </ReactQueryClientProvider>

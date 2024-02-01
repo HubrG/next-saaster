@@ -1,6 +1,7 @@
 import { updateMRRSFeature } from "@/src/components/features/pages/admin/actions.server";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
+import { Keybd } from "@/src/components/ui/kbd";
 import {
   Popover,
   PopoverContent,
@@ -58,8 +59,11 @@ export const FeatureCardInfoPopover = ({
           <p
             className={cn(
               {
-                "!font-bold w-40": toChange === "name" || toChange === "alias" || toChange === "description",
-                "!font-normal" : toChange === "description",
+                "!font-bold w-40":
+                  toChange === "name" ||
+                  toChange === "alias" ||
+                  toChange === "description",
+                "!font-normal": toChange === "description",
                 "w-32": toChange === "alias",
               },
               "text-wrap	hover:cursor-pointer hover:underline hover:decoration-dashed hover:underline-offset-4"
@@ -113,8 +117,19 @@ export const FeatureCardInfoPopover = ({
             value={data}
           />
         )}
-        <Button onClick={handleSave} size={"sm"} className="w-full mt-2">
-          Save {!textarea ? "(press enter)" : "(press cmd + enter)"}
+        <Button
+          onClick={handleSave}
+          size={"sm"}
+          className="w-full mt-2 flex justify-between items-center font-bold">
+          Save{" "}
+          {!textarea ? (
+            <Keybd>enter</Keybd>
+          ) : (
+            <div>
+              <Keybd className="ml-2">cmd</Keybd>
+              <Keybd className="mr-2">enter</Keybd>
+            </div>
+          )}
         </Button>
       </PopoverContent>
     </Popover>

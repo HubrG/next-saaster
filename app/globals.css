@@ -33,7 +33,7 @@
   }
   .dark {
     /*  */
-    --background-25: 5%;
+    --background-25: 7%;
     --background: var(--background-50);
     --foreground: var(--background-900);
     --card: var(--background-100);
@@ -60,11 +60,11 @@
     @apply border-border font-sans text-base;
   }
   body {
-    @apply text-text-900 dark:text-text-900 text-base;
+    @apply text-text-900 dark:text-text-900/80 text-base ;
   }
 }
 main {
-  @apply min-h-screen min-w-full bg-background  mx-auto gap-4 text-center !important;
+  @apply min-h-screen min-w-full bg-background    mx-auto gap-4 text-center !important;
 }
 main > div:not(.first-connection) {
   @apply container;
@@ -148,7 +148,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-text-950 !important;
+  @apply text-text-900 dark:text-text-900/80 !important;
 }
 h1 {
   @apply text-4xl font-bold;
@@ -371,10 +371,10 @@ label {
   @apply bg-secondary/10 dark:bg-primary/20;
 }
 .dd-icon {
-  @apply hover:cursor-grab text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
+  @apply hover:cursor-grab cursor-grabbing text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
 }
 .dragged {
-  @apply !cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default grayscale-[50%] !important;
+  @apply !cursor-grabbing hover:cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important; ;
 }
 .plan-card-active-badge {
   @apply absolute hover:bg-secondary dark:hover:bg-primary  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-secondary dark:bg-primary dark:text-text-900 text-text-900 !important;

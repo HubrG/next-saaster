@@ -6,6 +6,7 @@ import { cn } from "@/src/lib/utils";
 import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSFeature } from "@prisma/client";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { FeatureCard } from "./@ui/FeatureCard";
@@ -42,7 +43,9 @@ export const FeaturesList = () => {
           <thead>
             <tr>
               <th></th>
-              <th className="flex flex-row gap-x-2 items-center justify-center">Category <FeaturesCategoriesList /></th>
+              <th className="flex flex-row gap-x-2 items-center justify-center">
+                Category <FeaturesCategoriesList />
+              </th>
               <th>Name</th>
               <th>Description</th>
               <th>Alias</th>
@@ -52,23 +55,30 @@ export const FeaturesList = () => {
             </tr>
           </thead>
           <tbody>
-            {saasSettings.saasType === "MRR_SIMPLE" &&
-              saasMRRSFeatures
-                .filter((feature) => !feature.deleted)
-                .map((feature) => (
-                  <SortableItem key={feature.id}>
-                    <tr
-                      onClick={() => handleRowClick(feature.id)}
-                      className={cn(
-                        {
-                          "bg-primary/20": selectedRowId === feature.id,
-                        },
-                        "hover:bg-primary/10 dark:hover:bg-primary/10  w-full select-none"
-                      )}>
-                      <FeatureCard feature={feature} />
-                    </tr>
-                  </SortableItem>
-                ))}
+            <AnimatePresence>
+              {saasSettings.saasType === "MRR_SIMPLE" &&
+                saasMRRSFeatures
+                  .filter((feature) => !feature.deleted)
+                  .map((feature) => (
+                    <SortableItem key={feature.id}>
+                      <motion.tr
+                        initial={{ opacity: 0, scale: 1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1 }}
+                        transition={{ duration: 0.2 }}
+                        onClick={() => handleRowClick(feature.id)}
+                        className={cn(
+                          {
+                            "bg-primary/40 dark:bg-primary/10":
+                              selectedRowId === feature.id,
+                          },
+                          "hover:bg-primary/40 dark:hover:bg-primary/10  w-full select-none"
+                        )}>
+                        <FeatureCard feature={feature} />
+                      </motion.tr>
+                    </SortableItem>
+                  ))}
+            </AnimatePresence>
           </tbody>
         </table>
       </SortableList>

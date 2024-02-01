@@ -32,7 +32,7 @@ interface IntProps {
   session: Session;
   children: React.ReactNode
 }
-export default async function RootLayout({ children, session }: IntProps) {
+export default async function RootLayout({ children, session }: Readonly<IntProps>) {
   // unstable_setRequestLocale(locale);
   const locale = await getLocale();
   const appSettings = await getAppSettings();

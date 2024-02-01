@@ -1,7 +1,6 @@
 import { Navbar } from "@/src/components/layout/header/Navbar";
 import createMetadata from "@/src/lib/metadatas";
 import { NextIntlClientProvider, useMessages } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
 import "react-toastify/dist/ReactToastify.css";
 
 export const generateMetadata = async () => {
@@ -18,16 +17,13 @@ type Props = {
   };
 };
 
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "fr" }];
-}
+
 
 export default function LocaleLayout(props: Props) {
   const {
     children,
     params: { locale },
   } = props;
-  unstable_setRequestLocale(locale);
 
   const messages = useMessages();
   //

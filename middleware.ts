@@ -50,17 +50,17 @@ export async function middleware(req: NextRequest) {
     // Gérer l'erreur
   }
 
-  // // Appliquer le middleware next-intl
-  // const response = nextIntlMiddleware(req);
-  // if (response) return response;
+  // Appliquer le middleware next-intl
+  const response = nextIntlMiddleware(req);
+  if (response) return response;
 
-  // // Suite de votre logique personnalisée, si nécessaire
-  // // ...
+  // Suite de votre logique personnalisée, si nécessaire
+  // ...
 
-  // // Continuer avec la réponse normale
-  // return NextResponse.next();
+  // Continuer avec la réponse normale
+  return NextResponse.next();
 }
 
-// export const config = {
-//   matcher: ["/", "/(fr|en)/:path*"],
-// };
+export const config = {
+  matcher: ["/", "/(fr|en)/:path*"],
+};

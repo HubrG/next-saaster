@@ -14,7 +14,7 @@ import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
 import { MRRSFeature } from "@prisma/client";
 import { Edit } from "lucide-react";
 import { useState } from "react";
-import slugify from 'react-slugify';
+import slugify from "react-slugify";
 import { Tooltip } from "react-tooltip";
 
 type Props = {
@@ -54,26 +54,33 @@ export const FeatureCardInfoPopover = ({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="link" size={"sm"} className={cn({toChangeValue:"text-center opacity-20 !ml-10"}, "hover:underline decoration-dashed font-normal !text-sm")} >
-          {toChangeValue ? (
-              <span
-                className={cn({ "!font-bold": toChange === "name"}, "")}
-                data-tooltip-id={"tt-feat-" + toChange + feature.id}>
-                {sliced(toChangeValue, 12)}
-                {toChangeValue.length > 12 && (
-                  <Tooltip
-                    className="tooltip z-50"
-                    opacity={100}
-                    id={"tt-feat-" + toChange + feature.id}
-                    place="top">
-                    {toChangeValue}
-                  </Tooltip>
-                )}
-              </span>
-          ) : (
-            <Edit className="icon  mx-auto opacity-20" />
-          )}
-        </Button>
+        {toChangeValue ? (
+          <p
+            className={cn(
+              {
+                "!font-bold w-40": toChange === "name" || toChange === "alias" || toChange === "description",
+                "!font-normal" : toChange === "description",
+                "w-32": toChange === "alias",
+              },
+              "text-wrap	hover:cursor-pointer hover:underline hover:decoration-dashed hover:underline-offset-4"
+            )}
+            data-tooltip-id={"tt-feat-" + toChange + feature.id}>
+            {sliced(toChangeValue, 30)}
+            {toChangeValue.length > 30 && (
+              <Tooltip
+                className="tooltip z-50"
+                opacity={100}
+                id={"tt-feat-" + toChange + feature.id}
+                place="top">
+                {toChangeValue}
+              </Tooltip>
+            )}
+          </p>
+        ) : (
+          <p className="flex justify-start w-full">
+            <Edit className="icon cursor-pointer hover:opacity-100 opacity-40" />
+          </p>
+        )}
       </PopoverTrigger>
       <PopoverContent className="w-80 flex flex-col items-center">
         <h5 className="pt-0 pb-2 -mt-2">Change {toChange}</h5>

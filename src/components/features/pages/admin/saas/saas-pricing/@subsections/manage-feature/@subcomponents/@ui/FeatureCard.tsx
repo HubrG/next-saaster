@@ -21,8 +21,6 @@ export const FeatureCard = ({ feature }: Props) => {
     ...feature,
   });
   const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
-  // Set save and cancel to true or false
-
 
   const handleDelete = async () => {
     const dataToSet = await updateMRRSFeature(feature.id, {
@@ -63,17 +61,17 @@ export const FeatureCard = ({ feature }: Props) => {
         </SortableKnob>
       </td>
 
-      <td className="col-span-2">
+      <td>
         <FeatureCardCategory feature={feature} />
       </td>
-      <td className="col-span-2 text-left">
+      <td>
         <FeatureCardInfoPopover
           feature={feature}
           toChangeValue={feature.name ?? ""}
           toChange="name"
         />
       </td>
-      <td className="col-span-2 text-left">
+      <td>
         <FeatureCardInfoPopover
           feature={feature}
           toChangeValue={feature.description ?? ""}
@@ -81,7 +79,7 @@ export const FeatureCard = ({ feature }: Props) => {
           textarea
         />
       </td>
-      <td className="col-span-1 text-left">
+      <td>
         {" "}
         <FeatureCardInfoPopover
           feature={feature}
@@ -89,11 +87,11 @@ export const FeatureCard = ({ feature }: Props) => {
           toChange="alias"
         />
       </td>
-      <td className="col-span-2">
+      <td>
         <LinkPlanToFeature feature={feature} />
       </td>
 
-      <td className="col-span-1">
+      <td>
         <CopySomething
           what="Feature ID"
           copyText={feature.id}

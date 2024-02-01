@@ -74,7 +74,6 @@ export const FeatureCardCategory = ({ feature }: Props) => {
       ...saasMRRSFeaturesCategories,
       createCategory,
     ]);
-    // On met à jour la catégorie id de la feature
     if (createCategory.id) {
       setSaasMRRSFeatures(
         saasMRRSFeatures.map((f) =>
@@ -107,9 +106,10 @@ export const FeatureCardCategory = ({ feature }: Props) => {
       <PopoverTrigger asChild>
         <Button
           variant="outline"
+          size={"sm"}
           role="combobox"
           aria-expanded={open}
-          className={cn({ "!font-normal": !value }, "justify-between w-full")}>
+          className={cn({ "font-semibold": value, "!opacity-50" : !value }, "text-sm justify-between w-full")}>
           {value
             ? sliced(
                 capitalizeFirstLetter(

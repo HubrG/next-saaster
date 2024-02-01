@@ -14,7 +14,7 @@ export default function TryUsButton({ className }: TryUsButtonProps) {
     <Link href="/pricing" className={className}>
       <Button
         id="try-us-for-free-button"
-        className={`px-4 font-bold text-base`}
+        className={`px-4 font-bold`}
         variant="ghost"
         size={"lg"}>
         <Box className="icon" />

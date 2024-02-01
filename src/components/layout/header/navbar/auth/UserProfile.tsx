@@ -8,6 +8,7 @@ import {
 } from "@/src/components/ui/dropdown-menu";
 import { Separator } from "@/src/components/ui/separator";
 import { Link } from "@/src/lib/intl/navigation";
+import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { UserRole } from "@prisma/client";
 import { CreditCard, User, Wrench } from "lucide-react";
@@ -28,19 +29,20 @@ export const UserProfile = ({ className }: UserProfileProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild className={`flex flex-row w-full`}>
         <Button
-          variant="ghost"
-          className={`${
-            className
-              ? "flex flex-row " + className
-              : "flex flex-row items-center gap-2 justify-center w-32 pr-5"
-          }`}>
-          <div className="w-10 h-10 p-0 userNavbarDiv">
-            <div className="relative rounded-full w-full border-[2px] border-secondary border-opacity-50 dark:border-app-950 p-0">
+          variant="link"
+          className={cn({
+            "flex flex-row": className
+              ? className
+              : "items-center gap-2 justify-center",
+            "md:w-32 w-full !p-5": saasSettings.activeCreditSystem,
+          },"hover:no-underline")}>
+          <div className="w-6  userNavbarDiv">
+            <div className="relative rounded-full w-full border-[2px] border-secondary border-opacity-50 dark:border-app-950">
               {user?.image && (
                 <Image
                   src={user.image}
                   alt="Profil picture"
-                  sizes="50px"
+                  sizes="5rem"
                   fill
                   className="object-cover rounded-full w-20 h-20"
                 />

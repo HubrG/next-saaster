@@ -60,7 +60,7 @@
     @apply border-border font-sans text-base;
   }
   body {
-    @apply text-text-900 dark:text-text-900/80 text-base;
+    @apply text-text-900 dark:text-text-900 text-base;
   }
 }
 main {
@@ -84,7 +84,7 @@ a {
   position: relative;
 }
 a.nunderline {
-  @apply hover:no-underline dark:hover:text-text-300 hover:text-text-700 text-text-900 dark:text-text-50 font-semibold !important;
+  @apply hover:no-underline  hover:text-text-950 text-text-900  font-semibold !important;
 }
 a.special-uderline::after,
 a.special-uderline-active::after {
@@ -122,7 +122,7 @@ div.main-menu {
   @apply items-center  justify-between hidden w-full lg:flex md:w-auto md:order-1;
 }
 ul.main-menu li a {
-  @apply nunderline text-base !font-bold block py-2 pl-3  pr-4 rounded-default text-text-800 dark:text-text-900  md:p-0 !important;
+  @apply nunderline text-base !font-bold block py-2 pl-3  pr-4 rounded-default   md:p-0 !important;
 }
 /* LOGO */
 .logo {
@@ -148,7 +148,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply dark:text-text-800/80 text-text-800 !important;
+  @apply text-text-950 !important;
 }
 h1 {
   @apply text-4xl font-bold;
@@ -169,7 +169,7 @@ h6 {
   @apply text-base font-bold;
 }
 p {
-  @apply text-base dark:text-text-950/70 text-text-800;
+  @apply text-base dark:text-text-950/80 text-text-800;
 }
 
 a:hover {
@@ -230,9 +230,7 @@ div.progressToken {
 .admin .theme-card p {
   @apply max-md:text-sm max-sm:hidden  !important;
 }
-button {
-  @apply max-sm:text-xs !important;
-}
+
 
 .user-interface .toggle-wrapper {
   @apply my-card flex relative flex-col gap-3 justify-center w-full cursor-pointer;
@@ -262,10 +260,10 @@ button {
   @apply bg-primary-foreground/10 font-bold !important;
 }
 .user-interface aside nav ul li .subactive {
-  @apply bg-primary-foreground/10 font-bold flex flex-row !important;
+  @apply bg-primary-foreground/10  font-bold flex flex-row !important;
 }
 .user-interface aside nav ul li.subitem {
-  @apply flex flex-row text-sm text-left text-opacity-80 hover:bg-primary-foreground/10 justify-start font-semibold p-0.5 pt-1 gap-x-0 rounded-default cursor-pointer ml-3;
+  @apply flex flex-row text-sm text-left opacity-80 hover:bg-primary-foreground/10 justify-start font-semibold p-0.5 pt-1 gap-x-0 rounded-default cursor-pointer ml-3;
 }
 .user-interface aside nav h3 {
   @apply text-lg font-bold flex flex-row items-center justify-between;
@@ -324,12 +322,12 @@ form button {
   @apply my-card hover:bg-transparent hover:cursor-pointer !p-20 border-dashed flex flex-col justify-center gap-2 w-full !important;
 }
 .admin-plan-card {
-  @apply my-card   !border-[3px] flex flex-col h-fit flex-1 gap-5 items-center relative;
+  @apply my-card  !border-[3px] flex flex-col h-fit flex-1 gap-5 items-center relative;
 }
-.admin-plan-card input,.admin-plan-card textarea {
+.admin-plan-card > input,.admin-plan-card textarea {
   @apply border-0;
 }
-.admin-plan-card input {
+.admin-plan-card > input {
   @apply text-4xl;
 }
 .admin-plan-card textarea {
@@ -376,7 +374,7 @@ label {
   @apply hover:cursor-grab text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
 }
 .dragged {
-  @apply !cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default grayscale !important;
+  @apply !cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default grayscale-[50%] !important;
 }
 .plan-card-active-badge {
   @apply absolute hover:bg-secondary dark:hover:bg-primary  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-secondary dark:bg-primary dark:text-text-900 text-text-900 !important;
@@ -385,4 +383,29 @@ label {
 .label {
   @apply   !font-semibold cursor-pointer !text-base !important;
 
+}
+
+table.admin-features-table  {
+  @apply table-auto  !important;
+}
+table.admin-features-table th, table.admin-features-table td {
+  @apply p-2 py-3 text-left  !important;
+}
+table.admin-features-table td p {
+  @apply text-sm  !important;
+}
+table.admin-features-table tbody {
+  @apply my-5  !important;
+}
+table.admin-features-table th {
+  @apply py-5 border-t  border-dashed text-sm  text-left  !important;
+}
+table.admin-features-table thead {
+  @apply bg-primary/20 dark:bg-primary/20 dark:shadow-none shadow !important;
+}
+.bar {
+  @apply bg-primary-foreground dark:bg-primary/50 !important;
+}
+.shadow {
+  @apply shadow-primary/50 !important;
 }

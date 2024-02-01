@@ -9,6 +9,7 @@ import { MRRSFeature } from "@prisma/client";
 import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { FeatureCard } from "./@ui/FeatureCard";
+import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
   const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
@@ -31,41 +32,42 @@ export const FeaturesList = () => {
   };
 
   return (
-    <ScrollArea className="whitespace-nowrap relative overflow-x-auto -mt-5 overflow-y-auto py-5 max-lg:shadow-right">
+    <ScrollArea className="whitespace-nowrap relative overflow-x-auto pb-5 overflow-y-auto shadow-right">
       <SortableList
         lockAxis="y"
         onSortEnd={onSortEnd}
-        className="gap-x-[4rem] gap-y-14 grid grid-cols-12"
+        className="gap-x-[4rem] gap-y-14 grid grid-cols-12 "
         draggedItemClassName="dragged">
-        <table className="w-full">
+        <table className="admin-features-table">
           <thead>
-            <th className="hidden"></th>
-            <th>Category</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Alias</th>
-            <th>Link to plan</th>
-            <th>ID</th>
-            <th className="hidden"></th>
+            <tr>
+              <th></th>
+              <th className="flex flex-row gap-x-2 items-center justify-center">Category <FeaturesCategoriesList /></th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Alias</th>
+              <th>Link to plan</th>
+              <th>ID</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
             {saasSettings.saasType === "MRR_SIMPLE" &&
               saasMRRSFeatures
                 .filter((feature) => !feature.deleted)
                 .map((feature) => (
-                  <tr
-                    key={feature.id}
-                    onClick={() => handleRowClick(feature.id)}
-                    className={cn(
-                      {
-                        "bg-primary/20": selectedRowId === feature.id,
-                      },
-                      "hover:bg-primary/10 dark:hover:bg-primary/10 grid col-span-12 grid-cols-12 py-1 -mt-10 text-sm items-center w-full select-none"
-                    )}>
-                    <SortableItem>
+                  <SortableItem key={feature.id}>
+                    <tr
+                      onClick={() => handleRowClick(feature.id)}
+                      className={cn(
+                        {
+                          "bg-primary/20": selectedRowId === feature.id,
+                        },
+                        "hover:bg-primary/10 dark:hover:bg-primary/10  w-full select-none"
+                      )}>
                       <FeatureCard feature={feature} />
-                    </SortableItem>
-                  </tr>
+                    </tr>
+                  </SortableItem>
                 ))}
           </tbody>
         </table>

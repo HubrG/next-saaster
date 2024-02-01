@@ -6,7 +6,6 @@ import TryUsButton from "./TryUsButton";
 import { LoginButton } from "./auth/LoginButton";
 import { UserProfile } from "./auth/UserProfile";
 //
-import { Button } from "@/src/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -38,14 +37,14 @@ export default function BurgerMenu(props: Props) {
     <>
       <Sheet>
         <SheetTrigger className="inline-flex lg:hidden">
-          <Button variant={"ghost"} className="px-1"><Menu className="icon" /></Button>
+          <Menu className="icon" />
         </SheetTrigger>
         <SheetContent className="h-full">
           <SheetHeader>
             <SheetDescription>
               <ul className="flex flex-col gap-5">
                 <SheetClose asChild>
-                  <MainMenu links={links}  />
+                  <MainMenu links={links} />
                 </SheetClose>
                 <li className="md:hidden flex w-full justify-center ">
                   {props.settings.activeCtaOnNavbar &&
@@ -72,10 +71,12 @@ export default function BurgerMenu(props: Props) {
             </SheetDescription>
           </SheetHeader>
           {props.settings.activeDarkMode && (
-            <SheetFooter>
-              <SheetClose asChild>
-                <ThemeToggle className="sm:hidden" />
-              </SheetClose>
+            <SheetFooter className="absolute bottom-10 w-full">
+              <div className="flex w-full justify-center">
+                <SheetClose asChild>
+                  <ThemeToggle className="sm:hidden mr-10" />
+                </SheetClose>
+              </div>
             </SheetFooter>
           )}
         </SheetContent>

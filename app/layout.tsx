@@ -23,11 +23,7 @@ const serif = Playfair_Display({
   variable: "--font-serif",
 });
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
-const locales = ["en", "fr"];
 
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
 interface IntProps {
   session: Session;
   children: React.ReactNode

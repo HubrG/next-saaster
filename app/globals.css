@@ -122,7 +122,7 @@ div.main-menu {
   @apply items-center  justify-between hidden w-full lg:flex md:w-auto md:order-1;
 }
 ul.main-menu li a {
-  @apply nunderline block py-2 pl-3  pr-4 rounded-default text-text-800 dark:text-text-900  md:p-0 !important;
+  @apply nunderline text-base !font-bold block py-2 pl-3  pr-4 rounded-default text-text-800 dark:text-text-900  md:p-0 !important;
 }
 /* LOGO */
 .logo {

@@ -3,7 +3,6 @@ import createMetadata from "@/src/lib/metadatas";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import "react-toastify/dist/ReactToastify.css";
-import { locales } from "../../src/lib/intl/navigation";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -19,8 +18,8 @@ type Props = {
   };
 };
 
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "fr" }];
 }
 
 export default function LocaleLayout(props: Props) {

@@ -24,11 +24,13 @@ const serif = Playfair_Display({
 });
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
-interface IntProps {
+export default async function RootLayout({
+  children,
+  session,
+}: {
+  children: React.ReactNode;
   session: Session;
-  children: React.ReactNode
-}
-export default async function RootLayout({ children, session }: Readonly<IntProps>) {
+}) {
   // unstable_setRequestLocale(locale);
   const locale = await getLocale();
   const appSettings = await getAppSettings();

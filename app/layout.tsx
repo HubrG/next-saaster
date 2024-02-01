@@ -28,7 +28,7 @@ export default async function RootLayout({
   children,
   session,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   session: Session;
 }) {
   // unstable_setRequestLocale(locale);

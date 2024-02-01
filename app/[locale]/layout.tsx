@@ -1,12 +1,14 @@
 import { Navbar } from "@/src/components/layout/header/Navbar";
+import { TopLoader } from "@/src/components/layout/header/TopLoader";
 import { Init } from "@/src/components/layout/init";
+import { Loader } from "@/src/components/ui/loader";
 import createMetadata from "@/src/lib/metadatas";
 import { cn } from "@/src/lib/utils";
 import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
 import SessProvider from "@/src/providers/SessionProvider";
 import { Session } from "next-auth";
 import { Caveat, Nunito, Playfair_Display } from "next/font/google";
-import NextTopLoader from "nextjs-toploader";
+import { Suspense } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
 import { getAppSettings } from "./server.actions";
@@ -52,29 +54,20 @@ export default async function LocaleLayout(props: Props) {
         <html
           lang={locale}
           suppressHydrationWarning={true}
-          className={`${appSettings.theme} radius-${appSettings.roundedCorner} ${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
+          className={`${appSettings.theme} radius-${appSettings.roundedCorner} ${sans.variable} ${serif.variable}  ${display.variable} font-sans ${appSettings.defaultDarkMode&&"dark"}`}>
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}
             suppressHydrationWarning={true}>
             <Toaster richColors={true} closeButton={true} />
             {appSettings.activeTopLoader && (
-              <NextTopLoader
-                template='<div class="bar" role="bar"><div class="peg"></div></div> 
-              <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
-                initialPosition={0.08}
-                crawlSpeed={200}
-                height={2}
-                crawl={true}
-                showSpinner={true}
-                easing="ease"
-                speed={200}
-                shadow={false}
-              />
+              <TopLoader />
             )}
-            <Init settings={appSettings}>
-              <Navbar />
-              <main>{children}</main>
-            </Init>
+            <Suspense fallback={<Loader />}>
+              <Init settings={appSettings}>
+                <Navbar />
+                <main>{children}</main>
+              </Init>
+            </Suspense>
           </body>
         </html>
       </ReactQueryClientProvider>

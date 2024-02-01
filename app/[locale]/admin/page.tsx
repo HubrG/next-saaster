@@ -1,27 +1,26 @@
 import {
-  getAppSettings,
   getSaasMRRSFeatures,
   getSaasMRRSFeaturesCategories,
   getSaasMRRSPlanToFeature,
   getSaasMRRSPlans,
+  getSaasSettings
 } from "@/app/[locale]/server.actions";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import { Loader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
+import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
 import {
   MRRSFeature,
+  MRRSFeatureCategory,
   MRRSPlan,
   SaasSettings,
-  UserRole,
-  appSettings,
+  UserRole
 } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
-import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { getSaasSettings } from "../server.actions";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -32,26 +31,24 @@ export const generateMetadata = async () => {
 };
 
 export default async function Admin({ params: { locale } }: { params: { locale: string } }) {
-  unstable_setRequestLocale(locale);
+
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role === ("USER" as UserRole)) {
     redirect("/");
   }
-  const appSettings = (await getAppSettings()) as appSettings;
-  const saasSettings = (await getSaasSettings()) as SaasSettings;
-  const saasMRRSPlans = (await getSaasMRRSPlans()) as MRRSPlan[];
-  const saasMRRSFeatures = (await getSaasMRRSFeatures()) as MRRSFeature[];
-  const saasMRRSPlanToFeatures = await getSaasMRRSPlanToFeature();
-  const saasMRRSFeaturesCategories = await getSaasMRRSFeaturesCategories();
+  const saasMRRSPlans = await getSaasMRRSPlans() as MRRSPlan[];
+  const saasMRRSFeatures = await getSaasMRRSFeatures() as MRRSFeature[];
+  const saasMRRSPlanToFeatures = await getSaasMRRSPlanToFeature() as MRRSPlanToFeatureWithPlanAndFeature[];
+  const saasMRRSFeaturesCategories = await getSaasMRRSFeaturesCategories() as MRRSFeatureCategory[];
+  const saasSettings = await getSaasSettings() as SaasSettings;
 
   if (
-    !appSettings ||
-    !saasSettings ||
     !saasMRRSPlans ||
     !saasMRRSFeatures ||
     !saasMRRSPlanToFeatures ||
-    !saasMRRSFeaturesCategories
+    !saasMRRSFeaturesCategories ||
+    !saasSettings
   ) {
     toaster({
       type: "error",
@@ -60,18 +57,18 @@ export default async function Admin({ params: { locale } }: { params: { locale: 
     redirect("/");
   }
 
-  return (
-    <div className="admin user-interface">
-      <Suspense fallback={<Loader />}>
-        <AdminComponent
-          saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
-          appSettings={appSettings}
-          saasSettings={saasSettings}
-          saasMRRSPlans={saasMRRSPlans}
-          saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
-          saasMRRSFeatures={saasMRRSFeatures}
-        />
-      </Suspense>
-    </div>
-  );
+
+    return (
+      <div className="admin user-interface">
+        <Suspense fallback={<Loader />}>
+          <AdminComponent
+            saasSettings={saasSettings}
+            saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
+            saasMRRSPlans={saasMRRSPlans}
+            saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
+            saasMRRSFeatures={saasMRRSFeatures}
+          />
+        </Suspense>
+      </div>
+    );
 }

@@ -1,4 +1,3 @@
-import { unstable_setRequestLocale } from "next-intl/server";
 
 import { FirstConnexion } from "@/src/components/features/pages/index/FirstConnexion/FirstConnexion";
 import { Index } from "@/src/components/features/pages/index/FirstConnexion/Index";
@@ -6,7 +5,6 @@ import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth/next";
-import { getTranslations } from "next-intl/server";
 import { isEmptyUser } from "./server.actions";
 
 export const generateMetadata = async () => {
@@ -19,8 +17,7 @@ export const generateMetadata = async () => {
 // Utiliser la fonction loadAndCreateMetadata pour obtenir les métadonnées
 
 export default async function Home({ params: { locale } }: { params: { locale: string } }) {
-  unstable_setRequestLocale(locale);
-  const t = await getTranslations("Index");
+
   const session = await getServerSession(authOptions);
 
   if (!session) {

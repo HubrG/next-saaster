@@ -404,7 +404,11 @@ table.admin-features-table thead {
   @apply bg-primary/20 dark:bg-primary/20 dark:shadow-none shadow !important;
 }
 .bar {
-  @apply bg-primary-foreground dark:bg-primary/50 !important;
+  @apply bg-primary dark:bg-primary border-primary !important;
+}
+.spinner, .spinner-icon {
+  @apply bg-transparent text-text-900 !important;
+
 }
 .shadow {
   @apply shadow-primary/50 !important;

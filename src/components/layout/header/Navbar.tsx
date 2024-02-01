@@ -2,7 +2,6 @@ import { getAppSettings } from "@/app/[locale]/server.actions";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { appSettings } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
-import { getLocale, getTranslations } from "next-intl/server";
 import { Button } from "../../ui/button";
 import BurgerMenu from "./navbar/BurgerMenu";
 import Logo from "./navbar/Logo";
@@ -14,8 +13,6 @@ import { UserProfile } from "./navbar/auth/UserProfile";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
-  const t = await getTranslations("Components");
-  const locale = await getLocale();
   const settings = (await getAppSettings()) as appSettings;
 
   /* NOTE --> Change the links of main menu here.
@@ -25,15 +22,15 @@ export const Navbar = async () => {
   const links = [
     {
       url: "how-it-works", // customize it
-      name: t(`Features.Layout.Header.Navbar.MainMenu.links.how-it-works`),
+      name: "How it works ?",
     },
     {
       url: "pricing", // special page (don't delete it)
-      name: t(`Features.Layout.Header.Navbar.MainMenu.links.pricing`),
+      name: "Pricing",
     },
     {
       url: "contact", // special page
-      name: t(`Features.Layout.Header.Navbar.MainMenu.links.contact`),
+      name: "Contact",
     },
   ];
   //
@@ -54,11 +51,11 @@ export const Navbar = async () => {
                   classNameMoon="-mt-6"
                 />
             </div>
-            <BurgerMenu links={links} locale={locale} settings={settings} />
+            <BurgerMenu links={links}  settings={settings} />
           </div>
           <div className="main-menu" id="navbar-sticky">
             <ul className="main-menu">
-              <MainMenu links={links} locale={locale} />
+              <MainMenu links={links}  />
             </ul>
           </div>
         </div>

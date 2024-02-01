@@ -27,7 +27,6 @@ interface Link {
 
 interface Props {
   links: Link[];
-  locale: string;
   settings: appSettings;
 }
 
@@ -46,7 +45,7 @@ export default function BurgerMenu(props: Props) {
             <SheetDescription>
               <ul className="flex flex-col gap-5">
                 <SheetClose asChild>
-                  <MainMenu links={links} locale={props.locale} />
+                  <MainMenu links={links}  />
                 </SheetClose>
                 <li className="md:hidden flex w-full justify-center ">
                   {props.settings.activeCtaOnNavbar &&

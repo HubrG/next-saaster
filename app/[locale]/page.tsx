@@ -32,7 +32,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
   }
   return (
     <div className="flex min-h-screen flex-col items-center  p-24">
-      <h1 className="font-mono font-bold">{t("title")}</h1>
+      <h1 className="font-mono font-bold">Welcome</h1>
       <Link href="/" locale="en">
         In english
       </Link>

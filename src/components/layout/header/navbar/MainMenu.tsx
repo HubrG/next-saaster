@@ -8,7 +8,6 @@ interface Link {
 
 interface MenuProps {
   links: Link[];
-  locale: string;
 }
 
 export default function MainMenu(props: MenuProps) {
@@ -22,7 +21,7 @@ export default function MainMenu(props: MenuProps) {
             href={`/${link.url}`}
             onClick={() => { document.getElementById("close-sheet")?.click(); }}
             className={`${
-              pathname === `/${props.locale}/${link.url}`
+              pathname === `/en/${link.url}`
                 ? "special-uderline-active"
                 : "special-uderline"
             } nunderline`}>

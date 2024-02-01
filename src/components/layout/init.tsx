@@ -1,16 +1,15 @@
 "use client";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import {
-  appSettings,
-  SaasSettings,
-} from "@prisma/client";
+import { appSettings, SaasSettings } from "@prisma/client";
+import { ThemeProvider } from "next-themes";
 import React, { useEffect } from "react";
 type Props = {
   settings: appSettings;
   saasSettings?: SaasSettings;
+  children?: React.ReactNode;
 };
-export const Init = ({ settings }: Props) => {
+export const Init = ({ settings, children }: Props) => {
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
   const [mounted, setMounted] = React.useState(false);
@@ -21,5 +20,14 @@ export const Init = ({ settings }: Props) => {
       setMounted(true);
     }
   }, [settings, setAppSettings, mounted, saasSettings, setSaasSettings]);
-  return <></>;
+  return (
+    <>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme={appSettings.defaultDarkMode ? "dark" : "system"}
+        enableSystem>
+        {children}
+      </ThemeProvider>
+    </>
+  );
 };

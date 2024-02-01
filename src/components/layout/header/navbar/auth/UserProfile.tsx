@@ -12,7 +12,6 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { UserRole } from "@prisma/client";
 import { CreditCard, User, Wrench } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Tooltip } from "react-tooltip";
 import { DropdownMenuItemLogout } from "./LogoutButton";
@@ -24,7 +23,6 @@ export const UserProfile = ({ className }: UserProfileProps) => {
   const { saasSettings } = useSaasSettingsStore();
   const userInfo = useSession().data?.user;
   const user = useSession().data?.user;
-  const t = useTranslations("Components");
   const tokenPercentage = 50;
   return (
     <DropdownMenu>
@@ -78,9 +76,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
                   className="tooltip flex flex-col">
                   <span className="font-bold">
                     {/* Crédit remaining */}
-                    {t(
-                      "Features.Layout.Header.Navbar.Auth.UserProfile.tooltips.credits"
-                    )}{" "}
+                    Credit remaining
                     {saasSettings.creditName} : x%
                   </span>
                   <small>50 &nbsp;/&nbsp; 100</small>
@@ -98,9 +94,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
               <Link href="/pricing" className="user-profile-buy-credit">
                 <CreditCard className="icon" />
                 {/* Buy credits */}
-                {t(
-                  "Features.Layout.Header.Navbar.Auth.UserProfile.links.buy"
-                )}{" "}
+                Buy credit
                 {saasSettings.creditName}
               </Link>
             </DropdownMenuItem>
@@ -113,7 +107,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             className="nunderline profile-link text-left pr-10  cursor-pointer">
             <User className="mr-2 h-4 w-4" />
             {/* My account */}
-            {t("Features.Layout.Header.Navbar.Auth.UserProfile.links.account")}
+            My account
           </Link>
         </DropdownMenuItem>
         <Separator className="my-1 h-0.5" />

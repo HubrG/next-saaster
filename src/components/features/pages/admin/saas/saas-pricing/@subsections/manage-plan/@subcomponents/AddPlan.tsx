@@ -25,30 +25,32 @@ export const AddPlan = () => {
         setLoading(false);
         return;
       }
-      console.log("newPlan", newPlan);
-      setSaasMRRSPlans([...saasMRRSPlans, newPlan.newPlan]);
-      // On met à jour le saasMRRSPlanToFeature
-      if (newPlan.newFeatures.length > 0) {
-      const newFeaturesMapped = newPlan.newFeatures.map((feature) => {
-        // Créer un nouvel objet MRRSPlanToFeatureWithPlanAndFeature pour chaque fonctionnalité
-        return {
-          ...feature,
-          plan: newPlan.newPlan, 
-        };
-      });
-         setSaasMRRSPlanToFeature([
-           ...saasMRRSPlanToFeature,
-           ...newFeaturesMapped as any,
-         ]);
+      if (newPlan) {
+        setSaasMRRSPlans([...saasMRRSPlans, newPlan.newPlan]);
+        // On met à jour le saasMRRSPlanToFeature
+        if (newPlan.newFeatures.length > 0) {
+          const newFeaturesMapped = newPlan.newFeatures.map((feature) => {
+            // Créer un nouvel objet MRRSPlanToFeatureWithPlanAndFeature pour chaque fonctionnalité
+            return {
+              ...feature,
+              plan: newPlan.newPlan,
+            };
+          });
+          setSaasMRRSPlanToFeature([
+            ...saasMRRSPlanToFeature,
+            ...(newFeaturesMapped as any),
+          ]);
+        }
+        toaster({
+          type: "success",
+          description: `New ${saasType} plan created`,
+        });
       }
-      toaster({
-        type: "success",
-        description: `New ${saasType} plan created`,
-      });
       setLoading(false);
       return newPlan;
     }
   };
+
 
   return (
     <>

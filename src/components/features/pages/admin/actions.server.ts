@@ -19,7 +19,7 @@ export const addNewMRRSPlan = async () => {
     prisma.mRRSPlan.delete({
       where: { id: planId },
     });
-    return false;
+   return false;
   }
   const newPlan = await prisma.mRRSPlan.create({
     data: {},
@@ -29,28 +29,36 @@ export const addNewMRRSPlan = async () => {
     description: "New product created from the admin panel",
   });
   const saasSettings = await prisma.saasSettings.findFirst({});
-  if (!product) return deletePlan(newPlan.id);
+  if (!product) {
+    deletePlan(newPlan.id);
+  }
   const yearlyPrice = await stripe.prices.create({
     product: product.id,
     unit_amount: 1000,
     currency: saasSettings?.currency ?? "usd",
     recurring: { interval: "year" },
   });
-  if (!yearlyPrice) return deletePlan(newPlan.id);
+  if (!yearlyPrice) {
+    deletePlan(newPlan.id);
+  }
   const monthlyPrice = await stripe.prices.create({
     product: product.id,
     unit_amount: 100,
     currency: saasSettings?.currency ?? "usd",
     recurring: { interval: "month" },
   });
-  if (!monthlyPrice) return deletePlan(newPlan.id);
+  if (!monthlyPrice) {
+    deletePlan(newPlan.id);
+  }
   const freePrice = await stripe.prices.create({
     product: product.id,
     unit_amount: 0,
     recurring: { interval: "month" },
     currency: saasSettings?.currency ?? "usd",
   });
-  if (!freePrice) return deletePlan(newPlan.id);
+  if (!freePrice) {
+    deletePlan(newPlan.id);
+  }
   //
   const updatePlanProductStripe = await prisma.mRRSPlan.update({
     where: { id: newPlan.id },
@@ -73,6 +81,9 @@ export const addNewMRRSPlan = async () => {
       })
     )
   );
+  if (!updatePlanProductStripe) {
+    deletePlan(newPlan.id);
+  }
   return { newPlan: updatePlanProductStripe, newFeatures: newFeatures };
 };
 

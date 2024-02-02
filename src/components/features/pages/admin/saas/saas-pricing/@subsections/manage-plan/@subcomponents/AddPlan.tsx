@@ -25,7 +25,6 @@ export const AddPlan = () => {
         setLoading(false);
         return;
       }
-      if (newPlan) {
         setSaasMRRSPlans([...saasMRRSPlans, newPlan.newPlan]);
         // On met à jour le saasMRRSPlanToFeature
         if (newPlan.newFeatures.length > 0) {
@@ -45,7 +44,7 @@ export const AddPlan = () => {
           type: "success",
           description: `New ${saasType} plan created`,
         });
-      }
+      
       setLoading(false);
       return newPlan;
     }

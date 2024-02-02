@@ -1,6 +1,6 @@
 import { prisma } from "@/src/lib/prisma";
 
-export const isEmptyUser = async () => {
+  export const isEmptyUser = async () => {
   const users = await prisma.user.count();
   // If there are no users, return 0
   if (users === 0) {
@@ -100,6 +100,14 @@ export const getSaasMRRSPlanToFeature = async () => {
       plan: true,
       feature: true,
     },
+    orderBy: {
+      plan: {
+        position: "asc", // Utilisez 'asc' pour un ordre croissant ou 'desc' pour décroissant
+      },
+    },
   });
   return planToFeatures;
 };
+
+
+

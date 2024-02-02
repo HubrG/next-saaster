@@ -89,13 +89,6 @@ export const PlanCard = ({ plan, className }: Props) => {
           item.planId === planState.id ? { ...item, plan: planState } : item
         )
       );
-      // setSaasMRRSPlans(
-      //   saasMRRSPlans.map((plan) =>
-      //     plan.id === planState.id ? { ...dataToSet } : plan
-      //   )
-      // );
-
-      //  console.log("planState", planState, "initialPlanState", initialPlanState);
 
       return toaster({
         description: `Plan ${planState.name} changed successfully`,

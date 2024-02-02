@@ -214,7 +214,7 @@ div.progressToken {
   @apply hover:no-underline bg-primary-foreground hover:bg-primary-foreground/80 hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }
 .first-connection {
-  @apply w-screen h-screen  absolute bg-white z-[9999999999] !important;
+  @apply w-screen h-screen  absolute bg-white dark:bg-slate-900 z-[9999999999] !important;
 }
 
 /* SECTION : ADMIN */
@@ -251,19 +251,25 @@ div.progressToken {
   @apply text-left flex flex-col gap-y-0.5 mt-1;
 }
 .user-interface aside nav ul li {
-  @apply   flex flex-col  gap-x-2 text-opacity-75;
+  @apply   flex flex-col  w-full gap-x-2 text-opacity-75;
 }
 .user-interface aside nav ul li div {
-  @apply flex flex-row  items-center text-left text-primary-foreground/80 hover:bg-primary-foreground/10 justify-start font-bold p-0.5  rounded-default cursor-pointer ;
+  @apply flex flex-row  items-center justify-between text-primary-foreground/80 hover:bg-primary-foreground/10  !w-full font-bold p-0.5  rounded-default cursor-pointer ;
+}
+.user-interface aside nav ul li div span {
+  @apply flex flex-row  items-center ;
 }
 .user-interface aside nav ul li.active div {
   @apply bg-primary-foreground/10 font-bold !important;
 }
-.user-interface aside nav ul li .subactive {
-  @apply bg-primary-foreground/10  font-bold flex flex-row !important;
+.user-interface aside nav ul li ul li.subactive {
+  @apply bg-primary-foreground/5  font-bold flex flex-row !important;
 }
-.user-interface aside nav ul li.subitem {
-  @apply flex flex-row text-sm text-left opacity-80 hover:bg-primary-foreground/10 justify-start font-semibold p-0.5 pt-1 gap-x-0 rounded-default cursor-pointer ml-3;
+.user-interface aside nav ul li ul li.subitem {
+  @apply flex flex-row text-sm text-left opacity-80 hover:bg-primary-foreground/5 justify-start font-semibold p-0.5 pt-1 gap-x-0 rounded-default cursor-pointer pl-3;
+}
+.user-interface aside nav ul li ul li.subitem:last-child {
+  @apply mb-2;
 }
 .user-interface aside nav h3 {
   @apply text-lg font-bold flex flex-row items-center justify-between;

@@ -8,11 +8,11 @@ import {
   BarChart2,
   Cog,
   Coins,
+  Contact,
   Contact2,
   Cookie,
   Dot,
   FilePenLine,
-  Hash,
   Info,
   Languages,
   LayoutDashboard,
@@ -24,6 +24,7 @@ import {
   Rss,
   Scale,
   Settings2,
+  Share2,
   SquarePen,
   UserCheck,
   View,
@@ -32,8 +33,18 @@ import { useState } from "react";
 
 export const AdminNavbar = () => {
   const [activeSection, setActiveSection] = useState("");
-
-  useIntersectionObserver(setActiveSection, {
+  const [activeSubSection, setActiveSubSection] = useState("");
+  const updateActiveItem = (id: string, isSubSection = false) => {
+    if (isSubSection) {
+      setActiveSubSection(id);
+      // Optionnellement, déterminez ici la section parente pour l'état activeSection
+    } else {
+      setActiveSection(id);
+      // Réinitialiser l'état de la sous-section si nécessaire
+      setActiveSubSection("");
+    }
+  };
+  useIntersectionObserver(updateActiveItem, {
     rootMargin: "-50% 0px -50% 0px",
     sectionSelector: ".user-inteface-main-content-section",
     subSectionSelector: ".user-inteface-main-content-subsection",
@@ -60,23 +71,26 @@ export const AdminNavbar = () => {
             icon={<Palette className="icon" />}
             text="Design"
             activeSection={activeSection}
-            sectionObserve=""
+            sectionObserve="Design"
             handleScroll={handleScroll}>
             <MenuSubItem
-              activeSection={activeSection}
+              parent="Design"
+              activeSection={activeSubSection}
               sectionObserve="sub-theme-color"
               text="Theme color"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
             <MenuSubItem
-              activeSection={activeSection}
+              parent="Design"
+              activeSection={activeSubSection}
               sectionObserve="sub-rounded-corner"
               text="Rounded corner"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
           </MenuItem>
+          {/*  */}
           <MenuItem
             activeSection={activeSection}
             text="Layout"
@@ -89,13 +103,6 @@ export const AdminNavbar = () => {
             icon={<Languages className="icon" />}
             text="Languages"
             sectionObserve="testt"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            icon={<Hash className="icon" />}
-            text="Networks"
-            sectionObserve="Networks"
             handleScroll={handleScroll}
           />
           <MenuItem
@@ -114,54 +121,60 @@ export const AdminNavbar = () => {
         <ul>
           <MenuItem
             activeSection={activeSection}
-            sectionObserve=""
+            sectionObserve="SaasSettings"
             icon={<Settings2 className="icon" />}
             text="Settings"
             handleScroll={handleScroll}>
             <MenuSubItem
-              activeSection={activeSection}
+              parent="SaasSettings"
+              activeSection={activeSubSection}
               sectionObserve="sub-saas-set-saas-type"
               text="SaaS mode"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
             <MenuSubItem
-              activeSection={activeSection}
+              parent="SaasSettings"
+              activeSection={activeSubSection}
               sectionObserve="sub-saas-set-saas-tax"
               text="Taxes & currency"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
             <MenuSubItem
-              activeSection={activeSection}
+              parent="SaasSettings"
+              activeSection={activeSubSection}
               sectionObserve="sub-saas-set-saas-settings"
               text="More settings"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
           </MenuItem>
+          {/*  */}
           <MenuItem
             activeSection={activeSection}
-            sectionObserve=""
+            sectionObserve="Pricing"
             text="Pricing"
             icon={<Coins className="icon" />}
             handleScroll={handleScroll}>
             <MenuSubItem
-              activeSection={activeSection}
+              parent="Pricing"
+              activeSection={activeSubSection}
               sectionObserve="ManagePricing"
               text="Manage plans"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
             <MenuSubItem
-              activeSection={activeSection}
+              parent="Pricing"
+              activeSection={activeSubSection}
               sectionObserve="ManageFeatures"
               text="Manage features"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
           </MenuItem>
-
+          {/*  */}
           <MenuItem
             activeSection={activeSection}
             sectionObserve="SaasCustomers"
@@ -215,9 +228,23 @@ export const AdminNavbar = () => {
       </div>
       <div>
         <h3>
-          Édition <FilePenLine className="icon" />
+          Static pages <FilePenLine className="icon" />
         </h3>
         <ul className="text-left">
+          <MenuItem
+            activeSection={activeSection}
+            icon={<Share2 className="icon" />}
+            text="Networks"
+            sectionObserve="Networks"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            icon={<Contact className="icon" />}
+            text="Contact"
+            sectionObserve="Contacts"
+            handleScroll={handleScroll}
+          />
           <MenuItem
             activeSection={activeSection}
             sectionObserve="ManageCategories"

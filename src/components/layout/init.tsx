@@ -1,17 +1,11 @@
 "use client";
-
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { appSettings } from "@prisma/client";
-import { ThemeProvider } from "next-themes";
-import React, { useEffect, useState } from "react";
-import { Loader } from "../ui/loader";
+import { useEffect, useState } from "react";
 type Props = {
   settings: appSettings;
-  children?: React.ReactNode;
-  lang?: string;
 };
-export const Init = ({ settings, children, lang }: Props) => {
-
+export const Init = ({ settings }: Props) => {
   const { setAppSettings } = useAppSettingsStore();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -22,14 +16,7 @@ export const Init = ({ settings, children, lang }: Props) => {
     }
   }, [settings, mounted, setAppSettings]);
 
-  
-  if (!mounted) return <Loader />;
   return (
-        <ThemeProvider
-          attribute="class"
-          defaultTheme={settings.defaultDarkMode ? "dark" : "system"}
-          enableSystem>
-          {children}
-        </ThemeProvider>
+        <></>
   );
 };

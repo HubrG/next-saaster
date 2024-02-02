@@ -20,7 +20,7 @@ export const FirstConnexion = () => {
     <>
       <div className="first-connection">
         <div className="flex mx-auto  h-screen  w-screen justify-center items-center">
-          <Card className="w-1/3 flex flex-col text-center gap-6 justify-center">
+          <Card className="my-card dark:bg-slate-950 w-1/3 flex flex-col text-center gap-6 justify-center">
             <h1 className="flex flex-row gap-2 justify-center items-center text-center">
               First connexion
               <HandMetal size={30} />

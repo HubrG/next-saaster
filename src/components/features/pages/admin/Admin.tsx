@@ -69,7 +69,7 @@ export const AdminComponent = ({
       <UserInterfaceNavWrapper>
         <AdminNavbar />
       </UserInterfaceNavWrapper>
-      <UserInterfaceMainWrapper text="Administration">
+      <UserInterfaceMainWrapper text="Admin panel">
         <AdminMain />
       </UserInterfaceMainWrapper>
     </UserInterfaceWrapper>

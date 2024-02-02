@@ -2,14 +2,14 @@
 
 ## Configure locally
 
-### 1. Github & Environment variables
+### 1. Github
 
 1. Delete the .git folder: `rm -rf .git`
 2. Recreate the git folder: `git init`
-3. Create a `.env.local` file at the root of the project and pase the content of the `.env.example` file
-4. _Gitignore_ the `.env.local` file: `echo ".env.local" >> .gitignore`
+3. Create a `.env` file at the root of the project and pase the content of the `.env.example` file
+4. _Gitignore_ the `.env` file: `echo ".env" >> .gitignore`
 5. Go to the [Github settings and create a new OAuth app](https://github.com/settings/developers)
-6. Copy the `Client ID` and `Client Secret` and paste them into the `.env.local` file in the `GITHUB_ID` and `GITHUB_SECRET` fields.
+6. Copy the `Client ID` and `Client Secret` and paste them into the `.env` file in the `GITHUB_ID` and `GITHUB_SECRET` fields.
 7. First commit: `git add . && git commit -m "Initial commit" && git push origin main`
 
 ### 2. next.config.js
@@ -24,11 +24,17 @@
 
 1. In terminal: `CREATE DATABASE my_database;`
 2. Check the creation of the database: `\l`
-3. Modify the `PROJECT_NAME` environment variable in the `.env.local` file with the value of the database name `my_database`
+3. Modify the `PROJECT_NAME` environment variable in the `.env` file with the value of the database name `my_database`
 4. Generate Prisma: `pnpm prisma generate`
 5. Create a first migration: `pnpm prisma migrate dev --name init`
 
 ### 5. Modify all environment variables (URI etc.)
+
+**⚠️ Imperative**: You must modify all the environment variables in the `.env` file with your own values, notably :
+
+- `STRIPE_SECRET_KEY`
+- `STRIPE_SIGNIN_SECRET` 
+- `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` in the `.env` file
 
 ### 6. Deploy the project
 

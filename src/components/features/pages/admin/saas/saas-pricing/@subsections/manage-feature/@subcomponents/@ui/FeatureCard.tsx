@@ -38,7 +38,7 @@ export const FeatureCard = ({ feature }: Props) => {
       );
       setInitialFeatureState({ ...dataToSet });
       return toaster({
-        description: `« ${feature.name} » deleted successfully, you can restore it in the trash.`,
+        description: `« ${dataToSet.name} » deleted successfully, you can restore it in the trash.`,
         type: "success",
         duration: 8000,
       });

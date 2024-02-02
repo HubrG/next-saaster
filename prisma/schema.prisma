@@ -176,6 +176,10 @@ model MRRSPlan {
   yearlyPrice          Float?              @default(0) // Yearly price
   isCredit             Boolean?            @default(false) // Credit plan
   creditAllouedByMonth Int?                @default(0) // Monthly credit
+  stripeId             String?
+  stripeYearlyPriceId  String?
+  stripeMonthlyPriceId String?
+  stripeFreePriceId    String?
   saasType             SaasTypes           @default(MRR_SIMPLE) // Saas type
   active               Boolean?            @default(false) // Active plan
   position             Int?                @default(9999) // Position in list

@@ -37,7 +37,8 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
   const [linksState, setLinksState] = useState<LinkState>({});
   const [initialLinksState, setInitialLinksState] = useState<LinkState>({});
   const { saasSettings } = useSaasSettingsStore();
-  const { saasMRRSPlanToFeature } = useSaasMRRSPlanToFeatureStore();
+  const { setSaasMRRSPlanToFeature, saasMRRSPlanToFeature } =
+    useSaasMRRSPlanToFeatureStore();
 
   useEffect(() => {
     const newLinksState: LinkState = {};
@@ -63,10 +64,9 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
     setInitialLinksState(_.cloneDeep(newLinksState)); // Utilisez lodash pour faire une copie profonde
   }, [feature.id, saasMRRSPlanToFeature]);
 
-
-   const hasDataChanged = () => {
-     return !_.isEqual(linksState, initialLinksState);
-   };
+  const hasDataChanged = () => {
+    return !_.isEqual(linksState, initialLinksState);
+  };
 
   // Handle input change, and manage clashes
   const handleInputChange = (linkId: string, name: string, e: any) => {
@@ -97,11 +97,9 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
     }));
   };
 
-
   const handleReset = () => {
     setLinksState(_.cloneDeep(initialLinksState));
   };
-
 
   const handleSave = async () => {
     // Préparer les données pour l'envoi
@@ -120,6 +118,26 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
     if (dataToSet) {
       setInitialLinksState(_.cloneDeep(linksState));
       setLinksState(_.cloneDeep(linksState));
+
+      useSaasMRRSPlanToFeatureStore.setState((state) => {
+        const updatedFeatures = state.saasMRRSPlanToFeature.map((item) => {
+          const updateData = dataToSend.find(
+            (d) => d.planId === item.plan.id && d.featureId === item.feature.id
+          );
+          if (updateData) {
+            return {
+              ...item,
+              active: updateData.active,
+              creditCost: updateData.creditCost,
+              creditAllouedByMonth: updateData.creditAllouedByMonth,
+            };
+          }
+          return item;
+        });
+
+        return { saasMRRSPlanToFeature: updatedFeatures };
+      });
+
       return toaster({
         description: `« ${feature.name} » saved successfully`,
         type: "success",
@@ -141,75 +159,81 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[500px] flex flex-col items-center gap-2">
-          <LinkPlanToFeatureOptions feature={feature} />
-        {Object.keys(linksState).map((linkId) => {
-          const planState = linksState[linkId];
-          return (
-            <div
-              key={"fp" + linkId}
-              className={cn(
-                { "opacity-60": linksState[linkId].plan.active === false },
-                `flex flex-col gap-y-0`
-              )}>
-              <div className={cn({}, "grid grid-cols-4 gap-x-2 items-center")}>
-                <div className="flex flex-col w-30">
-                  <span className="font-bold">
-                    {linksState[linkId].plan.name}
-                  </span>
-                  <small className="-mt-2">
-                    {sliced(linksState[linkId].plan.id, 13)}
-                  </small>
-                </div>
-                <div>
-                  <Switch
-                    onCheckedChange={(e) =>
-                      handleInputChange(linkId, "active", e)
-                    }
-                    checked={linksState[linkId].active ?? false}
-                    name="active"
-                  />
-                </div>
-                {saasSettings.activeCreditSystem && (
+        <LinkPlanToFeatureOptions feature={feature} />
+        {Object.keys(linksState)
+          .map((linkId) => {
+            const planState = linksState[linkId];
+            return (
+              <div
+                key={"fp" + linkId}
+                className={cn(
+                  { "opacity-60": linksState[linkId].plan.active === false },
+                  `flex flex-col gap-y-0`
+                )}>
+                <div
+                  className={cn({}, "grid grid-cols-4 gap-x-2 items-center")}>
+                  <div className="flex flex-col w-30">
+                    <span className="font-bold">
+                      {linksState[linkId].plan.name}
+                    </span>
+                    <small className="-mt-2">
+                      {sliced(linksState[linkId].plan.id, 13)}
+                    </small>
+                  </div>
+                  <div>
+                    <Switch
+                      onCheckedChange={(e) =>
+                        handleInputChange(linkId, "active", e)
+                      }
+                      checked={linksState[linkId].active ?? false}
+                      name="active"
+                    />
+                  </div>
+                  {saasSettings.activeCreditSystem && (
+                    <div className="flex flex-col">
+                      <Label
+                        htmlFor={"credit-cost-" + linkId}
+                        className="!font-bold !text-xs">
+                        {capitalizeFirstLetter(
+                          saasSettings.creditName ?? "Credit"
+                        )}{" "}
+                        cost/for use
+                      </Label>
+                      <Input
+                        type="number"
+                        value={planState.creditCost}
+                        onChange={(e) =>
+                          handleInputChange(
+                            linkId,
+                            "creditCost",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  )}
                   <div className="flex flex-col">
                     <Label
-                      htmlFor={"credit-cost-" + linkId}
+                      htmlFor={"limit-by-month-" + linkId}
                       className="!font-bold !text-xs">
-                      {capitalizeFirstLetter(
-                        saasSettings.creditName ?? "Credit"
-                      )}{" "}
-                      cost/for use
+                      Limit/month
                     </Label>
                     <Input
                       type="number"
-                      value={planState.creditCost}
+                      value={planState.creditAllouedByMonth}
                       onChange={(e) =>
-                        handleInputChange(linkId, "creditCost", e.target.value)
+                        handleInputChange(
+                          linkId,
+                          "creditAllouedByMonth",
+                          e.target.value
+                        )
                       }
                     />
                   </div>
-                )}
-                <div className="flex flex-col">
-                  <Label
-                    htmlFor={"limit-by-month-" + linkId}
-                    className="!font-bold !text-xs">
-                    Limit/month
-                  </Label>
-                  <Input
-                    type="number"
-                    value={planState.creditAllouedByMonth}
-                    onChange={(e) =>
-                      handleInputChange(
-                        linkId,
-                        "creditAllouedByMonth",
-                        e.target.value
-                      )
-                    }
-                  />
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
         <div className="flex flex-col w-full">
           <Separator className="mt-3 border-dashed border-b bg-transparent" />
           <div className="mt-2 flex justify-between w-full gap-x-5">

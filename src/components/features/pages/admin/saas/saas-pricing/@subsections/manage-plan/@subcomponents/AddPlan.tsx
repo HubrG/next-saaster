@@ -21,7 +21,7 @@ export const AddPlan = () => {
     setLoading(true);
     if (saasSettings.saasType === "MRR_SIMPLE") {
       const newPlan = await addNewMRRSPlan();
-      if (!newPlan) {
+      if (!newPlan || !newPlan.newPlan ) {
         setLoading(false);
         return;
       }

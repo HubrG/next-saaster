@@ -22,17 +22,24 @@ export const AddFeature = () => {
     setLoading(true);
     if (saasSettings.saasType === "MRR_SIMPLE") {
       const newFeature = await addNewMMRSFeature();
-      if (newFeature.newFeatures.length > 0) {
-        setSaasMRRSFeatures([...saasMRRSFeatures, newFeature.newFeature]);
-        setSaasMRRSPlanToFeature([
-          ...saasMRRSPlanToFeature,
-          ...(newFeature.newFeatures as MRRSPlanToFeatureWithPlanAndFeature[]),
-        ]);
-      }
+      if (newFeature && newFeature.newFeatures.length > 0) {
+      setSaasMRRSFeatures([...saasMRRSFeatures, newFeature.newFeature]);
+      setSaasMRRSPlanToFeature([
+        ...saasMRRSPlanToFeature,
+        ...(newFeature.newFeatures as MRRSPlanToFeatureWithPlanAndFeature[]),
+      ]);
+      
       toaster({
         type: "success",
-        description: `New ${saasType} feature created`,
+        description: `New ${saasSettings.saasType} feature created`,
       });
+    } else {
+      // Gère le cas où newFeature est false ou n'a pas de nouvelles fonctionnalités
+      toaster({
+        type: "error",
+        description: "Failed to create new feature",
+      });
+    }
       setLoading(false);
       return newFeature;
     }

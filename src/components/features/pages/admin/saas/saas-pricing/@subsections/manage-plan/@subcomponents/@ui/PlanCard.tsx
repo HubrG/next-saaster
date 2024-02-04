@@ -1,5 +1,5 @@
 "use client";
-import { updateMRRSPlan } from "@/src/components/features/pages/admin/actions.server";
+import { updateMRRSPlan } from "@/src/components/features/pages/admin/queries/queries";
 import { manageClashes } from "@/src/components/features/pages/admin/saas/saas-pricing/@subsections/manage-plan/@subcomponents/@functions/manageClashes";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
@@ -44,7 +44,7 @@ export const PlanCard = ({ plan, className }: Props) => {
   const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
   const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
     useSaasMRRSPlanToFeatureStore();
-
+console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
   // Check if the plan has changed
   useEffect(() => {
     const hasChanged = !isEqual(initialPlanState, planState);
@@ -133,13 +133,13 @@ export const PlanCard = ({ plan, className }: Props) => {
       setSaveAndCancel(false);
       setInitialPlanState({ ...dataToSet });
       return toaster({
-        description: `« ${planState.name} » deleted successfully, you can restore it in the trash.`,
+        description: `« ${planState.name} » archived successfully.`,
         type: "success",
         duration: 8000,
       });
     } else {
       return toaster({
-        description: `Error while deleting plan ${planState.name}, please try again later`,
+        description: `Error while archiving plan ${planState.name}, please try again later`,
         type: "error",
       });
     }
@@ -175,7 +175,7 @@ export const PlanCard = ({ plan, className }: Props) => {
           onClick={(e) => {
             planState.name === "Plan name" && e.currentTarget.select();
           }}
-          className="font-bold text-lg text-center"
+          className="font-bold text-lg text-center !bg-transparent"
           onChange={(e) => handleInputChange(e, "name")}
         />
         <Textarea
@@ -184,7 +184,7 @@ export const PlanCard = ({ plan, className }: Props) => {
             planState.description === "Plan description" &&
               e.currentTarget.select();
           }}
-          className="text-center"
+          className="text-center !bg-transparent"
           value={planState.description ?? ""}
           onChange={(e) => handleInputChange(e, "description")}
         />

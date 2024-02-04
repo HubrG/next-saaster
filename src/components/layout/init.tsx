@@ -1,22 +1,24 @@
 "use client";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
-import { appSettings } from "@prisma/client";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { SaasSettings, appSettings } from "@prisma/client";
 import { useEffect, useState } from "react";
 type Props = {
-  settings: appSettings;
+  appSettings: appSettings;
+  saasSettings: SaasSettings
 };
-export const Init = ({ settings }: Props) => {
+export const Init = ({ appSettings, saasSettings }: Props) => {
   const { setAppSettings } = useAppSettingsStore();
+  const { setSaasSettings } = useSaasSettingsStore();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     if (mounted === false) {
       setMounted(true);
     } else {
-      setAppSettings(settings);
+      setAppSettings(appSettings);
+      setSaasSettings(saasSettings)
     }
-  }, [settings, mounted, setAppSettings]);
+  }, [mounted, setAppSettings, saasSettings, setSaasSettings, appSettings]);
 
-  return (
-        <></>
-  );
+  return <></>;
 };

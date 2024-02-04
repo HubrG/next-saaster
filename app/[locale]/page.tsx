@@ -5,7 +5,7 @@ import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth/next";
 import { getTranslations } from "next-intl/server";
-import { isEmptyUser } from "./server.actions";
+import { isEmptyUser } from "./queries";
 
 export const generateMetadata = async () => {
   return createMetadata({

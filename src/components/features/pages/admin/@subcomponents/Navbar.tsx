@@ -6,6 +6,7 @@ import useScrollToSection from "@/src/hooks/useScrollToSection";
 import {
   BadgeDollarSign,
   BarChart2,
+  CircleDollarSign,
   Cog,
   Coins,
   Contact,
@@ -13,21 +14,21 @@ import {
   Cookie,
   Dot,
   FilePenLine,
+  Filter,
   Info,
   Languages,
   LayoutDashboard,
+  Mail,
   MessageCircleQuestion,
   MousePointerClick,
   Palette,
-  Receipt,
-  RefreshCcw,
-  Rss,
+  Receipt, Rss,
   Scale,
   Settings2,
   Share2,
   SquarePen,
   UserCheck,
-  View,
+  View
 } from "lucide-react";
 import { useState } from "react";
 
@@ -55,6 +56,15 @@ export const AdminNavbar = () => {
   return (
     <>
       <div>
+        <ul className="mb-5 !text-2xl">
+          <MenuItem
+            activeSection={activeSection}
+            icon={<LayoutDashboard className="icon" />}
+            text="Dashboard"
+            sectionObserve="Dashboard"
+            handleScroll={handleScroll}
+          />
+        </ul>
         <h3>
           Setup
           <Cog className="icon" />
@@ -182,18 +192,52 @@ export const AdminNavbar = () => {
             text="Customers"
             handleScroll={handleScroll}
           />
+
+          {/* marketing */}
           <MenuItem
             activeSection={activeSection}
-            sectionObserve="SaasSubscriptions"
-            icon={<RefreshCcw className="icon" />}
-            text="Subscriptions"
+            sectionObserve="Funnel"
+            icon={<Filter className="icon" />}
+            text="Funnel"
             handleScroll={handleScroll}
           />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="Mailing"
+            icon={<Mail className="icon" />}
+            text="Mailing"
+            handleScroll={handleScroll}>
+            {/* Settings */}
+            <MenuSubItem
+              parent="Mailing"
+              activeSection={activeSubSection}
+              sectionObserve="sub-mailing-settings"
+              text="Settings"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            {/* Newsletter */}
+            <MenuSubItem
+              parent="Mailing"
+              activeSection={activeSubSection}
+              sectionObserve="sub-mailing-newsletter"
+              text="Newsletter"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+          </MenuItem>
           <MenuItem
             activeSection={activeSection}
             sectionObserve="SaasMetrics"
             icon={<BarChart2 className="icon" />}
             text="Metrics"
+            handleScroll={handleScroll}
+          />
+          <MenuItem
+            activeSection={activeSection}
+            sectionObserve="Stripe"
+            icon={<CircleDollarSign className="icon" />}
+            text="Stripe"
             handleScroll={handleScroll}
           />
         </ul>
@@ -234,8 +278,8 @@ export const AdminNavbar = () => {
           <MenuItem
             activeSection={activeSection}
             icon={<Share2 className="icon" />}
-            text="Networks"
-            sectionObserve="Networks"
+            text="Social networks"
+            sectionObserve="SocialNetworks"
             handleScroll={handleScroll}
           />
           <MenuItem

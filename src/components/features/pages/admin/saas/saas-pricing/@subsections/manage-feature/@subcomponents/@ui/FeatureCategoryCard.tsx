@@ -1,4 +1,4 @@
-import { deleteMRRSFeatureCategory, updateMRRSFeatureCategory } from "@/src/components/features/pages/admin/actions.server";
+import { deleteMRRSFeatureCategory, updateMRRSFeatureCategory } from "@/src/components/features/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { SimpleLoader } from "@/src/components/ui/loader";

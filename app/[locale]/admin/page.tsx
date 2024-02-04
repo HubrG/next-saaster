@@ -4,7 +4,7 @@ import {
   getSaasMRRSPlanToFeature,
   getSaasMRRSPlans,
   getSaasSettings
-} from "@/app/[locale]/server.actions";
+} from "@/app/[locale]/queries";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import createMetadata from "@/src/lib/metadatas";
@@ -17,8 +17,10 @@ import {
   SaasSettings,
   UserRole
 } from "@prisma/client";
+import { Loader } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -57,7 +59,8 @@ export default async function Admin({ params: { locale } }: { params: { locale: 
 
 
     return (
-      <div className="admin user-interface">
+      <div className="admin user-interface !w-full">
+        <Suspense fallback={<Loader />}>
           <AdminComponent
             saasSettings={saasSettings}
             saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
@@ -65,6 +68,7 @@ export default async function Admin({ params: { locale } }: { params: { locale: 
             saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
             saasMRRSFeatures={saasMRRSFeatures}
           />
+        </Suspense>
       </div>
     );
 }

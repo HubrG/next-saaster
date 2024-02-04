@@ -1,7 +1,5 @@
 "use client";
-import {
-  updateSaasSettings
-} from "@/src/components/features/pages/admin/actions.server";
+import { updateSaasSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -29,7 +27,7 @@ export default function ToggleActiveMonthlyPlan() {
             "You can't enable the refill credit if the credit system is disabled, please enable it",
         });
       }
-      setSaasSettings({ ...saasSettings, activeRefillCredit: e })
+      setSaasSettings({ ...saasSettings, activeRefillCredit: e });
       const dataToSet = await updateSaasSettings(saasSettings.id, {
         activeRefillCredit: e,
       });
@@ -52,33 +50,41 @@ export default function ToggleActiveMonthlyPlan() {
   return (
     <>
       <div
-        data-tooltip-id="tooltip-switch-active-refill-credit"
         className={`${
           isActiveCreditSystem && "opacity-45 !cursor-not-allowed"
         }`}>
         <ToggleWrapper
           handleChange={handleChangeActiveRefillCredit}
           checked={activeRefillCredit}
+          icon={<MoonStar className="icon" />}
           disabled={isActiveCreditSystem}
           id="switch-active-refill-credit">
-          <MoonStar className="icon" />
           Active the <strong>refill credit</strong> for your SaaS
-          <div className="toggle-info">
-            In addition to the chosen plan, you offer the user the possibility
-            of topping up, or even increasing their monthly credit if it has
-            been spent.
-          </div>
         </ToggleWrapper>
       </div>
-      {isActiveCreditSystem && (
+      {isActiveCreditSystem ? (
         <Tooltip
           id="tooltip-switch-active-refill-credit"
           opacity={1}
           variant="dark"
+          className="tooltip"
           place={"top"}>
           <span className="font-bold">
             You can&apos;t activate this option if « Credit system » is
             disabled.
+          </span>
+        </Tooltip>
+      ) : (
+        <Tooltip
+          id="tooltip-switch-active-refill-credit"
+          className="tooltip"
+          opacity={1}
+          variant="dark"
+          place={"top"}>
+          <span>
+            In addition to the chosen plan, you offer the user the possibility
+            of topping up, or even increasing their monthly credit if it has
+            been spent.
           </span>
         </Tooltip>
       )}

@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/src/lib/prisma";
+import { MRRSPlan } from "@prisma/client";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 
@@ -19,16 +20,22 @@ export const changeCssTheme = async (theme: string) => {
 }
 
 
-export const createCheckoutSession = async (planId: string) => {
+export const createCheckoutSession = async (planPrice: string, plan: MRRSPlan) => {
+  if (!planPrice || !plan) {
+    throw new Error("Plan ID is required");
+  }
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
       {
-        price: planId, 
+        price: planPrice,
         quantity: 1,
       },
     ],
     mode: "subscription",
+    subscription_data: {
+      trial_period_days: plan.trialDays?? 0,
+    },
     success_url:
       "https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}",
     cancel_url: "https://yourdomain.com/cancel",

@@ -18,7 +18,7 @@ import { Tooltip } from "react-tooltip";
 import {
   createNewCategory,
   updateMRRSFeatureCategoryPosition,
-} from "../../../../../actions.server";
+} from "../../../../../queries/queries";
 import { FeatureCategoryCard } from "./@ui/FeatureCategoryCard";
 
 

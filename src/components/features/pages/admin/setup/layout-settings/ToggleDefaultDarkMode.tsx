@@ -1,5 +1,5 @@
 "use client";
-import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -40,8 +40,8 @@ export default function ToggleDefaultDarkMode() {
     <ToggleWrapper
       handleChange={handleChangeDefaultDarkmode}
       checked={defaultDarkmode}
+      icon={<MoonStar className="icon" />}
       id="switch-default-dark-mode">
-      <MoonStar className="icon" />
       Activate <strong>dark mode by default</strong> on a first visit instead
       user&apos;s system settings.
     </ToggleWrapper>

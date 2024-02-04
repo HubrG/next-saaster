@@ -30,12 +30,15 @@ export const UserProfile = ({ className }: UserProfileProps) => {
       <DropdownMenuTrigger asChild className={`flex flex-row w-full`}>
         <Button
           variant="link"
-          className={cn({
-            "flex flex-row": className
-              ? className
-              : "items-center gap-2 justify-center",
-            "md:w-32 w-full !p-5": saasSettings.activeCreditSystem,
-          },"hover:no-underline")}>
+          className={cn(
+            {
+              "flex flex-row": className
+                ? className
+                : "items-center gap-2 justify-center",
+              "md:w-32 w-full !p-5": saasSettings.activeCreditSystem,
+            },
+            "hover:no-underline"
+          )}>
           <div className="w-6  userNavbarDiv">
             <div className="relative rounded-full w-full border-[2px] border-secondary border-opacity-50 dark:border-app-950">
               {user?.image && (
@@ -81,7 +84,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
                     Credit remaining
                     {saasSettings.creditName} : x%
                   </span>
-                  <small>50 &nbsp;/&nbsp; 100</small>
+                  <span>50 &nbsp;/&nbsp; 100</span>
                 </Tooltip>
               </div>
               {className && <div className="ml-5">2%</div>}
@@ -89,7 +92,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full">
+      <DropdownMenuContent className="user-profile-dd">
         {saasSettings.activeRefillCredit && (
           <>
             <DropdownMenuItem className="w-full" asChild>
@@ -100,7 +103,6 @@ export const UserProfile = ({ className }: UserProfileProps) => {
                 {saasSettings.creditName}
               </Link>
             </DropdownMenuItem>
-            <Separator />
           </>
         )}
         <DropdownMenuItem className="w-full px-2 mt-1" asChild>
@@ -112,7 +114,6 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             My account
           </Link>
         </DropdownMenuItem>
-        <Separator className="my-1 h-0.5" />
         {userInfo?.role !== ("USER" as UserRole) && (
           <>
             <DropdownMenuItem className="w-full" asChild>

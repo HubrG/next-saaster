@@ -1,5 +1,5 @@
 import { PopoverClose } from "@radix-ui/react-popover";
-import { MessageCircleWarningIcon, Trash } from "lucide-react";
+import { ArchiveX, MessageCircleWarningIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./button";
 import { SimpleLoader } from "./loader";
@@ -9,26 +9,26 @@ type Props = {
     size?: "sm" | "lg" | "icon";
     what: string;
 };
-export const PopoverDelete = ({ handleDelete, size, what }: Props) => {
+export const PopoverArchive = ({ handleDelete, size, what }: Props) => {
   const [loading, setLoading] = useState(false);
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant={"ghostDestructive"} className="">
-          <Trash className="icon" />
+          <ArchiveX className="icon" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <div className="grid gap-4">
           <p className="text-center font-bold flex flex-col gap-2 justify-center">
             <MessageCircleWarningIcon className="mx-auto" />
-            <span>Are you sure you want to delete {what} ?</span>
+            <span>Are you sure you want to archive {what} ?</span>
           </p>
           <div className="flex flex-row gap-5 justify-evenly">
             <Button
-              variant={"destructive"}
               size={size ? size : "default"}
               className="w-full"
+              variant="destructive"
               onClick={() => {
                 setLoading(true);
                 handleDelete();
@@ -36,7 +36,7 @@ export const PopoverDelete = ({ handleDelete, size, what }: Props) => {
               {loading ? <SimpleLoader /> : "Yes"}
             </Button>
             <PopoverClose asChild>
-              <Button className=" w-full">No</Button>
+              <Button className="w-full">No</Button>
             </PopoverClose>
           </div>
         </div>

@@ -9,83 +9,163 @@ import {
   SaasSettings,
   appSettings,
 } from "@prisma/client";
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import { StripeManager } from "./classes/stripeManagerClass";
 
+const stripeManager = new StripeManager();
+
+// SECTION Create MRRS Plan
 export const addNewMRRSPlan = async () => {
   const session = await isSuperAdmin();
   if (!session) return false;
-  // function de suppression du plan créé
-  function deletePlan(planId: string) {
-    prisma.mRRSPlan.delete({
+
+  let newPlan: Partial<MRRSPlan> | null = null;
+
+  // Helper function to rollback in case of errors
+  async function deletePlan(planId: string) {
+    await prisma.mRRSPlan.delete({
       where: { id: planId },
     });
-   return false;
   }
-  const newPlan = await prisma.mRRSPlan.create({
-    data: {},
-  });
-  const product = await stripe.products.create({
-    name: newPlan.id,
-    description: "New product created from the admin panel",
-  });
-  const saasSettings = await prisma.saasSettings.findFirst({});
-  if (!product) {
-    deletePlan(newPlan.id);
-  }
-  const yearlyPrice = await stripe.prices.create({
-    product: product.id,
-    unit_amount: 1000,
-    currency: saasSettings?.currency ?? "usd",
-    recurring: { interval: "year" },
-  });
-  if (!yearlyPrice) {
-    deletePlan(newPlan.id);
-  }
-  const monthlyPrice = await stripe.prices.create({
-    product: product.id,
-    unit_amount: 100,
-    currency: saasSettings?.currency ?? "usd",
-    recurring: { interval: "month" },
-  });
-  if (!monthlyPrice) {
-    deletePlan(newPlan.id);
-  }
-  const freePrice = await stripe.prices.create({
-    product: product.id,
-    unit_amount: 0,
-    recurring: { interval: "month" },
-    currency: saasSettings?.currency ?? "usd",
-  });
-  if (!freePrice) {
-    deletePlan(newPlan.id);
-  }
-  //
-  const updatePlanProductStripe = await prisma.mRRSPlan.update({
-    where: { id: newPlan.id },
-    data: {
-      stripeId: product.id,
-      stripeYearlyPriceId: yearlyPrice.id,
-      stripeMonthlyPriceId: monthlyPrice.id,
-      stripeFreePriceId: freePrice.id,
-    },
-  });
-  const features = await prisma.mRRSFeature.findMany();
 
-  const newFeatures = await Promise.all(
-    features.map((feature) =>
-      prisma.mRRSPlanToFeature.create({
-        data: {
-          planId: newPlan.id,
-          featureId: feature.id,
-        },
-      })
-    )
-  );
-  if (!updatePlanProductStripe) {
-    deletePlan(newPlan.id);
+  try {
+    newPlan = await prisma.mRRSPlan.create({ data: {} });
+    if (!newPlan.id || !newPlan) throw new Error("Failed to create new plan");
+    const saasSettings =
+      (await prisma.saasSettings.findFirst({})) ||
+      ({
+        currency: "usd",
+      } as SaasSettings);
+
+    const product = await stripeManager.createProduct(
+      newPlan.id,
+      "New product created from the admin panel",
+      { "planId": newPlan.id}
+    );
+    if (!product) throw new Error("Failed to create Stripe product");
+
+    const pricesToCreate: { amount: number; interval: "month" | "year" }[] = [
+      { amount: 0, interval: "year" },
+      { amount: 0, interval: "month" },
+      { amount: 0, interval: "month" },
+    ];
+
+    const prices = await Promise.all(
+      pricesToCreate.map((price) =>
+        stripeManager.createPrice(
+          product.id,
+          price.amount,
+          saasSettings.currency ?? "usd",
+          price.interval,
+        )
+      )
+    );
+
+    if (prices.some((price) => !price))
+      throw new Error("Failed to create one or more Stripe prices");
+
+    const [yearlyPrice, monthlyPrice, freePrice] = prices;
+
+    await prisma.mRRSPlan.update({
+      where: { id: newPlan.id },
+      data: {
+        stripeId: product.id,
+        stripeYearlyPriceId: yearlyPrice.id,
+        stripeMonthlyPriceId: monthlyPrice.id,
+        stripeFreePriceId: freePrice.id,
+      },
+    });
+
+    const features = await prisma.mRRSFeature.findMany();
+    const newFeatures = await Promise.all(
+      features.map((feature) =>
+        prisma.mRRSPlanToFeature.create({
+          data: {
+            planId:
+              newPlan?.id as MRRSPlanToFeatureWithPlanAndFeature["planId"],
+            featureId: feature.id,
+          },
+        })
+      )
+    );
+
+    return { newPlan, newFeatures };
+  } catch (error) {
+    console.error(error);
+    if (newPlan?.id) {
+      await deletePlan(newPlan.id);
+    }
+    return false;
   }
-  return { newPlan: updatePlanProductStripe, newFeatures: newFeatures };
 };
+
+// SECTION Update MRRS Plan
+
+export const updateMRRSPlan = async (planId: string, planData: any) => {
+  const session = await isSuperAdmin();
+  if (!session) return false;
+
+  const { MRRSFeatures, ...filteredPlanData } = planData;
+
+  const plan = await prisma.mRRSPlan.findUnique({
+    where: { id: planId },
+    include: { MRRSFeatures: true },
+  });
+  if (!plan) return false;
+
+  const saasSettings = await prisma.saasSettings.findFirst({});
+  const currency = saasSettings?.currency ?? "usd";
+
+  let monthlyPriceId = plan.stripeMonthlyPriceId;
+  let yearlyPriceId = plan.stripeYearlyPriceId;
+
+  if (plan.stripeId) {
+    if (planData.monthlyPrice !== plan.monthlyPrice && monthlyPriceId) {
+      monthlyPriceId = await stripeManager.createOrUpdatePrice(
+        plan.stripeId,
+        monthlyPriceId,
+        planData.monthlyPrice * 100,
+        currency,
+        "month"
+      );
+      if (!monthlyPriceId) return false;
+    }
+
+    if (planData.yearlyPrice !== plan.yearlyPrice && yearlyPriceId) {
+      yearlyPriceId = await stripeManager.createOrUpdatePrice(
+        plan.stripeId,
+        yearlyPriceId,
+        planData.yearlyPrice * 100,
+        currency,
+        "year"
+      );
+      if (!yearlyPriceId) return false;
+    }
+
+    const updatePlanData = {
+      ...filteredPlanData,
+      stripeMonthlyPriceId: monthlyPriceId,
+      stripeYearlyPriceId: yearlyPriceId,
+      stripeId: plan.stripeId,
+    };
+
+    const updatedPlan = await prisma.mRRSPlan.update({
+      where: { id: planId },
+      data: updatePlanData,
+    });
+
+    if (!updatedPlan || !updatedPlan.stripeId) return false;
+
+    await stripeManager.updateProduct(
+      updatedPlan.stripeId,
+      planData.name,
+      planData.description,
+      planData.active
+    );
+    return updatedPlan;
+  }
+};
+
+// SECTION Add New MRRS Feature
 
 export const addNewMMRSFeature = async () => {
   const session = await isSuperAdmin();
@@ -115,89 +195,6 @@ export const addNewMMRSFeature = async () => {
   );
 
   return { newFeature: newFeature, newFeatures: newFeatures };
-};
-
-export const updateMRRSPlan = async (planId: string, planData: any) => {
-  const session = await isSuperAdmin();
-  if (!session) return false;
-
-  // Exclure les données de relation de l'objet 'planData'
-  const { MRRSFeatures, ...filteredPlanData } = planData;
-
-  // On rerecherche le plan pour récupérer les données de relation
-  const plan = await prisma.mRRSPlan.findUnique({
-    where: { id: planId },
-    include: {
-      MRRSFeatures: true,
-    },
-  });
-  if (!plan) return false;
-
-  // Si le monthlyPrice est différent du précédent, mettre à jour le prix mensuel
-  const saasSettings = await prisma.saasSettings.findFirst({});
-  //
-
-  let monthlyPriceId = plan.stripeMonthlyPriceId;
-  let yearlyPriceId = plan.stripeYearlyPriceId;
-  if (planData.monthlyPrice !== plan.monthlyPrice) {
-    // On desactive le prix mensuel précédent de Stripe
-    const deactivatedMonthlyPrice = await stripe.prices.update(
-      plan.stripeMonthlyPriceId,
-      {
-        active: false,
-      }
-    );
-    if (!deactivatedMonthlyPrice) return false;
-
-    const createMonthlyPrice = await stripe.prices.create({
-      product: plan.stripeId,
-      unit_amount: planData.monthlyPrice
-        ? Math.round(planData.monthlyPrice * 100).toString()
-        : 0,
-      currency: saasSettings?.currency ?? "usd",
-      recurring: { interval: "month" },
-    });
-    if (!createMonthlyPrice) return false;
-    monthlyPriceId = createMonthlyPrice.id;
-  }
-  // Si le yearlyPrice est différent du précédent, mettre à jour le prix mensuel
-  if (planData.yearlyPrice !== plan.yearlyPrice) {
-    // On desactive le prix annuel précédent de Stripe
-    const deactivatedYearlyPrice = await stripe.prices.update(
-      plan.stripeYearlyPriceId,
-      {
-        active: false,
-      }
-    );
-    if (!deactivatedYearlyPrice) return false;
-    // On créé un nouveau prix annuel
-    const createYearlyPrice = await stripe.prices.create({
-      product: plan.stripeId,
-      unit_amount: planData.yearlyPrice
-        ? Math.round(planData.yearlyPrice * 100).toString()
-        : 0,
-      currency: saasSettings?.currency ?? "usd",
-      recurring: { interval: "year" },
-    });
-    if (!createYearlyPrice) return false;
-    yearlyPriceId = createYearlyPrice.id;
-  }
-  // On met à jour le plan avec les nouveaux prix (id)
-  const updatePlan = await prisma.mRRSPlan.update({
-    where: { id: planId },
-    data: {
-      ...filteredPlanData,
-      stripeMonthlyPriceId: monthlyPriceId,
-      stripeYearlyPriceId: yearlyPriceId,
-    },
-  });
-  const product = await stripe.products.update(updatePlan.stripeId, {
-    name: updatePlan.name,
-    description: updatePlan.description,
-    active: updatePlan.active,
-  });
-  if (!product) return false;
-  return updatePlan;
 };
 
 export const updateMRRSFeature = async (featureId: string, data: any) => {

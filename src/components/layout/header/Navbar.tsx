@@ -1,4 +1,4 @@
-import { getAppSettings } from "@/app/[locale]/server.actions";
+import { getAppSettings } from "@/app/[locale]/queries";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { appSettings } from "@prisma/client";
 import { getServerSession } from "next-auth/next";

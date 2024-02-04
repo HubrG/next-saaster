@@ -11,7 +11,7 @@ const useScrollToSection = () => {
     if (section) {
       const sectionTop =
         window.scrollY + section.getBoundingClientRect().top - height;
-      window.scrollTo({ top: sectionTop, behavior: "smooth" });
+      window.scrollTo({ top: sectionTop, behavior: "instant" });
     }
   }, []);
 

@@ -1,38 +1,44 @@
+"use client";
+import currenciesData from "@/src/jsons/currencies.json";
+import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { MRRSPlan } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useState } from "react";
-import { cn } from '../../../lib/utils';
+import { cn } from "../../../lib/utils";
+import { CheckoutButton } from "../../features/pages/pricing/CheckoutButton";
+interface Currency {
+  sigle: string;
+  name: string;
+}
 
+interface Currencies {
+  [key: string]: Currency;
+}
 export const HoverEffect = ({
   items,
   className,
 }: {
-  items: {
-    title: string;
-    description: string;
-    link: string;
-  }[];
+  items: MRRSPlan[];
   className?: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { isYearly } = usePublicSaasPricingStore();
+  const { saasSettings } = useSaasSettingsStore();
+  const currencies: Currencies = currenciesData as Currencies;
 
   return (
-    <div
-      className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
-        className
-      )}>
+    <>
       {items.map((item, idx) => (
-        <Link
-          href={item?.link}
-          key={item?.link}
+        <div
+          key={item?.id}
           className="relative group  block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}>
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-primary/50 dark:bg-primary/10  block  rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -47,12 +53,19 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle>{item.title}</CardTitle>
+            <CardTitle>{item.name}</CardTitle>
+            <h3 className="!text-primary-foreground mt-5">
+              {isYearly ? item.yearlyPrice : item.monthlyPrice}{" "}
+              {saasSettings.currency
+                ? currencies[saasSettings.currency]?.sigle
+                : ""}/{isYearly ?"year" : "month"}
+            </h3>
             <CardDescription>{item.description}</CardDescription>
+            <CheckoutButton plan={item} />
           </Card>
-        </Link>
+        </div>
       ))}
-    </div>
+    </>
   );
 };
 
@@ -66,7 +79,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-50",
+        "rounded-2xl h-full w-full p-4 overflow-hidden dark:bg-primary/5 bg-primary-foreground/5 border-2 border-dashed dark:border-solid dark:border border-primary-foreground/30 border-opacity-50 dark:border-secondary/[0.2] group-hover:border-primary-700 relative z-50",
         className
       )}>
       <div className="relative z-50">
@@ -83,9 +96,13 @@ export const CardTitle = ({
   children: React.ReactNode;
 }) => {
   return (
-    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
+    <h1
+      className={cn(
+        "!text-primary-foreground dark:text-primary font-bold tracking-wide mt-4",
+        className
+      )}>
       {children}
-    </h4>
+    </h1>
   );
 };
 export const CardDescription = ({
@@ -98,7 +115,7 @@ export const CardDescription = ({
   return (
     <p
       className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+        "mt-8 !text-primary-foreground tracking-wide leading-relaxed text-sm",
         className
       )}>
       {children}

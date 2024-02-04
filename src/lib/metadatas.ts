@@ -1,4 +1,4 @@
-import { getAppSettings } from "@/app/[locale]/server.actions";
+import { getAppSettings } from "@/app/[locale]/queries";
 import { getLocale } from "next-intl/server";
 
 interface MetadataParams {

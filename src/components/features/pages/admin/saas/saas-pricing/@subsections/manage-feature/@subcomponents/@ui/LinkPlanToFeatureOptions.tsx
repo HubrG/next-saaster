@@ -1,4 +1,4 @@
-import { updateMRRSFeature } from "@/src/components/features/pages/admin/actions.server";
+import { updateMRRSFeature } from "@/src/components/features/pages/admin/queries/queries";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";

@@ -1,15 +1,17 @@
 import React from "react";
 import { Separator } from "../separator";
+import { Goodline } from "../@aceternity/good-line";
 type Props = {
   children: React.ReactNode;
-    text: string;
+  text: string;
+  icon?: React.ReactNode;
 };
-export const UserInterfaceMainWrapper = ({ children, text }: Props) => {
+export const UserInterfaceMainWrapper = ({ children,icon, text }: Props) => {
   return (
     <div className="user-inteface-main">
       <div id="headerAdminNavbar">
-        <h1>{text}</h1>
-        <Separator className="separator" />
+        <h1 className="text-4xl flex flex-row gap-x-5 items-center justify-end">{text}{icon}  </h1>
+        <Goodline />
       </div>
       <div className="user-inteface-main-content">{children} </div>
     </div>

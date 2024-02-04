@@ -1,5 +1,5 @@
 "use client";
-import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -39,8 +39,8 @@ export default function ToggleActiveDarkMode() {
     <ToggleWrapper
       handleChange={handleChangeActiveDarkmode}
       checked={activeDarkmode}
+      icon={<Eclipse className="icon" />}
       id="switch-active-dark-mode">
-      <Eclipse className="icon" />
       Authorize user to <strong>switch the theme to dark or light</strong> mode
     </ToggleWrapper>
   );

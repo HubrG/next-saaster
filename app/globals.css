@@ -4,7 +4,7 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background-25: 96.5%;
+    --background-25: 98%;
     /*  */
     --background: var(--background-50);
     --foreground: var(--background-200);
@@ -22,17 +22,14 @@
     --accent-foreground: var(--accent-900);
     --destructive: var(--secondary-50);
     --destructive-foreground: var(--text-900);
-    --border: var(--primary-400);
-    --input: var(--background-300);
-    --ring: var(--background-200);
+    --border: var(--primary-300);
+    --input: var(--background-600);
+    --ring: var(--background-400);
     --radius: var(--rad);
     --text-primary: var(--text-900);
-    /*  */
     --background-bg: var(--background-50);
-    /*  */
   }
   .dark {
-    /*  */
     --background-25: 7%;
     --background: var(--background-50);
     --foreground: var(--background-900);
@@ -54,23 +51,25 @@
     --input: var(--background-200);
     --ring: var(--background-200);
     --radius: var(--rad);
-  }
-
-  * {
-    @apply border-border font-sans text-base;
-  }
-  body {
-    @apply text-text-900 dark:text-text-900/80 text-base ;
+    --gradient1: var(--grad1);
+    --gradient2: var(--grad2);
   }
 }
+* {
+  @apply border-border text-base;
+}
+body {
+  @apply text-lg !text-theming-text-900 font-sans;
+}
 main {
-  @apply min-h-screen min-w-full bg-background    mx-auto gap-4 text-center !important;
+  @apply min-h-screen min-w-full bg-background  w-full  mx-auto gap-4 text-center !important;
 }
 main > div:not(.first-connection) {
   @apply container;
 }
 .container:not(.first-connection) {
-  @apply w-full max-w-6xl flex flex-col min-h-screen pt-28 !important;
+  @apply !w-full  flex flex-col min-h-screen pt-28 !important;
+  @apply max-w-7xl;
 }
 header nav {
   @apply fixed w-full z-40 top-0 left-0  bg-background  border-secondary dark:border-secondary/30;
@@ -84,7 +83,7 @@ a {
   position: relative;
 }
 a.nunderline {
-  @apply hover:no-underline  hover:text-text-950 text-text-900  font-semibold !important;
+  @apply hover:!no-underline  font-semibold;
 }
 a.special-uderline::after,
 a.special-uderline-active::after {
@@ -109,10 +108,10 @@ a.special-uderline-active::after {
 }
 
 a.special-uderline-active {
-  @apply text-text-700 dark:text-text-300 !important;
+  @apply text-primary-foreground dark:text-secondary !important;
 }
 a.profile-link {
-  @apply  dark:text-primary-foreground dark:hover:text-primary-foreground hover:bg-primary/50 !important; 
+  @apply dark:text-primary-foreground dark:hover:text-primary-foreground hover:bg-primary/50 !important;
 }
 /* Main Menu */
 ul.main-menu {
@@ -148,25 +147,25 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-text-900 dark:text-text-900/80 !important;
+  @apply text-theming-text-900 dark:text-theming-text-900/80 !important;
 }
 h1 {
-  @apply text-4xl font-bold;
+  @apply text-5xl font-bold;
 }
 h2 {
-  @apply text-3xl font-bold;
+  @apply text-4xl font-bold;
 }
 h3 {
-  @apply text-2xl font-bold;
+  @apply text-3xl font-bold;
 }
 h4 {
-  @apply text-xl font-bold;
+  @apply text-2xl font-bold;
 }
 h5 {
-  @apply text-lg font-bold;
+  @apply text-xl font-bold;
 }
 h6 {
-  @apply text-base font-bold;
+  @apply text-lg font-bold;
 }
 p {
   @apply text-base dark:text-text-950/80 text-text-800;
@@ -187,7 +186,11 @@ ul.ul {
   height: 1em;
   @apply mx-2 min-w-4;
 }
-
+strong,
+span,
+small {
+  @apply !text-inherit;
+}
 /* NOTE - Navbar - Profil */
 div.progressTokenVoid {
   @apply w-full   absolute z-10 rounded-full h-2 p-0 -mt-1 bg-secondary/30 !important;
@@ -204,8 +207,9 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply bg-primary-foreground dark:bg-primary   rounded-default  dark:text-primary-foreground text-accent  text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
+  @apply bg-theming-background-900 text-theming-text-50 dark:bg-theming-background-200   rounded-default  dark:text-primary-foreground   text-sm p-4 z-50 max-w-xs mt-2 !important;
 }
+
 .theme-card .card-tooltip {
   @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
 }
@@ -219,7 +223,7 @@ div.progressToken {
 
 /* SECTION : ADMIN */
 .my-card {
-  @apply dark:border-primary/40 border-primary  border p-7 rounded-default;
+  @apply p-7 rounded-default;
 }
 .admin .theme-card {
   @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border-2;
@@ -231,33 +235,35 @@ div.progressToken {
   @apply max-md:text-sm max-sm:hidden  !important;
 }
 
-
 .user-interface .toggle-wrapper {
-  @apply my-card flex relative flex-col gap-3 justify-center w-full cursor-pointer;
+  @apply grid grid-rows-6 items-center !border !border-transparent hover:!border-theming-primary-500 justify-between grid-cols-1 dark:border-0 shadow-lg  dark:shadow-sm  cursor-pointer;
 }
 .user-interface .toggle-wrapper label {
   @apply md:text-base sm:text-sm text-xs text-left !important;
 }
 .user-interface .toggle-wrapper .icon {
-  @apply absolute top-0 -ml-5 mt-2 z-10;
+  @apply mx-auto !text-2xl  z-10;
+}
+.user-interface .toggle-wrapper p {
+  @apply self-start pt-5;
 }
 .user-interface aside {
-  @apply md:col-span-3 md:block hidden text-left rounded-default rounded-r-none border-secondary/10 p-5 border-r  relative;
+  @apply md:col-span-3 md:block hidden text-left rounded-default rounded-r-none p-5  relative;
 }
 .user-interface aside nav {
-  @apply flex flex-col gap-y-5 sticky top-24 overflow-y-auto max-h-[80vh];
+  @apply flex flex-col gap-y-5 sticky top-24 overflow-y-auto max-h-[90vh];
 }
 .user-interface aside nav ul {
   @apply text-left flex flex-col gap-y-0.5 mt-1;
 }
 .user-interface aside nav ul li {
-  @apply   flex flex-col  w-full gap-x-2 text-opacity-75;
+  @apply flex flex-col  w-full gap-x-2;
 }
 .user-interface aside nav ul li div {
-  @apply flex flex-row  items-center justify-between text-primary-foreground/80 hover:bg-primary-foreground/10  !w-full font-bold p-0.5  rounded-default cursor-pointer ;
+  @apply flex flex-row  items-center justify-between text-primary-foreground/80 hover:bg-primary-foreground/10  !w-full font-bold p-0.5  rounded-default cursor-pointer;
 }
 .user-interface aside nav ul li div span {
-  @apply flex flex-row  items-center ;
+  @apply flex flex-row  items-center text-theming-text-900 font-[700];
 }
 .user-interface aside nav ul li.active div {
   @apply bg-primary-foreground/10 font-bold !important;
@@ -274,6 +280,7 @@ div.progressToken {
 .user-interface aside nav h3 {
   @apply text-lg font-bold flex flex-row items-center justify-between;
 }
+
 .user-interface div.user-inteface-main {
   @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5;
 }
@@ -281,19 +288,26 @@ div.progressToken {
   @apply sticky top-16 bg-background z-30;
 }
 .user-interface div.user-inteface-main #headerAdminNavbar h1 {
-  @apply text-right pt-5;
+  @apply text-center pt-5;
 }
 .user-interface div.user-inteface-main #headerAdminNavbar .separator {
   @apply mt-5 border-[1.5px]  rounded-full opacity-50;
 }
-.user-interface div .user-inteface-main .user-inteface-main-content-section-header {
+.user-interface
+  div
+  .user-inteface-main
+  .user-inteface-main-content-section-header {
   @apply bg-background z-20;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content {
-  @apply flex flex-col gap-y-5 px-2 mt-2;
+  @apply flex flex-col gap-y-20 px-2 mt-2;
 }
-.user-interface div.user-inteface-main .user-inteface-main-content .user-inteface-main-content-section .multiple-components {
-  @apply grid grid-cols-2 gap-5 px-2 mt-2;
+.user-interface
+  div.user-inteface-main
+  .user-inteface-main-content
+  .user-inteface-main-content-section
+  .multiple-components {
+  @apply grid grid-cols-2 gap-10 px-2 mt-2;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
   @apply min-h-[30vh];
@@ -302,7 +316,7 @@ form {
   @apply flex flex-col p-10 rounded-default !important;
 }
 form label {
-  @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col md:items-center !important;
+  @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col !text-base md:items-center !important;
 }
 form p {
   @apply text-left italic font-light justify-start flex mt-1 !important;
@@ -315,10 +329,10 @@ form button {
 }
 /* NOTE --> Toaster  */
 .toast-success {
-  @apply bg-primary-foreground dark:bg-primary text-primary dark:text-primary-foreground border-0 shadow-lg !important;
+  @apply bg-primary-foreground font-sans dark:bg-primary !text-theming-text-50 dark:text-primary-foreground border-0 shadow-lg !important;
 }
 .toast-success > button {
-  @apply bg-primary text-text-900 dark:text-text-900 border-primary shadow-lg  !important;
+  @apply bg-theming-background-500 !text-theming-text-50 dark:!text-theming-text-950  border-primary shadow-lg  !important;
 }
 
 .toggle-info {
@@ -330,7 +344,8 @@ form button {
 .admin-plan-card {
   @apply my-card  !border-[3px] flex flex-col h-fit flex-1 gap-5 items-center relative;
 }
-.admin-plan-card > input,.admin-plan-card textarea {
+.admin-plan-card > input,
+.admin-plan-card textarea {
   @apply border-0;
 }
 .admin-plan-card > input {
@@ -371,7 +386,7 @@ form button {
   @apply font-semibold text-left flex flex-col gap-y-1  text-xs opacity-60 !important;
 }
 label {
-  @apply !text-left font-bold   !important;
+  @apply !text-left font-bold text-theming-text-800   !important;
 }
 .shadcn-inputs {
   @apply bg-secondary/10 dark:bg-primary/20;
@@ -380,21 +395,21 @@ label {
   @apply hover:cursor-grab cursor-grabbing text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
 }
 .dragged {
-  @apply !cursor-grabbing hover:cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important; ;
+  @apply !cursor-grabbing hover:cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important;
 }
 .plan-card-active-badge {
   @apply absolute hover:bg-secondary dark:hover:bg-primary  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-secondary dark:bg-primary dark:text-text-900 text-text-900 !important;
 }
 
 .label {
-  @apply   !font-semibold cursor-pointer !text-base !important;
-
+  @apply !font-semibold cursor-pointer !text-base !important;
 }
 
-table.admin-features-table  {
+table.admin-features-table {
   @apply table-auto  !important;
 }
-table.admin-features-table th, table.admin-features-table td {
+table.admin-features-table th,
+table.admin-features-table td {
   @apply p-2 py-3 text-left  !important;
 }
 table.admin-features-table td p {
@@ -412,10 +427,19 @@ table.admin-features-table thead {
 .bar {
   @apply bg-primary dark:bg-primary border-primary !important;
 }
-.spinner, .spinner-icon {
+.spinner,
+.spinner-icon {
   @apply bg-transparent text-text-900 !important;
-
 }
 .shadow {
   @apply shadow-primary/50 !important;
+}
+code {
+  @apply bg-primary/10 dark:bg-primary/40  p-1 rounded-default !important;
+}
+.user-profile-dd {
+  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-background-100 ;
+}
+.user-profile-dd a {
+  @apply py-2 !important;
 }

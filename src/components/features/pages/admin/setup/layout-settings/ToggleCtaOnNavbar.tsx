@@ -1,5 +1,5 @@
 "use client";
-import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -43,8 +43,8 @@ export default function ToggleCtaOnNavbar() {
       <ToggleWrapper
         handleChange={handleChangeCtaOnNavbar}
         checked={activeCtaOnNavbar}
+        icon={<Box className="icon" />}
         id="switch-active-cta-on-navbar">
-        <Box className="icon" />
         Display the <strong>navbar&apos;s CTA</strong>
       </ToggleWrapper>
     </>

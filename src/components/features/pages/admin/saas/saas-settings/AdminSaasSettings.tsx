@@ -6,7 +6,7 @@ import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasTypes } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
-import { updateSaasSettings } from "../../actions.server";
+import { updateSaasSettings } from "../../queries/queries";
 import { SetCurrency } from "./@subsections/SetCurrency";
 import { SetSaasType } from "./@subsections/SetSaasType";
 import { SetTax } from "./@subsections/SetTax";

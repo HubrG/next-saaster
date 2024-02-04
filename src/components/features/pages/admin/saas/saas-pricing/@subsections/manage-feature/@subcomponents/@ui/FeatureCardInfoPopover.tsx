@@ -1,4 +1,4 @@
-import { updateMRRSFeature } from "@/src/components/features/pages/admin/actions.server";
+import { updateMRRSFeature } from "@/src/components/features/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Keybd } from "@/src/components/ui/kbd";

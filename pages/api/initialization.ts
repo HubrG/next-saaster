@@ -1,4 +1,4 @@
-import { getAppSettings, getSaasSettings } from "@/app/[locale]/server.actions";
+import { getAppSettings, getSaasSettings } from "@/app/[locale]/queries";
 import { prisma } from "@/src/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 

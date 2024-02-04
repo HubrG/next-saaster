@@ -15,7 +15,7 @@ export const SubSectionWrapper = ({
 }: Props) => {
   return (
     <div
-      className={`user-inteface-main-content-subsection bg-background mb-20 ${className}`}
+      className={`user-inteface-main-content-subsection bg-background my-24 ${className}`}
       id={id}>
       <div className="flex flex-col justify-end items-end mb-5">
         <h3 className="text-right md:text-xl text-base opacity-80">

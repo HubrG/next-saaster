@@ -1,5 +1,5 @@
 "use client";
-import { updateSaasSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateSaasSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -46,8 +46,8 @@ export default function ToggleActiveMonthlyPlan() {
     <ToggleWrapper
       handleChange={handleChangeActiveMonthlyPlans}
       checked={activeMonthlyPlans}
+      icon={<MoonStar className="icon" />}
       id="switch-active-monthly-plans">
-      <MoonStar className="icon" />
       Active the <strong>monthly plans</strong> for your SaaS
     </ToggleWrapper>
   );

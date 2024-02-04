@@ -1,5 +1,5 @@
 "use client";
-import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
@@ -23,14 +23,13 @@ const formSchema = z.object({
 
 export const InfoApp = () => {
   const { appSettings, setAppSettings } = useAppSettingsStore();
-  const data = appSettings;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: data?.name ?? "",
-      description: data?.description ?? "",
-      baseline: data?.baseline ?? "",
+      name: appSettings?.name ?? "",
+      description: appSettings?.description ?? "",
+      baseline: appSettings?.baseline ?? "",
     },
   });
 

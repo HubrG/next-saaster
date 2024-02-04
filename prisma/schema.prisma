@@ -56,20 +56,21 @@ enum UserRole {
 }
 
 model User {
-  id             String         @id @default(cuid())
-  name           String?
-  email          String?        @unique
-  emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  date           DateTime?      @default(now())
-  role           UserRole       @default(USER)
-  accounts       Account[]
-  sessions       Session[]
-  createdAt      DateTime?      @default(now())
-  updatedAt      DateTime?      @updatedAt
-  transactions   Transaction[]
-  subscriptions  Subscription[]
+  id               String             @id @default(cuid())
+  name             String?
+  email            String?            @unique
+  emailVerified    DateTime?
+  image            String?
+  hashedPassword   String?
+  date             DateTime?          @default(now())
+  role             UserRole           @default(USER)
+  accounts         Account[]
+  sessions         Session[]
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+  transactions     Transaction[]
+  subscriptions    Subscription[]
+  MRRSUserFeatures MRRSUserFeature[]
 }
 
 // SECTION -> Reste du schema
@@ -92,32 +93,43 @@ model appSettings {
 // SECTION: Pricing
 
 model Transaction {
-  id          String    @id @default(cuid())
-  userId      String
-  sessionId   String
-  amount      Int?
-  currency    String?
-  invoice     String?
-  description String?
-  status      String?
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @updatedAt
-  user        User      @relation(fields: [userId], references: [id])
+  id               String        @id @default(cuid())
+  userId           String
+  sessionId        String
+  amount           Int?
+  currency         String?
+  invoice          String?
+  description      String?
+  status           String?
+  StripePaymentId  String?
+  stripeCustomerId String?
+  subscriptionId   String?
+  createdAt        DateTime?     @default(now())
+  updatedAt        DateTime?     @updatedAt
+  user             User          @relation(fields: [userId], references: [id])
+  subscription     Subscription? @relation(fields: [subscriptionId], references: [id])
 }
 
 model Subscription {
-  id          String    @id @default(cuid())
-  userId      String
-  sessionId   String
-  amount      Int?
-  pricingId   String?
-  currency    String?   @default("usd")
-  description String?
-  status      String?
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @updatedAt
-  user        User      @relation(fields: [userId], references: [id])
-  MRRSPlan    MRRSPlan? @relation(fields: [pricingId], references: [id])
+  id               String        @id @default(cuid())
+  userId           String
+  sessionId        String
+  amount           Int?
+  currency         String?       @default("usd")
+  planId           String?
+  stripeProductId  String?
+  stripePriceId    String?
+  stripeCustomerId String?
+  isMonthly        Boolean?      @default(false)
+  isYearly         Boolean?      @default(false)
+  isFree           Boolean?      @default(false)
+  nextPayment      DateTime?
+  canceled         Boolean?      @default(false)
+  createdAt        DateTime?     @default(now())
+  updatedAt        DateTime?     @updatedAt
+  transactions     Transaction[]
+  user             User          @relation(fields: [userId], references: [id])
+  MRRSPlan         MRRSPlan?     @relation(fields: [planId], references: [id])
 }
 
 // SECTION END: Pricing
@@ -189,6 +201,7 @@ model MRRSPlan {
   updatedAt            DateTime?           @updatedAt
   MRRSFeatures         MRRSPlanToFeature[]
   Subscription         Subscription[]
+  MRRSUserFeatures     MRRSUserFeature[]
 }
 
 model MRRSFeature {
@@ -206,6 +219,7 @@ model MRRSFeature {
   updatedAt           DateTime?            @updatedAt
   category            MRRSFeatureCategory? @relation(fields: [categoryId], references: [id])
   MRRSPlans           MRRSPlanToFeature[]
+  MRRSUserFeatures    MRRSUserFeature[]
 }
 
 model MRRSPlanToFeature {
@@ -231,4 +245,20 @@ model MRRSFeatureCategory {
   createdAt    DateTime?     @default(now())
   updatedAt    DateTime?     @updatedAt
   MRRSFeatures MRRSFeature[]
+}
+
+model MRRSUserFeature {
+  id              String      @id @default(cuid())
+  userId          String
+  featureId       String
+  planId          String
+  active          Boolean?    @default(false)
+  creditRemaining Int?        @default(0)
+  createdAt       DateTime?   @default(now())
+  updatedAt       DateTime?   @updatedAt
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature         MRRSFeature @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  plan            MRRSPlan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, featureId, planId])
 }

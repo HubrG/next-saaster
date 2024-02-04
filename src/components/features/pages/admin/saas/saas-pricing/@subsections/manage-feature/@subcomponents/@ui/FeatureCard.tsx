@@ -1,6 +1,5 @@
-import { updateMRRSFeature } from "@/src/components/features/pages/admin/actions.server";
+import { updateMRRSFeature } from "@/src/components/features/pages/admin/queries/queries";
 import { CopySomething } from "@/src/components/ui/copy-something";
-import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
 import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
@@ -11,6 +10,7 @@ import { SortableKnob } from "react-easy-sort";
 import { FeatureCardCategory } from "./FeatureCardCategory";
 import { FeatureCardInfoPopover } from "./FeatureCardInfoPopover";
 import { LinkPlanToFeature } from "./LinkPlanToFeature";
+import { PopoverArchive } from "@/src/components/ui/popover-archive";
 
 type Props = {
   feature: MRRSFeature;
@@ -38,13 +38,13 @@ export const FeatureCard = ({ feature }: Props) => {
       );
       setInitialFeatureState({ ...dataToSet });
       return toaster({
-        description: `« ${dataToSet.name} » deleted successfully, you can restore it in the trash.`,
+        description: `« ${dataToSet.name} » archived successfully.`,
         type: "success",
         duration: 8000,
       });
     } else {
       return toaster({
-        description: `Error while deleting feature « ${feature.name} », please try again later`,
+        description: `Error while archiving feature « ${feature.name} », please try again later`,
         type: "error",
       });
     }
@@ -100,7 +100,7 @@ export const FeatureCard = ({ feature }: Props) => {
         </CopySomething>
       </td>
       <td>
-        <PopoverDelete
+        <PopoverArchive
           what="this feature"
           size="icon"
           handleDelete={handleDelete}

@@ -1,4 +1,4 @@
-import { addNewMMRSFeature } from "@/src/components/features/pages/admin/actions.server";
+import { addNewMMRSFeature } from "@/src/components/features/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";

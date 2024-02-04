@@ -106,7 +106,7 @@
       "background": "#14050A"
     }
   },
-  "blade": {
+  "slate": {
     "name": "Slate",
     "light": {
       "primary": "#E1E7EF",
@@ -360,8 +360,35 @@
       "secondary": "#1C5F7B",
       "background": "#061919"
     }
+  },
+  "classic": {
+    "name": "Classic",
+    "light": {
+      "primary": "#D2F3FF",
+      "secondary": "#B5E6FF",
+      "background": "#EDFDFF",
+      "color": "#1F6F9F"
+    },
+    "dark": {
+      "color": "#9FC0D0",
+      "primary": "#1F6F9F",
+      "secondary": "#1C5F7B",
+      "background": "#061919"
+    }
+  },
+  "blue": {
+    "name": "Blue",
+    "light": {
+      "primary": "#D2F3FF",
+      "secondary": "#B5E6FF",
+      "background": "#EDFDFF",
+      "color": "#1F6F9F"
+    },
+    "dark": {
+      "color": "#9FC0D0",
+      "primary": "#1F6F9F",
+      "secondary": "#1C5F7B",
+      "background": "#061919"
+    }
   }
-
-
-
 }

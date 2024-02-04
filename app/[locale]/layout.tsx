@@ -11,7 +11,7 @@ import { Session } from "next-auth";
 import { Caveat, Nunito, Playfair_Display } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
-import { getAppSettings } from "./server.actions";
+import { getAppSettings, getSaasSettings } from "./queries";
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -47,31 +47,32 @@ export default async function LocaleLayout(props: Props) {
   } = props;
 
   const appSettings = await getAppSettings();
+  const saasSettings = await getSaasSettings();
 
   return (
     <SessProvider session={props.session}>
       <ReactQueryClientProvider>
         <html
           lang={locale}
-          suppressHydrationWarning={true}
+          suppressHydrationWarning
           className={`${appSettings.theme} radius-${
             appSettings.roundedCorner
           } ${sans.variable} ${serif.variable}  ${display.variable} font-sans ${
             appSettings.defaultDarkMode && "dark"
           }`}>
           <body
-            className={cn("min-h-screen bg-background font-sans antialiased")}
-            suppressHydrationWarning={true}>
+            className={cn("min-h-screen bg-background font-sans antialiased")}>
             <NextIntlProvider>
-              <Init settings={appSettings} /> 
+              <Init appSettings={appSettings} saasSettings={saasSettings} />
               <Toaster richColors={true} closeButton={true} />
               {appSettings.activeTopLoader && <TopLoader />}
               <ThemeProvider
+                disableTransitionOnChange={false}
                 attribute="class"
                 defaultTheme={appSettings.defaultDarkMode ? "dark" : "system"}
                 enableSystem>
                 <Navbar />
-              <main>{children}</main>
+                <main>{children}</main>
               </ThemeProvider>
             </NextIntlProvider>
           </body>

@@ -13,9 +13,9 @@ module.exports = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      // screens: {
+      //   "2xl": "1400px",
+      // },
     },
     fontFamily: {
       sans: ["var(--font-sans)", "system-ui"],
@@ -24,7 +24,6 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        // Définit une grille de 16 colonnes
         "16": "repeat(16, minmax(0, 1fr))",
       },
       boxShadow: {
@@ -129,6 +128,15 @@ module.exports = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        gradient1: {
+          DEFAULT: "var(--gradient1)",
+        },
+        gradient2: {
+          DEFAULT: "var(--gradient2)",
+        },
+        gradient3: {
+          DEFAULT: "var(--gradient3)",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -183,6 +191,16 @@ module.exports = {
             transform: "translate(calc(-50% - 0.5rem))",
           },
         },
+        spotlight: {
+          "0%": {
+            opacity: 0,
+            transform: "translate(-72%, -62%) scale(0.5)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translate(-50%,-40%) scale(1)",
+          },
+        },
         meteor: {
           "0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
           "70%": { opacity: 1 },
@@ -195,6 +213,8 @@ module.exports = {
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
+        spotlight: "spotlight 2s ease .75s 1 forwards",
+
         "accordion-up": "accordion-up 0.2s ease-out",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",

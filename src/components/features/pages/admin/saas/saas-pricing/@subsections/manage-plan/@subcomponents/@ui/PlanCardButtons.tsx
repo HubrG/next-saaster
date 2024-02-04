@@ -1,6 +1,6 @@
 import { Button } from "@/src/components/ui/button";
 import { cn } from "@/src/lib/utils";
-import { PopoverDelete } from "../../../../../../../../../ui/popover-delete";
+import { PopoverArchive } from "@/src/components/ui/popover-archive";
 type Props = {
   save: boolean;
   cancel: boolean;
@@ -30,7 +30,7 @@ export const PlanCardButtons = ({
         onClick={handleReset}>
         Reset
       </Button>
-      <PopoverDelete what="this plan" handleDelete={handleDelete} />
+      <PopoverArchive what="this plan" handleDelete={handleDelete} />
     </>
   );
 };

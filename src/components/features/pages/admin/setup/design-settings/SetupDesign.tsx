@@ -1,6 +1,6 @@
 import {
   updateAppSettings
-} from "@/src/components/features/pages/admin/actions.server";
+} from "@/src/components/features/pages/admin/queries/queries";
 import { RoundedCornerChange } from "@/src/components/features/pages/admin/setup/design-settings/@subsections/RoundedCornerChange";
 import { ThemeColorChange } from "@/src/components/features/pages/admin/setup/design-settings/@subsections/ThemeColorChange";
 import { Button } from "@/src/components/ui/button";

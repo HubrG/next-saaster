@@ -1,4 +1,4 @@
-import { updateSaasSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateSaasSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import {
     Popover,

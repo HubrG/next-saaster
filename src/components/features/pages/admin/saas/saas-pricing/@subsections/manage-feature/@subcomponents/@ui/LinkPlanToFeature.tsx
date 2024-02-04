@@ -1,4 +1,4 @@
-import { updateLinkPlanToFeature } from "@/src/components/features/pages/admin/actions.server";
+import { updateLinkPlanToFeature } from "@/src/components/features/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
@@ -155,7 +155,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
     <Popover>
       <PopoverTrigger asChild>
         <Button size={"icon"}>
-          <ListTodo />
+          <ListTodo color="white" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[500px] flex flex-col items-center gap-2">

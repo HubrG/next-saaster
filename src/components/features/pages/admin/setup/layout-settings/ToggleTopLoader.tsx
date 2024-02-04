@@ -1,5 +1,5 @@
 "use client";
-import { updateAppSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateAppSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -43,8 +43,8 @@ export default function ToggleTopLoader() {
     <ToggleWrapper
       handleChange={handleChangeTopLoader}
       checked={activeTopLoader}
+      icon={<Loader className="icon" />}
       id="switch-top-loader">
-      <Loader className="icon" />
       Display the <strong>top loader during page loading</strong>
     </ToggleWrapper>
   );

@@ -35,6 +35,7 @@ export const AdminComponent = ({
   saasMRRSPlanToFeatures,
   saasMRRSFeaturesCategories,
 }: Props) => {
+
   const [mounted, setMounted] = useState<boolean>(false);
   const setAllStores = useCallback(() => {
     useSaasMRRSFeaturesCategoriesStore

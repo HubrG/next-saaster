@@ -1,5 +1,5 @@
 "use client";
-import { updateMRRSPlanPosition } from "@/src/components/features/pages/admin/actions.server";
+import { updateMRRSPlanPosition } from "@/src/components/features/pages/admin/queries/queries";
 import { PlanCard } from "@/src/components/features/pages/admin/saas/saas-pricing/@subsections/manage-plan/@subcomponents/@ui/PlanCard";
 import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
 import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";

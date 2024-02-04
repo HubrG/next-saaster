@@ -1,5 +1,5 @@
 "use client";
-import { updateSaasSettings } from "@/src/components/features/pages/admin/actions.server";
+import { updateSaasSettings } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -48,8 +48,8 @@ export default function ToggleActiveYearlyPlan() {
     <ToggleWrapper
       handleChange={handleChangeActiveYearlyPlans}
       checked={activeYearlyPlans}
+      icon={<MoonStar className="icon" />}
       id="switch-active-yearly-plans">
-      <MoonStar className="icon" />
       Active the <strong>yearly plans</strong> for your SaaS
     </ToggleWrapper>
   );

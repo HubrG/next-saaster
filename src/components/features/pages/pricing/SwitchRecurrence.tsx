@@ -1,6 +1,7 @@
 // SwitchRecurrence.tsx
 "use client";
 import { Switch } from "@/src/components/ui/switch";
+import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 
 export const SwitchRecurrence = () => {
@@ -14,9 +15,14 @@ export const SwitchRecurrence = () => {
   };
 
   return (
-    <div className="flex flex-row items-center gap-2">
-      <span>{isYearly ? "Yearly" : "Monthly"}</span>
-      <Switch onCheckedChange={handleSwitchChange} checked={isYearly} />
+    <div className="grid grid-cols-12 items-center gap-4">
+      <span className={cn({"font-bold text-xl underline underline-offset-8" : !isYearly, "opacity-50" : isYearly  },"col-span-4")}>Monthly</span>
+      <Switch
+        className="data-[state=unchecked]:bg-primary-foreground col-span-4 mx-auto"
+        onCheckedChange={handleSwitchChange}
+        checked={isYearly}
+      />
+      <span className={cn({"font-bold text-xl underline underline-offset-8" : isYearly, "opacity-50" : !isYearly },"col-span-4")}>Yearly</span>
     </div>
   );
 };

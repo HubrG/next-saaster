@@ -1,5 +1,5 @@
 "use client";
-import { updateMRRSFeaturePosition } from "@/src/components/features/pages/admin/actions.server";
+import { updateMRRSFeaturePosition } from "@/src/components/features/pages/admin/queries/queries";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
 import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
 import { cn } from "@/src/lib/utils";

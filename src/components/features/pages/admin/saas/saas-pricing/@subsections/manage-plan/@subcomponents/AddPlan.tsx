@@ -8,6 +8,7 @@ import { cn } from "@/src/lib/utils";
 import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";
 import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { MRRSPlan } from "@prisma/client";
 import { PlusSquare } from "lucide-react";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
@@ -28,7 +29,7 @@ export const AddPlan = () => {
         setLoading(false);
         return;
       }
-      setSaasMRRSPlans([...saasMRRSPlans, newPlan.newPlan]);
+      setSaasMRRSPlans([...saasMRRSPlans, newPlan.newPlan as MRRSPlan]);
       // On met à jour le saasMRRSPlanToFeature
       if (newPlan.newFeatures.length > 0) {
         const newFeaturesMapped = newPlan.newFeatures.map((feature) => {

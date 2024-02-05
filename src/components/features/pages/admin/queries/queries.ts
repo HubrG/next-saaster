@@ -51,7 +51,7 @@ export const addNewMRRSPlan = async () => {
     const prices = await Promise.all(
       pricesToCreate.map((price) =>
         stripeManager.createPrice(
-          product.id,
+          product,
           price.amount,
           saasSettings.currency ?? "usd",
           price.interval
@@ -65,13 +65,16 @@ export const addNewMRRSPlan = async () => {
     const [yearlyPrice, monthlyPrice, freePrice] = prices;
     if (!yearlyPrice || !monthlyPrice || !freePrice)
       throw new Error("Failed to create one or more Stripe prices");
-    await prisma.mRRSPlan.update({
+    const approvedPlan = await prisma.mRRSPlan.update({
       where: { id: newPlan.id },
       data: {
-        stripeId: product.id,
-        stripeYearlyPriceId: yearlyPrice.id,
-        stripeMonthlyPriceId: monthlyPrice.id,
-        stripeFreePriceId: freePrice.id,
+        stripeId: product,
+        stripeYearlyPriceId: yearlyPrice,
+        stripeMonthlyPriceId: monthlyPrice,
+        stripeFreePriceId: freePrice,
+      },
+      include: {
+        StripeProduct: true,
       },
     });
 
@@ -88,7 +91,13 @@ export const addNewMRRSPlan = async () => {
       )
     );
 
-    return { newPlan, newFeatures };
+    const lastProduct = await prisma.stripeProduct.findUnique({
+      where: { id: product },
+      include: { MRRSPlanRelation: true, prices: true},
+    });
+  
+    
+    return { newPlan, newFeatures, approvedPlan, lastProduct };
   } catch (error) {
     console.error(error);
     if (newPlan?.id) {

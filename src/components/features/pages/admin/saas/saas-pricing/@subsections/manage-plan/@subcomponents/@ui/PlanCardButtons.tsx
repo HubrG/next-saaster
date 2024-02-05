@@ -1,12 +1,14 @@
 import { Button } from "@/src/components/ui/button";
 import { cn } from "@/src/lib/utils";
 import { PopoverArchive } from "@/src/components/ui/popover-archive";
+import { SimpleLoader } from "@/src/components/ui/loader";
 type Props = {
   save: boolean;
   cancel: boolean;
   handleSave: () => void;
   handleReset: () => void;
   handleDelete: () => void;
+  isLoading?: boolean;
 };
 export const PlanCardButtons = ({
   save,
@@ -14,6 +16,7 @@ export const PlanCardButtons = ({
   handleSave,
   handleReset,
   handleDelete,
+  isLoading
 }: Props) => {
   return (
     <>
@@ -21,7 +24,7 @@ export const PlanCardButtons = ({
         disabled={!save}
         className={cn({ disabled: !save })}
         onClick={handleSave}>
-        Save changes
+        {isLoading && <SimpleLoader />} Save changes
       </Button>
       <Button
         variant={"link"}

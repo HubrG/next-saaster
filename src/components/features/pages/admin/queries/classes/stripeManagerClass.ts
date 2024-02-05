@@ -53,8 +53,8 @@ export class StripeManager {
       metadata: { planId: name },
       active: false,
     });
-    const createBdd = await this.createProductOnBDD(create, name);
-    if (create && createBdd) return create;
+    const createBdd = this.createProductOnBDD(create, name);
+    if (create) return create.id;
   }
 
   async updateProduct(
@@ -69,7 +69,7 @@ export class StripeManager {
       active,
     });
     const updateBdd = await this.updateProductOnBDD(update, productId);
-    if (update && updateBdd) return update;
+    if (update) return update.id;
   }
 
   async createPrice(
@@ -86,18 +86,13 @@ export class StripeManager {
     });
 
     const createBdd = await this.createPriceOnBDD(create, product);
-    if (create && createBdd) return create;
+    if (create) return create.id;
   }
 
-  async getPrices() {
-    return await this.stripe.prices.list();
-  }
-  async getProducts() {
-    return await this.stripe.products.list();
-  }
+
 
   async createProductOnBDD(data: Partial<StripeProduct>, planId: string) {
-    return await prisma.stripeProduct.create({
+    await prisma.stripeProduct.create({
       data: {
         id: data.id,
         active: data.active ?? false,
@@ -111,10 +106,11 @@ export class StripeManager {
         updated: data.updated ?? 0,
         url: data.url,
       },
+      include: { MRRSPlanRelation: true },
     });
   }
   async createPriceOnBDD(data: Partial<Stripe.Price>, productId: string) {
-    return await prisma.stripePrice.create({
+    await prisma.stripePrice.create({
       data: {
         id: data.id,
         active: data.active ?? false,
@@ -127,11 +123,12 @@ export class StripeManager {
         unit_amount: data.unit_amount ?? 0,
         unit_amount_decimal: data.unit_amount_decimal ?? "0",
       },
+      include: { productRelation: true },
     });
   }
 
   async updatePriceOnBDD(data: Partial<StripePrice>) {
-    return await prisma.stripePrice.update({
+    await prisma.stripePrice.update({
       where: { id: data.id },
       data: {
         active: data.active,
@@ -144,13 +141,14 @@ export class StripeManager {
         unit_amount: data.unit_amount,
         unit_amount_decimal: data.unit_amount_decimal,
       },
+      include: { productRelation: true },
     });
   }
   async updateProductOnBDD(
     data: Partial<StripeProduct>,
     productId: StripeProduct["id"]
   ) {
-    return await prisma.stripeProduct.update({
+    await prisma.stripeProduct.update({
       where: { id: productId },
       data: {
         active: data.active,
@@ -163,6 +161,7 @@ export class StripeManager {
         updated: data.updated,
         url: data.url,
       },
+      include: { MRRSPlanRelation: true },
     });
   }
 }

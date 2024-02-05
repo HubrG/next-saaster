@@ -26,7 +26,8 @@ export const columns: ColumnDef<StripeProductsAndPrices>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="w-full"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
           Id
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -39,7 +40,8 @@ export const columns: ColumnDef<StripeProductsAndPrices>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="w-full"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
           Active
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -52,7 +54,8 @@ export const columns: ColumnDef<StripeProductsAndPrices>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="w-full"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
           Description
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -66,7 +69,8 @@ export const columns: ColumnDef<StripeProductsAndPrices>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="w-full"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
           Linked to plan
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -80,7 +84,8 @@ export const columns: ColumnDef<StripeProductsAndPrices>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="w-full"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
           Linked to plan
           <ArrowUpDown className="ml-2 h-4 w-4" />

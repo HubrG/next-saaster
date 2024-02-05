@@ -57,6 +57,12 @@ export const getSaasMRRSPlans = async () => {
   return plans;
 };
 
+export const getCoupons = async () => {
+  const coupons = await prisma.stripeCoupon.findMany();
+  return coupons;
+}
+
+
 export const getSaasMRRSFeatures = async () => {
   const features = await prisma.mRRSFeature.findMany({
     orderBy: {
@@ -144,6 +150,9 @@ export const stripeGetProducts = async () => {
   // });
 
   const productData = await prisma.stripeProduct.findMany({
+    orderBy: {
+      created: "asc",
+    },
     include: {
       prices: true,
       MRRSPlanRelation: true, 
@@ -182,7 +191,7 @@ export const stripeGetPrices = async () => {
 //     skipDuplicates: true, // Optionnel: ignore les enregistrements dupliqués basés sur la clé primaire
 //   });
 
-  const priceData = await prisma.stripePrice.findMany(
+  const priceData = await prisma.stripePrice.findMany({}
     
   );
   return priceData;

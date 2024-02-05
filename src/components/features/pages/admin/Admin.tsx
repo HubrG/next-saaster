@@ -19,16 +19,11 @@ import {
   SaasSettings,
   StripePrice,
   StripeProduct,
+  appSettings,
 } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
 import { useSaasStripePricesStore } from "@/src/stores/stripePricesStore";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/src/components/ui/resizable";
-import { stripeGetPrices, stripeGetProducts } from "@/app/[locale]/queries";
-import { useQuery } from "@tanstack/react-query";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 
 type Props = {
   saasMRRSFeaturesCategories: MRRSFeatureCategory[];
@@ -36,6 +31,9 @@ type Props = {
   saasMRRSFeatures: MRRSFeature[];
   saasMRRSPlanToFeatures: MRRSPlanToFeatureWithPlanAndFeature[];
   saasSettings: SaasSettings;
+  saasStripeProducts: StripeProduct[];
+  saasStripePrices: StripePrice[];
+  appSettings: appSettings;
 };
 
 export const AdminComponent = ({
@@ -44,42 +42,34 @@ export const AdminComponent = ({
   saasSettings,
   saasMRRSPlanToFeatures,
   saasMRRSFeaturesCategories,
+  saasStripeProducts,
+  appSettings,
+  saasStripePrices,
 }: Props) => {
-  const {
-    data: productsData,
-  } = useQuery({
-    queryKey: ["stripeProducts"],
-    queryFn: stripeGetProducts,
-  });
 
-  // Deuxième appel de useQuery pour obtenir les prix
-  const {
-    data: pricesData,
-  } = useQuery({
-    queryKey: ["stripePrices"],
-    queryFn: stripeGetPrices,
-  });
   const [mounted, setMounted] = useState<boolean>(false);
   const setAllStores = useCallback(() => {
-    useSaasStripeProductsStore.getState().setSaasStripeProducts(productsData as StripeProduct[]);
-    useSaasStripePricesStore.getState().setSaasStripePrices(pricesData as StripePrice[]);
+    useSaasStripeProductsStore.getState().setSaasStripeProducts(saasStripeProducts);
+    useSaasStripePricesStore.getState().setSaasStripePrices(saasStripePrices);
     useSaasMRRSFeaturesCategoriesStore
       .getState()
       .setSaasMRRSFeaturesCategories(saasMRRSFeaturesCategories);
     useSaasMRRSFeaturesStore.getState().setSaasMRRSFeatures(saasMRRSFeatures);
     useSaasMRRSPlansStore.getState().setSaasMRRSPlans(saasMRRSPlans);
     useSaasSettingsStore.getState().setSaasSettings(saasSettings);
+    useAppSettingsStore.getState().setAppSettings(appSettings);
     useSaasMRRSPlanToFeatureStore
       .getState()
       .setSaasMRRSPlanToFeature(saasMRRSPlanToFeatures);
   }, [
     saasMRRSFeaturesCategories,
     saasSettings,
+    appSettings,
     saasMRRSFeatures,
     saasMRRSPlans,
     saasMRRSPlanToFeatures,
-    pricesData,
-    productsData,
+    saasStripeProducts,
+    saasStripePrices,
   ]);
 
   useEffect(() => {

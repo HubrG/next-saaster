@@ -1,6 +1,7 @@
 import { Separator } from "@/src/components/ui/separator";
 import React from "react";
 import { Card } from "../card";
+import { Goodline } from "../@aceternity/good-line";
 type Props = {
   children: React.ReactNode;
   id: string;
@@ -22,6 +23,7 @@ export const SectionWrapper = ({
           <h2 className="text-left md:text-3xl text-2xl mb-10">
             {sectionName}
           </h2>
+          <Goodline className="!opacity-30" />
         </div>
         <div className={`${className}`}>{children}</div>
       </Card>

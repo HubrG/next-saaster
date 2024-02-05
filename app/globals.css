@@ -62,7 +62,7 @@ body {
   @apply text-lg !text-theming-text-900 font-sans;
 }
 main {
-  @apply min-h-screen min-w-full bg-background  w-full  mx-auto gap-4 text-center !important;
+  @apply min-h-screen min-w-full bg-background   w-full  mx-auto gap-4 text-center !important;
 }
 main > div:not(.first-connection) {
   @apply container;
@@ -225,17 +225,17 @@ div.progressToken {
   @apply p-7 rounded-default;
 }
 .admin .theme-card {
-  @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full  border-2;
+  @apply p-2 rounded-default border-opacity-70 flex flex-col gap-1 justify-center items-center w-full  border-2;
 }
 .admin .theme-card button {
   @apply md:p-5 p-2 rounded-full md:w-10 md:h-10 w-5 h-5;
 }
 .admin .theme-card p {
-  @apply 2xl:text-xs max-md:text-sm max-sm:hidden  !important;
+  @apply 2xl:text-base font-semibold opacity-80 max-md:text-sm max-sm:hidden  !important;
 }
 
 .user-interface .toggle-wrapper {
-  @apply grid grid-rows-6 items-center !border !border-transparent hover:!border-theming-primary-500 justify-between grid-cols-1 dark:border-0 shadow-lg  dark:shadow-sm  cursor-pointer;
+  @apply grid grid-rows-6 items-center !border !border-transparent hover:!border-theming-primary-100 dark:hover:!border-theming-primary-200 dark:hover:bg-theming-background-200/10 bg-transparent justify-between grid-cols-1 dark:border-0 shadow-sm  dark:shadow-sm  cursor-pointer;
 }
 .user-interface .toggle-wrapper label {
   @apply md:text-base sm:text-sm text-xs text-left !important;
@@ -296,20 +296,23 @@ div.progressToken {
   div
   .user-inteface-main
   .user-inteface-main-content-section-header {
-  @apply bg-background z-20;
+  @apply  z-20;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content {
-  @apply flex flex-col gap-y-20 2xl:px-10 md:px-2 mt-2 ;
+  @apply flex flex-col lg:max-w-5xl w-full mx-auto gap-y-20 2xl:px-10 md:px-2 mt-2 ;
+}
+.user-inteface .user-inteface-main-content-subsection {
+  @apply rounded-default
 }
 .user-interface
   div.user-inteface-main
   .user-inteface-main-content
   .user-inteface-main-content-section
   .multiple-components {
-  @apply grid 2xl:grid-cols-4 xl:grid-cols-2  max-sm:grid-cols-1 gap-10 px-2 mt-2;
+  @apply grid 2xl:grid-cols-2 xl:grid-cols-2 pt-10  max-sm:grid-cols-1 gap-10 px-2 mt-2;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
-  @apply min-h-[30vh];
+  @apply rounded-default bg-white dark:bg-theming-background-500/5;
 }
 form {
   @apply flex flex-col p-10 rounded-default !important;
@@ -341,7 +344,7 @@ form button {
   @apply my-card hover:bg-transparent hover:cursor-pointer !p-20 border-dashed flex flex-col justify-center gap-2 w-full !important;
 }
 .admin-plan-card {
-  @apply my-card  !border-[3px] flex flex-col h-fit flex-1 gap-5 items-center relative;
+  @apply my-card dark:hover:bg-theming-background-200/10 bg-transparent opacity-60  border flex flex-col h-fit flex-1 gap-5 items-center relative;
 }
 .admin-plan-card > input,
 .admin-plan-card textarea {
@@ -354,7 +357,7 @@ form button {
   @apply text-xl min-h-2 h-14 !important;
 }
 .admin .admin-plan-card.active {
-  @apply border-secondary dark:border-primary  border-2 grayscale-0  !important;
+  @apply border-secondary dark:border-primary opacity-100  border-0 bg-theming-background-100/20 shadow dark:shadow-none dark:bg-theming-background-200/10 !important;
 }
 
 .admin .admin-plan-card .switch {
@@ -394,7 +397,7 @@ label {
   @apply hover:cursor-grab cursor-grabbing text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
 }
 .dragged {
-  @apply !cursor-grabbing hover:cursor-grabbing bg-background  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important;
+  @apply !cursor-grabbing hover:cursor-grabbing bg-transparent  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important;
 }
 .plan-card-active-badge {
   @apply absolute hover:bg-secondary dark:hover:bg-primary  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-secondary dark:bg-primary dark:text-text-900 text-text-900 !important;

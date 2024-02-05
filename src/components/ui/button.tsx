@@ -12,9 +12,9 @@ const buttonVariants = cva(
         default:
           " font-semibold text-theming-text-50 dark:text-theming-text-900 dark:bg-theming-text-300 bg-theming-text-500 hover:bg-theming-text-500/90 ",
         destructive:
-          "bg-destructive text-destructive-foreground hover:text-theming-text-50 hover:bg-destructive/90  dark:hover:text-theming-text-900",
+          "bg-destructive text-white  hover:text-theming-text-50 hover:bg-destructive/90  dark:hover:text-theming-text-900",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border dark:border-input border-input/20 hover:bg-accent hover:text-accent-foreground",
         ghostDestructive:
           "hover:bg-destructive hover:text-theming-text-50 dark:hover:text-theming-text-900",
         secondary:

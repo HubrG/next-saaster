@@ -1,7 +1,7 @@
 import { MRRSPlan, StripeProduct } from "@prisma/client";
 import { create } from "zustand";
 export interface ExtendedStripeProduct extends StripeProduct {
-  MRRSPlanRelation?: MRRSPlan;
+  MRRSPlanRelation?: Partial<MRRSPlan>;
 }
 type Store = {
   saasStripeProducts: ExtendedStripeProduct[];

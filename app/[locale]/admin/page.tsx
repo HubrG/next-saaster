@@ -5,7 +5,9 @@ import {
   getSaasMRRSPlans,
   getSaasSettings,
   stripeGetPrices,
+  getCoupons,
   stripeGetProducts,
+  getAppSettings,
 } from "@/app/[locale]/queries";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
@@ -20,13 +22,10 @@ import {
   StripePrice,
   StripeProduct,
   UserRole,
+  appSettings,
 } from "@prisma/client";
-import { Loader } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
-import { queryClient } from "../../../src/lib/queryClient";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -49,21 +48,17 @@ export default async function Admin() {
   const saasMRRSFeaturesCategories =
     (await getSaasMRRSFeaturesCategories()) as MRRSFeatureCategory[];
   const saasSettings = (await getSaasSettings()) as SaasSettings;
-  await queryClient.prefetchQuery({
-    queryKey: ["stripeProducts"],
-    queryFn: stripeGetProducts,
-  });
-  await queryClient.prefetchQuery({
-    queryKey: ["stripePrices"],
-    queryFn: stripeGetPrices,
-  });
+  const saasStripeProducts = (await stripeGetProducts()) as StripeProduct[];
+  const saasStripePrices = (await stripeGetPrices()) as StripePrice[];
+  const appSettings = (await getAppSettings()) as appSettings;
 
   if (
     !saasMRRSPlans ||
     !saasMRRSFeatures ||
     !saasMRRSPlanToFeatures ||
     !saasMRRSFeaturesCategories ||
-    !saasSettings
+    !saasSettings ||
+    !saasStripeProducts
   ) {
     toaster({
       type: "error",
@@ -71,20 +66,20 @@ export default async function Admin() {
     });
     redirect("/");
   }
-
   return (
     <div className="admin user-interface !min-w-full ">
-      <Suspense fallback={<Loader />}>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <AdminComponent
-            saasSettings={saasSettings}
-            saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
-            saasMRRSPlans={saasMRRSPlans}
-            saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
-            saasMRRSFeatures={saasMRRSFeatures}
-          />
-        </HydrationBoundary>
-      </Suspense>
+      {/* <Suspense fallback={<Loader />}> */}
+      <AdminComponent
+        saasSettings={saasSettings}
+        saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
+        saasMRRSPlans={saasMRRSPlans}
+        saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
+        saasMRRSFeatures={saasMRRSFeatures}
+        saasStripePrices={saasStripePrices}
+        saasStripeProducts={saasStripeProducts}
+        appSettings={appSettings}
+      />
+      {/* </Suspense> */}
     </div>
   );
 }

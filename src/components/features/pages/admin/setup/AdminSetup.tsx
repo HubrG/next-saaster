@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ToggleActiveDarkMode from "@/src/components/features/pages/admin/setup/layout-settings/ToggleActiveDarkMode";
 import ToggleCtaOnNavbar from "@/src/components/features/pages/admin/setup/layout-settings/ToggleCtaOnNavbar";
 import ToggleDefaultDarkMode from "@/src/components/features/pages/admin/setup/layout-settings/ToggleDefaultDarkMode";
@@ -12,7 +12,7 @@ export const AdminSetup = () => {
   return (
     <>
       <SectionWrapper id="InfosApp" sectionName="Info">
-        <InfoApp />
+          <InfoApp />
       </SectionWrapper>
       <SectionWrapper id="Design" sectionName="Design">
         <SetupDesign />
@@ -20,7 +20,7 @@ export const AdminSetup = () => {
       <SectionWrapper
         id="Layout"
         sectionName="Layout"
-        className="multiple-components">
+        className="multiple-components ">
         <ToggleDefaultDarkMode  />
         <ToggleActiveDarkMode />
         <ToggleTopLoader  />

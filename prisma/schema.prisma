@@ -192,13 +192,14 @@ model MRRSPlan {
   stripeYearlyPriceId  String?
   stripeMonthlyPriceId String?
   stripeFreePriceId    String?
-  saasType             SaasTypes           @default(MRR_SIMPLE) // Saas type
-  active               Boolean?            @default(false) // Active plan
-  position             Int?                @default(9999) // Position in list
-  deleted              Boolean?            @default(false) // Deleted plan
+  saasType             SaasTypes           @default(MRR_SIMPLE)
+  active               Boolean?            @default(false)
+  position             Int?                @default(9999)
+  deleted              Boolean?            @default(false)
   createdAt            DateTime?           @default(now())
   deletedAt            DateTime?           @default(now())
   updatedAt            DateTime?           @updatedAt
+  coupons              StripePlanCoupon[]
   StripeProduct        StripeProduct[]
   MRRSFeatures         MRRSPlanToFeature[]
   Subscription         Subscription[]
@@ -288,10 +289,38 @@ model StripePrice {
   created             Int
   currency            String
   metadata            Json
-  product             String 
-  recurring           Json 
+  product             String
+  recurring           Json
   type                String
-  unit_amount         Int 
+  unit_amount         Int
   unit_amount_decimal String
   productRelation     StripeProduct? @relation(fields: [product], references: [id], onDelete: Cascade)
+}
+
+model StripeCoupon {
+  id               String       @id
+  object           String
+  amountOff        Int?
+  created          Int
+  currency         String?
+  duration         String
+  durationInMonths Int?
+  livemode         Boolean
+  maxRedemptions   Int?
+  metadata         Json
+  name             String?
+  percentOff       Float
+  redeemBy         Int?
+  timesRedeemed    Int
+  valid            Boolean
+  plans            StripePlanCoupon[]
+}
+
+model StripePlanCoupon {
+  MRRSPlanId String
+  couponId   String
+  MRRSPlan   MRRSPlan     @relation(fields: [MRRSPlanId], references: [id])
+  coupon     StripeCoupon @relation(fields: [couponId], references: [id])
+
+  @@id([MRRSPlanId, couponId])
 }

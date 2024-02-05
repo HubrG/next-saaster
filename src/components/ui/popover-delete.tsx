@@ -36,7 +36,7 @@ export const PopoverDelete = ({ handleDelete, size, what }: Props) => {
               {loading ? <SimpleLoader /> : "Yes"}
             </Button>
             <PopoverClose asChild>
-              <Button className=" w-full">No</Button>
+              <Button variant={"ghost"} className=" w-full">No</Button>
             </PopoverClose>
           </div>
         </div>

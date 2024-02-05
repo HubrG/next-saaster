@@ -1,3 +1,4 @@
+"use client";
 import { AddPlan } from "./@subcomponents/AddPlan";
 import { PlansList } from "./@subcomponents/PlansList";
 

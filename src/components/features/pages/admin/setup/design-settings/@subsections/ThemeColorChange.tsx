@@ -33,7 +33,7 @@ export const ThemeColorChange = ({ set }: Props) => {
 
   return (
     <div>
-      <div className="grid 2xl:grid-cols-13 xl:grid-cols-8 grid-cols-5 gap-5 mx-auto">
+      <div className="grid 2xl:grid-cols-7 xl:grid-cols-8 grid-cols-5 gap-5 mx-auto">
         {Object.entries(colorThemes).map(([themeKey, themeVariants]) => (
           <Fragment key={themeKey}>
             <ThemeCard

@@ -28,6 +28,7 @@ import { useEffect, useState } from "react";
 import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
+import { useSaasStripeProductsStore } from "@/src/stores/stripeProductsStore";
 
 type Props = {
   plan: MRRSPlan;
@@ -35,6 +36,7 @@ type Props = {
   draggableId?: string;
 };
 export const PlanCard = ({ plan, className }: Props) => {
+  const [loading, setLoading] = useState(false);
   const [planState, setPlanState] = useState(plan);
   const [isOpen, setIsOpen] = useState(false);
   const [initialPlanState, setInitialPlanState] = useState({ ...plan });
@@ -42,10 +44,12 @@ export const PlanCard = ({ plan, className }: Props) => {
   const [save, setSave] = useState(false);
   const { saasSettings } = useSaasSettingsStore();
   const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
+  const { saasStripeProducts, setSaasStripeProducts } =
+    useSaasStripeProductsStore();
   const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
     useSaasMRRSPlanToFeatureStore();
 
-    // Check if the plan has changed
+  // Check if the plan has changed
   useEffect(() => {
     const hasChanged = !isEqual(initialPlanState, planState);
     hasChanged ? setSaveAndCancel(true) : setSaveAndCancel(false);
@@ -72,6 +76,7 @@ export const PlanCard = ({ plan, className }: Props) => {
 
   // Handle save plan
   const handleSave = async () => {
+    setLoading(true);
     const dataToSet = await updateMRRSPlan(planState.id, {
       ...planState,
       trialDays: planState.trialDays ?? 0,
@@ -89,12 +94,27 @@ export const PlanCard = ({ plan, className }: Props) => {
           item.planId === planState.id ? { ...item, plan: planState } : item
         )
       );
-
+      setSaasStripeProducts(
+        saasStripeProducts.map((product) =>
+          product.MRRSPlanId === planState.id
+            ? {
+                ...product,
+                name: planState.name ?? product.name,
+                MRRSPlanRelation: planState,
+                description: planState.description,
+                active: planState.active ? planState.active : false,
+                product: product.MRRSPlanId,
+              }
+            : product
+        )
+      );
+      setLoading(false);
       return toaster({
         description: `Plan ${planState.name} changed successfully`,
         type: "success",
       });
     } else {
+      setLoading(false);
       return toaster({
         description: `Error while changing plan ${planState.name}, please try again later`,
         type: "error",
@@ -231,7 +251,7 @@ export const PlanCard = ({ plan, className }: Props) => {
 
             <PlanCardSwitch
               plan={plan}
-              label="Popular plan"
+              label="Popular"
               planState={planState.isPopular}
               name="isPopular"
               handleInputChange={handleInputChange}
@@ -239,7 +259,7 @@ export const PlanCard = ({ plan, className }: Props) => {
 
             <PlanCardSwitch
               plan={plan}
-              label="Recommended plan"
+              label="Recommended"
               planState={planState.isRecommended}
               name="isRecommended"
               handleInputChange={handleInputChange}
@@ -343,6 +363,7 @@ export const PlanCard = ({ plan, className }: Props) => {
         <div className="flex flex-row w-full justify-self-end justify-between place-items-end flex-1">
           <PlanCardButtons
             {...{
+              isLoading: loading,
               save,
               cancel,
               handleSave,

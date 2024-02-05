@@ -142,7 +142,7 @@ export const AdminSaasSettings = () => {
           sectionName="More settings"
           id="sub-saas-set-saas-settings"
           info="Lorem ipsum dolor concecterut ipsum dolor concecterut ipsum dolor concecterut ">
-          <div className="multiple-components grid grid-cols-2">
+          <div className="multiple-components mt-5">
             <ToggleActiveMonthlyPlan />
             <ToggleActiveYearlyPlan />
             <ToggleActiveCreditSystem />

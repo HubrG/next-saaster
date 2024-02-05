@@ -33,7 +33,7 @@ export const FeaturesList = () => {
   };
 
   return (
-    <ScrollArea className="whitespace-nowrap relative overflow-x-auto pb-5 overflow-y-auto max-xl:shadow-right">
+    <ScrollArea className="whitespace-nowrap relative overflow-x-auto pb-5 overflow-y-auto shadow-right">
       <SortableList
         lockAxis="y"
         onSortEnd={onSortEnd}

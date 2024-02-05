@@ -21,18 +21,17 @@ const formSchema = z.object({
   }),
 });
 
-export const InfoApp = () => {
+export const InfoApp =  () => {
   const { appSettings, setAppSettings } = useAppSettingsStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: appSettings?.name ?? "",
-      description: appSettings?.description ?? "",
-      baseline: appSettings?.baseline ?? "",
+      name: appSettings?.name??"",
+      description: appSettings?.description??"",
+      baseline: appSettings?.baseline??"",
     },
   });
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const updateInfo = await updateAppSettings(appSettings.id, values);
     if (updateInfo) {

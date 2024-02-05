@@ -33,13 +33,13 @@ export const FeaturesList = () => {
   };
 
   return (
-    <ScrollArea className="whitespace-nowrap relative overflow-x-auto pb-5 overflow-y-auto shadow-right">
+    <ScrollArea className="whitespace-nowrap relative overflow-x-auto pb-5 overflow-y-auto max-xl:shadow-right">
       <SortableList
         lockAxis="y"
         onSortEnd={onSortEnd}
-        className="gap-x-[4rem] gap-y-14 grid grid-cols-12 "
+        className="gap-x-[4rem] gap-y-14 "
         draggedItemClassName="dragged">
-        <table className="admin-features-table">
+        <table className="admin-features-table w-full">
           <thead>
             <tr>
               <th></th>

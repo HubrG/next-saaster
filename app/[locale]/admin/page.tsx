@@ -3,7 +3,9 @@ import {
   getSaasMRRSFeaturesCategories,
   getSaasMRRSPlanToFeature,
   getSaasMRRSPlans,
-  getSaasSettings
+  getSaasSettings,
+  stripeGetPrices,
+  stripeGetProducts,
 } from "@/app/[locale]/queries";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
@@ -15,12 +17,16 @@ import {
   MRRSFeatureCategory,
   MRRSPlan,
   SaasSettings,
-  UserRole
+  StripePrice,
+  StripeProduct,
+  UserRole,
 } from "@prisma/client";
 import { Loader } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { queryClient } from "../../../src/lib/queryClient";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -30,18 +36,27 @@ export const generateMetadata = async () => {
   });
 };
 
-export default async function Admin({ params: { locale } }: { params: { locale: string } }) {
-
+export default async function Admin() {
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role === ("USER" as UserRole)) {
     redirect("/");
   }
-  const saasMRRSPlans = await getSaasMRRSPlans() as MRRSPlan[];
-  const saasMRRSFeatures = await getSaasMRRSFeatures() as MRRSFeature[];
-  const saasMRRSPlanToFeatures = await getSaasMRRSPlanToFeature() as MRRSPlanToFeatureWithPlanAndFeature[];
-  const saasMRRSFeaturesCategories = await getSaasMRRSFeaturesCategories() as MRRSFeatureCategory[];
-  const saasSettings = await getSaasSettings() as SaasSettings;
+  const saasMRRSPlans = (await getSaasMRRSPlans()) as MRRSPlan[];
+  const saasMRRSFeatures = (await getSaasMRRSFeatures()) as MRRSFeature[];
+  const saasMRRSPlanToFeatures =
+    (await getSaasMRRSPlanToFeature()) as MRRSPlanToFeatureWithPlanAndFeature[];
+  const saasMRRSFeaturesCategories =
+    (await getSaasMRRSFeaturesCategories()) as MRRSFeatureCategory[];
+  const saasSettings = (await getSaasSettings()) as SaasSettings;
+  await queryClient.prefetchQuery({
+    queryKey: ["stripeProducts"],
+    queryFn: stripeGetProducts,
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["stripePrices"],
+    queryFn: stripeGetPrices,
+  });
 
   if (
     !saasMRRSPlans ||
@@ -57,10 +72,10 @@ export default async function Admin({ params: { locale } }: { params: { locale: 
     redirect("/");
   }
 
-
-    return (
-      <div className="admin user-interface !w-full">
-        <Suspense fallback={<Loader />}>
+  return (
+    <div className="admin user-interface !min-w-full ">
+      <Suspense fallback={<Loader />}>
+        <HydrationBoundary state={dehydrate(queryClient)}>
           <AdminComponent
             saasSettings={saasSettings}
             saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
@@ -68,7 +83,8 @@ export default async function Admin({ params: { locale } }: { params: { locale: 
             saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
             saasMRRSFeatures={saasMRRSFeatures}
           />
-        </Suspense>
-      </div>
-    );
+        </HydrationBoundary>
+      </Suspense>
+    </div>
+  );
 }

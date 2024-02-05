@@ -45,6 +45,7 @@
     "@t3-oss/env-nextjs": "^0.7.3",
     "@tabler/icons-react": "^2.46.0",
     "@tanstack/react-query": "^5.17.19",
+    "@tanstack/react-table": "^8.11.8",
     "@tsparticles/engine": "^3.2.1",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.2.1",
@@ -115,6 +116,7 @@
     "eslint-plugin-tailwindcss": "^3.14.0",
     "postcss": "^8.4.33",
     "prisma": "^5.9.1",
+    "react-table": "link:@types/@tanstack/react-table",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   },

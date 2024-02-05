@@ -10,15 +10,25 @@ import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
 import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";
 import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { useSaasStripeProductsStore } from "@/src/stores/stripeProductsStore";
 import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
 import {
   MRRSFeature,
   MRRSFeatureCategory,
   MRRSPlan,
   SaasSettings,
+  StripePrice,
+  StripeProduct,
 } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
-
+import { useSaasStripePricesStore } from "@/src/stores/stripePricesStore";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/src/components/ui/resizable";
+import { stripeGetPrices, stripeGetProducts } from "@/app/[locale]/queries";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   saasMRRSFeaturesCategories: MRRSFeatureCategory[];
@@ -35,9 +45,24 @@ export const AdminComponent = ({
   saasMRRSPlanToFeatures,
   saasMRRSFeaturesCategories,
 }: Props) => {
+  const {
+    data: productsData,
+  } = useQuery({
+    queryKey: ["stripeProducts"],
+    queryFn: stripeGetProducts,
+  });
 
+  // Deuxième appel de useQuery pour obtenir les prix
+  const {
+    data: pricesData,
+  } = useQuery({
+    queryKey: ["stripePrices"],
+    queryFn: stripeGetPrices,
+  });
   const [mounted, setMounted] = useState<boolean>(false);
   const setAllStores = useCallback(() => {
+    useSaasStripeProductsStore.getState().setSaasStripeProducts(productsData as StripeProduct[]);
+    useSaasStripePricesStore.getState().setSaasStripePrices(pricesData as StripePrice[]);
     useSaasMRRSFeaturesCategoriesStore
       .getState()
       .setSaasMRRSFeaturesCategories(saasMRRSFeaturesCategories);
@@ -53,6 +78,8 @@ export const AdminComponent = ({
     saasMRRSFeatures,
     saasMRRSPlans,
     saasMRRSPlanToFeatures,
+    pricesData,
+    productsData,
   ]);
 
   useEffect(() => {

@@ -19,7 +19,7 @@ export const SectionWrapper = ({
         className={`user-inteface-main-content-section !border-0 `}
         id={id}>
         <div className="user-inteface-main-content-section-header">
-          <h2 className="text-right md:text-3xl text-2xl mb-10">
+          <h2 className="text-left md:text-3xl text-2xl mb-10">
             {sectionName}
           </h2>
         </div>

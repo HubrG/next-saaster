@@ -41,7 +41,7 @@ export const PlansList = () => {
   return (
     <SortableList
       onSortEnd={onSortEnd}
-      className="grid grid-flow-row lg:grid-cols-2 grid-cols-1 md:gap-x-5 md:gap-y-14"
+      className="grid grid-flow-row 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 md:gap-x-5 md:gap-y-14"
       draggedItemClassName="dragged">
       <AnimatePresence>
         {saasSettings.saasType === "MRR_SIMPLE" &&

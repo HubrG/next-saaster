@@ -68,14 +68,13 @@ main > div:not(.first-connection) {
   @apply container;
 }
 .container:not(.first-connection) {
-  @apply !w-full  flex flex-col min-h-screen pt-28 !important;
-  @apply max-w-7xl;
+  @apply !w-full max-w-7xl flex flex-col min-h-screen pt-28 !important;
 }
 header nav {
-  @apply fixed w-full z-40 top-0 left-0  bg-background  border-secondary dark:border-secondary/30;
+  @apply fixed xl:px-8 px-0 w-full z-40 top-0 left-0  bg-background  border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
-  @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
+  @apply  flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
 }
 
 a {
@@ -226,13 +225,13 @@ div.progressToken {
   @apply p-7 rounded-default;
 }
 .admin .theme-card {
-  @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full col-span-2 border-2;
+  @apply p-2 rounded-default flex flex-col gap-1 justify-center items-center w-full  border-2;
 }
 .admin .theme-card button {
   @apply md:p-5 p-2 rounded-full md:w-10 md:h-10 w-5 h-5;
 }
 .admin .theme-card p {
-  @apply max-md:text-sm max-sm:hidden  !important;
+  @apply 2xl:text-xs max-md:text-sm max-sm:hidden  !important;
 }
 
 .user-interface .toggle-wrapper {
@@ -248,10 +247,10 @@ div.progressToken {
   @apply self-start pt-5;
 }
 .user-interface aside {
-  @apply md:col-span-3 md:block hidden text-left rounded-default rounded-r-none p-5  relative;
+  @apply col-span-2 md:block hidden text-left rounded-default rounded-r-none p-5  relative;
 }
 .user-interface aside nav {
-  @apply flex flex-col gap-y-5 sticky top-24 overflow-y-auto max-h-[90vh];
+  @apply flex flex-col gap-y-5 sticky top-24 pr-5 -mt-24 overflow-y-auto max-h-[90vh];
 }
 .user-interface aside nav ul {
   @apply text-left flex flex-col gap-y-0.5 mt-1;
@@ -282,7 +281,7 @@ div.progressToken {
 }
 
 .user-interface div.user-inteface-main {
-  @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5;
+  @apply md:col-span-10 col-span-full max-md:relative text-center flex flex-col gap-y-5 -mt-16;
 }
 .user-interface div.user-inteface-main #headerAdminNavbar {
   @apply sticky top-16 bg-background z-30;
@@ -300,14 +299,14 @@ div.progressToken {
   @apply bg-background z-20;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content {
-  @apply flex flex-col gap-y-20 px-2 mt-2;
+  @apply flex flex-col gap-y-20 2xl:px-10 md:px-2 mt-2 ;
 }
 .user-interface
   div.user-inteface-main
   .user-inteface-main-content
   .user-inteface-main-content-section
   .multiple-components {
-  @apply grid grid-cols-2 gap-10 px-2 mt-2;
+  @apply grid 2xl:grid-cols-4 xl:grid-cols-2  max-sm:grid-cols-1 gap-10 px-2 mt-2;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
   @apply min-h-[30vh];

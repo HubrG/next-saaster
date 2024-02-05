@@ -44,8 +44,8 @@ export const PlanCard = ({ plan, className }: Props) => {
   const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
   const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
     useSaasMRRSPlanToFeatureStore();
-console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
-  // Check if the plan has changed
+
+    // Check if the plan has changed
   useEffect(() => {
     const hasChanged = !isEqual(initialPlanState, planState);
     hasChanged ? setSaveAndCancel(true) : setSaveAndCancel(false);

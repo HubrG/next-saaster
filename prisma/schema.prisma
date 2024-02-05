@@ -56,18 +56,18 @@ enum UserRole {
 }
 
 model User {
-  id               String             @id @default(cuid())
+  id               String            @id @default(cuid())
   name             String?
-  email            String?            @unique
+  email            String?           @unique
   emailVerified    DateTime?
   image            String?
   hashedPassword   String?
-  date             DateTime?          @default(now())
-  role             UserRole           @default(USER)
+  date             DateTime?         @default(now())
+  role             UserRole          @default(USER)
   accounts         Account[]
   sessions         Session[]
-  createdAt        DateTime?          @default(now())
-  updatedAt        DateTime?          @updatedAt
+  createdAt        DateTime?         @default(now())
+  updatedAt        DateTime?         @updatedAt
   transactions     Transaction[]
   subscriptions    Subscription[]
   MRRSUserFeatures MRRSUserFeature[]
@@ -199,6 +199,7 @@ model MRRSPlan {
   createdAt            DateTime?           @default(now())
   deletedAt            DateTime?           @default(now())
   updatedAt            DateTime?           @updatedAt
+  StripeProduct        StripeProduct[]
   MRRSFeatures         MRRSPlanToFeature[]
   Subscription         Subscription[]
   MRRSUserFeatures     MRRSUserFeature[]
@@ -261,4 +262,36 @@ model MRRSUserFeature {
   plan            MRRSPlan    @relation(fields: [planId], references: [id], onDelete: Cascade)
 
   @@unique([userId, featureId, planId])
+}
+
+// SECTION Stripe Products
+
+model StripeProduct {
+  id               String        @id @default(cuid())
+  active           Boolean
+  created          Int
+  description      String?
+  livemode         Boolean
+  metadata         Json
+  name             String
+  unit_label       String?
+  updated          Int
+  MRRSPlanId       String?
+  url              String?
+  prices           StripePrice[]
+  MRRSPlanRelation MRRSPlan?     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
+}
+
+model StripePrice {
+  id                  String         @id @default(cuid())
+  active              Boolean
+  created             Int
+  currency            String
+  metadata            Json
+  product             String 
+  recurring           Json 
+  type                String
+  unit_amount         Int 
+  unit_amount_decimal String
+  productRelation     StripeProduct? @relation(fields: [product], references: [id], onDelete: Cascade)
 }

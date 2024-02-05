@@ -10,7 +10,6 @@ import {
   appSettings,
 } from "@prisma/client";
 import { StripeManager } from "./classes/stripeManagerClass";
-
 const stripeManager = new StripeManager();
 
 // SECTION Create MRRS Plan
@@ -39,7 +38,7 @@ export const addNewMRRSPlan = async () => {
     const product = await stripeManager.createProduct(
       newPlan.id,
       "New product created from the admin panel",
-      { "planId": newPlan.id}
+      { planId: newPlan.id }
     );
     if (!product) throw new Error("Failed to create Stripe product");
 
@@ -48,14 +47,14 @@ export const addNewMRRSPlan = async () => {
       { amount: 0, interval: "month" },
       { amount: 0, interval: "month" },
     ];
-
+    
     const prices = await Promise.all(
       pricesToCreate.map((price) =>
         stripeManager.createPrice(
           product.id,
           price.amount,
           saasSettings.currency ?? "usd",
-          price.interval,
+          price.interval
         )
       )
     );
@@ -64,7 +63,8 @@ export const addNewMRRSPlan = async () => {
       throw new Error("Failed to create one or more Stripe prices");
 
     const [yearlyPrice, monthlyPrice, freePrice] = prices;
-
+    if (!yearlyPrice || !monthlyPrice || !freePrice)
+      throw new Error("Failed to create one or more Stripe prices");
     await prisma.mRRSPlan.update({
       where: { id: newPlan.id },
       data: {
@@ -150,7 +150,10 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
 
     const updatedPlan = await prisma.mRRSPlan.update({
       where: { id: planId },
-      data: updatePlanData,
+      data: {
+        ...updatePlanData,
+        active: planData.deleted ? false : updatePlanData.active
+      },
     });
 
     if (!updatedPlan || !updatedPlan.stripeId) return false;
@@ -159,7 +162,7 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
       updatedPlan.stripeId,
       planData.name,
       planData.description,
-      planData.active
+      updatedPlan.active??true
     );
     return updatedPlan;
   }

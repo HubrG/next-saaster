@@ -160,7 +160,7 @@ export const AdminNavbar = () => {
               handleScroll={handleScroll}
             />
           </MenuItem>
-          {/*  */}
+          {/* SECTION PRICING */}
           <MenuItem
             activeSection={activeSection}
             sectionObserve="Pricing"
@@ -180,6 +180,14 @@ export const AdminNavbar = () => {
               activeSection={activeSubSection}
               sectionObserve="ManageFeatures"
               text="Manage features"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
+              parent="Pricing"
+              activeSection={activeSubSection}
+              sectionObserve="ManageStripe"
+              text="Manage Stripe"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
@@ -231,13 +239,6 @@ export const AdminNavbar = () => {
             sectionObserve="SaasMetrics"
             icon={<BarChart2 className="icon" />}
             text="Metrics"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="Stripe"
-            icon={<CircleDollarSign className="icon" />}
-            text="Stripe"
             handleScroll={handleScroll}
           />
         </ul>

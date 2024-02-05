@@ -37,7 +37,8 @@
     "i18n.js",
     "postcss.config.js",
     "next.config.ts",
-    "src/components/ui/muuri.jsx"
+    "src/components/ui/muuri.jsx",
+    "src/components/**/*.tsx",
   ],
   "exclude": [
     "node_modules"

@@ -25,6 +25,9 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         "16": "repeat(16, minmax(0, 1fr))",
+        "15": "repeat(15, minmax(0, 1fr))",
+        "14": "repeat(14, minmax(0, 1fr))",
+        "13": "repeat(13, minmax(0, 1fr))",
       },
       boxShadow: {
         "t-sm": "0 -1px 2px 0 rgba(0, 0, 0, 0.05)",

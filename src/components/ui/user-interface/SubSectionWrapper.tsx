@@ -17,11 +17,11 @@ export const SubSectionWrapper = ({
     <div
       className={`user-inteface-main-content-subsection bg-background my-24 ${className}`}
       id={id}>
-      <div className="flex flex-col justify-end items-end mb-5">
-        <h3 className="text-right md:text-xl text-base opacity-80">
+      <div className="flex flex-col justify-start items-start mb-5">
+        <h3 className="!text-left md:text-xl text-base opacity-80">
           {sectionName}
         </h3>
-        {info && <p className="text-sm opacity-70 !text-right">{info}</p>}
+        {info && <p className="text-sm opacity-70 !text-left">{info}</p>}
       </div>
       {children}
     </div>

@@ -10,7 +10,7 @@ export const UserInterfaceMainWrapper = ({ children,icon, text }: Props) => {
   return (
     <div className="user-inteface-main">
       <div id="headerAdminNavbar">
-        <h1 className="text-4xl flex flex-row gap-x-5 items-center justify-end">{text}{icon}  </h1>
+        {/* <h1 className="text-4xl flex flex-row gap-x-5 items-center justify-end">{text}{icon}  </h1> */}
         <Goodline />
       </div>
       <div className="user-inteface-main-content">{children} </div>

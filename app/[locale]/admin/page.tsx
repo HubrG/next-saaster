@@ -15,6 +15,7 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
+import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
 import {
   MRRSFeature,
   MRRSFeatureCategory,
@@ -53,7 +54,8 @@ export default async function Admin() {
   const saasStripeProducts = (await stripeGetProducts()) as StripeProduct[];
   const saasStripePrices = (await stripeGetPrices()) as StripePrice[];
   const appSettings = (await getAppSettings()) as appSettings;
-  const saasStripeCoupons = await getSaasStripeCoupons() as StripeCoupon[];
+  const saasStripeCoupons =
+    (await getSaasStripeCoupons()) as unknown as MRRSStripeCouponsWithPlans[];
 
   if (
     !saasMRRSPlans ||

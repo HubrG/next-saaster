@@ -2,7 +2,7 @@ import { updateMRRSFeature } from "@/src/components/features/pages/admin/queries
 import { CopySomething } from "@/src/components/ui/copy-something";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
 import { MRRSFeature } from "@prisma/client";
 import { Grip } from "lucide-react";
 import { useState } from "react";

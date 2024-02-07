@@ -298,7 +298,7 @@ model StripePrice {
 }
 
 model StripeCoupon {
-  id               String       @id
+  id               String             @id
   object           String
   amountOff        Int?
   created          Int
@@ -313,14 +313,18 @@ model StripeCoupon {
   redeemBy         Int?
   timesRedeemed    Int
   valid            Boolean
-  plans            StripePlanCoupon[]
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+  MRRSPlan         StripePlanCoupon[]
 }
 
 model StripePlanCoupon {
+  id         String   @id @default(cuid())
   MRRSPlanId String
   couponId   String
-  MRRSPlan   MRRSPlan     @relation(fields: [MRRSPlanId], references: [id])
-  coupon     StripeCoupon @relation(fields: [couponId], references: [id])
+  recurrence String?
+  MRRSPlan   MRRSPlan     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
+  coupon     StripeCoupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
 
-  @@id([MRRSPlanId, couponId])
+  @@unique([MRRSPlanId, couponId, recurrence]) 
 }

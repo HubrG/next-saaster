@@ -1,6 +1,6 @@
 "use client";
 import currenciesData from "@/src/jsons/currencies.json";
-import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
+import { usePublicSaasPricingStore } from "@/src/stores/admin/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";

@@ -1,5 +1,6 @@
 import { prisma } from "@/src/lib/prisma";
 import Stripe from "stripe";
+import { MRRSPlan } from "@prisma/client";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export const isEmptyUser = async () => {
@@ -52,16 +53,31 @@ export const getSaasMRRSPlans = async () => {
     },
     include: {
       MRRSFeatures: true,
+      coupons: {
+        include: {
+          coupon: true,
+        },
+      },
     },
   });
   return plans;
 };
 
 export const getCoupons = async () => {
-  const coupons = await prisma.stripeCoupon.findMany();
+  const coupons = await prisma.stripeCoupon.findMany({
+    orderBy: {
+      created: "asc",
+    },
+    include: {
+      MRRSPlan: {
+        include: {
+          MRRSPlan: true,
+        },
+      },
+    },
+  });
   return coupons;
-}
-
+};
 
 export const getSaasMRRSFeatures = async () => {
   const features = await prisma.mRRSFeature.findMany({
@@ -98,6 +114,18 @@ export const getSaasMRRSFeaturesCategories = async () => {
     },
   });
   return featuresCat;
+};
+
+export const getSaasStripeCoupons = async () => {
+  const coupons = await prisma.stripeCoupon.findMany({
+    orderBy: {
+      created: "asc",
+    },
+    include: {
+      MRRSPlan: true,
+    },
+  });
+  return coupons;
 };
 
 export const getSaasMRRSPlanToFeature = async () => {
@@ -155,7 +183,7 @@ export const stripeGetProducts = async () => {
     },
     include: {
       prices: true,
-      MRRSPlanRelation: true, 
+      MRRSPlanRelation: true,
     },
   });
 
@@ -163,36 +191,34 @@ export const stripeGetProducts = async () => {
 };
 
 export const stripeGetPrices = async () => {
-//   const responseTrue = await stripe.prices.list({ active: true, limit: 100 });
-//   const responseFalse = await stripe.prices.list({ active: false, limit: 100 });
+  //   const responseTrue = await stripe.prices.list({ active: true, limit: 100 });
+  //   const responseFalse = await stripe.prices.list({ active: false, limit: 100 });
 
-//   const stripePrices = responseTrue.data.concat(responseFalse.data);
+  //   const stripePrices = responseTrue.data.concat(responseFalse.data);
 
-//   // Transforme les prix Stripe en format compatible avec Prisma
-//   const priceData = stripePrices.map((price: Stripe.Price) => ({
-//     id: price.id,
-//     active: price.active,
-//     created: price.created,
-//     currency: price.currency,
-//     metadata: price.metadata,
-//     product: price.product,
-//     recurring: price.recurring,
-//     type: price.type,
-//     unit_amount: price.unit_amount,
-//     unit_amount_decimal: price.unit_amount_decimal,
-//   }));
-// console.log("coucou")
-//   // Suppression de toutes les données de la table StripePrice
-//   await prisma.stripePrice.deleteMany();
+  //   // Transforme les prix Stripe en format compatible avec Prisma
+  //   const priceData = stripePrices.map((price: Stripe.Price) => ({
+  //     id: price.id,
+  //     active: price.active,
+  //     created: price.created,
+  //     currency: price.currency,
+  //     metadata: price.metadata,
+  //     product: price.product,
+  //     recurring: price.recurring,
+  //     type: price.type,
+  //     unit_amount: price.unit_amount,
+  //     unit_amount_decimal: price.unit_amount_decimal,
+  //   }));
+  // console.log("coucou")
+  //   // Suppression de toutes les données de la table StripePrice
+  //   await prisma.stripePrice.deleteMany();
 
-//   // Ajout des nouvelles données avec createMany
-//   await prisma.stripePrice.createMany({
-//     data: priceData,
-//     skipDuplicates: true, // Optionnel: ignore les enregistrements dupliqués basés sur la clé primaire
-//   });
+  //   // Ajout des nouvelles données avec createMany
+  //   await prisma.stripePrice.createMany({
+  //     data: priceData,
+  //     skipDuplicates: true, // Optionnel: ignore les enregistrements dupliqués basés sur la clé primaire
+  //   });
 
-  const priceData = await prisma.stripePrice.findMany({}
-    
-  );
+  const priceData = await prisma.stripePrice.findMany({});
   return priceData;
 };

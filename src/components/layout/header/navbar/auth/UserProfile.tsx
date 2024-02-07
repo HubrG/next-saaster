@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { Tooltip } from "react-tooltip";
 import { DropdownMenuItemLogout } from "./LogoutButton";
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
 type UserProfileProps = {
   className?: string;
 };
@@ -25,6 +25,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
   const userInfo = useSession().data?.user;
   const user = useSession().data?.user;
   const tokenPercentage = 50;
+  const nameInitials = user?.name?.toString().split(" ").map((n) => n[0]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className={`flex flex-row w-full`}>
@@ -39,18 +40,13 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             },
             "hover:no-underline"
           )}>
-          <div className="w-6  userNavbarDiv">
-            <div className="relative rounded-full w-full border-[2px] border-secondary border-opacity-50 dark:border-app-950">
-              {user?.image && (
-                <Image
-                  src={user.image}
-                  alt="Profil picture"
-                  sizes="5rem"
-                  fill
-                  className="object-cover rounded-full w-20 h-20"
-                />
-              )}
-            </div>
+          <div className="w-8  userNavbarDiv">
+            {user?.image && (
+              <Avatar>
+                <AvatarImage src={user.image} className="" alt="@shadcn" />
+                <AvatarFallback>{nameInitials}</AvatarFallback>
+              </Avatar>
+            )}
           </div>
           {saasSettings.activeCreditSystem && (
             <>

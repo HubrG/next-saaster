@@ -2,7 +2,7 @@
 "use client";
 import { Switch } from "@/src/components/ui/switch";
 import { cn } from "@/src/lib/utils";
-import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
+import { usePublicSaasPricingStore } from "@/src/stores/admin/publicSaasPricingStore";
 
 export const SwitchRecurrence = () => {
   const isYearly = usePublicSaasPricingStore((state) => state.isYearly);

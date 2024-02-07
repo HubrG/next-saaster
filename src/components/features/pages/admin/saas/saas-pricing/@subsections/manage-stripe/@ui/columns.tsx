@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/src/components/ui/button";
-import { useSaasStripePricesStore } from "@/src/stores/stripePricesStore";
+import { useSaasStripePricesStore } from "@/src/stores/admin/stripePricesStore";
 import { MRRSPlan, StripeProduct } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";

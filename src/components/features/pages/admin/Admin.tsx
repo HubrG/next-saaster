@@ -5,25 +5,28 @@ import { Loader } from "@/src/components/ui/loader";
 import { UserInterfaceMainWrapper } from "@/src/components/ui/user-interface/UserInterfaceMainWrapper";
 import { UserInterfaceNavWrapper } from "@/src/components/ui/user-interface/UserInterfaceNavWrapper";
 import { UserInterfaceWrapper } from "@/src/components/ui/user-interface/UserInterfaceWrapper";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeatureCategoriesStore";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";
-import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
+import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
+import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
+import { useSaasMRRSPlansStore } from "@/src/stores/admin/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { useSaasStripeProductsStore } from "@/src/stores/stripeProductsStore";
+import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
 import {
   MRRSFeature,
   MRRSFeatureCategory,
   MRRSPlan,
   SaasSettings,
+  StripeCoupon,
   StripePrice,
   StripeProduct,
   appSettings,
 } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
-import { useSaasStripePricesStore } from "@/src/stores/stripePricesStore";
+import { useSaasStripePricesStore } from "@/src/stores/admin/stripePricesStore";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
+import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
+import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
 
 type Props = {
   saasMRRSFeaturesCategories: MRRSFeatureCategory[];
@@ -34,6 +37,7 @@ type Props = {
   saasStripeProducts: StripeProduct[];
   saasStripePrices: StripePrice[];
   appSettings: appSettings;
+  saasStripeCoupons: MRRSStripeCouponsWithPlans[];
 };
 
 export const AdminComponent = ({
@@ -45,12 +49,14 @@ export const AdminComponent = ({
   saasStripeProducts,
   appSettings,
   saasStripePrices,
+  saasStripeCoupons,
 }: Props) => {
 
   const [mounted, setMounted] = useState<boolean>(false);
   const setAllStores = useCallback(() => {
     useSaasStripeProductsStore.getState().setSaasStripeProducts(saasStripeProducts);
     useSaasStripePricesStore.getState().setSaasStripePrices(saasStripePrices);
+    useSaasStripeCoupons.getState().setSaasStripeCoupons(saasStripeCoupons);
     useSaasMRRSFeaturesCategoriesStore
       .getState()
       .setSaasMRRSFeaturesCategories(saasMRRSFeaturesCategories);
@@ -65,6 +71,7 @@ export const AdminComponent = ({
     saasMRRSFeaturesCategories,
     saasSettings,
     appSettings,
+    saasStripeCoupons,
     saasMRRSFeatures,
     saasMRRSPlans,
     saasMRRSPlanToFeatures,

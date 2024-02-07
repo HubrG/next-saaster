@@ -8,7 +8,7 @@ import {
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sortAdminFeatureCategory } from "@/src/functions/sortAdminFeatureCategory";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeatureCategoriesStore";
+import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
 import { MRRSFeature } from "@prisma/client";
 import { random } from "lodash";
 import { Edit } from "lucide-react";
@@ -18,7 +18,7 @@ import { Tooltip } from "react-tooltip";
 import {
   createNewCategory,
   updateMRRSFeatureCategoryPosition,
-} from "../../../../../queries/queries";
+} from "@/src/components/features/pages/admin/queries/queries";
 import { FeatureCategoryCard } from "./@ui/FeatureCategoryCard";
 
 

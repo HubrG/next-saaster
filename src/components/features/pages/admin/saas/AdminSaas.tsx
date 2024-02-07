@@ -3,6 +3,7 @@ import { SectionWrapper } from "@/src/components/ui/user-interface/SectionWrappe
 import { appSettings } from "@prisma/client";
 import { SaasPricing } from "./saas-pricing/SaasPricing";
 import { AdminSaasSettings } from "./saas-settings/AdminSaasSettings";
+import { Settings2, Coins } from "lucide-react";
 
 type Props = {
   appSettings: appSettings;
@@ -11,10 +12,17 @@ type Props = {
 export const AdminSaas = () => {
   return (
     <>
-      <SectionWrapper id="SaasSettings" sectionName="SaaS settings">
+      <SectionWrapper
+        id="SaasSettings"
+        sectionName="Settings"
+        mainSectionName="SaaS"
+        icon={<Settings2 className="icon" />}>
         <AdminSaasSettings />
       </SectionWrapper>
-      <SectionWrapper id="Pricing" sectionName="SaaS pricing">
+      <SectionWrapper
+        id="Pricing"
+        sectionName="Pricing"
+        icon={<Coins className="icon" />}>
         <SaasPricing />
       </SectionWrapper>
     </>

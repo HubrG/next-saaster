@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MRRSPlanToFeatureWithPlanAndFeature } from "../types/MRRSPlanToFeatureWithPlanAndFeature";
+import { MRRSPlanToFeatureWithPlanAndFeature } from "../../types/MRRSPlanToFeatureWithPlanAndFeature";
 
 
 type Store = {

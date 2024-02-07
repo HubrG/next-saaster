@@ -10,11 +10,11 @@ import {
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { capitalizeFirstLetter } from "@/src/functions/capitalizeFirstLetter";
+import capitalize from "lodash/capitalize";
 import { parseIntInput } from "@/src/functions/parse";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";
+import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
 import { MRRSFeature, MRRSPlan } from "@prisma/client";
@@ -194,7 +194,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
                       <Label
                         htmlFor={"credit-cost-" + linkId}
                         className="!font-bold !text-xs">
-                        {capitalizeFirstLetter(
+                        {capitalize(
                           saasSettings.creditName ?? "Credit"
                         )}{" "}
                         cost/for use

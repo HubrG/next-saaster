@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
-import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
+import { usePublicSaasPricingStore } from "@/src/stores/admin/publicSaasPricingStore";
 import { MRRSPlan } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { createCheckoutSession } from "./queries";

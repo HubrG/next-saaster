@@ -13,7 +13,7 @@ export const UserInterfaceMainWrapper = ({ children,icon, text }: Props) => {
         {/* <h1 className="text-4xl flex flex-row gap-x-5 items-center justify-end">{text}{icon}  </h1> */}
         <Goodline />
       </div>
-      <div className="user-inteface-main-content">{children} </div>
+      <div className="user-inteface-main-content pt-10">{children} </div>
     </div>
   );
 };

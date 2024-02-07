@@ -16,11 +16,11 @@ import {
   PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { capitalizeFirstLetter } from "@/src/functions/capitalizeFirstLetter";
+import capitalize from "lodash/capitalize";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeatureCategoriesStore";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
+import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
 import { MRRSFeature } from "@prisma/client";
 import _ from "lodash";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -112,7 +112,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
           className={cn({ "font-semibold": value, "!opacity-50" : !value }, "text-sm justify-between w-full")}>
           {value
             ? sliced(
-                capitalizeFirstLetter(
+                capitalize(
                   saasMRRSFeaturesCategories.find(
                     (category) => category.name === value
                   )?.name??""

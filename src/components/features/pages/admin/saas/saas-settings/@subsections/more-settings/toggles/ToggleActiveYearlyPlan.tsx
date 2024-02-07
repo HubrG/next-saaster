@@ -3,7 +3,7 @@ import { updateSaasSettings } from "@/src/components/features/pages/admin/querie
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MoonStar } from "lucide-react";
+import { Calendar, MoonStar } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function ToggleActiveYearlyPlan() {
@@ -48,7 +48,7 @@ export default function ToggleActiveYearlyPlan() {
     <ToggleWrapper
       handleChange={handleChangeActiveYearlyPlans}
       checked={activeYearlyPlans}
-      icon={<MoonStar className="icon" />}
+      icon={<Calendar className="icon" />}
       id="switch-active-yearly-plans">
       Active the <strong>yearly plans</strong> for your SaaS
     </ToggleWrapper>

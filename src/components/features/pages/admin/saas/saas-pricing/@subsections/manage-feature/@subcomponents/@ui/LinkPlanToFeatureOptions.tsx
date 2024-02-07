@@ -1,7 +1,7 @@
 import { updateMRRSFeature } from "@/src/components/features/pages/admin/queries/queries";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
 import { MRRSFeature } from "@prisma/client";
 
 import { Info } from "lucide-react";

@@ -8,6 +8,7 @@ import {
   getCoupons,
   stripeGetProducts,
   getAppSettings,
+  getSaasStripeCoupons,
 } from "@/app/[locale]/queries";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
@@ -19,6 +20,7 @@ import {
   MRRSFeatureCategory,
   MRRSPlan,
   SaasSettings,
+  StripeCoupon,
   StripePrice,
   StripeProduct,
   UserRole,
@@ -51,6 +53,7 @@ export default async function Admin() {
   const saasStripeProducts = (await stripeGetProducts()) as StripeProduct[];
   const saasStripePrices = (await stripeGetPrices()) as StripePrice[];
   const appSettings = (await getAppSettings()) as appSettings;
+  const saasStripeCoupons = await getSaasStripeCoupons() as StripeCoupon[];
 
   if (
     !saasMRRSPlans ||
@@ -58,7 +61,10 @@ export default async function Admin() {
     !saasMRRSPlanToFeatures ||
     !saasMRRSFeaturesCategories ||
     !saasSettings ||
-    !saasStripeProducts
+    !saasStripeProducts ||
+    !saasStripePrices ||
+    !appSettings ||
+    !saasStripeCoupons
   ) {
     toaster({
       type: "error",
@@ -78,6 +84,7 @@ export default async function Admin() {
         saasStripePrices={saasStripePrices}
         saasStripeProducts={saasStripeProducts}
         appSettings={appSettings}
+        saasStripeCoupons={saasStripeCoupons}
       />
       {/* </Suspense> */}
     </div>

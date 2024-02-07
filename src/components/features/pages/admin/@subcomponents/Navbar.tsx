@@ -5,9 +5,7 @@ import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import {
   BadgeDollarSign,
-  BarChart2,
-  CircleDollarSign,
-  Cog,
+  BarChart2, Cog,
   Coins,
   Contact,
   Contact2,
@@ -15,6 +13,7 @@ import {
   Dot,
   FilePenLine,
   Filter,
+  GaugeCircle,
   Info,
   Languages,
   LayoutDashboard,
@@ -59,7 +58,7 @@ export const AdminNavbar = () => {
         <ul className="mb-5 !text-2xl">
           <MenuItem
             activeSection={activeSection}
-            icon={<LayoutDashboard className="icon" />}
+            icon={<GaugeCircle className="icon" />}
             text="Dashboard"
             sectionObserve="Dashboard"
             handleScroll={handleScroll}

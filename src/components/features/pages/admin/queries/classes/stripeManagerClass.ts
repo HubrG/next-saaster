@@ -1,5 +1,10 @@
 import { prisma } from "@/src/lib/prisma";
-import { MRRSPlan, StripePrice, StripeProduct } from "@prisma/client";
+import {
+  MRRSPlan,
+  StripeCoupon,
+  StripePrice,
+  StripeProduct,
+} from "@prisma/client";
 import Stripe from "stripe";
 
 export class StripeManager {
@@ -40,12 +45,20 @@ export class StripeManager {
     });
     if (!createdPrice) return null;
     // Update the plan in the database
-    const deactivatedPriceBdd = await this.updatePriceOnBDD(deactivatedPrice as Partial<StripePrice>);
+    const deactivatedPriceBdd = await this.updatePriceOnBDD(
+      deactivatedPrice as Partial<StripePrice>
+    );
     const createdPriceBdd = await this.createPriceOnBDD(createdPrice, planId);
 
     return createdPrice.id;
   }
 
+  async deleteCoupon(couponId: string) {
+    const deleted = await this.stripe.coupons.del(couponId);
+    if (!deleted) return false;
+    const deletedBdd = this.deleteCouponOnBDD(couponId);
+    if (deletedBdd) return deletedBdd;
+  }
   async createProduct(name: string, description: string, metadatas: {}) {
     const create = await this.stripe.products.create({
       name,
@@ -54,22 +67,34 @@ export class StripeManager {
       active: false,
     });
     const createBdd = this.createProductOnBDD(create, name);
-    if (create) return create.id;
+    if (create) return create;
   }
-
   async updateProduct(
     productId: string,
     name: string,
     description: string,
-    active: boolean
+    active: boolean,
+    plan: MRRSPlan
   ) {
-    const update = await this.stripe.products.update(productId, {
-      name,
-      description,
-      active,
-    });
-    const updateBdd = await this.updateProductOnBDD(update, productId);
-    if (update) return update.id;
+    let update = {} as Stripe.Product;
+    try {
+      update = await this.stripe.products.update(productId, {
+        name,
+        description,
+        active,
+      });
+      // Product found, update it
+      const updateBdd = await this.updateProductOnBDD(update, productId);
+      if (updateBdd) return updateBdd.id;
+    } catch (error) {
+      // Product not found, create a new one and attribute to the plan
+      const create = await this.createProduct(
+        plan.name ?? plan.id,
+        description,
+        {}
+      );
+      if (create) return create;
+    }
   }
 
   async createPrice(
@@ -89,10 +114,34 @@ export class StripeManager {
     if (create) return create.id;
   }
 
+  async createCoupon(options: {
+    duration?: "once" | "repeating" | "forever";
+    duration_in_months?: number;
+    percent_off?: number;
+    name?: string;
+  }) {
+    const couponData: {
+      percent_off?: number;
+      duration?: "once" | "repeating" | "forever";
+      duration_in_months?: number;
+      name?: string;
+    } = {
+      percent_off: options.percent_off,
+      duration: options.duration,
+      name: options.name,
+    };
 
+    if (options.duration === "repeating") {
+      couponData.duration_in_months = options.duration_in_months;
+    }
+
+    const coupon = await this.stripe.coupons.create(couponData);
+    const couponBdd = await this.createCouponOnBDD(coupon);
+    return couponBdd;
+  }
 
   async createProductOnBDD(data: Partial<StripeProduct>, planId: string) {
-    await prisma.stripeProduct.create({
+    const product = await prisma.stripeProduct.create({
       data: {
         id: data.id,
         active: data.active ?? false,
@@ -108,6 +157,16 @@ export class StripeManager {
       },
       include: { MRRSPlanRelation: true },
     });
+    // We update the plan with the product id
+    await prisma.mRRSPlan.update({
+      where: { id: planId },
+      data: { stripeId: product.id },
+    });
+  }
+
+  async deleteCouponOnBDD(couponId: string) {
+    const del = await prisma.stripeCoupon.delete({ where: { id: couponId } });
+    return del;
   }
   async createPriceOnBDD(data: Partial<Stripe.Price>, productId: string) {
     await prisma.stripePrice.create({
@@ -144,11 +203,14 @@ export class StripeManager {
       include: { productRelation: true },
     });
   }
+  async deleteProductOnBDD(productId: string) {
+    await prisma.stripeProduct.delete({ where: { id: productId } });
+  }
   async updateProductOnBDD(
     data: Partial<StripeProduct>,
     productId: StripeProduct["id"]
   ) {
-    await prisma.stripeProduct.update({
+    return await prisma.stripeProduct.update({
       where: { id: productId },
       data: {
         active: data.active,
@@ -162,6 +224,28 @@ export class StripeManager {
         url: data.url,
       },
       include: { MRRSPlanRelation: true },
+    });
+  }
+
+  async createCouponOnBDD(data: Partial<Stripe.Coupon>) {
+    return await prisma.stripeCoupon.create({
+      data: {
+        id: data.id ?? "",
+        object: data.object ?? "",
+        amountOff: data.amount_off ?? 0,
+        created: data.created ?? 0,
+        currency: data.currency ?? "",
+        duration: data.duration ?? "",
+        durationInMonths: data.duration_in_months ?? 0,
+        livemode: data.livemode ?? false,
+        maxRedemptions: data.max_redemptions ?? 0,
+        metadata: data.metadata ?? {},
+        name: data.name,
+        percentOff: data.percent_off ?? 0,
+        redeemBy: data.redeem_by ?? 0,
+        timesRedeemed: data.times_redeemed ?? 0,
+        valid: data.valid ?? false,
+      },
     });
   }
 }

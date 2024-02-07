@@ -11,7 +11,7 @@ import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
 import { MRRSFeature } from "@prisma/client";
 import { Edit } from "lucide-react";
 import { useState } from "react";

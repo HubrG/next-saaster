@@ -7,9 +7,11 @@ import {
   MRRSFeatureCategory,
   MRRSPlan,
   SaasSettings,
+  StripeCoupon,
   appSettings,
 } from "@prisma/client";
 import { StripeManager } from "./classes/stripeManagerClass";
+import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
 const stripeManager = new StripeManager();
 
 // SECTION Create MRRS Plan
@@ -47,11 +49,11 @@ export const addNewMRRSPlan = async () => {
       { amount: 0, interval: "month" },
       { amount: 0, interval: "month" },
     ];
-    
+
     const prices = await Promise.all(
       pricesToCreate.map((price) =>
         stripeManager.createPrice(
-          product,
+          product.id,
           price.amount,
           saasSettings.currency ?? "usd",
           price.interval
@@ -68,7 +70,7 @@ export const addNewMRRSPlan = async () => {
     const approvedPlan = await prisma.mRRSPlan.update({
       where: { id: newPlan.id },
       data: {
-        stripeId: product,
+        stripeId: product.id,
         stripeYearlyPriceId: yearlyPrice,
         stripeMonthlyPriceId: monthlyPrice,
         stripeFreePriceId: freePrice,
@@ -92,11 +94,10 @@ export const addNewMRRSPlan = async () => {
     );
 
     const lastProduct = await prisma.stripeProduct.findUnique({
-      where: { id: product },
-      include: { MRRSPlanRelation: true, prices: true},
+      where: { id: product.id },
+      include: { MRRSPlanRelation: true, prices: true },
     });
-  
-    
+
     return { newPlan, newFeatures, approvedPlan, lastProduct };
   } catch (error) {
     console.error(error);
@@ -161,7 +162,7 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
       where: { id: planId },
       data: {
         ...updatePlanData,
-        active: planData.deleted ? false : updatePlanData.active
+        active: planData.deleted ? false : updatePlanData.active,
       },
     });
 
@@ -171,7 +172,8 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
       updatedPlan.stripeId,
       planData.name,
       planData.description,
-      updatedPlan.active??true
+      updatedPlan.active ?? true,
+      plan
     );
     return updatedPlan;
   }
@@ -445,4 +447,101 @@ export const createNewCategory = async (name: MRRSFeatureCategory["name"]) => {
   });
 
   return newCategory;
+};
+
+export const createNewCoupon = async (
+  data: Partial<MRRSStripeCouponsWithPlans>
+) => {
+  const session = await isSuperAdmin();
+  if (!session) return false;
+
+  console.log(data);
+
+  // Traitement de `durationInMonths` pour exclure les valeurs `null`
+  let validatedDurationInMonths: number | undefined =
+    typeof data.durationInMonths === "number"
+      ? data.durationInMonths
+      : undefined;
+
+  // S'assurer que `name` n'est pas `null` et que `percentOff` est un nombre
+  const validatedName: string | undefined = data.name ?? undefined;
+  const validatedPercentOff: number | undefined =
+    typeof data.percentOff === "number" ? data.percentOff : undefined;
+
+  const coupon = await stripeManager.createCoupon({
+    duration: data.duration as "forever" | "once" | "repeating",
+    duration_in_months: validatedDurationInMonths,
+    name: validatedName,
+    percent_off: validatedPercentOff,
+  });
+
+  return coupon as MRRSStripeCouponsWithPlans;
+};
+
+export const deleteCoupon = async (couponId: string) => {
+  const session = await isSuperAdmin();
+  if (!session) return false;
+  const coupon = await stripeManager.deleteCoupon(couponId);
+  if (coupon) {
+    const allCoupons = await prisma.stripeCoupon.findMany();
+    return allCoupons;
+  } else {
+    return false;
+  }
+};
+
+export const applyCoupon = async (
+  couponId: string,
+  planId: string,
+  planRecurrence: "monthly" | "yearly" | "once"
+) => {
+  const session = await isSuperAdmin();
+  if (!session) return false;
+
+  if (planRecurrence !== "once") {
+    // Si un coupon existe déjà avec la même recurrence sur le même plan, on le supprime et on le remplace:
+    const searchForReplace = await prisma.stripePlanCoupon.findMany({
+      where: {
+        MRRSPlanId: planId,
+        recurrence: planRecurrence,
+      },
+    });
+    // On supprime les coupons existants
+    let deleteCoupon = false;
+    if (searchForReplace.length > 0) {
+      await prisma.stripePlanCoupon.deleteMany({
+        where: {
+          MRRSPlanId: planId,
+          recurrence: planRecurrence,
+        },
+      });
+      deleteCoupon = true;
+    }
+    // On crée le nouveau coupon
+    if (
+      (searchForReplace.length > 0 && deleteCoupon) ||
+      searchForReplace.length === 0
+    ) {
+      const coupon = await prisma.stripePlanCoupon.create({
+        data: {
+          couponId: couponId,
+          MRRSPlanId: planId,
+          recurrence: planRecurrence,
+        },
+        include: {
+          coupon: true,
+          MRRSPlan: {
+            include: {
+              coupons: {
+                include: {
+                  coupon: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      return coupon.MRRSPlan.coupons;
+    }
+  }
 };

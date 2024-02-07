@@ -1,5 +1,5 @@
 "use client";
-import { ExtendedStripeProduct, useSaasStripeProductsStore } from "@/src/stores/stripeProductsStore";
+import { ExtendedStripeProduct, useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { DataTable } from "./@ui/data-table";
 import {  StripeProductsAndPrices, columns } from "./@ui/columns";
 import { StripeProduct } from "@prisma/client";

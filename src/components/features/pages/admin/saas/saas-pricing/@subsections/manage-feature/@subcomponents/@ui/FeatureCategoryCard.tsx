@@ -4,7 +4,7 @@ import { Input } from "@/src/components/ui/input";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/saasMRRSFeatureCategoriesStore";
+import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
 import { MRRSFeatureCategory } from "@prisma/client";
 import { Check, Grip } from "lucide-react";
 import { useState } from "react";

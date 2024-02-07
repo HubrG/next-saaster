@@ -1,6 +1,6 @@
 "use client";
 import { updateMRRSPlan } from "@/src/components/features/pages/admin/queries/queries";
-import { manageClashes } from "@/src/components/features/pages/admin/saas/saas-pricing/@subsections/manage-plan/@subcomponents/@functions/manageClashes";
+import { manageClashes } from "@/src/components/features/pages/admin/saas/saas-pricing/@subsections/manage-plan/MRRS/@functions/manageClashes";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {
@@ -18,8 +18,8 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/functions/parse";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/saasMRRSPlanToFeatureStore";
-import { useSaasMRRSPlansStore } from "@/src/stores/saasMRRSPlansStore";
+import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
+import { useSaasMRRSPlansStore } from "@/src/stores/admin/saasMRRSPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
 import isEqual from "lodash/isEqual";
@@ -28,7 +28,9 @@ import { useEffect, useState } from "react";
 import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
-import { useSaasStripeProductsStore } from "@/src/stores/stripeProductsStore";
+import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
+import { PopoverCoupon } from "../../../@subcomponents/@ui/PopoverCoupon";
+import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 
 type Props = {
   plan: MRRSPlan;
@@ -48,6 +50,8 @@ export const PlanCard = ({ plan, className }: Props) => {
     useSaasStripeProductsStore();
   const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
     useSaasMRRSPlanToFeatureStore();
+  const { saasStripeCoupons } = useSaasStripeCoupons();
+  // console.log(saasMRRSPlans);
 
   // Check if the plan has changed
   useEffect(() => {
@@ -185,10 +189,6 @@ export const PlanCard = ({ plan, className }: Props) => {
             data-tooltip-id={"tt-knob-" + plan.id}
           />
         </SortableKnob>
-        {/* <Tooltip id={"tt-knob-" + plan.id} place="top" className="tooltip">
-          Drag and drop to reorder
-        </Tooltip> */}
-
         <Input
           name="name"
           value={planState.name ?? ""}
@@ -288,33 +288,82 @@ export const PlanCard = ({ plan, className }: Props) => {
                 <p>days</p>
               </div>
             )}
+            {/* {saasStripeCoupons.forEach((coupon) => {
+              if (Object.keys(coupon.StripePlanCoupons).includes(plan.id)) {
+                console.log(coupon);
+              }
+           } */}
             {saasSettings.activeYearlyPlans &&
               !planState.isFree &&
               !planState.isCustom && (
-                <div className="inputs">
-                  <Label htmlFor={`${plan.id}yearlyPrice`}>Yearly price</Label>
-                  <Input
-                    name="yearlyPrice"
-                    value={planState.yearlyPrice ?? ""}
-                    onChange={(e) => handleInputChange(e, "yearlyPrice")}
-                  />
-                  <p>{saasSettings.currency}</p>
+                <div className="flex flex-col">
+                  <div className="inputs">
+                    <Label htmlFor={`${plan.id}yearlyPrice`}>
+                      Yearly price
+                    </Label>
+                    <Input
+                      name="yearlyPrice"
+                      value={planState.yearlyPrice ?? ""}
+                      className="!col-span-4"
+                      onChange={(e) => handleInputChange(e, "yearlyPrice")}
+                    />
+                    <PopoverCoupon
+                      type={plan.saasType}
+                      planId={plan.id}
+                      recurrence="yearly"
+                    />
+                    <p className="col-span-3">{saasSettings.currency}</p>
+                  </div>
+                  <div>
+                    {saasMRRSPlans
+                      .find((p) => p.id === plan.id)
+                      ?.coupons?.map(
+                        (coupon) =>
+                          coupon.recurrence === "yearly" &&
+                          coupon.MRRSPlanId === plan.id && (
+                            <div key={coupon.couponId} className="text-xs">
+                              <p>Coupon ID: {coupon.couponId}</p>
+                            </div>
+                          )
+                      )}
+                  </div>
                 </div>
               )}
+
             {saasSettings.activeMonthlyPlans &&
               !planState.isFree &&
               !planState.isCustom && (
-                <div className="inputs">
-                  <Label htmlFor={`${plan.id}monthlyPrice`}>
-                    Monthly price
-                  </Label>
-                  <Input
-                    id={`${plan.id}monthlyPrice`}
-                    name="monthlyPrice"
-                    value={planState.monthlyPrice ?? ""}
-                    onChange={(e) => handleInputChange(e, "monthlyPrice")}
-                  />
-                  <p>{saasSettings.currency}</p>
+                <div className="flex flex-col">
+                  <div className="inputs">
+                    <Label htmlFor={`${plan.id}monthlyPrice`}>
+                      Monthly price
+                    </Label>
+                    <Input
+                      id={`${plan.id}monthlyPrice`}
+                      name="monthlyPrice"
+                      type="number"
+                      className="!col-span-4"
+                      value={planState.monthlyPrice ?? ""}
+                      onChange={(e) => handleInputChange(e, "monthlyPrice")}
+                    />
+                    <PopoverCoupon
+                      type={plan.saasType}
+                      planId={plan.id}
+                      recurrence="monthly"
+                    />
+                    <p className="col-span-3">{saasSettings.currency}</p>
+                  </div>
+                  {saasMRRSPlans
+                    .find((p) => p.id === plan.id)
+                    ?.coupons?.map(
+                      (coupon) =>
+                        coupon.recurrence === "monthly" &&
+                        coupon.MRRSPlanId === plan.id && (
+                          <div key={coupon.couponId}>
+                            <p>Coupon ID: {coupon.couponId}</p>
+                          </div>
+                        )
+                    )}
                 </div>
               )}
             {saasSettings.activeCreditSystem && !planState.isCustom && (
@@ -374,12 +423,19 @@ export const PlanCard = ({ plan, className }: Props) => {
         </div>
       </div>
       <div>
-        <div className="!text-xs mb-0 text-center py-2 ">
+        <div className="!text-xs mb-0 text-center py-2 flex flex-col ">
           <CopySomething
             what="Plan ID"
             copyText={plan.id}
             id={"plan-id-copy-" + plan.id}>
             <strong className="!text-xs opacity-70 ">ID :</strong> {plan.id}
+          </CopySomething>
+          <CopySomething
+            what="Stripe ID"
+            copyText={plan.stripeId ?? ""}
+            id={"plan-stripeid-copy-" + plan.id}>
+            <strong className="!text-xs opacity-70 ">Stripe ID :</strong>{" "}
+            {plan.stripeId}
           </CopySomething>
         </div>
       </div>

@@ -3,7 +3,7 @@ import React from 'react'
 import { BackgroundGrad } from './Background';
 import { MRRSPlan } from '@prisma/client';
 import { useSaasSettingsStore } from '@/src/stores/saasSettingsStore';
-import { usePublicSaasPricingStore } from '@/src/stores/publicSaasPricingStore';
+import { usePublicSaasPricingStore } from '@/src/stores/admin/publicSaasPricingStore';
 import currenciesData from "@/src/jsons/currencies.json";
 import { Currencies } from '@/src/types/Currencies';
 import { Separator } from '@/src/components/ui/separator';

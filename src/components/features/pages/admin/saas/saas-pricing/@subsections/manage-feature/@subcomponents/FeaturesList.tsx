@@ -3,7 +3,7 @@ import { updateMRRSFeaturePosition } from "@/src/components/features/pages/admin
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
 import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/saasMRRSFeaturesStore";
+import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSFeature } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
@@ -69,10 +69,10 @@ export const FeaturesList = () => {
                         onClick={() => handleRowClick(feature.id)}
                         className={cn(
                           {
-                            "bg-primary/40 dark:bg-primary/10":
+                            "bg-theming-background-100/20 dark:bg-primary/10":
                               selectedRowId === feature.id,
                           },
-                          "hover:bg-primary/40 dark:hover:bg-primary/10  w-full select-none"
+                          "hover:bg-theming-background-100/20 dark:hover:bg-primary/10  w-full select-none"
                         )}>
                         <FeatureCard feature={feature} />
                       </motion.tr>

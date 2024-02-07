@@ -1,5 +1,5 @@
 import { cn } from "@/src/lib/utils";
-import { useUserInterfaceNavStore } from "@/src/stores/userInterfaceNavStore";
+import { useUserInterfaceNavStore } from "@/src/stores/admin/userInterfaceNavStore";
 
 type Props = {
   children?: React.ReactNode;

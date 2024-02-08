@@ -3,13 +3,14 @@ import { Suspense } from "react";
 import { getCoupons, getSaasMRRSPlans } from "../queries";
 import { PriceCard } from "@/src/components/features/pages/pricing/PriceCard";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
 
 export default async function Pricing({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
-  const plans = await getSaasMRRSPlans();
+  const plans = await getSaasMRRSPlans() as MRRSPlanStore[];
   const coupons = await getCoupons();
 
   return (

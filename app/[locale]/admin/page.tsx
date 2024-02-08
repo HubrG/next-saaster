@@ -27,8 +27,10 @@ import {
   UserRole,
   appSettings,
 } from "@prisma/client";
+import { Loader } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export const generateMetadata = async () => {
   return createMetadata({
@@ -76,19 +78,19 @@ export default async function Admin() {
   }
   return (
     <div className="admin user-interface !min-w-full ">
-      {/* <Suspense fallback={<Loader />}> */}
-      <AdminComponent
-        saasSettings={saasSettings}
-        saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
-        saasMRRSPlans={saasMRRSPlans}
-        saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
-        saasMRRSFeatures={saasMRRSFeatures}
-        saasStripePrices={saasStripePrices}
-        saasStripeProducts={saasStripeProducts}
-        appSettings={appSettings}
-        saasStripeCoupons={saasStripeCoupons}
-      />
-      {/* </Suspense> */}
+      <Suspense fallback={<Loader />}>
+        <AdminComponent
+          saasSettings={saasSettings}
+          saasMRRSPlanToFeatures={saasMRRSPlanToFeatures}
+          saasMRRSPlans={saasMRRSPlans}
+          saasMRRSFeaturesCategories={saasMRRSFeaturesCategories}
+          saasMRRSFeatures={saasMRRSFeatures}
+          saasStripePrices={saasStripePrices}
+          saasStripeProducts={saasStripeProducts}
+          appSettings={appSettings}
+          saasStripeCoupons={saasStripeCoupons}
+        />
+      </Suspense>
     </div>
   );
 }

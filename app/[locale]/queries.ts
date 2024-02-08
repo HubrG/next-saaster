@@ -53,6 +53,11 @@ export const getSaasMRRSPlans = async () => {
     },
     include: {
       MRRSFeatures: true,
+      StripeProduct: {
+        include: {
+          prices: true,
+        },
+      },
       coupons: {
         include: {
           coupon: true,
@@ -122,7 +127,12 @@ export const getSaasStripeCoupons = async () => {
       created: "asc",
     },
     include: {
-      MRRSPlan: true,
+      MRRSPlan: {
+        include: {
+          MRRSPlan: true,
+        },
+      
+      },
     },
   });
   return coupons;

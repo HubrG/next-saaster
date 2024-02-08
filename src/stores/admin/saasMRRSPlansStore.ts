@@ -1,8 +1,21 @@
-import { MRRSPlan, StripeCoupon, StripePlanCoupon } from "@prisma/client";
+import { MRRSPlan, StripeCoupon, StripePlanCoupon, StripePrice, StripeProduct } from "@prisma/client";
 import { create } from "zustand";
-
+type CouponDetail = {
+  coupon: StripeCoupon; // Assurez-vous que cette définition correspond à vos données
+  // Vous pouvez ajouter ici d'autres propriétés présentes dans StripePlanCoupon si nécessaire
+};
+interface StripeProductf {
+  id: string;
+  name: string;
+  description: string;
+  active: boolean;
+  created: number;
+  prices: StripePrice[]; // Chaque produit a un tableau de prix
+}
 export interface MRRSPlanStore extends MRRSPlan {
   coupons?: StripePlanCoupon[];
+  coupon?: CouponDetail;
+  StripeProduct?: StripeProductf[];
   id: string;
 }
 

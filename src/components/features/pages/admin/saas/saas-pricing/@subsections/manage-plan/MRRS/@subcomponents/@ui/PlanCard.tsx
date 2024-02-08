@@ -31,6 +31,7 @@ import { PlanCardSwitch } from "./PlanCardSwitch";
 import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { PopoverCoupon } from "../../../@subcomponents/@ui/PopoverCoupon";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
+import { CouponApplied } from "./CouponApplied";
 
 type Props = {
   plan: MRRSPlan;
@@ -275,114 +276,109 @@ export const PlanCard = ({ plan, className }: Props) => {
                 "!mb-4"
               )}
             />
-
-            {planState.isTrial && (
-              <div className="inputs">
-                <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
-                <Input
-                  type="number"
-                  name="trialDays"
-                  value={planState.trialDays ?? ""}
-                  onChange={(e) => handleInputChange(e, "trialDays")}
-                />
-                <p>days</p>
-              </div>
-            )}
-            {/* {saasStripeCoupons.forEach((coupon) => {
+            <div className="w-full flex flex-col gap-y-3">
+              {planState.isTrial && (
+                <div className="inputs">
+                  <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
+                  <Input
+                    type="number"
+                    name="trialDays"
+                    value={planState.trialDays ?? ""}
+                    onChange={(e) => handleInputChange(e, "trialDays")}
+                  />
+                  <p>days</p>
+                </div>
+              )}
+              {/* {saasStripeCoupons.forEach((coupon) => {
               if (Object.keys(coupon.StripePlanCoupons).includes(plan.id)) {
                 console.log(coupon);
               }
            } */}
-            {saasSettings.activeYearlyPlans &&
-              !planState.isFree &&
-              !planState.isCustom && (
-                <div className="flex flex-col">
-                  <div className="inputs">
-                    <Label htmlFor={`${plan.id}yearlyPrice`}>
-                      Yearly price
-                    </Label>
-                    <Input
-                      name="yearlyPrice"
-                      value={planState.yearlyPrice ?? ""}
-                      className="!col-span-4"
-                      onChange={(e) => handleInputChange(e, "yearlyPrice")}
-                    />
-                    <PopoverCoupon
-                      type={plan.saasType}
-                      planId={plan.id}
-                      recurrence="yearly"
-                    />
-                    <p className="col-span-3">{saasSettings.currency}</p>
-                  </div>
-                  <div>
-                    {saasMRRSPlans
-                      .find((p) => p.id === plan.id)
-                      ?.coupons?.map(
-                        (coupon) =>
-                          coupon.recurrence === "yearly" &&
-                          coupon.MRRSPlanId === plan.id && (
-                            <div key={coupon.couponId} className="text-xs">
-                              <p>Coupon ID: {coupon.couponId}</p>
-                            </div>
-                          )
-                      )}
-                  </div>
-                </div>
-              )}
 
-            {saasSettings.activeMonthlyPlans &&
-              !planState.isFree &&
-              !planState.isCustom && (
-                <div className="flex flex-col">
-                  <div className="inputs">
-                    <Label htmlFor={`${plan.id}monthlyPrice`}>
-                      Monthly price
-                    </Label>
-                    <Input
-                      id={`${plan.id}monthlyPrice`}
-                      name="monthlyPrice"
-                      type="number"
-                      className="!col-span-4"
-                      value={planState.monthlyPrice ?? ""}
-                      onChange={(e) => handleInputChange(e, "monthlyPrice")}
-                    />
-                    <PopoverCoupon
-                      type={plan.saasType}
-                      planId={plan.id}
-                      recurrence="monthly"
-                    />
-                    <p className="col-span-3">{saasSettings.currency}</p>
+              {saasSettings.activeMonthlyPlans &&
+                !planState.isFree &&
+                !planState.isCustom && (
+                  <div className="flex flex-col">
+                    <div className="inputs">
+                      <Label htmlFor={`${plan.id}monthlyPrice`}>
+                        Monthly price
+                        <CouponApplied
+                          recurrence={"monthly"}
+                          plan={plan}
+                          monthlyP={planState.monthlyPrice ?? 0}
+                          yearlyP={planState.yearlyPrice ?? 0}
+                        />
+                      </Label>
+                      <Input
+                        id={`${plan.id}monthlyPrice`}
+                        name="monthlyPrice"
+                        type="number"
+                        className="!col-span-4"
+                        value={planState.monthlyPrice ?? ""}
+                        onChange={(e) => handleInputChange(e, "monthlyPrice")}
+                      />
+                      <PopoverCoupon
+                        type={plan.saasType}
+                        planId={plan.id}
+                        recurrence="monthly"
+                      />
+                      <p className="col-span-3">{saasSettings.currency}</p>
+                    </div>
                   </div>
-                  {saasMRRSPlans
-                    .find((p) => p.id === plan.id)
-                    ?.coupons?.map(
-                      (coupon) =>
-                        coupon.recurrence === "monthly" &&
-                        coupon.MRRSPlanId === plan.id && (
-                          <div key={coupon.couponId}>
-                            <p>Coupon ID: {coupon.couponId}</p>
-                          </div>
-                        )
-                    )}
+                )}
+              {saasSettings.activeYearlyPlans &&
+                !planState.isFree &&
+                !planState.isCustom && (
+                  <div className="flex flex-col">
+                    <div className="inputs">
+                      <Label htmlFor={`${plan.id}yearlyPrice`}>
+                        Yearly price
+                        <CouponApplied
+                          recurrence={"yearly"}
+                          plan={plan}
+                          monthlyP={planState.monthlyPrice ?? 0}
+                          yearlyP={planState.yearlyPrice ?? 0}
+                        />
+                      </Label>
+                      <Input
+                        type="number"
+                        name="yearlyPrice"
+                        value={planState.yearlyPrice ?? ""}
+                        className="!col-span-4"
+                        onChange={(e) => handleInputChange(e, "yearlyPrice")}
+                      />
+                      <PopoverCoupon
+                        type={plan.saasType}
+                        planId={plan.id}
+                        recurrence="yearly"
+                      />
+                      <p className="col-span-3">{saasSettings.currency}</p>
+                    </div>
+                  </div>
+                )}
+              {saasSettings.activeCreditSystem && !planState.isCustom && (
+                <div className="inputs">
+                  <Label htmlFor={`${plan.id}creditAllouedByMonth`}>
+                    Credit alloued
+                  </Label>
+                  <Input
+                    id={`${plan.id}creditAllouedByMonth`}
+                    type="number"
+                    name="creditAllouedByMonth"
+                    value={planState.creditAllouedByMonth ?? ""}
+                    onChange={(e) =>
+                      handleInputChange(e, "creditAllouedByMonth")
+                    }
+                  />
+                  <p>
+                    <span>
+                      {sliced(saasSettings.creditName ?? "credits", 5)}
+                    </span>
+                    <span>/month</span>
+                  </p>
                 </div>
               )}
-            {saasSettings.activeCreditSystem && !planState.isCustom && (
-              <div className="inputs">
-                <Label htmlFor={`${plan.id}creditAllouedByMonth`}>
-                  Credit alloued
-                </Label>
-                <Input
-                  id={`${plan.id}creditAllouedByMonth`}
-                  name="creditAllouedByMonth"
-                  value={planState.creditAllouedByMonth ?? ""}
-                  onChange={(e) => handleInputChange(e, "creditAllouedByMonth")}
-                />
-                <p>
-                  <span>{sliced(saasSettings.creditName ?? "credits", 5)}</span>
-                  <span>/month</span>
-                </p>
-              </div>
-            )}
+            </div>
           </CollapsibleContent>
           <div className="flex items-center justify-between rounded-default  p-2  space-x-4">
             <CollapsibleTrigger asChild>
@@ -423,7 +419,7 @@ export const PlanCard = ({ plan, className }: Props) => {
         </div>
       </div>
       <div>
-        <div className="!text-xs mb-0 text-center py-2 flex flex-col ">
+        <div className="!text-xs mb-0 text-center py-2 flex flex-col flex-shrink w-2/3 mx-auto ">
           <CopySomething
             what="Plan ID"
             copyText={plan.id}

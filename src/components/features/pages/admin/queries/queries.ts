@@ -8,10 +8,12 @@ import {
   MRRSPlan,
   SaasSettings,
   StripeCoupon,
+  StripeProduct,
   appSettings,
 } from "@prisma/client";
 import { StripeManager } from "./classes/stripeManagerClass";
 import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
+import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
 const stripeManager = new StripeManager();
 
 // SECTION Create MRRS Plan
@@ -31,55 +33,13 @@ export const addNewMRRSPlan = async () => {
   try {
     newPlan = await prisma.mRRSPlan.create({ data: {} });
     if (!newPlan.id || !newPlan) throw new Error("Failed to create new plan");
-    const saasSettings =
-      (await prisma.saasSettings.findFirst({})) ||
-      ({
-        currency: "usd",
-      } as SaasSettings);
 
-    const product = await stripeManager.createProduct(
-      newPlan.id,
-      "New product created from the admin panel",
-      { planId: newPlan.id }
+    const init = await initializeProductAndPricesWithStripe(
+      newPlan as MRRSPlan
     );
-    if (!product) throw new Error("Failed to create Stripe product");
-
-    const pricesToCreate: { amount: number; interval: "month" | "year" }[] = [
-      { amount: 0, interval: "year" },
-      { amount: 0, interval: "month" },
-      { amount: 0, interval: "month" },
-    ];
-
-    const prices = await Promise.all(
-      pricesToCreate.map((price) =>
-        stripeManager.createPrice(
-          product.id,
-          price.amount,
-          saasSettings.currency ?? "usd",
-          price.interval
-        )
-      )
-    );
-
-    if (prices.some((price) => !price))
-      throw new Error("Failed to create one or more Stripe prices");
-
-    const [yearlyPrice, monthlyPrice, freePrice] = prices;
-    if (!yearlyPrice || !monthlyPrice || !freePrice)
-      throw new Error("Failed to create one or more Stripe prices");
-    const approvedPlan = await prisma.mRRSPlan.update({
-      where: { id: newPlan.id },
-      data: {
-        stripeId: product.id,
-        stripeYearlyPriceId: yearlyPrice,
-        stripeMonthlyPriceId: monthlyPrice,
-        stripeFreePriceId: freePrice,
-      },
-      include: {
-        StripeProduct: true,
-      },
-    });
-
+    const approvedPlan = init.plan;
+    const lastProduct = init.lastProduct;
+    
     const features = await prisma.mRRSFeature.findMany();
     const newFeatures = await Promise.all(
       features.map((feature) =>
@@ -93,10 +53,6 @@ export const addNewMRRSPlan = async () => {
       )
     );
 
-    const lastProduct = await prisma.stripeProduct.findUnique({
-      where: { id: product.id },
-      include: { MRRSPlanRelation: true, prices: true },
-    });
 
     return { newPlan, newFeatures, approvedPlan, lastProduct };
   } catch (error) {
@@ -107,7 +63,78 @@ export const addNewMRRSPlan = async () => {
     return false;
   }
 };
+export const initializeProductAndPricesWithStripe = async (plan: MRRSPlan) => {
+   try {
+     const saasSettings =
+       (await prisma.saasSettings.findFirst({})) ||
+       ({
+         currency: "usd",
+       } as SaasSettings);
 
+     // On supprime tous les prodcuts liés au plan et les prices liés aux produits
+     const resetAll = await prisma.stripeProduct.deleteMany({
+       where: {
+         MRRSPlanId: plan.id,
+       },
+     });
+     if (!resetAll) throw new Error("Failed to reset all products");
+
+     const product = await stripeManager.createProduct(
+       plan.id,
+       "New product created from the admin panel",
+       { planId: plan.id },
+       plan.active ?? false,
+       plan.name ?? ""
+     );
+     if (!product) throw new Error("Failed to create Stripe product");
+
+     const pricesToCreate: { amount: number; interval: "month" | "year" }[] = [
+       { amount: 0, interval: "year" },
+       { amount: 0, interval: "month" },
+       { amount: 0, interval: "month" },
+     ];
+
+     const prices = await Promise.all(
+       pricesToCreate.map((price) =>
+         stripeManager.createNewPrices(
+           product.id,
+           price.amount,
+           saasSettings.currency ?? "usd",
+           price.interval
+         )
+       )
+     );
+
+     if (prices.some((price) => !price))
+       throw new Error("Failed to create one or more Stripe prices");
+
+     const [yearlyPrice, monthlyPrice, freePrice] = prices;
+     if (!yearlyPrice || !monthlyPrice || !freePrice)
+       throw new Error("Failed to create one or more Stripe prices");
+     const approvedPlan = await prisma.mRRSPlan.update({
+       where: { id: plan.id },
+       data: {
+         stripeId: product.id,
+         stripeYearlyPriceId: yearlyPrice,
+         stripeMonthlyPriceId: monthlyPrice,
+         stripeFreePriceId: freePrice,
+       },
+       include: {
+         StripeProduct: true,
+       },
+     });
+
+     const lastProduct = await prisma.stripeProduct.findUnique({
+       where: { id: product.id },
+       include: { MRRSPlanRelation: true, prices: true },
+     });
+     if (!lastProduct) throw new Error("Failed to find last product");
+     return { plan: approvedPlan, return: true, lastProduct: lastProduct };
+   } catch (error: any) {
+     console.log(error.message); // Affiche le message d'erreur dans la console
+     return { plan: plan, return: false };
+   }
+}
 // SECTION Update MRRS Plan
 
 export const updateMRRSPlan = async (planId: string, planData: any) => {
@@ -116,10 +143,10 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
 
   const { MRRSFeatures, ...filteredPlanData } = planData;
 
-  const plan = await prisma.mRRSPlan.findUnique({
+  let plan = (await prisma.mRRSPlan.findUnique({
     where: { id: planId },
     include: { MRRSFeatures: true },
-  });
+  })) as MRRSPlanStore;
   if (!plan) return false;
 
   const saasSettings = await prisma.saasSettings.findFirst({});
@@ -127,42 +154,83 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
 
   let monthlyPriceId = plan.stripeMonthlyPriceId;
   let yearlyPriceId = plan.stripeYearlyPriceId;
-
+  let freePriceId = plan.stripeFreePriceId;
+  // VERIFIER LA SYNCHRONISATION DES DONNEES AVEC STRIPE (À AMÉLIORER)
+  let recreate = false;
+  //
+  const isProductExist = await stripeManager.getProduct(plan.stripeId ?? "no");
+  const isMonthlyPriceExist = await stripeManager.getPrice(
+    plan.stripeMonthlyPriceId ?? "no"
+  );
+  const isYearlyPriceExist = await stripeManager.getPrice(
+    plan.stripeYearlyPriceId ?? "no"
+  );
+  const isProductExistOnBDD = await prisma.stripeProduct.findUnique({
+    where: { id: plan.stripeId??"" },
+  });
+  const isMonthlyPriceExistOnBDD = await prisma.stripePrice.findUnique({
+    where: { id: plan.stripeMonthlyPriceId??"" },
+  });
+  const isYearlyPriceExistOnBDD = await prisma.stripePrice.findUnique({
+    where: { id: plan.stripeYearlyPriceId??"" },
+  });
+  if (!isProductExist || !isMonthlyPriceExist || !isYearlyPriceExist || !isProductExistOnBDD || !isMonthlyPriceExistOnBDD || !isYearlyPriceExistOnBDD) {
+    try {
+      const create = await initializeProductAndPricesWithStripe(plan);
+      if (create && !create.return) return false;
+      if (create) plan = create.plan as MRRSPlanStore;
+      monthlyPriceId = plan.stripeMonthlyPriceId;
+      yearlyPriceId = plan.stripeYearlyPriceId;
+      freePriceId = plan.stripeFreePriceId;
+      recreate = true;
+    } catch (error) {
+      console.error("Error creating new product and price:", error);
+      return false;
+    }
+  }
+  // FIN DE LA VERIFICATION
   if (plan.stripeId) {
-    if (planData.monthlyPrice !== plan.monthlyPrice && monthlyPriceId) {
+    if (planData.monthlyPrice !== plan.monthlyPrice || recreate) {
       monthlyPriceId = await stripeManager.createOrUpdatePrice(
-        plan.stripeId,
-        monthlyPriceId,
+        plan.stripeId ?? "",
+        monthlyPriceId ?? "",
         planData.monthlyPrice * 100,
         currency,
         "month"
       );
-      if (!monthlyPriceId) return false;
     }
 
-    if (planData.yearlyPrice !== plan.yearlyPrice && yearlyPriceId) {
+    if (planData.yearlyPrice !== plan.yearlyPrice || recreate) {
       yearlyPriceId = await stripeManager.createOrUpdatePrice(
-        plan.stripeId,
-        yearlyPriceId,
+        plan.stripeId ?? "",
+        yearlyPriceId ?? "",
         planData.yearlyPrice * 100,
         currency,
         "year"
       );
-      if (!yearlyPriceId) return false;
     }
 
     const updatePlanData = {
       ...filteredPlanData,
       stripeMonthlyPriceId: monthlyPriceId,
       stripeYearlyPriceId: yearlyPriceId,
+      stripeFreePriceId: freePriceId,
       stripeId: plan.stripeId,
     };
 
+    const { coupons, ...updateDataWithoutCoupons } = updatePlanData;
     const updatedPlan = await prisma.mRRSPlan.update({
       where: { id: planId },
       data: {
-        ...updatePlanData,
+        ...updateDataWithoutCoupons,
         active: planData.deleted ? false : updatePlanData.active,
+      },
+      include: {
+        coupons: {
+          include: {
+            coupon: true,
+          },
+        },
       },
     });
 
@@ -544,4 +612,28 @@ export const applyCoupon = async (
       return coupon.MRRSPlan.coupons;
     }
   }
+};
+
+export const revokeCoupon = async (couponId: string) => {
+  const session = await isSuperAdmin();
+  if (!session) return false;
+  const coupon = await prisma.stripePlanCoupon.delete({
+    where: {
+      id: couponId,
+    },
+    include: {
+      coupon: true,
+      MRRSPlan: {
+        include: {
+          coupons: {
+            include: {
+              coupon: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return coupon.MRRSPlan.coupons;
 };

@@ -7,13 +7,13 @@ import { Label } from "@/src/components/ui/label";
 import { Button } from "@/src/components/ui/button";
 import { BadgePercent } from "lucide-react";
 import { Tooltip } from "react-tooltip";
-import { MRRSPlan, SaasTypes } from "@prisma/client";
+import { SaasTypes } from "@prisma/client";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { applyCoupon } from "@/src/components/features/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
 import { MRRSPlanStore, useSaasMRRSPlansStore } from "@/src/stores/admin/saasMRRSPlansStore";
+import { PopoverClose } from "@radix-ui/react-popover";
 type Props = {
   type: SaasTypes;
   recurrence?: "monthly" | "yearly";
@@ -28,37 +28,20 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
     if (apply) {
 
       setSaasMRRSPlans((currentPlans:MRRSPlanStore[]) => {
-        // Map sur le tableau existant pour créer un nouveau tableau
         const updatedPlans = currentPlans.map((planItem) => {
-          // Mettre à jour seulement le plan correspondant
           if (planItem.id === planId) {
             return {
               ...planItem,
-              coupons: apply, // Assurez-vous que ceci est correctement formaté selon vos besoins
+              coupons: apply, 
             };
           }
-          // Pour tous les autres plans, les retourner sans modification
           return planItem;
         });
-
-        // S'assurer que le tableau mis à jour ne contient pas `undefined`
         return updatedPlans.filter(
           (plan): plan is MRRSPlanStore => plan !== undefined
         );
       });
         
-        
-      //   (currentPlans: MRRSPlanStore[]) => {
-      //   return currentPlans.map((planItem) => {
-      //     if (planItem.id === planId) {
-      //       return {
-      //         ...planItem,
-      //         coupons: [...planItem.coupons, apply], // Ajoutez apply au tableau des coupons
-      //       };
-      //     }
-      //     return planItem; // Retourne les plans non modifiés
-      //   });
-      // });
       toaster({
         type: "success",
         description: `Coupon has been applied to the plan ${
@@ -78,8 +61,11 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
     <>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="w-full px-6 ml-0.5">
-            <BadgePercent className="icon" data-tooltip-id="tt-apply-coupon" />{" "}
+          <Button
+            variant="outline"
+            data-tooltip-id="tt-apply-coupon"
+            className="w-full ml-0.5">
+            <BadgePercent className=" mx-auto w-10 icon" />{" "}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[25rem]">
@@ -113,14 +99,16 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
                     {coupon.id}
                   </small>
                 </div>
-                <Button
-                  className="col-span-3 !text-sm"
-                  variant="link"
-                  onClick={() => {
-                    handleApplyCoupon(coupon.id);
-                  }}>
-                  Apply
-                </Button>
+                <PopoverClose asChild>
+                  <Button
+                    className="col-span-3 !text-sm"
+                    variant="link"
+                    onClick={() => {
+                      handleApplyCoupon(coupon.id);
+                    }}>
+                    Apply
+                  </Button>
+                </PopoverClose>
               </div>
             ))}
           </div>

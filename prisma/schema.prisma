@@ -188,7 +188,7 @@ model MRRSPlan {
   yearlyPrice          Float?              @default(0) // Yearly price
   isCredit             Boolean?            @default(false) // Credit plan
   creditAllouedByMonth Int?                @default(0) // Monthly credit
-  stripeId             String?
+  stripeId             String?             @unique
   stripeYearlyPriceId  String?
   stripeMonthlyPriceId String?
   stripeFreePriceId    String?
@@ -277,7 +277,7 @@ model StripeProduct {
   name             String
   unit_label       String?
   updated          Int
-  MRRSPlanId       String?
+  MRRSPlanId       String?          @unique
   url              String?
   prices           StripePrice[]
   MRRSPlanRelation MRRSPlan?     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
@@ -319,12 +319,12 @@ model StripeCoupon {
 }
 
 model StripePlanCoupon {
-  id         String   @id @default(cuid())
+  id         String       @id @default(cuid())
   MRRSPlanId String
   couponId   String
   recurrence String?
   MRRSPlan   MRRSPlan     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
   coupon     StripeCoupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
 
-  @@unique([MRRSPlanId, couponId, recurrence]) 
+  @@unique([MRRSPlanId, couponId, recurrence])
 }

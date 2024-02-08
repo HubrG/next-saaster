@@ -4,50 +4,32 @@ import { usePublicSaasPricingStore } from "@/src/stores/admin/publicSaasPricingS
 import { MRRSPlan } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { createCheckoutSession } from "./queries";
+import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
 
 type Props = {
-  plan: MRRSPlan;
+  plan: MRRSPlanStore;
 };
 export const CheckoutButton = ({ plan }: Props) => {
-  const { isYearly } = usePublicSaasPricingStore();
-  const router = useRouter();
-  const handleClick = async () => {
-    if (plan.isFree) {
-      if (!plan.stripeFreePriceId) {
-        return;
-      }
-      const createCheckout = await createCheckoutSession(
-        plan.stripeFreePriceId,
-        plan
-      );
-      if (createCheckout) {
-        return router.push(createCheckout);
-      }
-    }
-    else if (isYearly) {
-      if (!plan.stripeYearlyPriceId) {
-        return;
-      }
-      const createCheckout = await createCheckoutSession(
-        plan.stripeYearlyPriceId,
-        plan
-      );
-      if (createCheckout) {
-        return router.push(createCheckout);
-      }
-    } else {
-      if (!plan.stripeMonthlyPriceId) {
-        return;
-      }
-      const createCheckout = await createCheckoutSession(
-        plan.stripeMonthlyPriceId,
-        plan
-      );
-      if (createCheckout) {
-        return router.push(createCheckout);
-      }
-    }
-  };
+   const { isYearly } = usePublicSaasPricingStore();
+   const router = useRouter();
+
+  
+   const handleClick = async () => {
+     // Déterminer l'identifiant de prix approprié en fonction du plan et du choix de facturation
+     const priceId = plan.isFree
+       ? plan.stripeFreePriceId
+       : isYearly
+       ? plan.stripeYearlyPriceId
+       : plan.stripeMonthlyPriceId;
+
+     if (!priceId) return; 
+
+     // Créer une session de paiement et rediriger l'utilisateur
+     const checkoutUrl = await createCheckoutSession(priceId, plan, isYearly ? "yearly" : "monthly");
+     if (checkoutUrl) {
+       router.push(checkoutUrl);
+     }
+   };
 
   return (
     <Button

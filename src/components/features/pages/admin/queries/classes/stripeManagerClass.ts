@@ -52,6 +52,23 @@ export class StripeManager {
 
     return createdPrice.id;
   }
+  async createNewPrices(
+    product: string,
+    unit_amount: number,
+    currency: string,
+    interval: "month" | "year"
+  ) {
+    const create = await this.stripe.prices.create({
+      product,
+      unit_amount,
+      currency,
+      recurring: { interval },
+    });
+
+    const createBdd = await this.createPriceOnBDD(create, product);
+    console.log(create);
+    if (create) return create.id;
+  }
 
   async deleteCoupon(couponId: string) {
     const deleted = await this.stripe.coupons.del(couponId);
@@ -59,16 +76,60 @@ export class StripeManager {
     const deletedBdd = this.deleteCouponOnBDD(couponId);
     if (deletedBdd) return deletedBdd;
   }
-  async createProduct(name: string, description: string, metadatas: {}) {
+  async createProduct(
+    pId: string,
+    description: string,
+    metadatas: {},
+    active: boolean,
+    name?: string
+  ) {
     const create = await this.stripe.products.create({
-      name,
+      name: name ?? pId,
       description,
-      metadata: { planId: name },
-      active: false,
+      metadata: { planId: pId },
+      active: active,
     });
-    const createBdd = this.createProductOnBDD(create, name);
+    const createBdd = this.createProductOnBDD(create, pId);
     if (create) return create;
   }
+  async getProduct(productId: string) {
+    try {
+      const product = await this.stripe.products.retrieve(productId);
+      return product;
+    } catch (error: any) {
+      // Utilisez `any` pour accéder aux propriétés de l'erreur.
+      // Vérifiez explicitement le type et/ou le code de l'erreur ici
+      if (
+        error.type === "StripeInvalidRequestError" &&
+        error.code === "resource_missing"
+      ) {
+        return false; // Retourne false si le produit spécifié n'existe pas
+      }
+      // Loguez ou gérez d'autres types d'erreurs ici si nécessaire
+      console.error("Error retrieving product:", error);
+      return false; // Ou re-throw l'erreur selon votre cas d'usage
+    }
+  }
+
+  async getPrice(priceId: string) {
+    try {
+      const price = await this.stripe.prices.retrieve(priceId);
+      return price;
+    } catch (error: any) {
+      // Assurez-vous d'utiliser `any` pour accéder aux propriétés de l'erreur.
+      // Vérifiez explicitement le type et/ou le code de l'erreur ici
+      if (
+        error.type === "StripeInvalidRequestError" &&
+        error.code === "resource_missing"
+      ) {
+        return false; // Retourne false pour les erreurs spécifiques de prix non trouvé
+      }
+      // Vous pouvez loguer ou gérer d'autres types d'erreurs ici si nécessaire
+      console.error("Error retrieving price:", error);
+      return false; // Ou re-throw l'erreur selon votre cas d'usage
+    }
+  }
+
   async updateProduct(
     productId: string,
     name: string,
@@ -91,7 +152,8 @@ export class StripeManager {
       const create = await this.createProduct(
         plan.name ?? plan.id,
         description,
-        {}
+        {},
+        plan.active ?? false
       );
       if (create) return create;
     }
@@ -160,7 +222,12 @@ export class StripeManager {
     // We update the plan with the product id
     await prisma.mRRSPlan.update({
       where: { id: planId },
-      data: { stripeId: product.id },
+      data: {
+        stripeId: product.id,
+        StripeProduct: {
+          connect: { id: product.id }, // Supposé que c'est l'ID interne de votre StripeProduct
+        },
+      },
     });
   }
 
@@ -184,6 +251,10 @@ export class StripeManager {
       },
       include: { productRelation: true },
     });
+  }
+
+  async deletePriceOnBDD(priceId: string) {
+    await prisma.stripePrice.delete({ where: { id: priceId } });
   }
 
   async updatePriceOnBDD(data: Partial<StripePrice>) {

@@ -3,11 +3,11 @@ import { Button } from "@/src/components/ui/button";
 import { Loader } from "@/src/components/ui/loader";
 import { useTransition } from "react";
 import { User } from "lucide-react";
-import Router from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const LoginButton = () => {
   const [isPending, startTransition] = useTransition();
-  const router = Router.useRouter();
+  const router = useRouter();
 
   const handleLogin = async () => {
     return router.push(`/login`);

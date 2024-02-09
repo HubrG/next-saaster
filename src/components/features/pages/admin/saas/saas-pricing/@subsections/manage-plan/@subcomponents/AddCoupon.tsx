@@ -20,6 +20,7 @@ import {
 import { StripeCoupon } from "@prisma/client";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { isStripeSetted } from "@/src/functions/isStripeSetted";
 export const AddCoupon = () => {
   const [loading, setLoading] = useState(false);
   const { saasStripeCoupons, setSaasStripeCoupons } = useSaasStripeCoupons();
@@ -34,6 +35,15 @@ export const AddCoupon = () => {
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) => {
+    if (key === "percentOff") {
+      const value = parseInt(e.target.value, 10);
+      if (value < 0) {
+        setcouponState({ ...couponState, [key]: 0 });
+      } else {
+        setcouponState({ ...couponState, [key]: value });
+      }
+      return;
+    }
     setcouponState({ ...couponState, [key]: e.target.value });
   };
 
@@ -48,8 +58,7 @@ export const AddCoupon = () => {
 
   useEffect(() => {
     const newDisabledState =
-      process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined ||
-      process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY?.length < 4 ||
+      !isStripeSetted() ||
       couponState.name === "" ||
       Number(couponState.percentOff) === 0 ||
       couponState.duration === "" ||
@@ -127,7 +136,7 @@ export const AddCoupon = () => {
               type="number"
               name="percentOff"
               value={couponState.percentOff ?? 0}
-              onChange={(e) => handleInputChange(e, "percentOff")}
+              onChange={(e) => { handleInputChange(e, "percentOff") }}
             />
           </div>
         </div>

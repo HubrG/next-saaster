@@ -64,7 +64,7 @@ body {
 main {
   @apply min-h-screen min-w-full bg-background   w-full  mx-auto gap-4 text-center !important;
 }
-main > div:not(.first-connection) {
+main > div:not(.first-connection), main > section {
   @apply container;
 }
 .container:not(.first-connection) {
@@ -187,6 +187,7 @@ ul.ul {
 }
 strong,
 span,
+code,
 small {
   @apply !text-inherit;
 }
@@ -219,7 +220,12 @@ div.progressToken {
 .first-connection {
   @apply w-screen h-screen  absolute bg-white dark:bg-slate-900 z-[9999999999] !important;
 }
-
+ol {
+  @apply list-decimal pl-4 text-inherit list-outside text-sm w-full;
+}
+ol li {
+  @apply w-full;
+}
 /* SECTION : ADMIN */
 
 .admin .theme-card {
@@ -463,7 +469,7 @@ table.admin-features-table thead {
   @apply shadow-primary/50 !important;
 }
 code {
-  @apply bg-primary/10 dark:bg-primary/40  p-1 rounded-default !important;
+  @apply bg-primary/40 dark:bg-primary/40 mx-0.5 !text-inherit  p-1 rounded-default !important;
 }
 .user-profile-dd {
   @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-background-100 ;

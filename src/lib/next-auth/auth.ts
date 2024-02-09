@@ -1,32 +1,38 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { AuthOptions, getServerSession } from "next-auth";
+import {
+  AuthOptions, getServerSession
+} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import { prisma } from "../prisma";
 import { env } from "./env";
-type ExtendedUser = {
-  id: string;
-  email: string;
-  name: string;
-  role: string; // Ajoutez les champs supplémentaires ici
-};
+import GoogleProvider from "next-auth/providers/google";
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
-  // Configure one or more authentication providers
   providers: [
     GithubProvider({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
     }),
+    GoogleProvider({
+      clientId: env.GOOGLE_ID,
+      clientSecret: env.GOOGLE_SECRET,
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          role: profile.role ? profile.role : "USER",
+          customerId: profile.customerId ? profile.customerId : "",
+        };
+      },
+    }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: {
           label: "Adresse email",
@@ -51,6 +57,7 @@ export const authOptions: AuthOptions = {
             name: true,
             hashedPassword: true,
             role: true,
+            customerId: true,
           },
         })) as User;
 
@@ -71,32 +78,34 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
-      const extendedUser = user as ExtendedUser;
-      if (account && extendedUser && account.provider === "github") {
+    async jwt({ token, user, account, profile }) {
+      if (account && account.provider === "github") {
         // We check if this is the user's first connection via GitHub
         const isFirstUser = (await prisma.user.count()) === 1;
         const role = isFirstUser ? "SUPER_ADMIN" : "USER";
         // We update the role in the database
         if (isFirstUser) {
           await prisma.user.update({
-            where: { email: extendedUser.email },
+            where: { email: token.email ?? "" },
             data: { role: role },
           });
           // We change the role of the user in the JWT to admin
-          extendedUser.role = role;
-          token.user = { ...extendedUser, role: extendedUser.role };
+          token.role = role;
         }
-      } else if (token.user) {
-        // For subsequent logins, the role is already in the token
-        token.user = { ...(token.user as ExtendedUser) };
       }
-      return token;
+      token = {
+        ...token,
+        role: token.role,
+        id: token.sub ?? "",
+        customerId: token.customerId ?? "",
+      };
+
+      return { ...token, ...user, ...profile };
     },
     async session({ session, token }) {
-      if (token?.user) {
-        session.user = token.user;
-      }
+      session.user.role = token.role;
+      session.user.id = token.sub;
+      session.user.customerId = token.customerId;
       return session;
     },
   },

@@ -68,7 +68,7 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
             <BadgePercent className=" mx-auto w-10 icon" />{" "}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[25rem]">
+        <PopoverContent className="w-[25rem] max-h-[30vh] overflow-auto">
           <div className="grid gap-2">
             <div className="space-y-2">
               <h4 className="font-medium leading-none">Coupons list</h4>

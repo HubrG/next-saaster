@@ -64,13 +64,26 @@ model User {
   hashedPassword   String?
   date             DateTime?         @default(now())
   role             UserRole          @default(USER)
-  accounts         Account[]
-  sessions         Session[]
+  customerId       String?
   createdAt        DateTime?         @default(now())
   updatedAt        DateTime?         @updatedAt
+  userSettings     UserSettings[]
+  accounts         Account[]
+  sessions         Session[]
   transactions     Transaction[]
   subscriptions    Subscription[]
   MRRSUserFeatures MRRSUserFeature[]
+}
+
+model UserSettings {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  theme            String?   @default("nanny")
+  language         String?   @default("en")
+  stripeCustomerId String?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
+  user             User      @relation(fields: [userId], references: [id])
 }
 
 // SECTION -> Reste du schema
@@ -133,27 +146,6 @@ model Subscription {
 }
 
 // SECTION END: Pricing
-
-enum SaasTypes {
-  CREDIT
-  // Alias : CREDIT
-  // Ce modèle, basé sur l'achat de crédits, est souvent utilisé dans les SaaS où les clients paient pour la consommation de ressources ou
-  // l'accès à des fonctionnalités spécifiques. 
-  // Cela offre une grande flexibilité et permet aux utilisateurs de payer uniquement pour ce qu'ils consomment.
-  // NOTE -> NON PRIORITAIRE —> UNIQUE
-  // Pour une prochiane MAJ. 
-  // L'achat unique pour l'accès à une fonctionnalité spécifique est moins courant dans les SaaS traditionnels,
-  // mais il peut être pertinent pour des services spécifiques ou des extensions/add-ons.
-  MRR_SIMPLE
-  // Alias : MRRS
-  // Ce modèle est basé sur des plans d'abonnement mensuels ou annuels.
-  // Offrir différents plans à différents prix permet de cibler divers segments de clients.
-  PAY_ONCE
-  // Alias : PO
-  // Ce modèle est une variation plus avancée du MRR, où chaque plan inclut non seulement des fonctionnalités supplémentaires
-  // mais aussi des limites de crédits pour chaque fonctionnalité. 
-  // Cela convient aux SaaS qui offrent des services modulaires ou une utilisation basée sur des quotas.
-}
 
 model SaasSettings {
   id                              String    @id @default(cuid())
@@ -277,7 +269,7 @@ model StripeProduct {
   name             String
   unit_label       String?
   updated          Int
-  MRRSPlanId       String?          @unique
+  MRRSPlanId       String?       @unique
   url              String?
   prices           StripePrice[]
   MRRSPlanRelation MRRSPlan?     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
@@ -327,4 +319,51 @@ model StripePlanCoupon {
   coupon     StripeCoupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
 
   @@unique([MRRSPlanId, couponId, recurrence])
+}
+
+enum SaasTypes {
+  // Paiements uniques
+  PAY_ONCE
+  // Alias : PO
+  // NOTE -> Paiement unique pour l'achat de produits ou services.
+
+  // Abonnements récurrents
+  MRR_SIMPLE
+  // Alias : MRRS
+  // NOTE -> Facturation périodique pour l'accès continu à un produit ou service.
+
+  // Tarification fixe par période
+  FIXED_RATE
+  // Alias : FR
+  // NOTE -> Un montant fixe facturé à chaque période d'abonnement, indépendamment de l'utilisation.
+
+  // Utilisation mesurée (Metered Billing)
+  METERED_USAGE
+  // Alias : MU
+  // NOTE -> Facturation basée sur la quantité réelle consommée ou services utilisés.
+
+  // Prix par siège ou par licence
+  PER_SEAT
+  // Alias : PS
+  // NOTE -> Facturation basée sur le nombre d'utilisateurs ayant accès au service.
+
+  // Tarifs progressifs
+  TIERED_PRICING
+  // Alias : TP
+  // NOTE -> Le coût unitaire change avec l'augmentation de l'utilisation ou du nombre d'utilisateurs.
+
+  // Tarifs dégressifs
+  VOLUME_PRICING
+  // Alias : VP
+  // NOTE -> Le coût unitaire diminue à mesure que l'utilisation ou le nombre d'utilisateurs augmente.
+
+  // Modèles mixtes
+  COMBINED
+  // Alias : CMB
+  // NOTE -> Combinaison de plusieurs modèles de tarification.
+
+  // Crédit (non prioritaire, pour une prochaine mise à jour)
+  CREDIT
+  // Alias : CREDIT
+  // NOTE -> NON PRIORITAIRE —> UNIQUE Pour une prochaine MAJ.
 }

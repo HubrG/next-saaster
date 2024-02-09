@@ -85,7 +85,13 @@ export const CouponApplied = ({ plan, recurrence, monthlyP, yearlyP }: Props) =>
           return (
             <div
               key={plan.id + coupon.couponId}
-              className="flex flex-row items-center gap-x-2 mt-0">
+              className="flex flex-row items-center gap-x-2 mt-1">
+              <MinusCircle
+                data-tooltip-id={`revoke-coupon-${plan.id}${coupon.id}`}
+                onClick={() => handleRevokeCoupon(coupon.id)}
+                size={12}
+                className="self-start text-destructive opacity-80 hover:opacity-100 hover:cursor-pointer"
+              />
               <p className="text-xs flex flex-col font-light">
                 -{stripeCoupon?.percentOff ?? "Coupon"}%{" "}
                 {stripeCoupon?.duration === "once"
@@ -97,34 +103,25 @@ export const CouponApplied = ({ plan, recurrence, monthlyP, yearlyP }: Props) =>
                   {stripeCoupon?.name} — {stripeCoupon?.id}
                 </small>
                 <small className="-mt-3 opacity-50">
-                  Tot. {recurrence === "monthly" &&
+                  Tot.{" "}
+                  {recurrence === "monthly" &&
                     (
                       calculMonthlyPriceWithDiscount(
-                        monthlyP*100,
+                        monthlyP * 100,
                         stripeCoupon?.percentOff ?? 0
                       ) / 100
                     ).toFixed(2)}
                   {recurrence === "yearly" &&
                     (
                       calculYearlyPriceWithDiscount(
-                        yearlyP*100,
+                        yearlyP * 100,
                         stripeCoupon?.percentOff ?? 0
                       ) / 100
-                    ).toFixed(2)}
-                  {" "}{saasSettings?.currency}
+                    ).toFixed(2)}{" "}
+                  {saasSettings?.currency}
                 </small>
-                {/* / {plan.monthlyPrice}
-                {calculYearlyPriceWithDiscount(
-                  plan.yearlyPrice ?? 0,
-                  stripeCoupon?.percentOff ?? 0
-                )} */}
               </p>
-              <MinusCircle
-                data-tooltip-id={`revoke-coupon-${plan.id}${coupon.id}`}
-                onClick={() => handleRevokeCoupon(coupon.id)}
-                size={12}
-                className="text-destructive opacity-80 hover:opacity-100 hover:cursor-pointer"
-              />
+
               <Tooltip
                 id={`revoke-coupon-${plan.id}${coupon.id}`}
                 opacity={100}

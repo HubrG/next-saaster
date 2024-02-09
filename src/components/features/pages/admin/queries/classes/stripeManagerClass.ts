@@ -69,7 +69,23 @@ export class StripeManager {
     console.log(create);
     if (create) return create.id;
   }
-
+  async createCustomer(data: { email: string }, id: string | null) {
+    if (id !== null) {
+      try {
+        const isCustomer = await this.stripe.customers.retrieve(id);
+        if (!isCustomer) {
+          throw new Error("Customer already exists, or not found");
+        } else {
+          return isCustomer;
+        }
+      } catch (error) {
+        console.error("Error retrieving customer:", error);
+      }
+    }
+    // if not, create it
+    const customer = await this.stripe.customers.create(data);
+    return customer;
+  }
   async deleteCoupon(couponId: string) {
     const deleted = await this.stripe.coupons.del(couponId);
     if (!deleted) return false;

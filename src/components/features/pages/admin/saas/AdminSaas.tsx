@@ -4,6 +4,8 @@ import { appSettings } from "@prisma/client";
 import { SaasPricing } from "./saas-pricing/SaasPricing";
 import { AdminSaasSettings } from "./saas-settings/AdminSaasSettings";
 import { Settings2, Coins } from "lucide-react";
+import { Suspense } from "react";
+import { Loader } from "@/src/components/ui/loader";
 
 type Props = {
   appSettings: appSettings;
@@ -23,7 +25,9 @@ export const AdminSaas = () => {
         id="Pricing"
         sectionName="Pricing"
         icon={<Coins className="icon" />}>
+        <Suspense fallback={<Loader />}>
         <SaasPricing />
+        </Suspense>
       </SectionWrapper>
     </>
   );

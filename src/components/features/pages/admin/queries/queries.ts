@@ -6,10 +6,7 @@ import {
   MRRSFeature,
   MRRSFeatureCategory,
   MRRSPlan,
-  SaasSettings,
-  StripeCoupon,
-  StripeProduct,
-  appSettings,
+  SaasSettings, appSettings
 } from "@prisma/client";
 import { StripeManager } from "./classes/stripeManagerClass";
 import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
@@ -218,7 +215,7 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
       stripeId: plan.stripeId,
     };
 
-    const { coupons, ...updateDataWithoutCoupons } = updatePlanData;
+    const { coupons, StripeProduct, ...updateDataWithoutCoupons } = updatePlanData;
     const updatedPlan = await prisma.mRRSPlan.update({
       where: { id: planId },
       data: {
@@ -637,3 +634,4 @@ export const revokeCoupon = async (couponId: string) => {
 
   return coupon.MRRSPlan.coupons;
 };
+

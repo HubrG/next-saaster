@@ -13,6 +13,7 @@ import { PlusSquare } from "lucide-react";
 import { useState } from "react";
 import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { AddButtonWrapper } from "../../@subcomponents/@ui/AddButtonWrapper";
+import { isStripeSetted } from "@/src/functions/isStripeSetted";
 export const AddPlan = () => {
   const { saasSettings } = useSaasSettingsStore();
   const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
@@ -71,8 +72,7 @@ export const AddPlan = () => {
       <Button
         className={cn("!p-0")}
         disabled={
-          process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined ||
-          process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY?.length < 4
+           !isStripeSetted()
         }
         variant={"link"}
         onClick={handleAddPlan}>

@@ -12,6 +12,7 @@ export const parseIntInput = (
 ) => {
   if (inputs.includes(input)) {
     const parsedValue = parseInt(value, 10);
+    if (parsedValue < 0) { return 0; }
     return isNaN(parsedValue) ? 0 : parsedValue;
   }
   return value;

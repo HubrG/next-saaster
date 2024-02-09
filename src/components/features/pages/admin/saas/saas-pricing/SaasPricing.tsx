@@ -1,5 +1,3 @@
-"use client";
-
 import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";
 import { Features } from "./@subsections/manage-feature/Features";
 import { ManagePlans } from "./@subsections/manage-plan/MRRS/Plans";
@@ -11,13 +9,19 @@ import {
   TabsTrigger,
 } from "@/src/components/ui/tabs";
 import { ManageCoupons } from "./@subsections/manage-plan/Coupons";
-export const SaasPricing = () => {
+import { AlertFrame } from "./@subcomponents/AlertFrame";
+
+
+
+export const SaasPricing = async () => {
+ 
   return (
     <div>
       <SubSectionWrapper
         id="ManagePricing"
         sectionName="Manage Plans"
         info="All the plans and coupons you create will also be created in your Stripe account. What's more, every change you make will be reflected in your Stripe plan and coupons created.">
+        <AlertFrame />
         <Tabs defaultValue="plan" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="plan">Plans</TabsTrigger>

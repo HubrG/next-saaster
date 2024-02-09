@@ -4,6 +4,8 @@ import { prisma } from "@/src/lib/prisma";
 import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
 import { MRRSPlan } from "@prisma/client";
 import Stripe from "stripe";
+import { StripeManager } from "../admin/queries/classes/stripeManagerClass";
+import { stripeCustomerIdManager } from "@/src/functions/stripeCustomerIdManager";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 
 export const changeCssTheme = async (theme: string) => {
@@ -21,7 +23,7 @@ export const getCoupon = async (couponId: string) => {
   return await prisma.stripeCoupon.findUnique({
     where: { id: couponId },
   });
-}
+};
 export const createCheckoutSession = async (
   planPrice: string,
   plan: MRRSPlanStore,
@@ -37,11 +39,11 @@ export const createCheckoutSession = async (
       : {}
     : {};
 
-  const linkedCoupon = plan.coupons?.find((c) => c.MRRSPlanId === plan.id && c.recurrence === recurrence);
-  const coupon = linkedCoupon
-    ? { coupon: linkedCoupon.couponId }
-    : {};
-  console.log(coupon);
+  const linkedCoupon = plan.coupons?.find(
+    (c) => c.MRRSPlanId === plan.id && c.recurrence === recurrence
+  );
+  const coupon = linkedCoupon ? { coupon: linkedCoupon.couponId } : {};
+  const customerId = await stripeCustomerIdManager();
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -53,6 +55,8 @@ export const createCheckoutSession = async (
     ],
     mode: "subscription",
     subscription_data: subscription_data,
+    customer: customerId,
+
     discounts: [coupon],
     success_url:
       "https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}",

@@ -1,7 +1,4 @@
 import { prisma } from "@/src/lib/prisma";
-import Stripe from "stripe";
-import { MRRSPlan } from "@prisma/client";
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export const isEmptyUser = async () => {
   const users = await prisma.user.count();
@@ -232,3 +229,13 @@ export const stripeGetPrices = async () => {
   const priceData = await prisma.stripePrice.findMany({});
   return priceData;
 };
+
+export const createUserSettings = async (userId:string) => {
+  
+  const user = await prisma.userSettings.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+  return user;
+}

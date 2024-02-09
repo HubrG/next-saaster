@@ -4,13 +4,12 @@ import {
   getSaasMRRSPlanToFeature,
   getSaasMRRSPlans,
   getSaasSettings,
-  stripeGetPrices,
-  getCoupons,
-  stripeGetProducts,
+  stripeGetPrices, stripeGetProducts,
   getAppSettings,
-  getSaasStripeCoupons,
+  getSaasStripeCoupons
 } from "@/app/[locale]/queries";
 import { AdminComponent } from "@/src/components/features/pages/admin/Admin";
+import { Loader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
@@ -20,14 +19,11 @@ import {
   MRRSFeature,
   MRRSFeatureCategory,
   MRRSPlan,
-  SaasSettings,
-  StripeCoupon,
-  StripePrice,
+  SaasSettings, StripePrice,
   StripeProduct,
   UserRole,
-  appSettings,
+  appSettings
 } from "@prisma/client";
-import { Loader } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -42,7 +38,7 @@ export const generateMetadata = async () => {
 
 export default async function Admin() {
   const session = await getServerSession(authOptions);
-
+  console.log(session)
   if (!session || session.user.role === ("USER" as UserRole)) {
     redirect("/");
   }

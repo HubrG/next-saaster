@@ -12,6 +12,8 @@ import { Caveat, Nunito, Playfair_Display } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
 import { getAppSettings, getSaasSettings } from "./queries";
+import { Suspense } from "react";
+import { Loader } from "@/src/components/ui/loader";
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -71,7 +73,9 @@ export default async function LocaleLayout(props: Props) {
                 attribute="class"
                 defaultTheme={appSettings.defaultDarkMode ? "dark" : "system"}
                 enableSystem>
-                <Navbar />
+                <Suspense fallback={<Loader />}>
+                  <Navbar />
+                </Suspense>
                 <main>{children}</main>
               </ThemeProvider>
             </NextIntlProvider>

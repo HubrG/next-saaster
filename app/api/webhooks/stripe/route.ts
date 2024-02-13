@@ -19,7 +19,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
 });
 
 const secret = process.env.STRIPE_SIGNIN_SECRET || "";
-export const bodyparser = false;
 
 export async function POST(req: NextRequest) {
   const payload = await req.text();

@@ -1,7 +1,7 @@
 "use client";
 
 import { DropdownMenuItem } from "@/src/components/ui/dropdown-menu";
-import { Loader } from "@/src/components/ui/loader";
+import { SimpleLoader } from "@/src/components/ui/loader";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useTransition } from "react";
@@ -15,7 +15,7 @@ export const DropdownMenuItemLogout = () => {
         startTransition(() => signOut());
       }}>
       {isPending ? (
-        <Loader className="mr-2 h-4 w-4" />
+        <SimpleLoader className="mr-2 h-4 w-4" />
       ) : (
         <LogOut className="mr-2 h-4 w-4" />
       )}

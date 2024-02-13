@@ -12,9 +12,9 @@ export default function Logo({ settings }: Props) {
   if (appSettings.name) name = appSettings.name;
 
   return (
-    <Link href="/" className="logo mr-2">
+    <Link href="/" className="logo md:mr-2 mr-0">
       <span className="sm:text-xs flex flex-row">
-        <span className="mr-1">
+        <span className="mr-1 max-sm:hidden">
           <Bot className="icon" />
         </span>
         <span>{name}</span>

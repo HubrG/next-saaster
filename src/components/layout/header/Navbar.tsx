@@ -40,22 +40,19 @@ export const Navbar = async () => {
         <div>
           <Logo settings={settings} />
           <div className="flex gap-x-2 lg:order-2 items-center lg:text-base">
-            <div className="flex items-center gap-x-2">
-              {(session ? <TryUsButton /> : <TryUsButton />)}
+            <div className="flex items-center gap-x-2 ">
+              {session ? <TryUsButton /> : <TryUsButton />}
               <Button className="hidden"></Button>
               <div className="sm:block hidden">
                 {session ? <UserProfile /> : <LoginButton />}
               </div>
-                <ThemeToggle
-                  className="sm:block hidden"
-                  classNameMoon="-mt-6"
-                />
+              <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
             </div>
-            <BurgerMenu links={links}  settings={settings} />
+            <BurgerMenu links={links} settings={settings} />
           </div>
           <div className="main-menu" id="navbar-sticky">
             <ul className="main-menu">
-              <MainMenu links={links}  />
+              <MainMenu links={links} />
             </ul>
           </div>
         </div>

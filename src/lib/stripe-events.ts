@@ -1,0 +1,18 @@
+export const stripeEvents = [
+  "product.updated",
+  "price.updated",
+  "checkout.session.completed",
+  "customer.subscription.created",
+  "customer.subscription.updated",
+  "customer.subscription.deleted",
+  "invoice.created",
+  "invoice.updated",
+  "invoice.payment_succeeded",
+  "invoice.payment_failed",
+  "invoice.finalized",
+  "payment_intent.created",
+  "payment_intent.succeeded",
+  "payment_intent.payment_failed",
+  "payment_method.attached",
+  "payment_method.detached",
+];

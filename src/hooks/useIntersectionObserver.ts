@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useUserInterfaceNavStore } from "../stores/admin/userInterfaceNavStore";
+import { useUserInterfaceNavStore } from "../stores/userInterfaceNavStore";
 
 interface UseIntersectionObserverOptions extends IntersectionObserverInit {
   sectionSelector: string; // Sélecteur pour les sections parentes

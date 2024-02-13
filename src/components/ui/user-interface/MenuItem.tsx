@@ -2,7 +2,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 
 import useScrollDetect from "@/src/hooks/useScrollDetection";
-import { useUserInterfaceNavStore } from "@/src/stores/admin/userInterfaceNavStore";
+import { useUserInterfaceNavStore } from "@/src/stores/userInterfaceNavStore";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useEffect } from "react";
 

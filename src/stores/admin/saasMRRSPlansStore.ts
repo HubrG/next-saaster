@@ -1,4 +1,10 @@
-import { MRRSPlan, StripeCoupon, StripePlanCoupon, StripePrice, StripeProduct } from "@prisma/client";
+import { getPlans } from "@/src/helpers/utils/plans";
+import {
+  MRRSPlan,
+  StripeCoupon,
+  StripePlanCoupon,
+  StripePrice,
+} from "@prisma/client";
 import { create } from "zustand";
 type CouponDetail = {
   coupon: StripeCoupon; // Assurez-vous que cette définition correspond à vos données
@@ -26,17 +32,24 @@ type Store = {
       | ((currentPlans: MRRSPlanStore[]) => MRRSPlanStore[])
       | MRRSPlanStore[]
   ) => void;
+  fetchSaasMRRSPlan: () => Promise<void>;
 };
 
 export const useSaasMRRSPlansStore = create<Store>()((set) => ({
-  saasMRRSPlans: {} as MRRSPlanStore[],
+  saasMRRSPlans: [],
   setSaasMRRSPlans: (updater) => {
     if (typeof updater === "function") {
-      // Si updater est une fonction, l'appeler avec l'état actuel
       set((state) => ({ saasMRRSPlans: updater(state.saasMRRSPlans) }));
     } else {
-      // Si updater est directement un tableau, le passer à set
       set({ saasMRRSPlans: updater });
     }
+  },
+  fetchSaasMRRSPlan: async () => {
+    const saasPlans = await getPlans();
+    if (!saasPlans.success || saasPlans.error) {
+      console.error(saasPlans.error || "Failed to fetch plans");
+      return;
+    }
+    set({ saasMRRSPlans: saasPlans.data });
   },
 }));

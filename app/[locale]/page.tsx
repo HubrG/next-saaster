@@ -1,5 +1,5 @@
-import { FirstConnexion } from "@/src/components/features/pages/index/FirstConnexion/FirstConnexion";
-import { Index } from "@/src/components/features/pages/index/FirstConnexion/Index";
+import { FirstConnexion } from "@/src/components/pages/index/FirstConnexion/FirstConnexion";
+import { Index } from "@/src/components/pages/index/FirstConnexion/Index";
 import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
@@ -33,10 +33,8 @@ export default async function Home({
   const t = await getTranslations("Index");
   return (
     <div className="flex min-h-screen flex-col items-center  p-24">
-      <h1 className="font-mono font-bold">{t('title')}</h1>
-      <Link href="/">
-        In english
-      </Link>
+      <h1 className="font-mono font-bold">{t("title")}</h1>
+      <Link href="/">In english</Link>
       <Link href="/" locale="fr">
         En français
       </Link>

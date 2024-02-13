@@ -14,6 +14,7 @@ type Props = {
   label: string;
   placeholder?: string;
   description?: string;
+  type?: string;
 };
 
 export const Field = ({
@@ -22,6 +23,7 @@ export const Field = ({
   label,
   placeholder,
   description,
+  type = "text",
 }: Props) => {
   return (
     <FormField
@@ -35,6 +37,7 @@ export const Field = ({
             </FormLabel>
             <FormControl>
               <Input
+                type={type}
                 onKeyDown={(e) => e.preventDefault}
                 placeholder={placeholder}
                 {...field}

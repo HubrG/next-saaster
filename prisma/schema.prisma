@@ -61,7 +61,7 @@ model User {
   email            String?           @unique
   emailVerified    DateTime?
   image            String?
-  hashedPassword   String?
+  password         String?
   date             DateTime?         @default(now())
   role             UserRole          @default(USER)
   customerId       String?
@@ -73,6 +73,7 @@ model User {
   transactions     Transaction[]
   subscriptions    Subscription[]
   MRRSUserFeatures MRRSUserFeature[]
+  contacts         ResendContact[]
 }
 
 model UserSettings {
@@ -260,33 +261,45 @@ model MRRSUserFeature {
 // SECTION Stripe Products
 
 model StripeProduct {
-  id               String        @id @default(cuid())
-  active           Boolean
-  created          Int
-  description      String?
-  livemode         Boolean
-  metadata         Json
-  name             String
-  unit_label       String?
-  updated          Int
-  MRRSPlanId       String?       @unique
-  url              String?
-  prices           StripePrice[]
-  MRRSPlanRelation MRRSPlan?     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
+  id                   String        @id
+  name                 String
+  active               Boolean
+  description          String?
+  default_price        String?
+  metadata             Json
+  unit_label           String?
+  statement_descriptor String?
+  createdAt            DateTime?     @default(now())
+  updatedAt            DateTime?     @updatedAt
+  MRRSPlanId           String?       @unique
+  prices               StripePrice[]
+  MRRSPlanRelation     MRRSPlan?     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
 }
 
 model StripePrice {
-  id                  String         @id @default(cuid())
-  active              Boolean
-  created             Int
-  currency            String
-  metadata            Json
-  product             String
-  recurring           Json
-  type                String
-  unit_amount         Int
-  unit_amount_decimal String
-  productRelation     StripeProduct? @relation(fields: [product], references: [id], onDelete: Cascade)
+  id                           String         @id @default(cuid())
+  active                       Boolean
+  billing_scheme               String?
+  currency                     String
+  custom_unit_amount           String?
+  lookup_key                   String?
+  metadata                     Json
+  nickname                     String?
+  product                      String
+  recurring                    Json?
+  recurring_interval           String?
+  recurring_interval_count     Int?
+  recurring_aggregate_usage    Int?
+  recurring_trial_period_days  Int?
+  recurring_usage_type         String?
+  transform_quantity           Json?
+  transform_quantity_divide_by Int?
+  transform_quantity_round     String?
+  tiers_mode                   String?
+  type                         String
+  unit_amount                  Int
+  unit_amount_decimal          String
+  productRelation              StripeProduct? @relation(fields: [product], references: [id], onDelete: Cascade)
 }
 
 model StripeCoupon {
@@ -332,11 +345,6 @@ enum SaasTypes {
   // Alias : MRRS
   // NOTE -> Facturation périodique pour l'accès continu à un produit ou service.
 
-  // Tarification fixe par période
-  FIXED_RATE
-  // Alias : FR
-  // NOTE -> Un montant fixe facturé à chaque période d'abonnement, indépendamment de l'utilisation.
-
   // Utilisation mesurée (Metered Billing)
   METERED_USAGE
   // Alias : MU
@@ -346,24 +354,27 @@ enum SaasTypes {
   PER_SEAT
   // Alias : PS
   // NOTE -> Facturation basée sur le nombre d'utilisateurs ayant accès au service.
+}
 
-  // Tarifs progressifs
-  TIERED_PRICING
-  // Alias : TP
-  // NOTE -> Le coût unitaire change avec l'augmentation de l'utilisation ou du nombre d'utilisateurs.
+// SECTION : Resend (mailer)
+model ResendAudience {
+  id        String          @id
+  name      String          @unique
+  contacts  ResendContact[] // Relation one-to-many avec ResendContact
+  createdAt DateTime?       @default(now())
+  updatedAt DateTime?       @updatedAt
+}
 
-  // Tarifs dégressifs
-  VOLUME_PRICING
-  // Alias : VP
-  // NOTE -> Le coût unitaire diminue à mesure que l'utilisation ou le nombre d'utilisateurs augmente.
-
-  // Modèles mixtes
-  COMBINED
-  // Alias : CMB
-  // NOTE -> Combinaison de plusieurs modèles de tarification.
-
-  // Crédit (non prioritaire, pour une prochaine mise à jour)
-  CREDIT
-  // Alias : CREDIT
-  // NOTE -> NON PRIORITAIRE —> UNIQUE Pour une prochaine MAJ.
+model ResendContact {
+  id           String          @id
+  email        String
+  firstName    String
+  lastName     String?
+  unsubscribed Boolean?        @default(false)
+  audienceId   String?
+  audience     ResendAudience? @relation(fields: [audienceId], references: [id])
+  createdAt    DateTime?       @default(now())
+  updatedAt    DateTime?       @updatedAt
+  userId       String?
+  user         User?           @relation(fields: [userId], references: [id]) // Correctement configuré
 }

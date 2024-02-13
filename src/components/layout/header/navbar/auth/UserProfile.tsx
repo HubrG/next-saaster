@@ -1,4 +1,9 @@
 "use client";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
 import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
@@ -13,10 +18,8 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { UserRole } from "@prisma/client";
 import { CreditCard, User, Wrench } from "lucide-react";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { Tooltip } from "react-tooltip";
 import { DropdownMenuItemLogout } from "./LogoutButton";
-import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
 type UserProfileProps = {
   className?: string;
 };
@@ -25,7 +28,10 @@ export const UserProfile = ({ className }: UserProfileProps) => {
   const userInfo = useSession().data?.user;
   const user = useSession().data?.user;
   const tokenPercentage = 50;
-  const nameInitials = user?.name?.toString().split(" ").map((n) => n[0]);
+  const nameInitials = user?.name
+    ?.toString()
+    .split(" ")
+    .map((n) => n[0]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className={`flex flex-row w-full`}>
@@ -41,12 +47,16 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             "hover:no-underline"
           )}>
           <div className="w-8  userNavbarDiv">
-            {user?.image && (
-              <Avatar>
+            <Avatar className="!no-underline">
+              {user?.image && (
                 <AvatarImage src={user.image} className="" alt="@shadcn" />
-                <AvatarFallback>{nameInitials}</AvatarFallback>
-              </Avatar>
-            )}
+              )}
+              <AvatarFallback
+                className="!no-underline"
+                style={{ textDecoration: "transparent" }}>
+                <span className="!no-underline">{nameInitials}</span>
+              </AvatarFallback>
+            </Avatar>
           </div>
           {saasSettings.activeCreditSystem && (
             <>
@@ -88,22 +98,21 @@ export const UserProfile = ({ className }: UserProfileProps) => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="user-profile-dd">
+      <DropdownMenuContent className="user-profile-dd max-h-90">
         {saasSettings.activeRefillCredit && (
           <>
             <DropdownMenuItem className="w-full" asChild>
               <Link href="/pricing" className="user-profile-buy-credit">
                 <CreditCard className="icon" />
                 {/* Buy credits */}
-                Buy credit
-                {saasSettings.creditName}
+                Buy credit {saasSettings.creditName}
               </Link>
             </DropdownMenuItem>
           </>
         )}
         <DropdownMenuItem className="w-full px-2 mt-1" asChild>
           <Link
-            href="/profil/mon-compte"
+            href="/dashboard"
             className="nunderline profile-link text-left pr-10  cursor-pointer">
             <User className="mr-2 h-4 w-4" />
             {/* My account */}

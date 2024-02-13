@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
-import { Loader } from "@/src/components/ui/loader";
+import { SimpleLoader } from "@/src/components/ui/loader";
 import { useTransition } from "react";
-import { User } from "lucide-react";
+import { LogIn, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const LoginButton = () => {
@@ -16,11 +16,11 @@ export const LoginButton = () => {
   return (
     <Button variant="ghost" onClick={(e) => startTransition(handleLogin)}>
       {isPending ? (
-        <Loader className="mr-2 h-4 w-4" />
+        <SimpleLoader className="" />
       ) : (
-        <User className="mr-2 h-4 w-4" />
+        <LogIn className="mr-2 h-4 w-4" />
       )}
-      <span className="lg:block md:hidden block">Login</span>
+      <span className="lg:block md:hidden block font-bold">Login</span>
     </Button>
   );
 };

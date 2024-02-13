@@ -1,12 +1,12 @@
 "use client";
 import currenciesData from "@/src/jsons/currencies.json";
-import { usePublicSaasPricingStore } from "@/src/stores/admin/publicSaasPricingStore";
+import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "../../../lib/utils";
-import { CheckoutButton } from "../../features/pages/pricing/CheckoutButton";
+import { CheckoutButton } from "../../pages/pricing/CheckoutButton";
 interface Currency {
   sigle: string;
   name: string;
@@ -58,7 +58,8 @@ export const HoverEffect = ({
               {isYearly ? item.yearlyPrice : item.monthlyPrice}{" "}
               {saasSettings.currency
                 ? currencies[saasSettings.currency]?.sigle
-                : ""}/{isYearly ?"year" : "month"}
+                : ""}
+              /{isYearly ? "year" : "month"}
             </h3>
             <CardDescription>{item.description}</CardDescription>
             <CheckoutButton plan={item} />

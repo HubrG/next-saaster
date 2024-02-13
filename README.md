@@ -33,8 +33,10 @@
 **⚠️ Imperative**: You must modify all the environment variables in the `.env` file with your own values, notably :
 
 - `STRIPE_SECRET_KEY`
-- `STRIPE_SIGNIN_SECRET` 
+- `STRIPE_SIGNIN_SECRET`
 - `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` in the `.env` file
+
+- `RESEND_API_KEY`
 
 ### 6. Deploy the project
 
@@ -75,7 +77,7 @@
 
 - Database management: [Prisma](https://github.com/prisma/prisma) & `PostgreSQL`
 - Deploy the project: [Vercel](https://vercel.com/)
-- Email management: [Mailjet](https://www.mailjet.com/)
+- Email management: [Resend](https://resend.com/overview), and [react-email](https://github.com/resend/react-email) for templating
 - Assets management: [Cloudinary](https://cloudinary.com/)
 
 ## 🎨 Todo for customizing the project :
@@ -84,7 +86,6 @@
 - Change de favicon in `app/favicon.ico`
 - Change the robots.txt in `app/robots.txt` and put the correct url of sitemap.
 - Update the sitemap (dynamicly generated) in `app/sitemap.ts`
-
 
 ## Notes :
 

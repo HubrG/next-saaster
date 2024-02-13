@@ -1,14 +1,12 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
-import {
-  AuthOptions, getServerSession
-} from "next-auth";
+import { AuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import Email from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "../prisma";
 import { env } from "./env";
-import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -22,7 +20,7 @@ export const authOptions: AuthOptions = {
       clientSecret: env.GOOGLE_SECRET,
       profile(profile) {
         return {
-          id: profile.id,
+          id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
@@ -31,45 +29,49 @@ export const authOptions: AuthOptions = {
         };
       },
     }),
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: {
-          label: "Adresse email",
-          type: "text",
-          placeholder: "",
+    Email({
+      server: {
+        host: env.SMTP_HOST,
+        port: env.SMTP_PORT,
+        auth: {
+          user: env.SMTP_USER,
+          pass: env.SMTP_PASSWORD,
         },
-        password: { label: "Password", type: "password" },
       },
-
-      authorize: async (
-        credentials: Record<"email" | "password", string> | undefined
-      ) => {
-        if (!credentials) {
+      from: env.RESEND_FROM,
+    }),
+    CredentialsProvider({
+      credentials: {
+        email: {},
+        password: {},
+      },
+      async authorize(credentials, req) {
+        //
+        const user = await prisma.user.findUnique({
+          where: { email: credentials?.email },
+        });
+        if (!user) {
           return null;
         }
 
-        const user = (await prisma.user.findUnique({
-          where: { email: credentials.email },
-          select: {
-            id: true,
-            email: true,
-            name: true,
-            hashedPassword: true,
-            role: true,
-            customerId: true,
-          },
-        })) as User;
+        const passwordCorrect = await bcrypt.compare(
+          credentials?.password || "",
+          user.password ?? ""
+        );
 
-        if (
-          user &&
-          user.hashedPassword &&
-          (await bcrypt.compare(credentials.password, user.hashedPassword))
-        ) {
-          return user;
-        } else {
-          return null;
+        console.log({ passwordCorrect });
+
+        if (passwordCorrect) {
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            customerId: user.customerId,
+          };
         }
+
+        return null;
       },
     }),
   ],
@@ -95,8 +97,8 @@ export const authOptions: AuthOptions = {
       }
       token = {
         ...token,
+        id: token.id,
         role: token.role,
-        id: token.sub ?? "",
         customerId: token.customerId ?? "",
       };
 
@@ -104,7 +106,7 @@ export const authOptions: AuthOptions = {
     },
     async session({ session, token }) {
       session.user.role = token.role;
-      session.user.id = token.sub;
+      session.user.id = token.id;
       session.user.customerId = token.customerId;
       return session;
     },

@@ -1,12 +1,21 @@
-import { LoginForm } from "@/src/components/features/pages/login/LoginForm";
-import React, { Suspense } from "react";
+import { LoginForm } from "@/src/components/pages/login/LoginForm";
+import { authOptions } from "@/src/lib/next-auth/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function LoginPage() {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect("/");
+  }
+
   return (
-    <section>
+    <div className="w-full  md:h-screen h-auto flex justify-center items-center">
       <Suspense>
-      <LoginForm />
+        <LoginForm />
       </Suspense>
-    </section>
+    </div>
   );
 }

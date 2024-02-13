@@ -68,7 +68,7 @@ export const getSaasMRRSPlans = async () => {
 export const getCoupons = async () => {
   const coupons = await prisma.stripeCoupon.findMany({
     orderBy: {
-      created: "asc",
+      createdAt: "asc",
     },
     include: {
       MRRSPlan: {
@@ -121,14 +121,13 @@ export const getSaasMRRSFeaturesCategories = async () => {
 export const getSaasStripeCoupons = async () => {
   const coupons = await prisma.stripeCoupon.findMany({
     orderBy: {
-      created: "asc",
+      createdAt: "asc",
     },
     include: {
       MRRSPlan: {
         include: {
           MRRSPlan: true,
         },
-      
       },
     },
   });
@@ -186,7 +185,7 @@ export const stripeGetProducts = async () => {
 
   const productData = await prisma.stripeProduct.findMany({
     orderBy: {
-      created: "asc",
+      createdAt: "asc",
     },
     include: {
       prices: true,
@@ -230,12 +229,11 @@ export const stripeGetPrices = async () => {
   return priceData;
 };
 
-export const createUserSettings = async (userId:string) => {
-  
+export const createUserSettings = async (userId: string) => {
   const user = await prisma.userSettings.findUnique({
     where: {
       id: userId,
     },
   });
   return user;
-}
+};

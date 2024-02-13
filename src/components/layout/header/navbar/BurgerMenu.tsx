@@ -50,11 +50,11 @@ export default function BurgerMenu(props: Props) {
                   {props.settings.activeCtaOnNavbar &&
                     (user ? (
                       <SheetClose asChild>
-                        <TryUsButton className="sm:hidden block" />
+                        <TryUsButton className="" />
                       </SheetClose>
                     ) : (
                       <SheetClose asChild>
-                        <TryUsButton className="sm:hidden block" />
+                        <TryUsButton className="hidden" />
                       </SheetClose>
                     ))}
                 </li>

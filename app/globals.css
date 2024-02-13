@@ -64,7 +64,8 @@ body {
 main {
   @apply min-h-screen min-w-full bg-background   w-full  mx-auto gap-4 text-center !important;
 }
-main > div:not(.first-connection), main > section {
+main > div:not(.first-connection),
+main > section {
   @apply container;
 }
 .container:not(.first-connection) {
@@ -74,9 +75,11 @@ header nav {
   @apply fixed xl:px-8 px-0 w-full z-40 top-0 left-0  bg-background  border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
-  @apply  flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
+  @apply flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
 }
-
+header nav button {
+  @apply no-underline !important;
+}
 a {
   @apply hover:underline font-bold  !important;
   position: relative;
@@ -124,10 +127,10 @@ ul.main-menu li a {
 }
 /* LOGO */
 .logo {
-  @apply flex font-bold items-center nunderline  gap-x-1 md:text-base text-xs;
+  @apply flex font-bold items-center nunderline  gap-x-1;
 }
 .logo span {
-  @apply self-center text-3xl whitespace-nowrap text-text-900;
+  @apply self-center sm:text-3xl text-2xl whitespace-nowrap text-text-900;
 }
 
 /* Burger Menu */
@@ -300,37 +303,45 @@ ol li {
   div
   .user-inteface-main
   .user-inteface-main-content-section-header {
-  @apply  z-20;
+  @apply z-20;
 }
 .user-interface
   div
   .user-inteface-main
-  .user-inteface-main-content-section-header h2  {
-  @apply   flex flex-row  md:text-3xl gap-x-2 text-2xl mb-8 items-center justify-between;
+  .user-inteface-main-content-section-header
+  h2 {
+  @apply flex flex-row  md:text-3xl gap-x-2 text-2xl mb-8 items-center justify-between;
 }
 .user-interface
   div
   .user-inteface-main
-  .user-inteface-main-content-section-header h2 span.section-name {
-  @apply   !flex !flex-row items-center  md:text-3xl gap-x-2 ;
+  .user-inteface-main-content-section-header
+  h2
+  span.section-name {
+  @apply !flex !flex-row items-center  md:text-3xl gap-x-2;
 }
 .user-interface
   div
   .user-inteface-main
-  .user-inteface-main-content-section-header h2 span.main-section-name {
-  @apply   opacity-50;
+  .user-inteface-main-content-section-header
+  h2
+  span.main-section-name {
+  @apply opacity-50;
 }
 .user-interface
   div
   .user-inteface-main
-  .user-inteface-main-content-section-header h2 span.section-name .icon {
-  @apply  z-20 text-3xl text-theming-text-900 opacity-80;
+  .user-inteface-main-content-section-header
+  h2
+  span.section-name
+  .icon {
+  @apply z-20 text-3xl text-theming-text-900 opacity-80;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content {
-  @apply flex flex-col lg:max-w-5xl w-full mx-auto gap-y-20 2xl:px-10 md:px-2 mt-2 ;
+  @apply flex flex-col lg:max-w-5xl w-full mx-auto gap-y-20 2xl:px-10 md:px-2 mt-2;
 }
 .user-inteface .user-inteface-main-content-subsection {
-  @apply rounded-default
+  @apply rounded-default;
 }
 .user-interface
   div.user-inteface-main
@@ -342,8 +353,11 @@ ol li {
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
   @apply rounded-default bg-white dark:bg-theming-background-500/5;
 }
+.my-card {
+  @apply bg-white dark:bg-theming-background-500/5;
+}
 form {
-  @apply flex flex-col p-10 rounded-default !important;
+  @apply flex flex-col py-10 rounded-default !important;
 }
 form label {
   @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col !text-base md:items-center !important;
@@ -365,7 +379,7 @@ form button {
   @apply bg-destructive font-sans  !text-red-50 dark:text-primary-foreground border-0 shadow-lg !important;
 }
 .toast-info {
-  @apply  font-sans bg-blue-500 !text-blue-50 border-0 shadow-lg !important;
+  @apply font-sans bg-blue-500 !text-blue-50 border-0 shadow-lg !important;
 }
 .toast-success > button {
   @apply bg-theming-background-500 !text-theming-text-50 dark:!text-theming-text-950  border-primary shadow-lg  !important;
@@ -434,7 +448,6 @@ label {
   @apply !cursor-grabbing hover:cursor-grabbing bg-transparent  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important;
 }
 
-
 .label {
   @apply !font-semibold cursor-pointer !text-base !important;
 }
@@ -472,7 +485,7 @@ code {
   @apply bg-primary/40 dark:bg-primary/40 mx-0.5 !text-inherit  p-1 rounded-default !important;
 }
 .user-profile-dd {
-  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-background-100 ;
+  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-background-100;
 }
 .user-profile-dd a {
   @apply py-2 !important;
@@ -485,12 +498,18 @@ code {
   @apply rounded-default drop-shadow-sm;
 }
 .StyledReceipt:before {
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:0;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
   @apply dark:border-primary opacity-100  border-0 bg-theming-background-100/20;
-  --mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/30px 100%;
+  --mask: conic-gradient(
+      from -45deg at bottom,
+      #0000,
+      #000 1deg 89deg,
+      #0000 90deg
+    )
+    50%/30px 100%;
   -webkit-mask: var(--mask);
-          mask: var(--mask);
+  mask: var(--mask);
 }

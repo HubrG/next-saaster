@@ -1,17 +1,17 @@
 "use server";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
+import { StripeManager } from "../components/pages/admin/classes/stripeManagerClass";
 import { prisma } from "../lib/prisma";
-import { StripeManager } from "../components/features/pages/admin/queries/classes/stripeManagerClass";
 const stripeManager = new StripeManager();
 
 export const stripeCustomerIdManager = async () => {
   const userSession = await getServerSession(authOptions);
-  if (!userSession) {
+  if (!userSession || !userSession.user.email) {
     throw new Error("User not found");
   }
   const getUser = await prisma.user.findUnique({
-    where: { id: userSession.user.id },
+    where: { email: userSession.user.email },
   });
 
   if (!getUser) throw new Error("User not found");

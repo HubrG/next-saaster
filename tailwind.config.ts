@@ -10,7 +10,6 @@ module.exports = {
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    
     container: {
       center: true,
       padding: "2rem",
@@ -25,7 +24,7 @@ module.exports = {
     },
     extend: {
       height: {
-        screen: "calc(var(--vh, 1vh) * 80)",
+        screen: "calc(var(--vh, 1vh) * 20)",
       },
       gridTemplateColumns: {
         "16": "repeat(16, minmax(0, 1fr))",

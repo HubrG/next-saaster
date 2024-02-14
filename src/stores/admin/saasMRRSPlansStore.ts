@@ -7,8 +7,7 @@ import {
 } from "@prisma/client";
 import { create } from "zustand";
 type CouponDetail = {
-  coupon: StripeCoupon; // Assurez-vous que cette définition correspond à vos données
-  // Vous pouvez ajouter ici d'autres propriétés présentes dans StripePlanCoupon si nécessaire
+  coupon: StripeCoupon;
 };
 interface StripeProductf {
   id: string;
@@ -16,7 +15,7 @@ interface StripeProductf {
   description: string;
   active: boolean;
   created: number;
-  prices: StripePrice[]; // Chaque produit a un tableau de prix
+  prices: StripePrice[];
 }
 export interface MRRSPlanStore extends MRRSPlan {
   coupons?: StripePlanCoupon[];
@@ -33,6 +32,11 @@ type Store = {
       | MRRSPlanStore[]
   ) => void;
   fetchSaasMRRSPlan: () => Promise<void>;
+  updatePlanFromStore: (
+    planId: string,
+    newPlanData: Partial<MRRSPlanStore>
+  ) => void;
+  deletePlanFromStore: (planId: string) => void;
 };
 
 export const useSaasMRRSPlansStore = create<Store>()((set) => ({
@@ -44,6 +48,13 @@ export const useSaasMRRSPlansStore = create<Store>()((set) => ({
       set({ saasMRRSPlans: updater });
     }
   },
+  updatePlanFromStore: (planId, newPlanData) => {
+    set((state) => ({
+      saasMRRSPlans: state.saasMRRSPlans.map((plan) =>
+        plan.id === planId ? { ...plan, ...newPlanData } : plan
+      ),
+    }));
+  },
   fetchSaasMRRSPlan: async () => {
     const saasPlans = await getPlans();
     if (!saasPlans.success || saasPlans.error) {
@@ -52,4 +63,14 @@ export const useSaasMRRSPlansStore = create<Store>()((set) => ({
     }
     set({ saasMRRSPlans: saasPlans.data });
   },
+  deletePlanFromStore: (planId) => {
+    set((state) => ({
+      saasMRRSPlans: state.saasMRRSPlans.map((plan) =>
+        plan.id === planId
+          ? { ...plan, deleted: true, position: 999, deletedAt: new Date() }
+          : plan
+      ),
+    }));
+  },
 }));
+export default useSaasMRRSPlansStore;

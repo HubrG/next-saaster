@@ -66,7 +66,7 @@ export class StripeManager {
     });
 
     const createBdd = await this.createPriceOnBDD(create, product);
-    console.log(create);
+
     if (create) return create.id;
   }
   async createCustomer(data: { email: string }, id: string | null) {

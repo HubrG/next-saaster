@@ -8,6 +8,7 @@ type Store = {
   saasStripeProducts: ExtendedStripeProduct[];
   setSaasStripeProducts: (saasStripeProducts: ExtendedStripeProduct[]) => void;
   fetchSaasStripeProducts: () => Promise<void>;
+  updateProductByPlan: (planState: MRRSPlan, data: []) => void; // Ajout de la méthode updateProductByPlan
 };
 
 export const useSaasStripeProductsStore = create<Store>()((set) => ({
@@ -17,5 +18,17 @@ export const useSaasStripeProductsStore = create<Store>()((set) => ({
     const saasStripeProducts = await getStripeProducts();
     if (saasStripeProducts.error) throw new Error(saasStripeProducts.error);
     set({ saasStripeProducts: saasStripeProducts.data });
+  },
+  updateProductByPlan: (planState, data) => {
+    set((state) => ({
+      saasStripeProducts: state.saasStripeProducts.map((product) =>
+        product.MRRSPlanId === planState.id
+          ? {
+              ...product,
+              data,
+            }
+          : product
+      ),
+    }));
   },
 }));

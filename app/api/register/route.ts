@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { email, password } = await req.json();
-  console.log(req.json());
+
   try {
     const hashedPassword = await hash(password, 10);
     //

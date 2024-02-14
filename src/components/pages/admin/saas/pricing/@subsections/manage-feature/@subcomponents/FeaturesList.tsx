@@ -48,7 +48,7 @@ export const FeaturesList = () => {
               </th>
               <th>Name</th>
               <th>Description</th>
-              <th>Alias</th>
+              <th>Key</th>
               <th>Link to plan</th>
               <th>ID</th>
               <th></th>
@@ -56,28 +56,27 @@ export const FeaturesList = () => {
           </thead>
           <tbody>
             <AnimatePresence>
-              {saasSettings.saasType === "MRR_SIMPLE" &&
-                saasMRRSFeatures
-                  .filter((feature) => !feature.deleted)
-                  .map((feature) => (
-                    <SortableItem key={feature.id}>
-                      <motion.tr
-                        initial={{ opacity: 0, scale: 1 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={() => handleRowClick(feature.id)}
-                        className={cn(
-                          {
-                            "bg-theming-background-100/20 dark:bg-primary/10":
-                              selectedRowId === feature.id,
-                          },
-                          "hover:bg-theming-background-100/20 dark:hover:bg-primary/10  w-full select-none"
-                        )}>
-                        <FeatureCard feature={feature} />
-                      </motion.tr>
-                    </SortableItem>
-                  ))}
+              {saasMRRSFeatures
+                .filter((feature) => !feature.deleted)
+                .map((feature) => (
+                  <SortableItem key={feature.id}>
+                    <motion.tr
+                      initial={{ opacity: 0, scale: 1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1 }}
+                      transition={{ duration: 0.2 }}
+                      onClick={() => handleRowClick(feature.id)}
+                      className={cn(
+                        {
+                          "bg-theming-background-100/20 dark:bg-primary/10":
+                            selectedRowId === feature.id,
+                        },
+                        "hover:bg-theming-background-100/20 dark:hover:bg-primary/10  w-full select-none"
+                      )}>
+                      <FeatureCard feature={feature} />
+                    </motion.tr>
+                  </SortableItem>
+                ))}
             </AnimatePresence>
           </tbody>
         </table>

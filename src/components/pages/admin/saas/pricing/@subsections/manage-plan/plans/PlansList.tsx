@@ -60,21 +60,22 @@ export const PlansList = () => {
       className="grid grid-flow-row 2xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 md:gap-x-5 md:gap-y-14"
       draggedItemClassName="dragged">
       <AnimatePresence>
-        {saasSettings.saasType === "MRR_SIMPLE" &&
-          saasMRRSPlans
-            .filter((plan) => !plan.deleted)
-            .map((plan) => (
-              <SortableItem key={plan.id}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1 }}
-                  transition={{ duration: 0.2 }}
-                  className="!select-none">
-                  <PlanCard plan={plan} />
-                </motion.div>
-              </SortableItem>
-            ))}
+        {saasMRRSPlans
+          .filter(
+            (plan) => !plan.deleted && plan.saasType === saasSettings.saasType
+          )
+          .map((plan) => (
+            <SortableItem key={plan.id}>
+              <motion.div
+                initial={{ opacity: 0, scale: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1 }}
+                transition={{ duration: 0.2 }}
+                className="!select-none">
+                <PlanCard plan={plan} />
+              </motion.div>
+            </SortableItem>
+          ))}
       </AnimatePresence>
     </SortableList>
   );

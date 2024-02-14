@@ -16,21 +16,22 @@ import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/functions/parse";
-import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
 import { useSaasMRRSPlansStore } from "@/src/stores/admin/saasMRRSPlansStore";
-import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MRRSPlan } from "@prisma/client";
 import isEqual from "lodash/isEqual";
 import { ChevronsUpDown, Eye, EyeOff, Grip } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SortableKnob } from "react-easy-sort";
-import { PopoverCoupon } from "../../stripe-coupons/@ui/PopoverCoupon";
-import { CouponApplied } from "./CouponApplied";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
+import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
+import {
+  ReccuringInputFields,
+  RecurringSwitchFields,
+} from "./plan-card-fields-by-saas-type/RecurringFields";
 
 type Props = {
   plan: MRRSPlan;
@@ -45,9 +46,7 @@ export const PlanCard = ({ plan, className }: Props) => {
   const [cancel, setCancel] = useState(false);
   const [save, setSave] = useState(false);
   const { saasSettings } = useSaasSettingsStore();
-  const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
-  const { saasStripeProducts, setSaasStripeProducts } =
-    useSaasStripeProductsStore();
+  const { updatePlanFromStore, deletePlanFromStore } = useSaasMRRSPlansStore();
   const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
     useSaasMRRSPlanToFeatureStore();
 
@@ -66,7 +65,13 @@ export const PlanCard = ({ plan, className }: Props) => {
       value = e;
     }
     value = parseIntInput(
-      ["trialDays", "monthlyPrice", "yearlyPrice", "creditAllouedByMonth"],
+      [
+        "trialDays",
+        "monthlyPrice",
+        "yearlyPrice",
+        "creditAllouedByMonth",
+        "oncePrice",
+      ],
       name,
       value
     );
@@ -86,28 +91,10 @@ export const PlanCard = ({ plan, className }: Props) => {
     if (dataToSet) {
       setSaveAndCancel(false);
       setInitialPlanState({ ...planState });
-      setSaasMRRSPlans(
-        saasMRRSPlans.map((plan) =>
-          plan.id === planState.id ? { ...planState } : plan
-        )
-      );
+      updatePlanFromStore(planState.id, planState);
       setSaasMRRSPlanToFeature(
         saasMRRSPlanToFeature.map((item) =>
           item.planId === planState.id ? { ...item, plan: planState } : item
-        )
-      );
-      setSaasStripeProducts(
-        saasStripeProducts.map((product) =>
-          product.MRRSPlanId === planState.id
-            ? {
-                ...product,
-                name: planState.name ?? product.name,
-                MRRSPlanRelation: planState,
-                description: planState.description,
-                active: planState.active ? planState.active : false,
-                product: product.MRRSPlanId,
-              }
-            : product
         )
       );
       setLoading(false);
@@ -123,7 +110,6 @@ export const PlanCard = ({ plan, className }: Props) => {
       });
     }
   };
-
   // Set save and cancel to true or false
   const setSaveAndCancel = (value: boolean) => {
     setSave(value);
@@ -138,13 +124,7 @@ export const PlanCard = ({ plan, className }: Props) => {
       deletedAt: new Date(),
     });
     if (dataToSet) {
-      setSaasMRRSPlans(
-        saasMRRSPlans.map((plan) =>
-          plan.id === planState.id
-            ? { ...plan, deleted: true, position: 999, deletedAt: new Date() }
-            : plan
-        )
-      );
+      deletePlanFromStore(planState.id);
       setSaasMRRSPlanToFeature(
         saasMRRSPlanToFeature.map((item) =>
           item.planId === planState.id
@@ -206,7 +186,6 @@ export const PlanCard = ({ plan, className }: Props) => {
           value={planState.description ?? ""}
           onChange={(e) => handleInputChange(e, "description")}
         />
-
         <Separator />
         <Collapsible
           open={isOpen}
@@ -224,13 +203,13 @@ export const PlanCard = ({ plan, className }: Props) => {
 
           <CollapsibleContent className="space-y-2">
             <Separator className="border-b bg-transparent mt-4" />
-            <PlanCardSwitch
-              plan={plan}
-              label="Free plan"
-              planState={planState.isFree}
-              name="isFree"
-              handleInputChange={handleInputChange}
-            />
+            {saasSettings.saasType !== "PAY_ONCE" && (
+              <RecurringSwitchFields
+                planState={planState}
+                plan={plan}
+                handleInputChange={handleInputChange}
+              />
+            )}
             <PlanCardSwitch
               plan={plan}
               label="Custom plan"
@@ -238,15 +217,7 @@ export const PlanCard = ({ plan, className }: Props) => {
               name="isCustom"
               handleInputChange={handleInputChange}
             />
-            <PlanCardSwitch
-              plan={plan}
-              label="Trial plan"
-              planState={planState.isTrial}
-              name="isTrial"
-              handleInputChange={handleInputChange}
-            />
             <Separator className="border-b bg-transparent border-dashed" />
-
             <PlanCardSwitch
               plan={plan}
               label="Popular"
@@ -254,7 +225,6 @@ export const PlanCard = ({ plan, className }: Props) => {
               name="isPopular"
               handleInputChange={handleInputChange}
             />
-
             <PlanCardSwitch
               plan={plan}
               label="Recommended"
@@ -274,106 +244,19 @@ export const PlanCard = ({ plan, className }: Props) => {
               )}
             />
             <div className="w-full flex flex-col gap-y-3">
-              {planState.isTrial && (
-                <div className="inputs">
-                  <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
-                  <Input
-                    type="number"
-                    name="trialDays"
-                    value={planState.trialDays ?? ""}
-                    onChange={(e) => handleInputChange(e, "trialDays")}
-                  />
-                  <p>days</p>
-                </div>
+              {saasSettings.saasType !== "PAY_ONCE" && (
+                <ReccuringInputFields
+                  plan={plan}
+                  planState={planState}
+                  handleInputChange={handleInputChange}
+                />
               )}
-              {/* {saasStripeCoupons.forEach((coupon) => {
-              if (Object.keys(coupon.StripePlanCoupons).includes(plan.id)) {
-                console.log(coupon);
-              }
-           } */}
-
-              {saasSettings.activeMonthlyPlans &&
-                !planState.isFree &&
-                !planState.isCustom && (
-                  <div className="flex flex-col">
-                    <div className="inputs">
-                      <Label htmlFor={`${plan.id}monthlyPrice`}>
-                        Monthly price
-                        <CouponApplied
-                          recurrence={"monthly"}
-                          plan={plan}
-                          monthlyP={planState.monthlyPrice ?? 0}
-                          yearlyP={planState.yearlyPrice ?? 0}
-                        />
-                      </Label>
-                      <Input
-                        id={`${plan.id}monthlyPrice`}
-                        name="monthlyPrice"
-                        type="number"
-                        className="!col-span-4"
-                        value={planState.monthlyPrice ?? ""}
-                        onChange={(e) => handleInputChange(e, "monthlyPrice")}
-                      />
-                      <PopoverCoupon
-                        type={plan.saasType}
-                        planId={plan.id}
-                        recurrence="monthly"
-                      />
-                      <p className="col-span-3">{saasSettings.currency}</p>
-                    </div>
-                  </div>
-                )}
-              {saasSettings.activeYearlyPlans &&
-                !planState.isFree &&
-                !planState.isCustom && (
-                  <div className="flex flex-col">
-                    <div className="inputs">
-                      <Label htmlFor={`${plan.id}yearlyPrice`}>
-                        Yearly price
-                        <CouponApplied
-                          recurrence={"yearly"}
-                          plan={plan}
-                          monthlyP={planState.monthlyPrice ?? 0}
-                          yearlyP={planState.yearlyPrice ?? 0}
-                        />
-                      </Label>
-                      <Input
-                        type="number"
-                        name="yearlyPrice"
-                        value={planState.yearlyPrice ?? ""}
-                        className="!col-span-4"
-                        onChange={(e) => handleInputChange(e, "yearlyPrice")}
-                      />
-                      <PopoverCoupon
-                        type={plan.saasType}
-                        planId={plan.id}
-                        recurrence="yearly"
-                      />
-                      <p className="col-span-3">{saasSettings.currency}</p>
-                    </div>
-                  </div>
-                )}
-              {saasSettings.activeCreditSystem && !planState.isCustom && (
-                <div className="inputs">
-                  <Label htmlFor={`${plan.id}creditAllouedByMonth`}>
-                    Credit alloued
-                  </Label>
-                  <Input
-                    id={`${plan.id}creditAllouedByMonth`}
-                    type="number"
-                    name="creditAllouedByMonth"
-                    value={planState.creditAllouedByMonth ?? ""}
-                    onChange={(e) =>
-                      handleInputChange(e, "creditAllouedByMonth")
-                    }
-                  />
-                  <p>
-                    <span>
-                      {sliced(saasSettings.creditName ?? "credits", 5)}
-                    </span>
-                    <span>/month</span>
-                  </p>
-                </div>
+              {saasSettings.saasType === "PAY_ONCE" && (
+                <PayOnceFields
+                  plan={plan}
+                  planState={planState}
+                  handleInputChange={handleInputChange}
+                />
               )}
             </div>
           </CollapsibleContent>
@@ -411,6 +294,8 @@ export const PlanCard = ({ plan, className }: Props) => {
               handleSave,
               handleReset,
               handleDelete,
+              handleInputChange,
+              saasTypeState: planState.saasType,
             }}
           />
         </div>

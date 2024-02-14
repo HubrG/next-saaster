@@ -179,6 +179,7 @@ model MRRSPlan {
   monthlyPrice         Float?              @default(0) // Monthly price
   isYearly             Boolean?            @default(false) // Yearly plan
   yearlyPrice          Float?              @default(0) // Yearly price
+  oncePrice            Float?              @default(0) // Once price
   isCredit             Boolean?            @default(false) // Credit plan
   creditAllouedByMonth Int?                @default(0) // Monthly credit
   stripeId             String?             @unique

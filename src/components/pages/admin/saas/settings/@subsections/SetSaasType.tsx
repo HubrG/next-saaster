@@ -61,7 +61,7 @@ export const SetSaasType = ({ set }: Props) => {
         <div
           className={cn(
             saasDescription ? "block" : "hidden",
-            `p-5 z-50  mt-32 w-full shadow-2xl bg-background  rounded-default font-semibold text-left absolute`
+            `p-5 z-50 mt-40 w-full shadow-2xl bg-background  rounded-default font-semibold text-left absolute`
           )}>
           <div className="flex flex-row items-start justify-center  gap-10">
             <Info size={108} className="min-w-[3%] self-start" />

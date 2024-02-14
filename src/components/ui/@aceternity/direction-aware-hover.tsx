@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-
 export const DirectionAwareHover = ({
   imageUrl,
   children,
@@ -31,7 +30,7 @@ export const DirectionAwareHover = ({
     if (!ref.current) return;
 
     const direction = getDirection(event, ref.current);
-    console.log("direction", direction);
+
     switch (direction) {
       case 0:
         setDirection("top");

@@ -1,3 +1,4 @@
+"use client";
 import { applyCoupon } from "@/src/components/pages/admin/queries/queries";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Button } from "@/src/components/ui/button";
@@ -19,13 +20,13 @@ import { BadgePercent } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 type Props = {
   type: SaasTypes;
-  recurrence?: "monthly" | "yearly";
+  recurrence?: "monthly" | "yearly" | "once";
   planId: string;
 };
 export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
-  const { setSaasStripeCoupons, saasStripeCoupons } = useSaasStripeCoupons();
-  const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
-  console.log("saasStripeCoupons", saasStripeCoupons);
+  const { saasStripeCoupons } = useSaasStripeCoupons();
+  const { setSaasMRRSPlans } = useSaasMRRSPlansStore();
+
   const handleApplyCoupon = async (couponId: string) => {
     const apply = await applyCoupon(couponId, planId, recurrence ?? "monthly");
     if (apply) {
@@ -83,35 +84,37 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
             </div>
             <Goodline className="my-0" />
             {saasStripeCoupons.map((coupon) => (
-              <div
-                key={coupon.id}
-                className="grid grid-cols-12 mb-2 justify-center center  items-center">
-                <Label className="col-span-4 pt-1">{coupon.name}</Label>
-                <div className="col-span-5 p-0 flex flex-col gap-0">
-                  <small className=" text-center">
-                    {coupon.percentOff}% / {coupon.duration}{" "}
-                    {coupon.duration === "repeating" &&
-                      `${coupon.durationInMonths} month${
-                        coupon.durationInMonths &&
-                        coupon.durationInMonths > 1 &&
-                        "s"
-                      }`}
-                  </small>
-                  <small className="-mt-2 opacity-50 text-center">
-                    {coupon.id}
-                  </small>
+              <>
+                <div
+                  key={coupon.id}
+                  className="grid grid-cols-12 mb-2 justify-center center  items-center">
+                  <Label className="col-span-4 pt-1">{coupon.name}</Label>
+                  <div className="col-span-5 p-0 flex flex-col gap-0">
+                    <small className=" text-center">
+                      {coupon.percentOff}% / {coupon.duration}{" "}
+                      {coupon.duration === "repeating" &&
+                        `${coupon.durationInMonths} month${
+                          coupon.durationInMonths &&
+                          coupon.durationInMonths > 1 &&
+                          "s"
+                        }`}
+                    </small>
+                    <small className="-mt-2 opacity-50 text-center">
+                      {coupon.id}
+                    </small>
+                  </div>
+                  <PopoverClose asChild>
+                    <Button
+                      className="col-span-3 !text-sm"
+                      variant="link"
+                      onClick={() => {
+                        handleApplyCoupon(coupon.id);
+                      }}>
+                      Apply
+                    </Button>
+                  </PopoverClose>
                 </div>
-                <PopoverClose asChild>
-                  <Button
-                    className="col-span-3 !text-sm"
-                    variant="link"
-                    onClick={() => {
-                      handleApplyCoupon(coupon.id);
-                    }}>
-                    Apply
-                  </Button>
-                </PopoverClose>
-              </div>
+              </>
             ))}
           </div>
         </PopoverContent>

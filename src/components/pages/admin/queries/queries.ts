@@ -9,13 +9,14 @@ import {
   MRRSFeatureCategory,
   MRRSPlan,
   SaasSettings,
+  SaasTypes,
   appSettings,
 } from "@prisma/client";
 import { StripeManager } from "../classes/stripeManagerClass";
 const stripeManager = new StripeManager();
 
 // SECTION Create MRRS Plan
-export const addNewMRRSPlan = async () => {
+export const addNewMRRSPlan = async (saasType: SaasTypes) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
@@ -28,7 +29,11 @@ export const addNewMRRSPlan = async () => {
   }
 
   try {
-    newPlan = await prisma.mRRSPlan.create({ data: {} });
+    newPlan = await prisma.mRRSPlan.create({
+      data: {
+        saasType: saasType,
+      },
+    });
     if (!newPlan.id || !newPlan) throw new Error("Failed to create new plan");
 
     const init = await initializeProductAndPricesWithStripe(
@@ -128,7 +133,7 @@ export const initializeProductAndPricesWithStripe = async (plan: MRRSPlan) => {
     if (!lastProduct) throw new Error("Failed to find last product");
     return { plan: approvedPlan, return: true, lastProduct: lastProduct };
   } catch (error: any) {
-    console.log(error.message); // Affiche le message d'erreur dans la console
+    console.log(error.message);
     return { plan: plan, return: false };
   }
 };
@@ -528,8 +533,6 @@ export const createNewCoupon = async (
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  console.log(data);
-
   // Traitement de `durationInMonths` pour exclure les valeurs `null`
   let validatedDurationInMonths: number | undefined =
     typeof data.durationInMonths === "number"
@@ -571,51 +574,49 @@ export const applyCoupon = async (
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  if (planRecurrence !== "once") {
-    // Si un coupon existe déjà avec la même recurrence sur le même plan, on le supprime et on le remplace:
-    const searchForReplace = await prisma.stripePlanCoupon.findMany({
+  // Si un coupon existe déjà avec la même recurrence sur le même plan, on le supprime et on le remplace:
+  const searchForReplace = await prisma.stripePlanCoupon.findMany({
+    where: {
+      MRRSPlanId: planId,
+      recurrence: planRecurrence,
+    },
+  });
+  // On supprime les coupons existants
+  let deleteCoupon = false;
+  if (searchForReplace.length > 0) {
+    await prisma.stripePlanCoupon.deleteMany({
       where: {
         MRRSPlanId: planId,
         recurrence: planRecurrence,
       },
     });
-    // On supprime les coupons existants
-    let deleteCoupon = false;
-    if (searchForReplace.length > 0) {
-      await prisma.stripePlanCoupon.deleteMany({
-        where: {
-          MRRSPlanId: planId,
-          recurrence: planRecurrence,
-        },
-      });
-      deleteCoupon = true;
-    }
-    // On crée le nouveau coupon
-    if (
-      (searchForReplace.length > 0 && deleteCoupon) ||
-      searchForReplace.length === 0
-    ) {
-      const coupon = await prisma.stripePlanCoupon.create({
-        data: {
-          couponId: couponId,
-          MRRSPlanId: planId,
-          recurrence: planRecurrence,
-        },
-        include: {
-          coupon: true,
-          MRRSPlan: {
-            include: {
-              coupons: {
-                include: {
-                  coupon: true,
-                },
+    deleteCoupon = true;
+  }
+  // On crée le nouveau coupon
+  if (
+    (searchForReplace.length > 0 && deleteCoupon) ||
+    searchForReplace.length === 0
+  ) {
+    const coupon = await prisma.stripePlanCoupon.create({
+      data: {
+        couponId: couponId,
+        MRRSPlanId: planId,
+        recurrence: planRecurrence,
+      },
+      include: {
+        coupon: true,
+        MRRSPlan: {
+          include: {
+            coupons: {
+              include: {
+                coupon: true,
               },
             },
           },
         },
-      });
-      return coupon.MRRSPlan.coupons;
-    }
+      },
+    });
+    return coupon.MRRSPlan.coupons;
   }
 };
 

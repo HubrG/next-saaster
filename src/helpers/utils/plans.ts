@@ -14,6 +14,19 @@ export const getPlans = async (): Promise<{
       orderBy: {
         position: "asc",
       },
+      include: {
+        MRRSFeatures: true,
+        StripeProduct: {
+          include: {
+            prices: true,
+          },
+        },
+        coupons: {
+          include: {
+            coupon: true,
+          },
+        },
+      },
     });
     if (!plans) throw new Error("No app settings found");
     return { success: true, data: plans as MRRSPlan[] };

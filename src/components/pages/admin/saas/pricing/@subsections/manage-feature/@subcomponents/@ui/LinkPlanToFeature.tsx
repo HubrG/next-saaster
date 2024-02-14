@@ -37,15 +37,17 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
   const [linksState, setLinksState] = useState<LinkState>({});
   const [initialLinksState, setInitialLinksState] = useState<LinkState>({});
   const { saasSettings } = useSaasSettingsStore();
-  const { setSaasMRRSPlanToFeature, saasMRRSPlanToFeature } =
-    useSaasMRRSPlanToFeatureStore();
+  const { saasMRRSPlanToFeature } = useSaasMRRSPlanToFeatureStore();
 
   useEffect(() => {
     const newLinksState: LinkState = {};
     saasMRRSPlanToFeature
       .filter(
         (item) =>
-          item.featureId === feature.id && item.plan && !item.plan.deleted
+          item.featureId === feature.id &&
+          item.plan &&
+          !item.plan.deleted &&
+          item.plan.saasType === saasSettings.saasType
       )
       .sort((a, b) => {
         const positionA = a.plan.position != null ? a.plan.position : Infinity;

@@ -1,3 +1,4 @@
+"use client";
 import { revokeCoupon } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
@@ -11,23 +12,30 @@ import { Tooltip } from "react-tooltip";
 type Props = {
   plan: MRRSPlanStore;
   recurrence: "monthly" | "yearly" | "once";
-  monthlyP: number;
-  yearlyP: number;
+  monthlyP?: number;
+  yearlyP?: number;
+  onceP?: number;
 };
 export const CouponApplied = ({
   plan,
   recurrence,
   monthlyP,
+  onceP,
   yearlyP,
 }: Props) => {
   const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { saasSettings } = useSaasSettingsStore();
   const planCoupons = saasMRRSPlans.find((p) => p.id === plan.id)?.coupons;
+
   const calculYearlyPriceWithDiscount = (price: number, discount: number) => {
     return price - price * (discount / 100);
   };
   const calculMonthlyPriceWithDiscount = (price: number, discount: number) => {
+    return price - price * (discount / 100);
+  };
+
+  const calculOncePriceWithDiscount = (price: number, discount: number) => {
     return price - price * (discount / 100);
   };
   const handleRevokeCoupon = async (couponId: string) => {
@@ -36,7 +44,6 @@ export const CouponApplied = ({
       setSaasMRRSPlans((currentPlans: MRRSPlanStore[]) => {
         const updatedPlans = currentPlans.map((planItem) => {
           if (planItem.id === plan.id) {
-            // Filtrer les coupons pour supprimer celui qui a l'ID correspondant à revoke.id
             const updatedCoupons = planItem.coupons?.filter(
               (coupon) => coupon.id !== couponId
             );
@@ -65,14 +72,7 @@ export const CouponApplied = ({
       });
     }
   };
-  // let monthlyPriceDiscounted =
-  //   plan.StripeProduct?.findLast((e) => e.id === plan.stripeId)?.prices.find(
-  //     (e) => e.id === plan.stripeMonthlyPriceId
-  //   )?.unit_amount ?? 0 / 100;
-  // let yearlyPriceDiscounted =
-  //   plan.StripeProduct?.findLast((e) => e.id === plan.stripeId)?.prices.find(
-  //     (e) => e.id === plan.stripeYearlyPriceId
-  //   )?.unit_amount ?? 0 / 100;
+  console.log(saasMRRSPlans);
   return (
     <div>
       {planCoupons?.map((coupon) => {
@@ -104,6 +104,7 @@ export const CouponApplied = ({
                 <small className="-mt-3 opacity-50">
                   Tot.{" "}
                   {recurrence === "monthly" &&
+                    monthlyP &&
                     (
                       calculMonthlyPriceWithDiscount(
                         monthlyP * 100,
@@ -111,12 +112,21 @@ export const CouponApplied = ({
                       ) / 100
                     ).toFixed(2)}
                   {recurrence === "yearly" &&
+                    yearlyP &&
                     (
                       calculYearlyPriceWithDiscount(
                         yearlyP * 100,
                         stripeCoupon?.percentOff ?? 0
                       ) / 100
                     ).toFixed(2)}{" "}
+                  {recurrence === "once" &&
+                    onceP &&
+                    (
+                      calculOncePriceWithDiscount(
+                        onceP * 100,
+                        stripeCoupon?.percentOff ?? 0
+                      ) / 100
+                    ).toFixed(2)}
                   {saasSettings?.currency}
                 </small>
               </p>

@@ -70,7 +70,7 @@ export const FeaturesCategoriesList = () => {
               opacity={100}
               id="manage-category-tt"
               place="top">
-              Manage categories
+              <span>Manage categories</span>
             </Tooltip>
           </button>
         </PopoverTrigger>

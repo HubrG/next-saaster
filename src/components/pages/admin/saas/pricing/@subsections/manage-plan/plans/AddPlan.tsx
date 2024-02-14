@@ -29,47 +29,45 @@ export const AddPlan = () => {
 
   const handleAddPlan = async () => {
     setLoading(true);
-    if (saasSettings.saasType === "MRR_SIMPLE") {
-      const newPlan = await addNewMRRSPlan();
-      if (!newPlan || !newPlan.newPlan) {
-        setLoading(false);
-        return toaster({
-          type: "error",
-          description: `Failed to create new ${saasType} plan. Please try again.`,
-        });
-      }
-      const modifiedNewPlan = {
-        ...newPlan.newPlan,
-        stripeId: newPlan.lastProduct?.id,
-      };
-      setSaasMRRSPlans([...saasMRRSPlans, modifiedNewPlan as MRRSPlan]);
-
-      if (newPlan.newFeatures.length > 0) {
-        const newFeaturesMapped = newPlan.newFeatures.map((feature) => {
-          return {
-            ...feature,
-            plan: newPlan.newPlan,
-          };
-        });
-        setSaasMRRSPlanToFeature([
-          ...saasMRRSPlanToFeature,
-          ...(newFeaturesMapped as any),
-        ]);
-        setSaasStripeProducts([
-          ...saasStripeProducts,
-          newPlan.lastProduct as StripeProduct,
-        ]);
-      }
-      toaster({
-        type: "success",
-        description: `New ${saasType} plan created`,
-      });
-      setTimeout(() => {
-        handleScroll("dd" + newPlan.newPlan.id, "smooth");
-      }, 1000);
+    const newPlan = await addNewMRRSPlan(saasSettings.saasType ?? "MRR_SIMPLE");
+    if (!newPlan || !newPlan.newPlan) {
       setLoading(false);
-      return newPlan;
+      return toaster({
+        type: "error",
+        description: `Failed to create new ${saasType} plan. Please try again.`,
+      });
     }
+    const modifiedNewPlan = {
+      ...newPlan.newPlan,
+      stripeId: newPlan.lastProduct?.id,
+    };
+    setSaasMRRSPlans([...saasMRRSPlans, modifiedNewPlan as MRRSPlan]);
+
+    if (newPlan.newFeatures.length > 0) {
+      const newFeaturesMapped = newPlan.newFeatures.map((feature) => {
+        return {
+          ...feature,
+          plan: newPlan.newPlan,
+        };
+      });
+      setSaasMRRSPlanToFeature([
+        ...saasMRRSPlanToFeature,
+        ...(newFeaturesMapped as any),
+      ]);
+      setSaasStripeProducts([
+        ...saasStripeProducts,
+        newPlan.lastProduct as StripeProduct,
+      ]);
+    }
+    toaster({
+      type: "success",
+      description: `New ${saasType} plan created`,
+    });
+    setTimeout(() => {
+      handleScroll("dd" + newPlan.newPlan.id, "smooth");
+    }, 1000);
+    setLoading(false);
+    return newPlan;
   };
 
   return (

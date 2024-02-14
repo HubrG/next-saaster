@@ -1,7 +1,8 @@
 import { Button } from "@/src/components/ui/button";
-import { cn } from "@/src/lib/utils";
-import { PopoverArchive } from "@/src/components/ui/popover-archive";
 import { SimpleLoader } from "@/src/components/ui/loader";
+import { PopoverArchive } from "@/src/components/ui/popover-archive";
+import { cn } from "@/src/lib/utils";
+import { PlanCardSwitchSaasType } from "./PlanCardSwitchSaasType";
 type Props = {
   save: boolean;
   cancel: boolean;
@@ -9,6 +10,8 @@ type Props = {
   handleReset: () => void;
   handleDelete: () => void;
   isLoading?: boolean;
+  handleInputChange: (e: string, name: string) => void;
+  saasTypeState: string;
 };
 export const PlanCardButtons = ({
   save,
@@ -16,7 +19,9 @@ export const PlanCardButtons = ({
   handleSave,
   handleReset,
   handleDelete,
-  isLoading
+  handleInputChange,
+  saasTypeState,
+  isLoading,
 }: Props) => {
   return (
     <>
@@ -33,6 +38,10 @@ export const PlanCardButtons = ({
         onClick={handleReset}>
         Reset
       </Button>
+      <PlanCardSwitchSaasType
+        saasTypeState={saasTypeState}
+        handleInputChange={handleInputChange}
+      />
       <PopoverArchive what="this plan" handleDelete={handleDelete} />
     </>
   );

@@ -1,3 +1,4 @@
+import { updateFeature } from "@/src/components/pages/admin/queries/queries";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
@@ -22,20 +23,15 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
         f.id === updatedFeatureState.id ? updatedFeatureState : f
       )
     );
-    const updateFeature = await updateFeature(
-      feature.id,
-      updatedFeatureState
-    );
-    if (!updateFeature) {
+    const upFeature = await updateFeature(feature.id, updatedFeatureState);
+    if (!upFeature) {
       return toaster({
         type: "error",
         description: `Error while updating feature « ${feature.name} », please try again later`,
       });
     }
     setSaasFeatures(
-      saasFeatures.map((f) =>
-        f.id === updateFeature.id ? updateFeature : f
-      )
+      saasFeatures.map((f) => (f.id === upFeature.id ? upFeature : f))
     );
     setFeatureState(updatedFeatureState);
     toaster({

@@ -1,18 +1,19 @@
 import {
-    createNewCategoryFromFeature
+  createNewCategoryFromFeature,
+  updateFeature,
 } from "@/src/components/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
 } from "@/src/components/ui/command";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
@@ -69,10 +70,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
       type: "success",
       description: `Category « ${searchInput} » created successfully and linked to feature « ${feature.name} »`,
     });
-    setSaasFeaturesCategories([
-      ...saasFeaturesCategories,
-      createCategory,
-    ]);
+    setSaasFeaturesCategories([...saasFeaturesCategories, createCategory]);
     if (createCategory.id) {
       setSaasFeatures(
         saasFeatures.map((f) =>
@@ -89,10 +87,10 @@ export const FeatureCardCategory = ({ feature }: Props) => {
     const dataToSet = {
       categoryId: e ? e : null,
     };
-    const updateFeature = await updateFeature(feature.id, dataToSet);
+    const upFeature = await updateFeature(feature.id, dataToSet);
     setSearchInput("");
 
-    if (!updateFeature) {
+    if (!upFeature) {
       return toaster({
         type: "error",
         description: `Error while updating feature « ${feature.name} », please try again later`,

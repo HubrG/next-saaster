@@ -1,7 +1,7 @@
 "use client";
 import { Separator } from "@/src/components/ui/separator";
 import currenciesData from "@/src/jsons/currencies.json";
-import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
+import { PlanStore } from "@/src/stores/admin/saasPlansStore";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { Currencies } from "@/src/types/Currencies";
@@ -10,7 +10,7 @@ import { BackgroundGrad } from "./Background";
 import { CheckoutButton } from "./CheckoutButton";
 
 type Props = {
-  plan: MRRSPlanStore;
+  plan: PlanStore;
   coupons: StripeCoupon[];
 };
 

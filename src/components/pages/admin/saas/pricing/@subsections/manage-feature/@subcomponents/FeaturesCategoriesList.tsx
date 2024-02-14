@@ -1,19 +1,19 @@
 import {
-  createNewCategory,
-  updateMRRSFeatureCategoryPosition,
+    createNewCategory,
+    updateFeatureCategoryPosition,
 } from "@/src/components/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sortAdminFeatureCategory } from "@/src/functions/sortAdminFeatureCategory";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
-import { MRRSFeature } from "@prisma/client";
+import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
+import { Feature } from "@prisma/client";
 import { random } from "lodash";
 import { Edit } from "lucide-react";
 import { useState } from "react";
@@ -23,17 +23,17 @@ import { FeatureCategoryCard } from "./@ui/FeatureCategoryCard";
 
 export const FeaturesCategoriesList = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { saasMRRSFeaturesCategories, setSaasMRRSFeaturesCategories } =
-    useSaasMRRSFeaturesCategoriesStore();
+  const { saasFeaturesCategories, setSaasFeaturesCategories } =
+    useSaasFeaturesCategoriesStore();
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
-    const newSaasMRRSFeaturesCategories = (await sortAdminFeatureCategory(
-      saasMRRSFeaturesCategories,
+    const newSaasFeaturesCategories = (await sortAdminFeatureCategory(
+      saasFeaturesCategories,
       oldIndex,
       newIndex
-    )) as MRRSFeature[];
-    setSaasMRRSFeaturesCategories(newSaasMRRSFeaturesCategories);
-    await updateMRRSFeatureCategoryPosition(newSaasMRRSFeaturesCategories);
+    )) as Feature[];
+    setSaasFeaturesCategories(newSaasFeaturesCategories);
+    await updateFeatureCategoryPosition(newSaasFeaturesCategories);
   };
 
   const handleAddCategory = async () => {
@@ -48,8 +48,8 @@ export const FeaturesCategoriesList = () => {
         description: `Error while creating category, please try again later`,
       });
     }
-    setSaasMRRSFeaturesCategories([
-      ...saasMRRSFeaturesCategories,
+    setSaasFeaturesCategories([
+      ...saasFeaturesCategories,
       createCategory,
     ]);
     setLoading(false);
@@ -81,7 +81,7 @@ export const FeaturesCategoriesList = () => {
               onSortEnd={onSortEnd}
               className={cn(`w-full`)}
               draggedItemClassName="dragged">
-              {saasMRRSFeaturesCategories.slice().map((category) => (
+              {saasFeaturesCategories.slice().map((category) => (
                 <SortableItem key={"cat" + category.id}>
                   <div className="mb-2 py-1">
                     <FeatureCategoryCard category={category} />

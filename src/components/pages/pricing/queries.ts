@@ -2,7 +2,7 @@
 
 import { stripeCustomerIdManager } from "@/src/functions/stripeCustomerIdManager";
 import { prisma } from "@/src/lib/prisma";
-import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
+import { PlanStore } from "@/src/stores/admin/saasPlansStore";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 
@@ -24,7 +24,7 @@ export const getCoupon = async (couponId: string) => {
 };
 export const createCheckoutSession = async (
   planPrice: string,
-  plan: MRRSPlanStore,
+  plan: PlanStore,
   recurrence: string
 ) => {
   if (!planPrice || !plan) {
@@ -38,7 +38,7 @@ export const createCheckoutSession = async (
     : {};
 
   const linkedCoupon = plan.coupons?.find(
-    (c) => c.MRRSPlanId === plan.id && c.recurrence === recurrence
+    (c) => c.PlanId === plan.id && c.recurrence === recurrence
   );
   const coupon = linkedCoupon ? { coupon: linkedCoupon.couponId } : {};
   const customerId = await stripeCustomerIdManager();

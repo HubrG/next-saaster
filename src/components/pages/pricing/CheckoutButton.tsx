@@ -1,12 +1,12 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
-import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
+import { PlanStore } from "@/src/stores/admin/saasPlansStore";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useRouter } from "next/navigation";
 import { createCheckoutSession } from "./queries";
 
 type Props = {
-  plan: MRRSPlanStore;
+  plan: PlanStore;
 };
 export const CheckoutButton = ({ plan }: Props) => {
   const { isYearly } = usePublicSaasPricingStore();

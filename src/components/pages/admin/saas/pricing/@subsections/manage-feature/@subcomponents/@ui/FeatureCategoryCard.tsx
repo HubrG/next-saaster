@@ -1,32 +1,32 @@
 import {
-  deleteMRRSFeatureCategory,
-  updateMRRSFeatureCategory,
+    deleteFeatureCategory,
+    updateFeatureCategory,
 } from "@/src/components/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
-import { MRRSFeatureCategory } from "@prisma/client";
+import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
+import { FeatureCategory } from "@prisma/client";
 import { Check, Grip } from "lucide-react";
 import { useState } from "react";
 import { SortableKnob } from "react-easy-sort";
 import { Tooltip } from "react-tooltip";
 type Props = {
-  category: MRRSFeatureCategory;
+  category: FeatureCategory;
 };
 export const FeatureCategoryCard = ({ category }: Props) => {
   const [data, setData] = useState<string>(category.name ?? "");
   const [loading, setLoading] = useState<boolean>(false);
-  const { saasMRRSFeaturesCategories, setSaasMRRSFeaturesCategories } =
-    useSaasMRRSFeaturesCategoriesStore();
+  const { saasFeaturesCategories, setSaasFeaturesCategories } =
+    useSaasFeaturesCategoriesStore();
 
   const handleDelete = async () => {
-    const dataToSet = await deleteMRRSFeatureCategory(category.id);
+    const dataToSet = await deleteFeatureCategory(category.id);
     if (dataToSet) {
-      setSaasMRRSFeaturesCategories(
-        saasMRRSFeaturesCategories.filter((cat) => cat.id !== category.id)
+      setSaasFeaturesCategories(
+        saasFeaturesCategories.filter((cat) => cat.id !== category.id)
       );
 
       return toaster({
@@ -53,7 +53,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
         description: `Please enter a name`,
       });
     }
-    const updateCategory = await updateMRRSFeatureCategory(
+    const updateCategory = await updateFeatureCategory(
       category.id,
       dataToSet
     );
@@ -64,8 +64,8 @@ export const FeatureCategoryCard = ({ category }: Props) => {
         description: `Error while updating category, please try again later`,
       });
     }
-    setSaasMRRSFeaturesCategories(
-      saasMRRSFeaturesCategories.map((cat) =>
+    setSaasFeaturesCategories(
+      saasFeaturesCategories.map((cat) =>
         cat.id === category.id ? updateCategory : cat
       )
     );

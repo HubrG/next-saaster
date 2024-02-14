@@ -1,8 +1,8 @@
 import { Label } from '@/src/components/ui/label';
 import { Switch } from '@/src/components/ui/switch';
-import { MRRSPlan } from '@prisma/client';
+import { Plan } from '@prisma/client';
 type Props = {
-  plan: MRRSPlan;
+  plan: Plan;
   planState: boolean | null;
   name: string
   label: string;

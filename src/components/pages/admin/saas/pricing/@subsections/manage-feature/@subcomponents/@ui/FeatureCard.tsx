@@ -1,10 +1,10 @@
-import { updateMRRSFeature } from "@/src/components/pages/admin/queries/queries";
+import { updateFeature } from "@/src/components/pages/admin/queries/queries";
 import { CopySomething } from "@/src/components/ui/copy-something";
 import { PopoverArchive } from "@/src/components/ui/popover-archive";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
-import { MRRSFeature } from "@prisma/client";
+import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { Feature } from "@prisma/client";
 import { Grip } from "lucide-react";
 import { useState } from "react";
 import { SortableKnob } from "react-easy-sort";
@@ -13,24 +13,24 @@ import { FeatureCardInfoPopover } from "./FeatureCardInfoPopover";
 import { LinkPlanToFeature } from "./LinkPlanToFeature";
 
 type Props = {
-  feature: MRRSFeature;
+  feature: Feature;
 };
 
 export const FeatureCard = ({ feature }: Props) => {
   const [initialFeatureState, setInitialFeatureState] = useState({
     ...feature,
   });
-  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
+  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
 
   const handleDelete = async () => {
-    const dataToSet = await updateMRRSFeature(feature.id, {
+    const dataToSet = await updateFeature(feature.id, {
       ...feature,
       deleted: true,
       deletedAt: new Date(),
     });
     if (dataToSet) {
-      setSaasMRRSFeatures(
-        saasMRRSFeatures.map((plan) =>
+      setSaasFeatures(
+        saasFeatures.map((plan) =>
           plan.id === feature.id
             ? { ...plan, deleted: true, position: 9999, deletedAt: new Date() }
             : plan

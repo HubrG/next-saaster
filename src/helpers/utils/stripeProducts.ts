@@ -35,7 +35,7 @@ export const createStripeProduct = async (
         metadata: data.metadata ?? {},
         unit_label: data.unit_label ?? null,
         statement_descriptor: data.statement_descriptor ?? null,
-        MRRSPlanId: data.MRRSPlanId,
+        PlanId: data.PlanId,
       },
     });
     return { success: true, data: stripeProduct as StripeProduct };

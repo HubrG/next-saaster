@@ -1,6 +1,6 @@
 import { getPlans } from "@/src/helpers/utils/plans";
 import {
-  MRRSPlan,
+  Plan,
   StripeCoupon,
   StripePlanCoupon,
   StripePrice,
@@ -17,7 +17,7 @@ interface StripeProductf {
   created: number;
   prices: StripePrice[];
 }
-export interface MRRSPlanStore extends MRRSPlan {
+export interface PlanStore extends Plan {
   coupons?: StripePlanCoupon[];
   coupon?: CouponDetail;
   StripeProduct?: StripeProductf[];
@@ -25,47 +25,45 @@ export interface MRRSPlanStore extends MRRSPlan {
 }
 
 type Store = {
-  saasMRRSPlans: MRRSPlanStore[];
-  setSaasMRRSPlans: (
-    updater:
-      | ((currentPlans: MRRSPlanStore[]) => MRRSPlanStore[])
-      | MRRSPlanStore[]
+  saasPlans: PlanStore[];
+  setSaasPlans: (
+    updater: ((currentPlans: PlanStore[]) => PlanStore[]) | PlanStore[]
   ) => void;
-  fetchSaasMRRSPlan: () => Promise<void>;
+  fetchSaasPlan: () => Promise<void>;
   updatePlanFromStore: (
     planId: string,
-    newPlanData: Partial<MRRSPlanStore>
+    newPlanData: Partial<PlanStore>
   ) => void;
   deletePlanFromStore: (planId: string) => void;
 };
 
-export const useSaasMRRSPlansStore = create<Store>()((set) => ({
-  saasMRRSPlans: [],
-  setSaasMRRSPlans: (updater) => {
+export const useSaasPlansStore = create<Store>()((set) => ({
+  saasPlans: [],
+  setSaasPlans: (updater) => {
     if (typeof updater === "function") {
-      set((state) => ({ saasMRRSPlans: updater(state.saasMRRSPlans) }));
+      set((state) => ({ saasPlans: updater(state.saasPlans) }));
     } else {
-      set({ saasMRRSPlans: updater });
+      set({ saasPlans: updater });
     }
   },
   updatePlanFromStore: (planId, newPlanData) => {
     set((state) => ({
-      saasMRRSPlans: state.saasMRRSPlans.map((plan) =>
+      saasPlans: state.saasPlans.map((plan) =>
         plan.id === planId ? { ...plan, ...newPlanData } : plan
       ),
     }));
   },
-  fetchSaasMRRSPlan: async () => {
+  fetchSaasPlan: async () => {
     const saasPlans = await getPlans();
     if (!saasPlans.success || saasPlans.error) {
       console.error(saasPlans.error || "Failed to fetch plans");
       return;
     }
-    set({ saasMRRSPlans: saasPlans.data });
+    set({ saasPlans: saasPlans.data });
   },
   deletePlanFromStore: (planId) => {
     set((state) => ({
-      saasMRRSPlans: state.saasMRRSPlans.map((plan) =>
+      saasPlans: state.saasPlans.map((plan) =>
         plan.id === planId
           ? { ...plan, deleted: true, position: 999, deletedAt: new Date() }
           : plan
@@ -73,4 +71,4 @@ export const useSaasMRRSPlansStore = create<Store>()((set) => ({
     }));
   },
 }));
-export default useSaasMRRSPlansStore;
+export default useSaasPlansStore;

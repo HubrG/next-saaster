@@ -2,7 +2,7 @@
 import currenciesData from "@/src/jsons/currencies.json";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MRRSPlan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "../../../lib/utils";
@@ -19,7 +19,7 @@ export const HoverEffect = ({
   items,
   className,
 }: {
-  items: MRRSPlan[];
+  items: Plan[];
   className?: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

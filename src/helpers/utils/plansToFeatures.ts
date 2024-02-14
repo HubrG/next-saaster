@@ -1,7 +1,7 @@
 "use server";
 import { getErrorMessage } from "@/src/lib/getErrorMessage";
 import { prisma } from "@/src/lib/prisma";
-import { MRRSPlanToFeature } from "@prisma/client";
+import { PlanToFeature } from "@prisma/client";
 
 export const getPlansToFeatures = async (): Promise<{
   success?: boolean;
@@ -9,7 +9,7 @@ export const getPlansToFeatures = async (): Promise<{
   error?: string;
 }> => {
   try {
-    const plansToFeatures = await prisma.mRRSPlanToFeature.findMany({
+    const plansToFeatures = await prisma.planToFeature.findMany({
       include: {
         plan: true,
         feature: true,
@@ -21,7 +21,7 @@ export const getPlansToFeatures = async (): Promise<{
       },
     });
     if (!plansToFeatures) throw new Error("No app settings found");
-    return { success: true, data: plansToFeatures as MRRSPlanToFeature[] };
+    return { success: true, data: plansToFeatures as PlanToFeature[] };
   } catch (error) {
     return { error: getErrorMessage(error) };
   }

@@ -1,29 +1,28 @@
-import { updateMRRSFeature } from "@/src/components/pages/admin/queries/queries";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
-import { MRRSFeature } from "@prisma/client";
+import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { Feature } from "@prisma/client";
 
 import { Info } from "lucide-react";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { v4 as uuidv4 } from "uuid";
 type Props = {
-  feature: MRRSFeature;
+  feature: Feature;
 };
 export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
   const randUuid = uuidv4();
-  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
-  const [featureState, setFeatureState] = useState<MRRSFeature>(feature);
+  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
+  const [featureState, setFeatureState] = useState<Feature>(feature);
 
   const handleChange = async (name: string, value: boolean) => {
     const updatedFeatureState = { ...featureState, [name]: value };
-    setSaasMRRSFeatures(
-      saasMRRSFeatures.map((f) =>
+    setSaasFeatures(
+      saasFeatures.map((f) =>
         f.id === updatedFeatureState.id ? updatedFeatureState : f
       )
     );
-    const updateFeature = await updateMRRSFeature(
+    const updateFeature = await updateFeature(
       feature.id,
       updatedFeatureState
     );
@@ -33,8 +32,8 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
         description: `Error while updating feature « ${feature.name} », please try again later`,
       });
     }
-    setSaasMRRSFeatures(
-      saasMRRSFeatures.map((f) =>
+    setSaasFeatures(
+      saasFeatures.map((f) =>
         f.id === updateFeature.id ? updateFeature : f
       )
     );

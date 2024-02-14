@@ -1,14 +1,14 @@
 import { getStripeProducts } from "@/src/helpers/utils/stripeProducts";
-import { MRRSPlan, StripeProduct } from "@prisma/client";
+import { Plan, StripeProduct } from "@prisma/client";
 import { create } from "zustand";
 export interface ExtendedStripeProduct extends StripeProduct {
-  MRRSPlanRelation?: Partial<MRRSPlan>;
+  PlanRelation?: Partial<Plan>;
 }
 type Store = {
   saasStripeProducts: ExtendedStripeProduct[];
   setSaasStripeProducts: (saasStripeProducts: ExtendedStripeProduct[]) => void;
   fetchSaasStripeProducts: () => Promise<void>;
-  updateProductByPlan: (planState: MRRSPlan, data: []) => void; // Ajout de la méthode updateProductByPlan
+  updateProductByPlan: (planState: Plan, data: []) => void; // Ajout de la méthode updateProductByPlan
 };
 
 export const useSaasStripeProductsStore = create<Store>()((set) => ({
@@ -22,7 +22,7 @@ export const useSaasStripeProductsStore = create<Store>()((set) => ({
   updateProductByPlan: (planState, data) => {
     set((state) => ({
       saasStripeProducts: state.saasStripeProducts.map((product) =>
-        product.MRRSPlanId === planState.id
+        product.PlanId === planState.id
           ? {
               ...product,
               data,

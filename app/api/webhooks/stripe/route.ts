@@ -1,16 +1,16 @@
 import { createPlan, deletePlan, updatePlan } from "@/src/helpers/utils/plans";
 import {
-  createStripePrice,
-  deletePrice,
-  updateStripePrice,
+    createStripePrice,
+    deletePrice,
+    updateStripePrice,
 } from "@/src/helpers/utils/stripePrices";
 import {
-  createStripeProduct,
-  deleteProduct,
-  updateStripeProduct,
+    createStripeProduct,
+    deleteProduct,
+    updateStripeProduct,
 } from "@/src/helpers/utils/stripeProducts";
 import { getErrorMessage } from "@/src/lib/getErrorMessage";
-import { MRRSPlan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -124,7 +124,7 @@ const createOrUpdateProduct = async ({
       statement_descriptor: stripeProduct.statement_descriptor ?? null,
       name: stripeProduct.name,
       active: stripeProduct.active,
-      MRRSPlanId: id,
+      PlanId: id,
       description: stripeProduct.description,
     };
     if (type === "create") {
@@ -202,10 +202,10 @@ const createOrUpdatePlan = async (
       description: stripePlan.description,
     };
     if (type === "create") {
-      const plan = await createPlan(planData as Partial<MRRSPlan>);
+      const plan = await createPlan(planData as Partial<Plan>);
       return { success: true, data: plan };
     } else if (type === "update") {
-      const plan = await updatePlan(planData as Partial<MRRSPlan>);
+      const plan = await updatePlan(planData as Partial<Plan>);
       return { success: true, data: plan };
     } else {
       console.error("An unknown error occurred");

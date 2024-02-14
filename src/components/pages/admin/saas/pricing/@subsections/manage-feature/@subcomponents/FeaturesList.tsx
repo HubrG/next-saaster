@@ -1,11 +1,11 @@
 "use client";
-import { updateMRRSFeaturePosition } from "@/src/components/pages/admin/queries/queries";
+import { updateFeaturePosition } from "@/src/components/pages/admin/queries/queries";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
 import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
+import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MRRSFeature } from "@prisma/client";
+import { Feature } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
@@ -13,7 +13,7 @@ import { FeatureCard } from "./@ui/FeatureCard";
 import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
-  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
+  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
   const { saasSettings } = useSaasSettingsStore();
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
 
@@ -23,13 +23,13 @@ export const FeaturesList = () => {
   };
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
-    const newSaasMRRSFeatures = (await sortADminFeatureAndPlan(
-      saasMRRSFeatures,
+    const newSaasFeatures = (await sortADminFeatureAndPlan(
+      saasFeatures,
       oldIndex,
       newIndex
-    )) as MRRSFeature[];
-    setSaasMRRSFeatures(newSaasMRRSFeatures);
-    await updateMRRSFeaturePosition(newSaasMRRSFeatures);
+    )) as Feature[];
+    setSaasFeatures(newSaasFeatures);
+    await updateFeaturePosition(newSaasFeatures);
   };
 
   return (
@@ -56,7 +56,7 @@ export const FeaturesList = () => {
           </thead>
           <tbody>
             <AnimatePresence>
-              {saasMRRSFeatures
+              {saasFeatures
                 .filter((feature) => !feature.deleted)
                 .map((feature) => (
                   <SortableItem key={feature.id}>

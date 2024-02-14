@@ -1,5 +1,5 @@
 import { prisma } from "@/src/lib/prisma";
-import { MRRSPlan, StripePrice, StripeProduct } from "@prisma/client";
+import { Plan, StripePrice, StripeProduct } from "@prisma/client";
 import Stripe from "stripe";
 
 export class StripeManager {
@@ -151,7 +151,7 @@ export class StripeManager {
     name: string,
     description: string,
     active: boolean,
-    plan: MRRSPlan
+    plan: Plan
   ) {
     let update = {} as Stripe.Product;
     try {
@@ -223,16 +223,16 @@ export class StripeManager {
       data: {
         id: data.id,
         active: data.active ?? false,
-        MRRSPlanId: planId,
+        PlanId: planId,
         description: data.description,
         metadata: data.metadata ?? {},
         name: data.name ?? "",
         unit_label: data.unit_label,
       },
-      include: { MRRSPlanRelation: true },
+      include: { PlanRelation: true },
     });
     // We update the plan with the product id
-    await prisma.mRRSPlan.update({
+    await prisma.plan.update({
       where: { id: planId },
       data: {
         stripeId: product.id,
@@ -297,7 +297,7 @@ export class StripeManager {
         name: data.name,
         unit_label: data.unit_label,
       },
-      include: { MRRSPlanRelation: true },
+      include: { PlanRelation: true },
     });
   }
 

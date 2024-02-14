@@ -10,9 +10,9 @@ import {
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
-  MRRSPlanStore,
-  useSaasMRRSPlansStore,
-} from "@/src/stores/admin/saasMRRSPlansStore";
+  PlanStore,
+  useSaasPlansStore,
+} from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { SaasTypes } from "@prisma/client";
 import { PopoverClose } from "@radix-ui/react-popover";
@@ -25,12 +25,12 @@ type Props = {
 };
 export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
   const { saasStripeCoupons } = useSaasStripeCoupons();
-  const { setSaasMRRSPlans } = useSaasMRRSPlansStore();
+  const { setSaasPlans } = useSaasPlansStore();
 
   const handleApplyCoupon = async (couponId: string) => {
     const apply = await applyCoupon(couponId, planId, recurrence ?? "monthly");
     if (apply) {
-      setSaasMRRSPlans((currentPlans: MRRSPlanStore[]) => {
+      setSaasPlans((currentPlans: PlanStore[]) => {
         const updatedPlans = currentPlans.map((planItem) => {
           if (planItem.id === planId) {
             return {
@@ -41,7 +41,7 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
           return planItem;
         });
         return updatedPlans.filter(
-          (plan): plan is MRRSPlanStore => plan !== undefined
+          (plan): plan is PlanStore => plan !== undefined
         );
       });
 

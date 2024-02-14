@@ -4,14 +4,14 @@ import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { sliced } from "@/src/functions/slice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MRRSPlan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 import { PopoverCoupon } from "../../../stripe-coupons/@ui/PopoverCoupon";
 import { CouponApplied } from "../CouponApplied";
 import { PlanCardSwitch } from "../PlanCardSwitch";
 
 interface ReccuringInputFieldsProps {
-  planState: MRRSPlan;
-  plan: MRRSPlan;
+  planState: Plan;
+  plan: Plan;
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement>,
     name: string
@@ -122,8 +122,8 @@ export const ReccuringInputFields = ({
   );
 };
 type ReccuringSwitchFieldsProps = {
-  planState: MRRSPlan;
-  plan: MRRSPlan;
+  planState: Plan;
+  plan: Plan;
   handleInputChange: (e: boolean, name: string) => void;
 };
 export const RecurringSwitchFields = ({

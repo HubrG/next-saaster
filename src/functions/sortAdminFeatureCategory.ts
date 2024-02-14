@@ -1,8 +1,8 @@
-import { MRRSFeatureCategory } from "@prisma/client";
+import { FeatureCategory } from "@prisma/client";
 import { arrayMoveImmutable } from "array-move";
 
 export const sortAdminFeatureCategory = async (
-  categories: MRRSFeatureCategory[],
+  categories: FeatureCategory[],
   oldIndex: number,
   newIndex: number
 ) => {
@@ -16,5 +16,5 @@ export const sortAdminFeatureCategory = async (
 
   const newList = [...reorderedItems];
   if (reorderedItems === newList) return false;
-  return newList as MRRSFeatureCategory[];
+  return newList as FeatureCategory[];
 };

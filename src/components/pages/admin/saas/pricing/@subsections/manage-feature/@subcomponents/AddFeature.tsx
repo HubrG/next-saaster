@@ -3,18 +3,18 @@ import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
+import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
+import { PlanToFeatureWithPlanAndFeature } from "@/src/types/PlanToFeatureWithPlanAndFeature";
 import { PlusSquare } from "lucide-react";
 import { useState } from "react";
 
 export const AddFeature = () => {
   const { saasSettings } = useSaasSettingsStore();
-  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
-  const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
-    useSaasMRRSPlanToFeatureStore();
+  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
+  const { saasPlanToFeature, setSaasPlanToFeature } =
+    useSaasPlanToFeatureStore();
   let saasType = SaasTypeReadableName(saasSettings.saasType);
   const [loading, setLoading] = useState(false);
 
@@ -23,10 +23,10 @@ export const AddFeature = () => {
     if (saasSettings.saasType === "MRR_SIMPLE") {
       const newFeature = await addNewMMRSFeature();
       if (newFeature && newFeature.newFeatures.length > 0) {
-        setSaasMRRSFeatures([...saasMRRSFeatures, newFeature.newFeature]);
-        setSaasMRRSPlanToFeature([
-          ...saasMRRSPlanToFeature,
-          ...(newFeature.newFeatures as MRRSPlanToFeatureWithPlanAndFeature[]),
+        setSaasFeatures([...saasFeatures, newFeature.newFeature]);
+        setSaasPlanToFeature([
+          ...saasPlanToFeature,
+          ...(newFeature.newFeatures as PlanToFeatureWithPlanAndFeature[]),
         ]);
 
         toaster({

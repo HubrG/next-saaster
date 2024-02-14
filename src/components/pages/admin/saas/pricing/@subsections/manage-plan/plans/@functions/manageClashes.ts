@@ -1,4 +1,4 @@
-import { MRRSPlan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 
 /** ManageClashes.ts
  * @param {object} data
@@ -11,9 +11,9 @@ import { MRRSPlan } from "@prisma/client";
  * @todo Add more clashes
 */
 
-type PartialMRRSPlan = Partial<MRRSPlan>;
+type PartialPlan = Partial<Plan>;
 
-export const manageClashes = (data: PartialMRRSPlan, lastChanged: string) => {
+export const manageClashes = (data: PartialPlan, lastChanged: string) => {
   if (lastChanged === "isFree" && data.isFree) {
     data.isCustom = false;
     data.isTrial = false;
@@ -33,5 +33,5 @@ export const manageClashes = (data: PartialMRRSPlan, lastChanged: string) => {
     data.isFree = false;
     data.isTrial = false;
   }
-  return data as MRRSPlan;
+  return data as Plan;
 };

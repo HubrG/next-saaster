@@ -1,7 +1,7 @@
 "use server";
 import { getErrorMessage } from "@/src/lib/getErrorMessage";
 import { prisma } from "@/src/lib/prisma";
-import { MRRSFeature, MRRSPlan } from "@prisma/client";
+import { Feature, Plan } from "@prisma/client";
 import { getFeatures } from "./features";
 
 export const getPlans = async (): Promise<{
@@ -10,12 +10,12 @@ export const getPlans = async (): Promise<{
   error?: string;
 }> => {
   try {
-    const plans = await prisma.mRRSPlan.findMany({
+    const plans = await prisma.plan.findMany({
       orderBy: {
         position: "asc",
       },
       include: {
-        MRRSFeatures: true,
+        Features: true,
         StripeProduct: {
           include: {
             prices: true,
@@ -29,17 +29,17 @@ export const getPlans = async (): Promise<{
       },
     });
     if (!plans) throw new Error("No app settings found");
-    return { success: true, data: plans as MRRSPlan[] };
+    return { success: true, data: plans as Plan[] };
   } catch (error) {
     return { error: getErrorMessage(error) };
   }
 };
 
 export const createPlan = async (
-  data: Partial<MRRSPlan>
+  data: Partial<Plan>
 ): Promise<{ success?: boolean; data?: any; error?: string }> => {
   try {
-    const plan = await prisma.mRRSPlan.create({
+    const plan = await prisma.plan.create({
       data: {
         name: data.name,
         description: data.description,
@@ -50,8 +50,8 @@ export const createPlan = async (
     const linkFeatures = await getFeatures();
     if (!linkFeatures.success) throw new Error(linkFeatures.error);
     const newFeatures = await Promise.all(
-      linkFeatures.data.map((feature: MRRSFeature) =>
-        prisma.mRRSPlanToFeature.create({
+      linkFeatures.data.map((feature: Feature) =>
+        prisma.planToFeature.create({
           data: {
             planId: plan?.id,
             featureId: feature.id,
@@ -70,10 +70,10 @@ export const createPlan = async (
 };
 
 export const updatePlan = async (
-  data: Partial<MRRSPlan>
+  data: Partial<Plan>
 ): Promise<{ success?: boolean; data?: any; error?: string }> => {
   try {
-    const plan = await prisma.mRRSPlan.update({
+    const plan = await prisma.plan.update({
       where: { stripeId: data.id },
       data: {
         name: data.name,
@@ -91,7 +91,7 @@ export const deletePlan = async (
   id: string
 ): Promise<{ success?: boolean; data?: any; error?: string }> => {
   try {
-    const plan = await prisma.mRRSPlan.delete({
+    const plan = await prisma.plan.delete({
       where: { stripeId: id },
     });
     if (!plan) throw new Error("An error has occured while deleting the plan");

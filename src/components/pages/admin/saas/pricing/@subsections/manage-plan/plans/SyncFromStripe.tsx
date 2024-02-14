@@ -3,8 +3,8 @@ import { Button } from "@/src/components/ui/button";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { getPlans } from "@/src/helpers/utils/plans";
 import { getPlansToFeatures } from "@/src/helpers/utils/plansToFeatures";
-import useSaasMRRSPlansStore from "@/src/stores/admin/saasMRRSPlansStore";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
+import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
+import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { Info, RefreshCcw } from "lucide-react";
 import React from "react";
 import { Tooltip } from "react-tooltip";
@@ -13,13 +13,13 @@ type Props = {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export const SyncFromStripe = ({ setLoading }: Props) => {
-  const { setSaasMRRSPlans, saasMRRSPlans } = useSaasMRRSPlansStore();
-  const { setSaasMRRSPlanToFeature, saasMRRSPlanToFeature } =
-    useSaasMRRSPlanToFeatureStore();
+  const { setSaasPlans, saasPlans } = useSaasPlansStore();
+  const { setSaasPlanToFeature, saasPlanToFeature } =
+    useSaasPlanToFeatureStore();
   const handleSyncWithStripe = async () => {
     // Sync with Stripe
     setLoading(true);
-    setSaasMRRSPlans([]);
+    setSaasPlans([]);
     const plans = await getPlans();
     if (!plans.success) {
       toaster({ type: "error", description: plans.error });
@@ -28,8 +28,8 @@ export const SyncFromStripe = ({ setLoading }: Props) => {
     if (!toFeatures.success) {
       toaster({ type: "error", description: toFeatures.error });
     }
-    if (plans) setSaasMRRSPlans(plans.data);
-    if (toFeatures) setSaasMRRSPlanToFeature(toFeatures.data);
+    if (plans) setSaasPlans(plans.data);
+    if (toFeatures) setSaasPlanToFeature(toFeatures.data);
 
     toaster({ type: "success", description: "Plans synced from Stripe" });
     setLoading(false);

@@ -1,12 +1,10 @@
 import { getStripeCoupons } from "@/src/helpers/utils/stripeCoupons";
-import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
+import { StripeCouponsWithPlans } from "@/src/types/StripeCouponsWithPlans";
 import { create } from "zustand";
 
 type Store = {
-  saasStripeCoupons: MRRSStripeCouponsWithPlans[];
-  setSaasStripeCoupons: (
-    saasStripeCoupons: MRRSStripeCouponsWithPlans[]
-  ) => void;
+  saasStripeCoupons: StripeCouponsWithPlans[];
+  setSaasStripeCoupons: (saasStripeCoupons: StripeCouponsWithPlans[]) => void;
   fetchSaasStripeCoupons: () => Promise<void>;
 };
 

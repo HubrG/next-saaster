@@ -1,52 +1,51 @@
 import {
-  createNewCategoryFromFeature,
-  updateMRRSFeature,
+    createNewCategoryFromFeature
 } from "@/src/components/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
 } from "@/src/components/ui/command";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
-import { MRRSFeature } from "@prisma/client";
+import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
+import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { Feature } from "@prisma/client";
 import _ from "lodash";
 import capitalize from "lodash/capitalize";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Props = {
-  feature: MRRSFeature;
+  feature: Feature;
 };
 
 export const FeatureCardCategory = ({ feature }: Props) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [searchInput, setSearchInput] = useState("");
-  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
-  const { saasMRRSFeaturesCategories, setSaasMRRSFeaturesCategories } =
-    useSaasMRRSFeaturesCategoriesStore();
+  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
+  const { saasFeaturesCategories, setSaasFeaturesCategories } =
+    useSaasFeaturesCategoriesStore();
 
   useEffect(() => {
     if (feature.categoryId) {
       setValue(
-        saasMRRSFeaturesCategories.find(
+        saasFeaturesCategories.find(
           (category) => category.id === feature.categoryId
         )?.name ?? ""
       );
     }
-  }, [feature.categoryId, saasMRRSFeaturesCategories]);
+  }, [feature.categoryId, saasFeaturesCategories]);
 
   const handleCreateCategory = async () => {
     const dataToSet = {
@@ -70,13 +69,13 @@ export const FeatureCardCategory = ({ feature }: Props) => {
       type: "success",
       description: `Category « ${searchInput} » created successfully and linked to feature « ${feature.name} »`,
     });
-    setSaasMRRSFeaturesCategories([
-      ...saasMRRSFeaturesCategories,
+    setSaasFeaturesCategories([
+      ...saasFeaturesCategories,
       createCategory,
     ]);
     if (createCategory.id) {
-      setSaasMRRSFeatures(
-        saasMRRSFeatures.map((f) =>
+      setSaasFeatures(
+        saasFeatures.map((f) =>
           f.id === feature.id ? { ...f, categoryId: createCategory.id } : f
         )
       );
@@ -90,7 +89,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
     const dataToSet = {
       categoryId: e ? e : null,
     };
-    const updateFeature = await updateMRRSFeature(feature.id, dataToSet);
+    const updateFeature = await updateFeature(feature.id, dataToSet);
     setSearchInput("");
 
     if (!updateFeature) {
@@ -116,7 +115,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
           {value
             ? sliced(
                 capitalize(
-                  saasMRRSFeaturesCategories.find(
+                  saasFeaturesCategories.find(
                     (category) => category.name === value
                   )?.name ?? ""
                 ),
@@ -159,7 +158,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
               />
               No category
             </CommandItem>
-            {saasMRRSFeaturesCategories.map((category) => (
+            {saasFeaturesCategories.map((category) => (
               <CommandItem
                 key={category.id}
                 value={category.name ?? ""}
@@ -182,7 +181,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
               (() => {
                 const normalizedSearchInput = searchInput.toUpperCase();
                 const categoryExists = _.some(
-                  saasMRRSFeaturesCategories,
+                  saasFeaturesCategories,
                   (category) =>
                     _.toUpper(category.name ?? "") === normalizedSearchInput
                 );

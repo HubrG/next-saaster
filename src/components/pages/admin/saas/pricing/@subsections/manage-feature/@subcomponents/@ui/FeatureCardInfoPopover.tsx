@@ -1,18 +1,18 @@
-import { updateMRRSFeature } from "@/src/components/pages/admin/queries/queries";
+import { updateFeature } from "@/src/components/pages/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Keybd } from "@/src/components/ui/kbd";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
-import { MRRSFeature } from "@prisma/client";
+import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { Feature } from "@prisma/client";
 import { Edit } from "lucide-react";
 import { useState } from "react";
 import slugify from "react-slugify";
@@ -20,7 +20,7 @@ import { Tooltip } from "react-tooltip";
 
 type Props = {
   toChange: string;
-  feature: MRRSFeature;
+  feature: Feature;
   toChangeValue: any;
   textarea?: boolean;
 };
@@ -30,7 +30,7 @@ export const FeatureCardInfoPopover = ({
   toChangeValue,
   textarea,
 }: Props) => {
-  const { saasMRRSFeatures, setSaasMRRSFeatures } = useSaasMRRSFeaturesStore();
+  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
   const [data, setData] = useState<string>(toChangeValue);
   const [open, setOpen] = useState<boolean>(false);
   const handleSave = async () => {
@@ -38,10 +38,10 @@ export const FeatureCardInfoPopover = ({
       ...feature,
       [toChange]: toChange === "alias" ? slugify(data) : data,
     };
-    const dataToUpdate = await updateMRRSFeature(feature.id, dataToSet);
+    const dataToUpdate = await updateFeature(feature.id, dataToSet);
     if (dataToUpdate) {
-      setSaasMRRSFeatures(
-        saasMRRSFeatures.map((feature) =>
+      setSaasFeatures(
+        saasFeatures.map((feature) =>
           feature.id === dataToUpdate.id ? dataToUpdate : feature
         )
       );

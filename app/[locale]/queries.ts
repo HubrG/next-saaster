@@ -43,13 +43,13 @@ export const getSaasSettings = async () => {
   return settings;
 };
 
-export const getSaasMRRSPlans = async () => {
-  const plans = await prisma.mRRSPlan.findMany({
+export const getSaasPlans = async () => {
+  const plans = await prisma.plan.findMany({
     orderBy: {
       position: "asc",
     },
     include: {
-      MRRSFeatures: true,
+      Features: true,
       StripeProduct: {
         include: {
           prices: true,
@@ -71,9 +71,9 @@ export const getCoupons = async () => {
       createdAt: "asc",
     },
     include: {
-      MRRSPlan: {
+      Plan: {
         include: {
-          MRRSPlan: true,
+          Plan: true,
         },
       },
     },
@@ -81,13 +81,13 @@ export const getCoupons = async () => {
   return coupons;
 };
 
-export const getSaasMRRSFeatures = async () => {
-  const features = await prisma.mRRSFeature.findMany({
+export const getSaasFeatures = async () => {
+  const features = await prisma.feature.findMany({
     orderBy: {
       position: "asc",
     },
     include: {
-      MRRSPlans: {
+      Plans: {
         include: {
           plan: true,
         },
@@ -98,15 +98,15 @@ export const getSaasMRRSFeatures = async () => {
   return features;
 };
 
-export const getSaasMRRSFeaturesCategories = async () => {
-  const featuresCat = await prisma.mRRSFeatureCategory.findMany({
+export const getSaasFeaturesCategories = async () => {
+  const featuresCat = await prisma.featureCategory.findMany({
     orderBy: {
       position: "asc",
     },
     include: {
-      MRRSFeatures: {
+      Features: {
         include: {
-          MRRSPlans: {
+          Plans: {
             include: {
               plan: true,
             },
@@ -124,9 +124,9 @@ export const getSaasStripeCoupons = async () => {
       createdAt: "asc",
     },
     include: {
-      MRRSPlan: {
+      Plan: {
         include: {
-          MRRSPlan: true,
+          Plan: true,
         },
       },
     },
@@ -134,8 +134,8 @@ export const getSaasStripeCoupons = async () => {
   return coupons;
 };
 
-export const getSaasMRRSPlanToFeature = async () => {
-  const planToFeatures = await prisma.mRRSPlanToFeature.findMany({
+export const getSaasPlanToFeature = async () => {
+  const planToFeatures = await prisma.planToFeature.findMany({
     include: {
       plan: true,
       feature: true,
@@ -189,7 +189,7 @@ export const stripeGetProducts = async () => {
     },
     include: {
       prices: true,
-      MRRSPlanRelation: true,
+      PlanRelation: true,
     },
   });
 

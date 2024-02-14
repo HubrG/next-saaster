@@ -5,10 +5,10 @@ import { UserInterfaceMainWrapper } from "@/src/components/ui/user-interface/Use
 import { UserInterfaceNavWrapper } from "@/src/components/ui/user-interface/UserInterfaceNavWrapper";
 import { UserInterfaceWrapper } from "@/src/components/ui/user-interface/UserInterfaceWrapper";
 import { useIsClient } from "@/src/hooks/useIsClient";
-import { useSaasMRRSFeaturesCategoriesStore } from "@/src/stores/admin/saasMRRSFeatureCategoriesStore";
-import { useSaasMRRSFeaturesStore } from "@/src/stores/admin/saasMRRSFeaturesStore";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
-import { useSaasMRRSPlansStore } from "@/src/stores/admin/saasMRRSPlansStore";
+import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
+import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
+import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useSaasStripePricesStore } from "@/src/stores/admin/stripePricesStore";
 import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
@@ -29,12 +29,10 @@ export const AdminComponent = () => {
     useSaasStripeProductsStore.getState().fetchSaasStripeProducts();
     useSaasStripePricesStore.getState().fetchSaasStripePrices();
     useSaasStripeCoupons.getState().fetchSaasStripeCoupons();
-    useSaasMRRSFeaturesCategoriesStore
-      .getState()
-      .fetchSaasMRRSFeaturesCategories();
-    useSaasMRRSFeaturesStore.getState().fetchSaasMRRSFeatures();
-    useSaasMRRSPlansStore.getState().fetchSaasMRRSPlan();
-    useSaasMRRSPlanToFeatureStore.getState().fetchSaasMRRSPlanToFeature();
+    useSaasFeaturesCategoriesStore.getState().fetchSaasFeaturesCategories();
+    useSaasFeaturesStore.getState().fetchSaasFeatures();
+    useSaasPlansStore.getState().fetchSaasPlan();
+    useSaasPlanToFeatureStore.getState().fetchSaasPlanToFeature();
     useSaasSettingsStore.getState().fetchSaasSettings();
     useAppSettingsStore.getState().fetchAppSettings();
   }, []);

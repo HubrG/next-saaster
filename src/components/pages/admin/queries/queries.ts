@@ -1,13 +1,13 @@
 "use server";
 import { isSuperAdmin } from "@/src/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
-import { MRRSPlanStore } from "@/src/stores/admin/saasMRRSPlansStore";
-import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
-import { MRRSStripeCouponsWithPlans } from "@/src/types/MRRSStripeCouponsWithPlans";
+import { PlanStore } from "@/src/stores/admin/saasPlansStore";
+import { PlanToFeatureWithPlanAndFeature } from "@/src/types/PlanToFeatureWithPlanAndFeature";
+import { StripeCouponsWithPlans } from "@/src/types/StripeCouponsWithPlans";
 import {
-  MRRSFeature,
-  MRRSFeatureCategory,
-  MRRSPlan,
+  Feature,
+  FeatureCategory,
+  Plan,
   SaasSettings,
   SaasTypes,
   appSettings,
@@ -15,40 +15,37 @@ import {
 import { StripeManager } from "../classes/stripeManagerClass";
 const stripeManager = new StripeManager();
 
-// SECTION Create MRRS Plan
-export const addNewMRRSPlan = async (saasType: SaasTypes) => {
+// SECTION Create  Plan
+export const addNewPlan = async (saasType: SaasTypes) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  let newPlan: Partial<MRRSPlan> | null = null;
+  let newPlan: Partial<Plan> | null = null;
 
   async function deletePlan(planId: string) {
-    await prisma.mRRSPlan.delete({
+    await prisma.plan.delete({
       where: { id: planId },
     });
   }
 
   try {
-    newPlan = await prisma.mRRSPlan.create({
+    newPlan = await prisma.plan.create({
       data: {
         saasType: saasType,
       },
     });
     if (!newPlan.id || !newPlan) throw new Error("Failed to create new plan");
 
-    const init = await initializeProductAndPricesWithStripe(
-      newPlan as MRRSPlan
-    );
+    const init = await initializeProductAndPricesWithStripe(newPlan as Plan);
     const approvedPlan = init.plan;
     const lastProduct = init.lastProduct;
 
-    const features = await prisma.mRRSFeature.findMany();
+    const features = await prisma.feature.findMany();
     const newFeatures = await Promise.all(
       features.map((feature) =>
-        prisma.mRRSPlanToFeature.create({
+        prisma.planToFeature.create({
           data: {
-            planId:
-              newPlan?.id as MRRSPlanToFeatureWithPlanAndFeature["planId"],
+            planId: newPlan?.id as PlanToFeatureWithPlanAndFeature["planId"],
             featureId: feature.id,
           },
         })
@@ -65,7 +62,7 @@ export const addNewMRRSPlan = async (saasType: SaasTypes) => {
   }
 };
 
-export const initializeProductAndPricesWithStripe = async (plan: MRRSPlan) => {
+export const initializeProductAndPricesWithStripe = async (plan: Plan) => {
   try {
     const saasSettings =
       (await prisma.saasSettings.findFirst({})) ||
@@ -76,7 +73,7 @@ export const initializeProductAndPricesWithStripe = async (plan: MRRSPlan) => {
     // On supprime tous les prodcuts liés au plan et les prices liés aux produits
     const resetAll = await prisma.stripeProduct.deleteMany({
       where: {
-        MRRSPlanId: plan.id,
+        PlanId: plan.id,
       },
     });
     if (!resetAll) throw new Error("Failed to reset all products");
@@ -113,7 +110,7 @@ export const initializeProductAndPricesWithStripe = async (plan: MRRSPlan) => {
     const [yearlyPrice, monthlyPrice, freePrice] = prices;
     if (!yearlyPrice || !monthlyPrice || !freePrice)
       throw new Error("Failed to create one or more Stripe prices");
-    const approvedPlan = await prisma.mRRSPlan.update({
+    const approvedPlan = await prisma.plan.update({
       where: { id: plan.id },
       data: {
         stripeId: product.id,
@@ -128,7 +125,7 @@ export const initializeProductAndPricesWithStripe = async (plan: MRRSPlan) => {
 
     const lastProduct = await prisma.stripeProduct.findUnique({
       where: { id: product.id },
-      include: { MRRSPlanRelation: true, prices: true },
+      include: { PlanRelation: true, prices: true },
     });
     if (!lastProduct) throw new Error("Failed to find last product");
     return { plan: approvedPlan, return: true, lastProduct: lastProduct };
@@ -137,18 +134,18 @@ export const initializeProductAndPricesWithStripe = async (plan: MRRSPlan) => {
     return { plan: plan, return: false };
   }
 };
-// SECTION Update MRRS Plan
+// SECTION Update  Plan
 
-export const updateMRRSPlan = async (planId: string, planData: any) => {
+export const updatePlan = async (planId: string, planData: any) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const { MRRSFeatures, ...filteredPlanData } = planData;
+  const { Features, ...filteredPlanData } = planData;
 
-  let plan = (await prisma.mRRSPlan.findUnique({
+  let plan = (await prisma.plan.findUnique({
     where: { id: planId },
-    include: { MRRSFeatures: true },
-  })) as MRRSPlanStore;
+    include: { Features: true },
+  })) as PlanStore;
   if (!plan) return false;
 
   const saasSettings = await prisma.saasSettings.findFirst({});
@@ -187,7 +184,7 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
     try {
       const create = await initializeProductAndPricesWithStripe(plan);
       if (create && !create.return) return false;
-      if (create) plan = create.plan as MRRSPlanStore;
+      if (create) plan = create.plan as PlanStore;
       monthlyPriceId = plan.stripeMonthlyPriceId;
       yearlyPriceId = plan.stripeYearlyPriceId;
       freePriceId = plan.stripeFreePriceId;
@@ -229,7 +226,7 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
 
     const { coupons, StripeProduct, ...updateDataWithoutCoupons } =
       updatePlanData;
-    const updatedPlan = await prisma.mRRSPlan.update({
+    const updatedPlan = await prisma.plan.update({
       where: { id: planId },
       data: {
         ...updateDataWithoutCoupons,
@@ -257,23 +254,23 @@ export const updateMRRSPlan = async (planId: string, planData: any) => {
   }
 };
 
-// SECTION Add New MRRS Feature
+// SECTION Add New  Feature
 
 export const addNewMMRSFeature = async () => {
   const session = await isSuperAdmin();
   if (!session) return false;
   // Créer une nouvelle fonctionnalité
-  const newFeature = await prisma.mRRSFeature.create({
+  const newFeature = await prisma.feature.create({
     data: {},
   });
 
   // Récupérer tous les plans actifs
-  const plans = await prisma.mRRSPlan.findMany();
+  const plans = await prisma.plan.findMany();
 
   // Créer des liens avec tous les plans actifs
   const newFeatures = await Promise.all(
     plans.map((plan) =>
-      prisma.mRRSPlanToFeature.create({
+      prisma.planToFeature.create({
         data: {
           planId: plan.id,
           featureId: newFeature.id,
@@ -289,11 +286,11 @@ export const addNewMMRSFeature = async () => {
   return { newFeature: newFeature, newFeatures: newFeatures };
 };
 
-export const updateMRRSFeature = async (featureId: string, data: any) => {
+export const updateFeature = async (featureId: string, data: any) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const { MRRSPlans, categoryId, ...featureData } = data;
+  const { Plans, categoryId, ...featureData } = data;
 
   let relationUpdate = {};
   if (categoryId !== undefined) {
@@ -302,7 +299,7 @@ export const updateMRRSFeature = async (featureId: string, data: any) => {
       : { category: { disconnect: true } };
   }
 
-  const updateFeature = await prisma.mRRSFeature.update({
+  const updateFeature = await prisma.feature.update({
     where: { id: featureId },
     data: {
       ...featureData,
@@ -313,14 +310,11 @@ export const updateMRRSFeature = async (featureId: string, data: any) => {
   return updateFeature;
 };
 
-export const updateMRRSFeatureCategory = async (
-  categoryId: string,
-  data: any
-) => {
+export const updateFeatureCategory = async (categoryId: string, data: any) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const updateCategory = await prisma.mRRSFeatureCategory.update({
+  const updateCategory = await prisma.featureCategory.update({
     where: { id: categoryId },
     data: data,
   });
@@ -328,11 +322,11 @@ export const updateMRRSFeatureCategory = async (
   return updateCategory;
 };
 
-export const deleteMRRSFeatureCategory = async (categoryId: string) => {
+export const deleteFeatureCategory = async (categoryId: string) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const deleteCategory = await prisma.mRRSFeatureCategory.delete({
+  const deleteCategory = await prisma.featureCategory.delete({
     where: { id: categoryId },
   });
 
@@ -381,12 +375,12 @@ export const updateSaasSettings = async (settingsId: string, data: any) => {
   return updateSetting;
 };
 
-export const updateMRRSPlanPosition = async (plans: MRRSPlan[]) => {
+export const updatePlanPosition = async (plans: Plan[]) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
   const updateOperations = plans.map((plan) =>
-    prisma.mRRSPlan.update({
+    prisma.plan.update({
       where: { id: plan.id },
       data: { position: plan.position },
     })
@@ -395,7 +389,7 @@ export const updateMRRSPlanPosition = async (plans: MRRSPlan[]) => {
   try {
     await prisma.$transaction(updateOperations);
 
-    return prisma.mRRSPlan.findMany();
+    return prisma.plan.findMany();
   } catch (error) {
     console.error(
       "Erreur lors de la mise à jour des positions des plans :",
@@ -405,12 +399,12 @@ export const updateMRRSPlanPosition = async (plans: MRRSPlan[]) => {
   }
 };
 
-export const updateMRRSFeaturePosition = async (features: MRRSFeature[]) => {
+export const updateFeaturePosition = async (features: Feature[]) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
   const updateOperations = features.map((feature) =>
-    prisma.mRRSFeature.update({
+    prisma.feature.update({
       where: { id: feature.id },
       data: { position: feature.position },
     })
@@ -419,21 +413,21 @@ export const updateMRRSFeaturePosition = async (features: MRRSFeature[]) => {
   try {
     await prisma.$transaction(updateOperations);
 
-    return prisma.mRRSFeature.findMany();
+    return prisma.feature.findMany();
   } catch (error) {
     console.error("Error updating feature positions in transaction:", error);
     return false;
   }
 };
 
-export const updateMRRSFeatureCategoryPosition = async (
-  categories: MRRSFeatureCategory[]
+export const updateFeatureCategoryPosition = async (
+  categories: FeatureCategory[]
 ) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
   const updateOperations = categories.map((category) =>
-    prisma.mRRSFeatureCategory.update({
+    prisma.featureCategory.update({
       where: { id: category.id },
       data: { position: category.position },
     })
@@ -442,7 +436,7 @@ export const updateMRRSFeatureCategoryPosition = async (
   try {
     await prisma.$transaction(updateOperations);
 
-    return prisma.mRRSFeatureCategory.findMany();
+    return prisma.featureCategory.findMany();
   } catch (error) {
     console.error("Error updating categories positions in transaction:", error);
     return false;
@@ -450,14 +444,14 @@ export const updateMRRSFeatureCategoryPosition = async (
 };
 
 export const updateLinkPlanToFeature = async (
-  dataToUpdate: MRRSPlanToFeatureWithPlanAndFeature[]
+  dataToUpdate: PlanToFeatureWithPlanAndFeature[]
 ) => {
   try {
     const session = await isSuperAdmin();
     if (!session) throw new Error("Unauthorized access");
 
     const updateOperations = dataToUpdate.map((data) =>
-      prisma.mRRSPlanToFeature.update({
+      prisma.planToFeature.update({
         where: {
           planId_featureId: {
             planId: data.planId,
@@ -473,7 +467,7 @@ export const updateLinkPlanToFeature = async (
     );
     await prisma.$transaction(updateOperations);
     if (updateOperations.length > 0)
-      return prisma.mRRSPlanToFeature.findMany({
+      return prisma.planToFeature.findMany({
         where: {
           planId: dataToUpdate[0].planId,
         },
@@ -481,7 +475,7 @@ export const updateLinkPlanToFeature = async (
           plan: true,
           feature: true,
         },
-      }) as Promise<MRRSPlanToFeatureWithPlanAndFeature[]>;
+      }) as Promise<PlanToFeatureWithPlanAndFeature[]>;
   } catch (error) {
     console.error("Error updating multiple links:", error);
     throw error;
@@ -489,21 +483,21 @@ export const updateLinkPlanToFeature = async (
 };
 
 type CreateNewCategory = {
-  name: MRRSFeatureCategory["name"];
-  featureId: MRRSFeature["id"];
+  name: FeatureCategory["name"];
+  featureId: Feature["id"];
 };
 export const createNewCategoryFromFeature = async (data: CreateNewCategory) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const newCategory = await prisma.mRRSFeatureCategory.create({
+  const newCategory = await prisma.featureCategory.create({
     data: {
       name: data.name ?? "",
     },
   });
 
   if (!newCategory) return false;
-  const linkFeatureToCategory = await prisma.mRRSFeature.update({
+  const linkFeatureToCategory = await prisma.feature.update({
     where: { id: data.featureId },
     data: {
       categoryId: newCategory.id,
@@ -514,11 +508,11 @@ export const createNewCategoryFromFeature = async (data: CreateNewCategory) => {
   return newCategory;
 };
 
-export const createNewCategory = async (name: MRRSFeatureCategory["name"]) => {
+export const createNewCategory = async (name: FeatureCategory["name"]) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  const newCategory = await prisma.mRRSFeatureCategory.create({
+  const newCategory = await prisma.featureCategory.create({
     data: {
       name: name ?? "",
     },
@@ -528,7 +522,7 @@ export const createNewCategory = async (name: MRRSFeatureCategory["name"]) => {
 };
 
 export const createNewCoupon = async (
-  data: Partial<MRRSStripeCouponsWithPlans>
+  data: Partial<StripeCouponsWithPlans>
 ) => {
   const session = await isSuperAdmin();
   if (!session) return false;
@@ -551,7 +545,7 @@ export const createNewCoupon = async (
     percent_off: validatedPercentOff,
   });
 
-  return coupon as MRRSStripeCouponsWithPlans;
+  return coupon as StripeCouponsWithPlans;
 };
 
 export const deleteCoupon = async (couponId: string) => {
@@ -577,7 +571,7 @@ export const applyCoupon = async (
   // Si un coupon existe déjà avec la même recurrence sur le même plan, on le supprime et on le remplace:
   const searchForReplace = await prisma.stripePlanCoupon.findMany({
     where: {
-      MRRSPlanId: planId,
+      PlanId: planId,
       recurrence: planRecurrence,
     },
   });
@@ -586,7 +580,7 @@ export const applyCoupon = async (
   if (searchForReplace.length > 0) {
     await prisma.stripePlanCoupon.deleteMany({
       where: {
-        MRRSPlanId: planId,
+        PlanId: planId,
         recurrence: planRecurrence,
       },
     });
@@ -600,12 +594,12 @@ export const applyCoupon = async (
     const coupon = await prisma.stripePlanCoupon.create({
       data: {
         couponId: couponId,
-        MRRSPlanId: planId,
+        PlanId: planId,
         recurrence: planRecurrence,
       },
       include: {
         coupon: true,
-        MRRSPlan: {
+        Plan: {
           include: {
             coupons: {
               include: {
@@ -616,7 +610,7 @@ export const applyCoupon = async (
         },
       },
     });
-    return coupon.MRRSPlan.coupons;
+    return coupon.Plan.coupons;
   }
 };
 
@@ -629,7 +623,7 @@ export const revokeCoupon = async (couponId: string) => {
     },
     include: {
       coupon: true,
-      MRRSPlan: {
+      Plan: {
         include: {
           coupons: {
             include: {
@@ -641,5 +635,5 @@ export const revokeCoupon = async (couponId: string) => {
     },
   });
 
-  return coupon.MRRSPlan.coupons;
+  return coupon.Plan.coupons;
 };

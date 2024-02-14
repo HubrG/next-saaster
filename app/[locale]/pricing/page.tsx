@@ -2,7 +2,7 @@ import { PriceCard } from "@/src/components/pages/pricing/PriceCard";
 import { SwitchRecurrence } from "@/src/components/pages/pricing/SwitchRecurrence";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { getPlans } from "@/src/helpers/utils/plans";
-import { MRRSPlan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 import { Suspense } from "react";
 import { getCoupons } from "../queries";
 
@@ -35,8 +35,8 @@ export default async function Pricing({
         </div>
         <div className="grid grid-cols-3 w-full mx-auto gap-5">
           {plans.data
-            .filter((plan: MRRSPlan) => plan.active && !plan.deleted)
-            .map((plan: MRRSPlan) => (
+            .filter((plan: Plan) => plan.active && !plan.deleted)
+            .map((plan: Plan) => (
               <div key={plan.id}>
                 <PriceCard plan={plan} coupons={coupons} />
               </div>

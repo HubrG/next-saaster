@@ -1,48 +1,48 @@
 "use client";
-import { updateMRRSPlanPosition } from "@/src/components/pages/admin/queries/queries";
+import { updatePlanPosition } from "@/src/components/pages/admin/queries/queries";
 import { PlanCard } from "@/src/components/pages/admin/saas/pricing/@subsections/manage-plan/plans/@ui/PlanCard";
 import { Loader } from "@/src/components/ui/loader";
 import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
-import { useSaasMRRSPlansStore } from "@/src/stores/admin/saasMRRSPlansStore";
+import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
+import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MRRSPlan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Suspense } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 
 export const PlansList = () => {
-  const { setSaasMRRSPlans } = useSaasMRRSPlansStore();
+  const { setSaasPlans } = useSaasPlansStore();
   const { saasSettings } = useSaasSettingsStore();
-  const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
-    useSaasMRRSPlanToFeatureStore();
+  const { saasPlanToFeature, setSaasPlanToFeature } =
+    useSaasPlanToFeatureStore();
 
-  const saasMRRSPlans = useSaasMRRSPlansStore((state) => state.saasMRRSPlans);
+  const saasPlans = useSaasPlansStore((state) => state.saasPlans);
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
-    const newSaasMRRSPlans = (await sortADminFeatureAndPlan(
-      saasMRRSPlans,
+    const newSaasPlans = (await sortADminFeatureAndPlan(
+      saasPlans,
       oldIndex,
       newIndex
-    )) as MRRSPlan[];
-    if (newSaasMRRSPlans) {
-      setSaasMRRSPlans(newSaasMRRSPlans);
-      await updateMRRSPlanPosition(newSaasMRRSPlans);
-      setSaasMRRSPlanToFeature(
-        saasMRRSPlanToFeature.map((link) => {
-          const newPlanPosition = newSaasMRRSPlans.findIndex(
+    )) as Plan[];
+    if (newSaasPlans) {
+      setSaasPlans(newSaasPlans);
+      await updatePlanPosition(newSaasPlans);
+      setSaasPlanToFeature(
+        saasPlanToFeature.map((link) => {
+          const newPlanPosition = newSaasPlans.findIndex(
             (plan) => plan.id === link.planId
           );
           return {
             ...link,
-            plan: newSaasMRRSPlans[newPlanPosition],
+            plan: newSaasPlans[newPlanPosition],
           };
         })
       );
     }
   };
 
-  if (saasMRRSPlans.length === 0) {
+  if (saasPlans.length === 0) {
     return (
       <Suspense fallback={<Loader noHFull />}>
         <div className="flex justify-center items-center py-10">
@@ -60,7 +60,7 @@ export const PlansList = () => {
       className="grid grid-flow-row 2xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 md:gap-x-5 md:gap-y-14"
       draggedItemClassName="dragged">
       <AnimatePresence>
-        {saasMRRSPlans
+        {saasPlans
           .filter(
             (plan) => !plan.deleted && plan.saasType === saasSettings.saasType
           )

@@ -1,8 +1,8 @@
-import { MRRSFeature, MRRSPlan } from "@prisma/client";
+import { Feature, Plan } from "@prisma/client";
 import { arrayMoveImmutable } from "array-move";
 
 export const sortADminFeatureAndPlan = async (
-  list: MRRSFeature[] | MRRSPlan[],
+  list: Feature[] | Plan[],
   oldIndex: number,
   newIndex: number
 ) => {
@@ -21,5 +21,5 @@ export const sortADminFeatureAndPlan = async (
 
   const newList = [...reorderedNonDeletedItems, ...deletedItems];
   if (list === newList) return false;
-  return newList as MRRSFeature[] | MRRSPlan[];
+  return newList as Feature[] | Plan[];
 };

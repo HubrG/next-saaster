@@ -56,24 +56,24 @@ enum UserRole {
 }
 
 model User {
-  id               String            @id @default(cuid())
-  name             String?
-  email            String?           @unique
-  emailVerified    DateTime?
-  image            String?
-  password         String?
-  date             DateTime?         @default(now())
-  role             UserRole          @default(USER)
-  customerId       String?
-  createdAt        DateTime?         @default(now())
-  updatedAt        DateTime?         @updatedAt
-  userSettings     UserSettings[]
-  accounts         Account[]
-  sessions         Session[]
-  transactions     Transaction[]
-  subscriptions    Subscription[]
-  MRRSUserFeatures MRRSUserFeature[]
-  contacts         ResendContact[]
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  date          DateTime?       @default(now())
+  role          UserRole        @default(USER)
+  customerId    String?
+  createdAt     DateTime?       @default(now())
+  updatedAt     DateTime?       @updatedAt
+  userSettings  UserSettings[]
+  accounts      Account[]
+  sessions      Session[]
+  transactions  Transaction[]
+  subscriptions Subscription[]
+  UserFeatures  UserFeature[]
+  contacts      ResendContact[]
 }
 
 model UserSettings {
@@ -143,7 +143,7 @@ model Subscription {
   updatedAt        DateTime?     @updatedAt
   transactions     Transaction[]
   user             User          @relation(fields: [userId], references: [id])
-  MRRSPlan         MRRSPlan?     @relation(fields: [planId], references: [id])
+  Plan             Plan?         @relation(fields: [planId], references: [id])
 }
 
 // SECTION END: Pricing
@@ -165,96 +165,96 @@ model SaasSettings {
   updatedAt                       DateTime? @updatedAt
 }
 
-model MRRSPlan {
-  id                   String              @id @default(cuid())
-  name                 String?             @default("Plan name")
-  description          String?             @default("Plan description")
-  isCustom             Boolean?            @default(false) // Custom plan, contact us for...
-  isPopular            Boolean?            @default(false) // Display popular plan on top
-  isRecommended        Boolean?            @default(false) // Display recommended plan on top
-  isTrial              Boolean?            @default(false) // Trial plan
-  isFree               Boolean?            @default(false) // Free plan
-  trialDays            Int?                @default(0) // Trial days
-  isMonthly            Boolean?            @default(false) // Monthly plan
-  monthlyPrice         Float?              @default(0) // Monthly price
-  isYearly             Boolean?            @default(false) // Yearly plan
-  yearlyPrice          Float?              @default(0) // Yearly price
-  oncePrice            Float?              @default(0) // Once price
-  isCredit             Boolean?            @default(false) // Credit plan
-  creditAllouedByMonth Int?                @default(0) // Monthly credit
-  stripeId             String?             @unique
+model Plan {
+  id                   String             @id @default(cuid())
+  name                 String?            @default("Plan name")
+  description          String?            @default("Plan description")
+  isCustom             Boolean?           @default(false) // Custom plan, contact us for...
+  isPopular            Boolean?           @default(false) // Display popular plan on top
+  isRecommended        Boolean?           @default(false) // Display recommended plan on top
+  isTrial              Boolean?           @default(false) // Trial plan
+  isFree               Boolean?           @default(false) // Free plan
+  trialDays            Int?               @default(0) // Trial days
+  isMonthly            Boolean?           @default(false) // Monthly plan
+  monthlyPrice         Float?             @default(0) // Monthly price
+  isYearly             Boolean?           @default(false) // Yearly plan
+  yearlyPrice          Float?             @default(0) // Yearly price
+  oncePrice            Float?             @default(0) // Once price
+  isCredit             Boolean?           @default(false) // Credit plan
+  creditAllouedByMonth Int?               @default(0) // Monthly credit
+  stripeId             String?            @unique
   stripeYearlyPriceId  String?
   stripeMonthlyPriceId String?
   stripeFreePriceId    String?
-  saasType             SaasTypes           @default(MRR_SIMPLE)
-  active               Boolean?            @default(false)
-  position             Int?                @default(9999)
-  deleted              Boolean?            @default(false)
-  createdAt            DateTime?           @default(now())
-  deletedAt            DateTime?           @default(now())
-  updatedAt            DateTime?           @updatedAt
+  saasType             SaasTypes          @default(MRR_SIMPLE)
+  active               Boolean?           @default(false)
+  position             Int?               @default(9999)
+  deleted              Boolean?           @default(false)
+  createdAt            DateTime?          @default(now())
+  deletedAt            DateTime?          @default(now())
+  updatedAt            DateTime?          @updatedAt
   coupons              StripePlanCoupon[]
   StripeProduct        StripeProduct[]
-  MRRSFeatures         MRRSPlanToFeature[]
+  Features             PlanToFeature[]
   Subscription         Subscription[]
-  MRRSUserFeatures     MRRSUserFeature[]
+  UserFeatures         UserFeature[]
 }
 
-model MRRSFeature {
-  id                  String               @id @default(cuid())
-  name                String?              @default("")
-  alias               String?              @unique
-  description         String?              @default("")
-  onlyOnSelectedPlans Boolean?             @default(false)
+model Feature {
+  id                  String           @id @default(cuid())
+  name                String?          @default("")
+  alias               String?          @unique
+  description         String?          @default("")
+  onlyOnSelectedPlans Boolean?         @default(false)
   categoryId          String?
-  position            Int?                 @default(9999)
-  positionCategory    Int?                 @default(9999)
-  deleted             Boolean?             @default(false)
-  deletedAt           DateTime?            @default(now())
-  createdAt           DateTime?            @default(now())
-  updatedAt           DateTime?            @updatedAt
-  category            MRRSFeatureCategory? @relation(fields: [categoryId], references: [id])
-  MRRSPlans           MRRSPlanToFeature[]
-  MRRSUserFeatures    MRRSUserFeature[]
+  position            Int?             @default(9999)
+  positionCategory    Int?             @default(9999)
+  deleted             Boolean?         @default(false)
+  deletedAt           DateTime?        @default(now())
+  createdAt           DateTime?        @default(now())
+  updatedAt           DateTime?        @updatedAt
+  category            FeatureCategory? @relation(fields: [categoryId], references: [id])
+  Plans               PlanToFeature[]
+  UserFeatures        UserFeature[]
 }
 
-model MRRSPlanToFeature {
-  id                   String      @id @default(cuid())
-  creditCost           Int?        @default(0)
-  creditAllouedByMonth Int?        @default(0)
-  active               Boolean?    @default(false)
+model PlanToFeature {
+  id                   String   @id @default(cuid())
+  creditCost           Int?     @default(0)
+  creditAllouedByMonth Int?     @default(0)
+  active               Boolean? @default(false)
   planId               String
   featureId            String
-  plan                 MRRSPlan    @relation(fields: [planId], references: [id], onDelete: Cascade)
-  feature              MRRSFeature @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  plan                 Plan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+  feature              Feature  @relation(fields: [featureId], references: [id], onDelete: Cascade)
 
   @@unique([planId, featureId])
 }
 
-model MRRSFeatureCategory {
-  id           String        @id @default(cuid())
-  name         String?       @unique
-  description  String?       @default("Features category description")
-  position     Int?          @default(9999)
-  deleted      Boolean?      @default(false)
-  deletedAt    DateTime?     @default(now())
-  createdAt    DateTime?     @default(now())
-  updatedAt    DateTime?     @updatedAt
-  MRRSFeatures MRRSFeature[]
+model FeatureCategory {
+  id          String    @id @default(cuid())
+  name        String?   @unique
+  description String?   @default("Features category description")
+  position    Int?      @default(9999)
+  deleted     Boolean?  @default(false)
+  deletedAt   DateTime? @default(now())
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Features    Feature[]
 }
 
-model MRRSUserFeature {
-  id              String      @id @default(cuid())
+model UserFeature {
+  id              String    @id @default(cuid())
   userId          String
   featureId       String
   planId          String
-  active          Boolean?    @default(false)
-  creditRemaining Int?        @default(0)
-  createdAt       DateTime?   @default(now())
-  updatedAt       DateTime?   @updatedAt
-  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feature         MRRSFeature @relation(fields: [featureId], references: [id], onDelete: Cascade)
-  plan            MRRSPlan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  active          Boolean?  @default(false)
+  creditRemaining Int?      @default(0)
+  createdAt       DateTime? @default(now())
+  updatedAt       DateTime? @updatedAt
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature         Feature   @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  plan            Plan      @relation(fields: [planId], references: [id], onDelete: Cascade)
 
   @@unique([userId, featureId, planId])
 }
@@ -272,9 +272,9 @@ model StripeProduct {
   statement_descriptor String?
   createdAt            DateTime?     @default(now())
   updatedAt            DateTime?     @updatedAt
-  MRRSPlanId           String?       @unique
+  PlanId               String?       @unique
   prices               StripePrice[]
-  MRRSPlanRelation     MRRSPlan?     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
+  PlanRelation         Plan?         @relation(fields: [PlanId], references: [id], onDelete: Cascade)
 }
 
 model StripePrice {
@@ -321,18 +321,18 @@ model StripeCoupon {
   valid            Boolean
   createdAt        DateTime?          @default(now())
   updatedAt        DateTime?          @updatedAt
-  MRRSPlan         StripePlanCoupon[]
+  Plan             StripePlanCoupon[]
 }
 
 model StripePlanCoupon {
   id         String       @id @default(cuid())
-  MRRSPlanId String
+  PlanId     String
   couponId   String
   recurrence String?
-  MRRSPlan   MRRSPlan     @relation(fields: [MRRSPlanId], references: [id], onDelete: Cascade)
+  Plan       Plan         @relation(fields: [PlanId], references: [id], onDelete: Cascade)
   coupon     StripeCoupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
 
-  @@unique([MRRSPlanId, couponId, recurrence])
+  @@unique([PlanId, couponId, recurrence])
 }
 
 enum SaasTypes {
@@ -343,7 +343,7 @@ enum SaasTypes {
 
   // Abonnements récurrents
   MRR_SIMPLE
-  // Alias : MRRS
+  // Alias : 
   // NOTE -> Facturation périodique pour l'accès continu à un produit ou service.
 
   // Utilisation mesurée (Metered Billing)

@@ -1,7 +1,7 @@
 "use server";
 import { getErrorMessage } from "@/src/lib/getErrorMessage";
 import { prisma } from "@/src/lib/prisma";
-import { MRRSFeatureCategory } from "@prisma/client";
+import { FeatureCategory } from "@prisma/client";
 
 export const getFeaturesCategories = async (): Promise<{
   success?: boolean;
@@ -9,9 +9,9 @@ export const getFeaturesCategories = async (): Promise<{
   error?: string;
 }> => {
   try {
-    const featuresCategories = await prisma.mRRSFeatureCategory.findMany({});
+    const featuresCategories = await prisma.featureCategory.findMany({});
     if (!featuresCategories) throw new Error("No app settings found");
-    return { success: true, data: featuresCategories as MRRSFeatureCategory[] };
+    return { success: true, data: featuresCategories as FeatureCategory[] };
   } catch (error) {
     return { error: getErrorMessage(error) };
   }

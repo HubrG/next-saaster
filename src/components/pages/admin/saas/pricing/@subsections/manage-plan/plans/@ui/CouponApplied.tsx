@@ -2,15 +2,15 @@
 import { revokeCoupon } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
-  MRRSPlanStore,
-  useSaasMRRSPlansStore,
-} from "@/src/stores/admin/saasMRRSPlansStore";
+  PlanStore,
+  useSaasPlansStore,
+} from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { MinusCircle } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 type Props = {
-  plan: MRRSPlanStore;
+  plan: PlanStore;
   recurrence: "monthly" | "yearly" | "once";
   monthlyP?: number;
   yearlyP?: number;
@@ -23,10 +23,10 @@ export const CouponApplied = ({
   onceP,
   yearlyP,
 }: Props) => {
-  const { saasMRRSPlans, setSaasMRRSPlans } = useSaasMRRSPlansStore();
+  const { saasPlans, setSaasPlans } = useSaasPlansStore();
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { saasSettings } = useSaasSettingsStore();
-  const planCoupons = saasMRRSPlans.find((p) => p.id === plan.id)?.coupons;
+  const planCoupons = saasPlans.find((p) => p.id === plan.id)?.coupons;
 
   const calculYearlyPriceWithDiscount = (price: number, discount: number) => {
     return price - price * (discount / 100);
@@ -41,7 +41,7 @@ export const CouponApplied = ({
   const handleRevokeCoupon = async (couponId: string) => {
     const revoke = await revokeCoupon(couponId);
     if (revoke) {
-      setSaasMRRSPlans((currentPlans: MRRSPlanStore[]) => {
+      setSaasPlans((currentPlans: PlanStore[]) => {
         const updatedPlans = currentPlans.map((planItem) => {
           if (planItem.id === plan.id) {
             const updatedCoupons = planItem.coupons?.filter(
@@ -72,7 +72,7 @@ export const CouponApplied = ({
       });
     }
   };
-  console.log(saasMRRSPlans);
+  console.log(saasPlans);
   return (
     <div>
       {planCoupons?.map((coupon) => {
@@ -80,7 +80,7 @@ export const CouponApplied = ({
           (c) => c.id === coupon.couponId
         );
 
-        if (coupon.recurrence === recurrence && coupon.MRRSPlanId === plan.id) {
+        if (coupon.recurrence === recurrence && coupon.PlanId === plan.id) {
           return (
             <div
               key={plan.id + coupon.couponId}

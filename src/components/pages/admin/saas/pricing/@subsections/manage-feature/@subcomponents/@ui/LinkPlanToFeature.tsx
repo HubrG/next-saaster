@@ -3,9 +3,9 @@ import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
@@ -13,10 +13,10 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/functions/parse";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
+import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MRRSPlanToFeatureWithPlanAndFeature } from "@/src/types/MRRSPlanToFeatureWithPlanAndFeature";
-import { MRRSFeature, MRRSPlan } from "@prisma/client";
+import { PlanToFeatureWithPlanAndFeature } from "@/src/types/PlanToFeatureWithPlanAndFeature";
+import { Feature, Plan } from "@prisma/client";
 import _ from "lodash";
 import capitalize from "lodash/capitalize";
 import { ListTodo } from "lucide-react";
@@ -27,21 +27,21 @@ type LinkState = {
     active: boolean | null;
     creditCost: number;
     creditAllouedByMonth: number;
-    plan: MRRSPlan;
+    plan: Plan;
   };
 };
 type Props = {
-  feature: MRRSFeature;
+  feature: Feature;
 };
 export const LinkPlanToFeature = ({ feature }: Props) => {
   const [linksState, setLinksState] = useState<LinkState>({});
   const [initialLinksState, setInitialLinksState] = useState<LinkState>({});
   const { saasSettings } = useSaasSettingsStore();
-  const { saasMRRSPlanToFeature } = useSaasMRRSPlanToFeatureStore();
+  const { saasPlanToFeature } = useSaasPlanToFeatureStore();
 
   useEffect(() => {
     const newLinksState: LinkState = {};
-    saasMRRSPlanToFeature
+    saasPlanToFeature
       .filter(
         (item) =>
           item.featureId === feature.id &&
@@ -64,7 +64,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
       });
     setLinksState(newLinksState);
     setInitialLinksState(_.cloneDeep(newLinksState)); // Utilisez lodash pour faire une copie profonde
-  }, [feature.id, saasMRRSPlanToFeature]);
+  }, [feature.id, saasPlanToFeature]);
 
   const hasDataChanged = () => {
     return !_.isEqual(linksState, initialLinksState);
@@ -115,14 +115,14 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
       };
     });
     const dataToSet = await updateLinkPlanToFeature(
-      dataToSend as MRRSPlanToFeatureWithPlanAndFeature[]
+      dataToSend as PlanToFeatureWithPlanAndFeature[]
     );
     if (dataToSet) {
       setInitialLinksState(_.cloneDeep(linksState));
       setLinksState(_.cloneDeep(linksState));
 
-      useSaasMRRSPlanToFeatureStore.setState((state) => {
-        const updatedFeatures = state.saasMRRSPlanToFeature.map((item) => {
+      useSaasPlanToFeatureStore.setState((state) => {
+        const updatedFeatures = state.saasPlanToFeature.map((item) => {
           const updateData = dataToSend.find(
             (d) => d.planId === item.plan.id && d.featureId === item.feature.id
           );
@@ -137,7 +137,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
           return item;
         });
 
-        return { saasMRRSPlanToFeature: updatedFeatures };
+        return { saasPlanToFeature: updatedFeatures };
       });
 
       return toaster({

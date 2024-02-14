@@ -1,5 +1,5 @@
 "use client";
-import { updateMRRSPlan } from "@/src/components/pages/admin/queries/queries";
+import { updatePlan } from "@/src/components/pages/admin/queries/queries";
 import { manageClashes } from "@/src/components/pages/admin/saas/pricing/@subsections/manage-plan/plans/@functions/manageClashes";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
@@ -17,10 +17,10 @@ import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/functions/parse";
 import { cn } from "@/src/lib/utils";
-import { useSaasMRRSPlanToFeatureStore } from "@/src/stores/admin/saasMRRSPlanToFeatureStore";
-import { useSaasMRRSPlansStore } from "@/src/stores/admin/saasMRRSPlansStore";
+import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
+import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { MRRSPlan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 import isEqual from "lodash/isEqual";
 import { ChevronsUpDown, Eye, EyeOff, Grip } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -34,7 +34,7 @@ import {
 } from "./plan-card-fields-by-saas-type/RecurringFields";
 
 type Props = {
-  plan: MRRSPlan;
+  plan: Plan;
   className?: string;
   draggableId?: string;
 };
@@ -46,9 +46,9 @@ export const PlanCard = ({ plan, className }: Props) => {
   const [cancel, setCancel] = useState(false);
   const [save, setSave] = useState(false);
   const { saasSettings } = useSaasSettingsStore();
-  const { updatePlanFromStore, deletePlanFromStore } = useSaasMRRSPlansStore();
-  const { saasMRRSPlanToFeature, setSaasMRRSPlanToFeature } =
-    useSaasMRRSPlanToFeatureStore();
+  const { updatePlanFromStore, deletePlanFromStore } = useSaasPlansStore();
+  const { saasPlanToFeature, setSaasPlanToFeature } =
+    useSaasPlanToFeatureStore();
 
   // Check if the plan has changed
   useEffect(() => {
@@ -84,7 +84,7 @@ export const PlanCard = ({ plan, className }: Props) => {
   // Handle save plan
   const handleSave = async () => {
     setLoading(true);
-    const dataToSet = await updateMRRSPlan(planState.id, {
+    const dataToSet = await updatePlan(planState.id, {
       ...planState,
       trialDays: planState.trialDays ?? 0,
     });
@@ -92,8 +92,8 @@ export const PlanCard = ({ plan, className }: Props) => {
       setSaveAndCancel(false);
       setInitialPlanState({ ...planState });
       updatePlanFromStore(planState.id, planState);
-      setSaasMRRSPlanToFeature(
-        saasMRRSPlanToFeature.map((item) =>
+      setSaasPlanToFeature(
+        saasPlanToFeature.map((item) =>
           item.planId === planState.id ? { ...item, plan: planState } : item
         )
       );
@@ -118,15 +118,15 @@ export const PlanCard = ({ plan, className }: Props) => {
 
   // Handle delete plan
   const handleDelete = async () => {
-    const dataToSet = await updateMRRSPlan(planState.id, {
+    const dataToSet = await updatePlan(planState.id, {
       ...planState,
       deleted: true,
       deletedAt: new Date(),
     });
     if (dataToSet) {
       deletePlanFromStore(planState.id);
-      setSaasMRRSPlanToFeature(
-        saasMRRSPlanToFeature.map((item) =>
+      setSaasPlanToFeature(
+        saasPlanToFeature.map((item) =>
           item.planId === planState.id
             ? { ...item, plan: { ...planState, deleted: true } }
             : item

@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   console.log(req.json());
   try {
     const hashedPassword = await hash(password, 10);
-
+    //
     const user = await prisma.user.findUnique({
       where: {
         email,

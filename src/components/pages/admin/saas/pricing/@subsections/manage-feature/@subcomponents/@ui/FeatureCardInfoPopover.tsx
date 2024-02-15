@@ -3,15 +3,16 @@ import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Keybd } from "@/src/components/ui/kbd";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { iFeature } from "@/src/types/iFeatures";
 import { Feature } from "@prisma/client";
 import { Edit } from "lucide-react";
 import { useState } from "react";
@@ -38,7 +39,10 @@ export const FeatureCardInfoPopover = ({
       ...feature,
       [toChange]: toChange === "alias" ? slugify(data) : data,
     };
-    const dataToUpdate = await updateFeature(feature.id, dataToSet);
+    const dataToUpdate = (await updateFeature(
+      feature.id,
+      dataToSet
+    )) as iFeature;
     if (dataToUpdate) {
       setSaasFeatures(
         saasFeatures.map((feature) =>

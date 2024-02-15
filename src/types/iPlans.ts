@@ -12,4 +12,5 @@ export interface iPlan extends Plan {
   coupons: (StripePlanCoupon & {
     coupon: iStripeCoupon;
   })[];
+  prevState: () => void;
 }

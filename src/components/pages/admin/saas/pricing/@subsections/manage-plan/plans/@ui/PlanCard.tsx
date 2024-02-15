@@ -20,6 +20,8 @@ import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { iPlanToFeature } from "@/src/types/iPlanToFeature";
+import { iPlan } from "@/src/types/iPlans";
 import { Plan } from "@prisma/client";
 import isEqual from "lodash/isEqual";
 import { ChevronsUpDown, Eye, EyeOff, Grip } from "lucide-react";
@@ -95,7 +97,7 @@ export const PlanCard = ({ plan, className }: Props) => {
       setSaasPlanToFeature(
         saasPlanToFeature.map((item) =>
           item.planId === planState.id ? { ...item, plan: planState } : item
-        )
+        ) as iPlanToFeature[]
       );
       setLoading(false);
       return toaster({
@@ -130,7 +132,7 @@ export const PlanCard = ({ plan, className }: Props) => {
           item.planId === planState.id
             ? { ...item, plan: { ...planState, deleted: true } }
             : item
-        )
+        ) as iPlanToFeature[]
       );
       setSaveAndCancel(false);
       setInitialPlanState({ ...dataToSet });
@@ -211,7 +213,7 @@ export const PlanCard = ({ plan, className }: Props) => {
               />
             )}
             <PlanCardSwitch
-              plan={plan}
+              plan={plan as iPlan}
               label="Custom plan"
               planState={planState.isCustom}
               name="isCustom"
@@ -219,14 +221,14 @@ export const PlanCard = ({ plan, className }: Props) => {
             />
             <Separator className="border-b bg-transparent border-dashed" />
             <PlanCardSwitch
-              plan={plan}
+              plan={plan as iPlan}
               label="Popular"
               planState={planState.isPopular}
               name="isPopular"
               handleInputChange={handleInputChange}
             />
             <PlanCardSwitch
-              plan={plan}
+              plan={plan as iPlan}
               label="Recommended"
               planState={planState.isRecommended}
               name="isRecommended"
@@ -246,15 +248,15 @@ export const PlanCard = ({ plan, className }: Props) => {
             <div className="w-full flex flex-col gap-y-3">
               {saasSettings.saasType !== "PAY_ONCE" && (
                 <ReccuringInputFields
-                  plan={plan}
-                  planState={planState}
+                  plan={plan as iPlan}
+                  planState={planState as iPlan}
                   handleInputChange={handleInputChange}
                 />
               )}
               {saasSettings.saasType === "PAY_ONCE" && (
                 <PayOnceFields
-                  plan={plan}
-                  planState={planState}
+                  plan={plan as iPlan}
+                  planState={planState as iPlan}
                   handleInputChange={handleInputChange}
                 />
               )}

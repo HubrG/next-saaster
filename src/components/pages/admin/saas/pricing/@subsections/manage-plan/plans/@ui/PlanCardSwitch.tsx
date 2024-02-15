@@ -1,9 +1,9 @@
 "use client";
 import { Label } from "@/src/components/ui/label";
 import { Switch } from "@/src/components/ui/switch";
-import { Plan } from "@prisma/client";
+import { iPlan } from "@/src/types/iPlans";
 type Props = {
-  plan: Plan;
+  plan: iPlan;
   planState: boolean | null;
   name: string;
   label: string;

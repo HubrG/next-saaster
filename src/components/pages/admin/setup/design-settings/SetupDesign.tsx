@@ -1,3 +1,4 @@
+"use client";
 import { updateAppSettings } from "@/src/components/pages/admin/queries/queries";
 import { RoundedCornerChange } from "@/src/components/pages/admin/setup/design-settings/@subsections/RoundedCornerChange";
 import { ThemeColorChange } from "@/src/components/pages/admin/setup/design-settings/@subsections/ThemeColorChange";

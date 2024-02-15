@@ -305,17 +305,14 @@ model StripePrice {
 
 model StripeCoupon {
   id               String             @id
-  object           String
-  amountOff        Int?
-  created          Int
+  amountOff        Float?
   currency         String?
   duration         String
   durationInMonths Int?
-  livemode         Boolean
   maxRedemptions   Int?
   metadata         Json
   name             String?
-  percentOff       Float
+  percentOff       Float?
   redeemBy         Int?
   timesRedeemed    Int
   valid            Boolean

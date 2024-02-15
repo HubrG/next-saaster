@@ -1,15 +1,22 @@
-import { Label } from '@/src/components/ui/label';
-import { Switch } from '@/src/components/ui/switch';
-import { Plan } from '@prisma/client';
+"use client";
+import { Label } from "@/src/components/ui/label";
+import { Switch } from "@/src/components/ui/switch";
+import { Plan } from "@prisma/client";
 type Props = {
   plan: Plan;
   planState: boolean | null;
-  name: string
+  name: string;
   label: string;
   disabled?: boolean;
   handleInputChange: (e: boolean, name: string) => void;
-    };
-export const PlanCardSwitch = ({plan, planState, label, name, handleInputChange} : Props) => {
+};
+export const PlanCardSwitch = ({
+  plan,
+  planState,
+  label,
+  name,
+  handleInputChange,
+}: Props) => {
   return (
     <div className="switch !justify-between">
       <Switch
@@ -23,4 +30,4 @@ export const PlanCardSwitch = ({plan, planState, label, name, handleInputChange}
       </Label>
     </div>
   );
-}
+};

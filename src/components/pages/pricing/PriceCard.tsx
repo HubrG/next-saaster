@@ -1,17 +1,17 @@
 "use client";
 import { Separator } from "@/src/components/ui/separator";
 import currenciesData from "@/src/jsons/currencies.json";
-import { PlanStore } from "@/src/stores/admin/saasPlansStore";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { Currencies } from "@/src/types/Currencies";
-import { StripeCoupon } from "@prisma/client";
+import { iPlan } from "@/src/types/iPlans";
+import { iStripeCoupon } from "@/src/types/iStripeCoupons";
 import { BackgroundGrad } from "./Background";
 import { CheckoutButton } from "./CheckoutButton";
 
 type Props = {
-  plan: PlanStore;
-  coupons: StripeCoupon[];
+  plan: iPlan;
+  coupons: iStripeCoupon[];
 };
 
 const calculateDiscountPrice = (price: number, discount?: number) => {

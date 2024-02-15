@@ -1,6 +1,8 @@
 import { Navbar } from "@/src/components/layout/header/Navbar";
 import { TopLoader } from "@/src/components/layout/header/TopLoader";
 import { Init } from "@/src/components/layout/init";
+import { Loader } from "@/src/components/ui/loader";
+import { getSaasSettings } from "@/src/helpers/utils/saasSettings";
 import createMetadata from "@/src/lib/metadatas";
 import { cn } from "@/src/lib/utils";
 import { NextIntlProvider } from "@/src/providers/NextIntlProvider";
@@ -9,11 +11,10 @@ import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
 import { Caveat, Nunito, Playfair_Display } from "next/font/google";
+import { Suspense } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
-import { getAppSettings, getSaasSettings } from "./queries";
-import { Suspense } from "react";
-import { Loader } from "@/src/components/ui/loader";
+import { getAppSettings } from "../../src/helpers/utils/appSettings";
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -48,8 +49,8 @@ export default async function LocaleLayout(props: Props) {
     params: { locale },
   } = props;
 
-  const appSettings = await getAppSettings();
-  const saasSettings = await getSaasSettings();
+  const appSettings = (await getAppSettings()).data;
+  const saasSettings = (await getSaasSettings()).data;
 
   return (
     <SessProvider session={props.session}>

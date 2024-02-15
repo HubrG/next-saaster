@@ -1,5 +1,5 @@
 "use client";
-import { createNewCoupon } from "@/src/components/pages/admin/queries/queries";
+import { addStripeCoupon } from "@/src/components/pages/admin/queries/saas/saas-pricing/stripe-coupon";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
@@ -29,16 +29,17 @@ export const AddCoupon = () => {
     durationInMonths: 0,
     name: "",
     percentOff: 0,
+    maxRedemptions: null,
     duration: "",
   });
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) => {
-    if (key === "percentOff") {
+    if (key === "percentOff" || key === "maxRedemptions") {
       const value = parseInt(e.target.value, 10);
       if (value < 0) {
-        setcouponState({ ...couponState, [key]: 0 });
+        setcouponState({ ...couponState, [key]: null });
       } else {
         setcouponState({ ...couponState, [key]: value });
       }
@@ -70,8 +71,11 @@ export const AddCoupon = () => {
 
   const handleAddCoupon = async () => {
     setLoading(true);
-
     const percentOff = parseInt(couponState.percentOff?.toString() ?? "0", 10);
+    const maxRedemption = parseInt(
+      couponState.maxRedemptions?.toString() ?? "0",
+      10
+    );
     let durationInMonths = parseInt(
       couponState.durationInMonths?.toString() ?? "0",
       10
@@ -82,42 +86,43 @@ export const AddCoupon = () => {
         ? durationInMonths
         : 0;
 
-    const dataToSend = await createNewCoupon({
-      name: couponState.name,
-      percentOff: !isNaN(percentOff) ? percentOff : undefined,
-      duration: couponState.duration,
+    const dataToSend = await addStripeCoupon({
+      name: couponState.name ?? "",
+      percentOff: !isNaN(percentOff) ? percentOff : null,
+      duration: couponState.duration ?? "recurring",
       durationInMonths,
+      maxRedemptions: maxRedemption > 0 ? maxRedemption : null,
     });
-
-    if (dataToSend) {
-      setSaasStripeCoupons([...saasStripeCoupons, dataToSend]);
-      toaster({
-        type: "success",
-        description: "Coupon created",
-        title: "Success",
-      });
-      setcouponState({
-        durationInMonths: 0,
-        name: "",
-        percentOff: 0,
-        duration: "",
-      });
-      setLoading(false);
-    } else {
-      setLoading(false);
+    if (dataToSend.error) {
       toaster({
         type: "error",
-        description: "Coupon not created",
+        description: dataToSend.error,
         title: "Error",
       });
+      setLoading(false);
+      return;
     }
+
+    setSaasStripeCoupons([...saasStripeCoupons, dataToSend.data]);
+    toaster({
+      type: "success",
+      description: "Coupon created",
+      title: "Success",
+    });
+    setcouponState({
+      durationInMonths: 0,
+      name: "",
+      percentOff: 0,
+      maxRedemptions: null,
+      duration: "",
+    });
 
     setLoading(false);
   };
 
   return (
     <>
-      <div className="grid grid-cols-12 w-full gap-5 p-2 mt-5">
+      <div className="grid grid-cols-13 w-full gap-5 p-2 mt-5">
         <div className="col-span-3">
           <div className="inputs">
             <Label htmlFor="name">Name</Label>
@@ -143,7 +148,6 @@ export const AddCoupon = () => {
           </div>
         </div>
         <div className="col-span-3">
-          {/* Specifies how long the discount will be in effect if used on a subscription. Defaults to once. (once, forver, repeating) */}
           <div className="inputs">
             <Label htmlFor="duration">Duration</Label>
             <Select
@@ -169,16 +173,27 @@ export const AddCoupon = () => {
             {
               "opacity-50": couponState.duration !== "repeating",
             },
-            "col-span-3"
+            "col-span-2"
           )}>
           <div className="inputs">
-            <Label htmlFor="durationInMonths">... repeating in months</Label>
+            <Label htmlFor="durationInMonths">...in months</Label>
             <Input
               disabled={couponState.duration !== "repeating"}
               type="number"
               name="durationInMonths"
               value={couponState.durationInMonths ?? ""}
               onChange={(e) => handleInputChange(e, "durationInMonths")}
+            />
+          </div>
+        </div>
+        <div className={cn("col-span-2")}>
+          <div className="inputs">
+            <Label htmlFor="maxRedemptions">Maximum usage</Label>
+            <Input
+              type="number"
+              name="maxRedemptions"
+              value={couponState.maxRedemptions ?? ""}
+              onChange={(e) => handleInputChange(e, "maxRedemptions")}
             />
           </div>
         </div>

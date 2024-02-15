@@ -1,6 +1,6 @@
+"use client";
 import { Button } from "@/src/components/ui/button";
 import { ThemeVariants } from "@/src/types/admin/cssThemes";
-import React from "react";
 import { Tooltip } from "react-tooltip";
 
 type Props = {

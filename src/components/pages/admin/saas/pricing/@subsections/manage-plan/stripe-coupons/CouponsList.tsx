@@ -2,7 +2,7 @@
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
-import { StripeCouponsWithPlans } from "@/src/types/StripeCouponsWithPlans";
+import { iStripeCoupon } from "@/src/types/iStripeCoupons";
 import capitalize from "lodash/capitalize";
 import { deleteCoupon } from "../../../../../queries/queries";
 
@@ -14,7 +14,7 @@ export const CouponsList = () => {
 
     if (deleteResponse) {
       // Précisez que prevCoupons est un tableau de StripeCoupon
-      setSaasStripeCoupons(deleteResponse as StripeCouponsWithPlans[]);
+      setSaasStripeCoupons(deleteResponse as iStripeCoupon[]);
       toaster({ type: "success", description: "Coupon deleted successfully!" });
     } else {
       toaster({ type: "error", description: "Coupon could not be deleted!" });

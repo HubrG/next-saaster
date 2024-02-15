@@ -1,9 +1,11 @@
 "use server";
 import { isSuperAdmin } from "@/src/functions/isUserRole";
+import { getStripeCoupons } from "@/src/helpers/utils/stripeCoupons";
 import { prisma } from "@/src/lib/prisma";
-import { PlanStore } from "@/src/stores/admin/saasPlansStore";
-import { PlanToFeatureWithPlanAndFeature } from "@/src/types/PlanToFeatureWithPlanAndFeature";
-import { StripeCouponsWithPlans } from "@/src/types/StripeCouponsWithPlans";
+import { iPlanToFeature } from "@/src/types/iPlanToFeature";
+import { iPlan } from "@/src/types/iPlans";
+import { iStripeCoupon } from "@/src/types/iStripeCoupons";
+import { iStripePlanCoupon } from "@/src/types/iStripePlanCoupons";
 import {
   Feature,
   FeatureCategory,
@@ -45,7 +47,7 @@ export const addNewPlan = async (saasType: SaasTypes) => {
       features.map((feature) =>
         prisma.planToFeature.create({
           data: {
-            planId: newPlan?.id as PlanToFeatureWithPlanAndFeature["planId"],
+            planId: newPlan?.id as iPlanToFeature["planId"],
             featureId: feature.id,
           },
         })
@@ -145,7 +147,7 @@ export const updatePlan = async (planId: string, planData: any) => {
   let plan = (await prisma.plan.findUnique({
     where: { id: planId },
     include: { Features: true },
-  })) as PlanStore;
+  })) as iPlan;
   if (!plan) return false;
 
   const saasSettings = await prisma.saasSettings.findFirst({});
@@ -184,7 +186,7 @@ export const updatePlan = async (planId: string, planData: any) => {
     try {
       const create = await initializeProductAndPricesWithStripe(plan);
       if (create && !create.return) return false;
-      if (create) plan = create.plan as PlanStore;
+      if (create) plan = create.plan as iPlan;
       monthlyPriceId = plan.stripeMonthlyPriceId;
       yearlyPriceId = plan.stripeYearlyPriceId;
       freePriceId = plan.stripeFreePriceId;
@@ -444,7 +446,7 @@ export const updateFeatureCategoryPosition = async (
 };
 
 export const updateLinkPlanToFeature = async (
-  dataToUpdate: PlanToFeatureWithPlanAndFeature[]
+  dataToUpdate: iPlanToFeature[]
 ) => {
   try {
     const session = await isSuperAdmin();
@@ -475,7 +477,7 @@ export const updateLinkPlanToFeature = async (
           plan: true,
           feature: true,
         },
-      }) as Promise<PlanToFeatureWithPlanAndFeature[]>;
+      }) as Promise<iPlanToFeature[]>;
   } catch (error) {
     console.error("Error updating multiple links:", error);
     throw error;
@@ -521,31 +523,30 @@ export const createNewCategory = async (name: FeatureCategory["name"]) => {
   return newCategory;
 };
 
-export const createNewCoupon = async (
-  data: Partial<StripeCouponsWithPlans>
-) => {
+export const createNewCoupon = async (data: Partial<iStripePlanCoupon>) => {
   const session = await isSuperAdmin();
   if (!session) return false;
 
-  // Traitement de `durationInMonths` pour exclure les valeurs `null`
   let validatedDurationInMonths: number | undefined =
-    typeof data.durationInMonths === "number"
-      ? data.durationInMonths
+    typeof data.coupon?.durationInMonths === "number"
+      ? data.coupon.durationInMonths
       : undefined;
 
-  // S'assurer que `name` n'est pas `null` et que `percentOff` est un nombre
-  const validatedName: string | undefined = data.name ?? undefined;
+  const validatedName: string | undefined = data.coupon?.name ?? undefined;
   const validatedPercentOff: number | undefined =
-    typeof data.percentOff === "number" ? data.percentOff : undefined;
+    typeof data.coupon?.percentOff === "number"
+      ? data.coupon?.percentOff
+      : undefined;
 
   const coupon = await stripeManager.createCoupon({
-    duration: data.duration as "forever" | "once" | "repeating",
+    duration: data.coupon?.duration as "forever" | "once" | "repeating",
     duration_in_months: validatedDurationInMonths,
     name: validatedName,
+    max_redemptions: data.coupon?.maxRedemptions as number | undefined,
     percent_off: validatedPercentOff,
   });
 
-  return coupon as StripeCouponsWithPlans;
+  return coupon as iStripeCoupon;
 };
 
 export const deleteCoupon = async (couponId: string) => {
@@ -553,8 +554,8 @@ export const deleteCoupon = async (couponId: string) => {
   if (!session) return false;
   const coupon = await stripeManager.deleteCoupon(couponId);
   if (coupon) {
-    const allCoupons = await prisma.stripeCoupon.findMany();
-    return allCoupons;
+    const allCoupons = (await getStripeCoupons()).data;
+    return allCoupons as iStripeCoupon[];
   } else {
     return false;
   }

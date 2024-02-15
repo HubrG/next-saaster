@@ -1,10 +1,10 @@
 import { getFeatures } from "@/src/helpers/utils/features";
-import { Feature } from "@prisma/client";
+import { iFeature } from "@/src/types/iFeatures";
 import { create } from "zustand";
 
 type Store = {
-  saasFeatures: Feature[];
-  setSaasFeatures: (saasFeatures: Feature[]) => void;
+  saasFeatures: iFeature[];
+  setSaasFeatures: (saasFeatures: iFeature[]) => void;
   fetchSaasFeatures: () => Promise<void>;
 };
 

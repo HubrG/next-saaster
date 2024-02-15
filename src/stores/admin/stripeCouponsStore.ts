@@ -1,15 +1,15 @@
 import { getStripeCoupons } from "@/src/helpers/utils/stripeCoupons";
-import { StripeCouponsWithPlans } from "@/src/types/StripeCouponsWithPlans";
+import { iStripeCoupon } from "@/src/types/iStripeCoupons";
 import { create } from "zustand";
 
 type Store = {
-  saasStripeCoupons: StripeCouponsWithPlans[];
-  setSaasStripeCoupons: (saasStripeCoupons: StripeCouponsWithPlans[]) => void;
+  saasStripeCoupons: iStripeCoupon[];
+  setSaasStripeCoupons: (saasStripeCoupons: iStripeCoupon[]) => void;
   fetchSaasStripeCoupons: () => Promise<void>;
 };
 
 export const useSaasStripeCoupons = create<Store>()((set) => ({
-  saasStripeCoupons: [],
+  saasStripeCoupons: [] as iStripeCoupon[],
   setSaasStripeCoupons: (saasStripeCoupons) => set({ saasStripeCoupons }),
   fetchSaasStripeCoupons: async () => {
     const saasStripeCoupons = await getStripeCoupons();

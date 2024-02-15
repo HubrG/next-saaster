@@ -1,12 +1,10 @@
 import { getPlansToFeatures } from "@/src/helpers/utils/plansToFeatures";
+import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { create } from "zustand";
-import { PlanToFeatureWithPlanAndFeature } from "../../types/PlanToFeatureWithPlanAndFeature";
 
 type Store = {
-  saasPlanToFeature: PlanToFeatureWithPlanAndFeature[];
-  setSaasPlanToFeature: (
-    saasPlanToFeature: PlanToFeatureWithPlanAndFeature[]
-  ) => void;
+  saasPlanToFeature: iPlanToFeature[];
+  setSaasPlanToFeature: (saasPlanToFeature: iPlanToFeature[]) => void;
   fetchSaasPlanToFeature: () => Promise<void>;
 };
 

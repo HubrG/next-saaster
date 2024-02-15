@@ -1,17 +1,15 @@
 import { getStripePrices } from "@/src/helpers/utils/stripePrices";
-import { StripePrice } from "@prisma/client";
+import { iStripePrice } from "@/src/types/iStripePrices";
 import { create } from "zustand";
-export interface ExtendedStripePrices extends StripePrice {
-  productRelation?: StripePrice;
-}
+
 type Store = {
-  saasStripePrices: ExtendedStripePrices[];
-  setSaasStripePrices: (saasStripePrices: ExtendedStripePrices[]) => void;
+  saasStripePrices: iStripePrice[];
+  setSaasStripePrices: (saasStripePrices: iStripePrice[]) => void;
   fetchSaasStripePrices: () => Promise<void>;
 };
 
 export const useSaasStripePricesStore = create<Store>()((set) => ({
-  saasStripePrices: [] as StripePrice[],
+  saasStripePrices: [] as iStripePrice[],
   setSaasStripePrices: (saasStripePrices) => set({ saasStripePrices }),
   fetchSaasStripePrices: async () => {
     const saasStripePrices = await getStripePrices();

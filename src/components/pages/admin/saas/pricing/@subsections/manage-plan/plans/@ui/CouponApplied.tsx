@@ -1,16 +1,14 @@
 "use client";
 import { revokeCoupon } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import {
-  PlanStore,
-  useSaasPlansStore,
-} from "@/src/stores/admin/saasPlansStore";
+import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { iPlan } from "@/src/types/iPlans";
 import { MinusCircle } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 type Props = {
-  plan: PlanStore;
+  plan: iPlan;
   recurrence: "monthly" | "yearly" | "once";
   monthlyP?: number;
   yearlyP?: number;
@@ -41,7 +39,7 @@ export const CouponApplied = ({
   const handleRevokeCoupon = async (couponId: string) => {
     const revoke = await revokeCoupon(couponId);
     if (revoke) {
-      setSaasPlans((currentPlans: PlanStore[]) => {
+      setSaasPlans((currentPlans: iPlan[]) => {
         const updatedPlans = currentPlans.map((planItem) => {
           if (planItem.id === plan.id) {
             const updatedCoupons = planItem.coupons?.filter(

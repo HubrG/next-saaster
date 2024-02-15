@@ -9,11 +9,9 @@ import {
   PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import {
-  PlanStore,
-  useSaasPlansStore,
-} from "@/src/stores/admin/saasPlansStore";
+import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
+import { iPlan } from "@/src/types/iPlans";
 import { SaasTypes } from "@prisma/client";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { BadgePercent } from "lucide-react";
@@ -30,7 +28,7 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
   const handleApplyCoupon = async (couponId: string) => {
     const apply = await applyCoupon(couponId, planId, recurrence ?? "monthly");
     if (apply) {
-      setSaasPlans((currentPlans: PlanStore[]) => {
+      setSaasPlans((currentPlans: iPlan[]) => {
         const updatedPlans = currentPlans.map((planItem) => {
           if (planItem.id === planId) {
             return {
@@ -40,9 +38,7 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
           }
           return planItem;
         });
-        return updatedPlans.filter(
-          (plan): plan is PlanStore => plan !== undefined
-        );
+        return updatedPlans.filter((plan): plan is iPlan => plan !== undefined);
       });
 
       toaster({

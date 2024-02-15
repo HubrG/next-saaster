@@ -14,39 +14,44 @@ import { useSaasStripePricesStore } from "@/src/stores/admin/stripePricesStore";
 import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { Suspense, useCallback, useEffect } from "react";
-import { Loader } from "../../ui/loader";
+import { useCallback, useEffect, useState } from "react";
+import { toaster } from "../../ui/toaster/ToastConfig";
 
 // TODO : Séparer les queries en fonction des composants
-// TODO : Utiliser les hooks pour les queries
 // TODO : Mieux gérer les erreurs (renvoyer un message)
 // TODO : dans "add plan", séparer la logique selon le SaaSType (pay once, MRR, etc)
-// TODO : Améliorer les stores (créer plusieurs méthodes à l'intérieur des stores pour alléger le code)
 // FIX : Réunir tous les stores dans un fichier (ce fichier est trop long et peu élégant)
 export const AdminComponent = () => {
   const isClient = useIsClient();
-  const setAllStores = useCallback(() => {
-    useSaasStripeProductsStore.getState().fetchSaasStripeProducts();
-    useSaasStripePricesStore.getState().fetchSaasStripePrices();
-    useSaasStripeCoupons.getState().fetchSaasStripeCoupons();
-    useSaasFeaturesCategoriesStore.getState().fetchSaasFeaturesCategories();
-    useSaasFeaturesStore.getState().fetchSaasFeatures();
-    useSaasPlansStore.getState().fetchSaasPlan();
-    useSaasPlanToFeatureStore.getState().fetchSaasPlanToFeature();
-    useSaasSettingsStore.getState().fetchSaasSettings();
-    useAppSettingsStore.getState().fetchAppSettings();
+
+  const setAllStores = useCallback(async () => {
+    try {
+      await Promise.all([
+        useSaasStripeProductsStore.getState().fetchSaasStripeProducts(),
+        useSaasStripePricesStore.getState().fetchSaasStripePrices(),
+        useSaasStripeCoupons.getState().fetchSaasStripeCoupons(),
+        useSaasFeaturesCategoriesStore.getState().fetchSaasFeaturesCategories(),
+        useSaasFeaturesStore.getState().fetchSaasFeatures(),
+        useSaasPlansStore.getState().fetchSaasPlan(),
+        useSaasPlanToFeatureStore.getState().fetchSaasPlanToFeature(),
+        useSaasSettingsStore.getState().fetchSaasSettings(),
+        useAppSettingsStore.getState().fetchAppSettings(),
+      ]);
+    } catch (error) {
+      toaster({
+        type: "error",
+        description: "Erreur lors du chargement des données",
+      });
+    }
   }, []);
 
   useEffect(() => {
     if (isClient) {
       setAllStores();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClient]);
+  }, [isClient, setAllStores]);
 
-  if (!isClient) {
-    return <Loader />;
-  }
+ 
 
   return (
     <UserInterfaceWrapper>
@@ -54,9 +59,7 @@ export const AdminComponent = () => {
         <AdminNavbar />
       </UserInterfaceNavWrapper>
       <UserInterfaceMainWrapper text="Admin panel">
-        <Suspense fallback={<Loader noHFull />}>
           <AdminMain />
-        </Suspense>
       </UserInterfaceMainWrapper>
     </UserInterfaceWrapper>
   );

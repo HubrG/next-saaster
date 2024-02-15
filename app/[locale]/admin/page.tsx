@@ -1,6 +1,7 @@
 import { AdminComponent } from "@/src/components/pages/admin/Admin";
 import { LoginForm } from "@/src/components/pages/login/LoginForm";
 import { Loader } from "@/src/components/ui/loader";
+import { useIsClient } from "@/src/hooks/useIsClient";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { UserRole } from "@prisma/client";

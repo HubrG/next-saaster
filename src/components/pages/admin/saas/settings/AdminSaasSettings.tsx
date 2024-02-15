@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/src/components/ui/button";
 import { Loader } from "@/src/components/ui/loader";
 import { Separator } from "@/src/components/ui/separator";

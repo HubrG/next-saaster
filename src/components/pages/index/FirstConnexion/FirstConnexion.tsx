@@ -19,7 +19,7 @@ export const FirstConnexion = () => {
   return (
     <>
       <div className="first-connection">
-        <div className="flex mx-auto  h-screen  w-screen justify-center items-center">
+        <div className="flex mx-auto  h-[100vh]  w-screen justify-center items-center">
           <Card className="my-card dark:bg-slate-950 w-1/3 flex flex-col text-center gap-6 justify-center">
             <h1 className="flex flex-row gap-2 justify-center items-center text-center">
               First connexion

@@ -1,5 +1,5 @@
-import { getAppSettings } from "@/app/[locale]/queries";
 import { getLocale } from "next-intl/server";
+import { getAppSettings } from "../helpers/utils/appSettings";
 
 interface MetadataParams {
   title?: string;
@@ -18,31 +18,38 @@ export const createMetadata = async ({
 }: MetadataParams) => {
   const local = await getLocale();
   const localeMap = {
-    fr: 'FR',
-    en: 'US',
-    uk: 'GB',
-    es: 'ES',
-    de: 'DE',
-    it: 'IT',
-    pt: 'PT',
-    zh: 'CN',
-    ja: 'JP',
+    fr: "FR",
+    en: "US",
+    uk: "GB",
+    es: "ES",
+    de: "DE",
+    it: "IT",
+    pt: "PT",
+    zh: "CN",
+    ja: "JP",
   };
-  const settings = await getAppSettings();
+  const settings = (await getAppSettings()).data;
   const imgURL = `${process.env.NEXT_PUBLIC_URI}${imgPath}`;
-  // 
-  if (!title) { title = `${settings?.name} | ${settings?.baseline}`; }
-  else { title = `${title} | ${settings?.name}`; }
-  // 
-  if (!description) { description = `${settings?.description}`; }
-  if (!url) { url = `${process.env.NEXT_PUBLIC_URI}/${local}`; }
+  //
+  if (!title) {
+    title = `${settings?.name} | ${settings?.baseline}`;
+  } else {
+    title = `${title} | ${settings?.name}`;
+  }
+  //
+  if (!description) {
+    description = `${settings?.description}`;
+  }
+  if (!url) {
+    url = `${process.env.NEXT_PUBLIC_URI}/${local}`;
+  }
 
   return {
     title: title,
     metadataBase: new URL(`${process.env.NEXT_PUBLIC_URI}`),
     description: description, // 170 caractères maximum
     alternates: {
-      canonical: url, 
+      canonical: url,
     },
     openGraph: {
       title: title,
@@ -58,7 +65,7 @@ export const createMetadata = async ({
           alt: `${settings?.name ?? title}`,
         },
       ],
-      locale: local + '_' + localeMap[local as keyof typeof localeMap],
+      locale: local + "_" + localeMap[local as keyof typeof localeMap],
     },
   };
 };

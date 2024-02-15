@@ -1,44 +1,21 @@
 import { getPlans } from "@/src/helpers/utils/plans";
-import {
-  Plan,
-  StripeCoupon,
-  StripePlanCoupon,
-  StripePrice,
-} from "@prisma/client";
+import { iPlan } from "@/src/types/iPlans";
 import { create } from "zustand";
-type CouponDetail = {
-  coupon: StripeCoupon;
-};
-interface StripeProductf {
-  id: string;
-  name: string;
-  description: string;
-  active: boolean;
-  created: number;
-  prices: StripePrice[];
-}
-export interface PlanStore extends Plan {
-  coupons?: StripePlanCoupon[];
-  coupon?: CouponDetail;
-  StripeProduct?: StripeProductf[];
-  id: string;
-}
 
 type Store = {
-  saasPlans: PlanStore[];
+  saasPlans: iPlan[];
   setSaasPlans: (
-    updater: ((currentPlans: PlanStore[]) => PlanStore[]) | PlanStore[]
+    updater: ((currentPlans: iPlan[]) => iPlan[]) | iPlan[]
   ) => void;
   fetchSaasPlan: () => Promise<void>;
-  updatePlanFromStore: (
-    planId: string,
-    newPlanData: Partial<PlanStore>
-  ) => void;
+  isPlanStoreLoading: boolean;
+  updatePlanFromStore: (planId: string, newPlanData: Partial<iPlan>) => void;
   deletePlanFromStore: (planId: string) => void;
 };
 
 export const useSaasPlansStore = create<Store>()((set) => ({
   saasPlans: [],
+  isPlanStoreLoading: false,
   setSaasPlans: (updater) => {
     if (typeof updater === "function") {
       set((state) => ({ saasPlans: updater(state.saasPlans) }));
@@ -54,12 +31,13 @@ export const useSaasPlansStore = create<Store>()((set) => ({
     }));
   },
   fetchSaasPlan: async () => {
+    set({ isPlanStoreLoading: true });
     const saasPlans = await getPlans();
     if (!saasPlans.success || saasPlans.error) {
       console.error(saasPlans.error || "Failed to fetch plans");
       return;
     }
-    set({ saasPlans: saasPlans.data });
+    set({ saasPlans: saasPlans.data, isPlanStoreLoading: false });
   },
   deletePlanFromStore: (planId) => {
     set((state) => ({

@@ -3,9 +3,9 @@ import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
@@ -15,7 +15,7 @@ import { sliced } from "@/src/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { PlanToFeatureWithPlanAndFeature } from "@/src/types/PlanToFeatureWithPlanAndFeature";
+import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { Feature, Plan } from "@prisma/client";
 import _ from "lodash";
 import capitalize from "lodash/capitalize";
@@ -63,7 +63,8 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
         };
       });
     setLinksState(newLinksState);
-    setInitialLinksState(_.cloneDeep(newLinksState)); // Utilisez lodash pour faire une copie profonde
+    setInitialLinksState(_.cloneDeep(newLinksState));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feature.id, saasPlanToFeature]);
 
   const hasDataChanged = () => {
@@ -115,7 +116,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
       };
     });
     const dataToSet = await updateLinkPlanToFeature(
-      dataToSend as PlanToFeatureWithPlanAndFeature[]
+      dataToSend as iPlanToFeature[]
     );
     if (dataToSet) {
       setInitialLinksState(_.cloneDeep(linksState));

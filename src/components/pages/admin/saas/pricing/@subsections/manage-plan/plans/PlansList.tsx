@@ -6,13 +6,12 @@ import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { Plan } from "@prisma/client";
+import { iPlan } from "@/src/types/iPlans";
 import { AnimatePresence, motion } from "framer-motion";
-import { Suspense } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 
 export const PlansList = () => {
-  const { setSaasPlans } = useSaasPlansStore();
+  const { setSaasPlans, isPlanStoreLoading } = useSaasPlansStore();
   const { saasSettings } = useSaasSettingsStore();
   const { saasPlanToFeature, setSaasPlanToFeature } =
     useSaasPlanToFeatureStore();
@@ -24,9 +23,9 @@ export const PlansList = () => {
       saasPlans,
       oldIndex,
       newIndex
-    )) as Plan[];
+    )) as iPlan[];
     if (newSaasPlans) {
-      setSaasPlans(newSaasPlans);
+      setSaasPlans(newSaasPlans as iPlan[]);
       await updatePlanPosition(newSaasPlans);
       setSaasPlanToFeature(
         saasPlanToFeature.map((link) => {
@@ -42,16 +41,15 @@ export const PlansList = () => {
     }
   };
 
-  if (saasPlans.length === 0) {
+  if (saasPlans.length === 0 && !isPlanStoreLoading) {
     return (
-      <Suspense fallback={<Loader noHFull />}>
-        <div className="flex justify-center items-center py-10">
-          <p className="text-2xl font-bold text-gray-500">
-            No plan created yet
-          </p>
-        </div>
-      </Suspense>
+      <div className="flex justify-center items-center py-10">
+        <p className="text-2xl font-bold text-gray-500">No plan created yet</p>
+      </div>
     );
+  }
+  if (isPlanStoreLoading) {
+    return <Loader noHFull />;
   }
 
   return (

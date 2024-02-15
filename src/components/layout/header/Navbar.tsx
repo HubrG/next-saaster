@@ -1,4 +1,4 @@
-import { getAppSettings } from "@/app/[locale]/queries";
+import { getAppSettings } from "@/src/helpers/utils/appSettings";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { appSettings } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
@@ -13,7 +13,7 @@ import { UserProfile } from "./navbar/auth/UserProfile";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
-  const settings = (await getAppSettings()) as appSettings;
+  const settings = (await getAppSettings()).data as appSettings;
 
   /* NOTE --> Change the links of main menu here.
      NOTE --> Create your new pages on the app router for each new link, except for "Pricing" and "Contact" which are special pages

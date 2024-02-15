@@ -2,7 +2,7 @@
 
 import { stripeCustomerIdManager } from "@/src/functions/stripeCustomerIdManager";
 import { prisma } from "@/src/lib/prisma";
-import { PlanStore } from "@/src/stores/admin/saasPlansStore";
+import { iPlan } from "@/src/types/iPlans";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 
@@ -24,7 +24,7 @@ export const getCoupon = async (couponId: string) => {
 };
 export const createCheckoutSession = async (
   planPrice: string,
-  plan: PlanStore,
+  plan: iPlan,
   recurrence: string
 ) => {
   if (!planPrice || !plan) {

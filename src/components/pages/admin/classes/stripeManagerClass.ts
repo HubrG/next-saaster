@@ -1,5 +1,6 @@
 import { prisma } from "@/src/lib/prisma";
-import { Plan, StripePrice, StripeProduct } from "@prisma/client";
+import { iPlan } from "@/src/types/iPlans";
+import { StripePrice, StripeProduct } from "@prisma/client";
 import Stripe from "stripe";
 
 export class StripeManager {
@@ -151,7 +152,7 @@ export class StripeManager {
     name: string,
     description: string,
     active: boolean,
-    plan: Plan
+    plan: iPlan
   ) {
     let update = {} as Stripe.Product;
     try {
@@ -197,16 +198,19 @@ export class StripeManager {
     duration_in_months?: number;
     percent_off?: number;
     name?: string;
+    max_redemptions?: number;
   }) {
     const couponData: {
       percent_off?: number;
       duration?: "once" | "repeating" | "forever";
       duration_in_months?: number;
+      max_redemptions?: number;
       name?: string;
     } = {
       percent_off: options.percent_off,
       duration: options.duration,
       name: options.name,
+      max_redemptions: options.max_redemptions,
     };
 
     if (options.duration === "repeating") {
@@ -305,13 +309,10 @@ export class StripeManager {
     return await prisma.stripeCoupon.create({
       data: {
         id: data.id ?? "",
-        object: data.object ?? "",
         amountOff: data.amount_off ?? 0,
-        created: data.created ?? 0,
         currency: data.currency ?? "",
         duration: data.duration ?? "",
         durationInMonths: data.duration_in_months ?? 0,
-        livemode: data.livemode ?? false,
         maxRedemptions: data.max_redemptions ?? 0,
         metadata: data.metadata ?? {},
         name: data.name,

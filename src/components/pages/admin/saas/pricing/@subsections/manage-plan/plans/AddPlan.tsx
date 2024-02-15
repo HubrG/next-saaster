@@ -1,5 +1,5 @@
 "use client";
-import { addNewPlan } from "@/src/components/pages/admin/queries/queries";
+import { createNewPlan } from "@/src/components/pages/admin/queries/saas/saas-pricing/stripe-plan-product-price";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
@@ -9,9 +9,9 @@ import useScrollToSection from "@/src/hooks/useScrollToSection";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
-import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { Plan, StripeProduct } from "@prisma/client";
+import { iPlanToFeature } from "@/src/types/iPlanToFeature";
+import { iPlan } from "@/src/types/iPlans";
 import { PlusSquare } from "lucide-react";
 import { useState } from "react";
 import { AddButtonWrapper } from "../@ui/AddButtonWrapper";
@@ -19,8 +19,6 @@ import { AddButtonWrapper } from "../@ui/AddButtonWrapper";
 export const AddPlan = () => {
   const { saasSettings } = useSaasSettingsStore();
   const { saasPlans, setSaasPlans } = useSaasPlansStore();
-  const { saasStripeProducts, setSaasStripeProducts } =
-    useSaasStripeProductsStore();
   const { saasPlanToFeature, setSaasPlanToFeature } =
     useSaasPlanToFeatureStore();
   let saasType = SaasTypeReadableName(saasSettings.saasType);
@@ -29,34 +27,28 @@ export const AddPlan = () => {
 
   const handleAddPlan = async () => {
     setLoading(true);
-    const newPlan = await addNewPlan(saasSettings.saasType ?? "MRR_SIMPLE");
-    if (!newPlan || !newPlan.newPlan) {
+    const newPlan = await createNewPlan(saasSettings.saasType);
+
+    if (newPlan.error) {
       setLoading(false);
       return toaster({
         type: "error",
-        description: `Failed to create new ${saasType} plan. Please try again.`,
+        description: newPlan.error,
       });
     }
-    const modifiedNewPlan = {
-      ...newPlan.newPlan,
-      stripeId: newPlan.lastProduct?.id,
-    };
-    setSaasPlans([...saasPlans, modifiedNewPlan as Plan]);
 
-    if (newPlan.newFeatures.length > 0) {
-      const newFeaturesMapped = newPlan.newFeatures.map((feature) => {
+    setSaasPlans([...saasPlans, newPlan.plan as unknown as iPlan]);
+
+    if (newPlan.features && newPlan.features.length > 0) {
+      const newFeaturesMapped = newPlan.features?.map((feature) => {
         return {
           ...feature,
-          plan: newPlan.newPlan,
+          plan: newPlan.plan,
         };
       });
       setSaasPlanToFeature([
         ...saasPlanToFeature,
-        ...(newFeaturesMapped as any),
-      ]);
-      setSaasStripeProducts([
-        ...saasStripeProducts,
-        newPlan.lastProduct as StripeProduct,
+        ...(newFeaturesMapped as iPlanToFeature[]),
       ]);
     }
     toaster({
@@ -64,7 +56,7 @@ export const AddPlan = () => {
       description: `New ${saasType} plan created`,
     });
     setTimeout(() => {
-      handleScroll("dd" + newPlan.newPlan.id, "smooth");
+      handleScroll("dd" + newPlan.plan?.id, "smooth");
     }, 1000);
     setLoading(false);
     return newPlan;

@@ -2,6 +2,7 @@ import { updateFeature } from "@/src/components/pages/admin/queries/queries";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { iFeature } from "@/src/types/iFeatures";
 import { Feature } from "@prisma/client";
 
 import { Info } from "lucide-react";
@@ -21,7 +22,7 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
     setSaasFeatures(
       saasFeatures.map((f) =>
         f.id === updatedFeatureState.id ? updatedFeatureState : f
-      )
+      ) as iFeature[]
     );
     const upFeature = await updateFeature(feature.id, updatedFeatureState);
     if (!upFeature) {
@@ -31,7 +32,9 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
       });
     }
     setSaasFeatures(
-      saasFeatures.map((f) => (f.id === upFeature.id ? upFeature : f))
+      saasFeatures.map((f) =>
+        f.id === upFeature.id ? upFeature : f
+      ) as iFeature[]
     );
     setFeatureState(updatedFeatureState);
     toaster({

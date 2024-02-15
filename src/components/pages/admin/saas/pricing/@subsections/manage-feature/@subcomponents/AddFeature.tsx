@@ -6,6 +6,7 @@ import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { iFeature } from "@/src/types/iFeatures";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { PlusSquare } from "lucide-react";
 import { useState } from "react";
@@ -23,7 +24,7 @@ export const AddFeature = () => {
 
     const newFeature = await addNewMMRSFeature();
     if (newFeature && newFeature.newFeatures.length > 0) {
-      setSaasFeatures([...saasFeatures, newFeature.newFeature]);
+      setSaasFeatures([...saasFeatures, newFeature.newFeature as iFeature]);
       setSaasPlanToFeature([
         ...saasPlanToFeature,
         ...(newFeature.newFeatures as iPlanToFeature[]),

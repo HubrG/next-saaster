@@ -21,5 +21,5 @@ export const sortADminFeatureAndPlan = async (
 
   const newList = [...reorderedNonDeletedItems, ...deletedItems];
   if (list === newList) return false;
-  return newList as Feature[] | Plan[];
+  return newList;
 };

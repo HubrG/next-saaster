@@ -5,7 +5,7 @@ import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { Feature } from "@prisma/client";
+import { iFeature } from "@/src/types/iFeatures";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
@@ -27,7 +27,7 @@ export const FeaturesList = () => {
       saasFeatures,
       oldIndex,
       newIndex
-    )) as Feature[];
+    )) as iFeature[];
     setSaasFeatures(newSaasFeatures);
     await updateFeaturePosition(newSaasFeatures);
   };

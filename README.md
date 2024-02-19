@@ -28,17 +28,20 @@
 4. Generate Prisma: `pnpm prisma generate`
 5. Create a first migration: `pnpm prisma migrate dev --name init`
 
-### 5. Modify all environment variables (URI etc.)
+### 5. Create accounts for these services and get the API keys :
 
-**⚠️ Imperative**: You must modify all the environment variables in the `.env` file with your own values, notably :
+1. Stripe (tuto)
+2. Resend (tuto)
+3. Google OAuth (tuto)
+   ... That's all !
 
-- `STRIPE_SECRET_KEY`
-- `STRIPE_SIGNIN_SECRET`
-- `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` in the `.env` file
+**⚠️ Note**: The project does not work without these keys. Don't hesitate to contact me if you need help.
 
-- `RESEND_API_KEY`
+### 6. Modify all environment variables
 
-### 6. Deploy the project
+### 7. Deploy the project
+
+**⚠️ Note**: Beware, the project is not yet ready for deployment. You must first modify the environment variables and the configuration files before deploy it.
 
 ---
 

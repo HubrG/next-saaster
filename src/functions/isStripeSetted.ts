@@ -1,11 +1,7 @@
+import { env } from "../lib/zodEnv";
+
 export const isStripeSetted = () => {
-  if 
-    ((
-    process.env.STRIPE_SECRET_KEY &&
-    process.env.STRIPE_SIGNIN_SECRET) &&
-    process.env.STRIPE_SIGNIN_SECRET.length > 4 &&
-    process.env.STRIPE_SECRET_KEY.length > 4
-  ) {
+  if (env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {
     return true;
-  } else return false
+  } else return false;
 };

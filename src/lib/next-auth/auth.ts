@@ -9,8 +9,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import Email from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { env } from "../zodEnv";
 import { prisma } from "../prisma";
-import { env } from "./env";
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [

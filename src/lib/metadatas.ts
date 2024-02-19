@@ -29,6 +29,9 @@ export const createMetadata = async ({
     ja: "JP",
   };
   const settings = (await getAppSettings()).data;
+  if (!settings) {
+    throw new Error("No settings found");
+  }
   const imgURL = `${process.env.NEXT_PUBLIC_URI}${imgPath}`;
   //
   if (!title) {

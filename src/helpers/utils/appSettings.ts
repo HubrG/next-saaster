@@ -1,11 +1,11 @@
 "use server";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
+import { handleResponse } from "@/src/lib/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { appSettings } from "@prisma/client";
 
 export const getAppSettings = async (): Promise<{
   success?: boolean;
-  data?: any;
+  data?: appSettings;
   error?: string;
 }> => {
   try {
@@ -20,10 +20,10 @@ export const getAppSettings = async (): Promise<{
           id: "first",
         },
       });
-      return { success: true, data: appSettings as appSettings };
+      return handleResponse(appSettings);
     }
-    return { success: true, data: appSettings as appSettings };
+    return handleResponse(appSettings);
   } catch (error) {
-    return { error: getErrorMessage(error) };
+    return handleResponse(undefined, error);
   }
 };

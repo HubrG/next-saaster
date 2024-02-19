@@ -1,5 +1,6 @@
 "use client";
 
+import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Button } from "@/src/components/ui/button";
 import { Card } from "@/src/components/ui/card";
 import { Loader } from "@/src/components/ui/loader";
@@ -20,23 +21,19 @@ export const FirstConnexion = () => {
     <>
       <div className="first-connection">
         <div className="flex mx-auto  h-[100vh]  w-screen justify-center items-center">
-          <Card className="my-card dark:bg-slate-950 w-1/3 flex flex-col text-center gap-6 justify-center">
-            <h1 className="flex flex-row gap-2 justify-center items-center text-center">
-              First connexion
+          <Card className="my-card max-w-2xl mx-5 flex flex-col text-center gap-6 justify-center">
+            <h1 className="flex flex-col gap-2 justify-center items-center text-center">
               <HandMetal size={30} />
+              First connexion
             </h1>
-            <p>
+            <p className="text-center">
               Log in with Github to create the admin account and start
               configuring the <strong>SaaSter</strong>
             </p>
-            <Separator
-              decorative={true}
-              className="border-slate-500 bg-slate-500"
-            />
+            <Goodline />
             <Button
               onClick={onGithubSignIn}
-              variant={"outline"}
-              className="w-full mt-1 flex justify-center items-center gap-x-2 bg-slate-800 hover:bg-slate-700 hover:text-slate-100 text-slate-200 border-slate-950"
+              className="w-full mt-1 flex justify-center items-center gap-x-2  hover:text-slate-100 text-slate-200 border-slate-950"
               type="button"
               disabled={isLoading}>
               {isLoading ? (

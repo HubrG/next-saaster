@@ -2,7 +2,7 @@ import { getErrorMessage } from "./getErrorMessage";
 
 export function handleResponse<T>(
   data: T,
-  error?: any
+  error?: unknown
 ): { success?: boolean; data?: T; error?: string } {
   if (error) {
     console.error(error);

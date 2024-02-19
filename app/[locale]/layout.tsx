@@ -49,30 +49,37 @@ export default async function LocaleLayout(props: Props) {
     params: { locale },
   } = props;
 
-  const appSettings = (await getAppSettings()).data;
-  const saasSettings = (await getSaasSettings()).data;
-
+  const appSettings = await getAppSettings();
+  const saasSettings = await getSaasSettings();
+  if (!appSettings.data || !saasSettings.data) {
+    return <Loader />;
+  }
   return (
     <SessProvider session={props.session}>
       <ReactQueryClientProvider>
         <html
           lang={locale}
           suppressHydrationWarning
-          className={`${appSettings.theme} radius-${
-            appSettings.roundedCorner
+          className={`${appSettings.data.theme} radius-${
+            appSettings.data.roundedCorner
           } ${sans.variable} ${serif.variable}  ${display.variable} font-sans ${
-            appSettings.defaultDarkMode && "dark"
+            appSettings.data.activeDarkMode && "dark"
           }`}>
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}>
             <NextIntlProvider>
-              <Init appSettings={appSettings} saasSettings={saasSettings} />
+              <Init
+                appSettings={appSettings.data}
+                saasSettings={saasSettings.data}
+              />
               <Toaster richColors={true} closeButton={true} />
-              {appSettings.activeTopLoader && <TopLoader />}
+              {appSettings.data.activeTopLoader && <TopLoader />}
               <ThemeProvider
                 disableTransitionOnChange={false}
                 attribute="class"
-                defaultTheme={appSettings.defaultDarkMode ? "dark" : "system"}
+                defaultTheme={
+                  appSettings.data.defaultDarkMode ? "dark" : "light"
+                }
                 enableSystem>
                 <Suspense fallback={<Loader />}>
                   <Navbar />

@@ -1,11 +1,11 @@
 "use server";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
+import { handleResponse } from "@/src/lib/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { SaasSettings } from "@prisma/client";
 
 export const getSaasSettings = async (): Promise<{
   success?: boolean;
-  data?: any;
+  data?: SaasSettings;
   error?: string;
 }> => {
   try {
@@ -20,11 +20,11 @@ export const getSaasSettings = async (): Promise<{
           id: "first",
         },
       });
-      return { success: true, data: saasSettings as SaasSettings };
+      return handleResponse(saasSettings);
     }
     if (!saasSettings) throw new Error("No saas settings found");
-    return { success: true, data: saasSettings as SaasSettings };
+    return handleResponse<SaasSettings>(saasSettings);
   } catch (error) {
-    return { error: getErrorMessage(error) };
+    return handleResponse(undefined, error);
   }
 };

@@ -32,7 +32,7 @@ export const createNewPlan = async (
   if (!session) return { error: "You are not authorized" };
   try {
     const saasSettings = await getSaasSettings();
-    if (saasSettings.error) throw new Error(saasSettings.error);
+    if (!saasSettings.data) throw new Error(saasSettings.error);
     const newPlan = (await createPlan({
       name: "New plan",
       description: "New plan description",
@@ -44,7 +44,7 @@ export const createNewPlan = async (
       type: "create",
       name: "New plan",
       description: "New plan description",
-      currency: saasSettings.data.currency,
+      currency: saasSettings.data.currency ?? "usd",
       planId: newPlan.data.id,
     });
     if (newProduct.error) {

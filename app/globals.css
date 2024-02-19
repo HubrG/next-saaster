@@ -223,7 +223,7 @@ div.progressToken {
   @apply hover:no-underline bg-primary-foreground hover:bg-primary-foreground/80 hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }
 .first-connection {
-  @apply w-screen   absolute bg-white dark:bg-slate-900 z-[9999999999] !important;
+  @apply w-screen absolute bg-white dark:bg-theming-background-50  z-[9999999999] !important;
 }
 ol {
   @apply list-decimal pl-4 text-inherit list-outside text-sm w-full;

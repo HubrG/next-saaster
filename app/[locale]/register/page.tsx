@@ -1,11 +1,11 @@
-import { RegisterForm } from "@/src/components/pages/register/RegisterForm";
+import { Index } from "@/app/[locale]/register/components/Index";
 import { Suspense } from "react";
 
 export default async function RegisterPage() {
   return (
     <div className="w-full  md:h-screen h-auto flex justify-center items-center">
       <Suspense>
-        <RegisterForm />
+        <Index />
       </Suspense>
     </div>
   );

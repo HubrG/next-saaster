@@ -1,4 +1,4 @@
-import { LoginForm } from "@/src/components/pages/login/LoginForm";
+import { Index } from "@/app/[locale]/login/components/Index";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -14,7 +14,7 @@ export default async function LoginPage() {
   return (
     <div className="w-full  md:h-screen h-auto flex justify-center items-center">
       <Suspense>
-        <LoginForm />
+        <Index />
       </Suspense>
     </div>
   );

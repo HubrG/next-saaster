@@ -1,6 +1,6 @@
-import { Navbar } from "@/src/components/layout/header/Navbar";
-import { TopLoader } from "@/src/components/layout/header/TopLoader";
-import { Init } from "@/src/components/layout/init";
+import { Navbar } from "@/app/[locale]/layout/header/Navbar";
+import { TopLoader } from "@/app/[locale]/layout/header/TopLoader";
+import { Init } from "@/app/[locale]/layout/init";
 import { Loader } from "@/src/components/ui/loader";
 import { getSaasSettings } from "@/src/helpers/utils/saasSettings";
 import createMetadata from "@/src/lib/metadatas";

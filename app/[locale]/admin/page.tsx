@@ -1,5 +1,5 @@
-import { AdminComponent } from "@/src/components/pages/admin/Admin";
-import { LoginForm } from "@/src/components/pages/login/LoginForm";
+import { Index } from "@/app/[locale]/admin/components/Index";
+import { Index as LoginForm } from "@/app/[locale]/login/components/Index";
 import { Loader } from "@/src/components/ui/loader";
 import { getUser } from "@/src/helpers/utils/users";
 import createMetadata from "@/src/lib/metadatas";
@@ -36,7 +36,7 @@ export default async function Admin() {
   return (
     <div className="admin user-interface">
       <Suspense fallback={<Loader />}>
-        <AdminComponent />
+        <Index />
       </Suspense>
     </div>
   );

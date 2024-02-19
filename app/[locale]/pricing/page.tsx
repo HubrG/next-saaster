@@ -1,5 +1,5 @@
-import { PriceCard } from "@/src/components/pages/pricing/PriceCard";
-import { SwitchRecurrence } from "@/src/components/pages/pricing/SwitchRecurrence";
+import { PriceCard } from "@/app/[locale]/pricing/components/PriceCard";
+import { SwitchRecurrence } from "@/app/[locale]/pricing/components/SwitchRecurrence";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { getPlans } from "@/src/helpers/utils/plans";
 import { getStripeCoupons } from "@/src/helpers/utils/stripeCoupons";

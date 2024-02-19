@@ -1,5 +1,5 @@
-import { DashboardComponent } from "@/src/components/pages/dashboard/Dashboard";
+import { Index } from "@/app/[locale]/dashboard/components/Index";
 
 export default function Dashboard() {
-  return <DashboardComponent />;
+  return <Index />;
 }

@@ -161,8 +161,13 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
           <ListTodo color="white" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[500px] max-h-[80vh] overflow-visible overflow-y-auto flex flex-col items-center gap-2">
+      <PopoverContent className="w-[500px] max-h-[70vh] overflow-visible overflow-y-auto flex flex-col relative items-center gap-2 pb-0">
         <LinkPlanToFeatureOptions feature={feature} />
+        {Object.keys(linksState).length === 0 && (
+          <div className="flex flex-col items-center justify-center gap-y-2 mt-3">
+            <span className="text-center">No plan have been created yet</span>
+          </div>
+        )}
         {Object.keys(linksState).map((linkId) => {
           const planState = linksState[linkId];
           return (
@@ -229,23 +234,25 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
             </div>
           );
         })}
-        <div className="flex flex-col w-full">
-          <Separator className="mt-3 border-dashed border-b bg-transparent" />
-          <div className="mt-2 flex justify-between w-full gap-x-5">
-            <Button
-              className="w-1/2"
-              variant={"link"}
-              onClick={handleSave}
-              disabled={!hasDataChanged()}>
-              Save changes
-            </Button>
-            <Button
-              variant={"link"}
-              className={cn("w-1/2", { "opacity-50": !hasDataChanged() })}
-              onClick={handleReset}
-              disabled={!hasDataChanged()}>
-              Reset
-            </Button>
+        <div className="sticky mt-5 bottom-0 z-50 w-full bg-white dark:bg-theming-background-50 pb-3">
+          <div className="flex flex-col w-full">
+            <Separator className=" border-dashed border-b bg-transparent" />
+            <div className="mt-2 flex justify-between w-full gap-x-5">
+              <Button
+                className="w-1/2"
+                variant={"link"}
+                onClick={handleSave}
+                disabled={!hasDataChanged()}>
+                Save changes
+              </Button>
+              <Button
+                variant={"link"}
+                className={cn("w-1/2", { "opacity-50": !hasDataChanged() })}
+                onClick={handleReset}
+                disabled={!hasDataChanged()}>
+                Reset
+              </Button>
+            </div>
           </div>
         </div>
       </PopoverContent>

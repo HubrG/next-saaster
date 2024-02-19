@@ -22,7 +22,7 @@ export const getFeatures = async (): Promise<{
         category: true,
       },
     });
-    if (!features) throw new Error("No app settings found");
+    if (!features) throw new Error("No features found");
     return { success: true, data: features as Feature[] };
   } catch (error) {
     return { error: getErrorMessage(error) };

@@ -5,8 +5,6 @@ import { Field } from "@/src/components/ui/form-field";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import VerifyEmailTemplate from "@/src/emails/VerifyEmailTemplate";
-import { createAudience } from "@/src/helpers/emails/audience";
-import { createContact } from "@/src/helpers/emails/contact";
 import { sendEmail } from "@/src/helpers/emails/sendEmail";
 import { cn } from "@/src/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -67,16 +65,6 @@ export default function Credentials() {
           tag_name: "category",
           tag_value: "confirm_email",
         });
-        const newAudience = await createAudience({
-          name: "Registered Users",
-        });
-        if (newAudience.success && newAudience.data) {
-          await createContact({
-            email: formData.email,
-            audienceId: newAudience.data.id,
-            first_name: formData.email.split("@")[0],
-          });
-        }
       } catch (error) {
         console.error("Error sending email", error);
       }

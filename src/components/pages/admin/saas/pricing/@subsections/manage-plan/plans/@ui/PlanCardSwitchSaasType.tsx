@@ -33,12 +33,6 @@ export const PlanCardSwitchSaasType = ({
   let randomId = Math.random().toString(36).substring(7);
   const [newSaasType, setNewSaasType] = useState<string>("");
 
-  //   useEffect(() => {
-  //     if (saasSettings.saasType !== newSaasType) {
-  //       setNewSaasType(saasSettings.saasType);
-  //     }
-  //   }, [saasSettings.saasType, newSaasType]);
-
   const handleReset = () => {
     handleInputChange(saasSettings.saasType, "saasType");
     setNewSaasType(saasSettings.saasType);

@@ -10,17 +10,20 @@ import {
 import {
   createOrUpdatePriceStripeToBdd,
   deleteStripePrice,
+  getStripePrice,
 } from "@/src/helpers/utils/stripePrices";
 import {
   createOrUpdateProductStripeToBdd,
   deleteProduct,
   getStripeProduct,
 } from "@/src/helpers/utils/stripeProducts";
+import { iStripeProduct } from "@/src/types/iStripeProducts";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
   apiVersion: "2023-10-16",
+  typescript: true,
 });
 
 const secret = process.env.STRIPE_SIGNIN_SECRET || "";
@@ -44,48 +47,63 @@ export async function POST(req: NextRequest) {
     }
   }
   switch (event.type) {
+    // NOTE : Product created
     case "product.created":
-      const isProductExist = await getStripeProduct(event.data.object.id);
-      if (isProductExist.success) {
+      const isProductExist = (await getStripeProduct(event.data.object.id))
+        .success;
+      if (isProductExist) {
         return NextResponse.json({ status: 200 });
       }
-      const createPlan = await createOrUpdatePlanStripeToBdd(
-        "create",
-        event.data.object
-      );
+      const createPlan = await createOrUpdatePlanStripeToBdd({
+        type: "create",
+        stripePlan: event.data.object,
+      });
       if (createPlan.error) {
         return NextResponse.json({ error: createPlan.error }, { status: 500 });
       }
-      createOrUpdateProductStripeToBdd({
+      await createOrUpdateProductStripeToBdd({
         type: "create",
         stripeProduct: event.data.object,
         id: createPlan.data.data.id,
       });
       return NextResponse.json({ status: 200 });
+    // NOTE : Product updated
     case "product.updated":
-      await createOrUpdateProductStripeToBdd({
+      await new Promise((resolve) => setTimeout(resolve, 4000));
+      const crateProduct = await createOrUpdateProductStripeToBdd({
         type: "update",
         stripeProduct: event.data.object,
       });
-      const upPlan = await createOrUpdatePlanStripeToBdd(
-        "update",
-        event.data.object
-      );
+      if (crateProduct.error) {
+        return NextResponse.json(
+          { error: crateProduct.error },
+          { status: 500 }
+        );
+      }
+      const upPlan = await createOrUpdatePlanStripeToBdd({
+        type: "update",
+        stripePlan: event.data.object,
+      });
       if (upPlan.error) {
         return NextResponse.json({ error: upPlan.error }, { status: 500 });
       }
       return NextResponse.json({ status: 200 });
     case "price.updated":
-      createOrUpdatePriceStripeToBdd("update", event.data.object);
+      await createOrUpdatePriceStripeToBdd("update", event.data.object);
       return NextResponse.json({ status: 200 });
-
     case "price.created":
-      createOrUpdatePriceStripeToBdd("create", event.data.object);
+      const isPriceExist = (await getStripePrice(event.data.object.id)).success;
+      if (isPriceExist) {
+        return NextResponse.json({ status: 200 });
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await createOrUpdatePriceStripeToBdd("create", event.data.object);
       if (event.data.object.type === "one_time") {
         const product = await getStripeProduct(
-          event.data.object.product as string
+          event.data.object.product as iStripeProduct["id"]
         );
         if (product.error) {
+          console.error(product.error);
           return NextResponse.json({ error: product.error }, { status: 500 });
         }
         if (product.data && product.data.PlanId) {
@@ -94,6 +112,7 @@ export async function POST(req: NextRequest) {
             saasType: "PAY_ONCE",
           });
           if (upPlan.error) {
+            // console.error(product.error);
             return NextResponse.json({ error: upPlan.error }, { status: 500 });
           }
         }
@@ -101,23 +120,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 200 });
 
     case "price.deleted":
-      deleteStripePrice(event.data.object.id);
+      await deleteStripePrice(event.data.object.id);
       return NextResponse.json({ status: 200 });
 
     case "product.deleted":
-      deleteProduct(event.data.object.id);
-      deletePlan({ id: event.data.object.id, type: "stripe" });
+      await deleteProduct(event.data.object.id);
+      await deletePlan({ id: event.data.object.id, type: "stripe" });
       return NextResponse.json({ status: 200 });
 
     case "coupon.created":
-      createOrUpdateCouponStripeToBdd("create", event.data.object);
+      await createOrUpdateCouponStripeToBdd("create", event.data.object);
       return NextResponse.json({ status: 200 });
     case "coupon.updated":
-      createOrUpdateCouponStripeToBdd("update", event.data.object);
+      await createOrUpdateCouponStripeToBdd("update", event.data.object);
       return NextResponse.json({ status: 200 });
 
     case "coupon.deleted":
-      deleteStripeCoupon(event.data.object.id);
+      await deleteStripeCoupon(event.data.object.id);
       return NextResponse.json({ status: 200 });
 
     case "checkout.session.completed":

@@ -1,13 +1,14 @@
+import { isEmptyUser } from "@/src/helpers/utils/emptyUser";
 import { getSaasSettings } from "@/src/helpers/utils/saasSettings";
-import { prisma } from "@/src/lib/prisma";
 import { NextResponse } from "next/server";
 import { getAppSettings } from "../../../src/helpers/utils/appSettings";
 
 export async function POST() {
-  const users = await prisma.user.count();
-  if (users === 0) {
+  const users = await isEmptyUser()
+  if (users) {
     const createFirstAppSettings = (await getAppSettings()).data;
     const createFirstSaasSettings = (await getSaasSettings()).data;
+    console.error("Error creating first settings");
     if (!createFirstAppSettings || !createFirstSaasSettings) {
       return NextResponse.json(
         { error: "Error creating first settings" },

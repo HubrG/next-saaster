@@ -2,6 +2,7 @@ import { getAppSettings } from "@/src/helpers/utils/appSettings";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { appSettings } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
+import { Suspense } from "react";
 import { Button } from "../../ui/button";
 import BurgerMenu from "./navbar/BurgerMenu";
 import Logo from "./navbar/Logo";
@@ -44,7 +45,9 @@ export const Navbar = async () => {
               {session ? <TryUsButton /> : <TryUsButton />}
               <Button className="hidden"></Button>
               <div className="sm:block hidden">
-                {session ? <UserProfile /> : <LoginButton />}
+                <Suspense>
+                  {session ? <UserProfile /> : <LoginButton />}
+                </Suspense>
               </div>
               <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
             </div>

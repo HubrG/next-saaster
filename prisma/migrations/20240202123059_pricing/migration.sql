@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "MRRSPlan" ALTER COLUMN "stripeId" DROP DEFAULT;

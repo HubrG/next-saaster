@@ -22,6 +22,7 @@ export default async function Home({
   params: { locale: string };
 }) {
   const session = await getServerSession(authOptions);
+  console.log(session)
 
   if (!session) {
     const emptyUser = await isEmptyUser();

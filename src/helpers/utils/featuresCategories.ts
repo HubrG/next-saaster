@@ -10,7 +10,7 @@ export const getFeaturesCategories = async (): Promise<{
 }> => {
   try {
     const featuresCategories = await prisma.featureCategory.findMany({});
-    if (!featuresCategories) throw new Error("No app settings found");
+    if (!featuresCategories) throw new Error("No features categories found");
     return { success: true, data: featuresCategories as FeatureCategory[] };
   } catch (error) {
     return { error: getErrorMessage(error) };

@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "MRRSPlan" ADD COLUMN     "oncePrice" DOUBLE PRECISION DEFAULT 0;

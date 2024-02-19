@@ -9,7 +9,19 @@ export const getSaasSettings = async (): Promise<{
   error?: string;
 }> => {
   try {
-    const saasSettings = await prisma.saasSettings.findFirst();
+    const saasSettings = await prisma.saasSettings.findUnique({
+      where: {
+        id: "first",
+      },
+    });
+    if (!saasSettings) {
+      const saasSettings = await prisma.saasSettings.create({
+        data: {
+          id: "first",
+        },
+      });
+      return { success: true, data: saasSettings as SaasSettings };
+    }
     if (!saasSettings) throw new Error("No saas settings found");
     return { success: true, data: saasSettings as SaasSettings };
   } catch (error) {

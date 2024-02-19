@@ -36,19 +36,18 @@ export const createCheckoutSession = async (
       ? { trial_period_days: plan.trialDays }
       : {}
     : {};
-
   const linkedCoupon = plan.coupons?.find(
     (c) => c.PlanId === plan.id && c.recurrence === recurrence
   );
   const coupon = linkedCoupon ? { coupon: linkedCoupon.couponId } : {};
-  const customerId = await stripeCustomerIdManager();
+  const customerId = await stripeCustomerIdManager({});
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
+    payment_method_types: ["card","link"],
     line_items: [
       {
         price: planPrice,
-        quantity: 1,
+        // quantity: 100,
       },
     ],
     mode: "subscription",

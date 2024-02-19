@@ -9,8 +9,19 @@ export const getAppSettings = async (): Promise<{
   error?: string;
 }> => {
   try {
-    const appSettings = await prisma.appSettings.findFirst();
-    if (!appSettings) throw new Error("No app settings found");
+    const appSettings = await prisma.appSettings.findUnique({
+      where: {
+        id: "first",
+      },
+    });
+    if (!appSettings) {
+      const appSettings = await prisma.appSettings.create({
+        data: {
+          id: "first",
+        },
+      });
+      return { success: true, data: appSettings as appSettings };
+    }
     return { success: true, data: appSettings as appSettings };
   } catch (error) {
     return { error: getErrorMessage(error) };

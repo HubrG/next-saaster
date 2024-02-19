@@ -20,7 +20,7 @@ export const getStripeCoupons = async (): Promise<{
         },
       },
     });
-    if (!stripeCoupons) throw new Error("No app settings found");
+    if (!stripeCoupons) throw new Error("No Stripe coupon found");
     return { success: true, data: stripeCoupons as StripeCoupon[] };
   } catch (error) {
     return { error: getErrorMessage(error) };

@@ -21,6 +21,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-text-800 font-semibold underline-offset-4 underline decoration-solid hover:decoration-dashed",
+        tooltip: "!px-0 !mx-0",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
 import { Loader } from "@/src/components/ui/loader";
-import { Separator } from "@/src/components/ui/separator";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";
 import { cn } from "@/src/lib/utils";
@@ -11,7 +10,6 @@ import { Suspense, useCallback, useEffect, useState } from "react";
 import { updateSaasSettings } from "../../queries/queries";
 import { SetCurrency } from "./@subsections/SetCurrency";
 import { SetSaasType } from "./@subsections/SetSaasType";
-import { SetTax } from "./@subsections/SetTax";
 import { SetCreditName } from "./@subsections/more-settings/SetCreditName";
 import ToggleActiveCreditSystem from "./@subsections/more-settings/toggles/ToggleActiveCreditSystem";
 import ToggleActiveMonthlyPlan from "./@subsections/more-settings/toggles/ToggleActiveMonthlyPlan";
@@ -123,18 +121,18 @@ export const AdminSaasSettings = () => {
         </div>
       </SubSectionWrapper>
       <SubSectionWrapper
-        sectionName="Taxes & currency"
+        sectionName="Currency"
         className="col-span-12"
         id="sub-saas-set-saas-tax"
         info="Lorem ipsum dolor concecterut ipsum dolor concecterut ipsum dolor concecterut ">
         <div className="grid grid-cols-12">
-          <div className="col-span-5">
+          {/* <div className="col-span-5">
             <Suspense fallback={<Loader noHFull />}>
               <SetTax set={setTax} />
             </Suspense>
           </div>
-          <Separator className="col-span-2 mx-auto" orientation="vertical" />
-          <div className="col-span-5">
+          <Separator className="col-span-2 mx-auto" orientation="vertical" /> */}
+          <div className="col-span-12">
             <Suspense fallback={<Loader noHFull />}>
               <SetCurrency set={setCurrency} />
             </Suspense>
@@ -142,29 +140,34 @@ export const AdminSaasSettings = () => {
         </div>
       </SubSectionWrapper>
       {(saasSettings.saasType === "MRR_SIMPLE" ||
-        saasSettings.saasType === "METERED_USAGE") && (
-        <SubSectionWrapper
-          sectionName="More settings"
-          id="sub-saas-set-saas-settings"
-          info="Lorem ipsum dolor concecterut ipsum dolor concecterut ipsum dolor concecterut ">
-          <div className="multiple-components mt-5">
-            <Suspense fallback={<Loader noHFull />}>
-              <ToggleActiveMonthlyPlan />
-              <ToggleActiveYearlyPlan />
-              <ToggleActiveCreditSystem />
-              <ToggleActiveRefillCredit />
-            </Suspense>
-          </div>
-
-          <div className={`mt-10 mb-5 px-2`}>
-            <Suspense fallback={<Loader noHFull />}>
-              <SetCreditName
-                disabled={!saasSettings.activeCreditSystem}
-                set={setCreditName}
-              />
-            </Suspense>
-          </div>
-        </SubSectionWrapper>
+        saasSettings.saasType === "METERED_USAGE" ||
+        saasSettings.saasType === "PER_SEAT") && (
+        <>
+          <SubSectionWrapper
+            sectionName="More settings"
+            id="sub-saas-set-saas-settings"
+            info="Lorem ipsum dolor concecterut ipsum dolor concecterut ipsum dolor concecterut ">
+            {(saasSettings.saasType === "MRR_SIMPLE" ||
+              saasSettings.saasType === "PER_SEAT") && (
+              <div className="multiple-components mt-5">
+                <Suspense fallback={<Loader noHFull />}>
+                  <ToggleActiveMonthlyPlan />
+                  <ToggleActiveYearlyPlan />
+                  <ToggleActiveCreditSystem />
+                  <ToggleActiveRefillCredit />
+                </Suspense>
+              </div>
+            )}
+            <div className={`mt-10 mb-5 px-2`}>
+              <Suspense fallback={<Loader noHFull />}>
+                <SetCreditName
+                  disabled={!saasSettings.activeCreditSystem}
+                  set={setCreditName}
+                />
+              </Suspense>
+            </div>
+          </SubSectionWrapper>
+        </>
       )}
       <div className="flex flex-row justify-between mt-10 gap-2">
         <Button

@@ -20,7 +20,7 @@ export const getPlansToFeatures = async (): Promise<{
         },
       },
     });
-    if (!plansToFeatures) throw new Error("No app settings found");
+    if (!plansToFeatures) throw new Error("No plans to features found");
     return { success: true, data: plansToFeatures as PlanToFeature[] };
   } catch (error) {
     return { error: getErrorMessage(error) };

@@ -17,6 +17,21 @@ interface CreateProductProps {
   planId: string;
   id?: string;
   saasType: SaasTypes;
+  default_price?: string;
+  active?: boolean;
+}
+
+export interface createNewPriceForPlanProps {
+  id?: string;
+}
+
+interface stripeCustomerProps {
+  data: {
+    email: string;
+    name?: string;
+    metadata?: {};
+  };
+  id?: string;
 }
 
 export class StripeManager {
@@ -25,6 +40,7 @@ export class StripeManager {
   constructor() {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
       apiVersion: "2023-10-16",
+      typescript: true,
     });
     this.fetchAndCreateWebhookEndpoints();
   }
@@ -40,19 +56,21 @@ export class StripeManager {
     saasType,
     statement_descriptor,
     unit_label,
+    default_price,
+    active,
   }: CreateProductProps): Promise<{
     success?: boolean;
     data?: any;
     error?: string;
   }> {
     try {
+      // NOTE : Create
       if (type === "create") {
         const defaultPrice = await this.setDefaultPrice(
           saasType,
           currency ?? "usd"
         );
         if (defaultPrice.error) throw new Error(defaultPrice.error);
-
         const createProduct = await this.stripe.products.create({
           active: false,
           default_price_data: defaultPrice.data,
@@ -102,12 +120,17 @@ export class StripeManager {
         if (createProductOnBDD && priceOnBDD)
           return { success: true, data: createProductOnBDD.data };
         else return { error: "An error has occured" };
+        // NOTE : Update
       } else if (type === "update" && id) {
+        const product = await this.stripe.products.retrieve(id);
+
         const updateProduct = await this.stripe.products.update(id, {
           description: description,
           name: name,
+          active: active ?? false,
           statement_descriptor: statement_descriptor,
           unit_label: unit_label,
+          default_price: default_price ?? (product.default_price as string),
         });
         if (!updateProduct)
           throw new Error("An error has occured while updating the product");
@@ -132,28 +155,20 @@ export class StripeManager {
   }
 
   // SECTION : PRICE
+
   async createOrUpdatePrice(
     type: "create" | "update",
-    data: any
+    data: createNewPriceForPlanProps &
+      Stripe.PriceCreateParams &
+      Stripe.PriceUpdateParams
   ): Promise<{
     success?: boolean;
     data?: any;
     error?: string;
   }> {
     try {
-      const datas = {
-        currency: data.currency,
-        product: data.product,
-        recurring: data.recurring,
-        unit_amount: data.unit_amount,
-      };
       if (type === "create") {
-        const createPrice = await this.stripe.prices.create({
-          currency: datas.currency,
-          product: datas.product,
-          recurring: datas.recurring,
-          unit_amount: datas.unit_amount,
-        });
+        const createPrice = await this.stripe.prices.create(data);
         if (!createPrice)
           throw new Error("An error has occured while creating the price");
         const createPriceOnBDD = await createOrUpdatePriceStripeToBdd(
@@ -167,7 +182,7 @@ export class StripeManager {
         if (createPriceOnBDD)
           return { success: true, data: createPriceOnBDD.data };
         else return { error: "An error has occured" };
-      } else if (type === "update") {
+      } else if (type === "update" && data.id) {
         const updatePrice = await this.stripe.prices.update(data.id, {
           active: data.active,
           metadata: data.metadata,
@@ -187,6 +202,24 @@ export class StripeManager {
         else return { error: "An error has occured" };
       }
       return { error: "An unknown error has occured" };
+    } catch (error) {
+      console.error(error);
+      return { error: getErrorMessage(error) };
+    }
+  }
+
+  async searchPrices(query: string): Promise<{
+    success?: boolean;
+    data?: any;
+    error?: string;
+  }> {
+    try {
+      const prices = await this.stripe.prices.search({
+        query: query,
+      });
+      if (!prices)
+        throw new Error("An error has occured while fetching the prices");
+      return { success: true, data: prices.data };
     } catch (error) {
       console.error(error);
       return { error: getErrorMessage(error) };
@@ -264,7 +297,31 @@ export class StripeManager {
       return { error: getErrorMessage(error) };
     }
   }
-
+  // SECTION : CUSTOMER
+  async createCustomer({ data, id }: stripeCustomerProps): Promise<{
+    success?: boolean;
+    data?: any;
+    error?: string;
+  }> {
+    if (id !== undefined) {
+      try {
+        const isCustomer = await this.stripe.customers.retrieve(id);
+        if (!isCustomer) {
+          throw new Error("Customer already exists, or not found");
+        } else {
+          return { success: true, data: isCustomer };
+        }
+      } catch (error) {
+        console.error("Error retrieving customer:", error);
+      }
+    }
+    // if not, create it
+    const customer = await this.stripe.customers.create(data);
+    if (!customer) {
+      return { error: "An error has occured while creating the customer" };
+    }
+    return { success: true, data: customer };
+  }
   // SECTION : Utils
   async getWebhookUrl(): Promise<{
     success?: boolean;

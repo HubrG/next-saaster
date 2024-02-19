@@ -1,5 +1,6 @@
 "use client";
-import { updatePlan } from "@/src/components/pages/admin/queries/queries";
+// import { updatePlan } from "@/src/components/pages/admin/queries/queries";
+import { updatePlan } from "@/src/components/pages/admin/queries/saas/saas-pricing/stripe-plan-product-price";
 import { manageClashes } from "@/src/components/pages/admin/saas/pricing/@subsections/manage-plan/plans/@functions/manageClashes";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
@@ -15,7 +16,7 @@ import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { parseIntInput } from "@/src/functions/parse";
+import { parseFloatInput, parseIntInput } from "@/src/functions/parse";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
@@ -29,11 +30,12 @@ import { useEffect, useState } from "react";
 import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
-import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
 import {
-  ReccuringInputFields,
+  MRRInputFields,
   RecurringSwitchFields,
-} from "./plan-card-fields-by-saas-type/RecurringFields";
+} from "./plan-card-fields-by-saas-type/MRRFields";
+import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
+import { UsageInputFields } from "./plan-card-fields-by-saas-type/UsageFields";
 
 type Props = {
   plan: Plan;
@@ -66,17 +68,35 @@ export const PlanCard = ({ plan, className }: Props) => {
     } else {
       value = e;
     }
-    value = parseIntInput(
-      [
-        "trialDays",
-        "monthlyPrice",
-        "yearlyPrice",
-        "creditAllouedByMonth",
-        "oncePrice",
-      ],
-      name,
-      value
-    );
+    if (
+      saasSettings.saasType === "PAY_ONCE" ||
+      saasSettings.saasType === "MRR_SIMPLE" ||
+      saasSettings.saasType === "PER_SEAT"
+    ) {
+      value = parseIntInput(
+        [
+          "trialDays",
+          "monthlyPrice",
+          "yearlyPrice",
+          "creditAllouedByMonth",
+          "oncePrice",
+          "meteredUnit",
+        ],
+        name,
+        value
+      );
+    } else {
+      value = parseFloatInput(
+        ["trialDays", "monthlyPrice", "yearlyPrice"],
+        name,
+        value
+      );
+      value = parseIntInput(
+        ["meteredUnit", "meteredMonthlyFlatAmount", "meteredYearlyFlatAmount"],
+        name,
+        value
+      );
+    }
     setPlanState((prevState) => {
       const newData = { ...prevState, [name]: value };
       return manageClashes(newData, name);
@@ -86,31 +106,31 @@ export const PlanCard = ({ plan, className }: Props) => {
   // Handle save plan
   const handleSave = async () => {
     setLoading(true);
-    const dataToSet = await updatePlan(planState.id, {
+    const dataToSet = await updatePlan({
       ...planState,
       trialDays: planState.trialDays ?? 0,
+      updatedAt: new Date(),
     });
-    if (dataToSet) {
-      setSaveAndCancel(false);
-      setInitialPlanState({ ...planState });
-      updatePlanFromStore(planState.id, planState);
-      setSaasPlanToFeature(
-        saasPlanToFeature.map((item) =>
-          item.planId === planState.id ? { ...item, plan: planState } : item
-        ) as iPlanToFeature[]
-      );
-      setLoading(false);
+    if (dataToSet.error) {
       return toaster({
-        description: `Plan ${planState.name} changed successfully`,
-        type: "success",
-      });
-    } else {
-      setLoading(false);
-      return toaster({
-        description: `Error while changing plan ${planState.name}, please try again later`,
+        description: dataToSet.error,
         type: "error",
       });
     }
+
+    setSaveAndCancel(false);
+    setInitialPlanState({ ...planState });
+    updatePlanFromStore(planState.id, planState);
+    setSaasPlanToFeature(
+      saasPlanToFeature.map((item) =>
+        item.planId === planState.id ? { ...item, plan: planState } : item
+      ) as iPlanToFeature[]
+    );
+    setLoading(false);
+    return toaster({
+      description: `Plan ${planState.name} changed successfully`,
+      type: "success",
+    });
   };
   // Set save and cancel to true or false
   const setSaveAndCancel = (value: boolean) => {
@@ -120,11 +140,17 @@ export const PlanCard = ({ plan, className }: Props) => {
 
   // Handle delete plan
   const handleDelete = async () => {
-    const dataToSet = await updatePlan(planState.id, {
+    const dataToSet = await updatePlan({
       ...planState,
       deleted: true,
       deletedAt: new Date(),
     });
+    if (dataToSet.error) {
+      return toaster({
+        description: dataToSet.error,
+        type: "error",
+      });
+    }
     if (dataToSet) {
       deletePlanFromStore(planState.id);
       setSaasPlanToFeature(
@@ -135,7 +161,7 @@ export const PlanCard = ({ plan, className }: Props) => {
         ) as iPlanToFeature[]
       );
       setSaveAndCancel(false);
-      setInitialPlanState({ ...dataToSet });
+      setInitialPlanState({ ...dataToSet.data });
       return toaster({
         description: `« ${planState.name} » archived successfully.`,
         type: "success",
@@ -173,7 +199,7 @@ export const PlanCard = ({ plan, className }: Props) => {
           name="name"
           value={planState.name ?? ""}
           onClick={(e) => {
-            planState.name === "Plan name" && e.currentTarget.select();
+            planState.name === "New plan" && e.currentTarget.select();
           }}
           className="font-bold text-lg text-center !bg-transparent"
           onChange={(e) => handleInputChange(e, "name")}
@@ -181,7 +207,7 @@ export const PlanCard = ({ plan, className }: Props) => {
         <Textarea
           name="description"
           onClick={(e) => {
-            planState.description === "Plan description" &&
+            planState.description === "New plan description" &&
               e.currentTarget.select();
           }}
           className="text-center !bg-transparent"
@@ -246,8 +272,16 @@ export const PlanCard = ({ plan, className }: Props) => {
               )}
             />
             <div className="w-full flex flex-col gap-y-3">
-              {saasSettings.saasType !== "PAY_ONCE" && (
-                <ReccuringInputFields
+              {saasSettings.saasType === "MRR_SIMPLE" ||
+                (saasSettings.saasType === "PER_SEAT" && (
+                  <MRRInputFields
+                    plan={plan as iPlan}
+                    planState={planState as iPlan}
+                    handleInputChange={handleInputChange}
+                  />
+                ))}
+              {saasSettings.saasType === "METERED_USAGE" && (
+                <UsageInputFields
                   plan={plan as iPlan}
                   planState={planState as iPlan}
                   handleInputChange={handleInputChange}
@@ -262,7 +296,7 @@ export const PlanCard = ({ plan, className }: Props) => {
               )}
             </div>
           </CollapsibleContent>
-          <div className="flex items-center justify-between rounded-default  p-2  space-x-4">
+          <div className="flex items-center justify-between border rounded-default  p-2  space-x-4">
             <CollapsibleTrigger asChild>
               <h4 className="text-sm cursor-pointer w-full font-bold italic flex gap-x-2  flex-row items-center">
                 {!isOpen && (

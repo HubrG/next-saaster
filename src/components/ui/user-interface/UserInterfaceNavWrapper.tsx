@@ -3,9 +3,8 @@ type Props = {
   children: React.ReactNode;
 };
 export const UserInterfaceNavWrapper = ({ children }: Props) => {
-    
   return (
-    <aside>
+    <aside className="user-inteface-aside">
       <nav>{children}</nav>
     </aside>
   );

@@ -12,7 +12,7 @@ import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { iPlan } from "@/src/types/iPlans";
-import { PlusSquare } from "lucide-react";
+import { PlusSquare, Settings2 } from "lucide-react";
 import { useState } from "react";
 import { AddButtonWrapper } from "../@ui/AddButtonWrapper";
 
@@ -61,17 +61,27 @@ export const AddPlan = () => {
     setLoading(false);
     return newPlan;
   };
+  const scrollToBusinessModel = useScrollToSection();
 
   return (
-    <AddButtonWrapper id="plan-tooltip">
+    <div className="w-full flex flex-row justify-between items-center">
+      <AddButtonWrapper id="plan-tooltip">
+        <Button
+          className={cn("!p-0")}
+          disabled={!isStripeSetted()}
+          variant={"link"}
+          onClick={handleAddPlan}>
+          {loading ? <SimpleLoader /> : <PlusSquare className="icon" />}
+          Add a new {saasType} plan
+        </Button>
+      </AddButtonWrapper>
       <Button
-        className={cn("!p-0")}
-        disabled={!isStripeSetted()}
-        variant={"link"}
-        onClick={handleAddPlan}>
-        {loading ? <SimpleLoader /> : <PlusSquare className="icon" />}
-        Add a new {saasType} plan
+        onClick={(e) => {
+          scrollToBusinessModel("sub-saas-set-saas-type");
+        }}
+        variant={"link"}>
+        <Settings2 className="icon" /> Change business model
       </Button>
-    </AddButtonWrapper>
+    </div>
   );
 };

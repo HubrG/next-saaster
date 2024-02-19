@@ -14,13 +14,12 @@ import { useSaasStripePricesStore } from "@/src/stores/admin/stripePricesStore";
 import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { toaster } from "../../ui/toaster/ToastConfig";
 
 // TODO : Séparer les queries en fonction des composants
 // TODO : Mieux gérer les erreurs (renvoyer un message)
-// TODO : dans "add plan", séparer la logique selon le SaaSType (pay once, MRR, etc)
-// FIX : Réunir tous les stores dans un fichier (ce fichier est trop long et peu élégant)
+// TODO : Clean le typage du retour en me basant sur user (voir helpers/users.ts)
 export const AdminComponent = () => {
   const isClient = useIsClient();
 
@@ -51,15 +50,13 @@ export const AdminComponent = () => {
     }
   }, [isClient, setAllStores]);
 
- 
-
   return (
     <UserInterfaceWrapper>
       <UserInterfaceNavWrapper>
         <AdminNavbar />
       </UserInterfaceNavWrapper>
       <UserInterfaceMainWrapper text="Admin panel">
-          <AdminMain />
+        <AdminMain />
       </UserInterfaceMainWrapper>
     </UserInterfaceWrapper>
   );

@@ -34,7 +34,7 @@ export const getPlans = async (): Promise<{
         },
       },
     });
-    if (!plans) throw new Error("No app settings found");
+    if (!plans) throw new Error("No plans found");
     return { success: true, data: plans as Plan[] };
   } catch (error) {
     return { error: getErrorMessage(error) };
@@ -75,7 +75,7 @@ export const getPlan = async (
 };
 
 export const createPlan = async (
-  data: Partial<Plan>
+  data: Partial<iPlan>
 ): Promise<{ success?: boolean; data?: any; error?: string }> => {
   try {
     const plan = await prisma.plan.create({
@@ -103,7 +103,7 @@ export const createPlan = async (
       throw new Error(
         "An error has occured while linking features to the plan"
       );
-    return { success: true, data: plan };
+    return { success: true, data: plan as iPlan };
   } catch (error) {
     console.error(error);
     return { error: getErrorMessage(error) };
@@ -111,7 +111,7 @@ export const createPlan = async (
 };
 
 export const updatePlan = async (
-  data: Partial<Plan>
+  data: Partial<iPlan>
 ): Promise<{ success?: boolean; data?: any; error?: string }> => {
   try {
     const existingPlan = await prisma.plan.findFirst({
@@ -120,9 +120,28 @@ export const updatePlan = async (
       },
     });
     if (!existingPlan) throw new Error("Plan not found");
+    const { id, Features, StripeProduct, coupons, ...updateData } = data;
+    console.log(updateData);
     const plan = await prisma.plan.update({
       where: { id: existingPlan.id },
-      data: data,
+      data: updateData,
+      include: {
+        Features: {
+          include: {
+            feature: true,
+          },
+        },
+        StripeProduct: {
+          include: {
+            prices: true,
+          },
+        },
+        coupons: {
+          include: {
+            coupon: true,
+          },
+        },
+      },
     });
     return { success: true, data: plan };
   } catch (error) {
@@ -143,6 +162,7 @@ export const deletePlan = async ({
   error?: string;
 }> => {
   try {
+    if (!id) throw new Error("No plan id provided");
     if (type === "stripe") {
       const plan = await prisma.plan.delete({
         where: { stripeId: id },
@@ -155,35 +175,49 @@ export const deletePlan = async ({
       where: { id: id },
     });
     if (!plan) throw new Error("An error has occured while deleting the plan");
-    return { success: true, data: plan };
+    return { success: true, data: plan as iPlan };
   } catch (error) {
     return { error: getErrorMessage(error) };
   }
 };
 
-export const createOrUpdatePlanStripeToBdd = async (
-  type: "create" | "update",
-  stripePlan: Stripe.Product
-): Promise<{ success?: boolean; data?: any; error?: string }> => {
+type CreateOrUpdatePlanStripeToBddData = {
+  type: "create" | "update";
+  stripePlan: Stripe.Product;
+};
+export const createOrUpdatePlanStripeToBdd = async ({
+  type,
+  stripePlan,
+}: CreateOrUpdatePlanStripeToBddData): Promise<{
+  success?: boolean;
+  data?: any;
+  error?: string;
+}> => {
   try {
     const planData = {
       ...stripePlan,
       active: stripePlan.active,
       stripeId: stripePlan.id,
       name: stripePlan.name,
-      description: stripePlan.description,
+      description: stripePlan.description
+        ? stripePlan.description
+        : "New plan description",
     };
+    // NOTE : Create
     if (type === "create") {
       const plan = await createPlan(planData as Partial<Plan>);
       return { success: true, data: plan };
+      // NOTE : Update
     } else if (type === "update") {
       const plan = await updatePlan(planData as Partial<Plan>);
+
       return { success: true, data: plan };
     } else {
       console.error("An unknown error occurred");
       return { error: "An unknown error occurred" };
     }
   } catch (error) {
+    // console.error(error);
     return { error: getErrorMessage(error) };
   }
 };

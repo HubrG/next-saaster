@@ -11,6 +11,7 @@ type Store = {
   isPlanStoreLoading: boolean;
   updatePlanFromStore: (planId: string, newPlanData: Partial<iPlan>) => void;
   deletePlanFromStore: (planId: string) => void;
+  restorePlanOnStore: (planId: string) => void;
 };
 
 export const useSaasPlansStore = create<Store>()((set) => ({
@@ -44,6 +45,15 @@ export const useSaasPlansStore = create<Store>()((set) => ({
       saasPlans: state.saasPlans.map((plan) =>
         plan.id === planId
           ? { ...plan, deleted: true, position: 999, deletedAt: new Date() }
+          : plan
+      ),
+    }));
+  },
+  restorePlanOnStore: (planId) => {
+    set((state) => ({
+      saasPlans: state.saasPlans.map((plan) =>
+        plan.id === planId
+          ? { ...plan, deleted: false, position: 0, deletedAt: null }
           : plan
       ),
     }));

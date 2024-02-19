@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "StripeCoupon" ALTER COLUMN "amountOff" SET DATA TYPE DOUBLE PRECISION,
-ALTER COLUMN "percentOff" DROP NOT NULL;

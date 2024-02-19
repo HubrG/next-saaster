@@ -1,4 +1,8 @@
+import { stripeCustomerIdManager } from "@/src/functions/stripeCustomerIdManager";
+import { createAudience } from "@/src/helpers/emails/audience";
+import { createContact } from "@/src/helpers/emails/contact";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { UserRole } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { AuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -7,7 +11,6 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "../prisma";
 import { env } from "./env";
-
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -79,28 +82,29 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user, account, profile }) {
+      let role: UserRole = "USER";
+      // First connexion for the first user (ADMIN)
       if (account && account.provider === "github") {
         // We check if this is the user's first connection via GitHub
         const isFirstUser = (await prisma.user.count()) === 1;
-        const role = isFirstUser ? "SUPER_ADMIN" : "USER";
+        role = isFirstUser ? "SUPER_ADMIN" : token.role;
         // We update the role in the database
         if (isFirstUser) {
           await prisma.user.update({
             where: { email: token.email ?? "" },
             data: { role: role },
           });
-          // We change the role of the user in the JWT to admin
-          token.role = role;
         }
+      } else {
+        role = token.role;
       }
       token = {
         ...token,
         id: token.id,
-        role: token.role,
+        role: role,
         customerId: token.customerId ?? "",
       };
-
-      return { ...token, ...user, ...profile };
+      return { ...token, ...user, ...profile, role };
     },
     async session({ session, token }) {
       session.user.role = token.role;
@@ -112,6 +116,41 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/",
     error: "/",
+  },
+  events: {
+    createUser: async (message) => {
+      // Create Resend contact (and audience Registered Users if not already created)
+      if (env.RESEND_API_KEY) {
+        const newAudience = await createAudience({
+          name: "Registered Users",
+        });
+        if (newAudience.success && newAudience.data && message.user.email) {
+          await createContact({
+            email: message.user.email,
+            audienceId: newAudience.data.id,
+            first_name: message.user.name ?? message.user.email.split("@")[0],
+          });
+        }
+      }
+      // Create Customer ID for Stripe
+      if (
+        (env.STRIPE_SECRET_KEY && env.STRIPE_SIGNIN_SECRET && message.user.id,
+        message.user.email)
+      ) {
+        try {
+          const customerId = await stripeCustomerIdManager({
+            id: message.user.id,
+            email: message.user.email,
+            name: message.user.name ?? message.user.email.split("@")[0],
+          });
+          if (!customerId) {
+            throw new Error("Customer ID not found");
+          }
+        } catch (error) {
+          console.error("Error creating customer ID:", error);
+        }
+      }
+    },
   },
 };
 

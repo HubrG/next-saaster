@@ -1,12 +1,10 @@
 import { AdminComponent } from "@/src/components/pages/admin/Admin";
 import { LoginForm } from "@/src/components/pages/login/LoginForm";
 import { Loader } from "@/src/components/ui/loader";
-import { useIsClient } from "@/src/hooks/useIsClient";
+import { getUser } from "@/src/helpers/utils/users";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
-import { UserRole } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export const generateMetadata = async () => {
@@ -29,12 +27,14 @@ export default async function Admin() {
       </div>
     );
   }
-  if (session.user.role === ("USER" as UserRole)) {
-    redirect("/");
-  }
+  const user = await getUser({ email: session?.user.email ?? "" });
+
+  // if (session.user.role === ("USER" as UserRole)) {
+  //   redirect("/");
+  // }
 
   return (
-    <div className="admin user-interface !min-w-full ">
+    <div className="admin user-interface">
       <Suspense fallback={<Loader />}>
         <AdminComponent />
       </Suspense>

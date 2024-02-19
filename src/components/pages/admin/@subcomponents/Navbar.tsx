@@ -148,7 +148,7 @@ export const AdminNavbar = () => {
               parent="SaasSettings"
               activeSection={activeSubSection}
               sectionObserve="sub-saas-set-saas-tax"
-              text="Taxes & currency"
+              text="Currency"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />

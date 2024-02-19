@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
+import { SimpleLoader } from "@/src/components/ui/loader";
 import { Separator } from "@/src/components/ui/separator";
 import { Link } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
@@ -25,8 +26,24 @@ type UserProfileProps = {
 };
 export const UserProfile = ({ className }: UserProfileProps) => {
   const { saasSettings } = useSaasSettingsStore();
-  const userInfo = useSession().data?.user;
-  const user = useSession().data?.user;
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return (
+      <>
+        <SimpleLoader />
+      </>
+    );
+  }
+  if (session?.user === undefined || session === undefined) {
+    return (
+      <>
+        <SimpleLoader />
+      </>
+    );
+  }
+
+  const user = session.user;
+  console.log("user", user);
   const tokenPercentage = 50;
   const nameInitials = user?.name
     ?.toString()
@@ -119,7 +136,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             My account
           </Link>
         </DropdownMenuItem>
-        {userInfo?.role !== ("USER" as UserRole) && (
+        {user?.role !== ("USER" as UserRole) && (
           <>
             <DropdownMenuItem className="w-full" asChild>
               <Link

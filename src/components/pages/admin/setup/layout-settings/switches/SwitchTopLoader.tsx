@@ -1,13 +1,13 @@
 "use client";
 import { updateAppSettings } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ToggleTopLoader() {
+export default function SwitchTopLoader() {
   const [activeTopLoader, setActiveTopLoader] = useState(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
@@ -40,12 +40,12 @@ export default function ToggleTopLoader() {
   };
 
   return (
-    <ToggleWrapper
+    <SwitchWrapper
       handleChange={handleChangeTopLoader}
       checked={activeTopLoader}
       icon={<Loader className="icon" />}
       id="switch-top-loader">
       Display the <strong>top loader during page loading</strong>
-    </ToggleWrapper>
+    </SwitchWrapper>
   );
 }

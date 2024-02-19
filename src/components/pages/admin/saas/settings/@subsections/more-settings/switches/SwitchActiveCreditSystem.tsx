@@ -1,13 +1,13 @@
 "use client";
 import { updateSaasSettings } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
-export default function ToggleActiveMonthlyPlan() {
+export default function SwitchActiveMonthlyPlan() {
   const [activeCreditSystem, setActiveCreditSystem] = useState<boolean>(true);
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
 
@@ -54,7 +54,7 @@ export default function ToggleActiveMonthlyPlan() {
   };
 
   return (
-    <ToggleWrapper
+    <SwitchWrapper
       handleChange={handleChangeActiveCreditSystem}
       checked={activeCreditSystem}
       icon={<Wallet className="icon" />}
@@ -71,6 +71,6 @@ export default function ToggleActiveMonthlyPlan() {
           (tokens, credits, etc.).
         </span>
       </Tooltip>
-    </ToggleWrapper>
+    </SwitchWrapper>
   );
 }

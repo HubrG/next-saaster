@@ -1,12 +1,12 @@
 "use client";
 import { updateSaasSettings } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { CalendarDays } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function ToggleActiveMonthlyPlan() {
+export default function SwitchActiveMonthlyPlan() {
   const [activeMonthlyPlans, setActiveMonthlyPlans] = useState<boolean>(true);
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
 
@@ -44,12 +44,12 @@ export default function ToggleActiveMonthlyPlan() {
   };
 
   return (
-    <ToggleWrapper
+    <SwitchWrapper
       handleChange={handleChangeActiveMonthlyPlans}
       checked={activeMonthlyPlans}
       icon={<CalendarDays className="icon" />}
       id="switch-active-monthly-plans">
       Active the <strong>monthly plans</strong> for your SaaS
-    </ToggleWrapper>
+    </SwitchWrapper>
   );
 }

@@ -11,10 +11,10 @@ import { updateSaasSettings } from "../../queries/queries";
 import { SetCurrency } from "./@subsections/SetCurrency";
 import { SetSaasType } from "./@subsections/SetSaasType";
 import { SetCreditName } from "./@subsections/more-settings/SetCreditName";
-import ToggleActiveCreditSystem from "./@subsections/more-settings/toggles/ToggleActiveCreditSystem";
-import ToggleActiveMonthlyPlan from "./@subsections/more-settings/toggles/ToggleActiveMonthlyPlan";
-import ToggleActiveRefillCredit from "./@subsections/more-settings/toggles/ToggleActiveRefillCredit";
-import ToggleActiveYearlyPlan from "./@subsections/more-settings/toggles/ToggleActiveYearlyPlan";
+import SwitchActiveCreditSystem from "./@subsections/more-settings/switches/SwitchActiveCreditSystem";
+import SwitchActiveMonthlyPlan from "./@subsections/more-settings/switches/SwitchActiveMonthlyPlan";
+import SwitchActiveRefillCredit from "./@subsections/more-settings/switches/SwitchActiveRefillCredit";
+import SwitchActiveYearlyPlan from "./@subsections/more-settings/switches/SwitchActiveYearlyPlan";
 
 export const AdminSaasSettings = () => {
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
@@ -151,10 +151,10 @@ export const AdminSaasSettings = () => {
               saasSettings.saasType === "PER_SEAT") && (
               <div className="multiple-components mt-5">
                 <Suspense fallback={<Loader noHFull />}>
-                  <ToggleActiveMonthlyPlan />
-                  <ToggleActiveYearlyPlan />
-                  <ToggleActiveCreditSystem />
-                  <ToggleActiveRefillCredit />
+                  <SwitchActiveMonthlyPlan />
+                  <SwitchActiveYearlyPlan />
+                  <SwitchActiveCreditSystem />
+                  <SwitchActiveRefillCredit />
                 </Suspense>
               </div>
             )}

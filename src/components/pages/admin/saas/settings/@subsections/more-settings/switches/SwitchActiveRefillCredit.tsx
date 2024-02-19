@@ -1,13 +1,13 @@
 "use client";
 import { updateSaasSettings } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
-export default function ToggleActiveMonthlyPlan() {
+export default function SwitchActiveMonthlyPlan() {
   const [activeRefillCredit, setActiveRefillCredit] = useState<boolean>(true);
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
 
@@ -53,14 +53,14 @@ export default function ToggleActiveMonthlyPlan() {
         className={`${
           isActiveCreditSystem && "opacity-45 !cursor-not-allowed"
         }`}>
-        <ToggleWrapper
+        <SwitchWrapper
           handleChange={handleChangeActiveRefillCredit}
           checked={activeRefillCredit}
           icon={<CreditCard className="icon" />}
           disabled={isActiveCreditSystem}
           id="switch-active-refill-credit">
           Active the <strong>refill credit</strong> for your SaaS
-        </ToggleWrapper>
+        </SwitchWrapper>
       </div>
       {isActiveCreditSystem ? (
         <Tooltip

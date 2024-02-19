@@ -1,12 +1,12 @@
 "use client";
 import { updateAppSettings } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Eclipse } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function ToggleActiveDarkMode() {
+export default function SwitchActiveDarkMode() {
   const [activeDarkmode, setActiveDarkmode] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
@@ -36,12 +36,12 @@ export default function ToggleActiveDarkMode() {
     }
   };
   return (
-    <ToggleWrapper
+    <SwitchWrapper
       handleChange={handleChangeActiveDarkmode}
       checked={activeDarkmode}
       icon={<Eclipse className="icon" />}
       id="switch-active-dark-mode">
       Authorize user to <strong>switch the theme to dark or light</strong> mode
-    </ToggleWrapper>
+    </SwitchWrapper>
   );
 }

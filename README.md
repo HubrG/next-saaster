@@ -55,33 +55,33 @@
 
 ## ℹ️ Libraries used
 
-- Typing: [typeScript](https://github.com/microsoft/TypeScript) & [zod](https://github.com/colinhacks/zod)
-- Auth management: [next-auth](https://github.com/nextauthjs/next-auth)
-- Date format : [day.js](https://github.com/iamkun/dayjs)
-- Text editor: [editor.js](https://github.com/editor-js/awesome-editorjs)
-- Custom hooks: [react-use](https://github.com/streamich/react-use)
-- Stores/Contexts: [zustand](https://github.com/pmndrs/zustand)
-- Upload/Upload management: [filepond](https://github.com/pqina/react-filepond)
-- Sortable DD: [react-easy-sort](https://github.com/ValentinH/react-easy-sort)
-- Cookie management: [js-cookie](https://www.npmjs.com/package/js-cookie)
-- Form management: [react-hook-form](https://github.com/react-hook-form/react-hook-form)
-- Query management: [tanstack/react-query](https://github.com/TanStack/query)
-- Charts and graphs: [recharts](https://github.com/recharts/recharts)
-- Icons: [lucide icons](https://github.com/lucide-icons/lucide)
-- PDF management (creation, updating, reading, downloading): [react-pdf](https://github.com/wojtekmaj/react-pdf)
-- Toasts: [sonner](https://github.com/emilkowalski/sonner)
-- Animations: [framer-motion](https://github.com/framer/motion)
-- Internationalization: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation)
-- Tooltips : [react-tooltip](https://github.com/ReactTooltip/react-tooltip)
-- AI : [Vercel AI](https://vercel.com/ai)
+- Typing: [typeScript](https://github.com/microsoft/TypeScript){:target="\_blank"} & [zod](https://github.com/colinhacks/zod){:target="\_blank"}
+- Auth management: [next-auth](https://github.com/nextauthjs/next-auth){:target="\_blank"}
+- Date format : [date-fns](https://github.com/date-fns/date-fns){:target="\_blank"}
+- Text editor: [editor.js](https://github.com/editor-js/awesome-editorjs){:target="\_blank"}
+- Custom hooks: [react-use](https://github.com/streamich/react-use){:target="\_blank"}
+- Stores/Contexts: [zustand](https://github.com/pmndrs/zustand){:target="\_blank"}
+- Upload/Upload management: [filepond](https://github.com/pqina/react-filepond){:target="\_blank"}
+- Sortable DD: [react-easy-sort](https://github.com/ValentinH/react-easy-sort){:target="\_blank"}
+- Cookie management: [js-cookie](https://www.npmjs.com/package/js-cookie){:target="\_blank"}
+- Form management: [react-hook-form](https://github.com/react-hook-form/react-hook-form){:target="\_blank"}
+- Query management: [tanstack/react-query](https://github.com/TanStack/query){:target="\_blank"}
+- Charts and graphs: [recharts](https://github.com/recharts/recharts){:target="\_blank"}
+- Icons: [lucide icons](https://github.com/lucide-icons/lucide){:target="\_blank"}
+- PDF management (creation, updating, reading, downloading): [react-pdf](https://github.com/wojtekmaj/react-pdf){:target="\_blank"}
+- Toasts: [sonner](https://github.com/emilkowalski/sonner){:target="\_blank"}
+- Animations: [framer-motion](https://github.com/framer/motion){:target="\_blank"}
+- Internationalization: [next-intl](https://next-intl-docs.vercel.app/docs/routing/navigation){:target="\_blank"}
+- Tooltips : [react-tooltip](https://github.com/ReactTooltip/react-tooltip){:target="\_blank"}
+- AI : [Vercel AI](https://vercel.com/ai){:target="\_blank"}
 - UI : Tailwind, Aceternity, Shadcn
 
 ## ℹ️ Services used :
 
-- Database management: [Prisma](https://github.com/prisma/prisma) & `PostgreSQL`
-- Deploy the project: [Vercel](https://vercel.com/)
-- Email management: [Resend](https://resend.com/overview), and [react-email](https://github.com/resend/react-email) for templating
-- Assets management: [Cloudinary](https://cloudinary.com/)
+- Database management: [Prisma](https://github.com/prisma/prisma){:target="\_blank"} & `PostgreSQL`
+- Deploy the project: [Vercel](https://vercel.com/){:target="\_blank"}
+- Email management: [Resend](https://resend.com/overview){:target="\_blank"}, and [react-email](https://github.com/resend/react-email){:target="\_blank"} for templating
+- Assets management: [Cloudinary](https://cloudinary.com/){:target="\_blank"}
 
 ## 🎨 Todo for customizing the project :
 

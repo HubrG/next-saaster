@@ -1,12 +1,12 @@
 "use client";
 import { updateAppSettings } from "@/src/components/pages/admin/queries/queries";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { ToggleWrapper } from "@/src/components/ui/user-interface/ui/ToggleWrapper";
+import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Box } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function ToggleCtaOnNavbar() {
+export default function SwitchCtaOnNavbar() {
   const [activeCtaOnNavbar, setActiveCtaOnNavbar] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
@@ -40,13 +40,13 @@ export default function ToggleCtaOnNavbar() {
 
   return (
     <>
-      <ToggleWrapper
+      <SwitchWrapper
         handleChange={handleChangeCtaOnNavbar}
         checked={activeCtaOnNavbar}
         icon={<Box className="icon" />}
         id="switch-active-cta-on-navbar">
         Display the <strong>navbar&apos;s CTA</strong>
-      </ToggleWrapper>
+      </SwitchWrapper>
     </>
   );
 }

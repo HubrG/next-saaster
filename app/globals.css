@@ -253,17 +253,23 @@ ol li {
   @apply min-w-fit;
 }
 /*  */
-.user-interface .toggle-wrapper {
-  @apply grid grid-rows-4 items-center !border !border-transparent hover:!border-theming-primary-100 dark:hover:!border-theming-primary-200 dark:hover:bg-theming-background-200/10 bg-transparent justify-between grid-cols-1 dark:border-0 shadow-sm  dark:shadow-sm  cursor-pointer;
+.user-interface .switch-wrapper {
+  @apply grid sm:grid-cols-12 max-sm:grid-rows-2 h-full max-sm:justify-center  min-h-36 items-center !border !border-transparent hover:!border-theming-primary-100 dark:hover:!border-theming-primary-200 dark:hover:bg-theming-background-200/10 bg-transparent justify-between dark:border-0 shadow-sm  dark:shadow-sm  cursor-pointer;
 }
-.user-interface .toggle-wrapper label {
-  @apply md:text-base sm:text-sm text-xs text-left !important;
+.user-interface .switch-wrapper label {
+  @apply md:text-base sm:text-sm text-xs text-left  select-none hidden cursor-pointer font-semibold relative !important;
 }
-.user-interface .toggle-wrapper .icon {
-  @apply mx-auto !text-2xl  z-10;
+.user-interface .switch-wrapper p {
+  @apply self-center col-span-10 grid sm:grid-cols-12 max-sm:row-span-1 gap-x-2 gap-y-2 sm:items-start  max-sm:text-center;
 }
-.user-interface .toggle-wrapper p {
-  @apply self-start pt-5;
+.user-interface .switch-wrapper p .icon {
+  @apply mx-auto !text-xl mt-0.5 sm:col-span-2  max-sm:col-span-12 z-10;
+}
+.user-interface .switch-wrapper p span {
+  @apply col-span-10 sm:pr-3 pr-0 max-sm:col-span-12;
+}
+.user-interface .switch-wrapper button {
+  @apply self-center mx-auto sm:col-span-2  max-sm:row-span-1 max-sm:col-span-12;
 }
 .user-interface aside.user-inteface-aside nav {
   @apply flex flex-col gap-y-5 sticky top-24 pr-5 -mt-24 overflow-y-auto max-h-[90vh];
@@ -391,7 +397,7 @@ form button {
   @apply bg-theming-background-500 !text-theming-text-50 dark:!text-theming-text-950  border-primary shadow-lg  !important;
 }
 
-.toggle-info {
+.switch-info {
   @apply text-sm opacity-75 mt-2;
 }
 .admin-plan-card {

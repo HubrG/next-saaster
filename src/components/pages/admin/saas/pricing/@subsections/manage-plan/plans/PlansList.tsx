@@ -1,9 +1,9 @@
 "use client";
 import { updatePlanPosition } from "@/src/components/pages/admin/queries/queries";
+import { sortAdminPlans } from "@/src/components/pages/admin/saas/pricing/@subsections/manage-plan/plans/@functions/sortAdminPlans";
 import { PlanCard } from "@/src/components/pages/admin/saas/pricing/@subsections/manage-plan/plans/@ui/PlanCard";
 import { Loader } from "@/src/components/ui/loader";
 import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
-import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -22,12 +22,12 @@ export const PlansList = () => {
   const saasPlans = useSaasPlansStore((state) => state.saasPlans);
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
-    const newSaasPlans = (await sortADminFeatureAndPlan(
-      saasPlans,
+    const newSaasPlans = (await sortAdminPlans({
+      list: saasPlans,
       oldIndex,
       newIndex,
-      saasSettings.saasType
-    )) as iPlan[];
+      saasType: saasSettings.saasType,
+    })) as iPlan[];
     if (newSaasPlans) {
       setSaasPlans(newSaasPlans as iPlan[]);
       await updatePlanPosition(newSaasPlans);

@@ -1,7 +1,6 @@
 "use client";
 import { updateFeaturePosition } from "@/src/components/pages/admin/queries/queries";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
-import { sortADminFeatureAndPlan } from "@/src/functions/sortAdminFeatureAndPlan";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -9,6 +8,7 @@ import { iFeature } from "@/src/types/iFeatures";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
+import { sortAdminFeatures } from "./@functions/sortAdminFeatures";
 import { FeatureCard } from "./@ui/FeatureCard";
 import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
@@ -23,11 +23,11 @@ export const FeaturesList = () => {
   };
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
-    const newSaasFeatures = (await sortADminFeatureAndPlan(
-      saasFeatures,
+    const newSaasFeatures = (await sortAdminFeatures({
+      list: saasFeatures,
       oldIndex,
-      newIndex
-    )) as iFeature[];
+      newIndex,
+    })) as iFeature[];
     setSaasFeatures(newSaasFeatures);
     await updateFeaturePosition(newSaasFeatures);
   };

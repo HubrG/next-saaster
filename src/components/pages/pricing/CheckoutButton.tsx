@@ -15,7 +15,7 @@ export const CheckoutButton = ({ plan }: Props) => {
   const handleClick = async () => {
     // Déterminer l'identifiant de prix approprié en fonction du plan et du choix de facturation
     const priceId = plan.isFree
-      ? plan.stripeFreePriceId
+      ? plan.StripeProduct[0].default_price
       : isYearly
       ? plan.stripeYearlyPriceId
       : plan.stripeMonthlyPriceId;

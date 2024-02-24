@@ -1,6 +1,6 @@
 "use client";
 import { Link } from "@/src/lib/intl/navigation";
-import { Menu } from "lucide-react";
+import { Menu, ShoppingBagIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import TryUsButton from "./TryUsButton";
 import { LoginButton } from "./auth/LoginButton";
@@ -47,16 +47,15 @@ export default function BurgerMenu(props: Props) {
                   <MainMenu links={links} />
                 </SheetClose>
                 <li className="md:hidden flex w-full justify-center ">
-                  {props.settings.activeCtaOnNavbar &&
-                    (user ? (
-                      <SheetClose asChild>
-                        <TryUsButton className="" />
-                      </SheetClose>
-                    ) : (
-                      <SheetClose asChild>
-                        <TryUsButton className="hidden" />
-                      </SheetClose>
-                    ))}
+                  {props.settings.activeCtaOnNavbar && (
+                    <SheetClose asChild>
+                      <TryUsButton
+                        value="Buy now !"
+                        icon={<ShoppingBagIcon className="icon" />}
+                        className="hidden"
+                      />
+                    </SheetClose>
+                  )}
                 </li>
                 <li className="sm:hidden flex w-full justify-center">
                   <SheetClose asChild>

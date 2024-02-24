@@ -1,77 +1,114 @@
 "use client";
-import { Separator } from "@/src/components/ui/separator";
+
+import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { Card } from "@/src/components/ui/card";
+import { DotBlurredAndGradient } from "@/src/components/ui/layout-elements/dot-blured-and-gradient";
 import currenciesData from "@/src/jsons/currencies.json";
+import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
-import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { Currencies } from "@/src/types/Currencies";
 import { iPlan } from "@/src/types/iPlans";
-import { iStripeCoupon } from "@/src/types/iStripeCoupons";
-import { BackgroundGrad } from "./Background";
-import { CheckoutButton } from "./CheckoutButton";
+import { SaasSettings, SaasTypes } from "@prisma/client";
+import { Suspense } from "react";
+import { payOncePricesAndFeatures } from "./PAY_ONCE/prices";
+import { PriceCardBadge } from "./PriceCardBadge";
+import { PriceCardBottomSentence } from "./PriceCardBottomSentence";
+import { PriceCardBuyButton } from "./PriceCardBuyButton";
+import { PriceCardFeatures } from "./PriceCardFeatures";
+import { MRRPricesAndFeatures } from "./RECURRENCE/prices";
 
-type Props = {
+type PriceCardProps = {
   plan: iPlan;
-  coupons: iStripeCoupon[];
+  type: SaasTypes;
+  saasSettings: SaasSettings;
 };
 
-const calculateDiscountPrice = (price: number, discount?: number) => {
-  if (!discount) return price.toFixed(2);
-  const discountedPrice = price * (1 - discount / 100);
-  return discountedPrice.toFixed(2);
-};
-
-export const PriceCard = ({ plan, coupons }: Props) => {
-  const { saasSettings } = useSaasSettingsStore();
+export const PriceCard = ({ plan, type, saasSettings }: PriceCardProps) => {
   const { isYearly } = usePublicSaasPricingStore();
+  let price;
+  if (type === "PAY_ONCE") {
+    price = payOncePricesAndFeatures({ plan });
+  } else if (type === "MRR_SIMPLE") {
+    price = MRRPricesAndFeatures({ plan, isYearly });
+  } else {
+    return;
+  }
+
   const currencies = currenciesData as Currencies;
   const currencySymbol = saasSettings.currency
     ? currencies[saasSettings.currency]?.sigle
     : "";
 
-  const findDiscountPercent = (recurrence: string) => {
-    const couponDetail = plan.coupons?.find((couponId) => {
-      return couponId.recurrence === recurrence;
-    });
-    return (
-      coupons.find((c) => c.id === couponDetail?.couponId)?.percentOff ?? 0
-    );
-  };
-
-  const monthlyDiscount = findDiscountPercent("monthly");
-  const yearlyDiscount = findDiscountPercent("yearly");
-
-  const displayPrice = isYearly
-    ? calculateDiscountPrice(plan.yearlyPrice ?? 0, yearlyDiscount)
-    : calculateDiscountPrice(plan.monthlyPrice ?? 0, monthlyDiscount);
-  const originalPrice = isYearly
-    ? plan.yearlyPrice?.toFixed(2)
-    : plan.monthlyPrice?.toFixed(2);
-  const isDiscounted = isYearly ? yearlyDiscount > 0 : monthlyDiscount > 0;
-
   return (
-    <BackgroundGrad>
-      <div className="flex flex-col items-center gap-5 justify-center">
-        <h2 className="font-bold text-center">{plan.name}</h2>
-        <div className="flex flex-col items-center justify-center">
-          <span className="text-3xl font-bold text-center">
-            {isDiscounted && (
-              <span className="line-through">{originalPrice}</span>
-            )}
-            <span>{displayPrice}</span>
-            <small>{currencySymbol}</small>
-          </span>
-          <sup className="text-lg text-center">
-            /{isYearly ? "year" : "month"}
-          </sup>
+    <>
+      <Card
+        className={cn(
+          {
+            "card-popular": plan.isPopular || plan.isRecommended,
+          },
+          `price-card-wrapper`
+        )}>
+        <PriceCardBadge
+          text={
+            plan.isPopular
+              ? "Most popular"
+              : plan.isRecommended
+              ? "Recommended"
+              : null
+          }
+        />
+        <h1 className="text-xl">{plan.name}</h1>
+        <p className={cn({ hidden: plan.description?.length === 0 })}>
+          {plan.description}
+        </p>
+          <DotBlurredAndGradient
+            className="!opacity-20 mt-20 h-96 w-full"
+            gradient="gradient-to-b-second"
+          />
+        <h3 className={cn({"!-mt-24 pt-0":plan.isTrial})}>
+          {plan.isTrial && (
+            <>
+              <span className="trial">{plan.trialDays} days trial, then</span>
+              <br />
+            </>
+          )}
+          {price.percentOff ? (
+            <>
+              <span className="price-stroke">
+                {price.price}
+                {currencySymbol}
+              </span>
+              &nbsp;
+              {price.priceWithDiscount}
+              {currencySymbol}
+              <span className="recurrence">
+                {plan.saasType !== "PAY_ONCE" &&
+                  !plan.isFree &&
+                  ` / ${isYearly ? "year" : "month"}`}
+              </span>
+            </>
+          ) : (
+            <>
+              {price.price}
+              {currencySymbol}
+              <span className="recurrence">
+                {plan.saasType !== "PAY_ONCE" &&
+                  !plan.isFree &&
+                  ` / ${isYearly ? "year" : "month"}`}
+              </span>
+            </>
+          )}
+        </h3>
+        <Goodline />
+        <div className="features">
+            <PriceCardFeatures plan={plan} />
         </div>
-        <CheckoutButton plan={plan} />
-        <Separator />
-        <div className="flex flex-col items-center justify-center">
-          <span className="text-lg font-bold text-center">
-            {plan.description}
-          </span>
-        </div>
-      </div>
-    </BackgroundGrad>
+        <PriceCardBuyButton className="mt-7" plan={plan} />
+      </Card>
+      <PriceCardBottomSentence
+        className="text-center my-2  !font-normal text-theming-text-50"
+        sentence="Single payment. Limitless projects"
+      />
+    </>
   );
 };

@@ -1,3 +1,4 @@
+"use client";
 import {
     createNewCategory,
     updateFeatureCategoryPosition,
@@ -10,7 +11,7 @@ import {
     PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { sortAdminFeatureCategory } from "@/src/functions/sortAdminFeatureCategory";
+import { sortAdminFeatureCategory } from "@/src/helpers/functions/sortAdminFeatureCategory";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { Feature } from "@prisma/client";

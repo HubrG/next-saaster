@@ -1,6 +1,6 @@
-import { isStripeSetted } from '@/src/functions/isStripeSetted';
+import { isStripeSetted } from '@/src/helpers/functions/isStripeSetted';
 import { cn } from '@/src/lib/utils';
-import React from 'react'
+import React from 'react';
 import { Tooltip } from 'react-tooltip';
 
 type Props = {

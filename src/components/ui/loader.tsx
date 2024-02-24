@@ -14,7 +14,10 @@ export const Loader = ({ size, className, noHFull }: LoaderProps) => {
         { "h-[90vh]": !noHFull, "h-20": noHFull },
         "flex justify-center items-center w-full"
       )}>
-      <Loader2 className={clsx("animate-spin", className)} size={size} />
+      <Loader2
+        className={clsx("animate-spin text-theming-text-500", className)}
+        size={size}
+      />
     </div>
   );
 };

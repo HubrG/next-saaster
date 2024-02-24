@@ -2,21 +2,22 @@ import { Navbar } from "@/app/[locale]/layout/header/Navbar";
 import { TopLoader } from "@/app/[locale]/layout/header/TopLoader";
 import { Init } from "@/app/[locale]/layout/init";
 import { Loader } from "@/src/components/ui/loader";
-import { getSaasSettings } from "@/src/helpers/utils/saasSettings";
+import { getSaasSettings } from "@/src/helpers/db/saasSettings";
 import createMetadata from "@/src/lib/metadatas";
+import { authOptions } from "@/src/lib/next-auth/auth";
 import { cn } from "@/src/lib/utils";
 import { NextIntlProvider } from "@/src/providers/NextIntlProvider";
 import { ReactQueryClientProvider } from "@/src/providers/ReactQueryClientProvider";
 import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
-import { Caveat, Nunito, Playfair_Display } from "next/font/google";
-import { Suspense } from "react";
+import { getServerSession } from "next-auth/next";
+import { Caveat, Commissioner, Playfair_Display } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
-import { getAppSettings } from "../../src/helpers/utils/appSettings";
+import { getAppSettings } from "../../src/helpers/db/appSettings";
 
-const sans = Nunito({
+const sans = Commissioner({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
@@ -48,7 +49,7 @@ export default async function LocaleLayout(props: Props) {
     children,
     params: { locale },
   } = props;
-
+  const session = await getServerSession(authOptions);
   const appSettings = await getAppSettings();
   const saasSettings = await getSaasSettings();
   if (!appSettings.data || !saasSettings.data) {
@@ -81,9 +82,10 @@ export default async function LocaleLayout(props: Props) {
                   appSettings.data.defaultDarkMode ? "dark" : "light"
                 }
                 enableSystem>
-                <Suspense fallback={<Loader />}>
-                  <Navbar />
-                </Suspense>
+                <Navbar
+                  session={session ?? undefined}
+                  settings={appSettings.data}
+                />
                 <main>{children}</main>
               </ThemeProvider>
             </NextIntlProvider>

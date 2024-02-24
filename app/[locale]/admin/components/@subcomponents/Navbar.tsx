@@ -57,15 +57,6 @@ export const AdminNavbar = () => {
   return (
     <>
       <div>
-        <ul className="mb-5 !text-2xl">
-          <MenuItem
-            activeSection={activeSection}
-            icon={<GaugeCircle className="icon" />}
-            text="Dashboard"
-            sectionObserve="Dashboard"
-            handleScroll={handleScroll}
-          />
-        </ul>
         <h3>
           Setup
           <Cog className="icon" />

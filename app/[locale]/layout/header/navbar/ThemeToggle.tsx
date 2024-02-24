@@ -12,19 +12,23 @@ export const ThemeToggle = ({ className, classNameMoon }: ThemeToggleProps) => {
   const { appSettings } = useAppSettingsStore();
 
   if (!appSettings.activeDarkMode) return null;
-     return (
-       <Button
-         variant="ghost"
-         className={`${className} relative`}
-         size="lg"
-         onClick={() => {
-           setTheme(theme === "light" ? "dark" : "light");
-         }}>
-         <Sun className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-         <Moon
-           className={`absolute ${classNameMoon} rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100`}
-         />
-         <span className="sr-only">Toggle Theme</span>
-       </Button>
-     );
+  return (
+    <Button
+      variant="ghost"
+      className={`${className} relative ml-2`}
+      size="sm"
+      onClick={() => {
+        setTheme(theme === "light" ? "dark" : "light");
+      }}>
+      <Sun
+        size={20}
+        className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+      />
+      <Moon
+        size={20}
+        className={`absolute -mt-5 rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100`}
+      />
+      <span className="sr-only">Toggle Theme</span>
+    </Button>
+  );
 };

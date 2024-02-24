@@ -1,3 +1,4 @@
+"use client";
 import {
     createNewCategoryFromFeature,
     updateFeature,
@@ -16,7 +17,7 @@ import {
     PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { sliced } from "@/src/functions/slice";
+import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";

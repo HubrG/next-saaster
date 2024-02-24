@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from "./form";
 import { Input } from "./input";
+import { Textarea } from "./textarea";
 
 type Props = {
   form: { control: any };
@@ -14,13 +15,15 @@ type Props = {
   label: string;
   placeholder?: string;
   description?: string;
-  type?: string;
+  className?: string;
+  type?: "text" | "email" | "password" | "textarea";
 };
 
 export const Field = ({
   form,
   name,
   label,
+  className,
   placeholder,
   description,
   type = "text",
@@ -31,20 +34,39 @@ export const Field = ({
       name={name}
       render={({ field }) => (
         <>
-          <FormItem>
-            <FormLabel>
-              {label} <FormMessage />
-            </FormLabel>
-            <FormControl>
-              <Input
-                type={type}
-                onKeyDown={(e) => e.preventDefault}
-                placeholder={placeholder}
-                {...field}
-              />
-            </FormControl>
-            <FormDescription>{description}</FormDescription>
-          </FormItem>
+          {type === "textarea" ? (
+            <FormItem>
+              <FormLabel>
+                {label} <FormMessage />
+              </FormLabel>
+              <FormControl>
+                <Textarea
+                  onKeyDown={(e) => {
+                    e.preventDefault;
+                  }}
+                  className={className}
+                  placeholder={placeholder}
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>{description}</FormDescription>
+            </FormItem>
+          ) : (
+            <FormItem>
+              <FormLabel>
+                {label} <FormMessage />
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type={type}
+                  onKeyDown={(e) => e.preventDefault}
+                  placeholder={placeholder}
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>{description}</FormDescription>
+            </FormItem>
+          )}
         </>
       )}
     />

@@ -1,13 +1,14 @@
 import { updateSaasSettings } from "@/app/[locale]/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasSettings } from "@prisma/client";
 import { Label } from "@radix-ui/react-label";
@@ -112,7 +113,13 @@ export const FeaturesOptions = () => {
               />
             </div>
             <Separator />
-            <div className="space-y-2 space-x-2 flex flex-row justify-between">
+            <div
+              className={cn(
+                {
+                  "opacity-50 disabled": !featureState.displayFeaturesByCategory,
+                },
+                "space-y-2 space-x-2 flex flex-row justify-between"
+              )}>
               <strong className="flex flex-row items-center justify-end gap-x-1">
                 <Info
                   className="icon"
@@ -121,7 +128,7 @@ export const FeaturesOptions = () => {
                 <Label
                   className="label"
                   htmlFor="activeFeatureAdvancedComparison">
-                  Active advanced feature comparison
+                  Active advanced feature comparison (by categories)
                 </Label>
                 <Tooltip
                   className="tooltip"
@@ -132,6 +139,7 @@ export const FeaturesOptions = () => {
                 </Tooltip>
               </strong>
               <Switch
+              disabled={!featureState.displayFeaturesByCategory}
                 id="activeFeatureAdvancedComparison"
                 onCheckedChange={(e) =>
                   handleChange("activeFeatureAdvancedComparison", e)

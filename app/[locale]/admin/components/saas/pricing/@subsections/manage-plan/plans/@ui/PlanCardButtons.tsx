@@ -3,7 +3,6 @@ import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { PopoverArchive } from "@/src/components/ui/popover-archive";
 import { cn } from "@/src/lib/utils";
-import { PlanCardSwitchSaasType } from "./PlanCardSwitchSaasType";
 type Props = {
   save: boolean;
   cancel: boolean;
@@ -39,10 +38,10 @@ export const PlanCardButtons = ({
         onClick={handleReset}>
         Reset
       </Button>
-      <PlanCardSwitchSaasType
+      {/* <PlanCardSwitchSaasType
         saasTypeState={saasTypeState}
         handleInputChange={handleInputChange}
-      />
+      /> */}
       <PopoverArchive what="this plan" handleDelete={handleDelete} />
     </>
   );

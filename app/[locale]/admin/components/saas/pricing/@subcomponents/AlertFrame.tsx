@@ -1,6 +1,6 @@
 "use client";
-import { Alert, AlertTitle, AlertDescription } from "@/src/components/ui/alert";
-import { isStripeSetted } from "@/src/functions/isStripeSetted";
+import { Alert, AlertDescription, AlertTitle } from "@/src/components/ui/alert";
+import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
 import { FileWarning } from "lucide-react";
 
 export const AlertFrame = () => {

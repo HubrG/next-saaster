@@ -5,7 +5,7 @@ import { SaasSettings } from "@prisma/client";
 
 export const getSaasSettings = async (): Promise<{
   success?: boolean;
-  data?: SaasSettings;
+  data?: SaasSettings | null;
   error?: string;
 }> => {
   try {

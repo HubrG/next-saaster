@@ -1,8 +1,9 @@
+"use client";
 import { addNewMMRSFeature } from "@/app/[locale]/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
+import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -32,7 +33,9 @@ export const AddFeature = () => {
 
       toaster({
         type: "success",
-        description: `New ${saasSettings.saasType} feature created`,
+        description: `New ${SaasTypeReadableName(
+          saasSettings.saasType
+        )} feature created`,
       });
     } else {
       toaster({

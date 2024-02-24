@@ -2,21 +2,21 @@ import {
   createOrUpdatePlanStripeToBdd,
   deletePlan,
   updatePlan,
-} from "@/src/helpers/utils/plans";
+} from "@/src/helpers/db/plans";
 import {
   createOrUpdateCouponStripeToBdd,
   deleteStripeCoupon,
-} from "@/src/helpers/utils/stripeCoupons";
+} from "@/src/helpers/db/stripeCoupons";
 import {
   createOrUpdatePriceStripeToBdd,
   deleteStripePrice,
   getStripePrice,
-} from "@/src/helpers/utils/stripePrices";
+} from "@/src/helpers/db/stripePrices";
 import {
   createOrUpdateProductStripeToBdd,
   deleteProduct,
   getStripeProduct,
-} from "@/src/helpers/utils/stripeProducts";
+} from "@/src/helpers/db/stripeProducts";
 import { iStripeProduct } from "@/src/types/iStripeProducts";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";

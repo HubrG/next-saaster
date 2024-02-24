@@ -2,50 +2,57 @@
 import { RoundedCornerChange } from "@/app/[locale]/admin/components/setup/design-settings/@subsections/RoundedCornerChange";
 import { ThemeColorChange } from "@/app/[locale]/admin/components/setup/design-settings/@subsections/ThemeColorChange";
 import { updateAppSettings } from "@/app/[locale]/admin/queries/queries";
-import { Button } from "@/src/components/ui/button";
+import { ButtonWithLoader } from "@/src/components/ui/button-with-loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";
-import colorThemes from "@/src/jsons/css-themes.json";
+import useSaveAndCancel, {
+  GenericDataObject,
+} from "@/src/hooks/useSaveAndCancel";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useEffect, useState } from "react";
 
 export const SetupDesign = () => {
-  const [roundedCorner, setRoundedCorner] = useState(0);
-  const [cssTheme, setCssTheme] = useState<string>("");
-  const { appSettings } = useAppSettingsStore();
-  const data = appSettings;
+  const { appSettings, setAppSettings } = useAppSettingsStore();
+  const [roundedCorner, setRoundedCorner] = useState(appSettings.roundedCorner);
+  const [cssTheme, setCssTheme] = useState(appSettings.theme);
+  const [reseted, setReseted] = useState(false);
 
-  useEffect(() => {
-    setRoundedCorner(data.roundedCorner ?? 0);
-    setCssTheme(data.theme ?? "");
-  }, [data]);
-
-  const handleSaveAll = async () => {
-    const dataToSet = await updateAppSettings(data.id, {
-      roundedCorner: roundedCorner,
-      theme: cssTheme,
+  const { isLoading, isDirty, handleReset, handleSave, handleChange } =
+    useSaveAndCancel({
+      initialData: {
+        roundedCorner: appSettings.roundedCorner,
+        theme: appSettings.theme,
+      } as GenericDataObject,
+      onSave: async (data) => {
+        const updateInfo = await updateAppSettings(appSettings.id, data);
+        if (updateInfo) {
+          setAppSettings({ ...appSettings, ...data });
+          toaster({
+            description: "Design changed for all users",
+            type: "success",
+          });
+        } else {
+          toaster({
+            description: "Design not changed, please try again",
+            type: "error",
+          });
+        }
+      },
+      onReset: async () => {
+        setAppSettings({
+          ...appSettings,
+          roundedCorner: appSettings.roundedCorner,
+          theme: appSettings.theme,
+        });
+        setReseted(true);
+        setRoundedCorner(appSettings.roundedCorner);
+        setCssTheme(appSettings.theme);
+      },
     });
 
-    if (dataToSet) {
-      return toaster({
-        description: `Design changed for all users`,
-        type: "success",
-      });
-    } else {
-      return toaster({
-        description: `Design not changed, please try again`,
-        type: "error",
-      });
-    }
-  };
-
-  function getNameForTheme(themeKey: string | null | undefined) {
-    const key = themeKey as keyof typeof colorThemes;
-    if (colorThemes[key]) {
-      return colorThemes[key].name;
-    }
-    return null;
-  }
+  useEffect(() => {
+    handleChange({ roundedCorner, theme: cssTheme });
+  }, [roundedCorner, cssTheme, handleChange]);
 
   return (
     <>
@@ -53,17 +60,32 @@ export const SetupDesign = () => {
         sectionName="Theme color"
         id="sub-theme-color"
         info="Lorem ipsum dolor concecterut ipsum dolor concecterut ipsum dolor concecterut ">
-        <ThemeColorChange set={setCssTheme} />
+        <ThemeColorChange
+          set={setCssTheme}
+          reseted={reseted ?? false}
+          setReseted={setReseted}
+        />
       </SubSectionWrapper>
       <SubSectionWrapper sectionName="Rounded corner" id="sub-rounded-corner">
         <RoundedCornerChange set={setRoundedCorner} />
       </SubSectionWrapper>
-      <div className="flex justify-end mt-10">
-        <Button onClick={handleSaveAll}>
-          Save&nbsp;<strong>{getNameForTheme(cssTheme)}</strong>
-          &nbsp;with a rounded corner of&nbsp;<strong>{roundedCorner}px</strong>
-          &nbsp; for all users
-        </Button>
+      <div className="flex justify-between mt-10">
+        <ButtonWithLoader
+          type="button"
+          disabled={!isDirty || isLoading}
+          variant="link"
+          onClick={() => {
+            handleReset();
+          }}>
+          Reset
+        </ButtonWithLoader>
+        <ButtonWithLoader
+          type="submit"
+          onClick={() => handleSave({ roundedCorner, theme: cssTheme })}
+          disabled={!isDirty || isLoading}
+          loading={isLoading}>
+          Update
+        </ButtonWithLoader>
       </div>
     </>
   );

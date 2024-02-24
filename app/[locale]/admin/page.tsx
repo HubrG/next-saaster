@@ -1,10 +1,12 @@
 import { Index } from "@/app/[locale]/admin/components/Index";
 import { Index as LoginForm } from "@/app/[locale]/login/components/Index";
+import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
 import { Loader } from "@/src/components/ui/loader";
-import { getUser } from "@/src/helpers/utils/users";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
+import { UserRole } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export const generateMetadata = async () => {
@@ -20,24 +22,29 @@ export default async function Admin() {
 
   if (!session) {
     return (
-      <div className="w-full  md:h-screen h-auto flex justify-center items-center">
-        <Suspense>
-          <LoginForm withGithub />
-        </Suspense>
-      </div>
+      <>
+        <DivFullScreenGradient gradient="gradient-to-r" />
+        <div className="w-full  md:h-screen h-auto flex justify-center items-center">
+          <Suspense>
+            <LoginForm withGithub />
+          </Suspense>
+        </div>
+      </>
     );
   }
-  const user = await getUser({ email: session?.user.email ?? "" });
 
-  // if (session.user.role === ("USER" as UserRole)) {
-  //   redirect("/");
-  // }
-  //
+  if (session.user.role === ("USER" as UserRole)) {
+    redirect("/");
+  }
+
   return (
-    <div className="admin user-interface">
-      <Suspense fallback={<Loader />}>
-        <Index />
-      </Suspense>
-    </div>
+    <>
+      <DivFullScreenGradient gradient="gradient-to-tl" />
+      <div className="admin user-interface">
+        <Suspense fallback={<Loader />}>
+          <Index />
+        </Suspense>
+      </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { appSettings } from "@prisma/client";
 import { create } from "zustand";
-import { getAppSettings } from "../helpers/utils/appSettings";
+import { getAppSettings } from "../helpers/db/appSettings";
 
 type Store = {
   appSettings: appSettings;
@@ -17,7 +17,7 @@ export const useAppSettingsStore = create<Store>()((set) => ({
     })),
   fetchAppSettings: async () => {
     const appSettings = await getAppSettings();
-    if (appSettings.error) throw new Error(appSettings.error);
+    if (!appSettings.data) throw new Error(appSettings.error);
     set({ appSettings: appSettings.data });
   },
 }));

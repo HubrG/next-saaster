@@ -56,26 +56,30 @@
   }
 }
 * {
-  @apply border-border text-base;
+  @apply border-border text-base selection:bg-theming-background-500-second selection:text-theming-text-100 dark:selection:text-theming-text-900;
 }
+
 body {
-  @apply text-lg !text-theming-text-900 font-sans;
+  @apply text-lg w-full !text-theming-text-900 font-sans bg-background;
 }
 main {
-  @apply min-h-screen min-w-full bg-background   w-full  mx-auto gap-4 text-center !important;
+  @apply min-h-screen min-w-full w-full z-10 mx-auto gap-4 text-center !important;
 }
-main > div:not(.first-connection),
-main > section {
+main > div:not(.first-connection, .absolute-fullscreen-div),
+main > section:not(.first-connection, .absolute-fullscreen-div) {
   @apply container;
 }
-.container:not(.first-connection) {
-  @apply !w-full max-w-7xl flex flex-col min-h-screen pt-28 !important;
+.container {
+  @apply max-w-7xl flex z-0 mt-10  min-h-[90vh] !important;
+}
+header {
+  @apply sticky top-0 z-10;
 }
 header nav {
-  @apply fixed xl:px-8 px-0 w-full z-40 top-0 left-0  bg-background  border-secondary dark:border-secondary/30;
+  @apply md:px-0 px-3 w-full z-30 max-w-[87rem] mx-auto left-0 backdrop-blur-sm border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
-  @apply flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
+  @apply flex flex-wrap items-center  justify-between mx-auto py-[0.5rem] backdrop-grayscale;
 }
 header nav button {
   @apply no-underline !important;
@@ -127,10 +131,16 @@ ul.main-menu li a {
 }
 /* LOGO */
 .logo {
-  @apply flex font-bold items-center nunderline  gap-x-1;
+  @apply flex font-bold items-center nunderline  gap-x-1 md:mr-2 mr-0;
 }
 .logo span {
-  @apply self-center sm:text-3xl text-2xl whitespace-nowrap text-text-900;
+  @apply md:text-2xl text-xl flex flex-row items-center;
+}
+.logo span span.icon {
+  @apply mr-1  !text-theming-text-500-second;
+}
+.logo span span.text {
+  @apply !text-theming-text-900;
 }
 
 /* Burger Menu */
@@ -195,6 +205,9 @@ small {
   font-size: inherit;
   @apply !text-inherit;
 }
+strong {
+  @apply font-bold;
+}
 
 /* NOTE - Navbar - Profil */
 div.progressTokenVoid {
@@ -212,7 +225,7 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply bg-theming-background-900 text-theming-text-50 dark:bg-theming-background-200   rounded-default  dark:text-primary-foreground   text-sm p-4 z-50 max-w-xs mt-2 !important;
+  @apply z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 !important;
 }
 
 .theme-card .card-tooltip {
@@ -243,8 +256,11 @@ ol li {
   @apply 2xl:text-base font-semibold opacity-80 max-md:text-sm max-sm:hidden  !important;
 }
 /*  User Interface */
+.user-interface {
+  @apply grid grid-cols-12 md:gap-0 gap-0;
+}
 .user-interface div.user-inteface-main {
-  @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5 -mt-16;
+  @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5  -mt-16;
 }
 .user-interface aside.user-inteface-aside {
   @apply col-span-3 md:block hidden text-left rounded-default rounded-r-none p-5  relative;
@@ -284,32 +300,35 @@ ol li {
   @apply flex flex-row  items-center justify-between text-primary-foreground/80 hover:bg-primary-foreground/10   !w-full !font-semibold p-0.5  rounded-default cursor-pointer;
 }
 .user-interface aside.user-inteface-aside nav ul li div span {
-  @apply flex flex-row  items-center text-theming-text-900 font-[600];
+  @apply flex flex-row  items-center text-theming-text-900 font-semibold;
 }
 .user-interface aside.user-inteface-aside nav ul li.active div {
   @apply bg-primary-foreground/10 font-bold !important;
+}
+.user-interface aside.user-inteface-aside nav ul li.active div span {
+  @apply font-bold !important;
 }
 .user-interface aside.user-inteface-aside nav ul li ul li.subactive {
   @apply bg-primary-foreground/5  font-bold flex flex-row !important;
 }
 .user-interface aside.user-inteface-aside nav ul li ul li.subitem {
-  @apply flex flex-row text-sm text-left opacity-80 hover:bg-primary-foreground/5 justify-start font-semibold p-0.5 pt-1 gap-x-0 rounded-default cursor-pointer pl-3;
+  @apply flex flex-row text-sm text-left opacity-80 hover:bg-primary-foreground/5 justify-start font-medium p-0.5 pt-1 gap-x-0 rounded-default cursor-pointer pl-3;
 }
 .user-interface aside.user-inteface-aside nav ul li ul li.subitem:last-child {
   @apply mb-2;
 }
 .user-interface aside.user-inteface-aside nav h3 {
-  @apply text-lg font-bold flex flex-row items-center justify-between;
+  @apply text-lg font-bold flex flex-row items-center justify-between !text-theming-text-700-second;
 }
 
 .user-interface div.user-inteface-main #headerAdminNavbar {
-  @apply sticky top-16 bg-background z-30;
+  @apply sticky top-14  z-30;
 }
 .user-interface div.user-inteface-main #headerAdminNavbar h1 {
-  @apply text-center pt-5;
+  @apply text-center;
 }
 .user-interface div.user-inteface-main #headerAdminNavbar .separator {
-  @apply mt-5 border-[1.5px]  rounded-full opacity-50;
+  @apply mt-0 border-[1.5px]  rounded-full opacity-50;
 }
 .user-interface
   div
@@ -338,7 +357,7 @@ ol li {
   .user-inteface-main-content-section-header
   h2
   span.main-section-name {
-  @apply opacity-50;
+  @apply opacity-50 text-sm;
 }
 .user-interface
   div
@@ -363,10 +382,10 @@ ol li {
   @apply grid 2xl:grid-cols-2 xl:grid-cols-2 pt-10  max-sm:grid-cols-1 gap-10 px-2 mt-2;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
-  @apply rounded-default bg-white dark:bg-theming-background-500/5;
+  @apply rounded-default my-card;
 }
 .my-card {
-  @apply bg-white dark:bg-theming-background-500/5;
+  @apply rounded-default bg-white dark:bg-theming-background-500/5;
 }
 form {
   @apply flex flex-col py-10 rounded-default !important;
@@ -375,7 +394,7 @@ form label {
   @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col !text-base md:items-center !important;
 }
 form p {
-  @apply text-left italic font-light justify-start flex mt-1 !important;
+  @apply text-left  font-medium text-theming-text-800 dark:text-theming-text-800 justify-start flex mt-1 opacity-50 !important;
 }
 form p.error {
   @apply font-bold not-italic !important;
@@ -401,14 +420,14 @@ form button {
   @apply text-sm opacity-75 mt-2;
 }
 .admin-plan-card {
-  @apply p-7  dark:hover:bg-theming-background-200/10 bg-transparent opacity-80 shadow-md dark:shadow-2xl  border border-theming-text-300/50 rounded-default flex flex-col h-fit flex-1 gap-5 items-center relative;
+  @apply p-7  dark:hover:bg-theming-background-200/10 bg-transparent opacity-80 shadow-sm dark:shadow-2xl  border-0 border-theming-text-300/50 rounded-default flex flex-col h-fit flex-1 gap-5 items-center relative;
 }
 .admin-plan-card > input,
 .admin-plan-card textarea {
   @apply border-0;
 }
 .admin-plan-card .plan-card-active-badge {
-  @apply absolute hover:bg-secondary dark:hover:bg-primary  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-theming-background-200 dark:bg-primary dark:text-text-900 text-text-950 !important;
+  @apply absolute  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-theming-background-200-second dark:bg-theming-background-200-second dark:text-text-900 text-text-950 !important;
 }
 .admin-plan-card > input {
   @apply text-4xl;
@@ -417,7 +436,7 @@ form button {
   @apply text-xl min-h-2 h-14 !important;
 }
 .admin .admin-plan-card.active {
-  @apply opacity-100 border-theming-text-400/50 dark:border-theming-text-600/50  bg-theming-background-100/20 shadow dark:shadow-none dark:bg-theming-background-200/10 !important;
+  @apply opacity-100 border-theming-text-400/50 dark:border-theming-text-600-second/50  bg-theming-background-100/20 shadow dark:shadow-none dark:bg-theming-background-200-second/10 !important;
 }
 
 .admin .admin-plan-card .switch {
@@ -465,7 +484,7 @@ label {
 }
 
 table.admin-features-table {
-  @apply table-auto  !important;
+  @apply relative w-full !important;
 }
 table.admin-features-table th,
 table.admin-features-table td {
@@ -481,7 +500,7 @@ table.admin-features-table th {
   @apply py-5 border-t  border-dashed text-sm  text-left  !important;
 }
 table.admin-features-table thead {
-  @apply bg-primary/20 dark:bg-primary/20 dark:shadow-none shadow !important;
+  @apply bg-primary dark:bg-theming-background-100 opacity-100 z-50 dark:shadow-none shadow sticky top-0 !important;
 }
 .bar {
   @apply bg-primary dark:bg-primary border-primary !important;
@@ -497,7 +516,7 @@ code {
   @apply bg-primary/40 dark:bg-primary/40 mx-0.5 !text-inherit  p-1 rounded-default !important;
 }
 .user-profile-dd {
-  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-background-100;
+  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-primary-50 bg-blend-luminosity;
 }
 .user-profile-dd a {
   @apply py-2 !important;
@@ -524,4 +543,97 @@ code {
     50%/30px 100%;
   -webkit-mask: var(--mask);
   mask: var(--mask);
+}
+
+/* SECTION  Gradients and UI styles */
+/* NOTE : Gradients */
+.gradient-to-tl {
+  @apply bg-gradient-to-tl from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-tr {
+  @apply bg-gradient-to-tr from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-bl {
+  @apply bg-gradient-to-bl from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-br {
+  @apply bg-gradient-to-br from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-l {
+  @apply bg-gradient-to-l from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-r {
+  @apply bg-gradient-to-r from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-b {
+  @apply bg-gradient-to-b from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-t {
+  @apply bg-gradient-to-t from-theming-background-50 to-theming-background-100/40 !important;
+}
+.gradient-to-tl-second {
+  @apply bg-gradient-to-tl from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-to-tr-second {
+  @apply bg-gradient-to-tr from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-to-bl-second {
+  @apply bg-gradient-to-bl from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-to-br-second {
+  @apply bg-gradient-to-br from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-to-l-second {
+  @apply bg-gradient-to-l from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-to-r-second {
+  @apply bg-gradient-to-r from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-to-b-second {
+  @apply bg-gradient-to-b from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-to-t-second {
+  @apply bg-gradient-to-t from-theming-background-600-second to-theming-background-100/40 !important;
+}
+.gradient-400-second {
+  @apply from-theming-background-400-second !important;
+}
+.gradient-500-second {
+  @apply from-theming-background-500-second !important;
+}
+.gradient-600-second {
+  @apply from-theming-background-600-second !important;
+}
+/* NOTE : UI fancy elements */
+.absolute-fullscreen-div {
+  @apply fixed w-screen blur-3xl h-full  top-0 -z-10 !important;
+}
+.div-rounded-full-blured {
+  @apply rounded-full absolute blur-3xl top-0 left-0 !important;
+}
+/* NOTE Price card */
+.price-card-wrapper {
+  @apply w-full flex flex-col gap-y-2 relative;
+}
+.price-card-wrapper.card-popular {
+  @apply !outline dark:outline-offset-4 outline-offset-2 outline-[3px] dark:outline-theming-background-500-second outline-theming-background-400-second;
+}
+.price-card-wrapper h1 {
+  @apply text-left text-theming-text-600-second !important;
+}
+.price-card-wrapper h2 {
+  @apply text-sm font-medium text-left !important;
+}
+.price-card-wrapper h3 {
+  @apply text-4xl my-5 text-left relative font-bold text-theming-text-600-second  !important;
+}
+.price-card-wrapper h3 span.price-stroke {
+  @apply text-theming-text-900 text-xl line-through   !important;
+}
+.price-card-wrapper h3 span.recurrence {
+  @apply text-sm opacity-50   !important;
+}
+
+.price-card-wrapper h3 span.trial {
+  @apply text-sm  font-normal inline-block !important;
 }

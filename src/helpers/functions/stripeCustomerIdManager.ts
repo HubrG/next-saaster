@@ -1,8 +1,8 @@
 "use server";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
-import { StripeManager } from "../../app/[locale]/admin/classes/stripeManager";
-import { prisma } from "../lib/prisma";
+import { StripeManager } from "../../../app/[locale]/admin/classes/stripeManager";
+import { prisma } from "../../lib/prisma";
 const stripeManager = new StripeManager();
 
 type stripeCustomerIdManagerProps = {

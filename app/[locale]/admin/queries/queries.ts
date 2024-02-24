@@ -1,6 +1,8 @@
 "use server";
-import { isSuperAdmin } from "@/src/functions/isUserRole";
-import { getStripeCoupons } from "@/src/helpers/utils/stripeCoupons";
+import { getFeatures } from "@/src/helpers/db/features";
+import { getPlans } from "@/src/helpers/db/plans";
+import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons";
+import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { iStripeCoupon } from "@/src/types/iStripeCoupons";
@@ -149,13 +151,11 @@ export const updatePlanPosition = async (plans: Plan[]) => {
 
   try {
     await prisma.$transaction(updateOperations);
-
-    return prisma.plan.findMany();
+    const plans = await getPlans();
+    if (!plans) return false;
+    return plans;
   } catch (error) {
-    console.error(
-      "Erreur lors de la mise à jour des positions des plans :",
-      error
-    );
+    console.error("Error updating plan positions in transaction:", error);
     return false;
   }
 };
@@ -173,8 +173,7 @@ export const updateFeaturePosition = async (features: Feature[]) => {
 
   try {
     await prisma.$transaction(updateOperations);
-
-    return prisma.feature.findMany();
+    return getFeatures();
   } catch (error) {
     console.error("Error updating feature positions in transaction:", error);
     return false;

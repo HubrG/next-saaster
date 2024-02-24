@@ -1,3 +1,4 @@
+"use client";
 import { updateFeature } from "@/app/[locale]/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
@@ -9,7 +10,7 @@ import {
 } from "@/src/components/ui/popover";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { sliced } from "@/src/functions/slice";
+import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { iFeature } from "@/src/types/iFeatures";

@@ -3,7 +3,8 @@ import { sortAdminPlans } from "@/app/[locale]/admin/components/saas/pricing/@su
 import { PlanCard } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@ui/PlanCard";
 import { updatePlanPosition } from "@/app/[locale]/admin/queries/queries";
 import { Loader } from "@/src/components/ui/loader";
-import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
+import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
+import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -28,9 +29,11 @@ export const PlansList = () => {
       newIndex,
       saasType: saasSettings.saasType,
     })) as iPlan[];
+    setSaasPlans(newSaasPlans);
     if (newSaasPlans) {
-      setSaasPlans(newSaasPlans as iPlan[]);
-      await updatePlanPosition(newSaasPlans);
+      const planPosition = await updatePlanPosition(newSaasPlans);
+      if (!planPosition) return;
+      setSaasPlans(planPosition.data as iPlan[]);
       setSaasPlanToFeature(
         saasPlanToFeature.map((link) => {
           const newPlanPosition = newSaasPlans.findIndex(
@@ -45,12 +48,10 @@ export const PlansList = () => {
     }
   };
 
-  // Calcul du nombre d'éléments non supprimés correspondant au saasType
   const nonDeletedPlansCount = saasPlans.filter(
     (e) => e.saasType === saasSettings.saasType && e.deleted !== true
   ).length;
 
-  // Calculation of the number of deleted elements corresponding to the saasType
   const deletedPlansCount = saasPlans.filter(
     (e) => e.saasType === saasSettings.saasType && e.deleted === true
   ).length;
@@ -93,6 +94,11 @@ export const PlansList = () => {
             .filter(
               (plan) => !plan.deleted && plan.saasType === saasSettings.saasType
             )
+            .sort((a, b) => {
+              const positionA = a.position != null ? a.position : 0;
+              const positionB = b.position != null ? b.position : 0;
+              return positionA - positionB;
+            })
             .map((plan) => (
               <SortableItem key={plan.id}>
                 <motion.div
@@ -100,7 +106,7 @@ export const PlansList = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="!select-none">
+                  className={cn("item-content !select-none")}>
                   <PlanCard plan={plan} />
                 </motion.div>
               </SortableItem>

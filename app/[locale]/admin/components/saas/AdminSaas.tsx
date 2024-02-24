@@ -20,8 +20,9 @@ export const AdminSaas = () => {
       <SectionWrapper
         id="Pricing"
         sectionName="Pricing"
+        mainSectionName="SaaS"
         icon={<Coins className="icon" />}>
-          <SaasPricing />
+        <SaasPricing />
       </SectionWrapper>
     </>
   );

@@ -19,8 +19,11 @@ import { toaster } from "../../../../src/components/ui/toaster/ToastConfig";
 
 // TODO : Séparer les queries en fonction des composants
 // TODO : Mieux gérer les erreurs (renvoyer un message)
-// TODO : Clean le typage du retour en me basant sur appSettings (voir helpers/users.ts)
+// TODO : Clean le typage du retour en me basant sur appSettings (voir helpers/plans.ts --> getPlans)
 // TODO : Ajouter un composant "error" pour les erreurs (trhow new Error)
+// TODO : Dans la doc, ajouter des liens d'affiliation, comme sur Shipfast
+// TODO : Modifier les formulaires save/cancel comme sur InfoApp.tsx (avec le hook)
+// TODO : Mettre du Zod, partout
 export const Index = () => {
   const isClient = useIsClient();
 

@@ -91,9 +91,9 @@ model UserSettings {
 
 model appSettings {
   id                String    @id @default(cuid())
-  name              String?   @default("NextSaaster")
-  baseline          String?   @default("Begin a SaaS project with Next.js, Prisma, and Stripe")
-  description       String?   @default("Begin a SaaS project with Next.js, Prisma, and Stripe")
+  name              String?   @default("Saasfairy")
+  baseline          String?   @default("Just develop your best feature, the rest is already done and well done.")
+  description       String?   @default("SaaSeed is a SaaS starter kit based on NextJS that allows you to develop your best feature, the rest is already done and well done. It is a full-stack solution that includes a modern frontend, a scalable backend, and a secure infrastructure. It is designed to help you save time and money, and to focus on what really matters: your business. SaaSeed is built with the latest technologies and best practices, and it is fully customizable and extensible.")
   theme             String?   @default("nanny")
   roundedCorner     Float?    @default(5)
   defaultDarkMode   Boolean?  @default(true)
@@ -156,7 +156,7 @@ model SaasSettings {
   activeCreditSystem              Boolean?  @default(true)
   activeRefillCredit              Boolean?  @default(true)
   displayFeaturesByCategory       Boolean?  @default(false)
-  activeFeatureComparison         Boolean?  @default(false)
+  activeFeatureComparison         Boolean?  @default(true)
   activeFeatureAdvancedComparison Boolean?  @default(false)
   currency                        String?   @default("usd")
   tax                             Float?    @default(0)
@@ -204,8 +204,10 @@ model Feature {
   id                  String           @id @default(cuid())
   name                String?          @default("")
   alias               String?          @unique
+  active              Boolean?         @default(false)
   description         String?          @default("")
   onlyOnSelectedPlans Boolean?         @default(false)
+  displayOnCard       Boolean?         @default(false)
   categoryId          String?
   position            Int?             @default(9999)
   positionCategory    Int?             @default(9999)
@@ -347,7 +349,7 @@ enum SaasTypes {
 
   // Recurring subscriptions
   MRR_SIMPLE
-  // Alias:
+  // Alias: MRR
   // NOTE -> Periodic billing for ongoing access to a product or service.
 
   // Metered usage

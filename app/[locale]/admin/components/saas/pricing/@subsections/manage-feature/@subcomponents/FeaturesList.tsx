@@ -1,9 +1,9 @@
 "use client";
 import { updateFeaturePosition } from "@/app/[locale]/admin/queries/queries";
+import { Loader } from "@/src/components/ui/loader";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
-import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iFeature } from "@/src/types/iFeatures";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -13,8 +13,8 @@ import { FeatureCard } from "./@ui/FeatureCard";
 import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
-  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
-  const { saasSettings } = useSaasSettingsStore();
+  const { saasFeatures, setSaasFeatures, isStoreLoading } =
+    useSaasFeaturesStore();
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
 
   const handleRowClick = (id: string) => {
@@ -29,23 +29,26 @@ export const FeaturesList = () => {
       newIndex,
     })) as iFeature[];
     setSaasFeatures(newSaasFeatures);
-    await updateFeaturePosition(newSaasFeatures);
+    const featurePosition = await updateFeaturePosition(newSaasFeatures);
+    if (!featurePosition) return;
+    setSaasFeatures(featurePosition.data);
   };
 
   return (
-    <ScrollArea className="whitespace-nowrap relative overflow-x-auto pb-5 overflow-y-auto shadow-right">
+    <ScrollArea className="whitespace-nowrap  overflow-x-auto pb-5 shadow-right">
       <SortableList
         lockAxis="y"
         onSortEnd={onSortEnd}
-        className="gap-x-[4rem] gap-y-14 "
+        className="gap-x-[4rem] gap-y-14  !max-h-[80vh] relative overflow-visible overflow-y-auto"
         draggedItemClassName="dragged">
-        <table className="admin-features-table w-full">
+        <table className="admin-features-table">
           <thead>
             <tr>
               <th></th>
               <th className="flex flex-row gap-x-2 items-center justify-center">
                 Category <FeaturesCategoriesList />
               </th>
+              <th>Active</th>
               <th>Name</th>
               <th>Description</th>
               <th>Key</th>
@@ -55,9 +58,15 @@ export const FeaturesList = () => {
             </tr>
           </thead>
           <tbody>
+            {isStoreLoading && <Loader noHFull />}
             <AnimatePresence>
               {saasFeatures
                 .filter((feature) => !feature.deleted)
+                .sort((a, b) => {
+                  const positionA = a.position != null ? a.position : 0;
+                  const positionB = b.position != null ? b.position : 0;
+                  return positionA - positionB;
+                })
                 .map((feature) => (
                   <SortableItem key={feature.id}>
                     <motion.tr

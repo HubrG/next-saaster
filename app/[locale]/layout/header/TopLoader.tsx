@@ -1,5 +1,4 @@
-import NextTopLoader from 'nextjs-toploader';
-import React from 'react'
+import NextTopLoader from "nextjs-toploader";
 
 export const TopLoader = () => {
   return (
@@ -10,10 +9,10 @@ export const TopLoader = () => {
       crawlSpeed={200}
       height={2}
       crawl={true}
-      showSpinner={true}
+      showSpinner={false}
       easing="ease"
       speed={200}
       shadow={false}
     />
   );
-}
+};

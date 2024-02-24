@@ -1,5 +1,6 @@
 "use server";
 import { getErrorMessage } from "@/src/lib/getErrorMessage";
+import { handleResponse } from "@/src/lib/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iPlan } from "@/src/types/iPlans";
 import { Feature, Plan } from "@prisma/client";
@@ -7,8 +8,7 @@ import Stripe from "stripe";
 import { getFeatures } from "./features";
 
 export const getPlans = async (): Promise<{
-  success?: boolean;
-  data?: any;
+  data?: iPlan[];
   error?: string;
 }> => {
   try {
@@ -35,9 +35,9 @@ export const getPlans = async (): Promise<{
       },
     });
     if (!plans) throw new Error("No plans found");
-    return { success: true, data: plans as Plan[] };
+    return handleResponse<iPlan[]>(plans);
   } catch (error) {
-    return { error: getErrorMessage(error) };
+    return handleResponse<undefined>(undefined, error);
   }
 };
 

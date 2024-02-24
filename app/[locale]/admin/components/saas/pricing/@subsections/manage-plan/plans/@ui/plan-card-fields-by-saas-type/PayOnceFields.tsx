@@ -27,20 +27,22 @@ export const PayOnceFields = ({
     <>
       {!planState.isCustom && (
         <div className="flex flex-col">
+          <CouponApplied
+            className="w-full"
+            recurrence={"once"}
+            plan={plan}
+            onceP={planState.oncePrice ?? 0}
+          />
           <div className="inputs">
-            <Label htmlFor={`${plan.id}monthlyPrice`}>
+            <Label htmlFor={`${plan.id}monthlyPrice`} className="!self-start">
               Price
-              <CouponApplied
-                recurrence={"once"}
-                plan={plan}
-                onceP={planState.oncePrice ?? 0}
-              />
             </Label>
             <Input
               id={`${plan.id}Price`}
               name="oncePrice"
               type="number"
-              className="!col-span-4"
+              onClick={(e) => e.currentTarget.select()}
+              className="!col-span-5"
               value={planState.oncePrice ?? ""}
               onChange={(e) => handleInputChange(e, "oncePrice")}
             />
@@ -49,7 +51,7 @@ export const PayOnceFields = ({
               planId={plan.id}
               recurrence="once"
             />
-            <p className="col-span-3">{saasSettings.currency}</p>
+            <p className="col-span-2 text-right">{saasSettings.currency}</p>
           </div>
         </div>
       )}

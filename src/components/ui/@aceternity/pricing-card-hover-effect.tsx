@@ -5,7 +5,7 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/iPlans";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { CheckoutButton } from "../../../../app/[locale]/pricing/components/CheckoutButton";
+import { CheckoutButton } from "../../../../app/[locale]/pricing/components/old/CheckoutButton";
 import { cn } from "../../../lib/utils";
 interface Currency {
   sigle: string;

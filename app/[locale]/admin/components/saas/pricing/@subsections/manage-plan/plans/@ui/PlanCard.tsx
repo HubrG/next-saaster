@@ -5,9 +5,9 @@ import { updatePlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/strip
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/src/components/ui/collapsible";
 import { CopySomething } from "@/src/components/ui/copy-something";
 import { Input } from "@/src/components/ui/input";
@@ -16,7 +16,7 @@ import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { parseFloatInput, parseIntInput } from "@/src/functions/parse";
+import { parseFloatInput, parseIntInput } from "@/src/helpers/functions/parse";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
@@ -24,6 +24,7 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { iPlan } from "@/src/types/iPlans";
 import { Plan } from "@prisma/client";
+import { motion } from "framer-motion";
 import isEqual from "lodash/isEqual";
 import { ChevronsUpDown, Eye, EyeOff, Grip } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -31,8 +32,8 @@ import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
 import {
-    MRRInputFields,
-    RecurringSwitchFields,
+  MRRInputFields,
+  RecurringSwitchFields,
 } from "./plan-card-fields-by-saas-type/MRRFields";
 import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
 import { UsageInputFields } from "./plan-card-fields-by-saas-type/UsageFields";
@@ -53,6 +54,7 @@ export const PlanCard = ({ plan, className }: Props) => {
   const { updatePlanFromStore, deletePlanFromStore } = useSaasPlansStore();
   const { saasPlanToFeature, setSaasPlanToFeature } =
     useSaasPlanToFeatureStore();
+  const [showOptions, setShowOptions] = useState(false);
 
   // Check if the plan has changed
   useEffect(() => {
@@ -60,6 +62,10 @@ export const PlanCard = ({ plan, className }: Props) => {
     hasChanged ? setSaveAndCancel(true) : setSaveAndCancel(false);
   }, [initialPlanState, planState]);
 
+  const handleShowOptions = () => {
+    setShowOptions(!showOptions);
+    console.log(showOptions);
+  };
   // Handle input change, and manage clashes
   const handleInputChange = (e: any, name: string) => {
     let value: any;
@@ -181,7 +187,15 @@ export const PlanCard = ({ plan, className }: Props) => {
   };
 
   return (
-    <div className="item-content" id={"dd" + plan.id}>
+    <motion.div
+      initial={{ opacity: 0, scale: 1 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 1 }}
+      transition={{ duration: 0.2 }}
+      className={cn(
+        { "!col-span-1": showOptions },
+        "item-content !select-none"
+      )}>
       <div
         className={`admin-plan-card !pb-4  ${className}  ${
           planState.active && "active"
@@ -228,7 +242,6 @@ export const PlanCard = ({ plan, className }: Props) => {
             />
             <Label htmlFor={`${plan.id}active`}>Active this plan</Label>
           </div>
-
           <CollapsibleContent className="space-y-2">
             <Separator className="border-b bg-transparent mt-4" />
             {saasSettings.saasType !== "PAY_ONCE" && (
@@ -272,14 +285,20 @@ export const PlanCard = ({ plan, className }: Props) => {
               )}
             />
             <div className="w-full flex flex-col gap-y-3">
-              {saasSettings.saasType === "MRR_SIMPLE" ||
-                (saasSettings.saasType === "PER_SEAT" && (
-                  <MRRInputFields
-                    plan={plan as iPlan}
-                    planState={planState as iPlan}
-                    handleInputChange={handleInputChange}
-                  />
-                ))}
+              {saasSettings.saasType === "MRR_SIMPLE" && (
+                <MRRInputFields
+                  plan={plan as iPlan}
+                  planState={planState as iPlan}
+                  handleInputChange={handleInputChange}
+                />
+              )}
+              {saasSettings.saasType === "PER_SEAT" && (
+                <MRRInputFields
+                  plan={plan as iPlan}
+                  planState={planState as iPlan}
+                  handleInputChange={handleInputChange}
+                />
+              )}
               {saasSettings.saasType === "METERED_USAGE" && (
                 <UsageInputFields
                   plan={plan as iPlan}
@@ -296,7 +315,9 @@ export const PlanCard = ({ plan, className }: Props) => {
               )}
             </div>
           </CollapsibleContent>
-          <div className="flex items-center justify-between border rounded-default  p-2  space-x-4">
+          <div
+            onClick={handleShowOptions}
+            className="flex items-center justify-between border rounded-default  p-2  space-x-4">
             <CollapsibleTrigger asChild>
               <h4 className="text-sm cursor-pointer w-full font-bold italic flex gap-x-2  flex-row items-center">
                 {!isOpen && (
@@ -353,6 +374,6 @@ export const PlanCard = ({ plan, className }: Props) => {
           </CopySomething>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

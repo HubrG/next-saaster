@@ -1,5 +1,5 @@
 {
-  "name": "starter",
+  "name": "saaster",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -45,7 +45,6 @@
     "@react-email/preview": "0.0.8",
     "@react-email/render": "^0.0.12",
     "@react-email/tailwind": "0.0.14",
-    "@react-pdf/renderer": "^3.2.0",
     "@t3-oss/env-core": "^0.7.3",
     "@t3-oss/env-nextjs": "^0.7.3",
     "@tabler/icons-react": "^2.46.0",
@@ -67,7 +66,7 @@
     "dotenv": "^16.4.2",
     "embla-carousel-react": "8.0.0-rc19",
     "filepond": "^4.30.6",
-    "framer-motion": "^10.18.0",
+    "framer-motion": "^11.0.6",
     "install": "^0.13.0",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
@@ -89,7 +88,7 @@
     "react-hook-form": "^7.49.3",
     "react-i18next": "^14.0.0",
     "react-icons": "^5.0.1",
-    "react-resizable-panels": "^1.0.9",
+    "react-resizable-panels": "^2.0.9",
     "react-slugify": "^3.0.3",
     "react-toastify": "^10.0.3",
     "react-tooltip": "^5.25.2",
@@ -107,9 +106,8 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
-    "@prisma/client": "5.9.1",
+    "@prisma/client": "5.10.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@types/array-move": "^2.0.0",
     "@types/bcrypt": "^5.0.2",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.5",
@@ -124,7 +122,7 @@
     "eslint-config-next": "14.0.4",
     "eslint-plugin-tailwindcss": "^3.14.0",
     "postcss": "^8.4.33",
-    "prisma": "^5.9.1",
+    "prisma": "^5.10.2",
     "react-table": "link:@types/@tanstack/react-table",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"

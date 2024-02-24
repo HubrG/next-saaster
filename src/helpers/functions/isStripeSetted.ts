@@ -1,4 +1,4 @@
-import { env } from "../lib/zodEnv";
+import { env } from "../../lib/zodEnv";
 
 export const isStripeSetted = () => {
   if (env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {

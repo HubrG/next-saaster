@@ -1,16 +1,28 @@
-import { Feature, Plan, PlanToFeature, StripePlanCoupon } from "@prisma/client";
-import { iStripeCoupon } from "./iStripeCoupons";
-import { iStripeProduct } from "./iStripeProducts";
+import {
+  Feature,
+  Plan,
+  PlanToFeature,
+  StripeCoupon,
+  StripePlanCoupon,
+  StripePrice,
+  StripeProduct,
+} from "@prisma/client";
 
 interface PlanFeature extends PlanToFeature {
   feature: Feature;
 }
 
+interface PlanStripeProduct extends StripeProduct {
+  prices: StripePrice[];
+}
+
+interface PlanStripeCoupon extends StripePlanCoupon {
+  coupon: StripeCoupon;
+}
+
 export interface iPlan extends Plan {
   Features: PlanFeature[];
-  StripeProduct: iStripeProduct[];
-  coupons: (StripePlanCoupon & {
-    coupon: iStripeCoupon;
-  })[];
-  prevState: () => void;
+  StripeProduct: PlanStripeProduct[];
+  coupons: PlanStripeCoupon[];
+  prevState?: () => void;
 }

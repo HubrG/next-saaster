@@ -4,8 +4,7 @@ import { prisma } from "@/src/lib/prisma";
 import { appSettings } from "@prisma/client";
 
 export const getAppSettings = async (): Promise<{
-  success?: boolean;
-  data?: appSettings;
+  data?: appSettings | null;
   error?: string;
 }> => {
   try {

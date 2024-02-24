@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
+import { cn } from "@/src/lib/utils";
 import { ThemeVariants } from "@/src/types/admin/cssThemes";
 import { Tooltip } from "react-tooltip";
 
@@ -7,18 +8,26 @@ type Props = {
   theme: string | undefined;
   themeKey: string;
   themeVariants: ThemeVariants;
+  actualTheme: string | null;
   handleClick: (e: any) => void;
 };
 
 export const ThemeCard = ({
   theme,
+  actualTheme,
   themeKey,
   themeVariants,
   handleClick,
 }: Props) => {
   return (
     <div
-      className={`theme-card`}
+      className={cn(
+        {
+          "!border-0 outline outline-offset-2 outline-2 dark:outline-theming-text-500":
+            actualTheme === themeKey,
+        },
+        `theme-card`
+      )}
       style={{
         backgroundColor:
           theme === "dark"

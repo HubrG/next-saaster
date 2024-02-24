@@ -1,17 +1,18 @@
+"use client";
 import { updateLinkPlanToFeature } from "@/app/[locale]/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { parseIntInput } from "@/src/functions/parse";
-import { sliced } from "@/src/functions/slice";
+import { parseIntInput } from "@/src/helpers/functions/parse";
+import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -161,7 +162,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
           <ListTodo color="white" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[500px] max-h-[70vh] overflow-visible overflow-y-auto flex flex-col relative items-center gap-2 pb-0">
+      <PopoverContent className="w-[500px] max-h-[70vh] overflow-visible overflow-y-auto flex flex-col  relative items-center gap-5 pb-0">
         <LinkPlanToFeatureOptions feature={feature} />
         {Object.keys(linksState).length === 0 && (
           <div className="flex flex-col items-center justify-center gap-y-2 mt-3">
@@ -175,10 +176,10 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
               key={"fp" + linkId}
               className={cn(
                 { "opacity-60": linksState[linkId].plan.active === false },
-                `flex flex-col gap-y-0`
+                `flex flex-col gap-y-3`
               )}>
-              <div className={cn({}, "grid grid-cols-4 gap-x-2 items-center")}>
-                <div className="flex flex-col w-30">
+              <div className={cn({}, "w-full flex flex-row gap-x-5 items-end")}>
+                <div className="flex flex-col w-1/4">
                   <span className="font-bold">
                     {linksState[linkId].plan.name}
                   </span>

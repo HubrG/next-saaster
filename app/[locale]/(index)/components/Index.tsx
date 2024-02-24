@@ -1,14 +1,14 @@
 "use client";
 
-
+import { Loader } from "@/src/components/ui/loader";
+import { useIsClient } from "@/src/hooks/useIsClient";
 
 export const Index = () => {
+  const isClient = useIsClient();
+  if (!isClient) return <Loader />;
 
-
-
- return (
-   <div className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg">
-    
-   </div>
- );
+  return (
+   
+    <></>
+  );
 };

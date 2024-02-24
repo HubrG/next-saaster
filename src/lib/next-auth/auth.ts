@@ -1,6 +1,6 @@
-import { stripeCustomerIdManager } from "@/src/functions/stripeCustomerIdManager";
 import { createAudience } from "@/src/helpers/emails/audience";
 import { createContact } from "@/src/helpers/emails/contact";
+import { stripeCustomerIdManager } from "@/src/helpers/functions/stripeCustomerIdManager";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { UserRole } from "@prisma/client";
 import bcrypt from "bcrypt";
@@ -9,8 +9,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import Email from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { env } from "../zodEnv";
 import { prisma } from "../prisma";
+import { env } from "../zodEnv";
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -88,23 +88,28 @@ export const authOptions: AuthOptions = {
         // We check if this is the user's first connection via GitHub
         const isFirstUser = (await prisma.user.count()) === 1;
         role = isFirstUser ? "SUPER_ADMIN" : token.role;
-        // We update the role in the database
+        // We update the role in the database and on the token before loading
         if (isFirstUser) {
           await prisma.user.update({
             where: { email: token.email ?? "" },
             data: { role: role },
           });
         }
+        token = {
+          ...token,
+          id: token.id,
+          role: role,
+          customerId: token.customerId ?? "",
+        };
       } else {
-        role = token.role;
+        token = {
+          ...token,
+          id: token.id,
+          role: token.role,
+          customerId: token.customerId ?? "",
+        };
       }
-      token = {
-        ...token,
-        id: token.id,
-        role: role,
-        customerId: token.customerId ?? "",
-      };
-      return { ...token, ...user, ...profile, role };
+      return { ...token, ...user, ...profile };
     },
     async session({ session, token }) {
       session.user.role = token.role;
@@ -132,7 +137,7 @@ export const authOptions: AuthOptions = {
           });
         }
       }
-      // Create Customer ID for Stripe
+      // Create immediatly Customer ID for Stripe
       if (
         (env.STRIPE_SECRET_KEY && env.STRIPE_SIGNIN_SECRET && message.user.id,
         message.user.email)

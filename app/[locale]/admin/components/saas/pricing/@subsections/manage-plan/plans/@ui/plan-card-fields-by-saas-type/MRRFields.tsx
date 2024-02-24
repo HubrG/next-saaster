@@ -2,7 +2,7 @@
 
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
-import { sliced } from "@/src/functions/slice";
+import { sliced } from "@/src/helpers/functions/slice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/iPlans";
 import { Plan } from "@prisma/client";
@@ -44,16 +44,14 @@ export const MRRInputFields = ({
         !planState.isFree &&
         !planState.isCustom && (
           <div className="flex flex-col">
+            <CouponApplied
+              recurrence={"monthly"}
+              plan={plan}
+              monthlyP={planState.monthlyPrice ?? 0}
+              yearlyP={planState.yearlyPrice ?? 0}
+            />
             <div className="inputs">
-              <Label htmlFor={`${plan.id}monthlyPrice`}>
-                Monthly price
-                <CouponApplied
-                  recurrence={"monthly"}
-                  plan={plan}
-                  monthlyP={planState.monthlyPrice ?? 0}
-                  yearlyP={planState.yearlyPrice ?? 0}
-                />
-              </Label>
+              <Label htmlFor={`${plan.id}monthlyPrice`}>Monthly price</Label>
               <Input
                 id={`${plan.id}monthlyPrice`}
                 name="monthlyPrice"
@@ -78,15 +76,15 @@ export const MRRInputFields = ({
         !planState.isFree &&
         !planState.isCustom && (
           <div className="flex flex-col">
-            <div className="inputs">
-              <Label htmlFor={`${plan.id}yearlyPrice`}>
-                Yearly price
                 <CouponApplied
                   recurrence={"yearly"}
                   plan={plan}
                   monthlyP={planState.monthlyPrice ?? 0}
                   yearlyP={planState.yearlyPrice ?? 0}
                 />
+            <div className="inputs">
+              <Label htmlFor={`${plan.id}yearlyPrice`}>
+                Yearly price
               </Label>
               <Input
                 type="number"

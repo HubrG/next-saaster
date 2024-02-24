@@ -43,7 +43,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
   }
 
   const user = session.user;
-  console.log("user", user);
+
   const tokenPercentage = 50;
   const nameInitials = user?.name
     ?.toString()

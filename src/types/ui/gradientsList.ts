@@ -1,0 +1,15 @@
+export type GradientsList =
+  | "gradient-to-tl"
+  | "gradient-to-tr"
+  | "gradient-to-bl"
+  | "gradient-to-l"
+  | "gradient-to-r"
+  | "gradient-to-b"
+  | "gradient-to-t"
+  | "gradient-to-tl-second"
+  | "gradient-to-tr-second"
+  | "gradient-to-bl-second"
+  | "gradient-to-l-second"
+  | "gradient-to-r-second"
+  | "gradient-to-b-second"
+  | "gradient-to-t-second";

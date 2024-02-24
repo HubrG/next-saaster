@@ -3,8 +3,8 @@ import { createNewPlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/st
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
-import { isStripeSetted } from "@/src/functions/isStripeSetted";
+import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
+import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";

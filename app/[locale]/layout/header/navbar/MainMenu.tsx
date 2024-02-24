@@ -1,6 +1,6 @@
 "use client";
-import { Link } from '@/src/lib/intl/navigation';
-import { usePathname } from 'next/navigation';
+import { Link } from "@/src/lib/intl/navigation";
+import { usePathname } from "next/navigation";
 interface Link {
   url: string;
   name: string;
@@ -19,7 +19,10 @@ export default function MainMenu(props: MenuProps) {
         <li key={index}>
           <Link
             href={`/${link.url}`}
-            onClick={() => { document.getElementById("close-sheet")?.click(); }}
+            scroll={true}
+            onClick={() => {
+              document.getElementById("close-sheet")?.click();
+            }}
             className={`${
               pathname === `/en/${link.url}`
                 ? "special-uderline-active"

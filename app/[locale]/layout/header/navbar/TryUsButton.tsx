@@ -1,13 +1,18 @@
 "use client";
 import { Link } from "@/src/lib/intl/navigation";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
-import { Box } from "lucide-react";
 import { Button } from "../../../../../src/components/ui/button";
 
 type TryUsButtonProps = {
   className?: string;
+  value: string;
+  icon?: React.ReactNode;
 };
-export default function TryUsButton({ className }: TryUsButtonProps) {
+export default function TryUsButton({
+  className,
+  icon,
+  value,
+}: TryUsButtonProps) {
   const { appSettings } = useAppSettingsStore();
   if (appSettings.activeCtaOnNavbar === false) return null;
   return (
@@ -17,8 +22,8 @@ export default function TryUsButton({ className }: TryUsButtonProps) {
         className={`md:px-4 px-0 md:!text-base text-sm font-bold`}
         variant="ghost"
         size={"lg"}>
-        <Box className="icon" />
-        Try us for free
+        {icon}
+        {value}
       </Button>
     </Link>
   );

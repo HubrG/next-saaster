@@ -1,17 +1,17 @@
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Button } from "@/src/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Separator } from "@/src/components/ui/separator";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { SaasTypeReadableName } from "@/src/functions/SaasTypes";
-import { updatePlan } from "@/src/helpers/utils/plans";
+import { updatePlan } from "@/src/helpers/db/plans";
+import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

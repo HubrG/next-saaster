@@ -17,6 +17,7 @@ export const AdminSetup = () => {
       <SectionWrapper
         id="InfosApp"
         sectionName="Info"
+        mainSectionName="Setup"
         icon={<Info className="icon" />}>
         <Suspense fallback={<Loader noHFull />}>
           <InfoApp />
@@ -25,6 +26,7 @@ export const AdminSetup = () => {
       <SectionWrapper
         icon={<Palette className="icon" />}
         id="Design"
+        mainSectionName="Setup"
         sectionName="Design">
         <Suspense fallback={<Loader noHFull />}>
           <SetupDesign />
@@ -34,6 +36,7 @@ export const AdminSetup = () => {
         icon={<LayoutDashboard className="icon" />}
         id="Layout"
         sectionName="Layout"
+        mainSectionName="Setup"
         className="multiple-components ">
         <Suspense fallback={<Loader noHFull />}>
           <Layout />

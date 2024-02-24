@@ -3,16 +3,16 @@
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
 } from "@/src/components/ui/select";
 import { Separator } from "@/src/components/ui/separator";
-import { sliced } from "@/src/functions/slice";
+import { sliced } from "@/src/helpers/functions/slice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/iPlans";
 import { Plan } from "@prisma/client";

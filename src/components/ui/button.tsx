@@ -22,6 +22,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-text-800 font-semibold underline-offset-4 underline decoration-solid hover:decoration-dashed",
         tooltip: "!px-0 !mx-0",
+        second: "bg-theming-background-500-second dark:!text-theming-text-50-second font-bold !text-theming-text-50",
       },
       size: {
         default: "h-10 px-4 py-2",

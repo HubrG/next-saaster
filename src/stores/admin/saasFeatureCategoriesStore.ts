@@ -1,4 +1,4 @@
-import { getFeaturesCategories } from "@/src/helpers/utils/featuresCategories";
+import { getFeaturesCategories } from "@/src/helpers/db/featuresCategories";
 import { FeatureCategory } from "@prisma/client";
 import { create } from "zustand";
 

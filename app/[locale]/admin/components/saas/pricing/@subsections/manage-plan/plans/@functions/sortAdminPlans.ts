@@ -13,35 +13,33 @@ export const sortAdminPlans = async ({
   newIndex,
   saasType,
 }: SortAdminPlanProps): Promise<iPlan[]> => {
-  const relevantItems = list.filter(
+  let filteredList = list.filter(
     (plan) => !plan.deleted && plan.saasType === saasType
   );
-  const relevantItemsIndices = list
-    .map((plan, index) =>
-      !plan.deleted && plan.saasType === saasType ? index : -1
-    )
-    .filter((index) => index !== -1);
+  // Reorder the filtered items
+  filteredList = arrayMoveImmutable(filteredList, oldIndex, newIndex);
 
-  if (
-    oldIndex < 0 ||
-    oldIndex >= relevantItems.length ||
-    newIndex < 0 ||
-    newIndex >= relevantItems.length
-  ) {
-    console.error("Indices out of bounds");
-    return list;
-  }
-
-  const reorderedRelevantItems = arrayMoveImmutable(
-    relevantItems,
-    oldIndex,
-    newIndex
-  );
-
-  const newList = [...list];
-  reorderedRelevantItems.forEach((item, index) => {
-    newList[relevantItemsIndices[index]] = item;
+  // Update the 'position' property for each reordered item
+  filteredList.forEach((plan, index) => {
+    plan.position = index;
   });
 
-  return newList;
+  // Optional: If you want to reintegrate the reordered items into the original list
+  // and update the positions in the original list, you need to adjust the positions
+  // in the complete list. This depends on the specific logic of your application.
+  // For example, you might want to iterate over `list` and update `position`
+  // for the non-deleted items using the new positions defined in `filteredList`.
+
+  return list.map((item) => {
+    if (!item.deleted) {
+      const updatedItem = filteredList.find((plan) => plan.id === item.id);
+      if (updatedItem) {
+        return {
+          ...item,
+          position: updatedItem.position && updatedItem.position,
+        };
+      }
+    }
+    return item;
+  });
 };

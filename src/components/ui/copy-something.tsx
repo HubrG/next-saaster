@@ -1,4 +1,4 @@
-import { handleCopy } from "@/src/functions/handleCopy";
+import { handleCopy } from "@/src/helpers/functions/handleCopy";
 import React from "react";
 import { Tooltip } from "react-tooltip";
 type Props = {

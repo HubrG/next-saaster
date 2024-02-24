@@ -1,4 +1,4 @@
-import { getPlans } from "@/src/helpers/utils/plans";
+import { getPlans } from "@/src/helpers/db/plans";
 import { iPlan } from "@/src/types/iPlans";
 import { create } from "zustand";
 
@@ -34,7 +34,7 @@ export const useSaasPlansStore = create<Store>()((set) => ({
   fetchSaasPlan: async () => {
     set({ isPlanStoreLoading: true });
     const saasPlans = await getPlans();
-    if (!saasPlans.success || saasPlans.error) {
+    if (!saasPlans.data) {
       console.error(saasPlans.error || "Failed to fetch plans");
       return;
     }

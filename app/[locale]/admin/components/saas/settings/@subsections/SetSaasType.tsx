@@ -7,13 +7,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { SaasTypeList } from "@/src/functions/SaasTypes";
+import { SaasTypeList } from "@/src/helpers/functions/SaasTypes";
 import { cn } from "@/src/lib/utils";
+import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasTypes } from "@prisma/client";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
-
 
 type Props = {
   set: (value: SaasTypes) => void;
@@ -22,6 +22,7 @@ export const SetSaasType = ({ set }: Props) => {
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
   const [saasType, setSaasType] = useState<SaasTypes>(saasSettings.saasType);
   const [saasDescription, setSaasDescription] = useState<string>("");
+  const { fetchSaasPlanToFeature } = useSaasPlanToFeatureStore();
 
   useEffect(() => {
     if (saasSettings.saasType !== saasType) {
@@ -33,6 +34,7 @@ export const SetSaasType = ({ set }: Props) => {
     setSaasType(newValue);
     set(newValue);
     setSaasSettings({ ...saasSettings, saasType: newValue });
+    fetchSaasPlanToFeature();
   };
 
   return (

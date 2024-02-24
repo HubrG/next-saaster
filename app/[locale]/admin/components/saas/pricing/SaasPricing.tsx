@@ -46,7 +46,7 @@ export const SaasPricing = () => {
       <SubSectionWrapper
         id="ManageFeatures"
         sectionName="Manage Features"
-        info="Link any feature to any plan, or even to several plans. In addition to simply displaying the feature on the plan to inform the user of what they are subscribing to, when a user selects and subscribes to a plan, all the feature options linked to that plan will be assigned to them as soon as they are purchased. This allows you to better manage the use of each of these features according to their use within a function, by managing them via their  « alias »">
+        info="Link any feature to any plan, or even to several plans. In addition to simply displaying the feature on the plan to inform the user of what they are subscribing to, when a user selects and subscribes to a plan, all the feature options linked to that plan will be assigned to them as soon as they are purchased. This allows you to better manage the use of each of these features according to their use within a function, by managing them via their  « key »">
         <Suspense fallback={<Loader noHFull />}>
           <Features />
         </Suspense>

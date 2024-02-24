@@ -13,12 +13,14 @@ type Props = {
   monthlyP?: number;
   yearlyP?: number;
   onceP?: number;
+  className?: string;
 };
 export const CouponApplied = ({
   plan,
   recurrence,
   monthlyP,
   onceP,
+  className,
   yearlyP,
 }: Props) => {
   const { saasPlans, setSaasPlans } = useSaasPlansStore();
@@ -70,36 +72,36 @@ export const CouponApplied = ({
       });
     }
   };
-  console.log(saasPlans);
+
   return (
-    <div>
+    <div className={className}>
       {planCoupons?.map((coupon) => {
         const stripeCoupon = saasStripeCoupons.find(
           (c) => c.id === coupon.couponId
         );
-
         if (coupon.recurrence === recurrence && coupon.PlanId === plan.id) {
           return (
             <div
               key={plan.id + coupon.couponId}
-              className="flex flex-row items-center gap-x-2 mt-1">
+              className="flex flex-row items-center gap-x-2 ">
               <MinusCircle
                 data-tooltip-id={`revoke-coupon-${plan.id}${coupon.id}`}
                 onClick={() => handleRevokeCoupon(coupon.id)}
                 size={12}
-                className="self-start text-destructive opacity-80 hover:opacity-100 hover:cursor-pointer"
+                className=" text-destructive opacity-80 hover:opacity-100 hover:cursor-pointer"
               />
-              <p className="text-xs flex flex-col font-light">
-                -{stripeCoupon?.percentOff ?? "Coupon"}%{" "}
+              <p className="text-xs flex flex-row font-light self-center">
+                <span>-{stripeCoupon?.percentOff ?? "Coupon"}%{" "}
                 {stripeCoupon?.duration === "once"
                   ? "for once"
                   : stripeCoupon?.duration === "repeating"
                   ? stripeCoupon?.durationInMonths + " months"
                   : "for lifetime"}
-                <small className="-mt-2 opacity-50">
-                  {stripeCoupon?.name} — {stripeCoupon?.id}
+                  </span>
+                <small className="opacity-50">
+                  {stripeCoupon?.name} {stripeCoupon?.id}
                 </small>
-                <small className="-mt-3 opacity-50">
+                <small className="opacity-50">
                   Tot.{" "}
                   {recurrence === "monthly" &&
                     monthlyP &&

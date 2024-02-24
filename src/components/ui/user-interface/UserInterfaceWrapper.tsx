@@ -6,6 +6,6 @@ type Props = {
   sectionName?: string;
   className?: string;
 };
-export const UserInterfaceWrapper = ({children} : Props) => {
-    return <div className="grid grid-cols-12 md:gap-0 gap-0">{children}</div>;
+export const UserInterfaceWrapper = ({ children }: Props) => {
+  return <div className="user-interface">{children}</div>;
 };

@@ -35,7 +35,8 @@ export const PriceCardBuyButton = ({
           : isYearly
           ? plan.stripeYearlyPriceId ?? ""
           : plan.stripeMonthlyPriceId ?? "",
-        plan
+        plan,
+        isYearly
       );
     }
     if (!stripeCheckout) return;

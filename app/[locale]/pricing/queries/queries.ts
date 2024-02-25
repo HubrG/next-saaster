@@ -66,7 +66,8 @@ export const createCheckoutSession = async (
 // Once payment (checkout) ponctual
 export const createCheckoutSessionPonctual = async (
   planPrice: string,
-  plan: iPlan
+  plan: iPlan,
+  isYearly?: boolean | undefined
 ) => {
   if (!planPrice || !plan) {
     throw new Error("Plan ID is required");
@@ -77,7 +78,17 @@ export const createCheckoutSessionPonctual = async (
       : {}
     : {};
   const mode = plan.saasType === "PAY_ONCE" ? "payment" : "subscription";
-  const coupon = plan.coupons.length > 0 ? plan.coupons[0].couponId : undefined;
+  let coupon;
+  if (isYearly === undefined && plan.coupons.length > 0) {
+    coupon = plan.coupons[0].couponId;
+  } else if (isYearly && plan.coupons.length > 0) {
+    coupon = plan.coupons.find((c) => c.recurrence === "yearly")?.couponId;
+  } else if (!isYearly && plan.coupons.length > 0) {
+    coupon = plan.coupons.find((c) => c.recurrence === "monthly")?.couponId;
+  }
+  else {
+    coupon = undefined;
+  }
   const customerId = await stripeCustomerIdManager({});
   const quantity = plan.saasType === "METERED_USAGE" && !plan.isFree ? undefined : 1;
   const session = await stripe.checkout.sessions.create({

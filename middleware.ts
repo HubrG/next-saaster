@@ -22,6 +22,7 @@ export async function middleware(req: NextRequest) {
     console.error("NEXT_URI environment variable is not defined");
     return NextResponse.redirect(new URL("/", req.url));
   }
+  // 
 
   try {
     // Construction de l'URL de l'API

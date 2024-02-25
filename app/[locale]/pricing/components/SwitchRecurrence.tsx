@@ -1,45 +1,36 @@
 "use client";
 import { GoodlineSecond } from "@/src/components/ui/@aceternity/good-line";
-import { useIsClient } from "@/src/hooks/useIsClient";
 import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
-import { SaasSettings } from "@prisma/client";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 type SwitchRecurrenceProps = {
-  saasSettings: SaasSettings;
   ifOnceSentence?: string;
   yearlyPercentOff?: number;
 };
 export const SwitchRecurrence = ({
-  saasSettings,
   yearlyPercentOff,
 }: SwitchRecurrenceProps) => {
   const { isYearly, setIsYearly, togglePricingPlan } =
     usePublicSaasPricingStore();
+  const { saasSettings } = useSaasSettingsStore();
   const sliderVariants = {
     monthly: { x: 3 },
     yearly: { x: "98.5%" },
   };
-  const isClient = useIsClient();
-
+  const notDisplay =
+    saasSettings.saasType === "PAY_ONCE" ||
+    saasSettings.saasType === "METERED_USAGE" ||
+    !saasSettings.activeMonthlyPlans ||
+    !saasSettings.activeYearlyPlans;
   useEffect(() => {
-    if (
-      saasSettings.saasType === "PAY_ONCE" ||
-      !saasSettings.activeMonthlyPlans ||
-      !saasSettings.activeYearlyPlans
-    ) {
+    if (notDisplay) {
       setIsYearly(saasSettings.activeMonthlyPlans ? false : true);
     }
-  }, [saasSettings, setIsYearly]);
+  }, [saasSettings, notDisplay, setIsYearly]);
 
-  if (
-    saasSettings.saasType === "PAY_ONCE" ||
-    !isClient ||
-    !saasSettings.activeMonthlyPlans ||
-    !saasSettings.activeYearlyPlans
-  ) {
-    // setIsYearly(saasSettings.activeMonthlyPlans ? false : true);
+  if (notDisplay) {
     return null;
   }
 

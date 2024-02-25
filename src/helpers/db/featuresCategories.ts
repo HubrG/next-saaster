@@ -9,7 +9,11 @@ export const getFeaturesCategories = async (): Promise<{
   error?: string;
 }> => {
   try {
-    const featuresCategories = await prisma.featureCategory.findMany({});
+    const featuresCategories = await prisma.featureCategory.findMany({
+      include: {
+        Features: true,
+      },
+    });
     if (!featuresCategories) throw new Error("No features categories found");
     return { success: true, data: featuresCategories as FeatureCategory[] };
   } catch (error) {

@@ -142,7 +142,13 @@ ul.main-menu li a {
 .logo span span.text {
   @apply !text-theming-text-900;
 }
-
+/* Button push effect */
+.push-effect {
+  transition: transform 0.1s ease-out;
+}
+.push-effect:active {
+  transform: scale(0.95);
+}
 /* Burger Menu */
 div.burger-menu {
   @apply -z-10 lg:hidden absolute top-[4.5rem] left-0 w-full bg-background  border-b-2 border-t-2 border-primary;

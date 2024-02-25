@@ -70,7 +70,7 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
           on lower plan.
         </Tooltip>
       </div>
-      {saasSettings.displayFeaturesByCategory && (
+      {/* {saasSettings.displayFeaturesByCategory && (
         <div className="flex flex-row justify-between items-center  w-full">
           <strong className="flex flex-row items-center gap-x-1">
             <Info className="icon" data-tooltip-id={"doc" + randUuid} />
@@ -84,7 +84,7 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
             name="displayOnCard"
           />
         </div>
-      )}
+      )} */}
       <Goodline className="-mt-1" />
     </>
   );

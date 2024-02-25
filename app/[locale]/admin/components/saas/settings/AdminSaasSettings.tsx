@@ -10,11 +10,11 @@ import { Suspense, useCallback, useEffect, useState } from "react";
 import { updateSaasSettings } from "../../../queries/queries";
 import { SetCurrency } from "./@subsections/SetCurrency";
 import { SetSaasType } from "./@subsections/SetSaasType";
-import { SetCreditName } from "./@subsections/more-settings/SetCreditName";
-import SwitchActiveCreditSystem from "./@subsections/more-settings/switches/SwitchActiveCreditSystem";
-import SwitchActiveMonthlyPlan from "./@subsections/more-settings/switches/SwitchActiveMonthlyPlan";
-import SwitchActiveRefillCredit from "./@subsections/more-settings/switches/SwitchActiveRefillCredit";
-import SwitchActiveYearlyPlan from "./@subsections/more-settings/switches/SwitchActiveYearlyPlan";
+import { SetCreditName } from "./@subsections/SetCreditName";
+import SwitchActiveCreditSystem from "./@subsections/switches/SwitchActiveCreditSystem";
+import SwitchActiveMonthlyPlan from "./@subsections/switches/SwitchActiveMonthlyPlan";
+import SwitchActiveRefillCredit from "./@subsections/switches/SwitchActiveRefillCredit";
+import SwitchActiveYearlyPlan from "./@subsections/switches/SwitchActiveYearlyPlan";
 
 export const AdminSaasSettings = () => {
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();

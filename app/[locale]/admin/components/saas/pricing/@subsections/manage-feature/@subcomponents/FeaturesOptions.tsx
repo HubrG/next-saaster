@@ -59,33 +59,7 @@ export const FeaturesOptions = () => {
         </PopoverTrigger>
         <PopoverContent className="w-96">
           <div className="grid gap-4">
-            <div className="space-y-2 space-x-2 flex flex-row justify-between">
-              <strong className="flex flex-row items-center justify-end gap-x-1">
-                <Info
-                  className="icon"
-                  data-tooltip-id="saas-features-option-button"
-                />
-                <Label className="label" htmlFor="displayFeaturesByCategory">
-                  Display features by categories on the pricing page
-                </Label>
-                <Tooltip
-                  className="tooltip"
-                  opacity={100}
-                  id="saas-features-option-button"
-                  place="top">
-                  test
-                </Tooltip>
-              </strong>
-              <Switch
-                id="displayFeaturesByCategory"
-                onCheckedChange={(e) =>
-                  handleChange("displayFeaturesByCategory", e)
-                }
-                checked={featureState.displayFeaturesByCategory ?? false}
-                name="onlyOnSelectedPlans"
-              />
-            </div>
-            <Separator />
+            
             <div className="space-y-2 space-x-2 flex flex-row justify-between">
               <strong className="flex flex-row items-center justify-end gap-x-1">
                 <Info
@@ -93,7 +67,7 @@ export const FeaturesOptions = () => {
                   data-tooltip-id="saas-features-option-button"
                 />
                 <Label className="label" htmlFor="activeFeatureComparison">
-                  Active feature comparison
+                  Active feature comparison on simple pricing card
                 </Label>
                 <Tooltip
                   className="tooltip"
@@ -113,6 +87,33 @@ export const FeaturesOptions = () => {
               />
             </div>
             <Separator />
+            <div className="space-y-2 space-x-2 flex flex-row justify-between">
+              <strong className="flex flex-row items-center justify-end gap-x-1">
+                <Info
+                  className="icon"
+                  data-tooltip-id="saas-features-option-button"
+                />
+                <Label className="label" htmlFor="displayFeaturesByCategory">
+                  Display features comparison by categories on the pricing page
+                </Label>
+                <Tooltip
+                  className="tooltip"
+                  opacity={100}
+                  id="saas-features-option-button"
+                  place="top">
+                  test
+                </Tooltip>
+              </strong>
+              <Switch
+                id="displayFeaturesByCategory"
+                onCheckedChange={(e) =>
+                  handleChange("displayFeaturesByCategory", e)
+                }
+                checked={featureState.displayFeaturesByCategory ?? false}
+                name="onlyOnSelectedPlans"
+              />
+            </div>
+            {/* <Separator />
             <div
               className={cn(
                 {
@@ -147,7 +148,7 @@ export const FeaturesOptions = () => {
                 checked={featureState.activeFeatureAdvancedComparison ?? false}
                 name="activeFeatureAdvancedComparison"
               />
-            </div>
+            </div> */}
           </div>
         </PopoverContent>
       </Popover>

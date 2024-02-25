@@ -4,7 +4,7 @@ type Props = {
 export const Goodline = ({ className }: Props) => {
   return (
     <div
-      className={`${className} my-5 h-auto w-full relative dark:opacity-100 opacity-50`}>
+      className={`my-5 h-auto  w-full relative dark:opacity-100 opacity-50  ${className}`}>
       {/* Gradients ajustés pour couvrir toute la largeur */}
       <div className="absolute top-0 h-[2px] w-full bg-gradient-to-r from-transparent via-theming-text-200 to-transparent blur-sm" />
       <div className="absolute top-0 h-px w-full bg-gradient-to-r from-transparent via-theming-text-500 to-transparent" />
@@ -18,7 +18,7 @@ export const Goodline = ({ className }: Props) => {
 export const GoodlineSecond = ({ className }: Props) => {
   return (
     <div
-      className={`${className} my-5 h-auto w-full relative dark:opacity-100 opacity-50`}>
+      className={`my-5  h-auto   w-full relative dark:opacity-100 opacity-50 ${className}`}>
       {/* Gradients ajustés pour couvrir toute la largeur */}
       <div className="absolute top-0 h-[2px] w-full bg-gradient-to-r from-transparent via-theming-text-200-second to-transparent blur-sm" />
       <div className="absolute top-0 h-px w-full bg-gradient-to-r from-transparent via-theming-text-500-second to-transparent" />

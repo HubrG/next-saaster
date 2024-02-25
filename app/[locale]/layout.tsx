@@ -16,6 +16,7 @@ import { Caveat, Commissioner, Playfair_Display } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
 import { getAppSettings } from "../../src/helpers/db/appSettings";
+import Footer from "./layout/footer/Footer";
 
 const sans = Commissioner({
   subsets: ["latin"],
@@ -87,6 +88,7 @@ export default async function LocaleLayout(props: Props) {
                   settings={appSettings.data}
                 />
                 <main>{children}</main>
+                <Footer />
               </ThemeProvider>
             </NextIntlProvider>
           </body>

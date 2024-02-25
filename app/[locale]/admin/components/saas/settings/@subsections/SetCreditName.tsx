@@ -23,12 +23,13 @@ export const SetCreditName = ({ set, disabled }: Props) => {
   return (
     <div>
       <Label htmlFor={`creditName`}>
-        How would you like to name the credit (credits, tokens, coins...) ?
+        How would you like to name the credit in the singular (credit, token,
+        coin...) ?
       </Label>
       <div className="flex flex-row items-center gap-2">
         <Input
           type="text"
-          disabled={disabled??true}
+          disabled={disabled ?? true}
           id="creditName"
           placeholder="Enter creditName"
           value={creditName}

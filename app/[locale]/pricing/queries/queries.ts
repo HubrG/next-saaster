@@ -79,12 +79,13 @@ export const createCheckoutSessionPonctual = async (
   const mode = plan.saasType === "PAY_ONCE" ? "payment" : "subscription";
   const coupon = plan.coupons.length > 0 ? plan.coupons[0].couponId : undefined;
   const customerId = await stripeCustomerIdManager({});
+  const quantity = plan.saasType === "METERED_USAGE" && !plan.isFree ? undefined : 1;
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card", "link"],
     line_items: [
       {
         price: planPrice,
-        quantity: 1,
+        quantity: quantity,
       },
     ],
     mode: mode,

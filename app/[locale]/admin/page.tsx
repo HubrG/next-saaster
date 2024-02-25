@@ -25,7 +25,7 @@ export default async function Admin() {
       <>
         <DivFullScreenGradient gradient="gradient-to-r" />
         <div className="w-full  md:h-screen h-auto flex justify-center items-center">
-          <Suspense>
+          <Suspense fallback={<Loader />}>
             <LoginForm withGithub />
           </Suspense>
         </div>
@@ -41,9 +41,7 @@ export default async function Admin() {
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="admin user-interface">
-        <Suspense fallback={<Loader />}>
-          <Index />
-        </Suspense>
+        <Index />
       </div>
     </>
   );

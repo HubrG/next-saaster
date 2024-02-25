@@ -36,6 +36,7 @@ export const useSaasPlansStore = create<Store>()((set) => ({
     const saasPlans = await getPlans();
     if (!saasPlans.data) {
       console.error(saasPlans.error || "Failed to fetch plans");
+      set({ isPlanStoreLoading: false });
       return;
     }
     set({ saasPlans: saasPlans.data, isPlanStoreLoading: false });

@@ -35,11 +35,10 @@ export const useSaasPlansStore = create<Store>()((set) => ({
   },
   fetchSaasPlan: async () => {
     set({ isPlanStoreLoading: true });
-    const saasPlans = await getPlans();
+    const saasPlans = (await getPlans());
     if (!saasPlans.data) {
-      console.error(saasPlans.error || "Failed to fetch plans");
       set({ isPlanStoreLoading: false });
-      return;
+      console.error(saasPlans.error || "Failed to fetch plans");
     }
     set({ saasPlans: saasPlans.data, isPlanStoreLoading: false });
   },

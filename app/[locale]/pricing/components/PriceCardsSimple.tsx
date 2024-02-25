@@ -4,17 +4,24 @@ import { Loader } from "@/src/components/ui/loader";
 import { cn } from "@/src/lib/utils";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { useEffect, useState } from "react";
 import { PriceCard } from "./PriceCard";
 
 export const PriceCardsSimple = () => {
   const { saasSettings } = useSaasSettingsStore();
   const { saasPlans, isPlanStoreLoading } = useSaasPlansStore();
+  const [isLoading, setIsLoading] = useState(true);
   const plansFiltered = saasPlans.filter(
     (plan) =>
       plan.active && !plan.deleted && plan.saasType === saasSettings.saasType
   );
+  useEffect(() => {
+    if (!isPlanStoreLoading) {
+      setIsLoading(false);
+    }
+  }, [isPlanStoreLoading]);
   if (saasSettings.displayFeaturesByCategory) return;
-  if (isPlanStoreLoading) {
+  if (isLoading) {
     return <Loader noHFull />;
   }
   return (

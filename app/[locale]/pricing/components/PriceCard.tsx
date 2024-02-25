@@ -30,7 +30,7 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
         <div className="features">
           <PriceCardFeatures plan={plan} />
         </div>
-        <PriceCardBuyButton className="mt-7" plan={plan} />
+        <PriceCardBuyButton className="mt-7 w-full z-[99999999]" plan={plan} />
       </Card>
       <PriceCardBottomSentence
         className="text-center my-2  !font-normal text-theming-text-50"

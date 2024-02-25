@@ -24,6 +24,7 @@ export const SwitchRecurrence = ({
     saasSettings.saasType === "METERED_USAGE" ||
     !saasSettings.activeMonthlyPlans ||
     !saasSettings.activeYearlyPlans;
+  
   useEffect(() => {
     if (notDisplay) {
       setIsYearly(saasSettings.activeMonthlyPlans ? false : true);

@@ -20,13 +20,13 @@ export const PriceCardsSimple = () => {
   return (
     <div
       className={cn(
-        { "lg:w-1/3": plansFiltered.length === 1 },
-        { "md:grid-cols-2 lg:w-2/3": plansFiltered.length === 2 },
-        { "md:grid-cols-3 lg:w-3/3": plansFiltered.length === 3 },
+        { "lg:1/6 md:w-3/6": plansFiltered.length === 1 },
+        { "md:grid-cols-2 lg:w-4/6": plansFiltered.length === 2 },
+        { "md:grid-cols-3 lg:w-5/6": plansFiltered.length === 3 },
         {
           "xl:grid-cols-4 md:grid-cols-2 lg:w-4/4": plansFiltered.length === 4,
         },
-        " justify-evenly grid grid-cols-1 w-full px-5 mx-auto gap-10"
+        " justify-evenly grid  w-full max-ms:px-5 mx-auto gap-10"
       )}>
       {plansFiltered.map((plan) => (
         <div key={plan.id} className="w-full">

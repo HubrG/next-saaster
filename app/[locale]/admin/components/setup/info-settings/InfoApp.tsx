@@ -1,6 +1,6 @@
 "use client";
 import { updateAppSettings } from "@/app/[locale]/admin/queries/queries";
-import { ButtonWithLoader } from "@/src/components/ui/button-with-loader";
+import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";

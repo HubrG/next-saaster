@@ -25,9 +25,8 @@ export default async function Pricing({
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="flex flex-col gap-y-8 ">
         <h1 className="!bg-gradient2">Pricing</h1>
-        <Goodline />
-        <Suspense>
-          <div className="w-full flex my-2 justify-center items-center">
+        {/* <Goodline /> */}
+          <div className="w-full flex mt-10 my-2 justify-center items-center">
             {/* Display recurrence if not "Pay once" or "Metered" business model */}
             <SwitchRecurrence
             // yearlyPercentOff={20}
@@ -37,7 +36,6 @@ export default async function Pricing({
           <PriceCardsSimple />
           {/* If « display features by categories » is activated » */}
           <PriceCardsFeaturesByCategories />
-        </Suspense>
       </div>
     </>
   );

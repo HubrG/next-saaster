@@ -43,7 +43,7 @@ export const PriceCardHeader = ({
   saasSettings,
 }: PriceCardHeaderProps) => {
   const type = saasSettings.saasType;
-  const { isYearly } = usePublicSaasPricingStore();
+  const { isYearly, setIsYearly } = usePublicSaasPricingStore();
   let price;
   if (type === "PAY_ONCE") {
     price = payOncePricesAndFeatures({ plan });
@@ -70,44 +70,48 @@ export const PriceCardHeader = ({
             : null
         }
       />
-      <h1 className="text-xl">{plan.name}</h1>
-      <p className={cn({ hidden: plan.description?.length === 0 })}>
-        {plan.description}
-      </p>
-      <DotBlurredAndGradient
-        className="!opacity-20 mt-20 h-96 w-full"
-        gradient="gradient-to-b-second"
-      />
-      <h3 className={cn({ "!-mt-24 pt-0": plan.isTrial })}>
-        {plan.isTrial && (
-          <>
-            <span className="trial">{plan.trialDays} days trial, then</span>
-            <br />
-          </>
-        )}
-        {price.percentOff ? (
-          <>
-            <span className="price-stroke">
+      <div className="min-h-48 flex flex-col justify-between">
+        <div className="h-1/2">
+        <h1 className="text-xl">{plan.name}</h1>
+        <p className={cn({ hidden: plan.description?.length === 0 },"description")}>
+          {plan.description}
+        </p>
+        </div>
+        <DotBlurredAndGradient
+          className="!opacity-20 mt-20 h-96 w-full"
+          gradient="gradient-to-b-second"
+        />
+        <h3 className={cn({ "!-mt-24 pt-0": plan.isTrial },"h-1/2")}>
+          {plan.isTrial && (
+            <>
+              <span className="trial">{plan.trialDays} days trial, then</span>
+              <br />
+            </>
+          )}
+          {price.percentOff ? (
+            <>
+              <span className="price-stroke">
+                {price.price}
+                {currencySymbol}
+              </span>
+              &nbsp;
+              {price.priceWithDiscount}
+              {currencySymbol}
+              <span className="recurrence">
+                {generateRecurrenceText({ plan, isYearly, saasSettings })}
+              </span>
+            </>
+          ) : (
+            <>
               {price.price}
               {currencySymbol}
-            </span>
-            &nbsp;
-            {price.priceWithDiscount}
-            {currencySymbol}
-            <span className="recurrence">
-              {generateRecurrenceText({plan, isYearly, saasSettings})}
-            </span>
-          </>
-        ) : (
-          <>
-            {price.price}
-            {currencySymbol}
-            <span className="recurrence">
+              <span className="recurrence">
                 {generateRecurrenceText({ plan, isYearly, saasSettings })}
-            </span>
-          </>
-        )}
-      </h3>
+              </span>
+            </>
+          )}
+        </h3>
+      </div>
     </>
   );
 };

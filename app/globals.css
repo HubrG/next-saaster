@@ -439,7 +439,7 @@ form button {
   @apply text-4xl;
 }
 .admin-plan-card textarea {
-  @apply text-xl min-h-2 h-14 !important;
+  @apply text-xl min-h-14 !important;
 }
 .admin .admin-plan-card.active {
   @apply opacity-100 border-theming-text-400/50 dark:border-theming-text-600-second/50  bg-theming-background-100/20 shadow dark:shadow-none dark:bg-theming-background-200-second/10 !important;
@@ -627,6 +627,10 @@ code {
 .price-card-wrapper h1 {
   @apply text-left text-theming-text-600-second !important;
 }
+.price-card-wrapper p.description {
+@apply text-sm text-theming-text-900/70;
+}
+
 .price-card-wrapper h2 {
   @apply text-sm font-medium text-left !important;
 }

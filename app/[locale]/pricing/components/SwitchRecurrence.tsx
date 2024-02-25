@@ -40,7 +40,7 @@ export const SwitchRecurrence = ({
   }
 
   return (
-    <div className=" relative w-1/6 h-10 mb-5 -mt-5 rounded-default">
+    <div className=" relative md:w-2/6 sm:w-2/6 w-full h-10 mb-5 -mt-5 rounded-default">
       <motion.div
         variants={sliderVariants}
         animate={isYearly ? "yearly" : "monthly"}

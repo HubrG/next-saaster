@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "./button";
-import { SimpleLoader } from "./loader";
+import { Button } from "../button";
+import { SimpleLoader } from "../loader";
 type ButtonWithLoaderProps = {
   size?: "sm" | "default" | "lg";
   variant?:
@@ -10,6 +10,7 @@ type ButtonWithLoaderProps = {
     | "ghostDestructive"
     | "secondary"
     | "ghost"
+    | "second"
     | "link"
     | "tooltip";
   disabled?: boolean;

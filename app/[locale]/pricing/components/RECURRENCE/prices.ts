@@ -22,6 +22,8 @@ export const MRRPricesAndFeatures = ({
   let price;
   if (plan.isFree) {
     price = 0;
+  } else if (plan.saasType === "METERED_USAGE") {
+      price = plan.monthlyPrice ?? 0;
   } else if (isYearly) {
     price = plan.yearlyPrice ?? 0;
   } else {
@@ -38,6 +40,8 @@ export const MRRPricesAndFeatures = ({
       const monthlyCoupon = coupon.find((c) => c.recurrence === "monthly");
       percentOff = monthlyCoupon?.coupon.percentOff;
     }
+  } else {
+    percentOff = undefined;
   }
 
   const priceWithDiscount = percentOff

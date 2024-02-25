@@ -25,7 +25,7 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
           },
           `price-card-wrapper flex flex-col justify-between`
         )}>
-        <PriceCardHeader plan={plan} saasSettings={saasSettings} />
+          <PriceCardHeader plan={plan} saasSettings={saasSettings} />
         <Goodline />
         <div className="features">
           <PriceCardFeatures plan={plan} />

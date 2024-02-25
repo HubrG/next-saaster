@@ -27,7 +27,11 @@ export const SwitchRecurrence = ({
   
   useEffect(() => {
     if (notDisplay) {
-      setIsYearly(saasSettings.activeMonthlyPlans ? false : true);
+      setIsYearly(
+        saasSettings.activeMonthlyPlans && !saasSettings.activeYearlyPlans
+          ? false
+          : saasSettings.activeYearlyPlans ? true : false
+      );
     }
   }, [saasSettings, notDisplay, setIsYearly]);
 

@@ -19,17 +19,19 @@ export const useSaasPlansStore = create<Store>()((set) => ({
   isPlanStoreLoading: false,
   setSaasPlans: (updater) => {
     if (typeof updater === "function") {
-      set((state) => ({ saasPlans: updater(state.saasPlans) }));
+      set((state) => ({
+        saasPlans: updater(state.saasPlans),
+        isPlanStoreLoading: false,
+      }));
     } else {
-      set({ saasPlans: updater });
+      set({ saasPlans: updater, isPlanStoreLoading: false });
     }
   },
   updatePlanFromStore: (planId, newPlanData) => {
     set((state) => ({
       saasPlans: state.saasPlans.map((plan) =>
         plan.id === planId ? { ...plan, ...newPlanData } : plan
-      ),
-    }));
+      )    }));
   },
   fetchSaasPlan: async () => {
     set({ isPlanStoreLoading: true });

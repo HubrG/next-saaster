@@ -18,7 +18,7 @@ type Props = {
 };
 export const Init = ({ appSettings, saasSettings }: Props) => {
   const { setAppSettings } = useAppSettingsStore();
-  const { setSaasSettings,isStoreLoading } = useSaasSettingsStore();
+  const { setSaasSettings } = useSaasSettingsStore();
   const setAllStores = useCallback(async () => {
     try {
       await Promise.all([

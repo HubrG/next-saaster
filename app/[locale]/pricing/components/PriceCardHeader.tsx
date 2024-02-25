@@ -1,5 +1,3 @@
-"use client";
-
 import { DotBlurredAndGradient } from "@/src/components/ui/layout-elements/dot-blured-and-gradient";
 import currenciesData from "@/src/jsons/currencies.json";
 import { cn } from "@/src/lib/utils";
@@ -16,6 +14,29 @@ type PriceCardHeaderProps = {
   plan: iPlan;
   saasSettings: SaasSettings;
 };
+type GenerateProps = {
+  plan: iPlan;
+  isYearly: boolean;
+  saasSettings: SaasSettings;
+};
+const generateRecurrenceText = ({
+  plan,
+  isYearly,
+  saasSettings,
+}: GenerateProps) => {
+  if (plan.saasType === "MRR_SIMPLE" && !plan.isFree) {
+    return ` / ${isYearly ? "year" : "month"}`;
+  }
+  if (plan.saasType === "METERED_USAGE" && !plan.isFree) {
+    return (
+      <span className="block">
+        / per {plan.meteredUnit} {toLower(saasSettings.creditName ?? "credit")}
+        {plan.meteredMode === "PACKAGE" ? "s" : ""}
+      </span>
+    );
+  }
+  return null;
+};
 
 export const PriceCardHeader = ({
   plan,
@@ -29,7 +50,7 @@ export const PriceCardHeader = ({
   } else if (type === "MRR_SIMPLE" || type === "METERED_USAGE") {
     price = MRRPricesAndFeatures({ plan, isYearly });
   } else {
-    return;
+    return null;
   }
   if (!price) return null;
 
@@ -37,6 +58,7 @@ export const PriceCardHeader = ({
   const currencySymbol = saasSettings.currency
     ? currencies[saasSettings.currency]?.sigle
     : "";
+
   return (
     <>
       <PriceCardBadge
@@ -73,18 +95,7 @@ export const PriceCardHeader = ({
             {price.priceWithDiscount}
             {currencySymbol}
             <span className="recurrence">
-              {plan.saasType === "MRR_SIMPLE" &&
-                !plan.isFree &&
-                ` / ${isYearly ? "year" : "month"}`}
-              {plan.saasType === "METERED_USAGE" && !plan.isFree && (
-                <span className="block">
-                  /{plan.meteredMode === "PACKAGE"
-                    ? `per ${plan.meteredUnit}`
-                    : ""}{" "}
-                  {toLower(saasSettings.creditName ?? "credit")}
-                  {plan.meteredMode === "PACKAGE" ? "s" : ""}
-                </span>
-              )}
+              {generateRecurrenceText({plan, isYearly, saasSettings})}
             </span>
           </>
         ) : (
@@ -92,18 +103,7 @@ export const PriceCardHeader = ({
             {price.price}
             {currencySymbol}
             <span className="recurrence">
-              {plan.saasType === "MRR_SIMPLE" &&
-                !plan.isFree &&
-                ` / ${isYearly ? "year" : "month"}`}
-              {plan.saasType === "METERED_USAGE" && !plan.isFree && (
-                <span className="block">
-                  /{plan.meteredMode === "PACKAGE"
-                    ? `per ${plan.meteredUnit}`
-                    : ""}{" "}
-                  {toLower(saasSettings.creditName ?? "credit")}
-                  {plan.meteredMode === "PACKAGE" ? "s" : ""}
-                </span>
-              )}
+                {generateRecurrenceText({ plan, isYearly, saasSettings })}
             </span>
           </>
         )}

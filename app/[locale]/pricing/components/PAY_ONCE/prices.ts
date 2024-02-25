@@ -8,9 +8,13 @@ type PriceCardPayOnceProps = {
 export const payOncePricesAndFeatures = ({
   plan,
 }: PriceCardPayOnceProps): {
-  price: number;
   percentOff: number | undefined;
   priceWithDiscount: number | undefined;
+  price: number | undefined;
+  monthlyPercentOff?: number | undefined;
+  yearlyPercentOff?: number | undefined;
+  monthlyPriceWithDiscount?: number | undefined;
+  yearlyPriceWithDiscount?: number | undefined;
 } => {
   const percentage = new PercentageCalculator();
   const price = plan.oncePrice ?? 0;

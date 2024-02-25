@@ -13,6 +13,10 @@ export const MRRPricesAndFeatures = ({
   percentOff: number | undefined;
   priceWithDiscount: number | undefined;
   price: number | undefined;
+  monthlyPercentOff?: number | undefined;
+  yearlyPercentOff?: number | undefined;
+  monthlyPriceWithDiscount?: number | undefined;
+  yearlyPriceWithDiscount?: number | undefined;
 } => {
   const percentage = new PercentageCalculator();
   let price;
@@ -25,11 +29,21 @@ export const MRRPricesAndFeatures = ({
   }
 
   const coupon = plan.coupons;
-  const percentOff =
-    coupon.length > 0 ? coupon[0].coupon.percentOff : undefined;
+  let percentOff;
+  if (coupon.length > 0) {
+    if (isYearly) {
+      const yearlyCoupon = coupon.find((c) => c.recurrence === "yearly");
+      percentOff = yearlyCoupon?.coupon.percentOff;
+    } else {
+      const monthlyCoupon = coupon.find((c) => c.recurrence === "monthly");
+      percentOff = monthlyCoupon?.coupon.percentOff;
+    }
+  }
+
   const priceWithDiscount = percentOff
     ? percentage.decreaseValueByPercentage(price, percentOff)
     : undefined;
+
   const data = {
     price,
     percentOff: percentOff ? percentOff : undefined,

@@ -1,7 +1,7 @@
 "use client";
 import {
-    deleteFeatureCategory,
-    updateFeatureCategory,
+  deleteFeatureCategory,
+  updateFeatureCategory,
 } from "@/app/[locale]/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
@@ -9,6 +9,7 @@ import { SimpleLoader } from "@/src/components/ui/loader";
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
+import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { FeatureCategory } from "@prisma/client";
 import { Check, Grip } from "lucide-react";
 import { useState } from "react";
@@ -54,10 +55,10 @@ export const FeatureCategoryCard = ({ category }: Props) => {
         description: `Please enter a name`,
       });
     }
-    const updateCategory = await updateFeatureCategory(
+    const updateCategory = (await updateFeatureCategory(
       category.id,
       dataToSet
-    );
+    )) as iFeaturesCategories;
     if (!updateCategory) {
       setLoading(false);
       return toaster({

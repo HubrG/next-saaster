@@ -14,7 +14,9 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/helpers/functions/parse";
 import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
+import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
+import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { Feature, Plan } from "@prisma/client";
@@ -39,6 +41,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
   const [initialLinksState, setInitialLinksState] = useState<LinkState>({});
   const { saasSettings } = useSaasSettingsStore();
   const { saasPlanToFeature } = useSaasPlanToFeatureStore();
+  const { saasFeaturesCategories, setSaasFeaturesCategories, fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
 
   useEffect(() => {
     const newLinksState: LinkState = {};
@@ -122,7 +125,36 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
     if (dataToSet) {
       setInitialLinksState(_.cloneDeep(linksState));
       setLinksState(_.cloneDeep(linksState));
+       useSaasFeaturesCategoriesStore.getState().fetchSaasFeaturesCategories(),
+      useSaasPlansStore.setState((state) => {
+        const updatedPlans = state.saasPlans.map((plan) => {
+          const updateData = dataToSet.find((item) => item.plan.id === plan.id);
+          if (updateData) {
+            return {
+              ...plan,
+              Features: plan.Features.map((feature) => {
+                if (feature.id === updateData.id) {
+                  return {
+                    ...feature,
+                    active:
+                      dataToSend.find((d) => d.featureId === feature.id)
+                        ?.active ?? null,
+                    creditCost: updateData.creditCost,
+                    creditAllouedByMonth: updateData.creditAllouedByMonth,
+                  };
+                }
+                return feature;
+              }),
+            };
+          }
+          return plan;
+        });
+        return { saasPlans: updatedPlans };
+      });
 
+      
+
+      
       useSaasPlanToFeatureStore.setState((state) => {
         const updatedFeatures = state.saasPlanToFeature.map((item) => {
           const updateData = dataToSend.find(

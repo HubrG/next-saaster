@@ -40,39 +40,51 @@ export const SwitchRecurrence = ({
   }
 
   return (
-    <div className=" relative md:w-2/6 sm:w-2/6 w-full h-10 mb-5 -mt-5 rounded-default">
-      <motion.div
-        variants={sliderVariants}
-        animate={isYearly ? "yearly" : "monthly"}
-        transition={{ type: "tween" }}
-        className="absolute  w-1/2 bottom-0 ">
-        <GoodlineSecond />
-      </motion.div>
-      <div className="absolute w-full flex flex-row h-full mt-1.5 cursor-pointer  rounded-default">
-        <div
-          className={cn(
-            {
-              "text-theming-text-700 opacity-50": isYearly,
-              "text-theming-text-700": !isYearly,
-            },
-            "flex-1 text-center font-bold line-40"
-          )}
-          onClick={() => togglePricingPlan()}>
-          Monthly
-        </div>
-        <div
-          className={cn(
-            {
-              "text-theming-text-700 opacity-50": !isYearly,
-              "text-theming-text-700": isYearly,
-            },
-            "flex-1 text-center font-bold line-40"
-          )}
-          onClick={() => togglePricingPlan()}>
-          Yearly{" "}
-          <span className="text-sm opacity-70">
-            {yearlyPercentOff && `— save ${yearlyPercentOff}% !`}
-          </span>
+    <div
+      className={cn(
+        {
+          "justify-end": saasSettings.displayFeaturesByCategory,
+          "justify-center": !saasSettings.displayFeaturesByCategory,
+        },
+        "w-full  flex mt-20 mb-2 items-center"
+      )}>
+      <div
+        className={cn(
+          "relative  md:w-2/6 sm:w-2/6 w-full h-10 mb-0 rounded-default "
+        )}>
+        <motion.div
+          variants={sliderVariants}
+          animate={isYearly ? "yearly" : "monthly"}
+          transition={{ type: "tween" }}
+          className="absolute  w-1/2 bottom-0 ">
+          <GoodlineSecond />
+        </motion.div>
+        <div className="absolute w-full flex flex-row h-full mt-1.5 cursor-pointer rounded-default">
+          <div
+            className={cn(
+              {
+                "text-theming-text-700 opacity-50": isYearly,
+                "text-theming-text-700": !isYearly,
+              },
+              "flex-1 text-center font-bold line-40"
+            )}
+            onClick={() => togglePricingPlan()}>
+            Monthly
+          </div>
+          <div
+            className={cn(
+              {
+                "text-theming-text-700 opacity-50": !isYearly,
+                "text-theming-text-700": isYearly,
+              },
+              "flex-1 text-center font-bold line-40"
+            )}
+            onClick={() => togglePricingPlan()}>
+            Yearly{" "}
+            <span className="text-sm opacity-70">
+              {yearlyPercentOff && `— save ${yearlyPercentOff}% !`}
+            </span>
+          </div>
         </div>
       </div>
     </div>

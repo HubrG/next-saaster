@@ -18,7 +18,7 @@ export const PriceCardBuyButton = ({
   className,
 }: PriceCardBuyButtonProps) => {
   
-  const { isYearly } = usePublicSaasPricingStore();
+  const { isYearly, seatQuantity } = usePublicSaasPricingStore();
   const { saasSettings } = useSaasSettingsStore();
   const router = useRouter();
   const { data: session } = useSession();
@@ -42,12 +42,13 @@ const getStripePrice = (plan: iPlan, isYearly: boolean) => {
     let stripeCheckout;
     const stripePrice = getStripePrice(plan, isYearly);
     if (plan.saasType === "PAY_ONCE") {
-      stripeCheckout = await createCheckoutSessionPonctual(stripePrice??"0", plan);
+      stripeCheckout = await createCheckoutSessionPonctual({planPrice:stripePrice??"0", plan:plan, seatQuantity:seatQuantity??"1"});
     } else {
-      stripeCheckout = await createCheckoutSessionPonctual(
-        stripePrice??"0",
+      stripeCheckout = await createCheckoutSessionPonctual({
+        planPrice: stripePrice??"0",
         plan,
-        isYearly
+        isYearly,
+        seatQuantity}
       );
     }
     setIsLoading(false);

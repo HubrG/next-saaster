@@ -4,6 +4,7 @@ import { getPlans } from "@/src/helpers/db/plans";
 import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
+import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { iStripeCoupon } from "@/src/types/iStripeCoupons";
 import { iStripePlanCoupon } from "@/src/types/iStripePlanCoupons";
@@ -80,6 +81,9 @@ export const updateFeatureCategory = async (categoryId: string, data: any) => {
   const updateCategory = await prisma.featureCategory.update({
     where: { id: categoryId },
     data: data,
+    include: {
+      Features: true,
+    },
   });
 
   return updateCategory;
@@ -91,6 +95,9 @@ export const deleteFeatureCategory = async (categoryId: string) => {
 
   const deleteCategory = await prisma.featureCategory.delete({
     where: { id: categoryId },
+    include: {
+      Features: true,
+    },
   });
 
   return deleteCategory;
@@ -181,7 +188,7 @@ export const updateFeaturePosition = async (features: Feature[]) => {
 };
 
 export const updateFeatureCategoryPosition = async (
-  categories: FeatureCategory[]
+  categories: iFeaturesCategories[]
 ) => {
   const session = await isSuperAdmin();
   if (!session) return false;
@@ -254,6 +261,9 @@ export const createNewCategoryFromFeature = async (data: CreateNewCategory) => {
     data: {
       name: data.name ?? "",
     },
+    include: {
+      Features: true,
+    }
   });
 
   if (!newCategory) return false;
@@ -278,7 +288,7 @@ export const createNewCategory = async (name: FeatureCategory["name"]) => {
     },
   });
 
-  return newCategory;
+  return newCategory as iFeaturesCategories;
 };
 
 export const createNewCoupon = async (data: Partial<iStripePlanCoupon>) => {

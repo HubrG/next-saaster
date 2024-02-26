@@ -1,26 +1,27 @@
 "use client";
 import {
-    createNewCategoryFromFeature,
-    updateFeature,
+  createNewCategoryFromFeature,
+  updateFeature,
 } from "@/app/[locale]/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
 } from "@/src/components/ui/command";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { Feature } from "@prisma/client";
 import _ from "lodash";
 import capitalize from "lodash/capitalize";
@@ -60,7 +61,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
         description: `Please enter a name`,
       });
     }
-    const createCategory = await createNewCategoryFromFeature(dataToSet);
+    const createCategory = await createNewCategoryFromFeature(dataToSet) as iFeaturesCategories;
     if (!createCategory) {
       return toaster({
         type: "error",

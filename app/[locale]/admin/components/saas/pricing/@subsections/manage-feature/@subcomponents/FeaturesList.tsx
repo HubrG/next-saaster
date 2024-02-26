@@ -58,7 +58,14 @@ export const FeaturesList = () => {
             </tr>
           </thead>
           <tbody>
-            {isStoreLoading && <Loader noHFull />}
+            {isStoreLoading && (
+              <tr>
+                <td colSpan={9}>
+                  {" "}
+                  <Loader noHFull />
+                </td>
+              </tr>
+            )}
             <AnimatePresence>
               {saasFeatures
                 .filter((feature) => !feature.deleted)

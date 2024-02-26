@@ -1,4 +1,5 @@
 import { Feature, FeatureCategory } from "@prisma/client";
+
 interface CategoryFeature extends Feature {
   feature: Feature;
 }

@@ -1,20 +1,20 @@
 "use client";
 import {
-    createNewCategory,
-    updateFeatureCategoryPosition,
+  createNewCategory,
+  updateFeatureCategoryPosition,
 } from "@/app/[locale]/admin/queries/queries";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sortAdminFeatureCategory } from "@/src/helpers/functions/sortAdminFeatureCategory";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
-import { Feature } from "@prisma/client";
+import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { random } from "lodash";
 import { Edit } from "lucide-react";
 import { useState } from "react";
@@ -32,16 +32,18 @@ export const FeaturesCategoriesList = () => {
       saasFeaturesCategories,
       oldIndex,
       newIndex
-    )) as Feature[];
+    )) as iFeaturesCategories[];
     setSaasFeaturesCategories(newSaasFeaturesCategories);
-    await updateFeatureCategoryPosition(newSaasFeaturesCategories);
+    await updateFeatureCategoryPosition(
+      newSaasFeaturesCategories as iFeaturesCategories[]
+    );
   };
 
   const handleAddCategory = async () => {
     setLoading(true);
     const createCategory = await createNewCategory(
       "New category-" + random(1, 9999)
-    );
+    ) as iFeaturesCategories;
     if (!createCategory) {
       setLoading(false);
       return toaster({

@@ -14,17 +14,20 @@ import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { iPlan } from "@/src/types/iPlans";
 import { CheckCircle2, XCircle } from "lucide-react";
+import { useEffect } from "react";
 import { PriceCardBuyButton } from "./PriceCardBuyButton";
 import { PriceCardHeader } from "./PriceCardHeader";
 
 export const PriceCardsFeaturesByCategories = () => {
   const { saasPlans } = useSaasPlansStore();
-  const plans = saasPlans as iPlan[];
   const { saasFeaturesCategories } = useSaasFeaturesCategoriesStore();
-  const categories = saasFeaturesCategories as iFeaturesCategories[];
+  useEffect(() => {
+    useSaasPlansStore.getState().fetchSaasPlan();
+    useSaasFeaturesCategoriesStore.getState().fetchSaasFeaturesCategories();
+  },[]);
+  const plans = saasPlans as iPlan[];
   const getRowClass = (index: number) => {
     return index % 2 === 0
       ? "bg-theming-background-100/0"
@@ -69,7 +72,7 @@ export const PriceCardsFeaturesByCategories = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories
+            {saasFeaturesCategories
               .filter((e) => e.Features.find((e) => e.active))
               .map((category, index) => (
                 <>
@@ -78,14 +81,20 @@ export const PriceCardsFeaturesByCategories = () => {
                     className="border-t-0 border-b-0">
                     <TableCell
                       colSpan={plansFiltered.length + 1}
-                      className=" rounded-default rounded-r-none text-left font-bold text-xl">
+                      className=" rounded-default rounded-r-none text-left font-bold text-xl"
+                      
+                      >
                       <Goodline
                         className={cn({
                           "pt-5": index > 0,
                           "-mt-2": index === 0,
                         })}
                       />
-                      {category.name}
+                      <span  style={{
+                            position: "sticky",
+                            left: "10px",
+                            zIndex: 1,
+                          }}>{category.name}</span>
                     </TableCell>
                   </TableRow>
                   {category.Features.sort((a, b) => {
@@ -100,7 +109,13 @@ export const PriceCardsFeaturesByCategories = () => {
                         className={`${getRowClass(
                           featureIndex
                         )} border-0 text-center`}>
-                        <TableCell className="w-3/12 text-left">
+                        <TableCell
+                          className="w-3/12 text-left backdrop-blur-xl md:text-base text-sm"
+                          style={{
+                            position: "sticky",
+                            left: 0,
+                            zIndex: 1,
+                          }}>
                           {feature.name}
                         </TableCell>
                         {plansFiltered.map((plan) => {

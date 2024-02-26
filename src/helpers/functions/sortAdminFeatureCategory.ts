@@ -1,3 +1,4 @@
+import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { FeatureCategory } from "@prisma/client";
 import { arrayMoveImmutable } from "array-move";
 
@@ -16,5 +17,5 @@ export const sortAdminFeatureCategory = async (
 
   const newList = [...reorderedItems];
   if (reorderedItems === newList) return false;
-  return newList as FeatureCategory[];
+  return newList as iFeaturesCategories[];
 };

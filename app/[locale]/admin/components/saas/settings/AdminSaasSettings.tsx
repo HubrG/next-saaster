@@ -8,9 +8,9 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasTypes } from "@prisma/client";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { updateSaasSettings } from "../../../queries/queries";
+import { SetCreditName } from "./@subsections/SetCreditName";
 import { SetCurrency } from "./@subsections/SetCurrency";
 import { SetSaasType } from "./@subsections/SetSaasType";
-import { SetCreditName } from "./@subsections/SetCreditName";
 import SwitchActiveCreditSystem from "./@subsections/switches/SwitchActiveCreditSystem";
 import SwitchActiveMonthlyPlan from "./@subsections/switches/SwitchActiveMonthlyPlan";
 import SwitchActiveRefillCredit from "./@subsections/switches/SwitchActiveRefillCredit";
@@ -138,6 +138,28 @@ export const AdminSaasSettings = () => {
             </Suspense>
           </div>
         </div>
+          <div className={`mt-10 mb-5 px-2`}>
+            <Suspense fallback={<Loader noHFull />}>
+              <SetCreditName
+                disabled={!saasSettings.activeCreditSystem}
+                set={setCreditName}
+              />
+            </Suspense>
+          </div>
+           <div className="flex flex-row justify-between mt-10 gap-2">
+        <Button
+          variant={"link"}
+          className={cn({ "opacity-0": !save }, "grayscale-50")}
+          onClick={handleCancel}>
+          Reset
+        </Button>
+        <Button
+          disabled={!save}
+          className={cn({ disabled: !save }, "place-self-end")}
+          onClick={handleSaveAll}>
+          Save changes
+        </Button>
+      </div>
       </SubSectionWrapper>
       {(saasSettings.saasType === "MRR_SIMPLE" ||
         saasSettings.saasType === "METERED_USAGE" ||
@@ -158,31 +180,10 @@ export const AdminSaasSettings = () => {
                 </Suspense>
               </div>
             )}
-            <div className={`mt-10 mb-5 px-2`}>
-              <Suspense fallback={<Loader noHFull />}>
-                <SetCreditName
-                  disabled={!saasSettings.activeCreditSystem}
-                  set={setCreditName}
-                />
-              </Suspense>
-            </div>
           </SubSectionWrapper>
         </>
       )}
-      <div className="flex flex-row justify-between mt-10 gap-2">
-        <Button
-          variant={"link"}
-          className={cn({ "opacity-0": !save }, "grayscale-50")}
-          onClick={handleCancel}>
-          Reset
-        </Button>
-        <Button
-          disabled={!save}
-          className={cn({ disabled: !save }, "place-self-end")}
-          onClick={handleSaveAll}>
-          Save changes
-        </Button>
-      </div>
+     
     </>
   );
 };

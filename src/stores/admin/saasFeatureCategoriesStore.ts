@@ -1,11 +1,11 @@
 import { getFeaturesCategories } from "@/src/helpers/db/featuresCategories";
-import { FeatureCategory } from "@prisma/client";
+import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { create } from "zustand";
 
 type Store = {
-  saasFeaturesCategories: FeatureCategory[];
+  saasFeaturesCategories: iFeaturesCategories[];
   setSaasFeaturesCategories: (
-    saasFeaturesCategories: FeatureCategory[]
+    saasFeaturesCategories: iFeaturesCategories[]
   ) => void;
   fetchSaasFeaturesCategories: () => Promise<void>;
 };

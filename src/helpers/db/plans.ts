@@ -13,9 +13,10 @@ export const getPlans = async (): Promise<{
 }> => {
   try {
     const plans = await prisma.plan.findMany({
-      orderBy: {
-        position: "asc",
-      },
+      orderBy: [
+        { position: "asc" },
+        { createdAt:"asc"}     
+      ],
       include: {
         Features: {
           include: {
@@ -121,7 +122,7 @@ export const updatePlan = async (
     });
     if (!existingPlan) throw new Error("Plan not found");
     const { id, Features, StripeProduct, coupons, ...updateData } = data;
-    console.log(updateData);
+
     const plan = await prisma.plan.update({
       where: { id: existingPlan.id },
       data: updateData,

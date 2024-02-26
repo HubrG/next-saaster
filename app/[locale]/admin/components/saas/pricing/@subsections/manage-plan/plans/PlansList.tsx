@@ -25,18 +25,22 @@ export const PlansList = () => {
     setPlanStoreLoading,
   } = useSaasPlansStore();
   const { saasSettings } = useSaasSettingsStore();
-  const { saasPlanToFeature, setSaasPlanToFeature } =
+  const { saasPlanToFeature, setSaasPlanToFeature, fetchSaasPlanToFeature } =
     useSaasPlanToFeatureStore();
+   
 
   const saasPlans = useSaasPlansStore((state) => state.saasPlans);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      if (setPlanStoreLoading) {
       fetchSaasPlan();
+      fetchSaasPlanToFeature();
       setPlanStoreLoading(false);
-    }, 10000);
+    }
+    }, 5000);
     return () => clearTimeout(timeoutId);
-  }, [isPlanStoreLoading, fetchSaasPlan, setPlanStoreLoading, router]);
+  }, [isPlanStoreLoading, fetchSaasPlan, fetchSaasPlanToFeature, setPlanStoreLoading, router]);
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
     const newSaasPlans = (await sortAdminPlans({

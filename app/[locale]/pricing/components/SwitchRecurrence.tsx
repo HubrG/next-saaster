@@ -46,7 +46,7 @@ export const SwitchRecurrence = ({
           "justify-end": saasSettings.displayFeaturesByCategory,
           "justify-center": !saasSettings.displayFeaturesByCategory,
         },
-        "w-full  flex mt-20 mb-2 items-center"
+        "w-full  flex mt-10 mb-10 items-center"
       )}>
       <div
         className={cn(

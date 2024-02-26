@@ -24,7 +24,7 @@ export const FeaturesList = () => {
     const timeoutId = setTimeout(() => {
       fetchSaasFeatures();
       setStoreLoading(false);
-    }, 10000); 
+    }, 5000); 
     return () => clearTimeout(timeoutId); 
   }, [isStoreLoading,fetchSaasFeatures, router, saasFeatures, setStoreLoading]);
 

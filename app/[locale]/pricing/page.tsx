@@ -1,8 +1,6 @@
 import { SwitchRecurrence } from "@/app/[locale]/pricing/components/SwitchRecurrence";
-import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
 import createMetadata from "@/src/lib/metadatas";
-import { Suspense } from "react";
 import { PriceCardsFeaturesByCategories } from "./components/PriceCardFeaturesByCategories";
 import { PriceCardsSimple } from "./components/PriceCardsSimple";
 export const generateMetadata = async () => {
@@ -30,7 +28,6 @@ export default async function Pricing({
             // yearlyPercentOff={20}
             // -> display a percentage off for yearly payment
             />
-   
           <PriceCardsSimple />
           {/* If « display features by categories » is activated » */}
           <PriceCardsFeaturesByCategories />

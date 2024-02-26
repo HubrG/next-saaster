@@ -17,8 +17,7 @@ export const useSaasFeaturesStore = create<Store>()((set) => ({
   fetchSaasFeatures: async () => {
     const timeout = setTimeout(() => {
       set({ isStoreLoading: false });
-      console.log("Opération trop longue, chargement arrêté.");
-    }, 10000); 
+    }, 30000); 
 
     try {
       const saasFeatures = await getFeatures();

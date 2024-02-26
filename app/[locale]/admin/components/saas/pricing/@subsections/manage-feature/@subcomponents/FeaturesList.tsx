@@ -6,21 +6,32 @@ import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { iFeature } from "@/src/types/iFeatures";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { sortAdminFeatures } from "./@functions/sortAdminFeatures";
 import { FeatureCard } from "./@ui/FeatureCard";
 import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
+  const router = useRouter();
   const { saasFeatures, setSaasFeatures, isStoreLoading } =
     useSaasFeaturesStore();
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
 
   const handleRowClick = (id: string) => {
-    // Mettre à jour l'ID sélectionné lors du clic sur une ligne
     setSelectedRowId(id);
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (isStoreLoading) {
+        router.refresh();
+      }
+    }, 10000); 
+
+    return () => clearTimeout(timeoutId); // Nettoyage pour éviter les appels inutiles
+  }, [isStoreLoading, router]);
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
     const newSaasFeatures = (await sortAdminFeatures({
@@ -61,7 +72,6 @@ export const FeaturesList = () => {
             {isStoreLoading && (
               <tr>
                 <td colSpan={9}>
-                  {" "}
                   <Loader noHFull />
                 </td>
               </tr>

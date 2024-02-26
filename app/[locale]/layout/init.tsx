@@ -9,7 +9,7 @@ import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsSto
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasSettings, appSettings } from "@prisma/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 type Props = {
   appSettings: appSettings;
   saasSettings: SaasSettings;
@@ -25,19 +25,28 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { fetchSaasPlan } = useSaasPlansStore();
 
   const isClient = useIsClient();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (isClient) {
       setAppSettings(appSettings);
       setSaasSettings(saasSettings);
-      fetchSaasStripeProducts();
-      fetchSaasStripePrices();
-      fetchSaasStripeCoupons();
-      fetchSaasFeaturesCategories();
-      fetchSaasFeatures();
-      fetchSaasPlan();
+      Promise.all([
+        fetchSaasStripeProducts(),
+        fetchSaasStripePrices(),
+        fetchSaasStripeCoupons(),
+        fetchSaasFeaturesCategories(),
+        fetchSaasFeatures(),
+        fetchSaasPlan(),
+      ]).then(() => {
+        setIsLoading(false);
+      });
     }
-    // eslint-disable-next-line
   }, [isClient]);
 
-  return <></>;
+  if (isLoading) {
+    return; 
+  }
+
+  return;
 };

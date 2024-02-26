@@ -9,6 +9,7 @@ type Store = {
   ) => void;
   fetchSaasPlan: () => Promise<void>;
   isPlanStoreLoading: boolean;
+  setPlanStoreLoading: (loading: boolean) => void;
   updatePlanFromStore: (planId: string, newPlanData: Partial<iPlan>) => void;
   deletePlanFromStore: (planId: string) => void;
   restorePlanOnStore: (planId: string) => void;
@@ -17,6 +18,9 @@ type Store = {
 export const useSaasPlansStore = create<Store>()((set) => ({
   saasPlans: [],
   isPlanStoreLoading: false,
+  setPlanStoreLoading: (loading) => {
+    set({ isPlanStoreLoading: loading });
+  },
   setSaasPlans: (updater) => {
     if (typeof updater === "function") {
       set((state) => ({
@@ -31,11 +35,12 @@ export const useSaasPlansStore = create<Store>()((set) => ({
     set((state) => ({
       saasPlans: state.saasPlans.map((plan) =>
         plan.id === planId ? { ...plan, ...newPlanData } : plan
-      )    }));
+      ),
+    }));
   },
   fetchSaasPlan: async () => {
     set({ isPlanStoreLoading: true });
-    const saasPlans = (await getPlans());
+    const saasPlans = await getPlans();
     if (!saasPlans.data) {
       set({ isPlanStoreLoading: false });
       console.error(saasPlans.error || "Failed to fetch plans");

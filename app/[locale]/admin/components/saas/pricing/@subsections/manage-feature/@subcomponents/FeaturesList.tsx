@@ -15,20 +15,23 @@ import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
   const router = useRouter();
-  const { saasFeatures, setSaasFeatures, isStoreLoading } =
-    useSaasFeaturesStore();
+  
+  const { saasFeatures, setSaasFeatures, fetchSaasFeatures, isStoreLoading, setStoreLoading } =
+  useSaasFeaturesStore();
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      fetchSaasFeatures();
+      setStoreLoading(false);
+    }, 10000); 
+    return () => clearTimeout(timeoutId); 
+  }, [isStoreLoading,fetchSaasFeatures, router, saasFeatures, setStoreLoading]);
 
   const handleRowClick = (id: string) => {
     setSelectedRowId(id);
   };
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-        router.refresh();
-    }, 10000); 
-    return () => clearTimeout(timeoutId); 
-  }, [isStoreLoading, router]);
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
     const newSaasFeatures = (await sortAdminFeatures({

@@ -7,11 +7,13 @@ type Store = {
   setSaasFeatures: (saasFeatures: iFeature[]) => void;
   fetchSaasFeatures: () => Promise<void>;
   isStoreLoading: boolean;
+  setStoreLoading: (isStoreLoading: boolean) => void;
 };
 
 export const useSaasFeaturesStore = create<Store>()((set) => ({
   saasFeatures: [],
   isStoreLoading: true,
+  setStoreLoading: (isStoreLoading) => set({ isStoreLoading }),
   setSaasFeatures: (saasFeatures) =>
     set({ saasFeatures, isStoreLoading: false }),
   fetchSaasFeatures: async () => {

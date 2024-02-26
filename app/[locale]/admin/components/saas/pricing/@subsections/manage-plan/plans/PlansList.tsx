@@ -18,7 +18,12 @@ import { DeteledPlanDialog } from "./@ui/DeletedPlanDialog";
 
 export const PlansList = () => {
   const router = useRouter();
-  const { setSaasPlans, isPlanStoreLoading } = useSaasPlansStore();
+  const {
+    setSaasPlans,
+    isPlanStoreLoading,
+    fetchSaasPlan,
+    setPlanStoreLoading,
+  } = useSaasPlansStore();
   const { saasSettings } = useSaasSettingsStore();
   const { saasPlanToFeature, setSaasPlanToFeature } =
     useSaasPlanToFeatureStore();
@@ -27,14 +32,12 @@ export const PlansList = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-     
-        router.refresh();
-      
+      fetchSaasPlan();
+      setPlanStoreLoading(false);
     }, 10000);
     return () => clearTimeout(timeoutId);
-  }, [isPlanStoreLoading, router]);
+  }, [isPlanStoreLoading, fetchSaasPlan, setPlanStoreLoading, router]);
 
-  
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
     const newSaasPlans = (await sortAdminPlans({
       list: saasPlans,

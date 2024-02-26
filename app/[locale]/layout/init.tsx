@@ -54,19 +54,8 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
       fetchSaasFeatures();
       fetchSaasPlan();
     }
-  }, [
-    isClient,
-    setAppSettings,
-    saasSettings,
-    setSaasSettings,
-    appSettings,
-    fetchSaasStripeProducts,
-    fetchSaasStripePrices,
-    fetchSaasStripeCoupons,
-    fetchSaasFeaturesCategories,
-    fetchSaasFeatures,
-    fetchSaasPlan,
-  ]);
+    // eslint-disable-next-line
+  }, [isClient]);
 
   return <></>;
 };

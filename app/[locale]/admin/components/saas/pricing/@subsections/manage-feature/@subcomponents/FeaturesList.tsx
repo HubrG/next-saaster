@@ -29,8 +29,7 @@ export const FeaturesList = () => {
         router.refresh();
       }
     }, 10000); 
-
-    return () => clearTimeout(timeoutId); // Nettoyage pour éviter les appels inutiles
+    return () => clearTimeout(timeoutId); 
   }, [isStoreLoading, router]);
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {

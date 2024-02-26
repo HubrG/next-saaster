@@ -4,14 +4,14 @@ import { UserInterfaceMainWrapper } from "@/src/components/ui/user-interface/Use
 import { UserInterfaceNavWrapper } from "@/src/components/ui/user-interface/UserInterfaceNavWrapper";
 import { UserInterfaceWrapper } from "@/src/components/ui/user-interface/UserInterfaceWrapper";
 import AdminMain from "../../admin/components/@subcomponents/Main";
-import AdminNavbar from "../../admin/components/@subcomponents/Navbar";
+import DashboardNavbar from "./@subcomponents/Navbar";
 
 export const Index = () => {
   return (
     <div>
      <UserInterfaceWrapper>
       <UserInterfaceNavWrapper>
-        <AdminNavbar />
+        <DashboardNavbar />
       </UserInterfaceNavWrapper>
       <UserInterfaceMainWrapper text="Dashboard">
         <AdminMain />

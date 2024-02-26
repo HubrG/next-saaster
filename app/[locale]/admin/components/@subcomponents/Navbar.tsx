@@ -39,10 +39,8 @@ export const AdminNavbar = () => {
   const updateActiveItem = (id: string, isSubSection = false) => {
     if (isSubSection) {
       setActiveSubSection(id);
-      // Optionnellement, déterminez ici la section parente pour l'état activeSection
     } else {
       setActiveSection(id);
-      // Réinitialiser l'état de la sous-section si nécessaire
       setActiveSubSection("");
     }
   };

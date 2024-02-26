@@ -199,6 +199,7 @@ export const createOrUpdatePlanStripeToBdd = async ({
       ...stripePlan,
       active: stripePlan.active,
       stripeId: stripePlan.id,
+      saasType: type === "create" ? "CUSTOM" : undefined,
       name: stripePlan.name,
       description: stripePlan.description
         ? stripePlan.description

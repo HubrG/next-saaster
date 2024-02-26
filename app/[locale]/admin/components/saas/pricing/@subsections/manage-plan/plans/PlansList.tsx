@@ -38,7 +38,7 @@ export const PlansList = () => {
       fetchSaasPlanToFeature();
       setPlanStoreLoading(false);
     }
-    }, 5000);
+    }, 500);
     return () => clearTimeout(timeoutId);
   }, [isPlanStoreLoading, fetchSaasPlan, fetchSaasPlanToFeature, setPlanStoreLoading, router]);
 

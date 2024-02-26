@@ -42,11 +42,12 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClient]);
 
   if (isLoading) {
-    return; 
+    return <></>; 
   }
 
-  return;
+  return <></>;
 };

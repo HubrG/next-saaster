@@ -25,9 +25,7 @@ export const FeaturesList = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (isStoreLoading) {
         router.refresh();
-      }
     }, 10000); 
     return () => clearTimeout(timeoutId); 
   }, [isStoreLoading, router]);

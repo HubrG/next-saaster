@@ -27,9 +27,9 @@ export const PlansList = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (isPlanStoreLoading) {
+     
         router.refresh();
-      }
+      
     }, 10000);
     return () => clearTimeout(timeoutId);
   }, [isPlanStoreLoading, router]);

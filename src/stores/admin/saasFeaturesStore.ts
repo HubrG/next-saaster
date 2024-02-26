@@ -15,11 +15,27 @@ export const useSaasFeaturesStore = create<Store>()((set) => ({
   setSaasFeatures: (saasFeatures) =>
     set({ saasFeatures, isStoreLoading: false }),
   fetchSaasFeatures: async () => {
-    const saasFeatures = await getFeatures();
-    if (saasFeatures.error) {
+    const timeout = setTimeout(() => {
       set({ isStoreLoading: false });
-      throw new Error(saasFeatures.error);
+      console.log("Opération trop longue, chargement arrêté.");
+    }, 10000); 
+
+    try {
+      const saasFeatures = await getFeatures();
+      clearTimeout(timeout); 
+
+      if (saasFeatures.error) {
+        set({ isStoreLoading: false });
+        throw new Error(saasFeatures.error);
+      }
+      set({ saasFeatures: saasFeatures.data, isStoreLoading: false });
+    } catch (error) {
+      clearTimeout(timeout); 
+      set({ isStoreLoading: false }); 
+      console.error(
+        "Erreur lors de la récupération des fonctionnalités : ",
+        error
+      );
     }
-    set({ saasFeatures: saasFeatures.data, isStoreLoading: false });
   },
 }));

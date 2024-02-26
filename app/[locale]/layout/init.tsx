@@ -24,24 +24,6 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { fetchSaasFeatures } = useSaasFeaturesStore();
   const { fetchSaasPlan } = useSaasPlansStore();
 
-  // const setAllStores = useCallback(async () => {
-  //   try {
-  //     await Promise.all([
-  //       useSaasStripeProductsStore.getState().fetchSaasStripeProducts(),
-  //       useSaasStripePricesStore.getState().fetchSaasStripePrices(),
-  //       useSaasStripeCoupons.getState().fetchSaasStripeCoupons(),
-  //       useSaasFeaturesCategoriesStore.getState().fetchSaasFeaturesCategories(),
-  //       useSaasFeaturesStore.getState().fetchSaasFeatures(),
-  //       useSaasPlansStore.getState().fetchSaasPlan(),
-  //       useSaasPlanToFeatureStore.getState().fetchSaasPlanToFeature(),
-  //     ]);
-  //   } catch (error) {
-  //     toaster({
-  //       type: "error",
-  //       description: "Erreur lors du chargement des données",
-  //     });
-  //   }
-  // }, []);
   const isClient = useIsClient();
   useEffect(() => {
     if (isClient) {

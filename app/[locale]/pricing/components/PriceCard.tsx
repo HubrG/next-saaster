@@ -7,6 +7,7 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/iPlans";
 import { PriceCardBottomSentence } from "./PriceCardBottomSentence";
 import { PriceCardBuyButton } from "./PriceCardBuyButton";
+import { PriceCardContactUsButton } from "./PriceCardContactUsButton";
 import { PriceCardFeatures } from "./PriceCardFeatures";
 import { PriceCardHeader } from "./PriceCardHeader";
 
@@ -25,12 +26,19 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
           },
           `price-card-wrapper flex flex-col justify-between`
         )}>
-          <PriceCardHeader plan={plan} saasSettings={saasSettings} />
+        <PriceCardHeader plan={plan} saasSettings={saasSettings} />
         <Goodline />
         <div className="features">
           <PriceCardFeatures plan={plan} />
         </div>
-        <PriceCardBuyButton className="mt-7 w-full z-[99999999]" plan={plan} />
+        {plan.isCustom ? (
+          <PriceCardContactUsButton />
+        ) : (
+          <PriceCardBuyButton
+            className="mt-7 w-full z-[99999999]"
+            plan={plan}
+          />
+        )}
       </Card>
       <PriceCardBottomSentence
         className="text-center my-2  !font-normal text-theming-text-50"

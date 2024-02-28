@@ -56,35 +56,24 @@ enum UserRole {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String?         @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  date          DateTime?       @default(now())
-  role          UserRole        @default(USER)
-  customerId    String?
-  createdAt     DateTime?       @default(now())
-  updatedAt     DateTime?       @updatedAt
-  userSettings  UserSettings[]
-  accounts      Account[]
-  sessions      Session[]
-  transactions  Transaction[]
-  subscriptions Subscription[]
-  UserFeatures  UserFeature[]
-  contacts      ResendContact[]
-}
-
-model UserSettings {
-  id               String    @id @default(cuid())
-  userId           String    @unique
-  theme            String?   @default("indigo")
-  language         String?   @default("en")
-  stripeCustomerId String?
-  createdAt        DateTime? @default(now())
-  updatedAt        DateTime? @updatedAt
-  user             User      @relation(fields: [userId], references: [id])
+  id              String           @id @default(cuid())
+  name            String?
+  email           String?          @unique
+  emailVerified   DateTime?
+  image           String?
+  password        String?
+  date            DateTime?        @default(now())
+  customerId      String?
+  createdAt       DateTime?        @default(now())
+  updatedAt       DateTime?        @updatedAt
+  planId          String?
+  priceId         String?
+  role            UserRole         @default(USER)
+  accounts        Account[]
+  sessions        Session[]
+  oneTimePayments OneTimePayment[]
+  subscriptions   Subscription[]
+  contacts        ResendContact[]
 }
 
 // SECTION -> Reste du schema
@@ -106,44 +95,48 @@ model appSettings {
 
 // SECTION: Pricing
 
-model Transaction {
-  id               String        @id @default(cuid())
-  userId           String
-  sessionId        String
-  amount           Int?
-  currency         String?
-  invoice          String?
-  description      String?
-  status           String?
-  StripePaymentId  String?
-  stripeCustomerId String?
-  subscriptionId   String?
-  createdAt        DateTime?     @default(now())
-  updatedAt        DateTime?     @updatedAt
-  user             User          @relation(fields: [userId], references: [id])
-  subscription     Subscription? @relation(fields: [subscriptionId], references: [id])
+model Subscription {
+  id                   String                @id @unique
+  userId               String
+  priceId              String?
+  status               SubscriptionStatus?   @default(unpaid)
+  startDate            String?
+  endDate              String?
+  stripeCustomerId     String?
+  items                Json?
+  discount             Json?
+  createdAt            DateTime?             @default(now())
+  updatedAt            DateTime?             @updatedAt
+  user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  SubscriptionPayments SubscriptionPayment[]
+  price                StripePrice?          @relation(fields: [priceId], references: [id], onDelete: Cascade)
 }
 
-model Subscription {
-  id               String        @id @default(cuid())
-  userId           String
-  sessionId        String
-  amount           Int?
-  currency         String?       @default("usd")
-  planId           String?
-  stripeProductId  String?
-  stripePriceId    String?
-  stripeCustomerId String?
-  isMonthly        Boolean?      @default(false)
-  isYearly         Boolean?      @default(false)
-  isFree           Boolean?      @default(false)
-  nextPayment      DateTime?
-  canceled         Boolean?      @default(false)
-  createdAt        DateTime?     @default(now())
-  updatedAt        DateTime?     @updatedAt
-  transactions     Transaction[]
-  user             User          @relation(fields: [userId], references: [id])
-  Plan             Plan?         @relation(fields: [planId], references: [id])
+model SubscriptionPayment {
+  id                    String        @id @default(cuid())
+  subscriptionId        String?
+  stripePaymentIntentId String?
+  amount                Int?
+  currency              String?
+  status                String?
+  createdAt             DateTime?     @default(now())
+  updatedAt             DateTime?     @updatedAt
+  subscription          Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+}
+
+model OneTimePayment {
+  id                    String       @id @default(cuid())
+  userId                String
+  stripePaymentIntentId String
+  stripeCustomerId      String?
+  amount                Int
+  currency              String
+  priceId               String?
+  status                String
+  createdAt             DateTime?    @default(now())
+  updatedAt             DateTime?    @updatedAt
+  user                  User         @relation(fields: [userId], references: [id])
+  price                 StripePrice? @relation(fields: [priceId], references: [id], onDelete: Cascade)
 }
 
 // SECTION END: Pricing
@@ -196,8 +189,6 @@ model Plan {
   coupons              StripePlanCoupon[]
   StripeProduct        StripeProduct[]
   Features             PlanToFeature[]
-  Subscription         Subscription[]
-  UserFeatures         UserFeature[]
 }
 
 model Feature {
@@ -217,7 +208,6 @@ model Feature {
   updatedAt           DateTime?        @updatedAt
   category            FeatureCategory? @relation(fields: [categoryId], references: [id])
   Plans               PlanToFeature[]
-  UserFeatures        UserFeature[]
 }
 
 model PlanToFeature {
@@ -243,22 +233,6 @@ model FeatureCategory {
   createdAt   DateTime? @default(now())
   updatedAt   DateTime? @updatedAt
   Features    Feature[]
-}
-
-model UserFeature {
-  id              String    @id @default(cuid())
-  userId          String
-  featureId       String
-  planId          String
-  active          Boolean?  @default(false)
-  creditRemaining Int?      @default(0)
-  createdAt       DateTime? @default(now())
-  updatedAt       DateTime? @updatedAt
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feature         Feature   @relation(fields: [featureId], references: [id], onDelete: Cascade)
-  plan            Plan      @relation(fields: [planId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, featureId, planId])
 }
 
 // SECTION Stripe Products
@@ -310,6 +284,8 @@ model StripePrice {
   createdAt                    DateTime?      @default(now())
   updatedAt                    DateTime?      @updatedAt
   productRelation              StripeProduct? @relation(fields: [product], references: [id], onDelete: Cascade)
+  subscriptions                Subscription[]
+  oneTimePayments              OneTimePayment[]
 }
 
 model StripeCoupon {
@@ -381,6 +357,17 @@ enum MeteredBillingPeriod {
   WEEK
   MONTH
   YEAR
+}
+
+enum SubscriptionStatus {
+  incomplete
+  incomplete_expired
+  trialing
+  active
+  paused
+  past_due
+  canceled
+  unpaid
 }
 
 // SECTION : Resend (mailer)

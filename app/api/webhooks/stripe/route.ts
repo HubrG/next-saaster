@@ -1,3 +1,4 @@
+import { createOneTimePayment } from "@/src/helpers/db/oneTimePayments";
 import {
   createOrUpdatePlanStripeToBdd,
   deletePlan,
@@ -17,7 +18,17 @@ import {
   deleteProduct,
   getStripeProduct,
 } from "@/src/helpers/db/stripeProducts";
+import {
+  createSubcriptionPayment,
+  updateSubscriptionPayment,
+} from "@/src/helpers/db/subscriptionPayments";
+import {
+  createSubscription,
+  updateSubscription,
+} from "@/src/helpers/db/subscriptions";
+import { getUserByCustomerId } from "@/src/helpers/db/users";
 import { iStripeProduct } from "@/src/types/iStripeProducts";
+import { SubscriptionStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -47,6 +58,156 @@ export async function POST(req: NextRequest) {
     }
   }
   switch (event.type) {
+    // SECTION : Subscription
+    case "checkout.session.completed":
+      return NextResponse.json({ status: 200 });
+    case "customer.subscription.created":
+      const subscription = event.data.object as Stripe.Subscription;
+      const priceId = subscription.items.data[0].price.id;
+      const customerId = subscription.customer as string;
+      const user = await getUserByCustomerId({ customerId });
+      if (!user.data) {
+        return NextResponse.json({ error: user.error }, { status: 500 });
+      }
+      try {
+        const updateInvoice = await updateSubscriptionPayment({
+          subId: subscription.latest_invoice as string,
+          data: {
+            subscriptionId: subscription.id as string,
+          },
+        });
+        
+        const createSub = await createSubscription({
+          data: {
+            id: subscription.id,
+            userId: user.data.id,
+            status: event.data.object.status as SubscriptionStatus,
+            priceId: priceId ?? null,
+            stripeCustomerId: customerId,
+            startDate: new Date().toISOString(),
+            endDate: null,
+            items: JSON.stringify(subscription.items.data),
+            discount: JSON.stringify(subscription.discount),
+          },
+        });
+        if (!createSub.data) {
+          return NextResponse.json({ error: createSub.error }, { status: 500 });
+        } else {
+          return NextResponse.json({ status: 200 });
+        }
+      } catch (error) {
+        console.error("Error retrieving session details:", error);
+        return NextResponse.json({ error: error }, { status: 500 });
+      }
+
+    case "customer.subscription.updated":
+      const upsubscription = event.data.object as Stripe.Subscription;
+      const uppriceId = upsubscription.items.data[0].price.id;
+      const upSub = await updateSubscription({
+        subId: upsubscription.id,
+        data: {
+          status: event.data.object.status as SubscriptionStatus,
+          priceId: uppriceId ?? null,
+          startDate: new Date().toISOString(),
+          endDate: null,
+          items: JSON.stringify(upsubscription.items.data),
+          discount: JSON.stringify(upsubscription.discount),
+        },
+      });
+      if (!upSub.data) {
+        return NextResponse.json({ error: upSub.error }, { status: 500 });
+      }
+      return NextResponse.json({ status: 200 });
+    case "customer.subscription.deleted":
+      const delsubscription = event.data.object as Stripe.Subscription;
+      const delpriceId = delsubscription.items.data[0].price.id;
+      const delSub = await updateSubscription({
+        subId: delsubscription.id,
+        data: {
+          status: event.data.object.status as SubscriptionStatus,
+          priceId: delpriceId ?? null,
+          startDate: new Date().toISOString(),
+          endDate: null,
+          items: JSON.stringify(delsubscription.items.data),
+          discount: JSON.stringify(delsubscription.discount),
+        },
+      });
+      if (!delSub.data) {
+        return NextResponse.json({ error: delSub.error }, { status: 500 });
+      }
+      return NextResponse.json({ status: 200 });
+    case "invoice.paid":
+      // We wait 5sc befroe create invoice
+      await  new Promise((resolve) => setTimeout(resolve, 5000));
+      const invoice = event.data.object as Stripe.Invoice;
+      const createInvoice = await createSubcriptionPayment({
+        data: {
+          id: invoice.id,
+          amount: invoice.amount_paid,
+          currency: invoice.currency,
+          status: invoice.status,
+          subscriptionId: invoice.subscription as string,
+          stripePaymentIntentId: invoice.payment_intent as string,
+        },
+      });
+      if (!createInvoice.data) {
+        return NextResponse.json(
+          { error: createInvoice.error },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json({ status: 200 });
+    case "invoice.payment_succeeded":
+      return NextResponse.json({ status: 200 });
+    case "invoice.payment_failed":
+      const invoiceFailed = event.data.object as Stripe.Invoice;
+      const createInvoiceFailed = await createSubcriptionPayment({
+        data: {
+          id: invoiceFailed.id,
+          amount: invoiceFailed.amount_paid,
+          currency: invoiceFailed.currency,
+          subscriptionId: invoiceFailed.subscription as string,
+          status: invoiceFailed.status,
+          stripePaymentIntentId: invoiceFailed.payment_intent as string,
+        },
+      });
+      if (!createInvoiceFailed.data) {
+        return NextResponse.json(
+          { error: createInvoiceFailed.error },
+          { status: 500 }
+        );
+      }
+      // We update the subscription status
+      const upSubFailed = await updateSubscription({
+        subId: invoiceFailed.subscription as string,
+        data: {
+          status: "unpaid" as SubscriptionStatus,
+        },
+      });
+      if (!upSubFailed.data) {
+        return NextResponse.json({ error: upSubFailed.error }, { status: 500 });
+      }
+      return NextResponse.json({ status: 200 });
+    case "payment_intent.succeeded":
+      console.log(event.data.object);
+      const paymentIntent = event.data.object as Stripe.PaymentIntent;
+      
+      const userId = await getUserByCustomerId({ customerId: paymentIntent.customer as string});
+      if (!userId.data) {
+        return NextResponse.json({ error: userId.error }, { status: 500 });
+      }
+      const createPaymentIntent = await createOneTimePayment({
+        id: paymentIntent.id,
+        stripePaymentIntentId: paymentIntent.id,
+        amount: paymentIntent.amount,
+        priceId: paymentIntent.metadata.priceId,
+        userId: userId.data.id as string,
+        currency: paymentIntent.currency,
+        status: paymentIntent.status,
+        stripeCustomerId: paymentIntent.customer as string,
+      });
+      return NextResponse.json({ status: 200 });
+    // SECTION Product and Price management
     // NOTE : Product created
     case "product.created":
       const isProductExist = (await getStripeProduct(event.data.object.id))
@@ -139,25 +300,10 @@ export async function POST(req: NextRequest) {
       await deleteStripeCoupon(event.data.object.id);
       return NextResponse.json({ status: 200 });
 
-    case "checkout.session.completed":
-      return NextResponse.json({ status: 200 });
-
-    case "customer.subscription.created":
-      return NextResponse.json({ status: 200 });
-
-    case "customer.subscription.updated":
-      return NextResponse.json({ status: 200 });
-
-    case "customer.subscription.deleted":
-      return NextResponse.json({ status: 200 });
-
     case "invoice.created":
       return NextResponse.json({ status: 200 });
 
     case "invoice.updated":
-      return NextResponse.json({ status: 200 });
-
-    case "invoice.payment_succeeded":
       return NextResponse.json({ status: 200 });
 
     default:

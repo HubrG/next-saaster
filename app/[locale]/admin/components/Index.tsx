@@ -1,11 +1,12 @@
 "use client";
-import { AdminMain } from "@/app/[locale]/admin/components/@subcomponents/Main";
-import { AdminNavbar } from "@/app/[locale]/admin/components/@subcomponents/Navbar";
+import { AdminNavbar } from "@/app/[locale]/admin/components/Navbar";
 import { Loader } from "@/src/components/ui/loader";
 import { UserInterfaceMainWrapper } from "@/src/components/ui/user-interface/UserInterfaceMainWrapper";
 import { UserInterfaceNavWrapper } from "@/src/components/ui/user-interface/UserInterfaceNavWrapper";
 import { UserInterfaceWrapper } from "@/src/components/ui/user-interface/UserInterfaceWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { AdminSaas } from "./saas/AdminSaas";
+import { AdminSetup } from "./setup/AdminSetup";
 
 // TODO : Séparer les queries en fonction des composants
 // TODO : Mieux gérer les erreurs (renvoyer un message)
@@ -23,7 +24,14 @@ export const Index = () => {
         <AdminNavbar />
       </UserInterfaceNavWrapper>
       <UserInterfaceMainWrapper text="Admin panel">
-        {isStoreLoading ? <Loader /> : <AdminMain />}
+        {isStoreLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <AdminSetup />
+            <AdminSaas />
+          </>
+        )}
       </UserInterfaceMainWrapper>
     </UserInterfaceWrapper>
   );

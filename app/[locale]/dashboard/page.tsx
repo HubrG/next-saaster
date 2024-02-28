@@ -13,7 +13,9 @@ export default async function Dashboard() {
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
+      <div className="dashboard user-interface">
       <Index />
+      </div>
     </>
   );
 }

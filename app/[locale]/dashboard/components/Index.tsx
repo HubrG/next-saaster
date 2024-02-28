@@ -3,20 +3,17 @@
 import { UserInterfaceMainWrapper } from "@/src/components/ui/user-interface/UserInterfaceMainWrapper";
 import { UserInterfaceNavWrapper } from "@/src/components/ui/user-interface/UserInterfaceNavWrapper";
 import { UserInterfaceWrapper } from "@/src/components/ui/user-interface/UserInterfaceWrapper";
-import AdminMain from "../../admin/components/@subcomponents/Main";
-import DashboardNavbar from "./@subcomponents/Navbar";
-
+import DashboardNavbar from "./Navbar";
+import { DashboardProfile } from "./profile/DashboardProfile";
 export const Index = () => {
   return (
-    <div>
-     <UserInterfaceWrapper>
+    <UserInterfaceWrapper>
       <UserInterfaceNavWrapper>
         <DashboardNavbar />
       </UserInterfaceNavWrapper>
       <UserInterfaceMainWrapper text="Dashboard">
-        <AdminMain />
+        <DashboardProfile />
       </UserInterfaceMainWrapper>
     </UserInterfaceWrapper>
-    </div>
   );
 };

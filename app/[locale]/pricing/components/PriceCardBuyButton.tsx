@@ -25,9 +25,9 @@ export const PriceCardBuyButton = ({
   const [isLoading, setIsLoading] = useState(false);
 
 const getStripePrice = (plan: iPlan, isYearly: boolean) => {
-  if (plan.isFree) {
+  if (plan.isFree || plan.saasType === "PAY_ONCE") {
     return plan.StripeProduct[0].default_price ?? "";
-  } else if (plan.saasType === "METERED_USAGE") {
+ } else if (plan.saasType === "METERED_USAGE") {
     return plan.stripeMonthlyPriceId;
   } else if (isYearly) {
     return plan.stripeYearlyPriceId ?? "";

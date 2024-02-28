@@ -33,7 +33,7 @@ export const PriceCardsSimple = () => {
         {
           "xl:grid-cols-4 md:grid-cols-2 lg:w-4/4": plansFiltered.length === 4,
         },
-        " justify-evenly grid  w-full max-ms:px-5 mx-auto gap-10"
+        " justify-evenly grid mt-10  w-full max-ms:px-5 mx-auto gap-10"
       )}>
       {plansFiltered.map((plan) => (
         <div key={plan.id} className="w-full">

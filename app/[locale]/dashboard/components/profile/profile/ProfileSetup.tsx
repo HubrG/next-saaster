@@ -1,10 +1,9 @@
 "use client";
-import React from 'react';
 type ProfileSetupProps = {
 }
 
 export const ProfileSetup = ({}: ProfileSetupProps) => {
   return (
-    <div>ProfileSetup</div>
+    <div className='w-full'>lorem ipsum dolor lorem ipsum <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> </div>
   )
 }

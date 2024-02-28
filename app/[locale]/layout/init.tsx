@@ -8,13 +8,18 @@ import { useSaasStripePricesStore } from "@/src/stores/admin/stripePricesStore";
 import { useSaasStripeProductsStore } from "@/src/stores/admin/stripeProductsStore";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { useUserStore } from "@/src/stores/userStore";
 import { SaasSettings, appSettings } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+
+useSession;
 type Props = {
   appSettings: appSettings;
   saasSettings: SaasSettings;
 };
 export const Init = ({ appSettings, saasSettings }: Props) => {
+  const { data: session, status } = useSession();
   const { setAppSettings } = useAppSettingsStore();
   const { setSaasSettings } = useSaasSettingsStore();
   const { fetchSaasStripeProducts } = useSaasStripeProductsStore();
@@ -23,6 +28,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
   const { fetchSaasFeatures } = useSaasFeaturesStore();
   const { fetchSaasPlan } = useSaasPlansStore();
+  const { fetchUserStore } = useUserStore();
 
   const isClient = useIsClient();
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +37,15 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     if (isClient) {
       setAppSettings(appSettings);
       setSaasSettings(saasSettings);
+      if (status !== "loading") {
+        if (session?.user !== undefined || session !== undefined) {
+          const user = session?.user;
+          console.log(user)
+          if (user?.email) {
+            fetchUserStore(user.email);
+          }
+        }
+      }
       Promise.all([
         fetchSaasStripeProducts(),
         fetchSaasStripePrices(),
@@ -43,10 +58,10 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClient]);
+  }, [isClient,status]);
 
   if (isLoading) {
-    return <></>; 
+    return <></>;
   }
 
   return <></>;

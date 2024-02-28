@@ -160,6 +160,8 @@ export const PriceCardHeader = ({
               <br />
             </>
           )}
+          {!plan.isCustom ? (
+          <>
           {price.percentOff ? (
             <>
               <span className="price-stroke">
@@ -192,6 +194,16 @@ export const PriceCardHeader = ({
               </span>
             </>
           )}
+          {plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0 ? (
+            <span className="block text-xs">
+              {plan.creditAllouedByMonth}{" "}
+              {toLower(saasSettings.creditName ?? "")}
+              {saasSettings.creditName && plan.creditAllouedByMonth > 1 && "s"} /
+              month
+            </span>
+          ) : null}
+           </>
+          ):(<><p>Contact us for customizing your offer.</p></>)}
         </h3>
       </div>
     </>

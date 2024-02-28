@@ -263,7 +263,7 @@ ol li {
 }
 /*  User Interface */
 .user-interface {
-  @apply grid grid-cols-12 md:gap-0 gap-0;
+  @apply grid grid-cols-12 w-full md:gap-0 gap-0;
 }
 .user-interface div.user-inteface-main {
   @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5  -mt-16;
@@ -272,6 +272,9 @@ ol li {
   @apply col-span-3 md:block hidden text-left rounded-default rounded-r-none p-5  relative;
 }
 .admin {
+  @apply min-w-fit;
+}
+.dashboard {
   @apply min-w-fit;
 }
 /*  */
@@ -340,7 +343,7 @@ ol li {
   div
   .user-inteface-main
   .user-inteface-main-content-section-header {
-  @apply z-20;
+  @apply z-20 w-full;
 }
 .user-interface
   div
@@ -388,7 +391,7 @@ ol li {
   @apply grid 2xl:grid-cols-2 xl:grid-cols-2 pt-10  max-sm:grid-cols-1 gap-10 px-2 mt-2;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
-  @apply rounded-default my-card;
+  @apply rounded-default my-card ;
 }
 .my-card {
   @apply rounded-default bg-white dark:bg-theming-background-500/5;

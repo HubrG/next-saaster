@@ -23,8 +23,6 @@ export const getCoupon = async (couponId: string) => {
   });
 };
 
-
-
 // Once payment (checkout) ponctual
 type CreateCheckoutSessionPonctualProps = {
   planPrice: string;
@@ -57,9 +55,14 @@ export const createCheckoutSessionPonctual = async ({
   } else {
     coupon = undefined;
   }
+  const metadata = { "priceId": planPrice } ?? {};
   const customerId = await stripeCustomerIdManager({});
   const quantity =
-    plan.saasType === "METERED_USAGE" && !plan.isFree ? undefined : plan.saasType === "PER_SEAT" ? seatQuantity :1;
+    plan.saasType === "METERED_USAGE" && !plan.isFree
+      ? undefined
+      : plan.saasType === "PER_SEAT"
+      ? seatQuantity
+      : 1;
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card", "link"],
     line_items: [
@@ -68,13 +71,12 @@ export const createCheckoutSessionPonctual = async ({
         quantity: quantity,
       },
     ],
+    payment_intent_data: { metadata },
     mode: mode,
     customer: customerId,
     subscription_data: subscription_data,
-
     discounts: [{ coupon }],
-    success_url:
-      "https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}",
+    success_url: `${process.env.NEXT_URI}/dashboard`,
     cancel_url: `${process.env.NEXT_URI}/pricing`,
   });
 

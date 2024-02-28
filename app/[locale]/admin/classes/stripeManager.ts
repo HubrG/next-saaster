@@ -20,7 +20,10 @@ interface CreateProductProps {
   default_price?: string;
   active?: boolean;
 }
-
+interface StripeError extends Error {
+  type?: string;
+  code?: string;
+}
 export interface createNewPriceForPlanProps {
   id?: string;
 }
@@ -298,30 +301,55 @@ export class StripeManager {
     }
   }
   // SECTION : CUSTOMER
+  // Define a custom error type for Stripe API errors
+
   async createCustomer({ data, id }: stripeCustomerProps): Promise<{
     success?: boolean;
     data?: any;
     error?: string;
   }> {
-    if (id !== undefined) {
-      try {
-        const isCustomer = await this.stripe.customers.retrieve(id);
-        if (!isCustomer) {
-          throw new Error("Customer already exists, or not found");
-        } else {
-          return { success: true, data: isCustomer };
+    try {
+      // If an ID is provided, attempt to retrieve the existing customer
+      if (id) {
+        const existingCustomer = await this.stripe.customers.retrieve(id);
+        if (existingCustomer.deleted !== true) {
+          return { success: true, data: existingCustomer };
         }
-      } catch (error) {
+      }
+    } catch (error) {
+      // If the customer does not exist, create a new one
+      if (
+        error instanceof Error &&
+        error.message.includes("No such customer")
+      ) {
+        try {
+          const customer = await this.stripe.customers.create(data);
+          return { success: true, data: customer };
+        } catch (creationError) {
+          console.error("Error creating customer:", creationError);
+          return {
+            error: "An error has occurred while creating the customer.",
+          };
+        }
+      } else {
+        // If there's another error, log it and return it
         console.error("Error retrieving customer:", error);
+        return {
+          error: "An error has occurred while retrieving the customer.",
+        };
       }
     }
-    // if not, create it
-    const customer = await this.stripe.customers.create(data);
-    if (!customer) {
-      return { error: "An error has occured while creating the customer" };
+
+    // If no ID is provided, create a new customer
+    try {
+      const customer = await this.stripe.customers.create(data);
+      return { success: true, data: customer };
+    } catch (error) {
+      console.error("Error creating customer:", error);
+      return { error: "An error has occurred while creating the customer." };
     }
-    return { success: true, data: customer };
   }
+
   // SECTION : Utils
   async getWebhookUrl(): Promise<{
     success?: boolean;

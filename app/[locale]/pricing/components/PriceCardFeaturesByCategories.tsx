@@ -18,6 +18,7 @@ import { iPlan } from "@/src/types/iPlans";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { useEffect } from "react";
 import { PriceCardBuyButton } from "./PriceCardBuyButton";
+import { PriceCardContactUsButton } from "./PriceCardContactUsButton";
 import { PriceCardHeader } from "./PriceCardHeader";
 
 export const PriceCardsFeaturesByCategories = () => {
@@ -26,7 +27,7 @@ export const PriceCardsFeaturesByCategories = () => {
   useEffect(() => {
     useSaasPlansStore.getState().fetchSaasPlan();
     useSaasFeaturesCategoriesStore.getState().fetchSaasFeaturesCategories();
-  },[]);
+  }, []);
   const plans = saasPlans as iPlan[];
   const getRowClass = (index: number) => {
     return index % 2 === 0
@@ -62,10 +63,14 @@ export const PriceCardsFeaturesByCategories = () => {
                       `price-card-wrapper  w-full  h-[90.3%] grid grid-rows-3 place-content-end justify-between items-start mt-10`
                     )}>
                     <PriceCardHeader plan={plan} saasSettings={saasSettings} />
-                    <PriceCardBuyButton
-                      className="mt-7 w-full z-[99999999]"
-                      plan={plan}
-                    />
+                    {plan.isCustom ? (
+                      <PriceCardContactUsButton />
+                    ) : (
+                      <PriceCardBuyButton
+                        className="mt-7 w-full z-[99999999]"
+                        plan={plan}
+                      />
+                    )}
                   </Card>
                 </TableHead>
               ))}
@@ -81,20 +86,21 @@ export const PriceCardsFeaturesByCategories = () => {
                     className="border-t-0 border-b-0">
                     <TableCell
                       colSpan={plansFiltered.length + 1}
-                      className=" rounded-default rounded-r-none text-left font-bold text-xl"
-                      
-                      >
+                      className=" rounded-default rounded-r-none text-left font-bold text-xl">
                       <Goodline
                         className={cn({
                           "pt-5": index > 0,
                           "-mt-2": index === 0,
                         })}
                       />
-                      <span  style={{
-                            position: "sticky",
-                            left: "10px",
-                            zIndex: 1,
-                          }}>{category.name}</span>
+                      <span
+                        style={{
+                          position: "sticky",
+                          left: "10px",
+                          zIndex: 1,
+                        }}>
+                        {category.name}
+                      </span>
                     </TableCell>
                   </TableRow>
                   {category.Features.sort((a, b) => {
@@ -125,9 +131,13 @@ export const PriceCardsFeaturesByCategories = () => {
                               e.featureId === feature.id &&
                               e.planId == plan.id
                           );
-
                           return (
-                            <TableCell key={plan.id} className="text-center">
+                            <TableCell
+                              key={plan.id}
+                              className={cn(
+                                { hidden: plan.isCustom },
+                                "text-center"
+                              )}>
                               {featurePlan?.active ? (
                                 <>
                                   {featurePlan.creditAllouedByMonth &&

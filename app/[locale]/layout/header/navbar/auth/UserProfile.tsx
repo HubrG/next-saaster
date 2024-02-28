@@ -11,44 +11,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { SimpleLoader } from "@/src/components/ui/loader";
 import { Separator } from "@/src/components/ui/separator";
 import { Link } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { useUserStore } from "@/src/stores/userStore";
 import { UserRole } from "@prisma/client";
 import { CreditCard, User, Wrench } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { Tooltip } from "react-tooltip";
 import { DropdownMenuItemLogout } from "./LogoutButton";
 type UserProfileProps = {
   className?: string;
 };
 export const UserProfile = ({ className }: UserProfileProps) => {
+  const  { userStore } = useUserStore();
   const { saasSettings } = useSaasSettingsStore();
-  const { data: session, status } = useSession();
-  if (status === "loading") {
-    return (
-      <>
-        <SimpleLoader />
-      </>
-    );
-  }
-  if (session?.user === undefined || session === undefined) {
-    return (
-      <>
-        <SimpleLoader />
-      </>
-    );
-  }
 
-  const user = session.user;
 
   const tokenPercentage = 50;
-  const nameInitials = user?.name
-    ?.toString()
-    .split(" ")
-    .map((n) => n[0]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className={`flex flex-row w-full`}>
@@ -65,13 +45,18 @@ export const UserProfile = ({ className }: UserProfileProps) => {
           )}>
           <div className="w-8  userNavbarDiv">
             <Avatar className="!no-underline">
-              {user?.image && (
-                <AvatarImage src={user.image} className="" alt="@shadcn" />
+              {userStore?.image && (
+                <AvatarImage src={userStore.image} className="" alt="@shadcn" />
               )}
               <AvatarFallback
                 className="!no-underline"
                 style={{ textDecoration: "transparent" }}>
-                <span className="!no-underline">{nameInitials}</span>
+                <span className="!no-underline">
+                  {userStore?.name
+                  ?.toString()
+                  .split(" ")
+                  .map((n) => n[0])}
+                </span>
               </AvatarFallback>
             </Avatar>
           </div>
@@ -136,7 +121,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             My account
           </Link>
         </DropdownMenuItem>
-        {user?.role !== ("USER" as UserRole) && (
+        {userStore?.role !== ("USER" as UserRole) && (
           <>
             <DropdownMenuItem className="w-full" asChild>
               <Link

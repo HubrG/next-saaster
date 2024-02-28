@@ -10,6 +10,7 @@ type PriceCardFeaturesProps = {
 
 export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
   const { saasSettings, isStoreLoading } = useSaasSettingsStore();
+  if (plan.isCustom) return;
   let features = plan.Features as iPlanToFeature[];
   if (features.length === 0) {
     return;
@@ -29,6 +30,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
       !feature.feature.deleted &&
       feature.feature.active
   );
+
 
   // reutrn the features
   return (

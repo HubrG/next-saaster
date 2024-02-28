@@ -1,6 +1,7 @@
 import { FirstConnexion } from "@/app/[locale]/(index)/components/FirstConnexion";
 import { Index } from "@/app/[locale]/(index)/components/Index";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
+import { getUser } from "@/src/helpers/db/users";
 import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
@@ -31,6 +32,19 @@ export default async function Home({
       return <FirstConnexion />;
     }
   }
+let user;
+if (session && session.user && session.user.email) {
+  user = (await getUser({ email: session.user.email })).data;
+}
+  // const usetItem =
+  //   (user && user.subscriptions && user.subscriptions[0]) ?? null;
+  // if (usetItem === null) {
+  //   return <></>;
+  // }
+  // console.log("user", usetItem.items[0].plan);
+  // const disc =
+  //   (usetItem.items && (usetItem.items[0] as Stripe.SubscriptionItem))  ?? {}; ;
+   
   const t = await getTranslations("Index");
   return (
     <>

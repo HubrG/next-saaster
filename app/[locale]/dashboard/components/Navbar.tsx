@@ -3,11 +3,11 @@ import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import {
+  CircleUser,
   Cog,
-  Info,
-  Languages,
-  LayoutDashboard,
-  Palette
+  CreditCard,
+  Mail,
+  UserRoundCog
 } from "lucide-react";
 import { useState } from "react";
 
@@ -40,13 +40,13 @@ export const DashboardNavbar = () => {
         <ul>
           <MenuItem
             activeSection={activeSection}
-            icon={<Info className="icon" />}
+            icon={<CircleUser className="icon" />}
             text="Profile"
             sectionObserve="Profile"
             handleScroll={handleScroll}
           />
           <MenuItem
-            icon={<Palette className="icon" />}
+            icon={<UserRoundCog className="icon" />}
             text="Account"
             activeSection={activeSection}
             sectionObserve="Account"
@@ -54,13 +54,13 @@ export const DashboardNavbar = () => {
           <MenuItem
             activeSection={activeSection}
             text="Billing"
-            icon={<LayoutDashboard className="icon" />}
+            icon={<CreditCard className="icon" />}
             sectionObserve="Billing"
             handleScroll={handleScroll}
           />
           <MenuItem
             activeSection={activeSection}
-            icon={<Languages className="icon" />}
+            icon={<Mail className="icon" />}
             text="Emails"
             sectionObserve="Emails"
             handleScroll={handleScroll}

@@ -1,9 +1,7 @@
 import { Heading, Hr, Section, Text } from "@react-email/components";
-import EmailWrapperTemplate from "./@ui/EmailWrapperTemplate";
 
 export default function WelcomeTemplate() {
   return (
-    <EmailWrapperTemplate preview="Welcome to Saaster">
       <Section>
         <Heading>Welcome to Saaster</Heading>
         <Hr />
@@ -19,6 +17,5 @@ export default function WelcomeTemplate() {
           laboriosam est.
         </Text>
       </Section>
-    </EmailWrapperTemplate>
   );
 }

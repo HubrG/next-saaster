@@ -3,13 +3,13 @@
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@/src/components/ui/select";
 import { Separator } from "@/src/components/ui/separator";
 import { sliced } from "@/src/helpers/functions/slice";
@@ -36,20 +36,8 @@ export const UsageInputFields = ({
 
   return (
     <>
-      {planState.isTrial && (
-        <div className="inputs">
-          <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
-          <Input
-            type="number"
-            name="trialDays"
-            value={planState.trialDays ?? ""}
-            onChange={(e) => handleInputChange(e, "trialDays")}
-          />
-          <p>days</p>
-        </div>
-      )}
-      <div className="flex flex-col">
-        <Label htmlFor={`${plan.id}meteredMode`}>Usage mode</Label>
+      <div className="flex flex-row items-center">
+        <Label htmlFor={`${plan.id}meteredMode`}  className="w-2/3">Usage mode</Label>
         <Select
           defaultValue={planState.meteredMode ?? "unit"}
           onValueChange={(e) => {
@@ -67,8 +55,8 @@ export const UsageInputFields = ({
           </SelectContent>
         </Select>
       </div>
-      <div className="flex flex-col">
-        <Label htmlFor={`${plan.id}monthlyPrice`}>Billing period</Label>
+      <div className="flex flex-row items-center">
+        <Label htmlFor={`${plan.id}monthlyPrice`} className="w-2/3">Billing period</Label>
         <Select
           defaultValue={planState.meteredBillingPeriod ?? "weekly"}
           onValueChange={(e) => {
@@ -89,6 +77,18 @@ export const UsageInputFields = ({
       </div>
 
       <Separator />
+      {planState.isTrial && (
+        <div className="inputs">
+          <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
+          <Input
+            type="number"
+            name="trialDays"
+            value={planState.trialDays ?? ""}
+            onChange={(e) => handleInputChange(e, "trialDays")}
+          />
+          <p>days</p>
+        </div>
+      )}
       {saasSettings.activeMonthlyPlans &&
         !planState.isFree &&
         !planState.isCustom && (

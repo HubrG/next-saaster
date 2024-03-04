@@ -17,6 +17,14 @@ export const isAdmin = async () => {
   return true;
 };
 
+export const isMe = async (email: string) => {
+  const session = await getServerSession(authOptions);
+  if (!session) return false;
+  if (session.user.email !== email) return false;
+  return true;
+}
+
+
 export const isSuperAdmin = async () => {
   const session = await getServerSession(authOptions);
   if (!session) return false;

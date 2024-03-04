@@ -4,13 +4,11 @@ import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import VerifyEmailTemplate from "@/src/emails/VerifyEmailTemplate";
 import { sendEmail } from "@/src/helpers/emails/sendEmail";
 import { cn } from "@/src/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { renderToString } from "react-dom/server";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -57,13 +55,16 @@ export default function Credentials() {
       try {
         // Resend API (mail)
         await sendEmail({
-          to: "hubrgiorgi@gmail.com",
-          subject: "Bonjour Monsieur",
-          react_template: renderToString(
-            VerifyEmailTemplate({ verificationToken: responseData.token ?? "" })
-          ),
-          tag_name: "category",
-          tag_value: "confirm_email",
+        to: "hubrgiorgi@gmail.com",
+        type: "verifyEmail",
+        subject: "Verify your email",
+        vars: {
+          "verifyEmail": {
+            verificationToken: responseData.token ?? "",
+          },
+        },
+        tag_name: "category",
+        tag_value: "confirm_email",
         });
       } catch (error) {
         console.error("Error sending email", error);

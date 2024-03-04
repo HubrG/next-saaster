@@ -1,27 +1,9 @@
 "use server";
 
 import { stripeCustomerIdManager } from "@/src/helpers/functions/stripeCustomerIdManager";
-import { prisma } from "@/src/lib/prisma";
 import { iPlan } from "@/src/types/iPlans";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
-
-export const changeCssTheme = async (theme: string) => {
-  // On recherche l'ID de l'application
-  const appSettings = await prisma.appSettings.findFirst();
-  if (!appSettings) {
-    throw new Error("App settings not found");
-  }
-  return prisma.appSettings.update({
-    where: { id: appSettings.id },
-    data: { theme: theme },
-  });
-};
-export const getCoupon = async (couponId: string) => {
-  return await prisma.stripeCoupon.findUnique({
-    where: { id: couponId },
-  });
-};
 
 // Once payment (checkout) ponctual
 type CreateCheckoutSessionPonctualProps = {
@@ -39,11 +21,29 @@ export const createCheckoutSessionPonctual = async ({
   if (!planPrice || !plan) {
     throw new Error("Plan ID is required");
   }
-  const subscription_data = plan.trialDays
-    ? plan.trialDays > 0
-      ? { trial_period_days: plan.trialDays }
-      : {}
-    : {};
+  const metadata =
+    plan.saasType === "PAY_ONCE" ? { priceId: planPrice } : undefined;
+  let subscriptionData = {};
+  if (plan.trialDays && plan.trialDays > 0) {
+    subscriptionData = {
+      trial_period_days: plan.trialDays,
+      metadata: {
+        creditByMonth:
+          plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
+            ? plan.creditAllouedByMonth
+            : undefined,
+      },
+    };
+  } else {
+    subscriptionData = {
+      metadata: {
+        creditByMonth:
+          plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
+            ? plan.creditAllouedByMonth
+            : undefined,
+      },
+    };
+  }
   const mode = plan.saasType === "PAY_ONCE" ? "payment" : "subscription";
   let coupon;
   if (isYearly === undefined && plan.coupons.length > 0) {
@@ -55,7 +55,6 @@ export const createCheckoutSessionPonctual = async ({
   } else {
     coupon = undefined;
   }
-  const metadata = { "priceId": planPrice } ?? {};
   const customerId = await stripeCustomerIdManager({});
   const quantity =
     plan.saasType === "METERED_USAGE" && !plan.isFree
@@ -73,12 +72,12 @@ export const createCheckoutSessionPonctual = async ({
     ],
     payment_intent_data: { metadata },
     mode: mode,
+    allow_promotion_codes: coupon ? undefined : true,
     customer: customerId,
-    subscription_data: subscription_data,
+    subscription_data: subscriptionData,
     discounts: [{ coupon }],
-    success_url: `${process.env.NEXT_URI}/dashboard`,
+    success_url: `${process.env.NEXT_URI}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_URI}/pricing`,
   });
-
   return session.url;
 };

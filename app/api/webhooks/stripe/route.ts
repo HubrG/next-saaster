@@ -19,14 +19,15 @@ import {
   getStripeProduct,
 } from "@/src/helpers/db/stripeProducts";
 import {
-  createSubcriptionPayment,
-  updateSubscriptionPayment,
+  createSubcriptionPayment
 } from "@/src/helpers/db/subscriptionPayments";
 import {
   createSubscription,
   updateSubscription,
 } from "@/src/helpers/db/subscriptions";
+import { createUserSubscription, updateUserSubscription } from "@/src/helpers/db/userSubscription";
 import { getUserByCustomerId } from "@/src/helpers/db/users";
+import { todoWhenPaymentSuceeded } from "@/src/helpers/functions/todoWhenPaymentSuceeded";
 import { iStripeProduct } from "@/src/types/iStripeProducts";
 import { SubscriptionStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
@@ -37,9 +38,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
   typescript: true,
 });
 
-const secret = process.env.STRIPE_SIGNIN_SECRET || "";
 
 export async function POST(req: NextRequest) {
+  const secret = process.env.STRIPE_SIGNIN_SECRET || "";
   const payload = await req.text();
   const signature = req.headers.get("stripe-signature");
 
@@ -59,7 +60,11 @@ export async function POST(req: NextRequest) {
   }
   switch (event.type) {
     // SECTION : Subscription
+   
     case "checkout.session.completed":
+      // NOTE : Fill this function with the code to be executed when the payment is successful
+      todoWhenPaymentSuceeded();
+      //
       return NextResponse.json({ status: 200 });
     case "customer.subscription.created":
       const subscription = event.data.object as Stripe.Subscription;
@@ -70,19 +75,14 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: user.error }, { status: 500 });
       }
       try {
-        const updateInvoice = await updateSubscriptionPayment({
-          subId: subscription.latest_invoice as string,
-          data: {
-            subscriptionId: subscription.id as string,
-          },
-        });
-        
         const createSub = await createSubscription({
+          stripeSignature: secret ?? "",
           data: {
             id: subscription.id,
-            userId: user.data.id,
+            allDatas: JSON.stringify(subscription),
             status: event.data.object.status as SubscriptionStatus,
             priceId: priceId ?? null,
+            nextPaymentAttempt: null,
             stripeCustomerId: customerId,
             startDate: new Date().toISOString(),
             endDate: null,
@@ -93,6 +93,43 @@ export async function POST(req: NextRequest) {
         if (!createSub.data) {
           return NextResponse.json({ error: createSub.error }, { status: 500 });
         } else {
+          if (subscription.id) {
+            const updateSubUser = await updateUserSubscription({
+              stripeSignature: secret ?? "",
+              data: {
+                isActive: false,
+                creditRemaining: parseInt(
+                  event.data.object.metadata.creditByMonth
+                ) as number,
+                userId: user.data.id as string,
+                subscriptionId: subscription.id as string,
+              },
+            });
+            if (!updateSubUser.data) {
+              return NextResponse.json(
+                { error: updateSubUser.error },
+                { status: 500 }
+              );
+            }
+          }
+          const createSubUser = await createUserSubscription({
+            stripeSignature: secret ?? "",
+            data: {
+              creditRemaining: parseInt(
+                event.data.object.metadata.creditByMonth
+              ) as number,
+              isActive: true,
+              userId: user.data.id as string,
+              subscriptionId: subscription.id as string,
+            },
+          });
+          if (!createSubUser.data) {
+            return NextResponse.json(
+              { error: createSubUser.error },
+              { status: 500 }
+            );
+          }
+
           return NextResponse.json({ status: 200 });
         }
       } catch (error) {
@@ -104,8 +141,10 @@ export async function POST(req: NextRequest) {
       const upsubscription = event.data.object as Stripe.Subscription;
       const uppriceId = upsubscription.items.data[0].price.id;
       const upSub = await updateSubscription({
+        stripeSignature: secret ?? "",
         subId: upsubscription.id,
         data: {
+          allDatas: JSON.stringify(upsubscription),
           status: event.data.object.status as SubscriptionStatus,
           priceId: uppriceId ?? null,
           startDate: new Date().toISOString(),
@@ -122,9 +161,10 @@ export async function POST(req: NextRequest) {
       const delsubscription = event.data.object as Stripe.Subscription;
       const delpriceId = delsubscription.items.data[0].price.id;
       const delSub = await updateSubscription({
+        stripeSignature: secret ?? "",
         subId: delsubscription.id,
         data: {
-          status: event.data.object.status as SubscriptionStatus,
+          status: delsubscription.status as SubscriptionStatus,
           priceId: delpriceId ?? null,
           startDate: new Date().toISOString(),
           endDate: null,
@@ -135,12 +175,25 @@ export async function POST(req: NextRequest) {
       if (!delSub.data) {
         return NextResponse.json({ error: delSub.error }, { status: 500 });
       }
+      const upUserSub = await updateUserSubscription({
+        stripeSignature: secret ?? "",
+        data: {
+          isActive: false,
+          creditRemaining: 0,
+          userId: "",
+          subscriptionId: delsubscription.id as string,
+        },
+      });
+      if (!upUserSub.data) {
+        return NextResponse.json({ error: upUserSub.error }, { status: 500 });
+      }
       return NextResponse.json({ status: 200 });
     case "invoice.paid":
       // We wait 5sc befroe create invoice
-      await  new Promise((resolve) => setTimeout(resolve, 5000));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       const invoice = event.data.object as Stripe.Invoice;
       const createInvoice = await createSubcriptionPayment({
+        stripeSignature: secret ?? "",
         data: {
           id: invoice.id,
           amount: invoice.amount_paid,
@@ -162,6 +215,7 @@ export async function POST(req: NextRequest) {
     case "invoice.payment_failed":
       const invoiceFailed = event.data.object as Stripe.Invoice;
       const createInvoiceFailed = await createSubcriptionPayment({
+        stripeSignature: secret ?? "",
         data: {
           id: invoiceFailed.id,
           amount: invoiceFailed.amount_paid,
@@ -179,6 +233,7 @@ export async function POST(req: NextRequest) {
       }
       // We update the subscription status
       const upSubFailed = await updateSubscription({
+        stripeSignature: secret ?? "",
         subId: invoiceFailed.subscription as string,
         data: {
           status: "unpaid" as SubscriptionStatus,
@@ -189,24 +244,53 @@ export async function POST(req: NextRequest) {
       }
       return NextResponse.json({ status: 200 });
     case "payment_intent.succeeded":
-      console.log(event.data.object);
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
-      
-      const userId = await getUserByCustomerId({ customerId: paymentIntent.customer as string});
+
+      const userId = await getUserByCustomerId({
+        customerId: paymentIntent.customer as string,
+      });
       if (!userId.data) {
         return NextResponse.json({ error: userId.error }, { status: 500 });
       }
       const createPaymentIntent = await createOneTimePayment({
-        id: paymentIntent.id,
-        stripePaymentIntentId: paymentIntent.id,
-        amount: paymentIntent.amount,
-        priceId: paymentIntent.metadata.priceId,
-        userId: userId.data.id as string,
-        currency: paymentIntent.currency,
-        status: paymentIntent.status,
-        stripeCustomerId: paymentIntent.customer as string,
+        stripeSignature: secret ?? "",
+        data: {
+          id: paymentIntent.id,
+          stripePaymentIntentId: paymentIntent.id,
+          amount: paymentIntent.amount,
+          priceId: paymentIntent.metadata.priceId,
+          userId: userId.data.id as string,
+          currency: paymentIntent.currency,
+          status: paymentIntent.status,
+          stripeCustomerId: paymentIntent.customer as string,
+        },
       });
+      if (!createPaymentIntent.data) {
+        return NextResponse.json(
+          { error: createPaymentIntent.error },
+          { status: 500 }
+        );
+      }
       return NextResponse.json({ status: 200 });
+    case "invoice.upcoming":
+      const invoiceUpdated = event.data.object;
+      console.log(event.data, "invoiceUpdated");
+      const invoiceUpdatedUpSubscription = await updateSubscription({
+        stripeSignature: secret ?? "",
+        subId: invoiceUpdated.subscription as string,
+        data: {
+          nextPaymentAttempt: invoiceUpdated.amount_due,
+        },
+      });
+
+      if (!invoiceUpdatedUpSubscription.data) {
+        return NextResponse.json(
+          { error: invoiceUpdatedUpSubscription.error },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json({ status: 200 });
+
     // SECTION Product and Price management
     // NOTE : Product created
     case "product.created":
@@ -298,12 +382,6 @@ export async function POST(req: NextRequest) {
 
     case "coupon.deleted":
       await deleteStripeCoupon(event.data.object.id);
-      return NextResponse.json({ status: 200 });
-
-    case "invoice.created":
-      return NextResponse.json({ status: 200 });
-
-    case "invoice.updated":
       return NextResponse.json({ status: 200 });
 
     default:

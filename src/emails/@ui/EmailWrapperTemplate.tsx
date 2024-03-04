@@ -1,24 +1,58 @@
+import InviteUserTemplate from "@/src/emails/InviteUserTemplate";
+import { EmailsInterface } from "@/src/types/EmailsInterface";
 import {
   Body,
   Container,
+  Heading,
+  Hr,
   Html,
   Preview,
   Tailwind,
+  Text,
 } from "@react-email/components";
-import React from "react";
+import VerifyEmailTemplate from "../VerifyEmailTemplate";
 import EmailFooterTemplate from "./EmailFooterTemplate";
 
 type Props = {
-  children: React.ReactNode;
-  preview: string;
+  preview?: string;
+  type?: EmailsInterface["type"];
+  vars?: EmailsInterface["vars"];
+  text?: string;
+  subject?: string;
 };
-export default function EmailWrapperTemplate({ children, preview }: Props) {
+export default function EmailWrapperTemplate({
+  preview,
+  text,
+  type,
+  vars,
+  subject,
+}: Props) {
   return (
     <Html>
-      <Preview>{preview}</Preview>
+      {preview && <Preview>{preview}</Preview>}
       <Tailwind>
         <Body>
-          <Container>{children}</Container>
+          <Container>
+            {type === "inviteUserInOrganization" &&
+              vars &&
+              "inviteUserInOrganization" in vars && (
+                <InviteUserTemplate vars={vars.inviteUserInOrganization} />
+              )}
+            {type === "verifyEmail" && vars && "verifyEmail" in vars && (
+              <VerifyEmailTemplate vars={vars.verifyEmail} />
+            )}
+            {!type && text && (
+              <>
+                {subject && (
+                  <>
+                    <Heading>{subject}</Heading>
+                    <Hr />
+                  </>
+                )}
+                <Text>text</Text>
+              </>
+            )}
+          </Container>
           <EmailFooterTemplate />
         </Body>
       </Tailwind>

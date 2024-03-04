@@ -60,7 +60,7 @@
 }
 
 body {
-  @apply text-lg w-full !text-theming-text-900 font-sans bg-background;
+  @apply text-lg w-full !text-theming-text-950 font-sans bg-background;
 }
 main {
   @apply min-h-screen min-w-full w-full z-10 mx-auto gap-4 text-center !important;
@@ -231,9 +231,13 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 !important;
+  @apply z-50 !text-base font-semibold rounded-default  max-w-lg dark:bg-theming-background-500 bg-theming-background-800 !important;
 }
-
+.tooltip span {
+  @apply text-white font-normal ;
+  font-size:inherit !important;
+  font-weight:inherit;
+}
 .theme-card .card-tooltip {
   @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
 }
@@ -506,10 +510,10 @@ table.admin-features-table tbody {
   @apply my-5  !important;
 }
 table.admin-features-table th {
-  @apply py-5 border-t  border-dashed text-sm  text-left  !important;
+  @apply py-5 border-t-2  text-sm  text-left  !important;
 }
 table.admin-features-table thead {
-  @apply bg-primary dark:bg-theming-background-100 opacity-100 z-50 dark:shadow-none shadow sticky top-0 !important;
+  @apply bg-white dark:bg-theming-background-100 opacity-100 z-50 dark:shadow-none shadow sticky top-0 !important;
 }
 .bar {
   @apply bg-primary dark:bg-primary border-primary !important;

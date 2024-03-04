@@ -350,6 +350,24 @@ export class StripeManager {
     }
   }
 
+  // SECTION : Checkout
+  async getCheckoutSession(sessionId: string): Promise<{
+    success?: boolean;
+    data?: "payment" | "subscription" | "setup" | "setup_intent" | "subscription_schedule" | "subscription_update" | "subscription_cancel" | "subscription_cancellation" | "subscription_renewal" | "subscription_trial_end" | "subscription_trial_start";
+    error?: string;
+  }> {
+    const session = await this.stripe.checkout.sessions.retrieve(
+      sessionId,
+      {
+        expand: ["payment_intent"],
+      }
+    );
+    if (!session) {
+      return { error: "An error has occured while fetching the session" };
+    }
+    return { success: true, data : session.mode };
+  }
+
   // SECTION : Utils
   async getWebhookUrl(): Promise<{
     success?: boolean;

@@ -19,7 +19,7 @@ declare module "cookie";
 declare module "react-resizable";
 declare module "lodash";
 declare module "react-lazyload";
-
+declare module "react-lottie"
 declare module "@/utils/openAIStream";
 declare module "uuid";
 

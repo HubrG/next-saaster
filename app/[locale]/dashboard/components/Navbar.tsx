@@ -2,16 +2,12 @@
 import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
-import {
-  CircleUser,
-  Cog,
-  CreditCard,
-  Mail,
-  UserRoundCog
-} from "lucide-react";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { Building2, CircleUser, Cog, CreditCard, Mail, UserRoundCog } from "lucide-react";
 import { useState } from "react";
 
 export const DashboardNavbar = () => {
+  const { saasSettings } = useSaasSettingsStore();
   const [activeSection, setActiveSection] = useState("");
   const [activeSubSection, setActiveSubSection] = useState("");
   const updateActiveItem = (id: string, isSubSection = false) => {
@@ -51,13 +47,32 @@ export const DashboardNavbar = () => {
             activeSection={activeSection}
             sectionObserve="Account"
             handleScroll={handleScroll}></MenuItem>
-          <MenuItem
-            activeSection={activeSection}
-            text="Billing"
-            icon={<CreditCard className="icon" />}
-            sectionObserve="Billing"
-            handleScroll={handleScroll}
-          />
+          {saasSettings.saasType === "PAY_ONCE" ? (
+            <MenuItem
+              activeSection={activeSection}
+              text="Purchase"
+              icon={<CreditCard className="icon" />}
+              sectionObserve="Purchase"
+              handleScroll={handleScroll}
+            />
+          ) : (
+            <>
+              <MenuItem
+                activeSection={activeSection}
+                text="Organization"
+                icon={<Building2 className="icon" />}
+                sectionObserve="Organization"
+                handleScroll={handleScroll}
+              />
+              <MenuItem
+                activeSection={activeSection}
+                text="Billing"
+                icon={<CreditCard className="icon" />}
+                sectionObserve="Billing"
+                handleScroll={handleScroll}
+              />
+            </>
+          )}
           <MenuItem
             activeSection={activeSection}
             icon={<Mail className="icon" />}

@@ -233,8 +233,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
                     <Label
                       htmlFor={"credit-cost-" + linkId}
                       className="!font-bold !text-xs">
-                      {capitalize(saasSettings.creditName ?? "Credit")} cost/for
-                      use
+                      {capitalize(saasSettings.creditName ?? "Credit")} cost/per unit
                     </Label>
                     <Input
                       type="number"

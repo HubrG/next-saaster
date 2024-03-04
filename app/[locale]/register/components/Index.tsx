@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { SignWithGoogle } from "../../login/components/SignWithGoogle";
 import Credentials from "./SignUpWithCredentials";
 
+
 export const Index = () => {
   return (
     <Card className="my-card">

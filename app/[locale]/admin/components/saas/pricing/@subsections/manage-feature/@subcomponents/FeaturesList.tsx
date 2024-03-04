@@ -56,15 +56,17 @@ export const FeaturesList = () => {
           <thead>
             <tr>
               <th></th>
-              <th className="flex flex-row gap-x-2 items-center justify-center">
+              <th>
+                <span className="flex flex-row items-center justify-center">
                 Category <FeaturesCategoriesList />
+                </span>
               </th>
               <th>Active</th>
               <th>Name</th>
               <th>Description</th>
-              <th>Key</th>
+              <th>Alias</th>
               <th>Link to plan</th>
-              <th>ID</th>
+              <th className="!text-center">ID</th>
               <th></th>
             </tr>
           </thead>

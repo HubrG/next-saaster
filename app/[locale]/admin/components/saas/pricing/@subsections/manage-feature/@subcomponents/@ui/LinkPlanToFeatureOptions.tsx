@@ -59,16 +59,6 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
           checked={featureState.onlyOnSelectedPlans ?? false}
           name="onlyOnSelectedPlans"
         />
-        <Tooltip className="tooltip" opacity={100} id={randUuid} place="top">
-          By default, features activated on a higher-level plane are displayed
-          and grayed out on lower planes for information purposes. If you do not
-          wish to display this feature on the lower planes, enable this option.
-          <br />
-          <br /> <strong>For example:</strong> If you activate a feature
-          &rdquo;GPT-4&rdquo; on a higher-level plan and &rdquo;GPT-3&rdquo; on
-          a lower-level plan, the &rdquo;GPT-4&rdquo; feature will not be appear
-          on lower plan.
-        </Tooltip>
       </div>
       {/* {saasSettings.displayFeaturesByCategory && (
         <div className="flex flex-row justify-between items-center  w-full">
@@ -85,6 +75,16 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
           />
         </div>
       )} */}
+       <Tooltip className="tooltip !w-[95%]" opacity={100} id={randUuid} place="top">
+          By default, features activated on a higher-level plane are displayed
+          and grayed out on lower planes for information purposes. If you do not
+          wish to display this feature on the lower planes, enable this option.
+          <br />
+          <br /> <strong>For example:</strong> If you activate a feature
+          &rdquo;GPT-4&rdquo; on a higher-level plan and &rdquo;GPT-3&rdquo; on
+          a lower-level plan, the &rdquo;GPT-4&rdquo; feature will not be appear
+          on lower plan.
+        </Tooltip>
       <Goodline className="-mt-1" />
     </>
   );

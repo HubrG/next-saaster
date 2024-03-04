@@ -4,8 +4,9 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { iPlan } from "@/src/types/iPlans";
 import { CheckCircle2, X } from "lucide-react";
+import { Tooltip } from "react-tooltip";
 type PriceCardFeaturesProps = {
-  plan: iPlan;
+  plan: Partial<iPlan>;
 };
 
 export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
@@ -31,17 +32,29 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
       feature.feature.active
   );
 
-
   // reutrn the features
   return (
     <div className="flex flex-col gap-y-2">
       {features.map((feature, index) => {
+        const creditAlloued =
+          feature.creditAllouedByMonth && feature.creditAllouedByMonth > 0
+            ? feature.creditAllouedByMonth + " "
+            : undefined;
         if (feature.active === false) {
           if (saasSettings.activeFeatureComparison) {
             return !feature.feature.onlyOnSelectedPlans ? (
-              <p key={index} className="flex items-center opacity-50">
+              <p
+                key={index}
+                className="flex items-center opacity-50 cursor-default"
+                data-tooltip-id={feature.feature.id}>
                 <X className="w-4 h-4 mr-2" />
+                {creditAlloued}
                 {feature.feature.name}
+                {feature.feature.description && (
+                  <Tooltip place="left" className="tooltip" id={feature.feature.id} opacity={100}>
+                    {feature.feature.description}
+                  </Tooltip>
+                )}
               </p>
             ) : null;
           } else {
@@ -49,9 +62,22 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
           }
         } else {
           return (
-            <p key={index} className="flex items-center">
+            <p
+              key={index}
+              className="flex items-center  cursor-default"
+              data-tooltip-id={feature.feature.id}>
               <CheckCircle2 className="w-4 h-4 mr-2 text-theming-text-500-second" />
+              {creditAlloued}
               {feature.feature.name}
+              {feature.feature.description && (
+                <Tooltip
+                  place="left"
+                  className="tooltip"
+                  id={feature.feature.id}
+                  opacity={100}>
+                  {feature.feature.description}
+                </Tooltip>
+              )}
             </p>
           );
         }

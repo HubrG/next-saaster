@@ -81,20 +81,18 @@ export const UserProfile = ({ className }: UserProfileProps) => {
                   </div>
                   <div className="progressTokenVoid"></div>
                 </div>
+              </div>
                 <Tooltip
                   id="remainingTooltip"
                   opacity={1}
-                  classNameArrow="hidden"
-                  variant="dark"
+                  place="bottom"
                   className="tooltip flex flex-col">
-                  <span className="font-bold">
-                    {/* Crédit remaining */}
-                    Credit remaining
-                    {saasSettings.creditName} : x%
-                  </span>
-                  <span>50 &nbsp;/&nbsp; 100</span>
+                    <span>
+                    {saasSettings.creditName} remaining
+                     : x% 
+                    </span>
+                     50 &nbsp;/&nbsp; 100
                 </Tooltip>
-              </div>
               {className && <div className="ml-5">2%</div>}
             </>
           )}

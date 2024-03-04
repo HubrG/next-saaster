@@ -2,6 +2,7 @@ import { handleResponse } from "@/src/lib/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iSubscription } from "@/src/types/iSubscription";
 import { Subscription } from "@prisma/client";
+import { isSuperAdmin } from "../functions/isUserRole";
 
 type GetSubProps = {
   subId: string;
@@ -13,6 +14,10 @@ export const getSubscription = async ({
   data?: iSubscription;
   error?: string;
 }> => {
+  const authorized = await authorize({});
+  if (!authorized) {
+    return handleResponse<undefined>(undefined, "Unauthorized");
+  }
   try {
     const subscription = await prisma.subscription.findUnique({
       where: { id: subId },
@@ -27,19 +32,31 @@ export const getSubscription = async ({
 };
 
 export const updateSubscription = async ({
+  stripeSignature,
   subId,
   data,
 }: {
+  stripeSignature?: string | undefined;
   subId: string;
-  data: Partial<Omit<Subscription, "createdAt" | "userId" | "stripeCustomerId" | "id"  | "updatedAt">>;
+  data: Partial<
+    Omit<
+      Subscription,
+      "createdAt" | "userId" | "stripeCustomerId" | "id" | "updatedAt"
+    >
+  >;
 }): Promise<{
   success?: boolean;
   data?: iSubscription;
   error?: string;
 }> => {
+   const authorized = await authorize({stripeSignature});
+   if (!authorized) {
+     return handleResponse<undefined>(undefined, "Unauthorized");
+   }
   try {
     const dataWithCorrectItemsType = {
       ...data,
+      allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
       discount: data.discount ? JSON.parse(data.discount as string) : {},
       items: data.items ? JSON.parse(data.items as string) : {},
     };
@@ -56,22 +73,28 @@ export const updateSubscription = async ({
 };
 
 export const createSubscription = async ({
+  stripeSignature,
   data,
 }: {
   data: Omit<Subscription, "createdAt" | "updatedAt">;
+  stripeSignature?: string | undefined;
 }): Promise<{
   success?: boolean;
   data?: iSubscription;
   error?: string;
 }> => {
+
+  const authorized = await authorize({ stripeSignature });
+   if (!authorized) {
+     return handleResponse<undefined>(undefined, "Unauthorized");
+   }
   try {
     // Ensure that the items property is of the correct type
     const dataWithCorrectItemsType = {
       ...data,
+      allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
       discount: data.discount ? JSON.parse(data.discount as string) : {},
-      items: data.items
-        ? JSON.parse(data.items as string) 
-        : {},
+      items: data.items ? JSON.parse(data.items as string) : {},
     };
     const subscription = await prisma.subscription.create({
       data: dataWithCorrectItemsType,
@@ -84,15 +107,21 @@ export const createSubscription = async ({
   }
 };
 
-export const deleteSubscription = async({
+export const deleteSubscription = async ({
+  stripeSignature,
   subId,
 }: {
-  subId: string;
+    subId: string;
+    stripeSignature?: string | undefined;
 }): Promise<{
   success?: boolean;
   data?: iSubscription;
   error?: string;
 }> => {
+   const authorized = await authorize({ stripeSignature });
+   if (!authorized) {
+     return handleResponse<undefined>(undefined, "Unauthorized");
+   }
   try {
     const subscription = await prisma.subscription.delete({
       where: { id: subId },
@@ -103,10 +132,14 @@ export const deleteSubscription = async({
     console.error(error);
     return handleResponse<undefined>(undefined, error);
   }
-}
+};
 
 const include = {
-  user: true,
+  users: {
+    include: {
+      user: true,
+    },
+  },
   price: {
     include: {
       productRelation: {
@@ -118,9 +151,9 @@ const include = {
               },
               coupons: {
                 include: {
-                  coupon: true
+                  coupon: true,
                 },
-              }
+              },
             },
           },
         },
@@ -129,3 +162,22 @@ const include = {
   },
   SubscriptionPayments: true,
 };
+
+// SECTION AUTHORIZE
+type AuthorizeProps = {
+  stripeSignature?: string | undefined;
+};
+async function authorize({
+  stripeSignature,
+}: AuthorizeProps): Promise<boolean> {
+  const isSuperAdminFlag = await isSuperAdmin();
+  let isStripeValid = false;
+  if (stripeSignature) {
+    isStripeValid = verifyStripeRequest(stripeSignature);
+  }
+
+  return isSuperAdminFlag || isStripeValid;
+}
+function verifyStripeRequest(stripeSignature: string) {
+  return stripeSignature === process.env.STRIPE_SIGNIN_SECRET;
+}

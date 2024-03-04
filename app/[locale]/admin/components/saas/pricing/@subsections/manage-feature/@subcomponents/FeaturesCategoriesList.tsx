@@ -68,13 +68,6 @@ export const FeaturesCategoriesList = () => {
         <PopoverTrigger asChild>
           <button className="!my-0 !py-0" data-tooltip-id="manage-category-tt">
             <Edit className="icon cursor-pointer" />
-            <Tooltip
-              className="tooltip"
-              opacity={100}
-              id="manage-category-tt"
-              place="top">
-              <span>Manage categories</span>
-            </Tooltip>
           </button>
         </PopoverTrigger>
         <PopoverContent className="w-96 max-h-[50vh] overflow-auto">
@@ -98,6 +91,13 @@ export const FeaturesCategoriesList = () => {
           </div>
         </PopoverContent>
       </Popover>
+       <Tooltip
+        opacity={1}
+        id="manage-category-tt"
+        className="tooltip"
+        place="top">
+        Manage categories
+      </Tooltip>
     </>
   );
 };

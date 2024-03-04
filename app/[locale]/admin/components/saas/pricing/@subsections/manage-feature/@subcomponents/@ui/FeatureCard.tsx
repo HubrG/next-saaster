@@ -127,7 +127,7 @@ export const FeatureCard = ({ feature }: Props) => {
           toChange="alias"
         />
       </td>
-      <td>
+      <td className="flex justify-center">
         <LinkPlanToFeature feature={feature} />
       </td>
 

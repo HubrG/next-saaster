@@ -40,7 +40,6 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
       if (status !== "loading") {
         if (session?.user !== undefined || session !== undefined) {
           const user = session?.user;
-          console.log(user)
           if (user?.email) {
             fetchUserStore(user.email);
           }

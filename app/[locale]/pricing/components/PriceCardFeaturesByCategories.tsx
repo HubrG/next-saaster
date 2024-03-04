@@ -15,8 +15,9 @@ import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCa
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/iPlans";
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, Info, XCircle } from "lucide-react";
 import { useEffect } from "react";
+import { Tooltip } from "react-tooltip";
 import { PriceCardBuyButton } from "./PriceCardBuyButton";
 import { PriceCardContactUsButton } from "./PriceCardContactUsButton";
 import { PriceCardHeader } from "./PriceCardHeader";
@@ -122,7 +123,24 @@ export const PriceCardsFeaturesByCategories = () => {
                             left: 0,
                             zIndex: 1,
                           }}>
-                          {feature.name}
+                          <span className="flex flex-row items-center gap-x-2">
+                            {feature.description && (
+                              <>
+                                <Info
+                                  className="icon"
+                                  data-tooltip-id={feature.id}
+                                />{" "}
+                              </>
+                            )}
+                            {feature.name}
+                                <Tooltip
+                                  place="left"
+                                  className="tooltip"
+                                  id={feature.id}
+                                  opacity={1}>
+                                  {feature.description}
+                                </Tooltip>
+                          </span>
                         </TableCell>
                         {plansFiltered.map((plan) => {
                           const featurePlan = plan.Features.find(

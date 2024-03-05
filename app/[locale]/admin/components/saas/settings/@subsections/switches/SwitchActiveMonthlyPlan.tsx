@@ -1,5 +1,5 @@
 "use client";
-import { updateSaasSettings } from "@/app/[locale]/admin/queries/queries";
+import { updateSaasSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

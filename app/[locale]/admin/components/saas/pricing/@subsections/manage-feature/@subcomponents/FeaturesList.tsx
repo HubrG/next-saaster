@@ -1,5 +1,5 @@
 "use client";
-import { updateFeaturePosition } from "@/app/[locale]/admin/queries/queries";
+import { updateFeaturePosition } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Loader } from "@/src/components/ui/loader";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
 import { cn } from "@/src/lib/utils";
@@ -42,7 +42,7 @@ export const FeaturesList = () => {
     setSaasFeatures(newSaasFeatures);
     const featurePosition = await updateFeaturePosition(newSaasFeatures);
     if (!featurePosition) return;
-    setSaasFeatures(featurePosition.data);
+    setSaasFeatures(featurePosition);
   };
 
   return (

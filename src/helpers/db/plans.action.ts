@@ -6,6 +6,7 @@ import { iPlan } from "@/src/types/iPlans";
 import { Feature, Plan } from "@prisma/client";
 import Stripe from "stripe";
 import { getFeatures } from "./features.action";
+import { iFeature } from "@/src/types/iFeatures";
 
 export const getPlans = async (): Promise<{
   data?: iPlan[];
@@ -91,7 +92,7 @@ export const createPlan = async (
     const linkFeatures = await getFeatures();
     if (!linkFeatures.success) throw new Error(linkFeatures.error);
     const newFeatures = await Promise.all(
-      linkFeatures.data.map((feature: Feature) =>
+      linkFeatures.success.map((feature: iFeature) =>
         prisma.planToFeature.create({
           data: {
             planId: plan?.id,

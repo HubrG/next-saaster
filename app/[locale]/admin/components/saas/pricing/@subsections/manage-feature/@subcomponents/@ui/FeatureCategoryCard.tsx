@@ -2,7 +2,7 @@
 import {
   deleteFeatureCategory,
   updateFeatureCategory,
-} from "@/app/[locale]/admin/queries/queries";
+} from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { SimpleLoader } from "@/src/components/ui/loader";

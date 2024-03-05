@@ -231,10 +231,11 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply !z-[999999999999999] !text-base font-semibold rounded-default  max-w-lg dark:bg-theming-background-500 bg-theming-background-800 !important;
+  @apply absolute !text-base font-semibold rounded-default max-w-lg dark:bg-theming-background-500 bg-theming-background-800 !opacity-100 !important;
+  z-index: 9999999999;
 }
 .tooltip span {
-  @apply text-white font-normal ;
+  @apply text-white font-normal  ;
   font-size:inherit !important;
   font-weight:inherit;
 }
@@ -397,7 +398,7 @@ ol li {
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
   @apply rounded-default my-card ;
 }
-.my-card {
+.my-card:not(.tooltip) {
   @apply rounded-default bg-white dark:bg-theming-background-500/5;
 }
 form {

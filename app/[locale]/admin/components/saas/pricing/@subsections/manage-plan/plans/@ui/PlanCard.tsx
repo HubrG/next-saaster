@@ -1,6 +1,6 @@
 "use client";
 import { manageClashes } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@functions/manageClashes";
-import { updatePlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan-product-price";
+import { updatePlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {

@@ -1,10 +1,10 @@
 "use client";
+import { deleteCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { iStripeCoupon } from "@/src/types/iStripeCoupons";
 import capitalize from "lodash/capitalize";
-import { deleteCoupon } from "../../../../../../queries/queries";
 
 export const CouponsList = () => {
   const { saasStripeCoupons, setSaasStripeCoupons } = useSaasStripeCoupons();

@@ -5,6 +5,7 @@ import {
   createPlan,
   deletePlan,
   getPlan,
+  getPlans,
   updatePlan as upPlan,
 } from "@/src/helpers/db/plans.action";
 import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
@@ -12,9 +13,10 @@ import { searchPricesRaw } from "@/src/helpers/db/stripePrices.action";
 import { getStripeProduct } from "@/src/helpers/db/stripeProducts.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
+import { prisma } from "@/src/lib/prisma";
 import { iPlan } from "@/src/types/iPlans";
 import { iStripeProduct } from "@/src/types/iStripeProducts";
-import { PlanToFeature, SaasTypes } from "@prisma/client";
+import { Plan, PlanToFeature, SaasTypes } from "@prisma/client";
 import { toLower } from "lodash";
 import Stripe from "stripe";
 const stripeManager = new StripeManager();
@@ -273,6 +275,34 @@ export const updatePlan = async (
     return { error: getErrorMessage(error) };
   }
 };
+
+
+export const updatePlanPosition = async (plans: Plan[]) => {
+  const session = await isSuperAdmin();
+  if (!session) return false;
+
+  const updateOperations = plans.map((plan) =>
+    prisma.plan.update({
+      where: { id: plan.id },
+      data: { position: plan.position },
+    })
+  );
+
+  try {
+    await prisma.$transaction(updateOperations);
+    const plans = await getPlans();
+    if (!plans) return false;
+    return plans;
+  } catch (error) {
+    console.error("Error updating plan positions in transaction:", error);
+    return false;
+  }
+};
+
+
+
+
+
 
 // SECTION -> UTILS
 export const deleteNewPlan = async (

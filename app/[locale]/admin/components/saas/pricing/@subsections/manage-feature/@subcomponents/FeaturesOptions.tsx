@@ -1,4 +1,4 @@
-import { updateSaasSettings } from "@/app/[locale]/admin/queries/queries";
+import { updateSaasSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
 import { Button } from "@/src/components/ui/button";
 import {
   Popover,
@@ -8,7 +8,6 @@ import {
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasSettings } from "@prisma/client";
 import { Label } from "@radix-ui/react-label";

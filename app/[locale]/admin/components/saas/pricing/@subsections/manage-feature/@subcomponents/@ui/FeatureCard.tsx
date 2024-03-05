@@ -1,5 +1,5 @@
 "use client";
-import { updateFeature } from "@/app/[locale]/admin/queries/queries";
+import { updateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { CopySomething } from "@/src/components/ui/copy-something";
 import { PopoverArchive } from "@/src/components/ui/popover-archive";
 import { Switch } from "@/src/components/ui/switch";

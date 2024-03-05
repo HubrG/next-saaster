@@ -1,5 +1,5 @@
 "use client";
-import { addNewMMRSFeature } from "@/app/[locale]/admin/queries/queries";
+import { addNewMMRSFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";

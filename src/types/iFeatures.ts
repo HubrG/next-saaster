@@ -1,8 +1,18 @@
-import { Feature } from "@prisma/client";
-import { iPlan } from "./iPlans";
-import { iUsers } from "./iUsers";
+import { Feature, FeatureCategory, Plan, User, UserUsage } from "@prisma/client";
+
+interface usFeatures extends UserUsage {
+  user: User | null;
+}
+
+interface usPlans extends Plan {
+  plan: Plan | null;
+}
+
 
 export interface iFeature extends Feature {
-  Plans: iPlan[];
-  UserFeatures: iUsers[];
+  category?: FeatureCategory | null;
+  userUsage?: usFeatures[];
+  Plans?: {
+    plan: Plan;
+  }[];
 }

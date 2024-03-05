@@ -1,7 +1,7 @@
 "use client";
 import { sortAdminPlans } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@functions/sortAdminPlans";
 import { PlanCard } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@ui/PlanCard";
-import { updatePlanPosition } from "@/app/[locale]/admin/queries/queries";
+import { updatePlanPosition } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
 import { Loader } from "@/src/components/ui/loader";
 import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { cn } from "@/src/lib/utils";

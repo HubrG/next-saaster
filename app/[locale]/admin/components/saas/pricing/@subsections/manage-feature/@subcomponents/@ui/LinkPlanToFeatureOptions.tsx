@@ -1,5 +1,5 @@
 "use client";
-import { updateFeature } from "@/app/[locale]/admin/queries/queries";
+import { updateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Switch } from "@/src/components/ui/switch";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";

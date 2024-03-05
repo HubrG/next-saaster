@@ -43,6 +43,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
         if (feature.active === false) {
           if (saasSettings.activeFeatureComparison) {
             return !feature.feature.onlyOnSelectedPlans ? (
+              <>
               <p
                 key={index}
                 className="flex items-center opacity-50 cursor-default"
@@ -50,18 +51,20 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
                 <X className="w-4 h-4 mr-2" />
                 {creditAlloued}
                 {feature.feature.name}
+              </p>
                 {feature.feature.description && (
                   <Tooltip place="left" className="tooltip" id={feature.feature.id} opacity={100}>
                     {feature.feature.description}
                   </Tooltip>
                 )}
-              </p>
+                </>
             ) : null;
           } else {
             null;
           }
         } else {
           return (
+            <>
             <p
               key={index}
               className="flex items-center  cursor-default"
@@ -69,6 +72,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
               <CheckCircle2 className="w-4 h-4 mr-2 text-theming-text-500-second" />
               {creditAlloued}
               {feature.feature.name}
+            </p>
               {feature.feature.description && (
                 <Tooltip
                   place="left"
@@ -78,7 +82,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
                   {feature.feature.description}
                 </Tooltip>
               )}
-            </p>
+            </>
           );
         }
       })}

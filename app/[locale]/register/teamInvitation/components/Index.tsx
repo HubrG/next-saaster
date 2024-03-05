@@ -1,7 +1,7 @@
 "use client";
 import {
   isUserExists
-} from "@/app/[locale]/dashboard/queries/organization";
+} from "@/app/[locale]/dashboard/queries/organization.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { Card } from "@/src/components/ui/card";

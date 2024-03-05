@@ -21,22 +21,10 @@ export const useSaasFeaturesStore = create<Store>()((set) => ({
       set({ isStoreLoading: false });
     }, 30000); 
 
-    try {
       const saasFeatures = await getFeatures();
       clearTimeout(timeout); 
-
-      if (saasFeatures.error) {
-        set({ isStoreLoading: false });
-        throw new Error(saasFeatures.error);
+      if (saasFeatures.success) {
+        set({ saasFeatures: saasFeatures.success, isStoreLoading: false });
       }
-      set({ saasFeatures: saasFeatures.data, isStoreLoading: false });
-    } catch (error) {
-      clearTimeout(timeout); 
-      set({ isStoreLoading: false }); 
-      console.error(
-        "Erreur lors de la récupération des fonctionnalités : ",
-        error
-      );
-    }
   },
 }));

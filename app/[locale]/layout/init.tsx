@@ -43,14 +43,21 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
           if (user?.email) {
             fetchUserStore(user.email);
           }
+          if (user?.role !== "USER") {
+            fetchSaasStripeProducts();
+            fetchSaasStripePrices();
+            fetchSaasStripeCoupons();
+            fetchSaasFeaturesCategories();
+            fetchSaasFeatures();
+          }
         }
       }
       Promise.all([
-        fetchSaasStripeProducts(),
-        fetchSaasStripePrices(),
-        fetchSaasStripeCoupons(),
-        fetchSaasFeaturesCategories(),
-        fetchSaasFeatures(),
+        // fetchSaasStripeProducts(),
+        // fetchSaasStripePrices(),
+        // fetchSaasStripeCoupons(),
+        // fetchSaasFeaturesCategories(),
+        // fetchSaasFeatures(),
         fetchSaasPlan(),
       ]).then(() => {
         setIsLoading(false);

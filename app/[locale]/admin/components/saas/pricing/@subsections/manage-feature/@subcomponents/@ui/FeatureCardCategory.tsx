@@ -1,8 +1,6 @@
 "use client";
-import {
-  createNewCategoryFromFeature,
-  updateFeature,
-} from "@/app/[locale]/admin/queries/queries";
+
+import { createNewCategoryFromFeature, updateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import {
   Command,

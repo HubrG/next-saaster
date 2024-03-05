@@ -7,7 +7,7 @@ import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasTypes } from "@prisma/client";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { updateSaasSettings } from "../../../queries/queries";
+import { updateSaasSettings } from "../../../queries/app-saas-settings.action";
 import { SetCreditName } from "./@subsections/SetCreditName";
 import { SetCurrency } from "./@subsections/SetCurrency";
 import { SetSaasType } from "./@subsections/SetSaasType";

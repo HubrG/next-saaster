@@ -1,5 +1,5 @@
 "use client";
-import { updateAppSettings } from "@/app/[locale]/admin/queries/queries";
+import { updateAppSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";

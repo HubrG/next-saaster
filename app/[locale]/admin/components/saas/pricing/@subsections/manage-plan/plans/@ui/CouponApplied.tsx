@@ -1,5 +1,6 @@
 "use client";
-import { revokeCoupon } from "@/app/[locale]/admin/queries/queries";
+
+import { revokeCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";

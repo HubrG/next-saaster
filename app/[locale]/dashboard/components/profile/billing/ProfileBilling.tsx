@@ -71,13 +71,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
   const handleGoToPricingPage = () => {
     router.push("/pricing");
   };
-  //  const sendEmailToUser = sendEmail({
-  //         to: "hubrgiorgi@gmail.com",
-  //         subject: "Bonjour Monsieur",
-  //         react_template: html,
-  //         tag_name: "category",
-  //         tag_value: "confirm_email",
-  //       });
+
   const handlAddItem = async (subItem: string) => {
     const addItem = await reportUsage(subItem, 100000);
     if (addItem) {

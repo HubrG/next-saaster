@@ -1,7 +1,7 @@
 "use client";
 import { RoundedCornerChange } from "@/app/[locale]/admin/components/setup/design-settings/@subsections/RoundedCornerChange";
 import { ThemeColorChange } from "@/app/[locale]/admin/components/setup/design-settings/@subsections/ThemeColorChange";
-import { updateAppSettings } from "@/app/[locale]/admin/queries/queries";
+import { updateAppSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";

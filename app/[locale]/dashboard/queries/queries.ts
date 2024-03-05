@@ -1,4 +1,7 @@
+"use server"
+
 import { handleResponse } from "@/src/lib/error-handling/handleResponse";
+import { revalidatePath } from "next/cache";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 
@@ -18,6 +21,7 @@ export const cancelSubscription = async (
   success?: boolean;
   error?: string;
 }> => {
+
   try {
     const deletedSubscription = await stripe.subscriptions.update(
       subscriptionId,
@@ -26,6 +30,7 @@ export const cancelSubscription = async (
       }
     );
     if (deletedSubscription) {  
+      revalidatePath("/dashboard");
       return { success: true };
     } else {
      throw new Error("An error occurred while canceling the subscription");

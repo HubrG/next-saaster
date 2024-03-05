@@ -1,5 +1,5 @@
 "use client";
-import { updateLinkPlanToFeature } from "@/app/[locale]/admin/queries/queries";
+import { updateLinkPlanToFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";

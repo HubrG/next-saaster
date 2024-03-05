@@ -31,3 +31,31 @@ export const authAction = createSafeActionClient({
   },
   handleReturnedServerError,
 });
+
+export const superAdminAction = createSafeActionClient({
+  async middleware() {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      throw new ActionError("You must be connected")
+    } else if (session.user.role !== "SUPER_ADMIN") {
+      throw new ActionError("You must be an admin")
+    } else {
+      return session;
+    }
+  },
+  handleReturnedServerError,
+});
+
+export const adminAction = createSafeActionClient({
+  async middleware() {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      throw new ActionError("You must be connected")
+    } else if (session.user.role !== "ADMIN" && session.user.role !== "SUPER_ADMIN") {
+      throw new ActionError("You must be an admin")
+    } else {
+      return session;
+    }
+  },
+  handleReturnedServerError,
+});

@@ -1,7 +1,7 @@
-import { isEmptyUser } from "@/src/helpers/db/emptyUser";
-import { getSaasSettings } from "@/src/helpers/db/saasSettings";
+import { isEmptyUser } from "@/src/helpers/db/emptyUser.action";
+import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import { NextResponse } from "next/server";
-import { getAppSettings } from "../../../src/helpers/db/appSettings";
+import { getAppSettings } from "../../../src/helpers/db/appSettings.action";
 
 export async function POST() {
   const users = await isEmptyUser();

@@ -1,5 +1,5 @@
 "use server";
-import { handleResponse } from "@/src/lib/handleResponse";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { SaasSettings } from "@prisma/client";
 

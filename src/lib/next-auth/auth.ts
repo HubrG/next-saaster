@@ -111,7 +111,7 @@ export const authOptions: AuthOptions = {
       }
       return { ...token, ...user, ...profile };
     },
-    async session({ session, token }) {
+    async session({ session, token, trigger }) {
       session.user.role = token.role;
       session.user.id = token.id;
       session.user.customerId = token.customerId;
@@ -139,7 +139,7 @@ export const authOptions: AuthOptions = {
       }
       // Create immediatly Customer ID for Stripe
       if (
-        (env.STRIPE_SECRET_KEY && env.STRIPE_SIGNIN_SECRET && message.user.id,
+        (env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET && message.user.id,
         message.user.email)
       ) {
         try {
@@ -153,6 +153,72 @@ export const authOptions: AuthOptions = {
           }
         } catch (error) {
           console.error("Error creating customer ID:", error);
+        }
+      }
+    },
+    signIn: async (message) => {
+      // Verify if user has been invited to an organization and has accepted it
+      if (message.user.id) {
+        const invited = await prisma.organizationInvitation.findFirst({
+          where: {
+            email: message.user.email ?? "",
+            isAccepted: true,
+          },
+        });
+        // We update him
+        if (invited) {
+          await prisma.user.update({
+            where: { id: message.user.id },
+            data: {
+              organizationId: invited.organizationId,
+            },
+          });
+          // We delete him from organizationInvitations
+          await prisma.organizationInvitation.delete({
+            where: { id: invited.id },
+          });
+          // We add subscription if needed through owner
+          const organization = await prisma.organization.findFirst({
+            where: { id: invited.organizationId },
+          });
+          if (!organization) {
+            return;
+          }
+          const owner = await prisma.user.findFirst({
+            where: { id: organization.ownerId },
+          });
+          if (owner) {
+            // We check the owner subscription through userSubscription
+            const userSubscription = await prisma.userSubscription.findFirst({
+              where: { userId: owner.id },
+              include: {
+                subscription: {
+                  include: {
+                    price: {
+                      include: {
+                        productRelation: {
+                          include: {
+                            PlanRelation: true,
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            });
+            // We add subscription to the user
+            if (userSubscription) {
+              await prisma.userSubscription.create({
+                data: {
+                  userId: message.user.id,
+                  isActive: userSubscription.isActive,
+                  subscriptionId: userSubscription.subscriptionId,
+                  creditRemaining: userSubscription.subscription.price?.productRelation?.PlanRelation?.creditAllouedByMonth ?? null,
+                },
+              });
+            }
+          }
         }
       }
     },

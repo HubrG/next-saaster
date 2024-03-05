@@ -1,6 +1,9 @@
 import { Index } from "@/app/[locale]/register/components/Index";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
 import createMetadata from "@/src/lib/metadatas";
+import { authOptions } from "@/src/lib/next-auth/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 export const generateMetadata = async () => {
   return createMetadata({
@@ -11,6 +14,12 @@ export const generateMetadata = async () => {
 };
 
 export default async function RegisterPage() {
+    const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect("/");
+  }
+
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />

@@ -1,4 +1,4 @@
-import { getFeaturesCategories } from "@/src/helpers/db/featuresCategories";
+import { getFeaturesCategories } from "@/src/helpers/db/featuresCategories.action";
 import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { create } from "zustand";
 

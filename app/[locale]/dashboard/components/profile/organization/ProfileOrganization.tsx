@@ -3,16 +3,17 @@
 import { Button } from "@/src/components/ui/button";
 import { Loader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import {
+  createOrganization,
+  removePendingUser,
+  removeUserFromOrganization,
+} from "@/src/helpers/db/organization.action";
 import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
 import { sliced } from "@/src/helpers/functions/slice";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { Hourglass, Users } from "lucide-react";
 import { useEffect, useState } from "react";
-import {
-  addOrganization,
-  removePendingMember,
-} from "../../../queries/organization";
 import { InviteMember } from "./@ui/InviteMember";
 
 type ProfileOrganizationProps = {};
@@ -40,12 +41,11 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   if (!userInfo || userInfo?.isLoading) {
     return <Loader noHFull />;
   }
-  console.log();
 
   const handleCreateOrganization = async (id: string, email: string) => {
-    const createOrganization = await addOrganization({ ownerId: id });
-    if (!createOrganization.data) {
-      toaster({ type: "error", description: createOrganization.error });
+    const create = await createOrganization({ ownerId: id });
+    if (create.serverError) {
+      toaster({ type: "error", description: create.serverError });
     } else {
       toaster({ type: "success", description: "Organization created" });
       fetchUserStore(email);
@@ -54,17 +54,31 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   };
 
   const handleRemovePending = async (email: string) => {
-    const remove = await removePendingMember({
-      email,
+    const remove = await removePendingUser({
       organizationId: userInfo.userInfo.organizationId ?? "",
+      email,
     });
-    if (!remove.data) {
-      toaster({ type: "error", description: remove.error });
+    if (remove.serverError) {
+      toaster({ type: "error", description: remove.serverError });
     } else {
-      toaster({ type: "success", description: "Pending removed" });
+      toaster({ type: "success", description: "Pending user removed" });
       setRefresh(true);
     }
   };
+
+  const handleRemoveUser = async (email: string) => {
+    const remove = await removeUserFromOrganization({
+      email,
+      organizationId: userInfo.userInfo.organizationId ?? "",
+    });
+    if (remove.serverError) {
+      toaster({ type: "error", description: remove.serverError });
+    } else {
+      toaster({ type: "success", description: "User removed" });
+      setRefresh(true);
+    }
+  };
+  
 
   return (
     <>
@@ -83,11 +97,17 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                       className="flex flex-row justify-between items-center">
                       <p>{sliced(member.email, 30)}</p>
                       {userInfo.userInfo.organization?.ownerId ===
-                        userInfo.userInfo.id  && userInfo.userInfo.email !== member.email &&  (
-                        <Button variant={"link"} className="text-xs">
-                          Remove
-                        </Button>
-                      )}
+                        userInfo.userInfo.id &&
+                        userInfo.userInfo.email !== member.email && (
+                          <Button
+                            variant={"link"}
+                            className="text-xs"
+                            onClick={(e) =>
+                              handleRemoveUser(member.email ?? "")
+                            }>
+                            Remove
+                          </Button>
+                        )}
                     </li>
                   ))}
                 </ul>
@@ -107,16 +127,17 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                             className="flex flex-row justify-between items-center !pt-0 !pb-0 !py-0">
                             <p>{sliced(invitation.email, 30)}</p>
                             {userInfo.userInfo.organization?.ownerId ===
-                              userInfo.userInfo.id && userInfo.userInfo.email !== invitation.email && (
-                              <Button
-                                variant={"link"}
-                                onClick={(e) =>
-                                  handleRemovePending(invitation.email)
-                                }
-                                className="text-xs">
-                                Remove
-                              </Button>
-                            )}
+                              userInfo.userInfo.id &&
+                              userInfo.userInfo.email !== invitation.email && (
+                                <Button
+                                  variant={"link"}
+                                  onClick={(e) =>
+                                    handleRemovePending(invitation.email)
+                                  }
+                                  className="text-xs">
+                                  Remove
+                                </Button>
+                              )}
                           </li>
                         )
                       )}

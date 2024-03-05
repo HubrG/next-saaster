@@ -1,4 +1,4 @@
-import { getPlansToFeatures } from "@/src/helpers/db/plansToFeatures";
+import { getPlansToFeatures } from "@/src/helpers/db/plansToFeatures.action";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { create } from "zustand";
 

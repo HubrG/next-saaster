@@ -1,9 +1,9 @@
 "use client";
-import { inviteMember } from "@/app/[locale]/dashboard/queries/organization";
 import { Button } from "@/src/components/ui/button";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { inviteMemberToOrganization } from "@/src/helpers/db/organization.action";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { iUsers } from "@/src/types/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,21 +38,24 @@ export const InviteMember = ({ user }: InviteMemberProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const formData = values;
-    const invite = await inviteMember({
+    const invite = await inviteMemberToOrganization({
       organizationId: organizationStore.id,
       email: formData.email,
     });
-    if (!invite.data) {
-      toaster({ type: "error", description: invite.error })
+    if (invite.serverError) {
+      toaster({ type: "error", description: invite.serverError });
     } else {
-      fetchOrganizationStore(user.organizationId??"");
-      toaster({ type: "success", description: `Invite sent to ${formData.email}` })
+      fetchOrganizationStore(user.organizationId ?? "");
+      toaster({
+        type: "success",
+        description: `Invite sent to ${formData.email}`,
+      });
       reset({
         email: "",
       });
     }
   };
-  console.log(organizationStore)
+
   return (
     <>
       {user.organization?.ownerId === user.id && (
@@ -67,7 +70,7 @@ export const InviteMember = ({ user }: InviteMemberProps) => {
               placeholder="Email"
               form={form}
             />
-            <Button type="submit"  disabled={!isValid} className="w-full">
+            <Button type="submit" disabled={!isValid} className="w-full">
               Invite
             </Button>
           </form>

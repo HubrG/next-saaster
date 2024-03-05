@@ -6,6 +6,7 @@
  * @example
  * const isAdmin = require("src/functions/isAdmin.ts");
  */
+import { getUser } from '@/src/helpers/db/users.action';
 import { UserRole } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/next-auth/auth";
@@ -38,3 +39,14 @@ export const isConnected = async () => {
   if (!session) return false;
   return true;
 };
+
+export const isOrganizationOwner = async (organizationId: string) => {
+  const session = await getServerSession(authOptions);
+  if (!session) return false;
+  const user = await getUser({ email: session.user.email ?? "" });
+  if (!user) return false;
+  const organization = user.data?.organization?.ownerId;
+  if (!organization) return false;
+  if (organization !== organizationId) return false;
+  return true;
+}

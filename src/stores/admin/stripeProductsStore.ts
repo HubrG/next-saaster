@@ -1,4 +1,4 @@
-import { getStripeProducts } from "@/src/helpers/db/stripeProducts";
+import { getStripeProducts } from "@/src/helpers/db/stripeProducts.action";
 import { Plan, StripeProduct } from "@prisma/client";
 import { create } from "zustand";
 export interface ExtendedStripeProduct extends StripeProduct {

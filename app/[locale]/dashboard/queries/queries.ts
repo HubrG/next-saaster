@@ -1,4 +1,4 @@
-import { handleResponse } from "@/src/lib/handleResponse";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 

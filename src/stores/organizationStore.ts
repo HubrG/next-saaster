@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getOrganization } from "../helpers/db/organization";
+import { getOrganization } from "../helpers/db/organization.action";
 import { iOrganization } from "../types/iOrganization";
 
 type Store = {
@@ -23,10 +23,9 @@ export const useOrganizationStore = create<Store>()((set) => ({
     })),
   fetchOrganizationStore: async (id: string) => {
     set({ isStoreLoading: true });
-    const orga = await getOrganization({ id: id });
-    if (!orga.data) {
-      console.error(orga.error);
+    const orga = (await getOrganization({ id: id }));
+    if (!orga.serverError) {
+      set({ organizationStore: orga.data?.success, isStoreLoading: false });
     }
-    set({ organizationStore: orga.data, isStoreLoading: false });
   },
 }));

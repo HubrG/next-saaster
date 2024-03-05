@@ -1,7 +1,7 @@
 "use server";
-import { getFeatures } from "@/src/helpers/db/features";
-import { getPlans } from "@/src/helpers/db/plans";
-import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons";
+import { getFeatures } from "@/src/helpers/db/features.action";
+import { getPlans } from "@/src/helpers/db/plans.action";
+import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
 import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";

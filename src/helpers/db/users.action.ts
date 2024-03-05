@@ -1,12 +1,13 @@
 "use server";
 import { isMe, isSuperAdmin } from "@/src/helpers/functions/isUserRole";
-import { handleResponse } from "@/src/lib/handleResponse";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iUsers } from "@/src/types/iUsers";
 
 type GetUserProps = {
   email: string;
   stripeSignature?: string | undefined;
+  internalSignature?: string | undefined;
 };
 /**
  *  Get user by email
@@ -20,12 +21,13 @@ type GetUserProps = {
 export const getUser = async ({
   email,
   stripeSignature,
+  internalSignature
 }: GetUserProps): Promise<{
   success?: boolean;
   data?: iUsers;
   error?: string;
 }> => {
-  const authorized = await authorize({ email, stripeSignature });
+  const authorized = await authorize({ email, stripeSignature, internalSignature });
   if (!authorized) {
     return handleResponse<undefined>(undefined, "Unauthorized");
   }
@@ -74,16 +76,18 @@ export const updateUser = async ({
   email,
   data,
   stripeSignature,
+  internalSignature,
 }: {
   email: string;
   data: any;
   stripeSignature?: string | undefined;
+  internalSignature?: string | undefined;
 }): Promise<{
   success?: boolean;
   data?: iUsers;
   error?: string;
 }> => {
-  const authorized = await authorize({ email, stripeSignature });
+  const authorized = await authorize({ email, stripeSignature, internalSignature });
   if (!authorized) {
     return handleResponse<undefined>(undefined, "Unauthorized");
   }
@@ -168,24 +172,38 @@ const include = {
 type AuthorizeProps = {
   email?: string;
   stripeSignature?: string | undefined;
+  internalSignature?: string | undefined;
 };
 async function authorize({
   email,
+  internalSignature,
   stripeSignature,
 }: AuthorizeProps): Promise<boolean> {
+
   const isSuperAdminFlag = await isSuperAdmin();
+
   let isUserFlag = true;
   if (email) {
     isUserFlag = await isMe(email);
   }
 
-  let isStripeValid = false;
-  if (stripeSignature) {
-    isStripeValid = await verifyStripeRequest(stripeSignature);
+  let isInternalValid = false;
+  if (internalSignature) {
+    isInternalValid = verifyInternalRequest(internalSignature);
   }
 
-  return isSuperAdminFlag || isUserFlag || isStripeValid;
+  let isStripeValid = false;
+  if (stripeSignature) {
+    isStripeValid = verifyStripeRequest(stripeSignature);
+  }
+
+  return isSuperAdminFlag || isUserFlag || isStripeValid || isInternalValid;
 }
+
 function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_SIGNIN_SECRET;
+  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
 }
+function verifyInternalRequest(internalSignature: string) {
+  return internalSignature === process.env.NEXTAUTH_SECRET;
+}
+

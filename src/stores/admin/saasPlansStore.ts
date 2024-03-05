@@ -1,4 +1,4 @@
-import { getPlans } from "@/src/helpers/db/plans";
+import { getPlans } from "@/src/helpers/db/plans.action";
 import { iPlan } from "@/src/types/iPlans";
 import { create } from "zustand";
 

@@ -1,32 +1,32 @@
-import { createOneTimePayment } from "@/src/helpers/db/oneTimePayments";
+import { createOneTimePayment } from "@/src/helpers/db/oneTimePayments.action";
 import {
   createOrUpdatePlanStripeToBdd,
   deletePlan,
   updatePlan,
-} from "@/src/helpers/db/plans";
+} from "@/src/helpers/db/plans.action";
 import {
   createOrUpdateCouponStripeToBdd,
   deleteStripeCoupon,
-} from "@/src/helpers/db/stripeCoupons";
+} from "@/src/helpers/db/stripeCoupons.action";
 import {
   createOrUpdatePriceStripeToBdd,
   deleteStripePrice,
   getStripePrice,
-} from "@/src/helpers/db/stripePrices";
+} from "@/src/helpers/db/stripePrices.action";
 import {
   createOrUpdateProductStripeToBdd,
   deleteProduct,
   getStripeProduct,
-} from "@/src/helpers/db/stripeProducts";
+} from "@/src/helpers/db/stripeProducts.action";
 import {
   createSubcriptionPayment
-} from "@/src/helpers/db/subscriptionPayments";
+} from "@/src/helpers/db/subscriptionPayments.action";
 import {
   createSubscription,
   updateSubscription,
-} from "@/src/helpers/db/subscriptions";
-import { createUserSubscription, updateUserSubscription } from "@/src/helpers/db/userSubscription";
-import { getUserByCustomerId } from "@/src/helpers/db/users";
+} from "@/src/helpers/db/subscriptions.action";
+import { createUserSubscription, updateUserSubscription } from "@/src/helpers/db/userSubscription.action";
+import { getUserByCustomerId } from "@/src/helpers/db/users.action";
 import { todoWhenPaymentSuceeded } from "@/src/helpers/functions/todoWhenPaymentSuceeded";
 import { iStripeProduct } from "@/src/types/iStripeProducts";
 import { SubscriptionStatus } from "@prisma/client";
@@ -40,9 +40,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
 
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.STRIPE_SIGNIN_SECRET || "";
+  const secret = process.env.STRIPE_WEBHOOK_SECRET || "";
   const payload = await req.text();
   const signature = req.headers.get("stripe-signature");
+  console.log(signature);
 
   let event: Stripe.Event | null = null;
 
@@ -86,8 +87,6 @@ export async function POST(req: NextRequest) {
             stripeCustomerId: customerId,
             startDate: new Date().toISOString(),
             endDate: null,
-            items: JSON.stringify(subscription.items.data),
-            discount: JSON.stringify(subscription.discount),
           },
         });
         if (!createSub.data) {
@@ -146,11 +145,9 @@ export async function POST(req: NextRequest) {
         data: {
           allDatas: JSON.stringify(upsubscription),
           status: event.data.object.status as SubscriptionStatus,
-          priceId: uppriceId ?? null,
           startDate: new Date().toISOString(),
           endDate: null,
-          items: JSON.stringify(upsubscription.items.data),
-          discount: JSON.stringify(upsubscription.discount),
+          priceId: uppriceId ?? null,
         },
       });
       if (!upSub.data) {
@@ -164,12 +161,11 @@ export async function POST(req: NextRequest) {
         stripeSignature: secret ?? "",
         subId: delsubscription.id,
         data: {
+          allDatas: JSON.stringify(delsubscription),
           status: delsubscription.status as SubscriptionStatus,
           priceId: delpriceId ?? null,
           startDate: new Date().toISOString(),
           endDate: null,
-          items: JSON.stringify(delsubscription.items.data),
-          discount: JSON.stringify(delsubscription.discount),
         },
       });
       if (!delSub.data) {
@@ -274,7 +270,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 200 });
     case "invoice.upcoming":
       const invoiceUpdated = event.data.object;
-      console.log(event.data, "invoiceUpdated");
       const invoiceUpdatedUpSubscription = await updateSubscription({
         stripeSignature: secret ?? "",
         subId: invoiceUpdated.subscription as string,

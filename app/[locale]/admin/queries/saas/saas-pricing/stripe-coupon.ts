@@ -1,7 +1,7 @@
 "use server";
 import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
+import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { StripeCoupon } from "@prisma/client";
 
 const stripe = new StripeManager();

@@ -43,26 +43,40 @@ export type ReturnProps = {
  */
 export const getUserInfos = ({ user }: { user: iUsers }) => {
 
+  // We get the user's subscription
   const subscription = user.subscriptions?.find(
     (sub) => sub.isActive
   )?.subscription;
 
+  // We get the user's subscription datas
+  const subAllDatas = subscription?.allDatas as Stripe.Subscription | null;
 
-  const planDiscount: SubscriptionDiscount | null =
-    subscription?.discount as SubscriptionDiscount | null;
+  // 
 
-  const planItems: SubscriptionItem | null =
-    subscription?.items as SubscriptionItem | null;
+  const planDiscount = subAllDatas?.discount;
+
+  const planItems = subAllDatas?.items;
+
+  // const planItems: SubscriptionItem | null =
+  //   subscription?.items as SubscriptionItem | null;
 
   const priceWithDiscount = () => {
-    if (planDiscount?.coupon.amount_off && planDiscount) {
+    if (
+      planDiscount?.coupon &&
+      planDiscount?.coupon.amount_off &&
+      planDiscount
+    ) {
       return (
         (subscription?.price?.unit_amount &&
           subscription?.price?.unit_amount / 100 -
             planDiscount.coupon.amount_off / 100) ??
         null
       );
-    } else if (planDiscount?.coupon.percent_off && planDiscount) {
+    } else if (
+      planDiscount?.coupon &&
+      planDiscount?.coupon.percent_off &&
+      planDiscount
+    ) {
       return (
         (subscription?.price?.unit_amount &&
           subscription?.price?.unit_amount / 100 -
@@ -101,8 +115,7 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
       subscription?.status === "trialing" ? trialDaysRemaining() : undefined,
     plan: subscription,
     planName:
-      subscription?.price?.productRelation?.PlanRelation?.name ??
-      "No plan",
+      subscription?.price?.productRelation?.PlanRelation?.name ?? "No plan",
     planPrice:
       (subscription?.price?.unit_amount &&
         subscription?.price?.unit_amount / 100) ??
@@ -115,14 +128,15 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
     currency: subscription?.price?.currency ?? "USD",
     planStatus: subscription?.status ?? "active",
     planDiscount: planDiscount,
-    planItems: planItems ? planItems[0] : "",
-    planInterval: planItems ? planItems[0].price.recurring.interval : "",
-    planAllDatas: subscription?.allDatas,
+    planItems: planItems ? planItems.data[0] : null,
+    planInterval: planItems?.data[0]
+      ? planItems.data[0].price.recurring?.interval
+      : "",
+    planAllDatas: subAllDatas,
     featuresList:
-      subscription?.price?.productRelation?.PlanRelation?.Features ??
-      null,
+      subscription?.price?.productRelation?.PlanRelation?.Features ?? null,
     planPlan: subscription?.price?.productRelation?.PlanRelation,
-    subItem: planItems ? planItems[0].id : "",
+    subItem: planItems?.data[0].id ?? "",
     oneTimePayments: user.oneTimePayments,
     userInfo: user,
   };

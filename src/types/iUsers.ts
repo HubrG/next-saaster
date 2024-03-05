@@ -169,4 +169,6 @@ export interface Item {
 }
 
 
-export type SubscriptionItem  = Item[];
+export type SubscriptionItem = Item[];
+
+

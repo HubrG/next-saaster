@@ -1,11 +1,11 @@
 "use server";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
-import { handleResponse } from "@/src/lib/handleResponse";
+import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iPlan } from "@/src/types/iPlans";
 import { Feature, Plan } from "@prisma/client";
 import Stripe from "stripe";
-import { getFeatures } from "./features";
+import { getFeatures } from "./features.action";
 
 export const getPlans = async (): Promise<{
   data?: iPlan[];

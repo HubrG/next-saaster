@@ -1,8 +1,8 @@
-import { updatePlan } from "@/src/helpers/db/plans";
-import { createOrUpdateCouponStripeToBdd } from "@/src/helpers/db/stripeCoupons";
-import { createOrUpdatePriceStripeToBdd } from "@/src/helpers/db/stripePrices";
-import { createOrUpdateProductStripeToBdd } from "@/src/helpers/db/stripeProducts";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
+import { updatePlan } from "@/src/helpers/db/plans.action";
+import { createOrUpdateCouponStripeToBdd } from "@/src/helpers/db/stripeCoupons.action";
+import { createOrUpdatePriceStripeToBdd } from "@/src/helpers/db/stripePrices.action";
+import { createOrUpdateProductStripeToBdd } from "@/src/helpers/db/stripeProducts.action";
+import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { stripeEvents } from "@/src/lib/stripe-events";
 import { SaasTypes } from "@prisma/client";
 import Stripe from "stripe";

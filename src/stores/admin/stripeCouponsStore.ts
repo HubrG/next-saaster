@@ -1,4 +1,4 @@
-import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons";
+import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons.action";
 import { iStripeCoupon } from "@/src/types/iStripeCoupons";
 import { create } from "zustand";
 

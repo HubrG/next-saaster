@@ -1,4 +1,4 @@
-import { getStripePrices } from "@/src/helpers/db/stripePrices";
+import { getStripePrices } from "@/src/helpers/db/stripePrices.action";
 import { iStripePrice } from "@/src/types/iStripePrices";
 import { create } from "zustand";
 

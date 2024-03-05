@@ -3,21 +3,8 @@ import { EmailsInterface } from "@/src/types/EmailsInterface";
 import React from "react";
 import { Resend } from "resend";
 import EmailWrapperTemplate from "../../emails/@ui/EmailWrapperTemplate";
-import { getErrorMessage } from "../../lib/getErrorMessage";
+import { getErrorMessage } from "../../lib/error-handling/getErrorMessage";
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-type SendEmailProps = {
-  from?: string;
-  type: EmailsInterface["type"];
-  to: string;
-  vars?: EmailsInterface["vars"];
-  subject: string;
-  text?: string;
-  reply_to?: string;
-  tag_name?: "category" | undefined;
-  tag_value?: "invite_member_to_organisation" | "confirm_email" | undefined;
-  preview?: string;
-};
 /**
  * This function sends an email using the Resend API.
  * @types
@@ -32,6 +19,18 @@ type SendEmailProps = {
  * @param {string} preview - The preview of the email .
  *
  */
+type SendEmailProps = {
+  from?: string;
+  type: EmailsInterface["type"];
+  to: string;
+  vars?: EmailsInterface["vars"];
+  subject: string;
+  text?: string;
+  reply_to?: string;
+  tag_name?: "category" | undefined;
+  tag_value?: "invite_member_to_organisation" | "confirm_email" | undefined;
+  preview?: string;
+};
 export const sendEmail = async ({
   from = process.env.RESEND_FROM ?? "onboarding@resend.dev",
   reply_to = process.env.RESEND_REPLY_TO ?? "",

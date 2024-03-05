@@ -1,5 +1,5 @@
 import { getLocale } from "next-intl/server";
-import { getAppSettings } from "../helpers/db/appSettings";
+import { getAppSettings } from "../helpers/db/appSettings.action";
 
 interface MetadataParams {
   title?: string;

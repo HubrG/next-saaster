@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getUser } from "../helpers/db/users";
+import { getUser } from "../helpers/db/users.action";
 import { iUsers } from "../types/iUsers";
 
 type Store = {

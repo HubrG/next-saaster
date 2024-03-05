@@ -1,6 +1,6 @@
 "use server";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
-import { handleResponse } from "@/src/lib/handleResponse";
+import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iSearchPrices, iStripePrice } from "@/src/types/iStripePrices";
 import { StripePrice } from "@prisma/client";

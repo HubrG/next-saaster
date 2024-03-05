@@ -6,12 +6,12 @@ import {
   deletePlan,
   getPlan,
   updatePlan as upPlan,
-} from "@/src/helpers/db/plans";
-import { getSaasSettings } from "@/src/helpers/db/saasSettings";
-import { searchPricesRaw } from "@/src/helpers/db/stripePrices";
-import { getStripeProduct } from "@/src/helpers/db/stripeProducts";
+} from "@/src/helpers/db/plans.action";
+import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
+import { searchPricesRaw } from "@/src/helpers/db/stripePrices.action";
+import { getStripeProduct } from "@/src/helpers/db/stripeProducts.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
+import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { iPlan } from "@/src/types/iPlans";
 import { iStripeProduct } from "@/src/types/iStripeProducts";
 import { PlanToFeature, SaasTypes } from "@prisma/client";

@@ -1,4 +1,4 @@
-import { handleResponse } from "@/src/lib/handleResponse";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iUserSubscription } from "@/src/types/iUserSubscription";
 import { UserSubscription } from "@prisma/client";
@@ -129,5 +129,5 @@ async function authorize({
   return isSuperAdminFlag || isStripeValid;
 }
 function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_SIGNIN_SECRET;
+  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
 }

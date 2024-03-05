@@ -231,7 +231,7 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply z-50 !text-base font-semibold rounded-default  max-w-lg dark:bg-theming-background-500 bg-theming-background-800 !important;
+  @apply !z-[999999999999999] !text-base font-semibold rounded-default  max-w-lg dark:bg-theming-background-500 bg-theming-background-800 !important;
 }
 .tooltip span {
   @apply text-white font-normal ;

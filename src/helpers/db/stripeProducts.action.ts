@@ -1,5 +1,5 @@
 "use server";
-import { getErrorMessage } from "@/src/lib/getErrorMessage";
+import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { prisma } from "@/src/lib/prisma";
 import { iPlan } from "@/src/types/iPlans";
 import { iStripeProduct } from "@/src/types/iStripeProducts";

@@ -1,6 +1,6 @@
 import { SwitchRecurrence } from "@/app/[locale]/pricing/components/SwitchRecurrence";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
-import { getUser } from "@/src/helpers/db/users";
+import { getUser } from "@/src/helpers/db/users.action";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";

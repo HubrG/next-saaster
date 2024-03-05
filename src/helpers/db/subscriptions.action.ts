@@ -1,4 +1,4 @@
-import { handleResponse } from "@/src/lib/handleResponse";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iSubscription } from "@/src/types/iSubscription";
 import { Subscription } from "@prisma/client";
@@ -57,8 +57,6 @@ export const updateSubscription = async ({
     const dataWithCorrectItemsType = {
       ...data,
       allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
-      discount: data.discount ? JSON.parse(data.discount as string) : {},
-      items: data.items ? JSON.parse(data.items as string) : {},
     };
     const subscription = await prisma.subscription.update({
       where: { id: subId },
@@ -93,8 +91,6 @@ export const createSubscription = async ({
     const dataWithCorrectItemsType = {
       ...data,
       allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
-      discount: data.discount ? JSON.parse(data.discount as string) : {},
-      items: data.items ? JSON.parse(data.items as string) : {},
     };
     const subscription = await prisma.subscription.create({
       data: dataWithCorrectItemsType,
@@ -179,5 +175,5 @@ async function authorize({
   return isSuperAdminFlag || isStripeValid;
 }
 function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_SIGNIN_SECRET;
+  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
 }

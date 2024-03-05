@@ -1,6 +1,6 @@
 import { appSettings } from "@prisma/client";
 import { create } from "zustand";
-import { getAppSettings } from "../helpers/db/appSettings";
+import { getAppSettings } from "../helpers/db/appSettings.action";
 
 type Store = {
   appSettings: appSettings;

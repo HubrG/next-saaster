@@ -1,7 +1,7 @@
 "use server";
 import { prisma } from "@/src/lib/prisma";
 import { Resend } from "resend";
-import { getErrorMessage } from "../../lib/getErrorMessage";
+import { getErrorMessage } from "../../lib/error-handling/getErrorMessage";
 const resend = new Resend(process.env.RESEND_API_KEY);
 interface AudienceData {
   id: string;

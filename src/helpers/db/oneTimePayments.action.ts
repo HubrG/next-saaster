@@ -1,4 +1,4 @@
-import { handleResponse } from "@/src/lib/handleResponse";
+import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iOneTimePayment } from "@/src/types/iOneTimePayments";
 import { isSuperAdmin } from "../functions/isUserRole";
@@ -86,5 +86,5 @@ async function authorize({
   return isSuperAdminFlag || isStripeValid;
 }
 function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_SIGNIN_SECRET;
+  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
 }

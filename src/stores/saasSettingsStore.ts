@@ -1,6 +1,6 @@
 import { SaasSettings } from "@prisma/client";
 import { create } from "zustand";
-import { getSaasSettings } from "../helpers/db/saasSettings";
+import { getSaasSettings } from "../helpers/db/saasSettings.action";
 
 type Store = {
   saasSettings: SaasSettings;

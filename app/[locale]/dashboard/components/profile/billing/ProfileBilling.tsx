@@ -8,8 +8,10 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
 import currenciesData from "@/src/jsons/currencies.json";
 import { cn } from "@/src/lib/utils";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { Currencies } from "@/src/types/Currencies";
+import { toLower } from "lodash";
 import { Check, RotateCcw, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +22,7 @@ type ProfileBillingProps = {};
 
 export const ProfileBilling = ({}: ProfileBillingProps) => {
   const router = useRouter();
+  const { saasSettings } = useSaasSettingsStore();
   const currencies = currenciesData as Currencies;
   const { userStore, isStoreLoading, fetchUserStore } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -68,13 +71,13 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
   const handleGoToPricingPage = () => {
     router.push("/pricing");
   };
-//  const sendEmailToUser = sendEmail({
-//         to: "hubrgiorgi@gmail.com",
-//         subject: "Bonjour Monsieur",
-//         react_template: html,
-//         tag_name: "category",
-//         tag_value: "confirm_email",
-//       });
+  //  const sendEmailToUser = sendEmail({
+  //         to: "hubrgiorgi@gmail.com",
+  //         subject: "Bonjour Monsieur",
+  //         react_template: html,
+  //         tag_name: "category",
+  //         tag_value: "confirm_email",
+  //       });
   const handlAddItem = async (subItem: string) => {
     const addItem = await reportUsage(subItem, 100000);
     if (addItem) {
@@ -114,29 +117,57 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     </span>
                   </span>
                   <span className="flex flex-col">
-                    <span>
-                      {currencies[userInfo?.currency]?.sigle}
-                      {userInfo?.planPriceWithDiscount &&
-                      userInfo?.planItems?.quantity &&
-                      userInfo?.planItems?.quantity > 1
-                        ? userInfo?.planItems?.quantity *
-                          userInfo?.planPriceWithDiscount
-                        : userInfo?.planPriceWithDiscount}
-                    </span>
-                    <span className="text-sm">
-                      /{userInfo?.planItems?.price?.recurring?.interval ?? ""}
-                      {userInfo?.planItems?.quantity &&
+                    {userInfo?.planItems?.plan.usage_type !== "metered" && (
+                      <>
+                        <span>
+                          {currencies[userInfo?.currency]?.sigle}
+                          {userInfo?.planPriceWithDiscount &&
+                          userInfo?.planItems?.quantity &&
+                          userInfo?.planItems?.quantity > 1
+                            ? userInfo?.planItems?.quantity *
+                              userInfo?.planPriceWithDiscount
+                            : userInfo?.planPriceWithDiscount}
+                        </span>
+                        <span className="text-sm">
+                          /
+                          {userInfo?.planItems?.price?.recurring?.interval ??
+                            ""}
+                          {userInfo?.planItems?.quantity &&
                             userInfo?.planItems?.quantity > 1 &&
                             "/" + userInfo?.planItems?.quantity + " users"}
-                    </span>
+                        </span>
+                      </>
+                    )}
+                    {userInfo?.planItems?.plan.usage_type === "metered" && (
+                      <>
+                        <span>
+                          {currencies[userInfo?.currency]?.sigle}
+                          {parseFloat(
+                            userInfo?.planItems?.plan.amount_decimal
+                          ) / 100}
+                        </span>
+                        <span className="text-sm">
+                          /per{" "}
+                          {userInfo?.planItems?.price?.transform_quantity
+                            ? userInfo.planPlan?.meteredUnit
+                            : ""}{" "}
+                          {toLower(saasSettings.creditName ?? "token")}
+                        </span>
+                        <span className="text-sm font-normal">billed each{" "} 
+                        {userInfo?.planItems?.price?.recurring?.interval ?? ""}
+                        </span>
+                        {userInfo?.planItems?.plan.usage_type === "metered" && (
+                          <span className="text-sm font-normal">(according to use)</span>
+                        )}
+                      </>
+                    )}
                     {userInfo?.planItems?.quantity &&
                       userInfo?.planItems?.quantity > 1 && (
                         <span className="text-sm font-normal">
-                           {currencies[userInfo?.currency]?.sigle}
-                           {userInfo?.planItems?.quantity &&
+                          {currencies[userInfo?.currency]?.sigle}
+                          {userInfo?.planItems?.quantity &&
                             userInfo?.planItems?.quantity > 1 &&
                             userInfo?.planPriceWithDiscount + " per user"}
-                          
                         </span>
                       )}
                   </span>

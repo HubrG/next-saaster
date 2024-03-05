@@ -18,7 +18,7 @@ export default function InviteUserTemplate({
       <Text>To accept the invitation, click here :</Text>
       <Button
         className="w-full p-5"
-        href={`${uri}/register/teamInvitation?organizationId=${vars.organizationId}&organizationName=${vars.name}`}>
+        href={`${uri}/register/teamInvitation?organizationId=${vars.organizationId}&email=${vars.email}`}>
         Verify my email
       </Button>
     </Section>

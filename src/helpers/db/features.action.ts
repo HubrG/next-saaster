@@ -4,8 +4,9 @@ import {
   handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { ActionError, adminAction } from "@/src/lib/safe-actions";
+import { ActionError, adminAction, authAction } from "@/src/lib/safe-actions";
 import { iFeature } from "@/src/types/iFeatures";
+import { updateFeatureSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
 
 export const getFeatures = async (): Promise<
@@ -28,22 +29,37 @@ export const getFeatures = async (): Promise<
   }
 };
 
-export const updateFeature = adminAction(
+export const getFeature = authAction(
   z.object({
-    data: z.object({
-      id: z.string().cuid(),
-      position: z.number().optional(),
-      name: z.string().optional(),
-      description: z.string().optional(),
-      categoryId: z.string().optional(),
-      isAvailable: z.boolean().optional(),
-    }),
+    id: z.string().cuid(),
   }),
+  async ({ id }): Promise<HandleResponseProps<iFeature>> => {
+    try {
+      const feature = await prisma.feature.findUnique({
+        where: { id },
+        include,
+      });
+      if (!feature) throw new ActionError("No feature found");
+      return handleRes<iFeature>({
+        success: feature,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      return handleRes<iFeature>({ error: ActionError, statusCode: 500 });
+    }
+  }
+);
+
+export const updateFeature = adminAction(
+  updateFeatureSchema,
   async ({ data }): Promise<HandleResponseProps<iFeature>> => {
     try {
       const feature = await prisma.feature.update({
         where: { id: data.id },
-        data,
+        data: {
+          ...data,
+          alias: data.alias === "" ? null : data.alias,
+        },
         include,
       });
       if (!feature) throw new ActionError("No feature found");

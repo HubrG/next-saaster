@@ -1,8 +1,4 @@
 "use client";
-import {
-  createNewCategory,
-  updateFeatureCategoryPosition,
-} from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import {
@@ -11,6 +7,11 @@ import {
   PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import {
+  createFeaturesCategory,
+  getFeaturesCategories,
+  updateFeaturesCategory,
+} from "@/src/helpers/db/featuresCategories.action";
 import { sortAdminFeatureCategory } from "@/src/helpers/functions/sortAdminFeatureCategory";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
@@ -28,37 +29,75 @@ export const FeaturesCategoriesList = () => {
     useSaasFeaturesCategoriesStore();
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
+    // Sort the featuresCategories and update the position of each feature
     const newSaasFeaturesCategories = (await sortAdminFeatureCategory(
       saasFeaturesCategories,
       oldIndex,
       newIndex
-    )) as iFeaturesCategories[];
-    setSaasFeaturesCategories(newSaasFeaturesCategories);
-    await updateFeatureCategoryPosition(
-      newSaasFeaturesCategories as iFeaturesCategories[]
+    )) as unknown as iFeaturesCategories[];
+    // Update the position of each featuresCategories in the store first for a better UX
+    setSaasFeaturesCategories(
+      newSaasFeaturesCategories.sort(
+        (a, b) => (a.position ?? 9999) - (b.position ?? 9999)
+      )
     );
+    // Then update the position of each featuresCategories in the database
+    const updatePromises = newSaasFeaturesCategories.map((feature) =>
+      updateFeaturesCategory({
+        data: {
+          id: feature.id,
+          position: feature.position ?? 9999,
+        },
+      })
+    );
+    const results = await Promise.all(updatePromises);
+    if (
+      results.some((result) => result.serverError || result.validationErrors)
+    ) {
+      // if there is an error, we fetch the features again to get the correct old positions
+      const updatedFeaturesResult = await getFeaturesCategories();
+      if (updatedFeaturesResult.success) {
+        setSaasFeaturesCategories(updatedFeaturesResult.success);
+      }
+      const error = results.find(
+        (result) => result.serverError || result.validationErrors
+      );
+      return toaster({
+        description:
+          (error?.validationErrors?.data &&
+            "Type error : " + error?.validationErrors?.data) ||
+          error?.serverError ||
+          "Error while updating features positions",
+        type: "error",
+      });
+    }
   };
 
   const handleAddCategory = async () => {
     setLoading(true);
-    const createCategory = await createNewCategory(
-      "New category-" + random(1, 9999)
-    ) as iFeaturesCategories;
-    if (!createCategory) {
+    const categoriesLength = saasFeaturesCategories.length;
+    const createCategory = await createFeaturesCategory({
+      data: {
+        name: "Category-" + categoriesLength + 1 + `${random(0,9)}`,
+      },
+    });
+    // If there is an error, we display a toaster
+    if (createCategory.serverError || createCategory.validationErrors) {
       setLoading(false);
       return toaster({
+        description:
+          createCategory.serverError ||
+          createCategory.validationErrors?.data ||
+          "An error occurred",
         type: "error",
-        description: `Error while creating category, please try again later`,
       });
     }
-    setSaasFeaturesCategories([
-      ...saasFeaturesCategories,
-      createCategory,
-    ]);
+    const newCategory = createCategory.data?.success as iFeaturesCategories;
+    setSaasFeaturesCategories([...saasFeaturesCategories, newCategory]);
     setLoading(false);
     return toaster({
       type: "success",
-      description: `Category « ${createCategory.name} » created successfully`,
+      description: `Category « ${newCategory.name} » created successfully`,
     });
   };
 
@@ -91,7 +130,7 @@ export const FeaturesCategoriesList = () => {
           </div>
         </PopoverContent>
       </Popover>
-       <Tooltip
+      <Tooltip
         opacity={1}
         id="manage-category-tt"
         className="tooltip"

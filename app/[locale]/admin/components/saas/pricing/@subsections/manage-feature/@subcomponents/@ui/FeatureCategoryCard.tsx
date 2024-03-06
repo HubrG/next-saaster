@@ -1,15 +1,14 @@
 "use client";
-import {
-  deleteFeatureCategory,
-  updateFeatureCategory,
-} from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import {
+  deleteFeaturesCategory,
+  updateFeaturesCategory,
+} from "@/src/helpers/db/featuresCategories.action";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
-import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
 import { FeatureCategory } from "@prisma/client";
 import { Check, Grip } from "lucide-react";
 import { useState } from "react";
@@ -23,58 +22,71 @@ export const FeatureCategoryCard = ({ category }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { saasFeaturesCategories, setSaasFeaturesCategories } =
     useSaasFeaturesCategoriesStore();
+  const initialFeatureState = { ...category };
 
   const handleDelete = async () => {
-    const dataToSet = await deleteFeatureCategory(category.id);
-    if (dataToSet) {
-      setSaasFeaturesCategories(
-        saasFeaturesCategories.filter((cat) => cat.id !== category.id)
-      );
-
+    // Delete the category from the database
+    const dataToSet = await deleteFeaturesCategory({
+      id: category.id,
+    });
+    if (
+      dataToSet.serverError ||
+      dataToSet.validationErrors ||
+      !dataToSet.data?.success
+    ) {
       return toaster({
-        description: `« ${category.name} » deleted successfully.`,
-        type: "success",
-        duration: 8000,
-      });
-    } else {
-      return toaster({
-        description: `Error while deleting feature « ${category.name} », please try again later`,
+        description:
+          dataToSet.serverError ||
+          dataToSet.validationErrors?.id ||
+          "An error occurred",
         type: "error",
       });
     }
+    // Remove the category from the store
+    setSaasFeaturesCategories(
+      saasFeaturesCategories.filter((cat) => cat.id !== category.id)
+    );
+    return toaster({
+      description: `« ${category.name} » deleted successfully.`,
+      type: "success",
+      duration: 8000,
+    });
   };
 
   const handleSave = async () => {
-    setLoading(true);
-    const dataToSet = {
-      name: data,
-    };
     if (data === "") {
       return toaster({
         type: "error",
         description: `Please enter a name`,
       });
     }
-    const updateCategory = (await updateFeatureCategory(
-      category.id,
-      dataToSet
-    )) as iFeaturesCategories;
-    if (!updateCategory) {
+    setLoading(true);
+    const updateCategory = await updateFeaturesCategory({
+      data: {
+        id: category.id,
+        name: data,
+      },
+    });
+
+    if (updateCategory.serverError || updateCategory.validationErrors) {
       setLoading(false);
+      setSaasFeaturesCategories(
+        saasFeaturesCategories.map((feat) =>
+          feat.id === category.id ? { ...feat, initialFeatureState } : feat
+        )
+      );
       return toaster({
+        description:
+          updateCategory.serverError ||
+          updateCategory.validationErrors?.data ||
+          "An error occurred",
         type: "error",
-        description: `Error while updating category, please try again later`,
       });
     }
-    setSaasFeaturesCategories(
-      saasFeaturesCategories.map((cat) =>
-        cat.id === category.id ? updateCategory : cat
-      )
-    );
     setLoading(false);
     return toaster({
       type: "success",
-      description: `Category « ${updateCategory.name} » updated successfully`,
+      description: `Category « ${updateCategory.data?.success?.name} » updated successfully`,
     });
   };
 

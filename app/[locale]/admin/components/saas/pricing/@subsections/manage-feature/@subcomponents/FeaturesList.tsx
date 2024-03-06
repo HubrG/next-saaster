@@ -1,10 +1,11 @@
 "use client";
-import { updateFeaturePosition } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Loader } from "@/src/components/ui/loader";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { getFeatures, updateFeature } from "@/src/helpers/db/features.action";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
-import { iFeature } from "@/src/types/iFeatures";
+import { Feature } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,34 +16,80 @@ import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
   const router = useRouter();
-  
-  const { saasFeatures, setSaasFeatures, fetchSaasFeatures, isStoreLoading, setStoreLoading } =
-  useSaasFeaturesStore();
+
+  const {
+    saasFeatures,
+    setSaasFeatures,
+    fetchSaasFeatures,
+    isStoreLoading,
+    setStoreLoading,
+  } = useSaasFeaturesStore();
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
-  
+
+  // Fetch the features from the store when the component is mounted
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       fetchSaasFeatures();
       setStoreLoading(false);
-    }, 5000); 
-    return () => clearTimeout(timeoutId); 
-  }, [isStoreLoading,fetchSaasFeatures, router, saasFeatures, setStoreLoading]);
+    }, 5000);
+    return () => clearTimeout(timeoutId);
+  }, [
+    isStoreLoading,
+    fetchSaasFeatures,
+    router,
+    saasFeatures,
+    setStoreLoading,
+  ]);
 
+  // this function is used to handle the click on a row
   const handleRowClick = (id: string) => {
     setSelectedRowId(id);
   };
 
-
+  // This function is used to update the position of the features
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
+    // Sort the features and update the position of each feature
     const newSaasFeatures = (await sortAdminFeatures({
       list: saasFeatures,
       oldIndex,
       newIndex,
-    })) as iFeature[];
-    setSaasFeatures(newSaasFeatures);
-    const featurePosition = await updateFeaturePosition(newSaasFeatures);
-    if (!featurePosition) return;
-    setSaasFeatures(featurePosition);
+    })) as unknown as Feature[];
+    // Update the position of each feature in the store first for a better UX
+    setSaasFeatures(
+      newSaasFeatures.sort(
+        (a, b) => (a.position ?? 9999) - (b.position ?? 9999)
+      )
+    );
+    // Then update the position of each feature in the database
+    const updatePromises = newSaasFeatures.map((feature) =>
+      updateFeature({
+        data: {
+          id: feature.id,
+          position: feature.position ?? 9999,
+        },
+      })
+    );
+    const results = await Promise.all(updatePromises);
+    if (
+      results.some((result) => result.serverError || result.validationErrors)
+    ) {
+      // if there is an error, we fetch the features again to get the correct old positions
+      const updatedFeaturesResult = await getFeatures();
+      if (updatedFeaturesResult.success) {
+        setSaasFeatures(updatedFeaturesResult.success);
+      }
+      const error = results.find(
+        (result) => result.serverError || result.validationErrors
+      );
+      return toaster({
+        description:
+          (error?.validationErrors?.data &&
+            "Type error : " + error?.validationErrors?.data) ||
+          error?.serverError ||
+          "Error while updating features positions",
+        type: "error",
+      });
+    }
   };
 
   return (
@@ -58,7 +105,7 @@ export const FeaturesList = () => {
               <th></th>
               <th>
                 <span className="flex flex-row items-center justify-center">
-                Category <FeaturesCategoriesList />
+                  Category <FeaturesCategoriesList />
                 </span>
               </th>
               <th>Active</th>
@@ -81,11 +128,6 @@ export const FeaturesList = () => {
             <AnimatePresence>
               {saasFeatures
                 .filter((feature) => !feature.deleted)
-                .sort((a, b) => {
-                  const positionA = a.position != null ? a.position : 0;
-                  const positionB = b.position != null ? b.position : 0;
-                  return positionA - positionB;
-                })
                 .map((feature) => (
                   <SortableItem key={feature.id}>
                     <motion.tr

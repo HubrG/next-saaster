@@ -16,8 +16,7 @@ export const useSaasFeaturesCategoriesStore = create<Store>()((set) => ({
     set({ saasFeaturesCategories }),
   fetchSaasFeaturesCategories: async () => {
     const saasFeaturesCategories = await getFeaturesCategories();
-    if (saasFeaturesCategories.error)
-      throw new Error(saasFeaturesCategories.error);
-    set({ saasFeaturesCategories: saasFeaturesCategories.data });
+   if (saasFeaturesCategories.success)
+    set({ saasFeaturesCategories: saasFeaturesCategories.success });
   },
 }));

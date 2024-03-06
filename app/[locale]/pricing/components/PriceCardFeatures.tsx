@@ -4,6 +4,7 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
 import { iPlan } from "@/src/types/iPlans";
 import { CheckCircle2, X } from "lucide-react";
+import { Fragment } from "react";
 import { Tooltip } from "react-tooltip";
 type PriceCardFeaturesProps = {
   plan: Partial<iPlan>;
@@ -43,36 +44,38 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
         if (feature.active === false) {
           if (saasSettings.activeFeatureComparison) {
             return !feature.feature.onlyOnSelectedPlans ? (
-              <>
-              <p
-                key={index}
-                className="flex items-center opacity-50 cursor-default"
-                data-tooltip-id={feature.feature.id}>
-                <X className="w-4 h-4 mr-2" />
-                {creditAlloued}
-                {feature.feature.name}
-              </p>
+              <Fragment key={index}>
+                <p
+                  className="flex items-center opacity-50 cursor-default"
+                  data-tooltip-id={feature.feature.id}>
+                  <X className="w-4 h-4 mr-2" />
+                  {creditAlloued}
+                  {feature.feature.name}
+                </p>
                 {feature.feature.description && (
-                  <Tooltip place="left" className="tooltip" id={feature.feature.id} opacity={100}>
+                  <Tooltip
+                    place="left"
+                    className="tooltip"
+                    id={feature.feature.id}
+                    opacity={100}>
                     {feature.feature.description}
                   </Tooltip>
                 )}
-                </>
+              </Fragment>
             ) : null;
           } else {
             null;
           }
         } else {
           return (
-            <>
-            <p
-              key={index}
-              className="flex items-center  cursor-default"
-              data-tooltip-id={feature.feature.id}>
-              <CheckCircle2 className="w-4 h-4 mr-2 text-theming-text-500-second" />
-              {creditAlloued}
-              {feature.feature.name}
-            </p>
+            <Fragment key={index}>
+              <p
+                className="flex items-center  cursor-default"
+                data-tooltip-id={feature.feature.id}>
+                <CheckCircle2 className="w-4 h-4 mr-2 text-theming-text-500-second" />
+                {creditAlloued}
+                {feature.feature.name}
+              </p>
               {feature.feature.description && (
                 <Tooltip
                   place="left"
@@ -82,7 +85,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
                   {feature.feature.description}
                 </Tooltip>
               )}
-            </>
+            </Fragment>
           );
         }
       })}

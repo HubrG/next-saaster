@@ -1,6 +1,5 @@
 "use client";
 
-import { createNewCategoryFromFeature, updateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import {
   Command,
@@ -15,6 +14,8 @@ import {
   PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { updateFeature } from "@/src/helpers/db/features.action";
+import { createFeaturesCategory } from "@/src/helpers/db/featuresCategories.action";
 import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
@@ -49,53 +50,87 @@ export const FeatureCardCategory = ({ feature }: Props) => {
   }, [feature.categoryId, saasFeaturesCategories]);
 
   const handleCreateCategory = async () => {
-    const dataToSet = {
-      name: searchInput,
-      featureId: feature.id,
-    };
-    if (searchInput === "") {
-      return toaster({
-        type: "error",
-        description: `Please enter a name`,
-      });
-    }
-    const createCategory = await createNewCategoryFromFeature(dataToSet) as iFeaturesCategories;
-    if (!createCategory) {
-      return toaster({
-        type: "error",
-        description: `Error while creating category « ${searchInput} », please try again later`,
-      });
-    }
-    toaster({
-      type: "success",
-      description: `Category « ${searchInput} » created successfully and linked to feature « ${feature.name} »`,
+    // We create the category in the database
+    const category = await createFeaturesCategory({
+      data: {
+        name: searchInput,
+      },
     });
-    setSaasFeaturesCategories([...saasFeaturesCategories, createCategory]);
-    if (createCategory.id) {
-      setSaasFeatures(
-        saasFeatures.map((f) =>
-          f.id === feature.id ? { ...f, categoryId: createCategory.id } : f
-        )
-      );
-      setValue("");
-      setSearchInput("");
-      setOpen(false);
+    // If there is an error, we display a toaster
+    if (category.serverError || category.validationErrors) {
+      return toaster({
+        description:
+          category.serverError ||
+          category.validationErrors?.data ||
+          "An error occurred",
+        type: "error",
+      });
     }
+    const newCategory = category.data?.success as iFeaturesCategories;
+    // We update the categoryId of the feature
+    const upFeature = await updateFeature({
+      data: {
+        id: feature.id,
+        categoryId: newCategory.id,
+      },
+    });
+    // If there is an error, we display a toaster
+    if (upFeature.serverError || upFeature.validationErrors) {
+      return toaster({
+        description:
+          upFeature.serverError ||
+          upFeature.validationErrors?.data ||
+          "An error occurred",
+        type: "error",
+      });
+    }
+    // We update the category in the store
+    setSaasFeaturesCategories([...saasFeaturesCategories, newCategory]);
+    // We update the feature store to assign the new category
+    setSaasFeatures(
+      saasFeatures.map((feat) =>
+        feat.id === feature.id
+          ? {
+              ...feat,
+              categoryId: newCategory.id,
+            }
+          : feat
+      )
+    );
+    setValue("");
+    setSearchInput("");
+    setOpen(false);
+    return toaster({
+      type: "success",
+      description: `« ${newCategory.name} » created and successfully assigned to « ${feature.name} »`,
+      duration: 2000,
+    });
   };
 
   const handleSelectCategory = async (e: string) => {
-    const dataToSet = {
-      categoryId: e ? e : null,
-    };
-    const upFeature = await updateFeature(feature.id, dataToSet);
-    setSearchInput("");
-
-    if (!upFeature) {
+    // We update the feature in the database
+    const dataToSet = await updateFeature({
+      data: {
+        id: feature.id,
+        categoryId: e ? e : null,
+      },
+    });
+    // If there is an error, we display a toaster
+    if (dataToSet.serverError || dataToSet.validationErrors) {
       return toaster({
+        description:
+          dataToSet.serverError ||
+          dataToSet.validationErrors?.data ||
+          "An error occurred",
         type: "error",
-        description: `Error while updating feature « ${feature.name} », please try again later`,
       });
     }
+    setSearchInput("");
+    return toaster({
+      type: "success",
+      description: `« ${feature.name} » assigned successfully`,
+      duration: 1000,
+    });
   };
 
   return (

@@ -17,6 +17,7 @@ type PriceCardProps = {
 
 export const PriceCard = ({ plan }: PriceCardProps) => {
   const { saasSettings } = useSaasSettingsStore();
+  // 
   return (
     <>
       <Card
@@ -24,7 +25,7 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
           {
             "card-popular": plan.isPopular || plan.isRecommended,
           },
-          `price-card-wrapper flex flex-col justify-between`
+          `price-card-wrapper flex flex-col justify-between z-50`
         )}>
         <PriceCardHeader plan={plan} saasSettings={saasSettings} />
         <Goodline />

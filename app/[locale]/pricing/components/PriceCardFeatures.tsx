@@ -54,7 +54,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
                 </p>
                 {feature.feature.description && (
                   <Tooltip
-                    place="left"
+                    place="top-start"
                     className="tooltip"
                     id={feature.feature.id}
                     opacity={100}>
@@ -78,7 +78,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
               </p>
               {feature.feature.description && (
                 <Tooltip
-                  place="left"
+                  place="top-start"
                   className="tooltip"
                   id={feature.feature.id}
                   opacity={100}>

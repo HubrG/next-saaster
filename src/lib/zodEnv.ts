@@ -22,7 +22,6 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_URI: z.string().min(1),
-    NEXT_PUBLIC_NGROK_URL: z.string().min(1),
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
   },
   runtimeEnv: {
@@ -40,7 +39,6 @@ export const env = createEnv({
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     NEXT_PUBLIC_URI: process.env.NEXT_PUBLIC_URI,
-    NEXT_PUBLIC_NGROK_URL: process.env.NEXT_PUBLIC_NGROK_URL,
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_URI: process.env.NEXT_URI,

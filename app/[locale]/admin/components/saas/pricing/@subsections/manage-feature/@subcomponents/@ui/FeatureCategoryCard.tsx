@@ -83,11 +83,16 @@ export const FeatureCategoryCard = ({ category }: Props) => {
         type: "error",
       });
     }
+    if (updateCategory.data?.success) {
+      setLoading(false);
+      setSaasFeaturesCategories(
+        saasFeaturesCategories.map((feat) =>
+          feat.id === category.id ? updateCategory.data?.success ?? feat : feat
+        )
+      );
+      return toaster({type:"success", description:`Category name « ${initialFeatureState.name} » updated successfully`})
+    }
     setLoading(false);
-    return toaster({
-      type: "success",
-      description: `Category « ${updateCategory.data?.success?.name} » updated successfully`,
-    });
   };
 
   return (

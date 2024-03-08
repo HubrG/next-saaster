@@ -17,12 +17,7 @@ export const useSaasFeaturesStore = create<Store>()((set) => ({
   setSaasFeatures: (saasFeatures) =>
     set({ saasFeatures, isStoreLoading: false }),
   fetchSaasFeatures: async () => {
-    const timeout = setTimeout(() => {
-      set({ isStoreLoading: false });
-    }, 30000); 
-
       const saasFeatures = await getFeatures();
-      clearTimeout(timeout); 
       if (saasFeatures.success) {
         set({ saasFeatures: saasFeatures.success, isStoreLoading: false });
       }

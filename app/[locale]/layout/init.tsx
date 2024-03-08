@@ -11,13 +11,13 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { SaasSettings, appSettings } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
-useSession;
 type Props = {
   appSettings: appSettings;
   saasSettings: SaasSettings;
 };
+
 export const Init = ({ appSettings, saasSettings }: Props) => {
   const { data: session, status } = useSession();
   const { setAppSettings } = useAppSettingsStore();
@@ -33,38 +33,47 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const isClient = useIsClient();
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (isClient) {
+  const initialize = useCallback(() => {
+    if (isClient && status !== "loading") {
       setAppSettings(appSettings);
       setSaasSettings(saasSettings);
-      if (status !== "loading") {
-        if (session?.user !== undefined || session !== undefined) {
-          const user = session?.user;
-          if (user?.email) {
-            fetchUserStore(user.email);
-          }
-          if (user?.role !== "USER") {
-            fetchSaasStripeProducts();
-            fetchSaasStripePrices();
-            fetchSaasStripeCoupons();
-            fetchSaasFeaturesCategories();
-            fetchSaasFeatures();
-          }
+      if (session?.user !== undefined || session !== undefined) {
+        const user = session?.user;
+        if (user?.email) {
+          fetchUserStore(user.email);
+        }
+        if (user?.role !== "USER") {
+          fetchSaasStripeProducts();
+          fetchSaasStripePrices();
+          fetchSaasStripeCoupons();
+          fetchSaasFeaturesCategories();
+          fetchSaasFeatures();
         }
       }
-      Promise.all([
-        // fetchSaasStripeProducts(),
-        // fetchSaasStripePrices(),
-        // fetchSaasStripeCoupons(),
-        // fetchSaasFeaturesCategories(),
-        // fetchSaasFeatures(),
-        fetchSaasPlan(),
-      ]).then(() => {
+      Promise.all([fetchSaasPlan()]).then(() => {
         setIsLoading(false);
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClient,status]);
+  }, [
+    isClient,
+    status,
+    session,
+    setAppSettings,
+    appSettings,
+    setSaasSettings,
+    saasSettings,
+    fetchUserStore,
+    fetchSaasStripeProducts,
+    fetchSaasStripePrices,
+    fetchSaasStripeCoupons,
+    fetchSaasFeaturesCategories,
+    fetchSaasFeatures,
+    fetchSaasPlan,
+  ]);
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
 
   if (isLoading) {
     return <></>;

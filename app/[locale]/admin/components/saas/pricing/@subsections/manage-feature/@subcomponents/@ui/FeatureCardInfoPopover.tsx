@@ -1,4 +1,5 @@
 "use client";
+import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Keybd } from "@/src/components/ui/kbd";
@@ -9,7 +10,6 @@ import {
 } from "@/src/components/ui/popover";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { updateFeature } from "@/src/helpers/db/features.action";
 import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
@@ -42,7 +42,7 @@ export const FeatureCardInfoPopover = ({
       saasFeatures.map((feat) => (feat.id === feature.id ? {...feature, [toChange]: toChange === "alias" ? slugify(data) : data }  : feat))
     );
     // We update the feature in the database
-    const dataToSet = await updateFeature({
+    const dataToSet = await dbUpdateFeature({
       data: {
         id: feature.id,
         [toChange]: toChange === "alias" ? slugify(data) : data,

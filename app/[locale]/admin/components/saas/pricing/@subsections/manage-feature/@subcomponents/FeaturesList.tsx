@@ -1,8 +1,8 @@
 "use client";
+import { dbGetFeatures, dbUpdateFeature, dbUpdateFeatureAll } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Loader } from "@/src/components/ui/loader";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { getFeatures, updateFeature } from "@/src/helpers/db/features.action";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { Feature } from "@prisma/client";
@@ -13,6 +13,7 @@ import SortableList, { SortableItem } from "react-easy-sort";
 import { sortAdminFeatures } from "./@functions/sortAdminFeatures";
 import { FeatureCard } from "./@ui/FeatureCard";
 import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
+import { updateFeature } from "@/src/helpers/db/features.action";
 
 export const FeaturesList = () => {
   const router = useRouter();
@@ -61,7 +62,7 @@ export const FeaturesList = () => {
       )
     );
     // Then update the position of each feature in the database
-    const updatePromises = newSaasFeatures.map((feature) =>
+    const updatePromises = newSaasFeatures.map((feature: any) =>
       updateFeature({
         data: {
           id: feature.id,
@@ -74,7 +75,7 @@ export const FeaturesList = () => {
       results.some((result) => result.serverError || result.validationErrors)
     ) {
       // if there is an error, we fetch the features again to get the correct old positions
-      const updatedFeaturesResult = await getFeatures();
+      const updatedFeaturesResult = await dbGetFeatures();
       if (updatedFeaturesResult.success) {
         setSaasFeatures(updatedFeaturesResult.success);
       }

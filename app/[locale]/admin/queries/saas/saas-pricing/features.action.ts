@@ -1,5 +1,6 @@
 "use server";
 
+import { getFeatures, updateFeature } from "@/src/helpers/db/features.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
@@ -74,3 +75,33 @@ export const addNewMMRSFeature = async () => {
   return { newFeature: newFeature, newFeatures: newFeatures };
 };
 
+export const dbGetFeatures = async () => {
+  const features = await getFeatures();
+  return features;
+};
+
+export const dbUpdateFeature = async ({ data }: { data: any }) => {
+  const update = await updateFeature({
+    data,
+  });
+  return update;
+}
+
+export const dbUpdateFeatureAll = async ({
+  data,
+  newSaasFeatures,
+}: {
+  data?: any;
+    newSaasFeatures: any;
+}) => {
+  const updatePromises = newSaasFeatures.map((feature:any) =>
+    dbUpdateFeature({
+      data: {
+        id: feature.id,
+        position: feature.position ?? 9999,
+      },
+    })
+  );
+  const results = await Promise.all(updatePromises);
+  return results;
+};

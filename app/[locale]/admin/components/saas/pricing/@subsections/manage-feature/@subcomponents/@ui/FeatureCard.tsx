@@ -1,4 +1,5 @@
 "use client";
+import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { CopySomething } from "@/src/components/ui/copy-something";
 import { PopoverArchive } from "@/src/components/ui/popover-archive";
 import { Switch } from "@/src/components/ui/switch";
@@ -42,7 +43,7 @@ export const FeatureCard = ({ feature }: Props) => {
         type: "error",
       });
     } else {
-      const feature = dataToSet.data?.success as iFeature;
+      const feature = dataToSet?.success as iFeature;
       setSaasFeatures(
         saasFeatures.map((plan) =>
           plan.id === feature.id
@@ -69,7 +70,7 @@ export const FeatureCard = ({ feature }: Props) => {
       )
     );
     // We update the feature in the database
-    const dataToSet = await updateFeature({
+    const dataToSet = await dbUpdateFeature({
       data: {
         id: feature.id,
         ["active"]: !feature.active,

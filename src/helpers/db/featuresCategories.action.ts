@@ -46,7 +46,7 @@ export const updateFeaturesCategory = adminAction(
         },
         include,
       });
-      if (!featureCategory) throw new ActionError("No feature found");
+      if (!featureCategory) throw new ActionError("No feature category found");
       return handleRes<iFeaturesCategories>({
         success: featureCategory,
         statusCode: 200,

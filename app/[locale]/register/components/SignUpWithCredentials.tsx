@@ -55,7 +55,7 @@ export default function Credentials() {
       try {
         // Resend API (mail)
         await sendEmail({
-        to: "hubrgiorgi@gmail.com",
+        to: formData.email,
         type: "verifyEmail",
         subject: "Verify your email",
         vars: {

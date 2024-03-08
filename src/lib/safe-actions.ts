@@ -4,7 +4,7 @@ import { authOptions } from "./next-auth/auth";
 
 export class ActionError extends Error {}
 
-const handleReturnedServerError = (e: Error) => {
+const handleReturnedServerError = async (e: Error) => {
   // If the error is an instance of `ActionError`, unmask the message.
   if (e instanceof ActionError) {
     console.error("Action error:", e.message);

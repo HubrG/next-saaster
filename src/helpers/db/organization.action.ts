@@ -133,7 +133,7 @@ export const inviteMemberToOrganization = action(
           ? getOrganization.owner.name + "'s"
           : getOrganization.name;
       const sendmail = await sendEmail({
-        to: "hubrgiorgi@gmail.com",
+        to: email,
         type: "inviteUserInOrganization",
         subject: `You have been invited to join the ${
           getOrganization.name === "Organization name" ||

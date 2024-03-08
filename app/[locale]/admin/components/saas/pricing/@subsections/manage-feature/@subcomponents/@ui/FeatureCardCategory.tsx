@@ -1,5 +1,6 @@
 "use client";
 
+import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Button } from "@/src/components/ui/button";
 import {
   Command,
@@ -14,7 +15,6 @@ import {
   PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { updateFeature } from "@/src/helpers/db/features.action";
 import { createFeaturesCategory } from "@/src/helpers/db/featuresCategories.action";
 import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
@@ -68,7 +68,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
     }
     const newCategory = category.data?.success as iFeaturesCategories;
     // We update the categoryId of the feature
-    const upFeature = await updateFeature({
+    const upFeature = await dbUpdateFeature({
       data: {
         id: feature.id,
         categoryId: newCategory.id,
@@ -109,7 +109,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
 
   const handleSelectCategory = async (e: string) => {
     // We update the feature in the database
-    const dataToSet = await updateFeature({
+    const dataToSet = await dbUpdateFeature({
       data: {
         id: feature.id,
         categoryId: e ? e : null,

@@ -11,11 +11,7 @@ export function handleResponse<T>(
   return { data: data };
 }
 
-
-
-
-// 
-
+//
 
 export type ResponseProps<T> = {
   data?: T;
@@ -25,18 +21,34 @@ export type ResponseProps<T> = {
 };
 
 export type HandleResponseProps<T> =
-  | { success: T; data?: T; statusCode: number }
-  | { success: undefined; error: string; statusCode: number };
+  | {
+      success: T;
+      data?: T;
+      statusCode: number;
+      serverError: undefined;
+      validationErrors: undefined;
+    }
+  | {
+      success: undefined;
+      error: string;
+      statusCode: number;
+      serverError: string | undefined;
+      validationErrors: { data: string } | undefined;
+    };
 
 function handleSuccess<T>(data: T, statusCode: number): HandleResponseProps<T> {
-  return { success: data, statusCode };
+  return { success: data, statusCode, serverError: undefined, validationErrors: undefined};
 }
 
 function handleError<T>(
   error: unknown,
-  statusCode: number
+  statusCode: number,
+  serverError?: string,
+  validationErrors?: {
+    data: string;
+  }
 ): HandleResponseProps<T> {
-  return { success: undefined, error: getErrorMessage(error), statusCode };
+  return { success: undefined, error: getErrorMessage(error), statusCode, serverError, validationErrors};
 }
 
 export function handleRes<T>(args: ResponseProps<T>): HandleResponseProps<T> {

@@ -76,7 +76,7 @@ header {
   @apply sticky top-0 z-10;
 }
 header nav {
-  @apply md:px-0 px-3 w-full z-30 max-w-[87rem] mx-auto left-0 backdrop-blur-sm border-secondary dark:border-secondary/30;
+  @apply md:px-0 px-3 w-full !z-[999999] max-w-[87rem] mx-auto left-0 backdrop-blur-sm border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
   @apply flex flex-wrap items-center  justify-between mx-auto py-[0.5rem] backdrop-grayscale;

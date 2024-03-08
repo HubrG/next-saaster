@@ -25,7 +25,7 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
           {
             "card-popular": plan.isPopular || plan.isRecommended,
           },
-          `price-card-wrapper flex flex-col justify-between z-50`
+          `price-card-wrapper flex flex-col justify-between z-10`
         )}>
         <PriceCardHeader plan={plan} saasSettings={saasSettings} />
         <Goodline />

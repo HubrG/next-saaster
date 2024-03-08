@@ -231,7 +231,7 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply absolute !text-base font-semibold rounded-default max-w-lg dark:bg-theming-background-500 bg-theming-background-800 !opacity-100 !important;
+  @apply absolute !text-base font-semibold rounded-default  max-w-md dark:bg-theming-background-500 bg-theming-background-800 !opacity-100 !important;
   z-index: 9999999999;
 }
 .tooltip span {

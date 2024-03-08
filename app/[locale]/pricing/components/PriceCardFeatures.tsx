@@ -46,7 +46,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
             return !feature.feature.onlyOnSelectedPlans ? (
               <Fragment key={index}>
                 <p
-                  className="flex items-center opacity-50 cursor-default"
+                  className="flex items-center opacity-50  !text-sm cursor-default"
                   data-tooltip-id={feature.feature.id}
                   data-tooltip-position-strategy="fixed"
                   data-tooltip-float={true}>
@@ -73,7 +73,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
           return (
             <Fragment key={index}>
               <p
-                className="flex items-center  cursor-default"
+                className="flex items-center  !text-sm cursor-default"
                 data-tooltip-float={true}
                 data-tooltip-position-strategy="fixed"
                 data-tooltip-id={feature.feature.id}>

@@ -344,3 +344,5 @@ function verifyStripeRequest(stripeSignature: string) {
 function verifyInternalRequest(internalSignature: string) {
   return internalSignature === process.env.NEXTAUTH_SECRET;
 }
+
+// 

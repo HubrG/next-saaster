@@ -41,10 +41,9 @@ export default async function Admin() {
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="admin user-interface">
-                  <Suspense fallback={<Loader />}>
-
-          <Index />
-          </Suspense>
+        <Suspense fallback={<Loader />}>
+            <Index />
+        </Suspense>
       </div>
     </>
   );

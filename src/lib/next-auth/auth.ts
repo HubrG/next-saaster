@@ -35,7 +35,7 @@ export const authOptions: AuthOptions = {
     Email({
       server: {
         host: env.SMTP_HOST,
-        port: env.SMTP_PORT,
+        port: env.SMTP_PORT as any,
         auth: {
           user: env.SMTP_USER,
           pass: env.SMTP_PASSWORD,
@@ -214,7 +214,9 @@ export const authOptions: AuthOptions = {
                   userId: message.user.id,
                   isActive: userSubscription.isActive,
                   subscriptionId: userSubscription.subscriptionId,
-                  creditRemaining: userSubscription.subscription.price?.productRelation?.PlanRelation?.creditAllouedByMonth ?? null,
+                  creditRemaining:
+                    userSubscription.subscription.price?.productRelation
+                      ?.PlanRelation?.creditAllouedByMonth ?? null,
                 },
               });
             }

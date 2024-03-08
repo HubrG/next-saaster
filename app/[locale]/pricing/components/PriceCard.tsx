@@ -28,18 +28,18 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
           `price-card-wrapper flex flex-col justify-between z-10`
         )}>
         <PriceCardHeader plan={plan} saasSettings={saasSettings} />
-        <Goodline />
-        <div className="features">
-          <PriceCardFeatures plan={plan} />
-        </div>
         {plan.isCustom ? (
           <PriceCardContactUsButton />
         ) : (
           <PriceCardBuyButton
-            className="mt-7 w-full z-[99999999]"
+            className="w-full z-[99999999]"
             plan={plan}
           />
         )}
+        <Goodline />
+        <div className="features">
+          <PriceCardFeatures plan={plan} />
+        </div>
       </Card>
       <PriceCardBottomSentence
         className="text-center my-2  !font-normal text-theming-text-50"

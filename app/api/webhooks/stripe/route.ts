@@ -18,14 +18,15 @@ import {
   deleteProduct,
   getStripeProduct,
 } from "@/src/helpers/db/stripeProducts.action";
-import {
-  createSubcriptionPayment
-} from "@/src/helpers/db/subscriptionPayments.action";
+import { createSubcriptionPayment } from "@/src/helpers/db/subscriptionPayments.action";
 import {
   createSubscription,
   updateSubscription,
 } from "@/src/helpers/db/subscriptions.action";
-import { createUserSubscription, updateUserSubscription } from "@/src/helpers/db/userSubscription.action";
+import {
+  createUserSubscription,
+  updateUserSubscription,
+} from "@/src/helpers/db/userSubscription.action";
 import { getUserByCustomerId } from "@/src/helpers/db/users.action";
 import { todoWhenPaymentSuceeded } from "@/src/helpers/functions/todoWhenPaymentSuceeded";
 import { iStripeProduct } from "@/src/types/iStripeProducts";
@@ -37,7 +38,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
   apiVersion: "2023-10-16",
   typescript: true,
 });
-
 
 export async function POST(req: NextRequest) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET || "";
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
   }
   switch (event.type) {
     // SECTION : Subscription
-   
+
     case "checkout.session.completed":
       // NOTE : Fill this function with the code to be executed when the payment is successful
       todoWhenPaymentSuceeded();
@@ -251,7 +251,6 @@ export async function POST(req: NextRequest) {
       const createPaymentIntent = await createOneTimePayment({
         stripeSignature: secret ?? "",
         data: {
-          id: paymentIntent.id,
           stripePaymentIntentId: paymentIntent.id,
           amount: paymentIntent.amount,
           priceId: paymentIntent.metadata.priceId,
@@ -261,9 +260,16 @@ export async function POST(req: NextRequest) {
           stripeCustomerId: paymentIntent.customer as string,
         },
       });
-      if (!createPaymentIntent.data) {
+      if (
+        createPaymentIntent.serverError ||
+        createPaymentIntent.validationErrors
+      ) {
+        const error = await errorHandling(createPaymentIntent)
+        console.error("error :", error);
         return NextResponse.json(
-          { error: createPaymentIntent.error },
+          {
+            error,
+          },
           { status: 500 }
         );
       }
@@ -298,13 +304,23 @@ export async function POST(req: NextRequest) {
         type: "create",
         stripePlan: event.data.object,
       });
-      if (createPlan.error) {
-        return NextResponse.json({ error: createPlan.error }, { status: 500 });
+      if (
+        createPlan.serverError ||
+        createPlan.validationErrors
+      ) {
+        const error = await errorHandling(createPlan)
+        console.error("error :", error);
+        return NextResponse.json(
+          {
+            error,
+          },
+          { status: 500 }
+        );
       }
       await createOrUpdateProductStripeToBdd({
         type: "create",
         stripeProduct: event.data.object,
-        id: createPlan.data.data.id,
+        id: createPlan.data?.success?.id,
       });
       return NextResponse.json({ status: 200 });
     // NOTE : Product updated
@@ -324,8 +340,17 @@ export async function POST(req: NextRequest) {
         type: "update",
         stripePlan: event.data.object,
       });
-      if (upPlan.error) {
-        return NextResponse.json({ error: upPlan.error }, { status: 500 });
+       if (upPlan.serverError ||
+        upPlan.validationErrors
+      ) {
+        const error = await errorHandling(upPlan)
+        console.error("error :", error);
+        return NextResponse.json(
+          {
+            error,
+          },
+          { status: 500 }
+        );
       }
       return NextResponse.json({ status: 200 });
     case "price.updated":
@@ -386,3 +411,7 @@ export async function POST(req: NextRequest) {
       );
   }
 }
+
+async function errorHandling(data:any) {
+  return [`Type errror : ${data.validationErrors?.data ?? undefined}`, `Server error : ${data.serverError ?? undefined}`];
+};

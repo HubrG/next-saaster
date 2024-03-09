@@ -60,7 +60,7 @@
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "cmdk": "^0.2.1",
+    "cmdk": "^1.0.0",
     "cookies-next": "^4.1.1",
     "core-js": "^3.36.0",
     "date-fns": "^3.3.1",

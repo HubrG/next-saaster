@@ -5,6 +5,7 @@ export const env = createEnv({
   server: {
     GITHUB_ID: z.string().min(1),
     GITHUB_SECRET: z.string().min(1),
+    NEXTAUTH_SECRET: z.string().min(1),
     GOOGLE_ID: z.string().min(1),
     GOOGLE_SECRET: z.string().min(1),
     SMTP_USER: z.string().min(1),
@@ -25,6 +26,7 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
   },
   runtimeEnv: {
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     GITHUB_ID: process.env.GITHUB_ID,
     GITHUB_SECRET: process.env.GITHUB_SECRET,
     GOOGLE_ID: process.env.GOOGLE_ID,

@@ -1,6 +1,10 @@
 "use server";
 
-import { getFeatures, updateFeature } from "@/src/helpers/db/features.action";
+import {
+  createFeature,
+  getFeatures,
+  updateFeature,
+} from "@/src/helpers/db/features.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
 import { iPlanToFeature } from "@/src/types/iPlanToFeature";
@@ -44,15 +48,17 @@ export const updateLinkPlanToFeature = async (
   }
 };
 
-
 export const addNewMMRSFeature = async () => {
-  const session = await isSuperAdmin();
-  if (!session) return false;
   // Créer une nouvelle fonctionnalité
-  const newFeature = await prisma.feature.create({
-    data: {},
-  });
-
+  const newFeature = await createFeature();
+  if (newFeature.serverError) {
+    throw new Error(newFeature.serverError);
+  }
+  const newFeatureData = newFeature.data?.success;
+  console.log("newFeatureData", newFeatureData);
+  if (!newFeatureData) {
+    throw new Error("Error creating new feature");
+  }
   // Récupérer tous les plans actifs
   const plans = await prisma.plan.findMany();
 
@@ -62,7 +68,7 @@ export const addNewMMRSFeature = async () => {
       prisma.planToFeature.create({
         data: {
           planId: plan.id,
-          featureId: newFeature.id,
+          featureId: newFeatureData?.id,
         },
         include: {
           plan: true,
@@ -72,7 +78,7 @@ export const addNewMMRSFeature = async () => {
     )
   );
 
-  return { newFeature: newFeature, newFeatures: newFeatures };
+  return { newFeature: newFeatureData, newFeatures: newFeatures };
 };
 
 export const dbGetFeatures = async () => {
@@ -85,16 +91,16 @@ export const dbUpdateFeature = async ({ data }: { data: any }) => {
     data,
   });
   return update;
-}
+};
 
 export const dbUpdateFeatureAll = async ({
   data,
   newSaasFeatures,
 }: {
   data?: any;
-    newSaasFeatures: any;
+  newSaasFeatures: any;
 }) => {
-  const updatePromises = newSaasFeatures.map((feature:any) =>
+  const updatePromises = newSaasFeatures.map((feature: any) =>
     dbUpdateFeature({
       data: {
         id: feature.id,

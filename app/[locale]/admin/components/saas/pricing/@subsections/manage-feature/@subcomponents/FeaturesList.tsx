@@ -1,19 +1,19 @@
 "use client";
-import { dbGetFeatures, dbUpdateFeature, dbUpdateFeatureAll } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
+import { dbGetFeatures } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Loader } from "@/src/components/ui/loader";
 import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { updateFeature } from "@/src/helpers/db/features.action";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { Feature } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { sortAdminFeatures } from "./@functions/sortAdminFeatures";
 import { FeatureCard } from "./@ui/FeatureCard";
 import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
-import { updateFeature } from "@/src/helpers/db/features.action";
 
 export const FeaturesList = () => {
   const router = useRouter();
@@ -27,20 +27,20 @@ export const FeaturesList = () => {
   } = useSaasFeaturesStore();
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
 
-  // Fetch the features from the store when the component is mounted
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchSaasFeatures();
-      setStoreLoading(false);
-    }, 5000);
-    return () => clearTimeout(timeoutId);
-  }, [
-    isStoreLoading,
-    fetchSaasFeatures,
-    router,
-    saasFeatures,
-    setStoreLoading,
-  ]);
+  // // Fetch the features from the store when the component is mounted
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(() => {
+  //     fetchSaasFeatures();
+  //     setStoreLoading(false);
+  //   }, 5000);
+  //   return () => clearTimeout(timeoutId);
+  // }, [
+  //   isStoreLoading,
+  //   fetchSaasFeatures,
+  //   router,
+  //   saasFeatures,
+  //   setStoreLoading,
+  // ]);
 
   // this function is used to handle the click on a row
   const handleRowClick = (id: string) => {

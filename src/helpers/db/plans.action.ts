@@ -1,23 +1,27 @@
 "use server";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
-import { handleResponse } from "@/src/lib/error-handling/handleResponse";
+import {
+  HandleResponseProps,
+  handleRes,
+  handleResponse,
+} from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { iPlan } from "@/src/types/iPlans";
-import { Feature, Plan } from "@prisma/client";
-import Stripe from "stripe";
-import { getFeatures } from "./features.action";
+import { ActionError, action } from "@/src/lib/safe-actions";
 import { iFeature } from "@/src/types/iFeatures";
-
+import { iPlan } from "@/src/types/iPlans";
+import { createOrUpdatePlanStripeToBddSchema } from "@/src/types/schemas/dbSchema";
+import { Plan } from "@prisma/client";
+import { getFeatures } from "./features.action";
+  if (action === undefined) {
+    throw new Error("useActions must be used within a ActionProvider");
+  }
 export const getPlans = async (): Promise<{
   data?: iPlan[];
   error?: string;
 }> => {
   try {
     const plans = await prisma.plan.findMany({
-      orderBy: [
-        { position: "asc" },
-        { createdAt:"asc"}     
-      ],
+      orderBy: [{ position: "asc" }, { createdAt: "asc" }],
       include: {
         Features: {
           include: {
@@ -183,44 +187,48 @@ export const deletePlan = async ({
   }
 };
 
-type CreateOrUpdatePlanStripeToBddData = {
-  type: "create" | "update";
-  stripePlan: Stripe.Product;
-};
-export const createOrUpdatePlanStripeToBdd = async ({
-  type,
-  stripePlan,
-}: CreateOrUpdatePlanStripeToBddData): Promise<{
-  success?: boolean;
-  data?: any;
-  error?: string;
-}> => {
-  try {
-    const planData = {
-      ...stripePlan,
-      active: stripePlan.active,
-      stripeId: stripePlan.id,
-      saasType: type === "create" ? "CUSTOM" : undefined,
-      name: stripePlan.name,
-      description: stripePlan.description
-        ? stripePlan.description
-        : "New plan description",
-    };
-    // NOTE : Create
-    if (type === "create") {
-      const plan = await createPlan(planData as Partial<Plan>);
-      return { success: true, data: plan };
-      // NOTE : Update
-    } else if (type === "update") {
-      const plan = await updatePlan(planData as Partial<Plan>);
-
-      return { success: true, data: plan };
-    } else {
-      console.error("An unknown error occurred");
-      return { error: "An unknown error occurred" };
+export const createOrUpdatePlanStripeToBdd = action(
+  createOrUpdatePlanStripeToBddSchema,
+  async ({
+    type,
+    stripePlan,
+  }): Promise<HandleResponseProps<iPlan>> => {
+    try {
+      const planData = {
+        ...stripePlan,
+        active: stripePlan.active,
+        stripeId: stripePlan.id,
+        saasType: type === "create" ? "CUSTOM" : undefined,
+        name: stripePlan.name,
+        description: stripePlan.description
+          ? stripePlan.description
+          : "New plan description",
+      };
+      // NOTE : Create
+      if (type === "create") {
+        const plan = await createPlan(planData as Plan);
+        if (!plan.data) throw new ActionError(plan.error);
+        return handleRes<iPlan>({
+          success: plan.data,
+          statusCode: 200,
+        });
+        // NOTE : Update
+      } else if (type === "update") {
+        const plan = await updatePlan(planData as Partial<Plan>);
+        if (!plan.data) throw new ActionError(plan.error);
+        return handleRes<iPlan>({
+          success: plan.data,
+          statusCode: 200,
+        });
+      } else {
+        throw new ActionError("An unknown error occurred");
+      }
+    } catch (error) {
+      console.error(ActionError);
+      return handleRes<iPlan>({
+        error: ActionError,
+        statusCode: 500,
+      });
     }
-  } catch (error) {
-    // console.error(error);
-    return { error: getErrorMessage(error) };
   }
-};
+);

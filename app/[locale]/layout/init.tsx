@@ -11,7 +11,7 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { SaasSettings, appSettings } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   appSettings: appSettings;
@@ -32,9 +32,11 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
 
   const isClient = useIsClient();
   const [isLoading, setIsLoading] = useState(true);
+  const [hasLoadedData, setHasLoadedData] = useState(false); // Nouvel état pour suivre si les données ont été chargées
 
   const initialize = useCallback(() => {
-    if (isClient && status !== "loading") {
+    if (isClient && status !== "loading" && !hasLoadedData) {
+      // Vérifiez si les données ont déjà été chargées
       setAppSettings(appSettings);
       setSaasSettings(saasSettings);
       if (session?.user !== undefined || session !== undefined) {
@@ -52,6 +54,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
       }
       Promise.all([fetchSaasPlan()]).then(() => {
         setIsLoading(false);
+        setHasLoadedData(true); // Marquez que les données ont été chargées
       });
     }
   }, [
@@ -69,6 +72,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     fetchSaasFeaturesCategories,
     fetchSaasFeatures,
     fetchSaasPlan,
+    hasLoadedData, // Ajoutez hasLoadedData comme dépendance
   ]);
 
   useEffect(() => {

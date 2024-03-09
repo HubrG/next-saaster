@@ -41,7 +41,6 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
   const [initialLinksState, setInitialLinksState] = useState<LinkState>({});
   const { saasSettings } = useSaasSettingsStore();
   const { saasPlanToFeature } = useSaasPlanToFeatureStore();
-  const { saasFeaturesCategories, setSaasFeaturesCategories, fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
 
   useEffect(() => {
     const newLinksState: LinkState = {};

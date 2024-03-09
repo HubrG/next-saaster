@@ -1,8 +1,7 @@
 "use server";
 import {
   HandleResponseProps,
-  handleRes,
-  handleResponse,
+  handleRes
 } from "@/src/lib/error-handling/handleResponse";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { prisma } from "@/src/lib/prisma";
@@ -23,14 +22,7 @@ export const createOrganization = authAction(
     name: z.string().optional(),
     ownerId: z.string().cuid(),
   }),
-  async ({
-    name,
-    ownerId,
-  }): Promise<{
-    success?: boolean;
-    data?: iOrganization;
-    error?: string;
-  }> => {
+  async ({ name, ownerId }): Promise<HandleResponseProps<iOrganization>> => {
     try {
       const organization = await prisma.organization.create({
         data: {
@@ -51,9 +43,12 @@ export const createOrganization = authAction(
         },
       });
       if (!updateOwner) throw new ActionError("No user found");
-      return handleResponse<iOrganization>(organization);
+      return handleRes<iOrganization>({
+        success: organization,
+        statusCode: 200,
+      });
     } catch (ActionError) {
-      return handleResponse<undefined>(undefined, ActionError);
+      return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }
 );
@@ -89,11 +84,7 @@ export const inviteMemberToOrganization = action(
   async ({
     organizationId,
     email,
-  }): Promise<{
-    success?: boolean;
-    data?: iOrganization;
-    error?: string;
-  }> => {
+  }): Promise<HandleResponseProps<iOrganization>> => {
     try {
       // We check if user is already invited
       const isInvited = await prisma.organizationInvitation.findFirst({
@@ -154,9 +145,12 @@ export const inviteMemberToOrganization = action(
       if (sendmail.error) {
         throw new ActionError(sendmail.error);
       }
-      return handleResponse<iOrganization>(getOrganization);
+     return handleRes<iOrganization>({
+       success: getOrganization,
+       statusCode: 200,
+     });
     } catch (ActionError) {
-      return handleResponse<undefined>(undefined, ActionError);
+     return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }
 );
@@ -210,12 +204,7 @@ export const acceptInvitationToOrganization = action(
   async ({
     organizationId,
     email,
-  }): Promise<{
-    success?: boolean;
-    data?: iOrganization;
-    error?: string;
-    serverError?: string;
-  }> => {
+  }): Promise<HandleResponseProps<iOrganization>> => {
     try {
       const organization = await prisma.organizationInvitation.findFirst({
         where: {
@@ -236,9 +225,12 @@ export const acceptInvitationToOrganization = action(
         include: include,
       });
       if (!get) throw new ActionError("No organization found");
-      return handleResponse<iOrganization>(get);
+      return handleRes<iOrganization>({
+        success: get,
+        statusCode: 200,
+      });
     } catch (ActionError) {
-      return handleResponse<undefined>(undefined, ActionError);
+      return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }
 );
@@ -251,14 +243,7 @@ export const removeUserFromOrganization = action(
   async ({
     organizationId,
     email,
-  }: {
-    organizationId: string;
-    email: string;
-  }): Promise<{
-    success?: boolean;
-    data?: iOrganization | undefined;
-    error?: string;
-  }> => {
+  }): Promise<HandleResponseProps<iOrganization>> => {
     try {
       const user = await prisma.user.update({
         where: {
@@ -290,9 +275,12 @@ export const removeUserFromOrganization = action(
         include: include,
       });
       if (!newOrganization) throw new ActionError("No organization found");
-      return handleResponse<iOrganization>(newOrganization);
+      return handleRes<iOrganization>({
+        success: newOrganization,
+        statusCode: 200,
+      });
     } catch (ActionError) {
-      return handleResponse<undefined>(undefined, ActionError);
+      return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }
 );

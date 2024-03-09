@@ -8,6 +8,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/src/components/ui/command";
 import {
   Popover,
@@ -174,84 +175,83 @@ export const FeatureCardCategory = ({ feature }: Props) => {
               }}
               placeholder="Search category..."
             />
-            <CommandEmpty
-              className="flex flex-col justify-center p-2 w-full items-center"
-              onClick={handleCreateCategory}>
-              <small>Create category</small>
-              <strong>{searchInput}</strong>
-            </CommandEmpty>
-            <CommandGroup
-              defaultValue={
-                feature && feature.categoryId ? feature.categoryId : undefined
-              }>
-              <CommandItem
-                className="font-bold  hover:bg-primary"
-                key="no-category"
-                value=""
-                onSelect={(e) => {
-                  setValue("");
-                  setOpen(false);
-                  handleSelectCategory(e);
-                }}>
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === "" ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                No category
-              </CommandItem>
-              {saasFeaturesCategories.map((category) => (
+            <CommandList>
+              <CommandEmpty
+                className="flex flex-col justify-center p-2 w-full items-center"
+                onClick={handleCreateCategory}>
+                <small>Create category</small>
+                <strong>{searchInput}</strong>
+              </CommandEmpty>
+              <CommandGroup defaultValue={feature.categoryId ?? undefined}>
                 <CommandItem
-                  key={category.id}
-                  value={category.name ?? ""}
-                  id={category.id}
+                  className="font-bold  hover:bg-primary"
+                  key="no-category"
+                  value=""
                   onSelect={(e) => {
-                    setValue(category.name ?? "");
+                    setValue("");
                     setOpen(false);
-                    handleSelectCategory(category.id);
+                    handleSelectCategory(e);
                   }}>
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === category.name ? "opacity-100" : "opacity-0"
+                      value === "" ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {category.name}
+                  No category
                 </CommandItem>
-              ))}
-              {searchInput &&
-                (() => {
-                  const normalizedSearchInput = searchInput.toUpperCase();
-                  const categoryExists = _.some(
-                    saasFeaturesCategories,
-                    (category) =>
-                      _.toUpper(category.name ?? "") === normalizedSearchInput
-                  );
-                  if (!categoryExists) {
-                    return (
-                      <CommandItem
-                        key={searchInput}
-                        className="border-t flex flex-col justify-center p-2 w-full items-center"
-                        value={searchInput}
-                        id={searchInput}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            handleCreateCategory();
-                          }
-                        }}
-                        onSelect={(e) => {
-                          setValue(searchInput);
-                          setOpen(false);
-                          handleCreateCategory();
-                        }}>
-                        <small>Create category</small>
-                        <strong>{searchInput}</strong>
-                      </CommandItem>
+                {saasFeaturesCategories.map((category) => (
+                  <CommandItem
+                    key={category.id}
+                    value={category.name ?? ""}
+                    id={category.id}
+                    onSelect={(e) => {
+                      setValue(category.name ?? "");
+                      setOpen(false);
+                      handleSelectCategory(category.id);
+                    }}>
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === category.name ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {category.name}
+                  </CommandItem>
+                ))}
+                {searchInput &&
+                  (() => {
+                    const normalizedSearchInput = searchInput.toUpperCase();
+                    const categoryExists = _.some(
+                      saasFeaturesCategories,
+                      (category) =>
+                        _.toUpper(category.name ?? "") === normalizedSearchInput
                     );
-                  }
-                })()}
-            </CommandGroup>
+                    if (!categoryExists) {
+                      return (
+                        <CommandItem
+                          key={searchInput}
+                          className="border-t flex flex-col justify-center p-2 w-full items-center"
+                          value={searchInput}
+                          id={searchInput}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              handleCreateCategory();
+                            }
+                          }}
+                          onSelect={(e) => {
+                            setValue(searchInput);
+                            setOpen(false);
+                            handleCreateCategory();
+                          }}>
+                          <small>Create category</small>
+                          <strong>{searchInput}</strong>
+                        </CommandItem>
+                      );
+                    }
+                  })()}
+              </CommandGroup>
+            </CommandList>
           </Command>
         </PopoverContent>
       </Popover>

@@ -43,7 +43,7 @@ export const FeatureCard = ({ feature }: Props) => {
         type: "error",
       });
     } else {
-      const feature = dataToSet?.success as iFeature;
+      const feature = dataToSet?.data?.success as iFeature;
       setSaasFeatures(
         saasFeatures.map((plan) =>
           plan.id === feature.id

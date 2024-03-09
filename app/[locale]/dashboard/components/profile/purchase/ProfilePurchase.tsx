@@ -16,7 +16,7 @@ type ProfilePurchaseProps = {};
 
 export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
   const currencies = currenciesData as Currencies;
-  const { userStore, isStoreLoading, fetchUserStore } = useUserStore();
+  const { userStore, isStoreLoading } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState<ReturnProps | null>();
   const [refresh, setRefresh] = useState(false);

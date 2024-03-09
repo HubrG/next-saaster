@@ -4,6 +4,7 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
+  CommandList,
   CommandInput,
   CommandItem,
 } from "@/src/components/ui/command";
@@ -48,6 +49,7 @@ export const SetCurrency = ({ set }: Props) => {
       <PopoverContent className=" p-0">
         <Command>
           <CommandInput placeholder="Search currencie..." />
+          <CommandList>
           <CommandEmpty>No currencie found.</CommandEmpty>
           <CommandGroup>
             {Object.entries(currencies).map(([currencyKey, name]) => (
@@ -64,6 +66,7 @@ export const SetCurrency = ({ set }: Props) => {
               </CommandItem>
             ))}
           </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>

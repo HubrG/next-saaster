@@ -8,7 +8,7 @@
  */
 import { getUser } from '@/src/helpers/db/users.action';
 import { UserRole } from "@prisma/client";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "../../lib/next-auth/auth";
 
 export const isAdmin = async () => {
@@ -40,13 +40,12 @@ export const isConnected = async () => {
   return true;
 };
 
-export const isOrganizationOwner = async (organizationId: string) => {
-  const session = await getServerSession(authOptions);
-  if (!session) return false;
+export const isOrganizationOwner = async (organizationId: string, session:Session) => {
+  console.log(session)
   const user = await getUser({ email: session.user.email ?? "" });
-  if (!user) return false;
   const organization = user.data?.organization?.ownerId;
+  console.log(organization, organizationId)
   if (!organization) return false;
-  if (organization !== organizationId) return false;
+  if (organization !== user.data?.id) return false;
   return true;
 }

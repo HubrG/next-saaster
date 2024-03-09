@@ -3,11 +3,9 @@ import {
   HandleResponseProps,
   handleRes
 } from "@/src/lib/error-handling/handleResponse";
-import { authOptions } from "@/src/lib/next-auth/auth";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iOrganization } from "@/src/types/iOrganization";
-import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { sendEmail } from "../emails/sendEmail";
 import {
@@ -155,24 +153,17 @@ export const inviteMemberToOrganization = action(
   }
 );
 
-export const removePendingUser = action(
+export const removePendingUser = authAction(
   z.object({
     organizationId: z.string().cuid(),
     email: z.string().email(),
-    stripeSignature: z.string().optional(),
   }),
-  async ({
-    organizationId,
-    email,
-    stripeSignature,
-  }): Promise<HandleResponseProps<iOrganization>> => {
-    const isAuthorized = await authorize({
-      email,
-      stripeSignature,
-    });
-    const isOwner = await isOrganizationOwner(organizationId);
-    const session = getServerSession(authOptions);
-    if (!isAuthorized && !isOwner && !session)
+  async (
+    { organizationId, email },
+    { userSession }
+  ): Promise<HandleResponseProps<iOrganization>> => {
+    const isOwner = await isOrganizationOwner(organizationId, userSession);
+    if (!isOwner)
       throw new ActionError("Not authorized");
     try {
       const organization = await prisma.organizationInvitation.deleteMany({

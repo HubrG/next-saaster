@@ -5,7 +5,7 @@ export class ActionError extends Error {}
 export const handleReturnedServerError = async (e: Error | ActionError) => {
   // If the error is an instance of `ActionError`, unmask the message.
   if (e instanceof ActionError) {
-    console.error("Action error:", e.message, "Caused by:", e.cause, e.stack);
+    // console.error("Action error:", e.message, "Caused by:", e.cause, e.stack);
     return (e.message);
   }
   // Otherwise return default error message.
@@ -25,7 +25,8 @@ export const authAction = createSafeActionClient({
     if (!session) {
       throw new ActionError("You must be connected");
     } else {
-      return session;
+      const userSession = session;
+      return { userSession };
     }
   },
   handleReturnedServerError,
@@ -41,7 +42,8 @@ export const superAdminAction = createSafeActionClient({
     } else if (session.user.role !== "SUPER_ADMIN") {
       throw new ActionError("You must be an admin");
     } else {
-      return session;
+      const userSession = session.user;
+      return { userSession };
     }
   },
   handleReturnedServerError,
@@ -60,14 +62,15 @@ export const adminAction = createSafeActionClient({
     ) {
       throw new ActionError("You must be an admin");
     } else {
-      return session;
+      const userSession = session.user;
+      return { userSession };
     }
   },
   handleReturnedServerError,
 });
 
 export const appAction = createSafeActionClient({
-  async middleware(parseInput) {
+  async middleware() {
    const { env } = await import("./zodEnv");
     const zodEnv = env.NEXTAUTH_SECRET;
     const envPublic = process.env.NEXT_AUTH_SECRET;
@@ -79,5 +82,6 @@ export const appAction = createSafeActionClient({
   },
   handleReturnedServerError,
 });
+
 
 

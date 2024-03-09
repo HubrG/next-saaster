@@ -36,6 +36,7 @@ let user;
 if (session && session.user && session.user.email) {
   user = (await getUser({ email: session.user.email })).data;
 }
+console.log(session)
    
   const t = await getTranslations("Index");
   return (

@@ -2,6 +2,7 @@ import { createAudience } from "@/src/helpers/emails/audience";
 import { createContact } from "@/src/helpers/emails/contact";
 import { stripeCustomerIdManager } from "@/src/helpers/functions/stripeCustomerIdManager";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { isCuid } from "@paralleldrive/cuid2";
 import { UserRole } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { AuthOptions, getServerSession } from "next-auth";
@@ -17,6 +18,11 @@ export const authOptions: AuthOptions = {
     GithubProvider({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
+      profile: async (profile) => {
+        return {
+          id: profile.id,
+        };
+      },
     }),
     GoogleProvider({
       clientId: env.GOOGLE_ID,
@@ -27,8 +33,6 @@ export const authOptions: AuthOptions = {
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          role: profile.role ? profile.role : "USER",
-          customerId: profile.customerId ? profile.customerId : "",
         };
       },
     }),
@@ -82,12 +86,15 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user, account, profile }) {
-      let role: UserRole = "USER";
+      let role = "USER" as UserRole;
+      // console.log(token);
       // First connexion for the first user (ADMIN)
       if (account && account.provider === "github") {
         // We check if this is the user's first connection via GitHub
         const isFirstUser = (await prisma.user.count()) === 1;
-        role = isFirstUser ? "SUPER_ADMIN" : token.role;
+        role = isFirstUser
+          ? ("SUPER_ADMIN" as UserRole)
+          : (token.role as UserRole) ?? ("USER" as UserRole);
         // We update the role in the database and on the token before loading
         if (isFirstUser) {
           await prisma.user.update({
@@ -99,22 +106,32 @@ export const authOptions: AuthOptions = {
           ...token,
           id: token.id,
           role: role,
+          user: user,
           customerId: token.customerId ?? "",
+          uid: token.sub,
         };
       } else {
         token = {
           ...token,
           id: token.id,
+          user: user,
           role: token.role,
           customerId: token.customerId ?? "",
+          uid: token.id,
         };
       }
+
       return { ...token, ...user, ...profile };
     },
-    async session({ session, token, trigger }) {
-      session.user.role = token.role;
-      session.user.id = token.id;
-      session.user.customerId = token.customerId;
+    async session({ session, token, user }) {
+      if (session?.user) {
+        session.user.role = token.role as UserRole;
+        session.user.id = token.sub as string;
+        session.user.customerId = token.customerId as string;
+        session.user.userId = isCuid(token.uid as string)
+          ? (token.uid as string)
+          : (token.sub as string);
+      }
       return session;
     },
   },

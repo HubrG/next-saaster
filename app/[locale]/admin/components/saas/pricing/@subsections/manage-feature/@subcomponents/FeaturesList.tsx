@@ -9,7 +9,7 @@ import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { Feature } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { sortAdminFeatures } from "./@functions/sortAdminFeatures";
 import { FeatureCard } from "./@ui/FeatureCard";
@@ -28,19 +28,19 @@ export const FeaturesList = () => {
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
 
   // // Fetch the features from the store when the component is mounted
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     fetchSaasFeatures();
-  //     setStoreLoading(false);
-  //   }, 5000);
-  //   return () => clearTimeout(timeoutId);
-  // }, [
-  //   isStoreLoading,
-  //   fetchSaasFeatures,
-  //   router,
-  //   saasFeatures,
-  //   setStoreLoading,
-  // ]);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      fetchSaasFeatures();
+      setStoreLoading(false);
+    }, 5000);
+    return () => clearTimeout(timeoutId);
+  }, [
+    isStoreLoading,
+    fetchSaasFeatures,
+    router,
+    saasFeatures,
+    setStoreLoading,
+  ]);
 
   // this function is used to handle the click on a row
   const handleRowClick = (id: string) => {

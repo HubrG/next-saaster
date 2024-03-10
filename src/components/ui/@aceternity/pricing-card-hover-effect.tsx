@@ -2,7 +2,7 @@
 import currenciesData from "@/src/jsons/currencies.json";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "../../../lib/utils";

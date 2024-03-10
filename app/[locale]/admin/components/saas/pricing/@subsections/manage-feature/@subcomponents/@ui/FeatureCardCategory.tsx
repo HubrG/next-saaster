@@ -21,7 +21,7 @@ import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
-import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
+import { iFeaturesCategories } from "@/src/types/db/iFeaturesCategories";
 import { Feature } from "@prisma/client";
 import _ from "lodash";
 import capitalize from "lodash/capitalize";

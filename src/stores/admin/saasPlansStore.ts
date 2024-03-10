@@ -1,5 +1,5 @@
 import { getPlans } from "@/src/helpers/db/plans.action";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { create } from "zustand";
 
 type Store = {

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { getOrganization } from "../helpers/db/organization.action";
-import { iOrganization } from "../types/iOrganization";
+import { iOrganization } from "../types/db/iOrganization";
 type Store = {
   organizationStore: iOrganization;
   setOrganizationStore: (partialSettings: iOrganization) => void;

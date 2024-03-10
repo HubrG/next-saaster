@@ -2,7 +2,7 @@
 import { isMe, isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { iUsers } from "@/src/types/iUsers";
+import { iUsers } from "@/src/types/db/iUsers";
 
 type GetUserProps = {
   email: string;

@@ -10,7 +10,7 @@ import {
   adminAction,
   authAction,
 } from "@/src/lib/safe-actions";
-import { iFeature } from "@/src/types/iFeatures";
+import { iFeature } from "@/src/types/db/iFeatures";
 import { updateFeatureSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
 
@@ -19,14 +19,14 @@ export const getFeatures = action(
     secret: z.string(),
   }),
   async ({ secret }): Promise<HandleResponseProps<iFeature[]>> => {
-    // Security - If internal secret has been sent, we verify if it's the right one (for internal use only)
+    // 🔐 Security - If internal secret has been sent, we verify if it's the right one (for internal use only)
     if (secret !== process.env.NEXTAUTH_SECRET) {
       return handleRes<iFeature[]>({
         error: new ActionError("Unauthorized"),
         statusCode: 401,
       });
     }
-    // 
+    // 🔓 Unlocked
     try {
       const features = await prisma.feature.findMany({
         orderBy: {

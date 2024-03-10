@@ -1,6 +1,6 @@
 "use client";
 import PercentageCalculator from "@/src/helpers/functions/maths/calcPercentage";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 type PriceCardPayOnceProps = {
   plan: iPlan;
 };

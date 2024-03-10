@@ -2,11 +2,11 @@
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createCheckoutSessionPonctual } from "../queries/queries";
+import { createCheckoutSession } from "../queries/queries";
 
 type PriceCardBuyButtonProps = {
   plan: iPlan;
@@ -42,14 +42,18 @@ const getStripePrice = (plan: iPlan, isYearly: boolean) => {
     let stripeCheckout;
     const stripePrice = getStripePrice(plan, isYearly);
     if (plan.saasType === "PAY_ONCE") {
-      stripeCheckout = await createCheckoutSessionPonctual({planPrice:stripePrice??"0", plan:plan, seatQuantity:seatQuantity??"1"});
+      stripeCheckout = await createCheckoutSession({
+        planPrice: stripePrice ?? "0",
+        plan: plan,
+        seatQuantity: seatQuantity ?? "1",
+      });
     } else {
-      stripeCheckout = await createCheckoutSessionPonctual({
-        planPrice: stripePrice??"0",
+      stripeCheckout = await createCheckoutSession({
+        planPrice: stripePrice ?? "0",
         plan,
         isYearly,
-        seatQuantity}
-      );
+        seatQuantity,
+      });
     }
     setIsLoading(false);
     if (!stripeCheckout) return;

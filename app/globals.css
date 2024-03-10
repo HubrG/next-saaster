@@ -73,13 +73,13 @@ main > section:not(.first-connection, .absolute-fullscreen-div) {
   @apply max-w-7xl flex z-0 mt-10  min-h-[90vh] !important;
 }
 header {
-  @apply sticky top-0 z-10;
+  @apply sticky top-0 z-10 border-b border-slate-900/10 dark:border-slate-100/5;
 }
 header nav {
-  @apply md:px-0 px-3 w-full !z-[999999] max-w-[87rem] mx-auto left-0 backdrop-blur-sm border-secondary dark:border-secondary/30;
+  @apply md:px-0 px-3 w-full !z-[999999]  max-w-[87rem] mx-auto left-0 backdrop-blur-[12px] border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
-  @apply flex flex-wrap items-center  justify-between mx-auto py-[0.5rem] backdrop-grayscale;
+  @apply flex flex-wrap items-center  justify-between mx-auto py-[0.4rem] backdrop-grayscale;
 }
 header nav button {
   @apply no-underline !important;
@@ -289,13 +289,13 @@ ol li {
 .user-interface .switch-wrapper label {
   @apply md:text-base sm:text-sm text-xs text-left  select-none hidden cursor-pointer font-semibold relative !important;
 }
-.user-interface .switch-wrapper p {
+.user-interface .switch-wrapper div {
   @apply self-center col-span-10 grid sm:grid-cols-12 max-sm:row-span-1 gap-x-2 gap-y-2 sm:items-start  max-sm:text-center;
 }
-.user-interface .switch-wrapper p .icon {
+.user-interface .switch-wrapper div .icon {
   @apply mx-auto !text-xl mt-0.5 sm:col-span-2  max-sm:col-span-12 z-10;
 }
-.user-interface .switch-wrapper p span {
+.user-interface .switch-wrapper div span {
   @apply col-span-10 sm:pr-3 pr-0 max-sm:col-span-12;
 }
 .user-interface .switch-wrapper button {

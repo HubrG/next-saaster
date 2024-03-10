@@ -3,7 +3,7 @@ import { deleteCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/str
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
-import { iStripeCoupon } from "@/src/types/iStripeCoupons";
+import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import capitalize from "lodash/capitalize";
 
 export const CouponsList = () => {

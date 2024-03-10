@@ -1,7 +1,7 @@
 "use client";
 import { Label } from "@/src/components/ui/label";
 import { Switch } from "@/src/components/ui/switch";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 type Props = {
   plan: iPlan;
   planState: boolean | null;

@@ -33,10 +33,10 @@ export const SwitchWrapper = ({
       onClick={(e) => handleClick(e)}>
       {/* <div className="row-span-1">{icon}</div> */}
       <Label htmlFor={id}></Label>
-      <p>
+      <div>
         {icon}
         <span>{children}</span>
-      </p>
+      </div>
       {/* <Goodline className="row-span-1" /> */}
       <Switch
         onCheckedChange={handleChange}

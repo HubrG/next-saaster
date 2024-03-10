@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { getUser } from "../helpers/db/users.action";
-import { iUsers } from "../types/iUsers";
+import { iUsers } from "../types/db/iUsers";
 
 type Store = {
   userStore: iUsers;

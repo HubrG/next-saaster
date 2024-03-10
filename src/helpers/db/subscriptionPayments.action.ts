@@ -1,6 +1,6 @@
 import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { iSubscriptionPayment } from "@/src/types/iSubscriptionPayments";
+import { iSubscriptionPayment } from "@/src/types/db/iSubscriptionPayments";
 import { isSuperAdmin } from "../functions/isUserRole";
 
 type GetSubPayProps = {

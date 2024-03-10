@@ -1,5 +1,5 @@
 import { getPlansToFeatures } from "@/src/helpers/db/plansToFeatures.action";
-import { iPlanToFeature } from "@/src/types/iPlanToFeature";
+import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { create } from "zustand";
 
 type Store = {

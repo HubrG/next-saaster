@@ -1,12 +1,12 @@
-import { iPlanToFeature } from "@/src/types/iPlanToFeature";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
+import { iPlan } from "@/src/types/db/iPlans";
 import {
-  SubItemsPlan,
-  SubItemsPrice,
-  SubscriptionDiscount,
-  SubscriptionItem,
-  iUsers,
-} from "@/src/types/iUsers";
+    SubItemsPlan,
+    SubItemsPrice,
+    SubscriptionDiscount,
+    SubscriptionItem,
+    iUsers,
+} from "@/src/types/db/iUsers";
 import { Subscription, SubscriptionStatus } from "@prisma/client";
 import Stripe from "stripe";
 

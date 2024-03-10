@@ -4,7 +4,7 @@ import {
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action } from "@/src/lib/safe-actions";
-import { iOneTimePayment } from "@/src/types/iOneTimePayments";
+import { iOneTimePayment } from "@/src/types/db/iOneTimePayments";
 import { createOneTimePaymentSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";

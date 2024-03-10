@@ -1,5 +1,5 @@
 import { getFeatures } from "@/src/helpers/db/features.action";
-import { iFeature } from "@/src/types/iFeatures";
+import { iFeature } from "@/src/types/db/iFeatures";
 import { create } from "zustand";
 
 type Store = {

@@ -7,7 +7,7 @@ import { formatDateWithFns } from "@/src/helpers/functions/convertDate";
 import currenciesData from "@/src/jsons/currencies.json";
 import { useUserStore } from "@/src/stores/userStore";
 import { Currencies } from "@/src/types/Currencies";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PurchaseAction } from "./@ui/Action";

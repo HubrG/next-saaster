@@ -5,7 +5,7 @@ import { Field } from "@/src/components/ui/form-field";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { inviteMemberToOrganization } from "@/src/helpers/db/organization.action";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
-import { iUsers } from "@/src/types/iUsers";
+import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

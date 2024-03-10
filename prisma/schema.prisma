@@ -56,27 +56,27 @@ enum UserRole {
 }
 
 model User {
-  id                 String             @id @default(cuid())
-  name               String?
-  email              String?            @unique
-  emailVerified      DateTime?
-  image              String?
-  password           String?
-  date               DateTime?          @default(now())
-  customerId         String?
-  createdAt          DateTime?          @default(now())
-  updatedAt          DateTime?          @updatedAt
-  planId             String?
-  organizationId     String?
-  role               UserRole           @default(USER)
-  organization       Organization?      @relation("OrganizationMembers", fields: [organizationId], references: [id])
-  accounts           Account[]
-  sessions           Session[]
-  oneTimePayments    OneTimePayment[]
-  contacts           ResendContact[]
-  usage              UserUsage[]
-  subscriptions      UserSubscription[]
-  Organization       Organization[]
+  id              String             @id @default(cuid())
+  name            String?
+  email           String?            @unique
+  emailVerified   DateTime?
+  image           String?
+  password        String?
+  date            DateTime?          @default(now())
+  customerId      String?
+  createdAt       DateTime?          @default(now())
+  updatedAt       DateTime?          @updatedAt
+  planId          String?
+  organizationId  String?
+  role            UserRole           @default(USER)
+  organization    Organization?      @relation("OrganizationMembers", fields: [organizationId], references: [id])
+  accounts        Account[]
+  sessions        Session[]
+  oneTimePayments OneTimePayment[]
+  contacts        ResendContact[]
+  usage           UserUsage[]
+  subscriptions   UserSubscription[]
+  Organization    Organization[]
 }
 
 model Organization {
@@ -288,6 +288,7 @@ model StripeProduct {
   description          String?
   default_price        String?
   metadata             Json
+  livemode             Boolean?      @default(false)
   unit_label           String?
   statement_descriptor String?
   createdAt            DateTime?     @default(now())

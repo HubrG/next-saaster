@@ -1,4 +1,4 @@
-import { iFeature } from "@/src/types/iFeatures";
+import { iFeature } from "@/src/types/db/iFeatures";
 import { arrayMoveImmutable } from "array-move";
 
 type SortAdminFeaturesType = {

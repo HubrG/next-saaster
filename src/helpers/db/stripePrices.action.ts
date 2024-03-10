@@ -2,7 +2,7 @@
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { iSearchPrices, iStripePrice } from "@/src/types/iStripePrices";
+import { iSearchPrices, iStripePrice } from "@/src/types/db/iStripePrices";
 import { StripePrice } from "@prisma/client";
 import Stripe from "stripe";
 

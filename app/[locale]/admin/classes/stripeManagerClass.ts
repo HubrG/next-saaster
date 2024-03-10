@@ -1,5 +1,5 @@
 import { prisma } from "@/src/lib/prisma";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { StripePrice, StripeProduct } from "@prisma/client";
 import Stripe from "stripe";
 

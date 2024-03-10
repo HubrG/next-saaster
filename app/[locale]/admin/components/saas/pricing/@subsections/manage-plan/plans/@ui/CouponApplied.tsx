@@ -5,7 +5,7 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { MinusCircle } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 type Props = {

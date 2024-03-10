@@ -1,5 +1,5 @@
 import { arrayMoveImmutable } from "array-move";
-import { iPlan } from "../../../../../../../../../../src/types/iPlans";
+import { iPlan } from "../../../../../../../../../../src/types/db/iPlans";
 
 type SortAdminPlanProps = {
   list: iPlan[];

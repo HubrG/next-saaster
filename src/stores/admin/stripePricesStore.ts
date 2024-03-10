@@ -1,5 +1,5 @@
 import { getStripePrices } from "@/src/helpers/db/stripePrices.action";
-import { iStripePrice } from "@/src/types/iStripePrices";
+import { iStripePrice } from "@/src/types/db/iStripePrices";
 import { create } from "zustand";
 
 type Store = {

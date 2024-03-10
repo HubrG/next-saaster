@@ -4,9 +4,9 @@ import { updatePlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/strip
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
 } from "@/src/components/ui/collapsible";
 import { CopySomething } from "@/src/components/ui/copy-something";
 import { Input } from "@/src/components/ui/input";
@@ -20,8 +20,8 @@ import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlanToFeature } from "@/src/types/iPlanToFeature";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
+import { iPlan } from "@/src/types/db/iPlans";
 import { Plan } from "@prisma/client";
 import { motion } from "framer-motion";
 import isEqual from "lodash/isEqual";
@@ -31,8 +31,8 @@ import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
 import {
-  MRRInputFields,
-  RecurringSwitchFields,
+    MRRInputFields,
+    RecurringSwitchFields,
 } from "./plan-card-fields-by-saas-type/MRRFields";
 import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
 import { UsageInputFields } from "./plan-card-fields-by-saas-type/UsageFields";

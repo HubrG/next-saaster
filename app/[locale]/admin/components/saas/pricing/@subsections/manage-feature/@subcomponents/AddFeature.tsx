@@ -7,8 +7,8 @@ import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iFeature } from "@/src/types/iFeatures";
-import { iPlanToFeature } from "@/src/types/iPlanToFeature";
+import { iFeature } from "@/src/types/db/iFeatures";
+import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { PlusSquare } from "lucide-react";
 import { useState } from "react";
 

@@ -1,13 +1,12 @@
 "use server";
-import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import {
   HandleResponseProps,
   handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action } from "@/src/lib/safe-actions";
-import { iFeature } from "@/src/types/iFeatures";
-import { iPlan } from "@/src/types/iPlans";
+import { iFeature } from "@/src/types/db/iFeatures";
+import { iPlan } from "@/src/types/db/iPlans";
 import {
   createOrUpdatePlanStripeToBddSchema,
   createPlanSchema,
@@ -54,15 +53,32 @@ export const getPlans = action(
  * @param id - Plan ID
  * @param secret - Internal secret for security, to prevent unauthorized access to the database from an external source
  * @throws {ActionError} - Unauthorized
+ * - if stripeSignature is provided and is not valid
+ * - if secret is provided and is not valid
+ * - if stripeSignature and secret are not provided
  */
 export const getPlan = action(
   z.object({
-    secret: z.string(),
-    id: z.string().cuid(),
+    secret: z.string().optional(),
+    stripeSignature: z.string().optional(),
+    id: z
+      .string()
+      .cuid()
+      .or(z.string().regex(/^prod_/)),
   }),
-  async ({ id, secret }): Promise<HandleResponseProps<iPlan>> => {
-    if (secret !== process.env.NEXTAUTH_SECRET)
+  async ({
+    id,
+    secret,
+    stripeSignature,
+  }): Promise<HandleResponseProps<iPlan>> => {
+    // 🔐 Security
+    if (
+      (!stripeSignature && !secret) ||
+      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
       throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
     try {
       const plan = await prisma.plan.findFirst({
         where: {
@@ -99,12 +115,12 @@ export const createPlan = action(
     { data, stripeSignature },
     { userSession }
   ): Promise<HandleResponseProps<iPlan>> => {
-    // Security
+    // 🔐 Security
     if (stripeSignature && !verifyStripeRequest(stripeSignature))
       throw new ActionError("Unauthorized");
     if (!stripeSignature && userSession?.user?.role === "USER")
       throw new ActionError("Unauthorized");
-    //
+    // 🔓 Unlocked
     try {
       const plan = await prisma.plan.create({
         data,
@@ -162,30 +178,31 @@ export const updatePlan = action(
     { data, stripeSignature },
     { userSession }
   ): Promise<HandleResponseProps<iPlan>> => {
-    // Security
+    // 🔐 Security
     if (stripeSignature && !verifyStripeRequest(stripeSignature))
       throw new ActionError("Unauthorized");
     if (!stripeSignature && userSession?.user?.role === "USER")
       throw new ActionError("Unauthorized");
-    //
+    // 🔓 Unlocked
     try {
       const existingPlan = await prisma.plan.findFirst({
         where: {
-          // Or, it depends if the update comes from createOrUpdatePlanStripeToBdd (need to find by stripeId), or from the client
+          // ℹ️ « Or », 'cause it depends if the update comes from createOrUpdatePlanStripeToBdd (need to find by stripeId), or from the client
           OR: [{ stripeId: data.id }, { id: data.id }],
         },
       });
       if (!existingPlan) throw new ActionError("Plan not found");
-    
+
       const plan = await prisma.plan.update({
         where: { id: existingPlan.id },
-        data: data,
+        // ℹ️ 'Cause ID comes with "data" from Stripe, we remove it by destructuring
+        data: { id: undefined, ...data },
         include,
       });
-       return handleRes<iPlan>({
-         success: plan,
-         statusCode: 200,
-       });
+      return handleRes<iPlan>({
+        success: plan,
+        statusCode: 200,
+      });
     } catch (ActionError) {
       console.error(ActionError);
       return handleRes<iPlan>({
@@ -195,38 +212,62 @@ export const updatePlan = action(
     }
   }
 );
-
-type DeletePlanData = {
-  id: string;
-  type?: "stripe";
-};
-export const deletePlan = async ({
-  id,
-  type,
-}: DeletePlanData): Promise<{
-  success?: boolean;
-  data?: any;
-  error?: string;
-}> => {
-  try {
-    if (!id) throw new Error("No plan id provided");
-    if (type === "stripe") {
-      const plan = await prisma.plan.delete({
-        where: { stripeId: id },
+/**
+ * Delete a plan
+ * @param id - Plan ID / Stripe ID
+ * @param secret - Internal secret for security, to prevent unauthorized access to the database from an external source
+ * @param stripeSignature - Stripe signature
+ * @throws {ActionError} - Unauthorized
+ * - if stripeSignature is provided and is not valid
+ * - if secret is provided and is not valid
+ * - if stripeSignature and secret are not provided
+ * - if user is not an admin/super_admin
+ *
+ */
+export const deletePlan = action(
+  z.object({
+    secret: z.string().optional(),
+    stripeSignature: z.string().optional(),
+    id: z
+      .string()
+      .cuid()
+      .or(z.string().regex(/^prod_/)),
+  }),
+  async (
+    { id, secret, stripeSignature },
+    { userSession }
+  ): Promise<HandleResponseProps<boolean>> => {
+    // 🔐 Security
+    if (
+      (userSession && userSession?.user.role === "USER") ||
+      (!stripeSignature && !secret) ||
+      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      if (!id) throw new Error("No plan id provided");
+      const plan = await prisma.plan.deleteMany({
+        where: {
+          OR: [{ stripeId: id }, { id: id }],
+        },
       });
       if (!plan)
         throw new Error("An error has occured while deleting the plan");
-      return { success: true, data: plan };
+      return handleRes<boolean>({
+        success: true,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<boolean>({
+        error: ActionError,
+        statusCode: 500,
+      });
     }
-    const plan = await prisma.plan.delete({
-      where: { id: id },
-    });
-    if (!plan) throw new Error("An error has occured while deleting the plan");
-    return { success: true, data: plan as iPlan };
-  } catch (error) {
-    return { error: getErrorMessage(error) };
   }
-};
+);
 
 /**
  * Create or update a plan from stripe to the database
@@ -247,7 +288,7 @@ export const createOrUpdatePlanStripeToBdd = action(
       const planData = {
         active: stripePlan.active,
         stripeId: stripePlan.id,
-        saasType: type === "create" ? "CUSTOM" as SaasTypes : undefined,
+        saasType: type === "create" ? ("CUSTOM" as SaasTypes) : undefined,
         name: stripePlan.name ?? "Plan name",
         description: stripePlan.description
           ? stripePlan.description
@@ -271,7 +312,10 @@ export const createOrUpdatePlanStripeToBdd = action(
         });
         // NOTE : Update
       } else if (type === "update") {
-        const plan = await updatePlan({ data: { ...planData }, stripeSignature });
+        const plan = await updatePlan({
+          data: { ...planData, id: stripePlan.id },
+          stripeSignature,
+        });
         if (plan.serverError || plan.validationErrors)
           throw new ActionError(
             plan.serverError

@@ -1,23 +1,22 @@
 "use server";
 
 import { stripeCustomerIdManager } from "@/src/helpers/functions/stripeCustomerIdManager";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 
-// Once payment (checkout) ponctual
-type CreateCheckoutSessionPonctualProps = {
+type CreateCheckoutSessionProps = {
   planPrice: string;
   plan: iPlan;
   isYearly?: boolean | undefined;
   seatQuantity?: number | undefined;
 };
-export const createCheckoutSessionPonctual = async ({
+export const createCheckoutSession = async ({
   planPrice,
   plan,
   isYearly,
   seatQuantity,
-}: CreateCheckoutSessionPonctualProps) => {
+}: CreateCheckoutSessionProps) => {
   if (!planPrice || !plan) {
     throw new Error("Plan ID is required");
   }

@@ -5,8 +5,8 @@ import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { prisma } from "@/src/lib/prisma";
-import { iStripeCoupon } from "@/src/types/iStripeCoupons";
-import { iStripePlanCoupon } from "@/src/types/iStripePlanCoupons";
+import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
+import { iStripePlanCoupon } from "@/src/types/db/iStripePlanCoupons";
 import { StripeCoupon } from "@prisma/client";
 
 const stripe = new StripeManager();

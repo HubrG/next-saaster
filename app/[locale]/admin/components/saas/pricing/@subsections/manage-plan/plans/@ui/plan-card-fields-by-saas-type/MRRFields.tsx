@@ -4,7 +4,7 @@ import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { sliced } from "@/src/helpers/functions/slice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { Plan } from "@prisma/client";
 import { PopoverCoupon } from "../../../stripe-coupons/@ui/PopoverCoupon";
 import { CouponApplied } from "../CouponApplied";

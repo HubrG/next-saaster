@@ -7,7 +7,7 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateFeature } from "@/src/helpers/db/features.action";
 import { sliced } from "@/src/helpers/functions/slice";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
-import { iFeature } from "@/src/types/iFeatures";
+import { iFeature } from "@/src/types/db/iFeatures";
 import { Feature } from "@prisma/client";
 import { Grip } from "lucide-react";
 import { useState } from "react";

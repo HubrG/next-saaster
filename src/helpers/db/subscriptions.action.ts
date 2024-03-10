@@ -1,6 +1,6 @@
 import { handleResponse } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { iSubscription } from "@/src/types/iSubscription";
+import { iSubscription } from "@/src/types/db/iSubscription";
 import { Subscription } from "@prisma/client";
 import { isSuperAdmin } from "../functions/isUserRole";
 

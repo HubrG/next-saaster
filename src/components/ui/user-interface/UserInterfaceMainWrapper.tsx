@@ -10,7 +10,7 @@ export const UserInterfaceMainWrapper = ({ children,icon, text }: Props) => {
     <div className="user-inteface-main">
       <div id="headerAdminNavbar">
         {/* <h1 className="text-4xl flex flex-row gap-x-5 items-center justify-end">{text}{icon}  </h1> */}
-        <Goodline />
+        <Goodline className="!mt-3.5" />
       </div>
       <div className="user-inteface-main-content pt-10 !w-full">{children}</div>
     </div>

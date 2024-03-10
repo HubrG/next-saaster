@@ -7,7 +7,7 @@ import {
 } from "@/src/helpers/db/features.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
-import { iPlanToFeature } from "@/src/types/iPlanToFeature";
+import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 
 export const updateLinkPlanToFeature = async (
   dataToUpdate: iPlanToFeature[]
@@ -49,13 +49,15 @@ export const updateLinkPlanToFeature = async (
 };
 
 export const addNewMMRSFeature = async () => {
+    const session = await isSuperAdmin();
+    if (!session) throw new Error("Unauthorized access");
   // Créer une nouvelle fonctionnalité
   const newFeature = await createFeature();
   if (newFeature.serverError) {
     throw new Error(newFeature.serverError);
   }
   const newFeatureData = newFeature.data?.success;
-  console.log("newFeatureData", newFeatureData);
+
   if (!newFeatureData) {
     throw new Error("Error creating new feature");
   }

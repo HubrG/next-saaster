@@ -1,5 +1,9 @@
+// Stripe events webhook listeners
 export const stripeEvents = [
   "product.updated",
+  "product.created",
+  "product.deleted",
+  "price.created",
   "price.updated",
   "checkout.session.completed",
   "customer.subscription.created",

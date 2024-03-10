@@ -1,4 +1,4 @@
-import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
+import { iFeaturesCategories } from "@/src/types/db/iFeaturesCategories";
 import { FeatureCategory } from "@prisma/client";
 import { arrayMoveImmutable } from "array-move";
 

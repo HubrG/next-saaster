@@ -5,31 +5,19 @@ import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import {
   BadgeDollarSign,
-  BarChart2,
   Cog,
   Coins,
-  Contact,
   Contact2,
-  Cookie,
   Dot,
-  FilePenLine,
-  Filter,
-  GaugeCircle,
   Info,
   Languages,
   LayoutDashboard,
-  Mail,
-  MessageCircleQuestion,
-  MousePointerClick,
   Palette,
-  Receipt,
   Rss,
-  Scale,
   Settings2,
-  Share2,
   SquarePen,
   UserCheck,
-  View,
+  View
 } from "lucide-react";
 import { useState } from "react";
 
@@ -182,47 +170,6 @@ export const AdminNavbar = () => {
             text="Customers"
             handleScroll={handleScroll}
           />
-
-          {/* marketing */}
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="Funnel"
-            icon={<Filter className="icon" />}
-            text="Funnel"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="Mailing"
-            icon={<Mail className="icon" />}
-            text="Mailing"
-            handleScroll={handleScroll}>
-            {/* Settings */}
-            <MenuSubItem
-              parent="Mailing"
-              activeSection={activeSubSection}
-              sectionObserve="sub-mailing-settings"
-              text="Settings"
-              icon={<Dot className="icon" />}
-              handleScroll={handleScroll}
-            />
-            {/* Newsletter */}
-            <MenuSubItem
-              parent="Mailing"
-              activeSection={activeSubSection}
-              sectionObserve="sub-mailing-newsletter"
-              text="Newsletter"
-              icon={<Dot className="icon" />}
-              handleScroll={handleScroll}
-            />
-          </MenuItem>
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="SaasMetrics"
-            icon={<BarChart2 className="icon" />}
-            text="Metrics"
-            handleScroll={handleScroll}
-          />
         </ul>
       </div>
       <div>
@@ -253,62 +200,7 @@ export const AdminNavbar = () => {
           />
         </ul>
       </div>
-      <div>
-        <h3>
-          Static pages <FilePenLine className="icon" />
-        </h3>
-        <ul className="text-left">
-          <MenuItem
-            activeSection={activeSection}
-            icon={<Share2 className="icon" />}
-            text="Social networks"
-            sectionObserve="SocialNetworks"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            icon={<Contact className="icon" />}
-            text="Contact"
-            sectionObserve="Contacts"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="ManageCategories"
-            icon={<Receipt className="icon" />}
-            text="GSC"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="ManageCategories"
-            icon={<MousePointerClick className="icon" />}
-            text="GCU"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="ManageCategories"
-            icon={<Scale className="icon" />}
-            text="Legal"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="ManageCategories"
-            icon={<Cookie className="icon" />}
-            text="Privacy"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="ManageCategories"
-            icon={<MessageCircleQuestion className="icon" />}
-            text="FAQ"
-            handleScroll={handleScroll}
-          />
-        </ul>
-      </div>
+      
     </>
   );
 };

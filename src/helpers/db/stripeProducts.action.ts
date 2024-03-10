@@ -1,8 +1,8 @@
 "use server";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { prisma } from "@/src/lib/prisma";
-import { iPlan } from "@/src/types/iPlans";
-import { iStripeProduct } from "@/src/types/iStripeProducts";
+import { iPlan } from "@/src/types/db/iPlans";
+import { iStripeProduct } from "@/src/types/db/iStripeProducts";
 import { StripeProduct } from "@prisma/client";
 import Stripe from "stripe";
 

@@ -119,7 +119,6 @@ export class StripeManager {
             stripeId: createProduct.id,
           },
         });
-
         if (!upPlan.data?.success)
           throw new Error("An error has occured while updating the plan");
         if (createProductOnBDD && priceOnBDD)

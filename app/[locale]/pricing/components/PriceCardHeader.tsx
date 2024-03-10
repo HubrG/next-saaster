@@ -4,7 +4,7 @@ import currenciesData from "@/src/jsons/currencies.json";
 import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { Currencies } from "@/src/types/Currencies";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { SaasSettings } from "@prisma/client";
 import { toLower } from "lodash";
 import { payOncePricesAndFeatures } from "./PAY_ONCE/prices";

@@ -18,7 +18,7 @@ import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCa
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlanToFeature } from "@/src/types/iPlanToFeature";
+import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { Feature, Plan } from "@prisma/client";
 import _ from "lodash";
 import capitalize from "lodash/capitalize";

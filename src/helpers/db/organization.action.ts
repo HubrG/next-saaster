@@ -1,15 +1,15 @@
 "use server";
 import {
-  HandleResponseProps,
-  handleRes,
+    HandleResponseProps,
+    handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action, authAction } from "@/src/lib/safe-actions";
-import { iOrganization } from "@/src/types/iOrganization";
+import { iOrganization } from "@/src/types/db/iOrganization";
 import { z } from "zod";
 import { sendEmail } from "../emails/sendEmail";
 import {
-  isOrganizationOwner,
+    isOrganizationOwner,
 } from "../functions/isUserRole";
 
 /**
@@ -133,12 +133,13 @@ export const inviteMemberToOrganization = authAction(
     organizationId,
     email,
   }): Promise<HandleResponseProps<iOrganization>> => {
-    // Security - Only the owner of the organization can invite a user
+    // 🔐 Security - Only the owner of the organization can invite a user
     const isOwner = await isOrganizationOwner();
     if (!isOwner)
       throw new ActionError(
         "You are not authorized to invite a user to this organization"
       );
+    // 🔓 Unlocked
     try {
       // We check if user is already invited
       const isInvited = await prisma.organizationInvitation.findFirst({
@@ -228,7 +229,7 @@ export const removePendingUser = action(
     email,
     secret,
   }): Promise<HandleResponseProps<iOrganization>> => {
-    // Security - If internal secret has been sent, we verify if it's the right one (for internal use only)
+    // 🔐 Security - If internal secret has been sent, we verify if it's the right one (for internal use only)
     if (secret && secret !== process.env.NEXTAUTH_SECRET) {
       return handleRes<iOrganization>({
         error: new ActionError("Unauthorized"),
@@ -239,6 +240,7 @@ export const removePendingUser = action(
       const isOwner = await isOrganizationOwner();
       if (!isOwner) throw new ActionError("Not authorized");
     }
+    // 🔓 Unlocked
     try {
       const organization = await prisma.organizationInvitation.deleteMany({
         where: {

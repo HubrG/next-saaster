@@ -1,5 +1,5 @@
 import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons.action";
-import { iStripeCoupon } from "@/src/types/iStripeCoupons";
+import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import { create } from "zustand";
 
 type Store = {

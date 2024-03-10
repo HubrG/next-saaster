@@ -4,7 +4,7 @@ import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Card } from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlan } from "@/src/types/db/iPlans";
 import { PriceCardBottomSentence } from "./PriceCardBottomSentence";
 import { PriceCardBuyButton } from "./PriceCardBuyButton";
 import { PriceCardContactUsButton } from "./PriceCardContactUsButton";

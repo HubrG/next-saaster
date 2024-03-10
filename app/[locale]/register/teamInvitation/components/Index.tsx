@@ -7,7 +7,7 @@ import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loa
 import { Card } from "@/src/components/ui/card";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { acceptInvitationToOrganization, removePendingUser } from "@/src/helpers/db/organization.action";
-import { iOrganization } from "@/src/types/iOrganization";
+import { iOrganization } from "@/src/types/db/iOrganization";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

@@ -1,8 +1,8 @@
 "use client";
 import { Loader } from "@/src/components/ui/loader";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iPlanToFeature } from "@/src/types/iPlanToFeature";
-import { iPlan } from "@/src/types/iPlans";
+import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
+import { iPlan } from "@/src/types/db/iPlans";
 import { CheckCircle2, X } from "lucide-react";
 import { Fragment } from "react";
 import { Tooltip } from "react-tooltip";

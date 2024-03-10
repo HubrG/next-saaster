@@ -14,8 +14,8 @@ import { getStripeProduct } from "@/src/helpers/db/stripeProducts.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { prisma } from "@/src/lib/prisma";
-import { iPlan } from "@/src/types/iPlans";
-import { iStripeProduct } from "@/src/types/iStripeProducts";
+import { iPlan } from "@/src/types/db/iPlans";
+import { iStripeProduct } from "@/src/types/db/iStripeProducts";
 import { Plan, PlanToFeature, SaasTypes } from "@prisma/client";
 import { toLower } from "lodash";
 import Stripe from "stripe";
@@ -77,12 +77,11 @@ export const updatePlan = async (
 ): Promise<{ success?: boolean; data?: any; error?: string }> => {
   try {
     if (!data.stripeId || !data.id) throw new Error("No stripeId found");
-    console.log(data)
+
     const initPlan = await getPlan({
       id: data.id,
       secret: process.env.NEXTAUTH_SECRET ?? "",
     });
-    console.log(initPlan);
     if (handleError(initPlan).error)
       throw new Error(handleError(initPlan).message);
     const initialPlan = initPlan.data?.success;
@@ -268,11 +267,12 @@ export const updatePlan = async (
           const validUpdate = await upPlan({
             data: {
               ...restOfData,
-              stripeYearlyPriceId: newPrice.data.data.id,
+              stripeYearlyPriceId: newPrice.data.data.id
             },
           });
           if (handleError(validUpdate).error)
             throw new Error(handleError(validUpdate).message);
+        
           const deactivate = await deactivateOldPrices({
             prices: prices,
             newPriceId: newPrice.data.data.id,

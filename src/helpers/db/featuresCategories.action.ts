@@ -5,7 +5,7 @@ import {
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, adminAction } from "@/src/lib/safe-actions";
-import { iFeaturesCategories } from "@/src/types/iFeaturesCategories";
+import { iFeaturesCategories } from "@/src/types/db/iFeaturesCategories";
 import {
   createFeaturesCategorySchema,
   updateFeaturesCategorySchema,

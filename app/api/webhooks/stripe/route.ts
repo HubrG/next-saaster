@@ -14,8 +14,7 @@ import {
 } from "@/src/helpers/db/stripePrices.action";
 import {
   createOrUpdateProductStripeToBdd,
-  deleteProduct,
-  getStripeProduct,
+  getStripeProduct
 } from "@/src/helpers/db/stripeProducts.action";
 import { createSubcriptionPayment } from "@/src/helpers/db/subscriptionPayments.action";
 import {
@@ -28,7 +27,7 @@ import {
 } from "@/src/helpers/db/userSubscription.action";
 import { getUserByCustomerId } from "@/src/helpers/db/users.action";
 import { todoWhenPaymentSuceeded } from "@/src/helpers/functions/todoWhenPaymentSuceeded";
-import { iStripeProduct } from "@/src/types/iStripeProducts";
+import { iStripeProduct } from "@/src/types/db/iStripeProducts";
 import { SubscriptionStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -183,7 +182,7 @@ export async function POST(req: NextRequest) {
       }
       return NextResponse.json({ status: 200 });
     case "invoice.paid":
-      // We wait 5sc befroe create invoice
+      // We wait 5sc before create invoice (to be sure that the payment is well done and the invoice is created in the database)
       await new Promise((resolve) => setTimeout(resolve, 5000));
       const invoice = event.data.object as Stripe.Invoice;
       const createInvoice = await createSubcriptionPayment({
@@ -262,7 +261,7 @@ export async function POST(req: NextRequest) {
         createPaymentIntent.serverError ||
         createPaymentIntent.validationErrors
       ) {
-        const error = await errorHandling(createPaymentIntent)
+        const error = await errorHandling(createPaymentIntent);
         console.error("error :", error);
         return NextResponse.json(
           {
@@ -303,11 +302,10 @@ export async function POST(req: NextRequest) {
         stripePlan: event.data.object,
         stripeSignature: secret ?? "",
       });
-      if (
-        createPlan.serverError ||
-        createPlan.validationErrors
-      ) {
-        const error = await errorHandling(createPlan.serverError ?? createPlan.validationErrors ?? undefined)
+      if (createPlan.serverError || createPlan.validationErrors) {
+        const error = await errorHandling(
+          createPlan.serverError ?? createPlan.validationErrors ?? undefined
+        );
         console.error("error :", error);
         return NextResponse.json(
           {
@@ -340,10 +338,23 @@ export async function POST(req: NextRequest) {
         stripePlan: event.data.object,
         stripeSignature: secret ?? "",
       });
-       if (upPlan.serverError ||
-        upPlan.validationErrors
-      ) {
-        const error = await errorHandling(upPlan)
+      if (upPlan.serverError || upPlan.validationErrors) {
+        const error = await errorHandling(upPlan);
+        console.error("error :", error);
+        return NextResponse.json(
+          {
+            error,
+          },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json({ status: 200 });
+    // NOTE : Product deleted
+    case "product.deleted":
+      const delProduct = event.data.object as Stripe.Product;
+      const del = await deletePlan({ id: delProduct.id, stripeSignature: secret ?? ""});
+      if (del.serverError || del.validationErrors) {
+        const error = await errorHandling(del);
         console.error("error :", error);
         return NextResponse.json(
           {
@@ -389,11 +400,6 @@ export async function POST(req: NextRequest) {
       await deleteStripePrice(event.data.object.id);
       return NextResponse.json({ status: 200 });
 
-    case "product.deleted":
-      await deleteProduct(event.data.object.id);
-      await deletePlan({ id: event.data.object.id, type: "stripe" });
-      return NextResponse.json({ status: 200 });
-
     case "coupon.created":
       await createOrUpdateCouponStripeToBdd("create", event.data.object);
       return NextResponse.json({ status: 200 });
@@ -413,6 +419,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function errorHandling(data:any) {
-  return [`Type errror : ${data.validationErrors?.data ?? undefined}`, `Server error : ${data.serverError ?? undefined}`];
-};
+async function errorHandling(data: any) {
+  return [
+    `Type errror : ${data.validationErrors?.data ?? undefined}`,
+    `Server error : ${data.serverError ?? undefined}`,
+  ];
+}

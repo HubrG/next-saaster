@@ -85,6 +85,14 @@ export const createFeaturesCategory = adminAction(
   }
 );
 
+/**
+ * Delete a feature category
+ * @param id
+ * @returns 
+ * @throws
+ * ActionError
+ * 
+ */
 export const deleteFeaturesCategory = adminAction(
   z.object({
     id: z.string().cuid(),

@@ -82,7 +82,7 @@ export const addNewMMRSFeature = async () => {
 };
 
 export const dbGetFeatures = async () => {
-  const features = await getFeatures();
+  const features = await getFeatures({secret: process.env.NEXTAUTH_SECRET ?? ""});
   return features;
 };
 

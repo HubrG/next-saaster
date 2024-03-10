@@ -1,30 +1,45 @@
 import {
   HandleResponseProps,
-  handleRes
+  handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action } from "@/src/lib/safe-actions";
 import { iOneTimePayment } from "@/src/types/iOneTimePayments";
 import { createOneTimePaymentSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
-import { isSuperAdmin } from "../functions/isUserRole";
+import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 
-
+/**
+ * Get just one time payment
+ * - Only admins, Stripe or the user who created the one time payment can get it
+ * - If stripeSignature is provided, it will be verified
+ * - If stripeSignature is not provided, userSession must be provided and the user must be an admin or the user who created the one time payment
+ * @param id - The id of the one time payment
+ * @param stripeSignature - The stripe signature to verify
+ * @returns The one time payment
+ */
 export const getOneTimePayment = action(
   z.object({
-    payId: z.string(),
+    id: z.string(),
+    stripeSignature: z.string().optional(),
   }),
-  async ({ payId }): Promise<HandleResponseProps<iOneTimePayment>> => {
-    const authorized = await authorize({});
-    if (!authorized) {
+  async (
+    { id, stripeSignature },
+    { userSession }
+  ): Promise<HandleResponseProps<iOneTimePayment>> => {
+    if (stripeSignature && !verifyStripeRequest(stripeSignature))
       throw new ActionError("Unauthorized");
-    }
     try {
       const oneTimePayment = await prisma.oneTimePayment.findUnique({
-        where: { id: payId },
+        where: { id },
         include: include,
       });
-      if (!oneTimePayment) throw new Error("No user found");
+      if (
+        !oneTimePayment ||
+        (!stripeSignature && !userSession) ||
+        (userSession && userSession.user.role === "USER")
+      )
+        throw new ActionError("Unauthorized");
       return handleRes<iOneTimePayment>({
         success: oneTimePayment,
         statusCode: 200,
@@ -38,17 +53,29 @@ export const getOneTimePayment = action(
     }
   }
 );
-
+/**
+ * Create a one time payment
+ * - Only superAdmins or Stripe can create one time payments
+ * - If stripeSignature is provided, it will be verified
+ * - If stripeSignature is not provided, userSession must be provided and the user must be an admin
+ * @param data - The data to create the one time payment
+ * @param stripeSignature - The stripe signature to verify
+ * @returns The created one time payment
+ * @throws ActionError
+ *
+ */
 export const createOneTimePayment = action(
   createOneTimePaymentSchema,
-  async ({
-    data,
-    stripeSignature,
-  }): Promise<HandleResponseProps<iOneTimePayment>> => {
-    const authorized = await authorize({ stripeSignature });
-    if (!authorized) {
-     throw new ActionError("Unauthorized");
-    }
+  async (
+    { data, stripeSignature },
+    { userSession }
+  ): Promise<HandleResponseProps<iOneTimePayment>> => {
+    if (
+      (stripeSignature && !verifyStripeRequest(stripeSignature)) ||
+      (!stripeSignature && !userSession) ||
+      (userSession && userSession.user.role === "USER")
+    )
+      throw new ActionError("Unauthorized");
     try {
       const oneTimePayment = await prisma.oneTimePayment.create({
         data,
@@ -82,22 +109,3 @@ const include = {
     },
   },
 };
-
-// SECTION AUTHORIZE
-type AuthorizeProps = {
-  stripeSignature?: string | undefined;
-};
-async function authorize({
-  stripeSignature,
-}: AuthorizeProps): Promise<boolean> {
-  const isSuperAdminFlag = await isSuperAdmin();
-  let isStripeValid = false;
-  if (stripeSignature) {
-    isStripeValid = verifyStripeRequest(stripeSignature);
-  }
-
-  return isSuperAdminFlag || isStripeValid;
-}
-function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
-}

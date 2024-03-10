@@ -56,7 +56,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   const handleRemovePending = async (email: string) => {
     const remove = await removePendingUser({
       organizationId: userInfo.userInfo.organizationId ?? "",
-      email,
+      email
     });
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });

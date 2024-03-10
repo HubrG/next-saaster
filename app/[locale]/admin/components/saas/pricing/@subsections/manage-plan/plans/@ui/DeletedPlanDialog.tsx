@@ -31,13 +31,15 @@ export function DeteledPlanDialog({ children }: DeletedPlanDialogProps) {
     useSaasPlanToFeatureStore();
   const handleRestore = async (planState: iPlan) => {
     const dataToSet = await updatePlan({
-      ...planState,
-      deleted: false,
-      deletedAt: new Date(),
+      data: {
+        deleted: false,
+        deletedAt: new Date(),
+      }
     });
-    if (dataToSet.error) {
+    if (dataToSet.serverError || dataToSet.validationErrors) {
+      const error = dataToSet.serverError || dataToSet.validationErrors?.data;
       return toaster({
-        description: dataToSet.error,
+        description: error,
         type: "error",
       });
     }

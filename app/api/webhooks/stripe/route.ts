@@ -1,8 +1,7 @@
 import { createOneTimePayment } from "@/src/helpers/db/oneTimePayments.action";
 import {
   createOrUpdatePlanStripeToBdd,
-  deletePlan,
-  updatePlan,
+  deletePlan
 } from "@/src/helpers/db/plans.action";
 import {
   createOrUpdateCouponStripeToBdd,
@@ -43,7 +42,6 @@ export async function POST(req: NextRequest) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET || "";
   const payload = await req.text();
   const signature = req.headers.get("stripe-signature");
-  console.log(signature);
 
   let event: Stripe.Event | null = null;
 
@@ -303,12 +301,13 @@ export async function POST(req: NextRequest) {
       const createPlan = await createOrUpdatePlanStripeToBdd({
         type: "create",
         stripePlan: event.data.object,
+        stripeSignature: secret ?? "",
       });
       if (
         createPlan.serverError ||
         createPlan.validationErrors
       ) {
-        const error = await errorHandling(createPlan)
+        const error = await errorHandling(createPlan.serverError ?? createPlan.validationErrors ?? undefined)
         console.error("error :", error);
         return NextResponse.json(
           {
@@ -339,6 +338,7 @@ export async function POST(req: NextRequest) {
       const upPlan = await createOrUpdatePlanStripeToBdd({
         type: "update",
         stripePlan: event.data.object,
+        stripeSignature: secret ?? "",
       });
        if (upPlan.serverError ||
         upPlan.validationErrors
@@ -371,16 +371,17 @@ export async function POST(req: NextRequest) {
           console.error(product.error);
           return NextResponse.json({ error: product.error }, { status: 500 });
         }
-        if (product.data && product.data.PlanId) {
-          const upPlan = await updatePlan({
-            id: product.data.PlanId,
-            saasType: "PAY_ONCE",
-          });
-          if (upPlan.error) {
-            // console.error(product.error);
-            return NextResponse.json({ error: upPlan.error }, { status: 500 });
-          }
-        }
+        // if (product.data && product.data.PlanId) {
+        //   const upPlan = await updatePlan({
+        //     id: product.data.PlanId,
+        //     saasType: "PAY_ONCE",
+        //     stripeSignature: secret ?? "",
+        //   });
+        //   if (upPlan.error) {
+        //     // console.error(product.error);
+        //     return NextResponse.json({ error: upPlan.error }, { status: 500 });
+        //   }
+        // }
       }
       return NextResponse.json({ status: 200 });
 

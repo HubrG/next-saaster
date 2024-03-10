@@ -76,8 +76,8 @@ export const FeaturesList = () => {
     ) {
       // if there is an error, we fetch the features again to get the correct old positions
       const updatedFeaturesResult = await dbGetFeatures();
-      if (updatedFeaturesResult.success) {
-        setSaasFeatures(updatedFeaturesResult.success);
+      if (updatedFeaturesResult.data?.success) {
+        setSaasFeatures(updatedFeaturesResult.data?.success);
       }
       const error = results.find(
         (result) => result.serverError || result.validationErrors

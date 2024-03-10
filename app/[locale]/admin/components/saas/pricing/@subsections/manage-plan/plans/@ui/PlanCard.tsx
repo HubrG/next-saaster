@@ -107,22 +107,23 @@ export const PlanCard = ({ plan, className }: Props) => {
       return manageClashes(newData, name);
     });
   };
-
   // Handle save plan
+
   const handleSave = async () => {
     setLoading(true);
     const dataToSet = await updatePlan({
       ...planState,
+      id: planState.id,
       trialDays: planState.trialDays ?? 0,
       updatedAt: new Date(),
     });
     if (dataToSet.error) {
+      setLoading(false);
       return toaster({
         description: dataToSet.error,
         type: "error",
       });
     }
-
     setSaveAndCancel(false);
     setInitialPlanState({ ...planState });
     updatePlanFromStore(planState.id, planState);

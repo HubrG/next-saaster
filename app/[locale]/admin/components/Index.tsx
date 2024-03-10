@@ -9,15 +9,10 @@ import { AdminSaas } from "./saas/AdminSaas";
 import { AdminSetup } from "./setup/AdminSetup";
 
 // TODO : Séparer les queries en fonction des composants
-// TODO : Mieux gérer les erreurs (renvoyer un message)
-// TODO : Clean le typage du retour en me basant sur appSettings (voir helpers/plans.ts --> getPlans)
-// TODO : Ajouter un composant "error" pour les erreurs (trhow new Error)
 // TODO : Dans la doc, ajouter des liens d'affiliation, comme sur Shipfast
 // TODO : Modifier les formulaires save/cancel comme sur InfoApp.tsx (avec le hook)
-// FIX : Mettre du Zod, partout
-// FIX : Protéger toutes les routes API (même actions)
-// FIX : changer le mail test "hubrgiorgi@gmail.com"
 // FIX : Bug "first user" selon qu'on créé un compte avec Next Auth ou par credentials --> Du coup, pas de Stripe ID, ni d'inscription dans Resend (par ailleurs ce bug existe aussi lors d'une connexion avec Gmail. sur un ouveau compte)
+
 export const Index = () => {
   const { isStoreLoading } = useSaasSettingsStore();
 

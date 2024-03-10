@@ -15,6 +15,7 @@ export default async function TeamInvitation({
   let notFound = false;
   const organization = await getOrganization({
     id: searchParams?.organizationId ?? "",
+    secret: process.env.NEXTAUTH_SECRET ?? "",
   });
 console.log(organization)
 

@@ -17,9 +17,12 @@ export const useSaasFeaturesStore = create<Store>()((set) => ({
   setSaasFeatures: (saasFeatures) =>
     set({ saasFeatures, isStoreLoading: false }),
   fetchSaasFeatures: async () => {
-      const saasFeatures = await getFeatures();
-      if (saasFeatures.success) {
-        set({ saasFeatures: saasFeatures.success, isStoreLoading: false });
+      const saasFeatures = await getFeatures({ secret: process.env.NEXTAUTH_SECRET ?? "" });
+      if (saasFeatures.data?.success) {
+        set({
+          saasFeatures: saasFeatures.data?.success,
+          isStoreLoading: false,
+        });
       }
   },
 }));

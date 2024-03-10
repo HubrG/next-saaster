@@ -1,7 +1,7 @@
 "use server";
 import {
   HandleResponseProps,
-  handleRes
+  handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action, authAction } from "@/src/lib/safe-actions";
@@ -9,12 +9,23 @@ import { iOrganization } from "@/src/types/iOrganization";
 import { z } from "zod";
 import { sendEmail } from "../emails/sendEmail";
 import {
-  isConnected,
-  isMe,
   isOrganizationOwner,
-  isSuperAdmin,
 } from "../functions/isUserRole";
 
+/**
+ * Create an organization
+ * - Only users who are not already in an organization can create an organization
+ * - The user must be connected
+ * - The user will be the owner of the organization
+ * @param name - The name of the organization
+ * @param ownerId - The id of the user who will be the owner of the organization
+ * @returns The organization
+ * @throws An error
+ * - If the user is already a member of an organization
+ * - If the user is not found
+ * - If an error occured while creating the organization
+ * - If the user is not connected
+ */
 export const createOrganization = authAction(
   z.object({
     name: z.string().optional(),
@@ -22,6 +33,16 @@ export const createOrganization = authAction(
   }),
   async ({ name, ownerId }): Promise<HandleResponseProps<iOrganization>> => {
     try {
+      // We check if the user is already a member of an organization
+      const user = await prisma.user.findFirst({
+        where: {
+          id: ownerId,
+        },
+      });
+      if (!user) throw new ActionError("No user found");
+      if (user.organizationId)
+        throw new ActionError("User is already a member of an organization");
+      //
       const organization = await prisma.organization.create({
         data: {
           name: name ?? "",
@@ -51,11 +72,26 @@ export const createOrganization = authAction(
   }
 );
 
+/**
+ * Get an organization
+ * @param id - The id of the organization
+ * @param secret - The secret internal key
+ * @returns The organization
+ * @throws An error
+ * - If the organization is not found
+ * - If the secret is not valid
+ * - If an error occured while getting the organization
+ * - If the user is not authorized to get the organization
+ *
+ */
 export const getOrganization = action(
   z.object({
     id: z.string().cuid(),
+    secret: z.string(),
   }),
-  async ({ id }): Promise<HandleResponseProps<iOrganization>> => {
+  async ({ id, secret }): Promise<HandleResponseProps<iOrganization>> => {
+    if (secret !== process.env.NEXTAUTH_SECRET)
+      throw new ActionError("Unauthorized");
     try {
       const organization = await prisma.organization.findUnique({
         where: { id },
@@ -74,7 +110,21 @@ export const getOrganization = action(
   }
 );
 
-export const inviteMemberToOrganization = action(
+/**
+ * Invite a user to an organization
+ * - Only the owner of the organization can invite a user
+ * - The user must be connected
+ * - The user must be the owner of the organization
+ * @param organizationId - The id of the organization
+ * @param email - The email of the user to invite
+ * @returns The organization
+ * @throws An error
+ * - If the user is not authorized to invite a user to the organization
+ * - If the user is already invited
+ * - If the user is already a member of an organization
+ * - If an error occured while creating the invitation
+ */
+export const inviteMemberToOrganization = authAction(
   z.object({
     organizationId: z.string().cuid(),
     email: z.string().email(),
@@ -83,6 +133,12 @@ export const inviteMemberToOrganization = action(
     organizationId,
     email,
   }): Promise<HandleResponseProps<iOrganization>> => {
+    // Security - Only the owner of the organization can invite a user
+    const isOwner = await isOrganizationOwner();
+    if (!isOwner)
+      throw new ActionError(
+        "You are not authorized to invite a user to this organization"
+      );
     try {
       // We check if user is already invited
       const isInvited = await prisma.organizationInvitation.findFirst({
@@ -143,28 +199,46 @@ export const inviteMemberToOrganization = action(
       if (sendmail.error) {
         throw new ActionError(sendmail.error);
       }
-     return handleRes<iOrganization>({
-       success: getOrganization,
-       statusCode: 200,
-     });
+      return handleRes<iOrganization>({
+        success: getOrganization,
+        statusCode: 200,
+      });
     } catch (ActionError) {
-     return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
+      return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }
 );
 
-export const removePendingUser = authAction(
+/**
+ * Remove a pending user from an organization
+ * - Only the owner of the organization or the user invited can remove a pending user
+ * @param organizationId - The id of the organization
+ * @param email - The email of the user to remove
+ * @param secret - The secret internal key
+ * @returns The organization
+ */
+export const removePendingUser = action(
   z.object({
     organizationId: z.string().cuid(),
     email: z.string().email(),
+    secret: z.string().optional(),
   }),
-  async (
-    { organizationId, email },
-    { userSession }
-  ): Promise<HandleResponseProps<iOrganization>> => {
-    const isOwner = await isOrganizationOwner(organizationId, userSession);
-    if (!isOwner)
-      throw new ActionError("Not authorized");
+  async ({
+    organizationId,
+    email,
+    secret,
+  }): Promise<HandleResponseProps<iOrganization>> => {
+    // Security - If internal secret has been sent, we verify if it's the right one (for internal use only)
+    if (secret && secret !== process.env.NEXTAUTH_SECRET) {
+      return handleRes<iOrganization>({
+        error: new ActionError("Unauthorized"),
+        statusCode: 401,
+      });
+      // If no secret has been sent, we verify if the user is the owner of the organization
+    } else if (!secret) {
+      const isOwner = await isOrganizationOwner();
+      if (!isOwner) throw new ActionError("Not authorized");
+    }
     try {
       const organization = await prisma.organizationInvitation.deleteMany({
         where: {
@@ -175,6 +249,7 @@ export const removePendingUser = authAction(
       if (!organization) throw new ActionError("Delete failed");
       const retrieveOrganization = await getOrganization({
         id: organizationId,
+        secret: process.env.NEXTAUTH_SECRET ?? "",
       });
       if (!retrieveOrganization) throw new ActionError("No organization found");
       return handleRes<iOrganization>({
@@ -187,15 +262,27 @@ export const removePendingUser = authAction(
   }
 );
 
+/**
+ * Accept an invitation to an organization
+ * - The user must have received an invitation
+ * @param organizationId - The id of the organization
+ * @param email - The email of the user to remove
+ * @param secret - The secret internal key
+ * @returns The organization
+ */
 export const acceptInvitationToOrganization = action(
   z.object({
     organizationId: z.string().cuid(),
     email: z.string().email(),
+    secret: z.string(),
   }),
   async ({
     organizationId,
     email,
+    secret,
   }): Promise<HandleResponseProps<iOrganization>> => {
+    if (secret !== process.env.NEXTAUTH_SECRET)
+      throw new ActionError("Unauthorized");
     try {
       const organization = await prisma.organizationInvitation.findFirst({
         where: {
@@ -226,7 +313,20 @@ export const acceptInvitationToOrganization = action(
   }
 );
 
-export const removeUserFromOrganization = action(
+/**
+ * Add a user to an organization
+ * - The user must be connected
+ * - Only the owner of the organization can add a user to the organization
+ * @param organizationId - The id of the organization
+ * @param email - The email of the user to remove
+ * @returns The organization
+ * @throws An error
+ * - If the user is not authorized to add a user to the organization
+ * - If the user is not found
+ * - If the user is already a member of an organization
+ * - If an error occured while adding the user to the organization
+ */
+export const removeUserFromOrganization = authAction(
   z.object({
     organizationId: z.string().cuid(),
     email: z.string().email(),
@@ -235,6 +335,11 @@ export const removeUserFromOrganization = action(
     organizationId,
     email,
   }): Promise<HandleResponseProps<iOrganization>> => {
+    const isOwner = await isOrganizationOwner();
+    if (!isOwner)
+      throw new ActionError(
+        "You are not authorized to remove a user from this organization"
+      );
     try {
       const user = await prisma.user.update({
         where: {
@@ -282,46 +387,3 @@ const include = {
   organizationInvitations: true,
 };
 
-// SECTION AUTHORIZE
-type AuthorizeProps = {
-  email?: string;
-  stripeSignature?: string | undefined;
-  internalSignature?: string | undefined;
-};
-async function authorize({
-  email,
-  internalSignature,
-  stripeSignature,
-}: AuthorizeProps): Promise<boolean> {
-  const isSuperAdminFlag = await isSuperAdmin();
-
-  const isAuth = await isConnected();
-
-  let isUserFlag = true;
-  if (email) {
-    isUserFlag = await isMe(email);
-  }
-
-  let isInternalValid = false;
-  if (internalSignature) {
-    isInternalValid = verifyInternalRequest(internalSignature);
-  }
-
-  let isStripeValid = false;
-  if (stripeSignature) {
-    isStripeValid = verifyStripeRequest(stripeSignature);
-  }
-
-  return (
-    isSuperAdminFlag || isUserFlag || isStripeValid || isInternalValid || isAuth
-  );
-}
-
-function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
-}
-function verifyInternalRequest(internalSignature: string) {
-  return internalSignature === process.env.NEXTAUTH_SECRET;
-}
-
-// 

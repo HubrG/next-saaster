@@ -5,8 +5,7 @@ import {
   SaasSettings,
   appSettings
 } from "@prisma/client";
-import { StripeManager } from "../classes/stripeManagerClass";
-const stripeManager = new StripeManager();
+
 
 // SECTION Add New  Feature
 

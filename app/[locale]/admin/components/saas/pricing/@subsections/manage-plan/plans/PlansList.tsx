@@ -53,7 +53,7 @@ export const PlansList = () => {
     if (newSaasPlans) {
       const planPosition = await updatePlanPosition(newSaasPlans);
       if (!planPosition) return;
-      setSaasPlans(planPosition.data as iPlan[]);
+      setSaasPlans(planPosition.data?.success as iPlan[]);
       setSaasPlanToFeature(
         saasPlanToFeature.map((link) => {
           const newPlanPosition = newSaasPlans.findIndex(

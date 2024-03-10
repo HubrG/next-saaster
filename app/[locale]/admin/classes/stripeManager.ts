@@ -112,13 +112,15 @@ export class StripeManager {
             "An error has occured while creating the price on the database"
           );
         const upPlan = await updatePlan({
-          stripeId: createProduct.id,
-          id: planId,
-          name: name,
-          description: description,
+          data: {
+            id: planId,
+            name,
+            description,
+            stripeId: createProduct.id,
+          },
         });
 
-        if (upPlan.error)
+        if (!upPlan.data?.success)
           throw new Error("An error has occured while updating the plan");
         if (createProductOnBDD && priceOnBDD)
           return { success: true, data: createProductOnBDD.data };
@@ -353,19 +355,27 @@ export class StripeManager {
   // SECTION : Checkout
   async getCheckoutSession(sessionId: string): Promise<{
     success?: boolean;
-    data?: "payment" | "subscription" | "setup" | "setup_intent" | "subscription_schedule" | "subscription_update" | "subscription_cancel" | "subscription_cancellation" | "subscription_renewal" | "subscription_trial_end" | "subscription_trial_start";
+    data?:
+      | "payment"
+      | "subscription"
+      | "setup"
+      | "setup_intent"
+      | "subscription_schedule"
+      | "subscription_update"
+      | "subscription_cancel"
+      | "subscription_cancellation"
+      | "subscription_renewal"
+      | "subscription_trial_end"
+      | "subscription_trial_start";
     error?: string;
   }> {
-    const session = await this.stripe.checkout.sessions.retrieve(
-      sessionId,
-      {
-        expand: ["payment_intent"],
-      }
-    );
+    const session = await this.stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["payment_intent"],
+    });
     if (!session) {
       return { error: "An error has occured while fetching the session" };
     }
-    return { success: true, data : session.mode };
+    return { success: true, data: session.mode };
   }
 
   // SECTION : Utils

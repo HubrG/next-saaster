@@ -87,7 +87,6 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user, account, profile }) {
       let role = "USER" as UserRole;
-      // console.log(token);
       // First connexion for the first user (ADMIN)
       if (account && account.provider === "github") {
         // We check if this is the user's first connection via GitHub
@@ -123,13 +122,15 @@ export const authOptions: AuthOptions = {
 
       return { ...token, ...user, ...profile };
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       if (session?.user) {
         session.user.role = token.role as UserRole;
         session.user.id = token.sub as string;
         session.user.customerId = token.customerId as string;
         session.user.userId = isCuid(token.uid as string)
+          // if it's Google, Mail or Credential, we use the uid as userId, because token.uid appear as cuid()
           ? (token.uid as string)
+          // if it's GitHub, we use the sub as userId, because it's the only way to get the user's db id
           : (token.sub as string);
       }
       return session;

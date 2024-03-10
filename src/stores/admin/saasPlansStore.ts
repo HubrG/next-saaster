@@ -40,12 +40,12 @@ export const useSaasPlansStore = create<Store>()((set) => ({
   },
   fetchSaasPlan: async () => {
     set({ isPlanStoreLoading: true });
-    const saasPlans = await getPlans();
-    if (!saasPlans.data) {
+    const saasPlans = await getPlans({ secret: process.env.NEXTAUTH_SECRET ?? "" });
+    if (!saasPlans.data?.success) {
       set({ isPlanStoreLoading: false });
-      console.error(saasPlans.error || "Failed to fetch plans");
+      console.error(saasPlans.serverError || "Failed to fetch plans");
     }
-    set({ saasPlans: saasPlans.data, isPlanStoreLoading: false });
+    set({ saasPlans: saasPlans.data?.success, isPlanStoreLoading: false });
   },
   deletePlanFromStore: (planId) => {
     set((state) => ({

@@ -40,6 +40,7 @@ export const TeamInvitationIndex = ({
     const accept = await acceptInvitationToOrganization({
       organizationId: organization.id,
       email,
+      secret: process.env.NEXTAUTH_SECRET ?? "",
     });
     if (accept.serverError) {
       toaster({ type: "error", description: accept.serverError });
@@ -67,6 +68,7 @@ export const TeamInvitationIndex = ({
     const decline = await removePendingUser({
       organizationId: organization.id,
       email,
+      secret: process.env.NEXTAUTH_SECRET ?? "",
     });
     if (decline.serverError) {
       toaster({ type: "error", description: decline.serverError });

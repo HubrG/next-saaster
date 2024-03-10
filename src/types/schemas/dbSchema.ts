@@ -1,3 +1,4 @@
+import { Plan, SaasTypes } from "@prisma/client";
 import { z } from "zod";
 
 export const updateFeatureSchema = z.object({
@@ -40,7 +41,30 @@ export const createOneTimePaymentSchema = z.object({
   stripeSignature: z.string().optional(),
 });
 
+export const createPlanSchema = z.object({
+  data: z.object({
+    active: z.boolean().optional(),
+    name: z.string(),
+    description: z.string(),
+    saasType: z.nativeEnum(SaasTypes).optional(),
+    stripeId: z.string().nullable().optional(),
+  }),
+  stripeSignature: z.string().optional(),
+});
 
+export const updatePlanSchema = z.object({
+  data: z
+    .object({
+      id: z.string(),
+      active: z.boolean(),
+      name: z.string().nullable().optional(),
+      description: z.string().nullable().optional(),
+      saasType: z.nativeEnum(SaasTypes).optional(),
+      stripeId: z.string().regex(/^prod_/).nullable().optional(),
+    })
+    .partial() as z.ZodType<Partial<Plan>>,
+  stripeSignature: z.string().optional(),
+});
 export const createFeaturesCategorySchema = z.object({
   data: z.object({
     name: z.string().nullable().optional(),
@@ -48,13 +72,14 @@ export const createFeaturesCategorySchema = z.object({
 });
 
 export const createOrUpdatePlanStripeToBddSchema = z.object({
-    type: z.enum(["create", "update"]),
-    stripePlan: z
-      .object({
-        id: z.string(),
-        active: z.boolean(),
-        name: z.string(),
-        description: z.string().nullable(),
-      })
-      .partial(),
-  })
+  type: z.enum(["create", "update"]),
+  stripePlan: z
+    .object({
+      id: z.string(),
+      active: z.boolean(),
+      name: z.string(),
+      description: z.string().nullable(),
+    })
+    .partial(),
+  stripeSignature: z.string().optional(),
+});

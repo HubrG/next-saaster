@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { getOrganization } from "../helpers/db/organization.action";
 import { iOrganization } from "../types/iOrganization";
-
 type Store = {
   organizationStore: iOrganization;
   setOrganizationStore: (partialSettings: iOrganization) => void;
@@ -23,8 +22,8 @@ export const useOrganizationStore = create<Store>()((set) => ({
     })),
   fetchOrganizationStore: async (id: string) => {
     set({ isStoreLoading: true });
-    const orga = (await getOrganization({ id: id }));
-    if (!orga.serverError) {
+    const orga = await getOrganization({ id: id, secret : process.env.NEXTAUTH_SECRET ?? ""  });
+    if (orga.data?.success) {
       set({ organizationStore: orga.data?.success, isStoreLoading: false });
     }
   },

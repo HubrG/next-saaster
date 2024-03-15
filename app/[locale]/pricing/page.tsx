@@ -38,7 +38,7 @@ export default async function Pricing({
         <h1 className="!bg-gradient2">Pricing</h1>
         {/* Display recurrence if not "Pay once" or "Metered" business model */}
         <SwitchRecurrence
-        // yearlyPercentOff={20}
+        // yearlypercent_off={20}
         // -> display a percentage off for yearly payment
         />
         <PriceCardsSimple />

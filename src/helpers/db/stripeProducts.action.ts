@@ -164,52 +164,6 @@ export const createOrUpdateProductStripeToBdd = async ({
         success: boolean;
       };
       if (product.error) throw new Error(product.error);
-      // const getDefaultPrice = (
-      //   await getStripePrice(productData.default_price as string)
-      // ).data as {
-      //   unit_amount: number;
-      //   unit_amount_decimal: string;
-      //   type: string;
-      //   recurring_interval: string;
-      //   id: string;
-      //   success: boolean;
-      //   error?: string;
-      // };
-
-      // let oncePrice;
-      // let monthlyPrice;
-      // let yearlyPrice;
-      // let upPlan;
-      // console.log(product.PlanRelation);
-      // if (
-      //   getDefaultPrice.type === "recurring" &&
-      //   product.PlanRelation.stripeMonthlyPriceId === null &&
-      //   product.PlanRelation.stripeYearlyPriceId === null
-      // ) {
-      //   switch (getDefaultPrice.recurring_interval) {
-      //     case "month":
-      //       monthlyPrice = getDefaultPrice.unit_amount / 100;
-      //       upPlan = await updatePlan({
-      //         id: product.PlanId,
-      //         monthlyPrice: monthlyPrice,
-      //         stripeMonthlyPriceId: getDefaultPrice.id,
-      //       });
-      //       break;
-      //     case "year":
-      //       yearlyPrice = getDefaultPrice.unit_amount / 100;
-      //       upPlan = await updatePlan({
-      //         id: product.PlanId,
-      //         yearlyPrice: yearlyPrice,
-      //         stripeYearlyPriceId: getDefaultPrice.id,
-      //       });
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // } else {
-      //   oncePrice = getDefaultPrice.unit_amount / 100;
-      // }
-      // if (upPlan?.error) throw new Error(upPlan.error);
 
       return { success: true, data: product };
     } else {

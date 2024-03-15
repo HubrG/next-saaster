@@ -13,6 +13,7 @@ import {
   updateFeaturesCategory,
 } from "@/src/helpers/db/featuresCategories.action";
 import { sortAdminFeatureCategory } from "@/src/helpers/functions/sortAdminFeatureCategory";
+import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { iFeaturesCategories } from "@/src/types/db/iFeaturesCategories";
@@ -59,15 +60,8 @@ export const FeaturesCategoriesList = () => {
       if (updatedFeaturesResult.success) {
         setSaasFeaturesCategories(updatedFeaturesResult.success);
       }
-      const error = results.find(
-        (result) => result.serverError || result.validationErrors
-      );
       return toaster({
-        description:
-          (error?.validationErrors?.data &&
-            "Type error : " + error?.validationErrors?.data) ||
-          error?.serverError ||
-          "Error while updating features positions",
+        description: handleError(updatedFeaturesResult).message,
         type: "error",
       });
     }
@@ -78,17 +72,15 @@ export const FeaturesCategoriesList = () => {
     const categoriesLength = saasFeaturesCategories.length;
     const createCategory = await createFeaturesCategory({
       data: {
-        name: "Category-" + categoriesLength + 1 + `${random(0,9)}`,
+        name: "Category-" + categoriesLength + 1 + `${random(0, 9)}`,
       },
     });
     // If there is an error, we display a toaster
-    if (createCategory.serverError || createCategory.validationErrors) {
+     
+    if (handleError(createCategory).error) {
       setLoading(false);
       return toaster({
-        description:
-          createCategory.serverError ||
-          createCategory.validationErrors?.data ||
-          "An error occurred",
+        description: handleError(createCategory).message,
         type: "error",
       });
     }

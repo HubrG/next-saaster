@@ -3,13 +3,13 @@
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@/src/components/ui/select";
 import { Separator } from "@/src/components/ui/separator";
 import { sliced } from "@/src/helpers/functions/slice";
@@ -36,47 +36,54 @@ export const UsageInputFields = ({
 
   return (
     <>
-      <div className="flex flex-row items-center">
-        <Label htmlFor={`${plan.id}meteredMode`}  className="w-2/3">Usage mode</Label>
-        <Select
-          defaultValue={planState.meteredMode ?? "unit"}
-          onValueChange={(e) => {
-            handleInputChange(e, "meteredMode");
-          }}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a usage mode" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Usage mode</SelectLabel>
-              <SelectItem value="UNIT">Per unit</SelectItem>
-              <SelectItem value="PACKAGE">Per package</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="flex flex-row items-center">
-        <Label htmlFor={`${plan.id}monthlyPrice`} className="w-2/3">Billing period</Label>
-        <Select
-          defaultValue={planState.meteredBillingPeriod ?? "weekly"}
-          onValueChange={(e) => {
-            handleInputChange(e, "meteredBillingPeriod");
-          }}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a usage mode" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Billing usage period</SelectLabel>
-              <SelectItem value="DAY">Daily</SelectItem>
-              <SelectItem value="WEEK">Weekly</SelectItem>
-              <SelectItem value="MONTH">Monthly</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+      {!planState.isFree && !planState.isCustom && (
+        <>
+          <div className="flex flex-row items-center">
+            <Label htmlFor={`${plan.id}meteredMode`} className="w-2/3">
+              Usage mode
+            </Label>
+            <Select
+              defaultValue={planState.meteredMode ?? "unit"}
+              onValueChange={(e) => {
+                handleInputChange(e, "meteredMode");
+              }}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a usage mode" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Usage mode</SelectLabel>
+                  <SelectItem value="UNIT">Per unit</SelectItem>
+                  <SelectItem value="PACKAGE">Per package</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex flex-row items-center">
+            <Label htmlFor={`${plan.id}monthlyPrice`} className="w-2/3">
+              Billing period
+            </Label>
+            <Select
+              defaultValue={planState.meteredBillingPeriod ?? "weekly"}
+              onValueChange={(e) => {
+                handleInputChange(e, "meteredBillingPeriod");
+              }}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a usage mode" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Billing usage period</SelectLabel>
+                  <SelectItem value="DAY">Daily</SelectItem>
+                  <SelectItem value="WEEK">Weekly</SelectItem>
+                  <SelectItem value="MONTH">Monthly</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </>
+      )}
 
-      <Separator />
       {planState.isTrial && (
         <div className="inputs">
           <Label htmlFor={`${plan.id}trialDays`}>Trial days</Label>
@@ -89,9 +96,10 @@ export const UsageInputFields = ({
           <p>days</p>
         </div>
       )}
-      {saasSettings.activeMonthlyPlans &&
-        !planState.isFree &&
+      {!planState.isFree &&
         !planState.isCustom && (
+        <>
+         <Separator />
           <div className="flex flex-col">
             <div className="inputs">
               <Label htmlFor={`${plan.id}monthlyPrice`}>
@@ -108,8 +116,11 @@ export const UsageInputFields = ({
               <p className="col-span-2">{saasSettings.currency}</p>
             </div>
           </div>
+          </>
         )}
-      {planState.meteredMode === "PACKAGE" && (
+      {planState.meteredMode === "PACKAGE" && 
+        !planState.isFree &&
+        !planState.isCustom && (
         <div className="inputs">
           <Label htmlFor={`${plan.id}UsageBatch`}>Per</Label>
           <Input

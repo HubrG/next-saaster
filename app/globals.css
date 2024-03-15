@@ -380,7 +380,7 @@ ol li {
   h2
   span.section-name
   .icon {
-  @apply z-20 text-3xl text-theming-text-900 opacity-80;
+  @apply !z-10 text-3xl text-theming-text-900 opacity-80;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content {
   @apply flex flex-col lg:max-w-5xl w-full mx-auto gap-y-20 2xl:px-10 md:px-2 mt-2;
@@ -399,7 +399,7 @@ ol li {
   @apply rounded-default my-card ;
 }
 .my-card:not(.tooltip) {
-  @apply rounded-default bg-white dark:bg-theming-background-500/5;
+  @apply rounded-default bg-white dark:bg-theming-background-200/20 !important;
 }
 form {
   @apply flex flex-col py-10 rounded-default !important;
@@ -514,7 +514,7 @@ table.admin-features-table th {
   @apply py-5 border-t-2  text-sm  text-left  !important;
 }
 table.admin-features-table thead {
-  @apply bg-white dark:bg-theming-background-100 opacity-100 z-50 dark:shadow-none shadow sticky top-0 !important;
+  @apply bg-white dark:bg-theming-background-100 opacity-100 !z-20 dark:shadow-none shadow sticky top-0 !important;
 }
 .bar {
   @apply bg-primary dark:bg-primary border-primary !important;

@@ -87,11 +87,11 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
                   <Label className="col-span-4 pt-1">{coupon.name}</Label>
                   <div className="col-span-5 p-0 flex flex-col gap-0">
                     <small className=" text-center">
-                      {coupon.percentOff}% / {coupon.duration}{" "}
+                      {coupon.percent_off}% / {coupon.duration}{" "}
                       {coupon.duration === "repeating" &&
-                        `${coupon.durationInMonths} month${
-                          coupon.durationInMonths &&
-                          coupon.durationInMonths > 1 &&
+                        `${coupon.duration_in_months} month${
+                          coupon.duration_in_months &&
+                          coupon.duration_in_months > 1 &&
                           "s"
                         }`}
                     </small>

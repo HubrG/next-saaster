@@ -42,7 +42,7 @@ const GenerateRecurrenceText = ({
     if (plan.saasType === "METERED_USAGE" && !plan.isFree) {
       return (
         <span className="block">
-          / per {plan.meteredUnit}{" "}
+          / per {plan.meteredMode ==="UNIT" ? "" : plan.meteredUnit}{" "}
           {toLower(saasSettings.creditName ?? "credit")}
           {plan.meteredMode === "PACKAGE" ? "s" : ""}
         </span>
@@ -162,7 +162,7 @@ export const PriceCardHeader = ({
           )}
           {!plan.isCustom ? (
           <>
-          {price.percentOff ? (
+          {price.percent_off ? (
             <>
               <span className="price-stroke">
                 {price.price}

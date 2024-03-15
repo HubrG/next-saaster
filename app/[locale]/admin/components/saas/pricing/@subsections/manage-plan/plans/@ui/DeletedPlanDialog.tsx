@@ -32,8 +32,8 @@ export function DeteledPlanDialog({ children }: DeletedPlanDialogProps) {
   const handleRestore = async (planState: iPlan) => {
     const dataToSet = await updatePlan({
       data: {
+        id:planState.id,
         deleted: false,
-        deletedAt: new Date(),
       }
     });
     if (dataToSet.serverError || dataToSet.validationErrors) {
@@ -53,7 +53,7 @@ export function DeteledPlanDialog({ children }: DeletedPlanDialogProps) {
         ) as iPlanToFeature[]
       );
       return toaster({
-        description: `« ${planState.name} » archived successfully.`,
+        description: `« ${planState.name} » dearchived successfully.`,
         type: "success",
         duration: 8000,
       });
@@ -70,10 +70,12 @@ export function DeteledPlanDialog({ children }: DeletedPlanDialogProps) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Deleted {toLower(SaasTypeReadableName(saasSettings.saasType))} plans
+            Archived {toLower(SaasTypeReadableName(saasSettings.saasType))} plans
           </DialogTitle>
           <DialogDescription>
-            You can restore this plan at any time.
+            You can restore these plans at any time.
+            To permanently delete one of these plans, you must do so from your Stripe interface to ensure that no customer has subscribed to any of the subscriptions in the archived plan.
+
           </DialogDescription>
         </DialogHeader>
         <Goodline />

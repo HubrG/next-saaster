@@ -92,11 +92,11 @@ export const CouponApplied = ({
                 className=" text-destructive opacity-80 hover:opacity-100 hover:cursor-pointer"
               />
               <p className="text-xs flex flex-row font-light self-center">
-                <span>-{stripeCoupon?.percentOff ?? "Coupon"}%{" "}
+                <span>-{stripeCoupon?.percent_off ?? "Coupon"}%{" "}
                 {stripeCoupon?.duration === "once"
                   ? "for once"
                   : stripeCoupon?.duration === "repeating"
-                  ? stripeCoupon?.durationInMonths + " months"
+                  ? stripeCoupon?.duration_in_months + " months"
                   : "for lifetime"}
                   </span>
                 <small className="opacity-50">
@@ -109,7 +109,7 @@ export const CouponApplied = ({
                     (
                       calculMonthlyPriceWithDiscount(
                         monthlyP * 100,
-                        stripeCoupon?.percentOff ?? 0
+                        stripeCoupon?.percent_off ?? 0
                       ) / 100
                     ).toFixed(2)}
                   {recurrence === "yearly" &&
@@ -117,7 +117,7 @@ export const CouponApplied = ({
                     (
                       calculYearlyPriceWithDiscount(
                         yearlyP * 100,
-                        stripeCoupon?.percentOff ?? 0
+                        stripeCoupon?.percent_off ?? 0
                       ) / 100
                     ).toFixed(2)}{" "}
                   {recurrence === "once" &&
@@ -125,7 +125,7 @@ export const CouponApplied = ({
                     (
                       calculOncePriceWithDiscount(
                         onceP * 100,
-                        stripeCoupon?.percentOff ?? 0
+                        stripeCoupon?.percent_off ?? 0
                       ) / 100
                     ).toFixed(2)}
                   {saasSettings?.currency}

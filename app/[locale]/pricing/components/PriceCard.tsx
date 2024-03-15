@@ -36,7 +36,7 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
             plan={plan}
           />
         )}
-        <Goodline />
+        <Goodline className={cn({"hidden":plan.isCustom})} />
         <div className="features">
           <PriceCardFeatures plan={plan} />
         </div>

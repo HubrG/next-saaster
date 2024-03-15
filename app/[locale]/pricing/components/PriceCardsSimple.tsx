@@ -24,16 +24,17 @@ export const PriceCardsSimple = () => {
   if (isLoading) {
     return <Loader noHFull />;
   }
+
   return (
     <div
       className={cn(
-        { "lg:1/6 md:w-3/6": plansFiltered.length === 1 },
+        " justify-evenly grid mt-10  w-full max-ms:px-5 mx-auto gap-10",
+        { "md:grid-cols-1 lg:w-2/6": plansFiltered.length === 1 },
         { "md:grid-cols-2 lg:w-4/6": plansFiltered.length === 2 },
         { "md:grid-cols-3 lg:w-5/6": plansFiltered.length === 3 },
         {
           "xl:grid-cols-4 md:grid-cols-2 lg:w-4/4": plansFiltered.length === 4,
-        },
-        " justify-evenly grid mt-10  w-full max-ms:px-5 mx-auto gap-10"
+        }
       )}>
       {plansFiltered.map((plan) => (
         <div key={plan.id} className="w-full">

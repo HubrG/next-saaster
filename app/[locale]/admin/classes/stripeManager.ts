@@ -1,9 +1,20 @@
 import { updatePlan } from "@/src/helpers/db/plans.action";
-import { createOrUpdateCouponStripeToBdd } from "@/src/helpers/db/stripeCoupons.action";
+import {
+  createOrUpdateCouponStripeToBdd,
+  deleteStripeCoupon,
+} from "@/src/helpers/db/stripeCoupons.action";
 import { createOrUpdatePriceStripeToBdd } from "@/src/helpers/db/stripePrices.action";
 import { createOrUpdateProductStripeToBdd } from "@/src/helpers/db/stripeProducts.action";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
+import {
+  HandleResponseProps,
+  handleRes,
+} from "@/src/lib/error-handling/handleResponse";
+
+import { handleError } from "@/src/lib/error-handling/handleError";
+import { ActionError } from "@/src/lib/safe-actions";
 import { stripeEvents } from "@/src/lib/stripe-events";
+import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import { SaasTypes } from "@prisma/client";
 import Stripe from "stripe";
 
@@ -19,10 +30,6 @@ interface CreateProductProps {
   saasType: SaasTypes;
   default_price?: string;
   active?: boolean;
-}
-interface StripeError extends Error {
-  type?: string;
-  code?: string;
 }
 export interface createNewPriceForPlanProps {
   id?: string;
@@ -103,14 +110,17 @@ export class StripeManager {
         );
         if (!price)
           throw new Error("An error has occured while creating the product");
-        const priceOnBDD = await createOrUpdatePriceStripeToBdd("create", {
-          ...price,
-          product: createProduct.id,
+        const priceOnBDD = await createOrUpdatePriceStripeToBdd({
+          type: "create",
+          data: {
+            ...price,
+            product: createProduct.id,
+            recurring: price.recurring as any,
+          },
+          secret: process.env.NEXTAUTH_SECRET ?? "",
         });
-        if (priceOnBDD.error)
-          throw new Error(
-            "An error has occured while creating the price on the database"
-          );
+        if (handleError(priceOnBDD).error)
+          throw new ActionError(handleError(priceOnBDD).message);
         const upPlan = await updatePlan({
           data: {
             id: planId,
@@ -172,37 +182,39 @@ export class StripeManager {
   }> {
     try {
       if (type === "create") {
-        const createPrice = await this.stripe.prices.create(data);
-        if (!createPrice)
+        const price = await this.stripe.prices.create(data);
+        if (!price)
           throw new Error("An error has occured while creating the price");
-        const createPriceOnBDD = await createOrUpdatePriceStripeToBdd(
-          "create",
-          createPrice
-        );
-        if (createPriceOnBDD.error)
-          throw new Error(
-            "An error has occured while creating the price on the database"
-          );
-        if (createPriceOnBDD)
-          return { success: true, data: createPriceOnBDD.data };
+        const priceOnBDD = await createOrUpdatePriceStripeToBdd({
+          type: "create",
+          data: {
+            ...price,
+            product: price.product as string
+          },
+          secret: process.env.NEXTAUTH_SECRET ?? "",
+        });
+        if (handleError(priceOnBDD).error)
+          throw new ActionError(handleError(priceOnBDD).message);
+        if (priceOnBDD) return { success: true, data: priceOnBDD.data };
         else return { error: "An error has occured" };
       } else if (type === "update" && data.id) {
-        const updatePrice = await this.stripe.prices.update(data.id, {
+        const price = await this.stripe.prices.update(data.id, {
           active: data.active,
           metadata: data.metadata,
         });
-        if (!updatePrice)
+        if (!price)
           throw new Error("An error has occured while updating the price");
-        const updatePriceOnBDD = await createOrUpdatePriceStripeToBdd(
-          "update",
-          updatePrice
-        );
-        if (updatePriceOnBDD.error)
-          throw new Error(
-            "An error has occured while updating the price on the database"
-          );
-        if (updatePriceOnBDD)
-          return { success: true, data: updatePriceOnBDD.data };
+        const priceOnBDD = await createOrUpdatePriceStripeToBdd({
+          type: "update",
+          data: {
+            ...price,
+            product: price.product as string
+          },
+          secret: process.env.NEXTAUTH_SECRET ?? "",
+        });
+        if (handleError(priceOnBDD).error)
+          throw new ActionError(handleError(priceOnBDD).message);
+        if (price) return { success: true, data: priceOnBDD.data };
         else return { error: "An error has occured" };
       }
       return { error: "An unknown error has occured" };
@@ -212,21 +224,25 @@ export class StripeManager {
     }
   }
 
-  async searchPrices(query: string): Promise<{
-    success?: boolean;
-    data?: any;
-    error?: string;
-  }> {
+  async searchPrices(
+    query: string
+  ): Promise<HandleResponseProps<Stripe.Price[]>> {
     try {
       const prices = await this.stripe.prices.search({
         query: query,
       });
-      if (!prices)
-        throw new Error("An error has occured while fetching the prices");
-      return { success: true, data: prices.data };
-    } catch (error) {
-      console.error(error);
-      return { error: getErrorMessage(error) };
+      if (!prices.data)
+        throw new ActionError("An error has occured while fetching the prices");
+      return handleRes<Stripe.Price[]>({
+        success: prices.data,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<Stripe.Price[]>({
+        error: ActionError,
+        statusCode: 500,
+      });
     }
   }
   // SECTION : COUPON
@@ -234,71 +250,96 @@ export class StripeManager {
   async createOrUpdateCoupon(
     type: "create" | "update",
     data: any
-  ): Promise<{
-    success?: boolean;
-    data?: any;
-    error?: string;
-  }> {
+  ): Promise<HandleResponseProps<iStripeCoupon>> {
     try {
       const datas = {
         id: data.id,
-        amountOff: data.amountOff,
+        amount_off: data.amount_off,
         currency: data.currency,
         duration: data.duration,
-        durationInMonths: data.durationInMonths,
-        maxRedemptions: data.maxRedemptions,
+        duration_in_months: data.duration_in_months,
+        max_redemptions: data.max_redemptions,
         name: data.name,
-        percentOff: data.percentOff,
+        percent_off: data.percent_off,
       };
       if (datas.duration === "repeating") {
-        datas.durationInMonths = data.durationInMonths;
+        datas.duration_in_months = data.duration_in_months;
       }
       if (type === "create") {
         const createCoupon = await this.stripe.coupons.create({
           duration: datas.duration,
           duration_in_months:
-            datas.duration === "repeating" ? datas.durationInMonths : undefined,
-          max_redemptions: datas.maxRedemptions
-            ? parseInt(datas.maxRedemptions ?? 0, 10)
+            datas.duration === "repeating"
+              ? datas.duration_in_months
+              : undefined,
+          max_redemptions: datas.max_redemptions
+            ? parseInt(datas.max_redemptions ?? 0, 10)
             : undefined,
           name: datas.name,
-          percent_off: datas.percentOff,
+          percent_off: datas.percent_off,
         });
         if (!createCoupon)
-          throw new Error("An error has occured while creating the coupon");
-        const createCouponOnBDD = await createOrUpdateCouponStripeToBdd(
-          "create",
-          createCoupon
-        );
-        if (createCouponOnBDD.error)
-          throw new Error(
-            "An error has occured while creating the coupon on the database"
+          throw new ActionError(
+            "An error has occured while creating the coupon"
           );
+        const createCouponOnBDD = await createOrUpdateCouponStripeToBdd({
+          type: "create",
+          data: createCoupon as any,
+          secret: process.env.NEXTAUTH_SECRET ?? "",
+        });
+        if (handleError(createCouponOnBDD).error)
+          throw new ActionError(handleError(createCouponOnBDD).message);
         if (createCouponOnBDD)
-          return { success: true, data: createCouponOnBDD.data };
-        else return { error: "An error has occured" };
+          return handleRes<iStripeCoupon>({
+            success: createCouponOnBDD.data?.success,
+            statusCode: 200,
+          });
+        //
       } else if (type === "update") {
         const updateCoupon = await this.stripe.coupons.update(data.id, {
           name: data.name,
         });
         if (!updateCoupon)
-          throw new Error("An error has occured while updating the coupon");
-        const updateCouponOnBDD = await createOrUpdateCouponStripeToBdd(
-          "update",
-          updateCoupon
-        );
-        if (updateCouponOnBDD.error)
-          throw new Error(
-            "An error has occured while updating the coupon on the database"
+          throw new ActionError(
+            "An error has occured while updating the coupon"
           );
+        const updateCouponOnBDD = await createOrUpdateCouponStripeToBdd({
+          type: "update",
+          data: updateCoupon as any,
+          secret: process.env.NEXTAUTH_SECRET ?? "",
+        });
+        if (handleError(updateCouponOnBDD).error)
+          throw new ActionError(handleError(updateCouponOnBDD).message);
         if (updateCouponOnBDD)
-          return { success: true, data: updateCouponOnBDD.data };
-        else return { error: "An error has occured" };
+          return handleRes<iStripeCoupon>({
+            success: updateCouponOnBDD.data?.success,
+            statusCode: 200,
+          });
       }
-      return { error: "An unknown error has occured" };
+      return handleRes<iStripeCoupon>({
+        error: "An unknown error has occured",
+        statusCode: 500,
+      });
+    } catch (ActionError) {
+      return handleRes<iStripeCoupon>({
+        error: "An unknown error has occured",
+        statusCode: 500,
+      });
+    }
+  }
+  async removeCoupon(couponId: string) {
+    try {
+      const deletedBdd = await deleteStripeCoupon({
+        id: couponId,
+        secret: process.env.NEXTAUTH_SECRET ?? "",
+      });
+      if (handleError(deletedBdd).error)
+        throw new Error(handleError(deletedBdd).message);
+      const deleted = await this.stripe.coupons.del(couponId);
+      if (!deleted) return false;
+      return true;
     } catch (error) {
-      console.log(error);
-      return { error: getErrorMessage(error) };
+      console.error(error);
     }
   }
   // SECTION : CUSTOMER

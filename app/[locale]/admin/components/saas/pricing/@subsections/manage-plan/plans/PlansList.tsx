@@ -89,7 +89,7 @@ export const PlansList = () => {
             ...but you have{" "}
             <DeteledPlanDialog>
               <strong className="px-0 text-sm underline-offset-4 underline decoration-solid hover:decoration-dashed cursor-pointer">
-                {deletedPlansCount} deleted item(s)
+                {deletedPlansCount} archived item(s)
               </strong>
             </DeteledPlanDialog>
             . Click here to view and reactivate them if necessary.
@@ -136,7 +136,7 @@ export const PlansList = () => {
       {deletedPlansCount > 0 && (
         <DeteledPlanDialog>
           <strong className="px-0 text-sm underline-offset-4 underline decoration-solid hover:decoration-dashed cursor-pointer">
-            {deletedPlansCount} deleted item(s)
+            {deletedPlansCount} archived item(s)
           </strong>
         </DeteledPlanDialog>
       )}

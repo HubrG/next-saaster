@@ -8,25 +8,25 @@ type PriceCardPayOnceProps = {
 export const payOncePricesAndFeatures = ({
   plan,
 }: PriceCardPayOnceProps): {
-  percentOff: number | undefined;
+  percent_off: number | undefined;
   priceWithDiscount: number | undefined;
   price: number | undefined;
-  monthlyPercentOff?: number | undefined;
-  yearlyPercentOff?: number | undefined;
+  monthlypercent_off?: number | undefined;
+  yearlypercent_off?: number | undefined;
   monthlyPriceWithDiscount?: number | undefined;
   yearlyPriceWithDiscount?: number | undefined;
 } => {
   const percentage = new PercentageCalculator();
   const price = plan.oncePrice ?? 0;
   const coupon = plan.coupons;
-  const percentOff =
-    coupon.length > 0 ? coupon[0].coupon.percentOff : undefined;
-  const priceWithDiscount = percentOff
-    ? percentage.decreaseValueByPercentage(price, percentOff)
+  const percent_off =
+    coupon.length > 0 ? coupon[0].coupon.percent_off : undefined;
+  const priceWithDiscount = percent_off
+    ? percentage.decreaseValueByPercentage(price, percent_off)
     : undefined;
   const data = {
     price: price,
-    percentOff: percentOff ? percentOff : undefined,
+    percent_off: percent_off ? percent_off : undefined,
     priceWithDiscount,
   };
 

@@ -162,7 +162,6 @@ export const AdminSaasSettings = () => {
       </div>
       </SubSectionWrapper>
       {(saasSettings.saasType === "MRR_SIMPLE" ||
-        saasSettings.saasType === "METERED_USAGE" ||
         saasSettings.saasType === "PER_SEAT") && (
         <>
           <SubSectionWrapper

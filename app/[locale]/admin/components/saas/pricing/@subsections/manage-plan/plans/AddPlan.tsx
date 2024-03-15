@@ -37,7 +37,7 @@ export const AddPlan = () => {
       });
     }
 
-    setSaasPlans([...saasPlans, newPlan.plan as unknown as iPlan]);
+    setSaasPlans([...saasPlans, newPlan.plan as iPlan]);
 
     if (newPlan.features && newPlan.features.length > 0) {
       const newFeaturesMapped = newPlan.features?.map((feature) => {
@@ -46,9 +46,10 @@ export const AddPlan = () => {
           plan: newPlan.plan,
         };
       });
+      
       setSaasPlanToFeature([
         ...saasPlanToFeature,
-        ...(newFeaturesMapped as iPlanToFeature[]),
+        ...(newFeaturesMapped as unknown as iPlanToFeature[]),
       ]);
     }
     toaster({

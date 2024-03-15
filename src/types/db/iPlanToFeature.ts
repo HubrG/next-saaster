@@ -1,8 +1,6 @@
-import { PlanToFeature } from "@prisma/client";
-import { iFeature } from "./iFeatures";
-import { iPlan } from "./iPlans";
+import { Feature, Plan, PlanToFeature } from "@prisma/client";
 
 export interface iPlanToFeature extends PlanToFeature {
-  feature: iFeature;
-  plan: iPlan;
+  feature: Feature;
+  plan: Plan;
 }

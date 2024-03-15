@@ -13,11 +13,17 @@ import { searchPricesRaw } from "@/src/helpers/db/stripePrices.action";
 import { getStripeProduct } from "@/src/helpers/db/stripeProducts.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
+import { handleError } from "@/src/lib/error-handling/handleError";
+import {
+  HandleResponseProps,
+  handleRes,
+} from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { iPlan } from "@/src/types/db/iPlans";
 import { iStripeProduct } from "@/src/types/db/iStripeProducts";
-import { Plan, PlanToFeature, SaasTypes } from "@prisma/client";
+import { Plan, PlanToFeature, SaasTypes, StripePrice } from "@prisma/client";
 import { toLower } from "lodash";
+
 import Stripe from "stripe";
 const stripeManager = new StripeManager();
 
@@ -76,8 +82,8 @@ export const updatePlan = async (
   data: Plan
 ): Promise<{ success?: boolean; data?: any; error?: string }> => {
   try {
-    if (!data.stripeId || !data.id) throw new Error("No stripeId found");
-
+   
+    if (!data.id) throw new Error("No plan found");
     const initPlan = await getPlan({
       id: data.id,
       secret: process.env.NEXTAUTH_SECRET ?? "",
@@ -115,6 +121,7 @@ export const updatePlan = async (
           product.data,
           data.saasType ?? "PAY_ONCE"
         );
+
         if (updatedProduct.error) throw new Error(updatedProduct.error);
         return { success: true, data: validUpdate.data?.success };
       } else {
@@ -126,23 +133,23 @@ export const updatePlan = async (
             currency: saasSettings.data.currency ?? "usd",
             unit_amount: (data.oncePrice && data.oncePrice * 100) ?? 0,
           },
-        })) as { data: { data: { id: string } }; error: string };
+        })) as { data: { success: { id: string } }; error: string };
         if (newPrice.error) throw new Error(newPrice.error);
         const updatedProduct = await updateStripeProduct(
           data,
           product.data,
           data.saasType ?? "PAY_ONCE",
-          newPrice.data.data.id
+          newPrice.data.success.id
         );
         if (updatedProduct.error) throw new Error(updatedProduct.error);
         // We deactive others prices for the product, not the new one
         const deactivatedOldPrices = await deactivateOldPrices({
           prices,
-          newPriceId: newPrice.data.data.id,
+          newPriceId: newPrice.data.success.id,
           interval: undefined,
         });
-        if (deactivatedOldPrices.error)
-          throw new Error(deactivatedOldPrices.error);
+        if (handleError(deactivatedOldPrices).error)
+          throw new Error(handleError(deactivatedOldPrices).message);
         const validUpdate = await upPlan({
           data: { ...data, active: data.active ?? false },
         });
@@ -221,21 +228,21 @@ export const updatePlan = async (
                   ? `${data.monthlyPrice && data.monthlyPrice * 100}`
                   : undefined ?? undefined,
             },
-          })) as { data: { data: { id: string } }; error: string };
+          })) as { data: { success: { id: string } }; error: string };
           if (newPrice.error) throw new Error(newPrice.error);
           const { stripeYearlyPriceId, ...restOfData } = data;
           const validUpdate = await upPlan({
             data: {
               ...restOfData,
               monthlyPrice: data.monthlyPrice,
-              stripeMonthlyPriceId: newPrice.data.data.id,
+              stripeMonthlyPriceId: newPrice.data.success.id,
             },
           });
           if (handleError(validUpdate).error)
             throw new Error(handleError(validUpdate).message);
           const deactivate = await deactivateOldPrices({
             prices: prices,
-            newPriceId: newPrice.data.data.id,
+            newPriceId: newPrice.data.success.id,
             interval:
               data.saasType === "METERED_USAGE"
                 ? (toLower(initialPlan.meteredBillingPeriod) as
@@ -247,8 +254,10 @@ export const updatePlan = async (
             oldPrice: initialPlan.monthlyPrice ?? 0,
             defaultPrice: product.data.default_price,
           });
-          if (deactivate.error) throw new Error(deactivate.error);
+          if (handleError(deactivate).error)
+            throw new Error(handleError(deactivate).message);
         }
+        // NOTE : Yearly price updated
         if (initialPlan.yearlyPrice !== data.yearlyPrice) {
           const newPrice = (await createNewPriceForPlan({
             data: data,
@@ -261,26 +270,27 @@ export const updatePlan = async (
               },
               unit_amount: (data.yearlyPrice && data.yearlyPrice * 100) ?? 0,
             },
-          })) as { data: { data: { id: string } }; error: string };
+          })) as { data: { success: { id: string } }; error: string };
           if (newPrice.error) throw new Error(newPrice.error);
           const { stripeMonthlyPriceId, ...restOfData } = data;
           const validUpdate = await upPlan({
             data: {
               ...restOfData,
-              stripeYearlyPriceId: newPrice.data.data.id
+              stripeYearlyPriceId: newPrice.data.success.id,
             },
           });
           if (handleError(validUpdate).error)
             throw new Error(handleError(validUpdate).message);
-        
+
           const deactivate = await deactivateOldPrices({
             prices: prices,
-            newPriceId: newPrice.data.data.id,
+            newPriceId: newPrice.data.success.id,
             interval: "year",
             oldPrice: initialPlan.yearlyPrice ?? 0,
             defaultPrice: product.data.default_price,
           });
-          if (deactivate.error) throw new Error(deactivate.error);
+          if (handleError(deactivate).error)
+            throw new Error(handleError(deactivate).message);
         }
         const updatedProduct = await updateStripeProduct(
           data,
@@ -381,44 +391,65 @@ const deactivateOldPrices = async ({
   interval,
   oldPrice,
   defaultPrice,
-}: deactivateOldPricesProps): Promise<{
-  success?: boolean;
-  data?: any;
-  error?: string;
-}> => {
+}: deactivateOldPricesProps): Promise<HandleResponseProps<StripePrice[]>> => {
   // We retrieve the prices of the product and deactivate the old ones
   let searchPrices;
-  const dataToSendForInterval = {
-    product: prices[0].product,
-    active: true,
-    newPriceId: newPriceId,
-    type: "recurring",
-    recurringInterval: interval ?? "",
-    oldPrice: oldPrice ?? 0,
-    defaultPrice: defaultPrice ?? "",
-  };
-  if (!interval) {
-    searchPrices = await stripeManager.searchPrices(`
-    product: "${prices[0].product}" AND active: "true"
-  `);
-  } else {
-    searchPrices = await searchPricesRaw(dataToSendForInterval);
-  }
+  let deactivatingOldPrices;
+  try {
+    const dataToSendForInterval = {
+      product: prices[0].product,
+      active: true,
+      newPriceId: newPriceId,
+      type: "recurring",
+      recurringInterval: interval ?? "",
+      oldPrice: oldPrice ?? 0,
+      defaultPrice: defaultPrice ?? "",
+    };
+    if (!interval) {
+      searchPrices = await stripeManager.searchPrices(`
+          product: "${prices[0].product}" AND active: "true"
+        `);
+      if (handleError(searchPrices).error)
+        throw new Error(handleError(searchPrices).message);
+      deactivatingOldPrices = searchPrices.success?.map((price: any) => {
+        console.log(price);
+        if (price.id === newPriceId) return;
+        return stripeManager.createOrUpdatePrice("update", {
+          id: price.id,
+          currency: price.currency,
+          metadata: { active: "false" },
+          active: false,
+        });
+      });
+    } else {
+      searchPrices = await searchPricesRaw(dataToSendForInterval);
+      if (handleError(searchPrices).error)
+        throw new Error(handleError(searchPrices).message);
+      deactivatingOldPrices = searchPrices.data?.success?.map(
+        (price: StripePrice) => {
+          if (price.id === newPriceId) return;
+          return stripeManager.createOrUpdatePrice("update", {
+            id: price.id,
+            currency: price.currency,
+            metadata: { active: "false" },
+            active: false,
+          });
+        }
+      );
+    }
+    const deactivatedOldPrices = await Promise.all(deactivatingOldPrices ?? []);
 
-  if (searchPrices.error) return { error: searchPrices.error };
-  const deactivatingOldPrices = searchPrices.data.map((price: any) => {
-    if (price.id === newPriceId) return;
-    return stripeManager.createOrUpdatePrice("update", {
-      id: price.id,
-      currency: price.currency,
-      metadata: { active: "false" },
-      active: false,
+    return handleRes<StripePrice[]>({
+      success: deactivatedOldPrices as StripePrice[],
+      statusCode: 200,
     });
-  });
-  const deactivatedOldPrices = await Promise.all(deactivatingOldPrices);
-  if (deactivatedOldPrices.some((price) => price?.error))
-    throw new Error("Error deactivating old prices");
-  return { success: true, data: deactivatedOldPrices };
+  } catch (ActionError) {
+    console.error(ActionError);
+    return handleRes<StripePrice[]>({
+      error: ActionError,
+      statusCode: 500,
+    });
+  }
 };
 
 interface createNewPriceForPlan {
@@ -446,23 +477,3 @@ const createNewPriceForPlan = async ({
     return { error: getErrorMessage(error) };
   }
 };
-
-function handleError(data: any) {
-  if (data.serverError && Object.keys(data.serverError).length > 0) {
-    console.log("Server error: ", data.serverError);
-    return { error: true, message: data.serverError };
-  } else if (
-    data.validationErrors &&
-    Object.keys(data.validationErrors).length > 0
-  ) {
-    const firstValidationErrorKey = Object.keys(data.validationErrors)[0];
-    const firstValidationError = data.validationErrors[firstValidationErrorKey];
-    console.error("Validation error: ", data.validationErrors);
-    const errorMessage = Array.isArray(firstValidationError)
-      ? firstValidationError[0]
-      : firstValidationError;
-    return { error: true, message: errorMessage };
-  } else {
-    return { error: false };
-  }
-}

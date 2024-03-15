@@ -1,16 +1,17 @@
 "use server";
 import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
-import { StripeManager as StripeManagerClass } from "@/app/[locale]/admin/classes/stripeManagerClass";
 import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
-import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
+import {
+  HandleResponseProps,
+  handleRes,
+} from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
+import { ActionError } from "@/src/lib/safe-actions";
 import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
-import { iStripePlanCoupon } from "@/src/types/db/iStripePlanCoupons";
 import { StripeCoupon } from "@prisma/client";
 
 const stripe = new StripeManager();
-const stripeManager = new StripeManagerClass();
 /**
  * This function creates a coupon in the Stripe API.
  *
@@ -19,66 +20,38 @@ const stripeManager = new StripeManagerClass();
  */
 export const addStripeCoupon = async (
   data: Partial<StripeCoupon>
-): Promise<{
-  success?: boolean;
-  data?: any;
-  error?: string;
-}> => {
+): Promise<HandleResponseProps<iStripeCoupon>> => {
   try {
-    if (!isSuperAdmin()) throw new Error("Unauthorized");
     const coupon = await stripe.createOrUpdateCoupon("create", {
       duration: data.duration ?? "once",
-      durationInMonths: data.durationInMonths ?? null,
-      maxRedemptions: data.maxRedemptions ?? null,
+      duration_in_months: data.duration_in_months ?? null,
+      max_redemptions: data.max_redemptions ?? null,
       name: data.name ?? "",
-      percentOff: data.percentOff ?? 0,
+      percent_off: data.percent_off ?? 0,
       metadata: data.metadata ?? {},
-      timesRedeemed: data.timesRedeemed ?? 0,
+      times_redeemed: data.times_redeemed ?? 0,
       valid: data.valid ?? true,
     });
-
-    if (coupon.error) throw new Error(coupon.error);
-
-    return { success: true, data: coupon.data.data };
-  } catch (error) {
-    return { error: getErrorMessage(error) };
+    if (!coupon.success) throw new ActionError("Coupon could not be created");
+    return handleRes<iStripeCoupon>({
+      success: coupon.success,
+      statusCode: 200,
+    });
+  } catch (ActionError) {
+    return handleRes<iStripeCoupon>({
+      error: ActionError,
+      statusCode: 500,
+    });
   }
 };
 
-
-export const createNewCoupon = async (data: Partial<iStripePlanCoupon>) => {
-  const session = await isSuperAdmin();
-  if (!session) return false;
-
-  let validatedDurationInMonths: number | undefined =
-    typeof data.coupon?.durationInMonths === "number"
-      ? data.coupon.durationInMonths
-      : undefined;
-
-  const validatedName: string | undefined = data.coupon?.name ?? undefined;
-  const validatedPercentOff: number | undefined =
-    typeof data.coupon?.percentOff === "number"
-      ? data.coupon?.percentOff
-      : undefined;
-
-  const coupon = await stripeManager.createCoupon({
-    duration: data.coupon?.duration as "forever" | "once" | "repeating",
-    duration_in_months: validatedDurationInMonths,
-    name: validatedName,
-    max_redemptions: data.coupon?.maxRedemptions as number | undefined,
-    percent_off: validatedPercentOff,
-  });
-
-  return coupon as iStripeCoupon;
-};
-
 export const deleteCoupon = async (couponId: string) => {
-  const session = await isSuperAdmin();
-  if (!session) return false;
-  const coupon = await stripeManager.deleteCoupon(couponId);
+  const coupon = await stripe.removeCoupon(couponId);
   if (coupon) {
-    const allCoupons = (await getStripeCoupons()).data;
-    return allCoupons as iStripeCoupon[];
+    const allCoupons = await getStripeCoupons({
+      secret: process.env.NEXTAUTH_SECRET ?? "",
+    });
+    return allCoupons.data?.success as iStripeCoupon[];
   } else {
     return false;
   }

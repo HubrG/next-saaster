@@ -24,7 +24,7 @@ export const PriceCardBuyButton = ({
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
 
-const getStripePrice = (plan: iPlan, isYearly: boolean) => {
+const stripePrice = (plan: iPlan, isYearly: boolean) => {
   if (plan.isFree || plan.saasType === "PAY_ONCE") {
     return plan.StripeProduct[0].default_price ?? "";
  } else if (plan.saasType === "METERED_USAGE") {
@@ -40,16 +40,16 @@ const getStripePrice = (plan: iPlan, isYearly: boolean) => {
   const handleStripe = async () => {
     setIsLoading(true);
     let stripeCheckout;
-    const stripePrice = getStripePrice(plan, isYearly);
+    const price = stripePrice(plan, isYearly);
     if (plan.saasType === "PAY_ONCE") {
       stripeCheckout = await createCheckoutSession({
-        planPrice: stripePrice ?? "0",
+        planPrice: price ?? "0",
         plan: plan,
         seatQuantity: seatQuantity ?? "1",
       });
     } else {
       stripeCheckout = await createCheckoutSession({
-        planPrice: stripePrice ?? "0",
+        planPrice: price ?? "0",
         plan,
         isYearly,
         seatQuantity,

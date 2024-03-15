@@ -17,6 +17,7 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
 import { cn } from "@/src/lib/utils";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
+import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import { StripeCoupon } from "@prisma/client";
 import { PlusCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -26,17 +27,17 @@ export const AddCoupon = () => {
   const { saasStripeCoupons, setSaasStripeCoupons } = useSaasStripeCoupons();
   const [disabled, setDisabled] = useState(false);
   const [couponState, setcouponState] = useState<Partial<StripeCoupon>>({
-    durationInMonths: 0,
+    duration_in_months: 0,
     name: "",
-    percentOff: 0,
-    maxRedemptions: null,
+    percent_off: 0,
+    max_redemptions: null,
     duration: "",
   });
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) => {
-    if (key === "percentOff" || key === "maxRedemptions") {
+    if (key === "percent_off" || key === "max_redemptions") {
       const value = parseInt(e.target.value, 10);
       if (value < 0) {
         setcouponState({ ...couponState, [key]: null });
@@ -50,9 +51,9 @@ export const AddCoupon = () => {
 
   const handleSelectChange = (value: string, key: string) => {
     if (value !== "repeating") {
-      setcouponState({ ...couponState, [key]: value, durationInMonths: 0 });
+      setcouponState({ ...couponState, [key]: value, duration_in_months: 0 });
     } else {
-      console.log("Setting duration without changing durationInMonths");
+      console.log("Setting duration without changing duration_in_months");
       setcouponState({ ...couponState, [key]: value });
     }
   };
@@ -61,59 +62,61 @@ export const AddCoupon = () => {
     const newDisabledState =
       !isStripeSetted() ||
       couponState.name === "" ||
-      Number(couponState.percentOff) === 0 ||
+      Number(couponState.percent_off) === 0 ||
       couponState.duration === "" ||
       (couponState.duration === "repeating" &&
-        Number(couponState.durationInMonths) === 0);
+        Number(couponState.duration_in_months) === 0);
 
     setDisabled(newDisabledState);
   }, [couponState]);
 
   const handleAddCoupon = async () => {
     setLoading(true);
-    const percentOff = parseInt(couponState.percentOff?.toString() ?? "0", 10);
-    const maxRedemption = parseInt(
-      couponState.maxRedemptions?.toString() ?? "0",
+    const percent_off = parseInt(
+      couponState.percent_off?.toString() ?? "0",
       10
     );
-    let durationInMonths = parseInt(
-      couponState.durationInMonths?.toString() ?? "0",
+    const maxRedemption = parseInt(
+      couponState.max_redemptions?.toString() ?? "0",
+      10
+    );
+    let duration_in_months = parseInt(
+      couponState.duration_in_months?.toString() ?? "0",
       10
     );
 
-    durationInMonths =
-      couponState.duration === "repeating" && !isNaN(durationInMonths)
-        ? durationInMonths
+    duration_in_months =
+      couponState.duration === "repeating" && !isNaN(duration_in_months)
+        ? duration_in_months
         : 0;
 
     const dataToSend = await addStripeCoupon({
       name: couponState.name ?? "",
-      percentOff: !isNaN(percentOff) ? percentOff : null,
+      percent_off: !isNaN(percent_off) ? percent_off : null,
       duration: couponState.duration ?? "recurring",
-      durationInMonths,
-      maxRedemptions: maxRedemption > 0 ? maxRedemption : null,
+      duration_in_months,
+      max_redemptions: maxRedemption > 0 ? maxRedemption : null,
     });
-    if (dataToSend.error) {
-      toaster({
+    if (!dataToSend.success) {
+      setLoading(false);
+      return toaster({
         type: "error",
-        description: dataToSend.error,
+        description: "Error, check console for more details",
         title: "Error",
       });
-      setLoading(false);
-      return;
     }
 
-    setSaasStripeCoupons([...saasStripeCoupons, dataToSend.data]);
+    setSaasStripeCoupons([...saasStripeCoupons, dataToSend.success as iStripeCoupon]);
     toaster({
       type: "success",
       description: "Coupon created",
       title: "Success",
     });
     setcouponState({
-      durationInMonths: 0,
+      duration_in_months: 0,
       name: "",
-      percentOff: 0,
-      maxRedemptions: null,
+      percent_off: 0,
+      max_redemptions: null,
       duration: "",
     });
 
@@ -139,10 +142,10 @@ export const AddCoupon = () => {
             <Label htmlFor="percent">Percent</Label>
             <Input
               type="number"
-              name="percentOff"
-              value={couponState.percentOff ?? 0}
+              name="percent_off"
+              value={couponState.percent_off ?? 0}
               onChange={(e) => {
-                handleInputChange(e, "percentOff");
+                handleInputChange(e, "percent_off");
               }}
             />
           </div>
@@ -176,24 +179,24 @@ export const AddCoupon = () => {
             "col-span-2"
           )}>
           <div className="inputs">
-            <Label htmlFor="durationInMonths">...in months</Label>
+            <Label htmlFor="duration_in_months">...in months</Label>
             <Input
               disabled={couponState.duration !== "repeating"}
               type="number"
-              name="durationInMonths"
-              value={couponState.durationInMonths ?? ""}
-              onChange={(e) => handleInputChange(e, "durationInMonths")}
+              name="duration_in_months"
+              value={couponState.duration_in_months ?? ""}
+              onChange={(e) => handleInputChange(e, "duration_in_months")}
             />
           </div>
         </div>
         <div className={cn("col-span-2")}>
           <div className="inputs">
-            <Label htmlFor="maxRedemptions">Maximum usage</Label>
+            <Label htmlFor="max_redemptions">Maximum usage</Label>
             <Input
               type="number"
-              name="maxRedemptions"
-              value={couponState.maxRedemptions ?? ""}
-              onChange={(e) => handleInputChange(e, "maxRedemptions")}
+              name="max_redemptions"
+              value={couponState.max_redemptions ?? 0}
+              onChange={(e) => handleInputChange(e, "max_redemptions")}
             />
           </div>
         </div>

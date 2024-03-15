@@ -314,7 +314,7 @@ model StripePrice {
   recurring                    Json?
   recurring_interval           String?
   recurring_interval_count     Int?
-  recurring_aggregate_usage    Int?
+  recurring_aggregate_usage    String?
   recurring_trial_period_days  Int?
   recurring_usage_type         String?
   transform_quantity           Json?
@@ -324,7 +324,7 @@ model StripePrice {
   tiers                        Json?
   aggregate_usage              String?
   type                         String
-  unit_amount                  Int
+  unit_amount                  Int?
   unit_amount_decimal          String?
   createdAt                    DateTime?        @default(now())
   updatedAt                    DateTime?        @updatedAt
@@ -335,16 +335,16 @@ model StripePrice {
 
 model StripeCoupon {
   id               String             @id
-  amountOff        Float?
+  amount_off        Float?
   currency         String?
   duration         String
-  durationInMonths Int?
-  maxRedemptions   Int?
+  duration_in_months Int?
+  max_redemptions   Int?
   metadata         Json
   name             String?
-  percentOff       Float?
-  redeemBy         Int?
-  timesRedeemed    Int
+  percent_off       Float?
+  redeem_by         Int?
+  times_redeemed    Int
   valid            Boolean
   createdAt        DateTime?          @default(now())
   updatedAt        DateTime?          @updatedAt

@@ -12,6 +12,10 @@ import {
 } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
 
+/**
+ *  Get all features categories
+ * @returns  Array of features categories
+ */
 export const getFeaturesCategories = async (): Promise<
   HandleResponseProps<iFeaturesCategories[]>
 > => {
@@ -35,6 +39,11 @@ export const getFeaturesCategories = async (): Promise<
   }
 };
 
+/**
+ *  Get a feature category by id
+ * @param id
+ * @returns  A feature category
+ */
 export const updateFeaturesCategory = adminAction(
   updateFeaturesCategorySchema,
   async ({ data }): Promise<HandleResponseProps<iFeaturesCategories>> => {
@@ -60,6 +69,11 @@ export const updateFeaturesCategory = adminAction(
   }
 );
 
+/**
+ *  Create a feature category
+ * @param data
+ * @returns  A feature category
+ */
 export const createFeaturesCategory = adminAction(
   createFeaturesCategorySchema,
   async ({ data }): Promise<HandleResponseProps<iFeaturesCategories>> => {

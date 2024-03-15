@@ -10,11 +10,11 @@ export const MRRPricesAndFeatures = ({
   plan,
   isYearly,
 }: PriceCardPayOnceProps): {
-  percentOff: number | undefined;
+  percent_off: number | undefined;
   priceWithDiscount: number | undefined;
   price: number | undefined;
-  monthlyPercentOff?: number | undefined;
-  yearlyPercentOff?: number | undefined;
+  monthlypercent_off?: number | undefined;
+  yearlypercent_off?: number | undefined;
   monthlyPriceWithDiscount?: number | undefined;
   yearlyPriceWithDiscount?: number | undefined;
 } => {
@@ -31,26 +31,26 @@ export const MRRPricesAndFeatures = ({
   }
 
   const coupon = plan.coupons;
-  let percentOff;
+  let percent_off;
   if (coupon.length > 0) {
     if (isYearly) {
       const yearlyCoupon = coupon.find((c) => c.recurrence === "yearly");
-      percentOff = yearlyCoupon?.coupon.percentOff;
+      percent_off = yearlyCoupon?.coupon.percent_off;
     } else {
       const monthlyCoupon = coupon.find((c) => c.recurrence === "monthly");
-      percentOff = monthlyCoupon?.coupon.percentOff;
+      percent_off = monthlyCoupon?.coupon.percent_off;
     }
   } else {
-    percentOff = undefined;
+    percent_off = undefined;
   }
 
-  const priceWithDiscount = percentOff
-    ? percentage.decreaseValueByPercentage(price, percentOff)
+  const priceWithDiscount = percent_off
+    ? percentage.decreaseValueByPercentage(price, percent_off)
     : undefined;
 
   const data = {
     price,
-    percentOff: percentOff ? percentOff : undefined,
+    percent_off: percent_off ? percent_off : undefined,
     priceWithDiscount,
   };
 

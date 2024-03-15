@@ -12,8 +12,8 @@ export const useSaasPlanToFeatureStore = create<Store>()((set) => ({
   saasPlanToFeature: [],
   setSaasPlanToFeature: (saasPlanToFeature) => set({ saasPlanToFeature }),
   fetchSaasPlanToFeature: async () => {
-    const saasPlanToFeature = await getPlansToFeatures();
-    if (saasPlanToFeature.error) throw new Error(saasPlanToFeature.error);
-    set({ saasPlanToFeature: saasPlanToFeature.data });
+    const saasPlanToFeature = await getPlansToFeatures({});
+    if (saasPlanToFeature.serverError) throw new Error(saasPlanToFeature.serverError);
+    set({ saasPlanToFeature: saasPlanToFeature.data?.success});
   },
 }));

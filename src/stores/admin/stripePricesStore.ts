@@ -12,8 +12,13 @@ export const useSaasStripePricesStore = create<Store>()((set) => ({
   saasStripePrices: [] as iStripePrice[],
   setSaasStripePrices: (saasStripePrices) => set({ saasStripePrices }),
   fetchSaasStripePrices: async () => {
-    const saasStripePrices = await getStripePrices();
-    if (saasStripePrices.error) throw new Error(saasStripePrices.error);
-    set({ saasStripePrices: saasStripePrices.data });
+    const saasStripePrices = await getStripePrices({
+      secret: process.env.NEXTAUTH_SECRET ?? "",
+    });
+    if (saasStripePrices.serverError || saasStripePrices.validationErrors)
+      throw new Error(
+        saasStripePrices.serverError ?? "Error while fetching stripe prices"
+      );
+    set({ saasStripePrices: saasStripePrices.data?.success });
   },
 }));

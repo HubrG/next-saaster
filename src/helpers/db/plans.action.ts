@@ -196,7 +196,7 @@ export const updatePlan = action(
       const plan = await prisma.plan.update({
         where: { id: existingPlan.id },
         // ℹ️ 'Cause ID comes with "data" from Stripe, we remove it by destructuring
-        data: { id: undefined, ...data },
+        data: {...data, id:undefined},
         include,
       });
       return handleRes<iPlan>({

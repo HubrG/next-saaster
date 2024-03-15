@@ -1,4 +1,9 @@
-import { MeteredBillingPeriod, MeteredMode, Plan, SaasTypes } from "@prisma/client";
+import {
+  MeteredBillingPeriod,
+  MeteredMode,
+  Plan,
+  SaasTypes,
+} from "@prisma/client";
 import { z } from "zod";
 
 export const updateFeatureSchema = z.object({
@@ -93,6 +98,58 @@ export const createFeaturesCategorySchema = z.object({
   data: z.object({
     name: z.string().nullable().optional(),
   }),
+});
+
+export const stripeCouponSchema = z.object({
+  data: z.object({
+    id: z.string(),
+    amount_off: z.number().nullable().optional(),
+    currency: z.string().nullable().optional(),
+    name: z.string(),
+    metadata: z.record(z.string()).optional().default({}),
+    duration: z.string().optional().default("once"),
+    duration_in_months: z.number().nullable().optional(),
+    max_redemptions: z.number().nullable().optional(),
+    times_redeemed: z.number(),
+    valid: z.boolean(),
+    percent_off: z.number().nullable().optional(),
+    redeem_by: z.number().nullable().optional(),
+  }),
+  secret: z.string().optional(),
+  type: z.enum(["create", "update"]).optional(),
+  stripeSignature: z.string().optional(),
+});
+
+export const stripePriceSchema = z.object({
+  data: z.object({
+    id: z.string(),
+    active: z.boolean(),
+    billing_scheme: z.string().optional(),
+    currency: z.string(),
+    nickname: z.string().nullable().optional(),
+    product: z.string(),
+    metadata:  z.any().nullable().optional(),
+    recurring: z.any().nullable().optional(),
+    recurring_interval: z.string().nullable().optional(),
+    recurring_interval_count: z.number().nullable().optional(),
+    recurring_aggregate_usage: z.string().nullable().optional(),
+    recurring_trial_period_days: z.number().nullable().optional(),
+    recurring_usage_type: z.string().nullable().optional(),
+    tiers_mode: z.string().nullable().optional(),
+    type: z.string(),
+    unit_amount: z.number().nullable().default(0),
+    unit_amount_decimal: z.string().nullable().default("0"),
+    transform_quantity: z.any().nullable().optional(),
+    transform_quantity_divide_by: z.number().nullable().optional(),
+    transform_quantity_round: z.string().nullable().optional(),
+    custom_unit_amount: z.any().nullable().optional(),
+    custom_unit_amount_maximum: z.number().nullable().optional(),
+    custom_unit_amount_minimum: z.number().nullable().optional(),
+    custom_unit_amount_preset: z.number().nullable().optional(),
+  }),
+  secret: z.string().optional(),
+  type: z.enum(["create", "update"]).optional(),
+  stripeSignature: z.string().optional(),
 });
 
 export const createOrUpdatePlanStripeToBddSchema = z.object({

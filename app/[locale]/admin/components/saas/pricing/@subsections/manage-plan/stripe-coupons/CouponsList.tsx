@@ -11,9 +11,7 @@ export const CouponsList = () => {
 
   const handleDelete = async (couponId: string) => {
     const deleteResponse = await deleteCoupon(couponId);
-
     if (deleteResponse) {
-      // Précisez que prevCoupons est un tableau de StripeCoupon
       setSaasStripeCoupons(deleteResponse as iStripeCoupon[]);
       toaster({ type: "success", description: "Coupon deleted successfully!" });
     } else {
@@ -36,7 +34,7 @@ export const CouponsList = () => {
           <div key={index} className="grid grid-cols-7 items-center">
             <div className="font-bold">{capitalize(coupon.name ?? "")}</div>
             <div className="italic opacity-50">apply</div>
-            <div className="font-bold">{coupon.percentOff}%</div>
+            <div className="font-bold">{coupon.percent_off}%</div>
             <div className="italic opacity-50">
               {coupon.duration === "once" && "for"}
               {coupon.duration === "forever" && "for"}
@@ -44,7 +42,7 @@ export const CouponsList = () => {
             </div>
             <div className="font-bold">
               {coupon.duration === "repeating" &&
-                coupon.durationInMonths + " months"}
+                coupon.duration_in_months + " months"}
               {coupon.duration === "once" && "one time"}
               {coupon.duration === "forever" && "ever"}
             </div>

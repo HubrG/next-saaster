@@ -1,7 +1,7 @@
 import { createOneTimePayment } from "@/src/helpers/db/oneTimePayments.action";
 import {
   createOrUpdatePlanStripeToBdd,
-  deletePlan
+  deletePlan,
 } from "@/src/helpers/db/plans.action";
 import {
   createOrUpdateCouponStripeToBdd,
@@ -14,7 +14,7 @@ import {
 } from "@/src/helpers/db/stripePrices.action";
 import {
   createOrUpdateProductStripeToBdd,
-  getStripeProduct
+  getStripeProduct,
 } from "@/src/helpers/db/stripeProducts.action";
 import { createSubcriptionPayment } from "@/src/helpers/db/subscriptionPayments.action";
 import {
@@ -352,7 +352,10 @@ export async function POST(req: NextRequest) {
     // NOTE : Product deleted
     case "product.deleted":
       const delProduct = event.data.object as Stripe.Product;
-      const del = await deletePlan({ id: delProduct.id, stripeSignature: secret ?? ""});
+      const del = await deletePlan({
+        id: delProduct.id,
+        stripeSignature: secret ?? "",
+      });
       if (del.serverError || del.validationErrors) {
         const error = await errorHandling(del);
         console.error("error :", error);
@@ -365,15 +368,26 @@ export async function POST(req: NextRequest) {
       }
       return NextResponse.json({ status: 200 });
     case "price.updated":
-      await createOrUpdatePriceStripeToBdd("update", event.data.object);
+      await createOrUpdatePriceStripeToBdd({
+        type: "update",
+        data: event.data.object as any,
+        stripeSignature: secret ?? "",
+      });
       return NextResponse.json({ status: 200 });
     case "price.created":
-      const isPriceExist = (await getStripePrice(event.data.object.id)).success;
-      if (isPriceExist) {
+      const isPriceExist = await getStripePrice({
+        id: event.data.object.id,
+        stripeSignature: secret ?? "",
+      });
+      if (isPriceExist.data?.success?.id) {
         return NextResponse.json({ status: 200 });
       }
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      await createOrUpdatePriceStripeToBdd("create", event.data.object);
+      await createOrUpdatePriceStripeToBdd({
+        type: "create",
+        data: event.data.object as any,
+        stripeSignature: secret ?? "",
+      });
       if (event.data.object.type === "one_time") {
         const product = await getStripeProduct(
           event.data.object.product as iStripeProduct["id"]
@@ -397,18 +411,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 200 });
 
     case "price.deleted":
-      await deleteStripePrice(event.data.object.id);
+      await deleteStripePrice({
+        id: event.data.object.id,
+        stripeSignature: secret ?? "",
+      });
       return NextResponse.json({ status: 200 });
 
     case "coupon.created":
-      await createOrUpdateCouponStripeToBdd("create", event.data.object);
+      await createOrUpdateCouponStripeToBdd({
+        type: "create",
+        data: event.data.object as any,
+        stripeSignature: secret ?? "",
+      });
       return NextResponse.json({ status: 200 });
     case "coupon.updated":
-      await createOrUpdateCouponStripeToBdd("update", event.data.object);
+      await createOrUpdateCouponStripeToBdd({
+        type: "update",
+        data: event.data.object as any,
+        stripeSignature: secret ?? "",
+      });
       return NextResponse.json({ status: 200 });
 
     case "coupon.deleted":
-      await deleteStripeCoupon(event.data.object.id);
+      await deleteStripeCoupon({
+        id: event.data.object.id,
+        stripeSignature: secret ?? "",
+      });
       return NextResponse.json({ status: 200 });
 
     default:

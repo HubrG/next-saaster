@@ -4,9 +4,9 @@ import { updatePlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/strip
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/src/components/ui/collapsible";
 import { CopySomething } from "@/src/components/ui/copy-something";
 import { Input } from "@/src/components/ui/input";
@@ -31,8 +31,8 @@ import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
 import {
-    MRRInputFields,
-    RecurringSwitchFields,
+  MRRInputFields,
+  RecurringSwitchFields,
 } from "./plan-card-fields-by-saas-type/MRRFields";
 import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
 import { UsageInputFields } from "./plan-card-fields-by-saas-type/UsageFields";
@@ -107,10 +107,18 @@ export const PlanCard = ({ plan, className }: Props) => {
       return manageClashes(newData, name);
     });
   };
-  // Handle save plan
 
+  // Handle save plan
   const handleSave = async () => {
     setLoading(true);
+    if (!planState.stripeId) {
+      handleDelete();
+      return toaster({
+        description:
+          "Plan has no stripe ID, it has been automaticly archived. Please, create a new Price or fill the stripe ID manually on database.",
+        type: "error",
+      });
+    }
     const dataToSet = await updatePlan({
       ...planState,
       id: planState.id,
@@ -144,7 +152,7 @@ export const PlanCard = ({ plan, className }: Props) => {
     setCancel(value);
   };
 
-  // Handle delete plan
+  // Handle archive plan
   const handleDelete = async () => {
     const dataToSet = await updatePlan({
       ...planState,
@@ -212,18 +220,17 @@ export const PlanCard = ({ plan, className }: Props) => {
         <Input
           name="name"
           value={planState.name ?? ""}
-          onClick={(e) => {
-            planState.name === "New plan" && e.currentTarget.select();
-          }}
+          onFocus={(e) =>
+            planState.name === "New plan" && e.currentTarget.select()
+          }
+         
           className="font-bold text-lg text-center !bg-transparent"
           onChange={(e) => handleInputChange(e, "name")}
         />
         <Textarea
           name="description"
-          onClick={(e) => {
-            planState.description === "New plan description" &&
-              e.currentTarget.select();
-          }}
+          onFocus={(e) =>
+            planState.description === "New plan description" && e.currentTarget.select()}
           className="text-center !bg-transparent"
           value={planState.description ?? ""}
           onChange={(e) => handleInputChange(e, "description")}

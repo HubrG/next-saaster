@@ -1,6 +1,10 @@
-import { StripeCoupon } from "@prisma/client";
-import { iStripePlanCoupon } from "./iStripePlanCoupons";
+import { Plan, StripeCoupon } from "@prisma/client";
+
+type StripeCouponExtra = {
+  Plan: Plan;
+  coupon: StripeCoupon;
+};
 
 export interface iStripeCoupon extends StripeCoupon {
-  Plan: iStripePlanCoupon[];
+  Plan: StripeCouponExtra[];
 }

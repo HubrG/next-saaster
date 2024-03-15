@@ -12,8 +12,8 @@ export const useSaasStripeCoupons = create<Store>()((set) => ({
   saasStripeCoupons: [] as iStripeCoupon[],
   setSaasStripeCoupons: (saasStripeCoupons) => set({ saasStripeCoupons }),
   fetchSaasStripeCoupons: async () => {
-    const saasStripeCoupons = await getStripeCoupons();
-    if (saasStripeCoupons.error) throw new Error(saasStripeCoupons.error);
-    set({ saasStripeCoupons: saasStripeCoupons.data });
+    const saasStripeCoupons = await getStripeCoupons({ secret: process.env.NEXTAUTH_SECRET ?? ""});
+    if (!saasStripeCoupons.data?.success) throw new Error(saasStripeCoupons.serverError);
+    set({ saasStripeCoupons: saasStripeCoupons.data.success });
   },
 }));

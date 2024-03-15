@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 type SwitchRecurrenceProps = {
   ifOnceSentence?: string;
-  yearlyPercentOff?: number;
+  yearlypercent_off?: number;
 };
 export const SwitchRecurrence = ({
-  yearlyPercentOff,
+  yearlypercent_off,
 }: SwitchRecurrenceProps) => {
   const { isYearly, setIsYearly, togglePricingPlan } =
     usePublicSaasPricingStore();
@@ -82,7 +82,7 @@ export const SwitchRecurrence = ({
             onClick={() => togglePricingPlan()}>
             Yearly{" "}
             <span className="text-sm opacity-70">
-              {yearlyPercentOff && `— save ${yearlyPercentOff}% !`}
+              {yearlypercent_off && `— save ${yearlypercent_off}% !`}
             </span>
           </div>
         </div>

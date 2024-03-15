@@ -1,8 +1,7 @@
-import { StripePrice } from "@prisma/client";
-import { iStripeProduct } from "./iStripeProducts";
+import { StripePrice, StripeProduct } from "@prisma/client";
 
 export interface iStripePrice extends StripePrice {
-  productRelation: iStripeProduct;
+  productRelation: StripeProduct | null;
 }
 
 export interface iSearchPrices {

@@ -14,6 +14,12 @@ import { iFeature } from "@/src/types/db/iFeatures";
 import { updateFeatureSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
 
+/**
+ * Get all features
+ * @param secret
+ * @returns  Array of features
+ * @description  Get all features
+ */
 export const getFeatures = action(
   z.object({
     secret: z.string(),
@@ -45,6 +51,11 @@ export const getFeatures = action(
   }
 );
 
+/**
+ * Get a feature by id
+ * @param id
+ * @returns  A feature
+ */
 export const getFeature = authAction(
   z.object({
     id: z.string().cuid(),
@@ -66,6 +77,10 @@ export const getFeature = authAction(
   }
 );
 
+/**
+ * Create a feature
+ * @returns  A feature
+ */
 export const createFeature = adminAction(
   z.void(),
   async (): Promise<HandleResponseProps<iFeature>> => {
@@ -85,6 +100,10 @@ export const createFeature = adminAction(
   }
 );
 
+/**
+ * Update a feature
+ * @param data
+ */
 export const updateFeature = adminAction(
   updateFeatureSchema,
   async ({ data }): Promise<HandleResponseProps<iFeature>> => {

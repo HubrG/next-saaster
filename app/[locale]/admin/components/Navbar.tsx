@@ -3,6 +3,7 @@ import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
 import { MenuSubItem } from "@/src/components/ui/user-interface/MenuSubItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
   BadgeDollarSign,
   Cog,
@@ -17,11 +18,12 @@ import {
   Settings2,
   SquarePen,
   UserCheck,
-  View
+  View,
 } from "lucide-react";
 import { useState } from "react";
 
 export const AdminNavbar = () => {
+  const { saasSettings } = useSaasSettingsStore();
   const [activeSection, setActiveSection] = useState("");
   const [activeSubSection, setActiveSubSection] = useState("");
   const updateActiveItem = (id: string, isSubSection = false) => {
@@ -129,14 +131,17 @@ export const AdminNavbar = () => {
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
-            <MenuSubItem
-              parent="SaasSettings"
-              activeSection={activeSubSection}
-              sectionObserve="sub-saas-set-saas-settings"
-              text="More settings"
-              icon={<Dot className="icon" />}
-              handleScroll={handleScroll}
-            />
+            {(saasSettings.saasType === "MRR_SIMPLE" ||
+              saasSettings.saasType === "PER_SEAT") && (
+              <MenuSubItem
+                parent="SaasSettings"
+                activeSection={activeSubSection}
+                sectionObserve="sub-saas-set-saas-settings"
+                text="More settings"
+                icon={<Dot className="icon" />}
+                handleScroll={handleScroll}
+              />
+            )}
           </MenuItem>
           {/* SECTION PRICING */}
           <MenuItem
@@ -200,7 +205,6 @@ export const AdminNavbar = () => {
           />
         </ul>
       </div>
-      
     </>
   );
 };

@@ -7,6 +7,7 @@ import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loa
 import { Card } from "@/src/components/ui/card";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { acceptInvitationToOrganization, removePendingUser } from "@/src/helpers/db/organization.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { iOrganization } from "@/src/types/db/iOrganization";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -40,7 +41,7 @@ export const TeamInvitationIndex = ({
     const accept = await acceptInvitationToOrganization({
       organizationId: organization.id,
       email,
-      secret: process.env.NEXTAUTH_SECRET ?? "",
+      secret: chosenSecret(),
     });
     if (accept.serverError) {
       toaster({ type: "error", description: accept.serverError });
@@ -68,7 +69,7 @@ export const TeamInvitationIndex = ({
     const decline = await removePendingUser({
       organizationId: organization.id,
       email,
-      secret: process.env.NEXTAUTH_SECRET ?? "",
+      secret: chosenSecret(),
     });
     if (decline.serverError) {
       toaster({ type: "error", description: decline.serverError });

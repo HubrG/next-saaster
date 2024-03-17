@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { getOrganization } from "../helpers/db/organization.action";
+import { chosenSecret } from "../helpers/functions/verifySecretRequest";
 import { iOrganization } from "../types/db/iOrganization";
 type Store = {
   organizationStore: iOrganization;
@@ -22,7 +23,7 @@ export const useOrganizationStore = create<Store>()((set) => ({
     })),
   fetchOrganizationStore: async (id: string) => {
     set({ isStoreLoading: true });
-    const orga = await getOrganization({ id: id, secret : process.env.NEXTAUTH_SECRET ?? ""  });
+    const orga = await getOrganization({ id: id, secret: chosenSecret()  });
     if (orga.data?.success) {
       set({ organizationStore: orga.data?.success, isStoreLoading: false });
     }

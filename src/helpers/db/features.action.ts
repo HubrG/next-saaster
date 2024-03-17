@@ -13,6 +13,7 @@ import {
 import { iFeature } from "@/src/types/db/iFeatures";
 import { updateFeatureSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
+import { verifySecretRequest } from "../functions/verifySecretRequest";
 
 /**
  * Get all features
@@ -26,7 +27,7 @@ export const getFeatures = action(
   }),
   async ({ secret }): Promise<HandleResponseProps<iFeature[]>> => {
     // 🔐 Security - If internal secret has been sent, we verify if it's the right one (for internal use only)
-    if (secret !== process.env.NEXTAUTH_SECRET) {
+    if (!verifySecretRequest(secret)) {
       return handleRes<iFeature[]>({
         error: new ActionError("Unauthorized"),
         statusCode: 401,

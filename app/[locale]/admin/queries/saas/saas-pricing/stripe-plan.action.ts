@@ -12,6 +12,7 @@ import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import { searchPricesRaw } from "@/src/helpers/db/stripePrices.action";
 import { getStripeProduct } from "@/src/helpers/db/stripeProducts.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import {
@@ -19,8 +20,10 @@ import {
   handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
+import { ActionError, adminAction } from "@/src/lib/safe-actions";
 import { iPlan } from "@/src/types/db/iPlans";
 import { iStripeProduct } from "@/src/types/db/iStripeProducts";
+import { updatePlanInAdminSectionSchema } from "@/src/types/schemas/dbSchema";
 import { Plan, PlanToFeature, SaasTypes, StripePrice } from "@prisma/client";
 import { toLower } from "lodash";
 
@@ -63,7 +66,7 @@ export const createNewPlan = async (
     }
     const retrievePlan = await getPlan({
       id: newPlan.data.success.id,
-      secret: process.env.NEXTAUTH_SECRET ?? "",
+      secret: chosenSecret(),
     });
     if (!retrievePlan.data?.success) throw new Error(retrievePlan.serverError);
     return {
@@ -78,235 +81,260 @@ export const createNewPlan = async (
 };
 
 // SECTION -> Update Plan
-export const updatePlan = async (
-  data: Plan
-): Promise<{ success?: boolean; data?: any; error?: string }> => {
-  try {
-   
-    if (!data.id) throw new Error("No plan found");
-    const initPlan = await getPlan({
-      id: data.id,
-      secret: process.env.NEXTAUTH_SECRET ?? "",
-    });
-    if (handleError(initPlan).error)
-      throw new Error(handleError(initPlan).message);
-    const initialPlan = initPlan.data?.success;
-    if (!initialPlan) throw new Error("Error getting initial plan");
-    // if deleted = true, deactive the plan
-    if (data.deleted) {
-      data = { ...data, active: false };
-    }
-    if (!data.stripeId) throw new Error("No stripeId found");
-    const product = (await getStripeProduct(data.stripeId)) as {
-      data: iStripeProduct;
-      error: string;
-      success: boolean;
-    };
-    if (product.error) throw new Error(product.error);
-    const prices = product.data.prices;
-    const saasSettings = (await getSaasSettings()) as {
-      data: { currency: string };
-    };
-    // NOTE : Pay once
-    if (data.saasType === "PAY_ONCE") {
-      // We verify if the plan prices has changed
-      if (initialPlan.oncePrice === data.oncePrice) {
-        const validUpdate = await upPlan({
-          data: { ...data, active: data.active ?? false },
+export const updatePlan = adminAction(
+  updatePlanInAdminSectionSchema,
+  async (data): Promise<HandleResponseProps<iPlan>> => {
+    try {
+      if (!data.id) throw new ActionError("No plan found");
+      const initPlan = await getPlan({
+        id: data.id,
+        secret: chosenSecret(),
+      });
+      if (handleError(initPlan).error)
+        throw new ActionError(handleError(initPlan).message);
+      const initialPlan = initPlan.data?.success;
+      if (!initialPlan) throw new ActionError("Error getting initial plan");
+      // if deleted = true, deactive the plan
+      if (data.deleted) {
+        data = { ...data, active: false };
+        const fastDelete = await upPlan({ data: data });
+        if (handleError(fastDelete).error)
+          throw new ActionError(handleError(fastDelete).message);
+        return handleRes<iPlan>({
+          success: fastDelete.data?.success,
+          statusCode: 200,
         });
-        if (handleError(validUpdate).error)
-          throw new Error(handleError(validUpdate).message);
-        const updatedProduct = await updateStripeProduct(
-          data,
-          product.data,
-          data.saasType ?? "PAY_ONCE"
-        );
-
-        if (updatedProduct.error) throw new Error(updatedProduct.error);
-        return { success: true, data: validUpdate.data?.success };
-      } else {
-        //  We create a new price for the plan and update de default price of the product
-        const newPrice = (await createNewPriceForPlan({
-          data: data,
-          dataToSet: {
-            product: product.data.id,
-            currency: saasSettings.data.currency ?? "usd",
-            unit_amount: (data.oncePrice && data.oncePrice * 100) ?? 0,
-          },
-        })) as { data: { success: { id: string } }; error: string };
-        if (newPrice.error) throw new Error(newPrice.error);
-        const updatedProduct = await updateStripeProduct(
-          data,
-          product.data,
-          data.saasType ?? "PAY_ONCE",
-          newPrice.data.success.id
-        );
-        if (updatedProduct.error) throw new Error(updatedProduct.error);
-        // We deactive others prices for the product, not the new one
-        const deactivatedOldPrices = await deactivateOldPrices({
-          prices,
-          newPriceId: newPrice.data.success.id,
-          interval: undefined,
-        });
-        if (handleError(deactivatedOldPrices).error)
-          throw new Error(handleError(deactivatedOldPrices).message);
-        const validUpdate = await upPlan({
-          data: { ...data, active: data.active ?? false },
-        });
-        if (handleError(validUpdate).error)
-          throw new Error(handleError(validUpdate).message);
-        return { success: true, data: validUpdate.data?.success };
       }
-    }
-    // NOTE : MRR_SIMPLE | METERED_USAGE | PER_SEAT
-    else if (
-      data.saasType === "MRR_SIMPLE" ||
-      data.saasType === "METERED_USAGE" ||
-      data.saasType === "PER_SEAT"
-    ) {
-      // We verify if the plan prices has changed
-      if (
-        initialPlan.monthlyPrice === data.monthlyPrice &&
-        initialPlan.yearlyPrice === data.yearlyPrice &&
-        initialPlan.meteredUnit === data.meteredUnit &&
-        initialPlan.meteredMode === data.meteredMode &&
-        initialPlan.meteredBillingPeriod === data.meteredBillingPeriod
+      if (!data.stripeId) throw new ActionError("No stripeId found");
+      const product = await getStripeProduct({
+        id: data.stripeId,
+        secret: chosenSecret(),
+      });
+      if (handleError(product).error)
+        throw new ActionError(handleError(product).message);
+      const prices = product.data?.success?.prices;
+      const saasSettings = (await getSaasSettings()) as {
+        data: { currency: string };
+      };
+      // NOTE : Pay once
+      if (data.saasType === "PAY_ONCE") {
+        // We verify if the plan prices has changed
+        if (initialPlan.oncePrice === data.oncePrice) {
+          const validUpdate = await upPlan({
+            data: { ...data, active: data.active ?? false },
+          });
+          if (handleError(validUpdate).error || !validUpdate.data?.success)
+            throw new ActionError(handleError(validUpdate).message);
+          const updatedProduct = await updateProduct(
+            data,
+            product.data?.success ?? {},
+            data.saasType ?? "PAY_ONCE"
+          );
+
+          if (updatedProduct.error) throw new ActionError(updatedProduct.error);
+          return handleRes<iPlan>({
+            success: validUpdate.data?.success,
+            statusCode: 200,
+          });
+        } else {
+          //  We create a new price for the plan and update de default price of the product
+          const newPrice = (await createNewPriceForPlan({
+            data: data,
+            dataToSet: {
+              product: product.data?.success?.id ?? "",
+              currency: saasSettings.data.currency ?? "usd",
+              unit_amount: (data.oncePrice && data.oncePrice * 100) ?? 0,
+            },
+          })) as { data: { success: { id: string } }; error: string };
+          if (newPrice.error) throw new ActionError(newPrice.error);
+          const updatedProduct = await updateProduct(
+            data,
+            product.data?.success ?? {},
+            data.saasType ?? "PAY_ONCE",
+            newPrice.data.success.id
+          );
+          if (updatedProduct.error) throw new ActionError(updatedProduct.error);
+          // We deactive others prices for the product, not the new one
+          const deactivatedOldPrices = await deactivateOldPrices({
+            prices: prices ?? [],
+            newPriceId: newPrice.data.success.id,
+            interval: undefined,
+          });
+          if (handleError(deactivatedOldPrices).error)
+            throw new ActionError(handleError(deactivatedOldPrices).message);
+          const validUpdate = await upPlan({
+            data: { ...data, active: data.active ?? false },
+          });
+          if (handleError(validUpdate).error)
+            throw new ActionError(handleError(validUpdate).message);
+          return handleRes<iPlan>({
+            success: validUpdate.data?.success,
+            statusCode: 200,
+          });
+        }
+      }
+      // NOTE : MRR_SIMPLE | METERED_USAGE | PER_SEAT
+      else if (
+        data.saasType === "MRR_SIMPLE" ||
+        data.saasType === "METERED_USAGE" ||
+        data.saasType === "PER_SEAT"
       ) {
-        const validUpdate = await upPlan({
-          data: { ...data, active: data.active ?? false },
-        });
-        if (handleError(validUpdate).error)
-          throw new Error(handleError(validUpdate).message);
-        const updatedProduct = await updateStripeProduct(
-          data,
-          product.data,
-          data.saasType ?? "MRR_SIMPLE"
-        );
-        if (updatedProduct.error) throw new Error(updatedProduct.error);
-        return { success: true, data: initialPlan };
-      } else {
-        //  We create a new price for the plan and update de default price of the product
+        // We verify if the plan prices has changed
         if (
-          initialPlan.monthlyPrice !== data.monthlyPrice ||
-          initialPlan.meteredUnit !== data.meteredUnit ||
-          initialPlan.meteredMode !== data.meteredMode ||
-          initialPlan.meteredBillingPeriod !== data.meteredBillingPeriod
+          initialPlan.monthlyPrice === data.monthlyPrice &&
+          initialPlan.yearlyPrice === data.yearlyPrice &&
+          initialPlan.meteredUnit === data.meteredUnit &&
+          initialPlan.meteredMode === data.meteredMode &&
+          initialPlan.meteredBillingPeriod === data.meteredBillingPeriod
         ) {
-          const newPrice = (await createNewPriceForPlan({
-            data: data,
-            dataToSet: {
-              product: product.data.id,
-              currency: saasSettings.data.currency ?? "usd",
-              recurring: {
-                interval:
+          const validUpdate = await upPlan({
+            data: { ...data, active: data.active ?? false },
+          });
+          if (handleError(validUpdate).error)
+            throw new ActionError(handleError(validUpdate).message);
+          const updatedProduct = await updateProduct(
+            data,
+            product.data?.success ?? {},
+            data.saasType ?? "MRR_SIMPLE"
+          );
+          if (updatedProduct.error) throw new ActionError(updatedProduct.error);
+          return handleRes<iPlan>({
+            success: initialPlan,
+            statusCode: 200,
+          });
+        } else {
+          //  We create a new price for the plan and update de default price of the product
+          if (
+            initialPlan.monthlyPrice !== data.monthlyPrice ||
+            initialPlan.meteredUnit !== data.meteredUnit ||
+            initialPlan.meteredMode !== data.meteredMode ||
+            initialPlan.meteredBillingPeriod !== data.meteredBillingPeriod
+          ) {
+            const newPrice = (await createNewPriceForPlan({
+              data: data,
+              dataToSet: {
+                product: product.data?.success?.id,
+                currency: saasSettings.data.currency ?? "usd",
+                recurring: {
+                  interval:
+                    data.saasType === "METERED_USAGE"
+                      ? (toLower(data.meteredBillingPeriod) as
+                          | "week"
+                          | "month"
+                          | "day")
+                      : "month",
+                  interval_count: 1,
+                  usage_type:
+                    data.saasType === "METERED_USAGE" ? "metered" : "licensed",
+                  aggregate_usage:
+                    data.saasType === "METERED_USAGE" ? "sum" : undefined,
+                },
+                transform_quantity:
+                  data.saasType === "METERED_USAGE" &&
+                  data.meteredMode === "PACKAGE"
+                    ? {
+                        divide_by: data.meteredUnit ?? 0,
+                        round: "up",
+                      }
+                    : undefined,
+                unit_amount:
                   data.saasType === "METERED_USAGE"
-                    ? (toLower(data.meteredBillingPeriod) as
-                        | "week"
-                        | "month"
-                        | "day")
-                    : "month",
-                interval_count: 1,
-                usage_type:
-                  data.saasType === "METERED_USAGE" ? "metered" : "licensed",
-                aggregate_usage:
-                  data.saasType === "METERED_USAGE" ? "sum" : undefined,
+                    ? undefined
+                    : (data.monthlyPrice && data.monthlyPrice * 100) ?? 0,
+                unit_amount_decimal:
+                  data.saasType === "METERED_USAGE"
+                    ? `${data.monthlyPrice && data.monthlyPrice * 100}`
+                    : undefined ?? undefined,
               },
-              transform_quantity:
-                data.saasType === "METERED_USAGE" &&
-                data.meteredMode === "PACKAGE"
-                  ? {
-                      divide_by: data.meteredUnit ?? 0,
-                      round: "up",
-                    }
-                  : undefined,
-              unit_amount:
-                data.saasType === "METERED_USAGE"
-                  ? undefined
-                  : (data.monthlyPrice && data.monthlyPrice * 100) ?? 0,
-              unit_amount_decimal:
-                data.saasType === "METERED_USAGE"
-                  ? `${data.monthlyPrice && data.monthlyPrice * 100}`
-                  : undefined ?? undefined,
-            },
-          })) as { data: { success: { id: string } }; error: string };
-          if (newPrice.error) throw new Error(newPrice.error);
-          const { stripeYearlyPriceId, ...restOfData } = data;
-          const validUpdate = await upPlan({
-            data: {
-              ...restOfData,
-              monthlyPrice: data.monthlyPrice,
-              stripeMonthlyPriceId: newPrice.data.success.id,
-            },
-          });
-          if (handleError(validUpdate).error)
-            throw new Error(handleError(validUpdate).message);
-          const deactivate = await deactivateOldPrices({
-            prices: prices,
-            newPriceId: newPrice.data.success.id,
-            interval:
-              data.saasType === "METERED_USAGE"
-                ? (toLower(initialPlan.meteredBillingPeriod) as
-                    | "month"
-                    | "week"
-                    | "day"
-                    | "year")
-                : "month",
-            oldPrice: initialPlan.monthlyPrice ?? 0,
-            defaultPrice: product.data.default_price,
-          });
-          if (handleError(deactivate).error)
-            throw new Error(handleError(deactivate).message);
-        }
-        // NOTE : Yearly price updated
-        if (initialPlan.yearlyPrice !== data.yearlyPrice) {
-          const newPrice = (await createNewPriceForPlan({
-            data: data,
-            dataToSet: {
-              product: product.data.id,
-              currency: saasSettings.data.currency ?? "usd",
-              recurring: {
-                interval: "year",
-                interval_count: 1,
+            })) as { data: { success: { id: string } }; error: string };
+            if (newPrice.error) throw new ActionError(newPrice.error);
+            const { stripeYearlyPriceId, ...restOfData } = data;
+            const validUpdate = await upPlan({
+              data: {
+                ...restOfData,
+                monthlyPrice: data.monthlyPrice,
+                stripeMonthlyPriceId: newPrice.data.success.id,
               },
-              unit_amount: (data.yearlyPrice && data.yearlyPrice * 100) ?? 0,
-            },
-          })) as { data: { success: { id: string } }; error: string };
-          if (newPrice.error) throw new Error(newPrice.error);
-          const { stripeMonthlyPriceId, ...restOfData } = data;
-          const validUpdate = await upPlan({
-            data: {
-              ...restOfData,
-              stripeYearlyPriceId: newPrice.data.success.id,
-            },
-          });
-          if (handleError(validUpdate).error)
-            throw new Error(handleError(validUpdate).message);
+            });
+            if (handleError(validUpdate).error)
+              throw new ActionError(handleError(validUpdate).message);
+            const deactivate = await deactivateOldPrices({
+              prices: prices ?? [],
+              newPriceId: newPrice.data.success.id,
+              interval:
+                data.saasType === "METERED_USAGE"
+                  ? (toLower(data.meteredBillingPeriod) as
+                      | "month"
+                      | "week"
+                      | "day"
+                      | "year")
+                  : "month",
+              oldPrice: initialPlan.monthlyPrice ?? 0,
+              defaultPrice: product.data?.success?.default_price ?? undefined,
+            });
+            if (handleError(deactivate).error)
+              throw new ActionError(handleError(deactivate).message);
+          }
+          // NOTE : Yearly price updated
+          if (initialPlan.yearlyPrice !== data.yearlyPrice) {
+            const newPrice = (await createNewPriceForPlan({
+              data: data,
+              dataToSet: {
+                product: product.data?.success?.id,
+                currency: saasSettings.data.currency ?? "usd",
+                recurring: {
+                  interval: "year",
+                  interval_count: 1,
+                },
+                unit_amount: (data.yearlyPrice && data.yearlyPrice * 100) ?? 0,
+              },
+            })) as { data: { success: { id: string } }; error: string };
+            if (newPrice.error) throw new ActionError(newPrice.error);
+            const { stripeMonthlyPriceId, ...restOfData } = data;
+            const validUpdate = await upPlan({
+              data: {
+                ...restOfData,
+                stripeYearlyPriceId: newPrice.data.success.id,
+              },
+            });
+            if (handleError(validUpdate).error)
+              throw new ActionError(handleError(validUpdate).message);
 
-          const deactivate = await deactivateOldPrices({
-            prices: prices,
-            newPriceId: newPrice.data.success.id,
-            interval: "year",
-            oldPrice: initialPlan.yearlyPrice ?? 0,
-            defaultPrice: product.data.default_price,
+            const deactivate = await deactivateOldPrices({
+              prices: prices ?? [],
+              newPriceId: newPrice.data.success.id,
+              interval: "year",
+              oldPrice: initialPlan.yearlyPrice ?? 0,
+              defaultPrice: product.data?.success?.default_price ?? undefined,
+            });
+            if (handleError(deactivate).error)
+              throw new ActionError(handleError(deactivate).message);
+          }
+          const updatedProduct = await updateProduct(
+            data,
+            product.data?.success ?? {},
+            data.saasType ?? "MRR_SIMPLE"
+          );
+          if (updatedProduct.error) throw new ActionError(updatedProduct.error);
+          return handleRes<iPlan>({
+            success: updatedProduct.data,
+            statusCode: 200,
           });
-          if (handleError(deactivate).error)
-            throw new Error(handleError(deactivate).message);
         }
-        const updatedProduct = await updateStripeProduct(
-          data,
-          product.data,
-          data.saasType ?? "MRR_SIMPLE"
-        );
-        if (updatedProduct.error) throw new Error(updatedProduct.error);
-        return { success: true, data: updatedProduct.data };
       }
+      return handleRes<iPlan>({
+        success: initPlan.data?.success,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iPlan>({
+        error: ActionError,
+        statusCode: 500,
+      });
     }
-    return { success: true, data: initialPlan };
-  } catch (error) {
-    console.error(error);
-    return { error: getErrorMessage(error) };
   }
-};
+);
 
 export const updatePlanPosition = async (plans: Plan[]) => {
   const session = await isSuperAdmin();
@@ -321,7 +349,7 @@ export const updatePlanPosition = async (plans: Plan[]) => {
 
   try {
     await prisma.$transaction(updateOperations);
-    const plans = await getPlans({ secret: process.env.NEXTAUTH_SECRET ?? "" });
+    const plans = await getPlans({ secret: chosenSecret() });
     if (!plans) return false;
     return plans;
   } catch (error) {
@@ -338,7 +366,10 @@ export const deleteNewPlan = async (
   data?: any;
   error?: string;
 }> => {
+  
   try {
+    const session = await isSuperAdmin();
+    if (!session) throw new Error("You are not authorized");
     const delPlan = await deletePlan({ id: plan });
     if (!delPlan) throw new Error("Error deleting plan");
     return { success: true, data: delPlan };
@@ -348,7 +379,7 @@ export const deleteNewPlan = async (
   }
 };
 
-const updateStripeProduct = async (
+const updateProduct = async (
   data: Partial<iPlan>,
   product: Partial<iStripeProduct>,
   saasType: SaasTypes,
@@ -405,6 +436,7 @@ const deactivateOldPrices = async ({
       oldPrice: oldPrice ?? 0,
       defaultPrice: defaultPrice ?? "",
     };
+    // Pay once
     if (!interval) {
       searchPrices = await stripeManager.searchPrices(`
           product: "${prices[0].product}" AND active: "true"
@@ -412,7 +444,6 @@ const deactivateOldPrices = async ({
       if (handleError(searchPrices).error)
         throw new Error(handleError(searchPrices).message);
       deactivatingOldPrices = searchPrices.success?.map((price: any) => {
-        console.log(price);
         if (price.id === newPriceId) return;
         return stripeManager.createOrUpdatePrice("update", {
           id: price.id,
@@ -421,7 +452,9 @@ const deactivateOldPrices = async ({
           active: false,
         });
       });
-    } else {
+    }
+    // Recurring
+    else {
       searchPrices = await searchPricesRaw(dataToSendForInterval);
       if (handleError(searchPrices).error)
         throw new Error(handleError(searchPrices).message);

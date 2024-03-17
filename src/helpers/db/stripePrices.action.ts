@@ -11,6 +11,7 @@ import { stripePriceSchema } from "@/src/types/schemas/dbSchema";
 import { StripePrice } from "@prisma/client";
 import { JsonValue } from "@prisma/client/runtime/library";
 import { z } from "zod";
+import { chosenSecret, verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 
 /**
@@ -24,7 +25,7 @@ export const getStripePrices = action(
   z.object({ secret: z.string() }),
   async ({ secret }): Promise<HandleResponseProps<iStripePrice[]>> => {
     // 🔐 Security
-    if (secret && secret !== process.env.NEXTAUTH_SECRET)
+    if (secret && !verifySecretRequest(secret))
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
     try {
@@ -67,7 +68,7 @@ export const getStripePrice = action(
   }): Promise<HandleResponseProps<iStripePrice>> => {
     // 🔐 Security
     if (
-      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (secret && !verifySecretRequest(secret)) ||
       (!stripeSignature && !secret) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
@@ -108,7 +109,7 @@ export const createStripePrice = action(
     // 🔐 Security
     if (
       (userSession && userSession?.user.role === "USER") ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET)
+      (secret && !verifySecretRequest(secret))
     )
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
@@ -148,7 +149,7 @@ export const updateStripePrice = action(
     // 🔐 Security
     if (
       (userSession && userSession?.user.role === "USER") ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET)
+      (secret && !verifySecretRequest(secret))
     )
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
@@ -196,7 +197,7 @@ export const deleteStripePrice = action(
     if (
       (userSession && userSession?.user.role === "USER") ||
       (!stripeSignature && !secret) ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
       throw new ActionError("Unauthorized");
@@ -246,6 +247,7 @@ export const searchPricesRaw = adminAction(
       AND "id" != ${query.defaultPrice}
       AND "id" != ${query.newPriceId}
       `;
+    
       return handleRes<StripePrice[]>({
         success: prices as StripePrice[],
         statusCode: 200,
@@ -277,7 +279,7 @@ export const createOrUpdatePriceStripeToBdd = action(
     if (
       (userSession && userSession?.user.role === "USER") ||
       (!stripeSignature && !secret) ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
       throw new ActionError("Unauthorized");
@@ -300,16 +302,15 @@ export const createOrUpdatePriceStripeToBdd = action(
           data.recurring?.trial_period_days ?? undefined,
         recurring_usage_type: data.recurring?.usage_type ?? undefined,
       };
-
       if (type === "create") {
         price = await createStripePrice({
           data: reformatData,
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: chosenSecret(),
         });
       } else if (type === "update") {
         price = await updateStripePrice({
           data: reformatData,
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: chosenSecret(),
         });
       } else {
         throw new ActionError("Invalid type");

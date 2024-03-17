@@ -45,8 +45,8 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
           fetchUserStore(user.email);
         }
         if (user?.role !== "USER") {
-          fetchSaasStripeProducts();
-          fetchSaasStripePrices();
+          // fetchSaasStripeProducts();
+          // fetchSaasStripePrices();
           fetchSaasStripeCoupons();
           fetchSaasFeaturesCategories();
           fetchSaasFeatures();
@@ -66,8 +66,8 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     setSaasSettings,
     saasSettings,
     fetchUserStore,
-    fetchSaasStripeProducts,
-    fetchSaasStripePrices,
+    // fetchSaasStripeProducts,
+    // fetchSaasStripePrices,
     fetchSaasStripeCoupons,
     fetchSaasFeaturesCategories,
     fetchSaasFeatures,

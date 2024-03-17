@@ -1,134 +1,175 @@
-import { handleResponse } from "@/src/lib/error-handling/handleResponse";
+import {
+  HandleResponseProps,
+  handleRes
+} from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
+import { ActionError, action } from "@/src/lib/safe-actions";
 import { iSubscription } from "@/src/types/db/iSubscription";
-import { Subscription } from "@prisma/client";
-import { isSuperAdmin } from "../functions/isUserRole";
+import { updateSubscriptionSchema } from "@/src/types/schemas/dbSchema";
+import { z } from "zod";
+import { verifySecretRequest } from "../functions/verifySecretRequest";
+import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 
-type GetSubProps = {
-  subId: string;
-};
-export const getSubscription = async ({
-  subId,
-}: GetSubProps): Promise<{
-  success?: boolean;
-  data?: iSubscription;
-  error?: string;
-}> => {
-  const authorized = await authorize({});
-  if (!authorized) {
-    return handleResponse<undefined>(undefined, "Unauthorized");
+export const getSubscription = action(
+  z.object({
+    secret: z.string().optional(),
+    stripeSignature: z.string().optional(),
+    id: z.string(),
+  }),
+  async ({
+    stripeSignature,
+    secret,
+    id,
+  }): Promise<HandleResponseProps<iSubscription>> => {
+    // 🔐 Security
+    if (
+      (!stripeSignature && !secret) ||
+      (secret && !verifySecretRequest(secret)) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const subscription = await prisma.subscription.findUnique({
+        where: { id },
+        include,
+      });
+      if (!subscription) throw new Error("No subscription found");
+      return handleRes<iSubscription>({
+        success: subscription,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iSubscription>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
   }
-  try {
-    const subscription = await prisma.subscription.findUnique({
-      where: { id: subId },
-      include: include,
-    });
-    if (!subscription) throw new Error("No user found");
-    return handleResponse<iSubscription>(subscription);
-  } catch (error) {
-    console.error(error);
-    return handleResponse<undefined>(undefined, error);
-  }
-};
+);
 
-export const updateSubscription = async ({
-  stripeSignature,
-  subId,
-  data,
-}: {
-  stripeSignature?: string | undefined;
-  subId: string;
-  data: Partial<
-    Omit<
-      Subscription,
-      "createdAt" | "userId" | "stripeCustomerId" | "id" | "updatedAt"
-    >
-  >;
-}): Promise<{
-  success?: boolean;
-  data?: iSubscription;
-  error?: string;
-}> => {
-   const authorized = await authorize({stripeSignature});
-   if (!authorized) {
-     return handleResponse<undefined>(undefined, "Unauthorized");
-   }
-  try {
-    const dataWithCorrectItemsType = {
-      ...data,
-      allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
-    };
-    const subscription = await prisma.subscription.update({
-      where: { id: subId },
-      data: dataWithCorrectItemsType,
-      include: include,
-    });
-    return handleResponse<iSubscription>(subscription);
-  } catch (error) {
-    console.error(error);
-    return handleResponse<undefined>(undefined, error);
+export const createSubscription = action(
+  updateSubscriptionSchema,
+  async ({
+    stripeSignature,
+    secret,
+    data,
+  }): Promise<HandleResponseProps<iSubscription>> => {
+    // 🔐 Security
+    if (
+      (!stripeSignature && !secret) ||
+      (secret && !verifySecretRequest(secret)) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const dataWithCorrectItemsType = {
+        ...data,
+        allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
+      };
+      const subscription = await prisma.subscription.create({
+        data: dataWithCorrectItemsType,
+        include: include,
+      });
+      if (!subscription)
+        throw new ActionError("Problem while creating subscription");
+      return handleRes<iSubscription>({
+        success: subscription,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iSubscription>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
   }
-};
+);
 
-export const createSubscription = async ({
-  stripeSignature,
-  data,
-}: {
-  data: Omit<Subscription, "createdAt" | "updatedAt">;
-  stripeSignature?: string | undefined;
-}): Promise<{
-  success?: boolean;
-  data?: iSubscription;
-  error?: string;
-}> => {
-
-  const authorized = await authorize({ stripeSignature });
-   if (!authorized) {
-     return handleResponse<undefined>(undefined, "Unauthorized");
-   }
-  try {
-    // Ensure that the items property is of the correct type
-    const dataWithCorrectItemsType = {
-      ...data,
-      allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
-    };
-    const subscription = await prisma.subscription.create({
-      data: dataWithCorrectItemsType,
-      include: include,
-    });
-    return handleResponse<iSubscription>(subscription);
-  } catch (error) {
-    console.error(error);
-    return handleResponse<undefined>(undefined, error);
+export const updateSubscription = action(
+  updateSubscriptionSchema,
+  async ({
+    stripeSignature,
+    secret,
+    data,
+  }): Promise<HandleResponseProps<iSubscription>> => {
+    // 🔐 Security
+    if (
+      (!stripeSignature && !secret) ||
+      (secret && !verifySecretRequest(secret)) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const dataWithCorrectItemsType = {
+        ...data,
+        allDatas: data.allDatas ? JSON.parse(data.allDatas as string) : {},
+        updatedAt: new Date(),
+      };
+      const subscription = await prisma.subscription.update({
+        where: { id: data.id },
+        data: dataWithCorrectItemsType,
+        include,
+      });
+      if (!subscription)
+        throw new ActionError("Problem while updating subscription");
+      return handleRes<iSubscription>({
+        success: subscription,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iSubscription>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
   }
-};
+);
 
-export const deleteSubscription = async ({
-  stripeSignature,
-  subId,
-}: {
-    subId: string;
-    stripeSignature?: string | undefined;
-}): Promise<{
-  success?: boolean;
-  data?: iSubscription;
-  error?: string;
-}> => {
-   const authorized = await authorize({ stripeSignature });
-   if (!authorized) {
-     return handleResponse<undefined>(undefined, "Unauthorized");
-   }
-  try {
-    const subscription = await prisma.subscription.delete({
-      where: { id: subId },
-      include: include,
-    });
-    return handleResponse<iSubscription>(subscription);
-  } catch (error) {
-    console.error(error);
-    return handleResponse<undefined>(undefined, error);
+export const deleteSubscription = action(
+  z.object({
+    secret: z.string().optional(),
+    stripeSignature: z.string().optional(),
+    id: z.string(),
+  }),
+  async ({
+    stripeSignature,
+    secret,
+    id,
+  }): Promise<HandleResponseProps<iSubscription>> => {
+    // 🔐 Security
+    if (
+      (!stripeSignature && !secret) ||
+      (secret && !verifySecretRequest(secret)) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const subscription = await prisma.subscription.delete({
+        where: { id },
+        include,
+      });
+      if (!subscription)
+        throw new ActionError("Problem while deleting subscription");
+      return handleRes<iSubscription>({
+        success: subscription,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iSubscription>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
   }
-};
+);
 
 const include = {
   users: {
@@ -158,22 +199,3 @@ const include = {
   },
   SubscriptionPayments: true,
 };
-
-// SECTION AUTHORIZE
-type AuthorizeProps = {
-  stripeSignature?: string | undefined;
-};
-async function authorize({
-  stripeSignature,
-}: AuthorizeProps): Promise<boolean> {
-  const isSuperAdminFlag = await isSuperAdmin();
-  let isStripeValid = false;
-  if (stripeSignature) {
-    isStripeValid = verifyStripeRequest(stripeSignature);
-  }
-
-  return isSuperAdminFlag || isStripeValid;
-}
-function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
-}

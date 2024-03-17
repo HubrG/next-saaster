@@ -116,7 +116,9 @@ export const AdminSaasSettings = () => {
         info="Lorem ipsum dolor concecterut ipsum dolor concecterut ipsum dolor concecterut ">
         <div className="flex flex-col gap-4">
           <Suspense fallback={<Loader noHFull />}>
-            <SetSaasType set={setSaasType} />
+            <SetSaasType
+              set={setSaasType}
+            />
           </Suspense>
         </div>
       </SubSectionWrapper>
@@ -138,28 +140,28 @@ export const AdminSaasSettings = () => {
             </Suspense>
           </div>
         </div>
-          <div className={`mt-10 mb-5 px-2`}>
-            <Suspense fallback={<Loader noHFull />}>
-              <SetCreditName
-                disabled={!saasSettings.activeCreditSystem}
-                set={setCreditName}
-              />
-            </Suspense>
-          </div>
-           <div className="flex flex-row justify-between mt-10 gap-2">
-        <Button
-          variant={"link"}
-          className={cn({ "opacity-0": !save }, "grayscale-50")}
-          onClick={handleCancel}>
-          Reset
-        </Button>
-        <Button
-          disabled={!save}
-          className={cn({ disabled: !save }, "place-self-end")}
-          onClick={handleSaveAll}>
-          Save changes
-        </Button>
-      </div>
+        <div className={`mt-10 mb-5 px-2`}>
+          <Suspense fallback={<Loader noHFull />}>
+            <SetCreditName
+              disabled={!saasSettings.activeCreditSystem}
+              set={setCreditName}
+            />
+          </Suspense>
+        </div>
+        <div className="flex flex-row justify-between mt-10 gap-2">
+          <Button
+            variant={"link"}
+            className={cn({ "opacity-0": !save }, "grayscale-50")}
+            onClick={handleCancel}>
+            Reset
+          </Button>
+          <Button
+            disabled={!save}
+            className={cn({ disabled: !save }, "place-self-end")}
+            onClick={handleSaveAll}>
+            Save changes
+          </Button>
+        </div>
       </SubSectionWrapper>
       {(saasSettings.saasType === "MRR_SIMPLE" ||
         saasSettings.saasType === "PER_SEAT") && (
@@ -182,7 +184,6 @@ export const AdminSaasSettings = () => {
           </SubSectionWrapper>
         </>
       )}
-     
     </>
   );
 };

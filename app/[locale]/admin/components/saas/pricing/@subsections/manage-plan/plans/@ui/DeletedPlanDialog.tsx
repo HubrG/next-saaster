@@ -79,9 +79,8 @@ export function DeteledPlanDialog({ children }: DeletedPlanDialogProps) {
           </DialogDescription>
         </DialogHeader>
         <Goodline />
-
         {saasPlans.filter((e) => e.deleted).length > 0 ? (
-          <div className="-mt-4">
+          <div className="-mt-4  max-h-[50vh] overflow-y-auto">
             {saasPlans
               .filter((e) => e.deleted)
               .filter((e) => e.saasType === saasSettings.saasType)

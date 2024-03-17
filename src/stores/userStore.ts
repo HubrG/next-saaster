@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { getUser } from "../helpers/db/users.action";
+import { chosenSecret } from "../helpers/functions/verifySecretRequest";
 import { iUsers } from "../types/db/iUsers";
 
 type Store = {
@@ -20,8 +21,9 @@ export const useUserStore = create<Store>()((set) => ({
     })),
   fetchUserStore: async (email: string) => {
     set({ isStoreLoading: true });
-    const user = await getUser({ email: email });
-    if (!user.data) throw new Error(user.error);
-    set({ userStore: user.data, isStoreLoading: false });
+    const user = await getUser({ email: email, secret: chosenSecret() });
+    if (!user.data?.success)
+      throw new Error(user.serverError || "Failed to fetch user");
+    set({ userStore: user.data.success, isStoreLoading: false });
   },
 }));

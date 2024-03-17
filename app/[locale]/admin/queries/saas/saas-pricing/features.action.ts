@@ -6,6 +6,7 @@ import {
   updateFeature,
 } from "@/src/helpers/db/features.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { prisma } from "@/src/lib/prisma";
 import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 
@@ -84,7 +85,7 @@ export const addNewMMRSFeature = async () => {
 };
 
 export const dbGetFeatures = async () => {
-  const features = await getFeatures({secret: process.env.NEXTAUTH_SECRET ?? ""});
+  const features = await getFeatures({secret: chosenSecret()});
   return features;
 };
 

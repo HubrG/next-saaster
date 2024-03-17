@@ -16,6 +16,7 @@ import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseFloatInput, parseIntInput } from "@/src/helpers/functions/parse";
+import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
@@ -112,12 +113,19 @@ export const PlanCard = ({ plan, className }: Props) => {
   const handleSave = async () => {
     setLoading(true);
     if (!planState.stripeId) {
-      handleDelete();
-      return toaster({
+      toaster({
         description:
-          "Plan has no stripe ID, it has been automaticly archived. Please, create a new Price or fill the stripe ID manually on database.",
+          "Plan has no stripe ID, it has been automaticly archived to fix the problem. You can now dearchived it to retrieve the plan with his StripeId. Note : Check that Stripe webhooks are active.",
         type: "error",
+        duration: 20000,
       });
+      // setTimeOut
+      setTimeout(() => {
+        handleDelete();
+      }, 5000);
+      handleDelete();
+      setLoading(false);
+      return;
     }
     const dataToSet = await updatePlan({
       ...planState,
@@ -125,10 +133,10 @@ export const PlanCard = ({ plan, className }: Props) => {
       trialDays: planState.trialDays ?? 0,
       updatedAt: new Date(),
     });
-    if (dataToSet.error) {
+    if (handleError(dataToSet).error) {
       setLoading(false);
       return toaster({
-        description: dataToSet.error,
+        description: handleError(dataToSet).message,
         type: "error",
       });
     }
@@ -142,7 +150,7 @@ export const PlanCard = ({ plan, className }: Props) => {
     );
     setLoading(false);
     return toaster({
-      description: `Plan ${planState.name} changed successfully`,
+      description: `Plan « ${planState.name} » updated successfully`,
       type: "success",
     });
   };
@@ -159,9 +167,9 @@ export const PlanCard = ({ plan, className }: Props) => {
       deleted: true,
       deletedAt: new Date(),
     });
-    if (dataToSet.error) {
+    if (handleError(dataToSet).error) {
       return toaster({
-        description: dataToSet.error,
+        description: handleError(dataToSet).message,
         type: "error",
       });
     }
@@ -175,7 +183,7 @@ export const PlanCard = ({ plan, className }: Props) => {
         ) as iPlanToFeature[]
       );
       setSaveAndCancel(false);
-      setInitialPlanState({ ...dataToSet.data });
+      // setInitialPlanState(dataToSet.data ?? planState);
       return toaster({
         description: `« ${planState.name} » archived successfully.`,
         type: "success",
@@ -223,14 +231,15 @@ export const PlanCard = ({ plan, className }: Props) => {
           onFocus={(e) =>
             planState.name === "New plan" && e.currentTarget.select()
           }
-         
           className="font-bold text-lg text-center !bg-transparent"
           onChange={(e) => handleInputChange(e, "name")}
         />
         <Textarea
           name="description"
           onFocus={(e) =>
-            planState.description === "New plan description" && e.currentTarget.select()}
+            planState.description === "New plan description" &&
+            e.currentTarget.select()
+          }
           className="text-center !bg-transparent"
           value={planState.description ?? ""}
           onChange={(e) => handleInputChange(e, "description")}

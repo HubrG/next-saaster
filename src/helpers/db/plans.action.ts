@@ -14,6 +14,7 @@ import {
 } from "@/src/types/schemas/dbSchema";
 import { SaasTypes } from "@prisma/client";
 import { z } from "zod";
+import { chosenSecret, verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 import { getFeatures } from "./features.action";
 
@@ -27,7 +28,7 @@ export const getPlans = action(
     secret: z.string(),
   }),
   async ({ secret }): Promise<HandleResponseProps<iPlan[]>> => {
-    if (secret !== process.env.NEXTAUTH_SECRET)
+    if (!verifySecretRequest(secret))
       throw new ActionError("Unauthorized");
     try {
       const plans = await prisma.plan.findMany({
@@ -74,7 +75,7 @@ export const getPlan = action(
     // 🔐 Security
     if (
       (!stripeSignature && !secret) ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
       throw new ActionError("Unauthorized");
@@ -129,7 +130,7 @@ export const createPlan = action(
       if (!plan)
         throw new ActionError("An error has occured while creating the plan");
       const linkFeatures = await getFeatures({
-        secret: process.env.NEXTAUTH_SECRET ?? "",
+        secret: chosenSecret(),
       });
       if (linkFeatures.serverError) throw new Error(linkFeatures.serverError);
       const features = linkFeatures.data?.success as iFeature[];
@@ -241,7 +242,7 @@ export const deletePlan = action(
     if (
       (userSession && userSession?.user.role === "USER") ||
       (!stripeSignature && !secret) ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
       throw new ActionError("Unauthorized");

@@ -11,6 +11,7 @@ import {
   handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { ActionError } from "@/src/lib/safe-actions";
 import { stripeEvents } from "@/src/lib/stripe-events";
@@ -46,8 +47,9 @@ interface stripeCustomerProps {
 
 export class StripeManager {
   private stripe: Stripe;
-
+  private secret: string;
   constructor() {
+    this.secret = chosenSecret();
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
       apiVersion: "2023-10-16",
       typescript: true,
@@ -96,15 +98,20 @@ export class StripeManager {
         });
         if (!createProduct)
           throw new Error("An error has occured while creating the product");
-        const createProductOnBDD = await createOrUpdateProductStripeToBdd({
+        const createProductOnBdd = await createOrUpdateProductStripeToBdd({
           type: "create",
-          stripeProduct: createProduct,
-          id: planId,
+          data: {
+            ...createProduct,
+            statement_descriptor: createProduct.statement_descriptor ?? null,
+            unit_label: createProduct.unit_label ?? null,
+            default_price: (createProduct.default_price as string) ?? "",
+          },
+          planId: planId,
+          secret: this.secret,
         });
-        if (createProductOnBDD.error)
-          throw new Error(
-            "An error has occured while creating the product on the database"
-          );
+
+        if (handleError(createProductOnBdd).error)
+          throw new ActionError(handleError(createProductOnBdd).message);
         const price = await this.stripe.prices.retrieve(
           createProduct.default_price as string
         );
@@ -117,7 +124,7 @@ export class StripeManager {
             product: createProduct.id,
             recurring: price.recurring as any,
           },
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: this.secret,
         });
         if (handleError(priceOnBDD).error)
           throw new ActionError(handleError(priceOnBDD).message);
@@ -131,8 +138,8 @@ export class StripeManager {
         });
         if (!upPlan.data?.success)
           throw new Error("An error has occured while updating the plan");
-        if (createProductOnBDD && priceOnBDD)
-          return { success: true, data: createProductOnBDD.data };
+        if (createProductOnBdd && priceOnBDD)
+          return { success: true, data: createProductOnBdd.data?.success };
         else return { error: "An error has occured" };
         // NOTE : Update
       } else if (type === "update" && id) {
@@ -150,16 +157,18 @@ export class StripeManager {
           throw new Error("An error has occured while updating the product");
         const updateProductOnBDD = await createOrUpdateProductStripeToBdd({
           type: "update",
-          stripeProduct: updateProduct,
-          id: updateProduct.id,
+          data: {
+            ...updateProduct,
+            statement_descriptor: updateProduct.statement_descriptor ?? null,
+            unit_label: updateProduct.unit_label ?? null,
+            default_price: (updateProduct.default_price as string) ?? "",
+          },
+          planId: planId,
+          secret: this.secret,
         });
-        if (updateProductOnBDD.error)
-          throw new Error(
-            "An error has occured while updating the product on the database"
-          );
-        if (updateProductOnBDD)
-          return { success: true, data: updateProductOnBDD.data };
-        else return { error: "An error has occured" };
+        if (handleError(updateProductOnBDD).error)
+          throw new ActionError(handleError(updateProductOnBDD).message);
+        return { success: true, data: updateProductOnBDD.data?.success };
       }
       return { error: "An unknown error has occured" };
     } catch (error) {
@@ -189,9 +198,9 @@ export class StripeManager {
           type: "create",
           data: {
             ...price,
-            product: price.product as string
+            product: price.product as string,
           },
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: this.secret,
         });
         if (handleError(priceOnBDD).error)
           throw new ActionError(handleError(priceOnBDD).message);
@@ -208,9 +217,9 @@ export class StripeManager {
           type: "update",
           data: {
             ...price,
-            product: price.product as string
+            product: price.product as string,
           },
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: this.secret,
         });
         if (handleError(priceOnBDD).error)
           throw new ActionError(handleError(priceOnBDD).message);
@@ -285,7 +294,7 @@ export class StripeManager {
         const createCouponOnBDD = await createOrUpdateCouponStripeToBdd({
           type: "create",
           data: createCoupon as any,
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: this.secret,
         });
         if (handleError(createCouponOnBDD).error)
           throw new ActionError(handleError(createCouponOnBDD).message);
@@ -306,7 +315,7 @@ export class StripeManager {
         const updateCouponOnBDD = await createOrUpdateCouponStripeToBdd({
           type: "update",
           data: updateCoupon as any,
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: this.secret,
         });
         if (handleError(updateCouponOnBDD).error)
           throw new ActionError(handleError(updateCouponOnBDD).message);
@@ -331,7 +340,7 @@ export class StripeManager {
     try {
       const deletedBdd = await deleteStripeCoupon({
         id: couponId,
-        secret: process.env.NEXTAUTH_SECRET ?? "",
+        secret: this.secret,
       });
       if (handleError(deletedBdd).error)
         throw new Error(handleError(deletedBdd).message);

@@ -1,7 +1,7 @@
 "use server";
 import {
-    HandleResponseProps,
-    handleRes,
+  HandleResponseProps,
+  handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action, authAction } from "@/src/lib/safe-actions";
@@ -9,8 +9,9 @@ import { iOrganization } from "@/src/types/db/iOrganization";
 import { z } from "zod";
 import { sendEmail } from "../emails/sendEmail";
 import {
-    isOrganizationOwner,
+  isOrganizationOwner,
 } from "../functions/isUserRole";
+import { chosenSecret, verifySecretRequest } from "../functions/verifySecretRequest";
 
 /**
  * Create an organization
@@ -90,7 +91,7 @@ export const getOrganization = action(
     secret: z.string(),
   }),
   async ({ id, secret }): Promise<HandleResponseProps<iOrganization>> => {
-    if (secret !== process.env.NEXTAUTH_SECRET)
+    if (!verifySecretRequest(secret))
       throw new ActionError("Unauthorized");
     try {
       const organization = await prisma.organization.findUnique({
@@ -230,7 +231,7 @@ export const removePendingUser = action(
     secret,
   }): Promise<HandleResponseProps<iOrganization>> => {
     // 🔐 Security - If internal secret has been sent, we verify if it's the right one (for internal use only)
-    if (secret && secret !== process.env.NEXTAUTH_SECRET) {
+    if (secret && !verifySecretRequest(secret)) {
       return handleRes<iOrganization>({
         error: new ActionError("Unauthorized"),
         statusCode: 401,
@@ -251,7 +252,7 @@ export const removePendingUser = action(
       if (!organization) throw new ActionError("Delete failed");
       const retrieveOrganization = await getOrganization({
         id: organizationId,
-        secret: process.env.NEXTAUTH_SECRET ?? "",
+        secret: chosenSecret(),
       });
       if (!retrieveOrganization) throw new ActionError("No organization found");
       return handleRes<iOrganization>({
@@ -283,7 +284,7 @@ export const acceptInvitationToOrganization = action(
     email,
     secret,
   }): Promise<HandleResponseProps<iOrganization>> => {
-    if (secret !== process.env.NEXTAUTH_SECRET)
+    if (!verifySecretRequest(secret))
       throw new ActionError("Unauthorized");
     try {
       const organization = await prisma.organizationInvitation.findFirst({

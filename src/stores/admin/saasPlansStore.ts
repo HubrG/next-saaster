@@ -1,4 +1,5 @@
 import { getPlans } from "@/src/helpers/db/plans.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { iPlan } from "@/src/types/db/iPlans";
 import { create } from "zustand";
 
@@ -40,7 +41,7 @@ export const useSaasPlansStore = create<Store>()((set) => ({
   },
   fetchSaasPlan: async () => {
     set({ isPlanStoreLoading: true });
-    const saasPlans = await getPlans({ secret: process.env.NEXTAUTH_SECRET ?? "" });
+    const saasPlans = await getPlans({ secret: chosenSecret() });
     if (!saasPlans.data?.success) {
       set({ isPlanStoreLoading: false });
       console.error(saasPlans.serverError || "Failed to fetch plans");

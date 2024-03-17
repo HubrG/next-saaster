@@ -1,4 +1,5 @@
 import { getStripePrices } from "@/src/helpers/db/stripePrices.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { iStripePrice } from "@/src/types/db/iStripePrices";
 import { create } from "zustand";
 
@@ -13,7 +14,7 @@ export const useSaasStripePricesStore = create<Store>()((set) => ({
   setSaasStripePrices: (saasStripePrices) => set({ saasStripePrices }),
   fetchSaasStripePrices: async () => {
     const saasStripePrices = await getStripePrices({
-      secret: process.env.NEXTAUTH_SECRET ?? "",
+      secret: chosenSecret(),
     });
     if (saasStripePrices.serverError || saasStripePrices.validationErrors)
       throw new Error(

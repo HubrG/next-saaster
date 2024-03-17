@@ -2,6 +2,7 @@
 import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
 import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import {
   HandleResponseProps,
   handleRes,
@@ -49,7 +50,7 @@ export const deleteCoupon = async (couponId: string) => {
   const coupon = await stripe.removeCoupon(couponId);
   if (coupon) {
     const allCoupons = await getStripeCoupons({
-      secret: process.env.NEXTAUTH_SECRET ?? "",
+      secret: chosenSecret(),
     });
     return allCoupons.data?.success as iStripeCoupon[];
   } else {

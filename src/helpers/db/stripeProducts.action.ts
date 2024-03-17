@@ -1,176 +1,285 @@
 "use server";
-import { getErrorMessage } from "@/src/lib/error-handling/getErrorMessage";
+import { handleError } from "@/src/lib/error-handling/handleError";
+import {
+  HandleResponseProps,
+  handleRes,
+} from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { iPlan } from "@/src/types/db/iPlans";
+import { ActionError, action } from "@/src/lib/safe-actions";
 import { iStripeProduct } from "@/src/types/db/iStripeProducts";
-import { StripeProduct } from "@prisma/client";
-import Stripe from "stripe";
+import { stripeProductSchema } from "@/src/types/schemas/dbSchema";
+import { JsonValue } from "@prisma/client/runtime/library";
+import { z } from "zod";
+import { verifySecretRequest } from "../functions/verifySecretRequest";
+import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 
-export const getStripeProducts = async (): Promise<{
-  success?: boolean;
-  data?: StripeProduct[];
-  error?: string;
-}> => {
-  try {
-    const stripeProducts = await prisma.stripeProduct.findMany();
-    if (!stripeProducts) throw new Error("No stripe products found");
-    return { success: true, data: stripeProducts as StripeProduct[] };
-  } catch (error) {
-    return { error: getErrorMessage(error) };
+/**
+ * Get all stripe products
+ * @param {string} secret - The secret (optional)
+ * @returns {HandleResponseProps<iStripeProduct[]>} The response
+ * @throws Will throw an error if the user secret is not authorized
+ *
+ */
+export const getStripeProducts = action(
+  z.object({ secret: z.string() }),
+  async ({ secret }): Promise<HandleResponseProps<iStripeProduct[]>> => {
+    // 🔐 Security
+    if (secret && !verifySecretRequest(secret))
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const stripeProducts = await prisma.stripeProduct.findMany({ include });
+      if (!stripeProducts) throw new ActionError("No stripe product found");
+      return handleRes<iStripeProduct[]>({
+        success: stripeProducts,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iStripeProduct[]>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
   }
-};
+);
 
-export const getStripeProduct = async (
-  id: string
-): Promise<{
-  success?: boolean;
-  data?: StripeProduct;
-  error?: string;
-}> => {
-  try {
-    const stripeProduct = await prisma.stripeProduct.findUnique({
-      where: { id: id },
-      include: {
-        prices: true,
-      },
-    });
-    if (!stripeProduct) throw new Error("No Stripe Product found");
-    return { success: true, data: stripeProduct as iStripeProduct };
-  } catch (error) {
-    // console.error(error);
-    return { error: getErrorMessage(error) };
+/**
+ * Get a stripe product by id
+ * @param {string} id - The id of the stripe product
+ * @param {string} secret - The secret (optional)
+ */
+export const getStripeProduct = action(
+  z.object({
+    id: z.string(),
+    secret: z.string().optional(),
+    stripeSignature: z.string().optional(),
+  }),
+  async ({
+    id,
+    secret,
+    stripeSignature,
+  }): Promise<HandleResponseProps<iStripeProduct>> => {
+    // 🔐 Security
+    if (
+      (secret && !verifySecretRequest(secret)) ||
+      (!stripeSignature && !secret) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const stripeProduct = await prisma.stripeProduct.findUnique({
+        where: { id: id },
+        include: {
+          prices: true,
+        },
+      });
+      if (!stripeProduct) throw new Error("No Stripe Product found");
+      return handleRes<iStripeProduct>({
+        success: stripeProduct,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iStripeProduct>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
   }
-};
+);
 
-export const createStripeProduct = async (
-  data: Partial<iStripeProduct>
-): Promise<{
-  success?: boolean;
-  data?: any;
-  error?: string;
-}> => {
-  try {
-    const stripeProduct = await prisma.stripeProduct.create({
-      data: {
-        id: data.id ?? "",
-        name: data.name ?? "",
-        active: data.active ?? false,
-        description: data.description,
-        default_price: data.default_price,
-        metadata: data.metadata ?? {},
+export const createStripeProduct = action(
+  stripeProductSchema,
+  async (
+    { data, secret },
+    { userSession }
+  ): Promise<HandleResponseProps<iStripeProduct>> => {
+    // 🔐 Security
+    if (
+      (userSession && userSession?.user.role === "USER") ||
+      (secret && !verifySecretRequest(secret))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const stripeProduct = await prisma.stripeProduct.create({
+        data: {
+          id: data.id ?? "",
+          name: data.name ?? "",
+          active: data.active ?? false,
+          description: data.description,
+          default_price: data.default_price,
+          metadata: data.metadata ?? {},
+          unit_label: data.unit_label ?? null,
+          statement_descriptor: data.statement_descriptor ?? null,
+          PlanId: data.PlanId,
+        },
+        include,
+      });
+      return handleRes<iStripeProduct>({
+        success: stripeProduct,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iStripeProduct>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
+
+export const updateStripeProduct = action(
+  stripeProductSchema,
+  async (
+    { data, secret },
+    { userSession }
+  ): Promise<HandleResponseProps<iStripeProduct>> => {
+    // 🔐 Security
+    if (
+      (userSession && userSession?.user.role === "USER") ||
+      (secret && !verifySecretRequest(secret))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const stripeProduct = await prisma.stripeProduct.update({
+        where: { id: data.id },
+        data: {
+          name: data.name,
+          active: data.active,
+          description: data.description,
+          default_price: data.default_price as string,
+          metadata: data.metadata ?? {},
+          unit_label: data.unit_label,
+          statement_descriptor: data.statement_descriptor,
+        },
+        include,
+      });
+      return handleRes<iStripeProduct>({
+        success: stripeProduct,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iStripeProduct>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
+
+/**
+ * Delete a stripe product
+ * @param {string} id - The id of the stripe product
+ * @returns {HandleResponseProps<iStripeProduct>} The response
+ * @throws Will throw an error if the user secret is not authorized
+ */
+export const deleteProduct = action(
+  z.object({
+    id: z.string(),
+    secret: z.string().optional(),
+    stripeSignature: z.string().optional(),
+  }),
+  async (
+    { id, stripeSignature, secret },
+    { userSession }
+  ): Promise<HandleResponseProps<iStripeProduct>> => {
+    // 🔐 Security
+    if (
+      (userSession && userSession?.user.role === "USER") ||
+      (!stripeSignature && !secret) ||
+      (secret && !verifySecretRequest(secret)) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const product = await prisma.stripeProduct.delete({
+        where: { id: id },
+        include,
+      });
+      if (!product) throw new Error("No Stripe Product found");
+      return handleRes<iStripeProduct>({
+        success: product,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iStripeProduct>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
+
+export const createOrUpdateProductStripeToBdd = action(
+  stripeProductSchema,
+  async (
+    { type, planId, data, stripeSignature, secret },
+    { userSession }
+  ): Promise<HandleResponseProps<iStripeProduct>> => {
+    // 🔐 Security
+    if (
+      (userSession && userSession?.user.role === "USER") ||
+      (!stripeSignature && !secret) ||
+      (secret && !verifySecretRequest(secret)) ||
+      (stripeSignature && !verifyStripeRequest(stripeSignature))
+    )
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const reformatData = {
+        ...data,
+        id: data.id,
+        default_price: (data.default_price as string) ?? "",
+        metadata: (data.metadata as JsonValue) ?? {},
         unit_label: data.unit_label ?? null,
         statement_descriptor: data.statement_descriptor ?? null,
-        PlanId: data.PlanId,
-      },
-    });
-    return { success: true, data: stripeProduct as iStripeProduct };
-  } catch (error) {
-    console.error(error);
-    return { error: getErrorMessage(error) };
-  }
-};
-
-export const updateStripeProduct = async (
-  data: Partial<iStripeProduct>
-): Promise<{
-  success?: boolean;
-  data?: any;
-  error?: string;
-}> => {
-  try {
-    const stripeProduct = await prisma.stripeProduct.update({
-      where: { id: data.id },
-      data: {
         name: data.name,
         active: data.active,
+        PlanId: planId,
         description: data.description,
-        default_price: data.default_price as string,
-        metadata: data.metadata ?? {},
-        unit_label: data.unit_label,
-        statement_descriptor: data.statement_descriptor,
-      },
-      include: {
-        prices: true,
-        PlanRelation: true,
-      },
-    });
-    return { success: true, data: stripeProduct as StripeProduct };
-  } catch (error) {
-    console.error(error);
-    return { error: getErrorMessage(error) };
-  }
-};
-
-export const deleteProduct = async (
-  id: string
-): Promise<{ success?: boolean; data?: any; error?: string }> => {
-  try {
-    const product = await prisma.stripeProduct.delete({
-      where: { id: id },
-    });
-    return { success: true, data: product };
-  } catch (error) {
-    return { error: getErrorMessage(error) };
-  }
-};
-
-export type CreateOrUpdateProductType = {
-  type: "create" | "update" | "update_from_admin";
-  stripeProduct: iStripeProduct | Stripe.Product;
-  id?: string;
-};
-export const createOrUpdateProductStripeToBdd = async ({
-  type,
-  stripeProduct,
-  id,
-}: CreateOrUpdateProductType): Promise<{
-  success?: boolean;
-  data?: any;
-  error?: string;
-}> => {
-  try {
-    const productData = {
-      ...stripeProduct,
-      id: stripeProduct.id,
-      default_price: stripeProduct.default_price,
-      metadata: stripeProduct.metadata ?? {},
-      unit_label: stripeProduct.unit_label ?? null,
-      statement_descriptor: stripeProduct.statement_descriptor ?? null,
-      name: stripeProduct.name,
-      active: stripeProduct.active,
-      PlanId: id,
-      description: stripeProduct.description,
-    };
-    // NOTE : Create
-    if (type === "create") {
-      const product = await createStripeProduct(productData as iStripeProduct);
-      return { success: true, data: product };
-    }
-    // NOTE : Update
-    else if (type === "update") {
-      const product = (await updateStripeProduct(productData as iStripeProduct))
-        .data as {
-        id: string;
-        name: string;
-        active: boolean;
-        description: string;
-        default_price: string;
-        metadata: any;
-        unit_label: string;
-        statement_descriptor: string;
-        PlanId: string;
-        PlanRelation: iPlan;
-        error: string;
-        success: boolean;
       };
-      if (product.error) throw new Error(product.error);
-
-      return { success: true, data: product };
-    } else {
-      return { error: "An unknown error occurred" };
+      // NOTE : Create
+      let product;
+      if (type === "create") {
+        product = await createStripeProduct({
+          data: reformatData,
+          secret: process.env.NEXTAUTH_SECRET,
+        });
+      }
+      // NOTE : Update
+      else if (type === "update") {
+        product = await updateStripeProduct({
+          data: reformatData,
+          secret: process.env.NEXTAUTH_SECRET,
+        });
+      } else {
+        throw new ActionError("Invalid type");
+      }
+      if (handleError(product).error)
+        throw new ActionError(handleError(product).message);
+      return handleRes<iStripeProduct>({
+        success: product.data?.success,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iStripeProduct>({
+        error: ActionError,
+        statusCode: 500,
+      });
     }
-  } catch (error) {
-    console.error(error);
-    return { error: getErrorMessage(error) };
   }
+);
+
+const include = {
+  prices: true,
+  PlanRelation: true,
 };

@@ -1,6 +1,7 @@
 import { Card } from "@/src/components/ui/card";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
 import { getOrganization } from "@/src/helpers/db/organization.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
 import { TeamInvitationIndex } from "./components/Index";
@@ -15,7 +16,7 @@ export default async function TeamInvitation({
   let notFound = false;
   const organization = await getOrganization({
     id: searchParams?.organizationId ?? "",
-    secret: process.env.NEXTAUTH_SECRET ?? "",
+    secret: chosenSecret(),
   });
 console.log(organization)
 

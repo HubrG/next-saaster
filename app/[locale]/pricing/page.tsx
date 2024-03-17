@@ -1,6 +1,7 @@
 import { SwitchRecurrence } from "@/app/[locale]/pricing/components/SwitchRecurrence";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
 import { getUser } from "@/src/helpers/db/users.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
@@ -25,8 +26,8 @@ export default async function Pricing({
   if (session) {
     const email = session?.user?.email;
     if (email) {
-      const user = await getUser({ email: email });
-      if (user.data?.subscriptions?.find((sub) => sub.isActive)){
+      const user = await getUser({ email: email, secret: chosenSecret() });
+      if (user.data?.success?.subscriptions?.find((sub) => sub.isActive)) {
         redirect("/dashboard#Billing");
       }
     }

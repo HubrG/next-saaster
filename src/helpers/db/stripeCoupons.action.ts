@@ -9,6 +9,7 @@ import { ActionError, action } from "@/src/lib/safe-actions";
 import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import { stripeCouponSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
+import { chosenSecret, verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 
 /**
@@ -22,7 +23,7 @@ export const getStripeCoupons = action(
   }),
   async ({ secret }): Promise<HandleResponseProps<iStripeCoupon[]>> => {
     // 🔐 Security
-    if (secret !== process.env.NEXTAUTH_SECRET) {
+    if (!verifySecretRequest(secret)) {
       throw new ActionError("Unauthorized");
     }
     // 🔓 Unlocked
@@ -63,7 +64,7 @@ export const createStripeCoupon = action(
     // 🔐 Security
     if (
       (userSession && userSession?.user.role === "USER") ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET)
+      (secret && !verifySecretRequest(secret))
     )
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
@@ -101,7 +102,7 @@ export const updateStripeCoupon = action(
     // 🔐 Security
     if (
       (userSession && userSession?.user.role === "USER") ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET)
+      (secret && !verifySecretRequest(secret))
     )
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
@@ -144,7 +145,7 @@ export const deleteStripeCoupon = action(
     // 🔐 Security
     if (
       (userSession && userSession?.user.role === "USER") ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
       throw new ActionError("Unauthorized");
@@ -191,7 +192,7 @@ export const createOrUpdateCouponStripeToBdd = action(
     if (
       (userSession && userSession?.user.role === "USER") ||
       (!stripeSignature && !secret) ||
-      (secret && secret !== process.env.NEXTAUTH_SECRET) ||
+      (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
       throw new ActionError("Unauthorized");
@@ -201,12 +202,12 @@ export const createOrUpdateCouponStripeToBdd = action(
       if (type === "create") {
         coupon = await createStripeCoupon({
           data,
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: chosenSecret(),
         });
       } else if (type === "update") {
         coupon = await updateStripeCoupon({
           data,
-          secret: process.env.NEXTAUTH_SECRET ?? "",
+          secret: chosenSecret(),
         });
       } else {
         throw new ActionError("Invalid type");

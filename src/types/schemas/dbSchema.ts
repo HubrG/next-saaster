@@ -3,6 +3,8 @@ import {
   MeteredMode,
   Plan,
   SaasTypes,
+  SubscriptionStatus,
+  UserRole,
 } from "@prisma/client";
 import { z } from "zod";
 
@@ -128,7 +130,7 @@ export const stripePriceSchema = z.object({
     currency: z.string(),
     nickname: z.string().nullable().optional(),
     product: z.string(),
-    metadata:  z.any().nullable().optional(),
+    metadata: z.any().nullable().optional(),
     recurring: z.any().nullable().optional(),
     recurring_interval: z.string().nullable().optional(),
     recurring_interval_count: z.number().nullable().optional(),
@@ -152,6 +154,24 @@ export const stripePriceSchema = z.object({
   stripeSignature: z.string().optional(),
 });
 
+export const stripeProductSchema = z.object({
+  data: z.object({
+    id: z.string(),
+    name: z.string(),
+    active: z.boolean(),
+    description: z.string().nullable(),
+    default_price: z.string().nullable(),
+    metadata: z.any().nullable().optional(),
+    unit_label: z.string().nullable(),
+    statement_descriptor: z.string().nullable(),
+    PlanId: z.string().optional(),
+  }),
+  secret: z.string().optional(),
+  type: z.enum(["create", "update"]).optional(),
+  stripeSignature: z.string().optional(),
+  planId: z.string().cuid().optional(),
+});
+
 export const createOrUpdatePlanStripeToBddSchema = z.object({
   type: z.enum(["create", "update"]),
   stripePlan: z
@@ -163,4 +183,108 @@ export const createOrUpdatePlanStripeToBddSchema = z.object({
     })
     .partial(),
   stripeSignature: z.string().optional(),
+});
+
+export const updatePlanInAdminSectionSchema = z.object({
+  id: z.string().cuid(),
+  name: z.string().nullable(),
+  description: z.string().nullable(),
+  saasType: z.nativeEnum(SaasTypes),
+  oncePrice: z.number().nonnegative().optional(),
+  monthlyPrice: z.number().nonnegative().optional(),
+  yearlyPrice: z.number().nonnegative().optional(),
+  deleted: z.boolean().nullable().optional(),
+  active: z.boolean(),
+  stripeId: z.string().nullable(),
+  meteredUnit: z.number().nullable().optional(),
+  meteredMode: z.nativeEnum(MeteredMode).nullable().optional(),
+  meteredBillingPeriod: z
+    .nativeEnum(MeteredBillingPeriod)
+    .nullable()
+    .optional(),
+  stripeYearlyPriceId: z.string().nullable().optional(),
+  stripeMonthlyPriceId: z.string().nullable().optional(),
+  creditAllouedByMonth: z.number().nonnegative().optional(),
+  isCustom: z.boolean(),
+  isPopular: z.boolean(),
+  isRecommended: z.boolean(),
+  isTrial: z.boolean(),
+  isFree: z.boolean(),
+  trialDays: z.number().nonnegative().nullable().optional(),
+  position: z.number().nonnegative().nullable().optional(),
+  unitLabel: z.string().nullable().optional(),
+  deletedAt: z.date().nullable().optional(),
+  updatedAt: z.date().nullable().optional(),
+}) as z.ZodType<Partial<Plan>>;
+
+
+export const createSubcriptionPaymentSchema = z.object({
+  data: z.object({
+    id: z.string(),
+    subscriptionId: z.string(),
+    stripePaymentIntentId: z.string(),
+    amount: z.number(),
+    currency: z.string(),
+    status: z.string(),
+  }),
+  stripeSignature: z.string().optional(),
+  secret: z.string().optional(),
+});
+
+export const updateSubscriptionSchema = z.object({
+  stripeSignature: z.string().optional(),
+  secret: z.string().optional(),
+  data: z.object({
+    id: z.string(),
+    priceId: z.string().optional(),
+    status: z.nativeEnum(SubscriptionStatus).optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    stripeCustomerId: z.string().optional(),
+    allDatas: z.any().optional(),
+    nextPaymentAttempt: z.number().optional(),
+  }),
+});
+
+export const userSubscriptionSchema = z.object({
+  data: z.object({
+    userId: z.string().cuid(),
+    creditRemaining: z.number().optional(),
+    subscriptionId: z.string(),
+    isActive: z.boolean(),
+  }),
+  stripeSignature: z.string(),
+});
+
+/*
+id              String             @id @default(cuid())
+  name            String?
+  email           String?            @unique
+  emailVerified   DateTime?
+  image           String?
+  password        String?
+  date            DateTime?          @default(now())
+  customerId      String?
+  createdAt       DateTime?          @default(now())
+  updatedAt       DateTime?          @updatedAt
+  planId          String?
+  organizationId  String?
+  role            UserRole           @default(USER)
+  */
+export const updateUserSchema = z.object({
+  data: z.object({
+    id: z.string().cuid().optional(),
+    name: z.string().nullable().optional(),
+    email: z.string().email(),
+    emailVerified: z.date().nullable().optional(),
+    image: z.string().nullable().optional(),
+    password: z.string().nullable().optional(),
+    date: z.date().nullable().optional(),
+    customerId: z.string().nullable().optional(),
+    planId: z.string().nullable().optional(),
+    organizationId: z.string().nullable().optional(),
+    role: z.nativeEnum(UserRole).optional(),
+  }),
+  stripeSignature: z.string().optional(),
+  secret: z.string().optional(),
 });

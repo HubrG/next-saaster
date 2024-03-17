@@ -1,4 +1,5 @@
 import { getFeatures } from "@/src/helpers/db/features.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { iFeature } from "@/src/types/db/iFeatures";
 import { create } from "zustand";
 
@@ -17,7 +18,7 @@ export const useSaasFeaturesStore = create<Store>()((set) => ({
   setSaasFeatures: (saasFeatures) =>
     set({ saasFeatures, isStoreLoading: false }),
   fetchSaasFeatures: async () => {
-      const saasFeatures = await getFeatures({ secret: process.env.NEXTAUTH_SECRET ?? "" });
+      const saasFeatures = await getFeatures({ secret: chosenSecret() });
       if (saasFeatures.data?.success) {
         set({
           saasFeatures: saasFeatures.data?.success,

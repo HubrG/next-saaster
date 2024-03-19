@@ -359,6 +359,7 @@ export const removeUserFromOrganization = authAction(
           },
         },
       });
+      // 
       if (!user) throw new ActionError("User not found");
       const organization = await prisma.userSubscription.deleteMany({
         where: {

@@ -1,11 +1,11 @@
 import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { iPlan } from "@/src/types/db/iPlans";
 import {
-    SubItemsPlan,
-    SubItemsPrice,
-    SubscriptionDiscount,
-    SubscriptionItem,
-    iUsers,
+  SubItemsPlan,
+  SubItemsPrice,
+  SubscriptionDiscount,
+  SubscriptionItem,
+  iUsers,
 } from "@/src/types/db/iUsers";
 import { Subscription, SubscriptionStatus } from "@prisma/client";
 import Stripe from "stripe";
@@ -63,8 +63,8 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
   const priceWithDiscount = () => {
     if (
       planDiscount?.coupon &&
-      planDiscount?.coupon.amount_off &&
-      planDiscount
+      planDiscount?.coupon.amount_off !== undefined &&
+      planDiscount?.coupon.amount_off !== null
     ) {
       return (
         (subscription?.price?.unit_amount &&
@@ -74,8 +74,8 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
       );
     } else if (
       planDiscount?.coupon &&
-      planDiscount?.coupon.percent_off &&
-      planDiscount
+      planDiscount?.coupon.percent_off !== undefined &&
+      planDiscount?.coupon.percent_off !== null
     ) {
       return (
         (subscription?.price?.unit_amount &&
@@ -120,11 +120,11 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
       (subscription?.price?.unit_amount &&
         subscription?.price?.unit_amount / 100) ??
       0,
-    planPriceWithDiscount:
-      priceWithDiscount() ??
-      (subscription?.price?.unit_amount &&
-        subscription?.price?.unit_amount / 100) ??
-      0,
+   planPriceWithDiscount:
+    priceWithDiscount() ??
+    (subscription?.price?.unit_amount &&
+      subscription?.price?.unit_amount / 100) ??
+    0,
     currency: subscription?.price?.currency ?? "USD",
     planStatus: subscription?.status ?? "active",
     planDiscount: planDiscount,

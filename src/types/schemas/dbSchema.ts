@@ -248,7 +248,7 @@ export const updateSubscriptionSchema = z.object({
 
 export const userSubscriptionSchema = z.object({
   data: z.object({
-    userId: z.string().cuid(),
+    userId: z.string(),
     creditRemaining: z.number().optional(),
     subscriptionId: z.string(),
     isActive: z.boolean(),
@@ -256,21 +256,6 @@ export const userSubscriptionSchema = z.object({
   stripeSignature: z.string(),
 });
 
-/*
-id              String             @id @default(cuid())
-  name            String?
-  email           String?            @unique
-  emailVerified   DateTime?
-  image           String?
-  password        String?
-  date            DateTime?          @default(now())
-  customerId      String?
-  createdAt       DateTime?          @default(now())
-  updatedAt       DateTime?          @updatedAt
-  planId          String?
-  organizationId  String?
-  role            UserRole           @default(USER)
-  */
 export const updateUserSchema = z.object({
   data: z.object({
     id: z.string().cuid().optional(),

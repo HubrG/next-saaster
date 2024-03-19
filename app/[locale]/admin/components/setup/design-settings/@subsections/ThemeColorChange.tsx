@@ -39,7 +39,6 @@ export const ThemeColorChange = ({ set, setReseted, reseted }: Props) => {
   );
   useEffect(() => {
     if (reseted) {
-      console.log("resetCssTheme", reseted, cssTheme, actualTheme);
       handleChangeColorTheme(data.theme ?? "sandra");
     }
   }, [handleChangeColorTheme, reseted, data.theme, cssTheme, actualTheme]);

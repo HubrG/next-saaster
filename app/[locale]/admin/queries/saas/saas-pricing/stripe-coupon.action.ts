@@ -1,7 +1,7 @@
 "use server";
 import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
 import { getStripeCoupons } from "@/src/helpers/db/stripeCoupons.action";
-import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
+import { isAdmin, isSuperAdmin } from "@/src/helpers/functions/isUserRole";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import {
   HandleResponseProps,
@@ -22,17 +22,24 @@ const stripe = new StripeManager();
 export const addStripeCoupon = async (
   data: Partial<StripeCoupon>
 ): Promise<HandleResponseProps<iStripeCoupon>> => {
+  if (!isAdmin) return handleRes<iStripeCoupon>({ statusCode: 401 });
   try {
     const coupon = await stripe.createOrUpdateCoupon("create", {
       duration: data.duration ?? "once",
       duration_in_months: data.duration_in_months ?? null,
       max_redemptions: data.max_redemptions ?? null,
       name: data.name ?? "",
-      percent_off: data.percent_off ?? 0,
+      percent_off: data.percent_off == 0 ? undefined : data.percent_off,
+      amount_off:
+        data && data.amount_off == 0
+          ? undefined
+          : (data?.amount_off ?? 0) * 100,
+      currency: data.currency ?? "usd",
       metadata: data.metadata ?? {},
       times_redeemed: data.times_redeemed ?? 0,
       valid: data.valid ?? true,
     });
+
     if (!coupon.success) throw new ActionError("Coupon could not be created");
     return handleRes<iStripeCoupon>({
       success: coupon.success,

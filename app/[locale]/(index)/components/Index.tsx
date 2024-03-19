@@ -8,7 +8,6 @@ export const Index = () => {
   const isClient = useIsClient();
   const { userStore } = useUserStore();
   if (!isClient) return <Loader />;
-  console.log(userStore);
   return (
    
     <></>

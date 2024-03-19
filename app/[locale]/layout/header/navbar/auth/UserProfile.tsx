@@ -17,6 +17,7 @@ import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { UserRole } from "@prisma/client";
+import { upperCase } from "lodash";
 import { CreditCard, User, Wrench } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import { DropdownMenuItemLogout } from "./LogoutButton";
@@ -46,16 +47,23 @@ export const UserProfile = ({ className }: UserProfileProps) => {
           <div className="w-8  userNavbarDiv">
             <Avatar className="!no-underline">
               {userStore?.image && (
-                <AvatarImage src={userStore.image} className="" alt="@shadcn" />
+                <AvatarImage
+                  src={userStore.image}
+                  className=""
+                  alt={userStore.name ?? "User avatar"}
+                />
               )}
               <AvatarFallback
                 className="!no-underline"
                 style={{ textDecoration: "transparent" }}>
                 <span className="!no-underline">
-                  {userStore?.name
-                  ?.toString()
-                  .split(" ")
-                  .map((n) => n[0])}
+                  {upperCase(
+                    userStore?.name
+                      ?.toString()
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                  )}
                 </span>
               </AvatarFallback>
             </Avatar>
@@ -82,17 +90,14 @@ export const UserProfile = ({ className }: UserProfileProps) => {
                   <div className="progressTokenVoid"></div>
                 </div>
               </div>
-                <Tooltip
-                  id="remainingTooltip"
-                  opacity={1}
-                  place="bottom"
-                  className="tooltip flex flex-col">
-                    <span>
-                    {saasSettings.creditName} remaining
-                     : x% 
-                    </span>
-                     50 &nbsp;/&nbsp; 100
-                </Tooltip>
+              <Tooltip
+                id="remainingTooltip"
+                opacity={1}
+                place="bottom"
+                className="tooltip flex flex-col">
+                <span>{saasSettings.creditName} remaining : x%</span>
+                50 &nbsp;/&nbsp; 100
+              </Tooltip>
               {className && <div className="ml-5">2%</div>}
             </>
           )}

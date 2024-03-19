@@ -64,7 +64,6 @@ export const PlanCard = ({ plan, className }: Props) => {
 
   const handleShowOptions = () => {
     setShowOptions(!showOptions);
-    console.log(showOptions);
   };
   // Handle input change, and manage clashes
   const handleInputChange = (e: any, name: string) => {

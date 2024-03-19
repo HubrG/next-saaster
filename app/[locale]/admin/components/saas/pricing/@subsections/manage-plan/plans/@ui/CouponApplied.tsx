@@ -2,12 +2,15 @@
 
 import { revokeCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import currenciesData from "@/src/jsons/currencies.json";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { Currencies } from "@/src/types/Currencies";
 import { iPlan } from "@/src/types/db/iPlans";
 import { MinusCircle } from "lucide-react";
 import { Tooltip } from "react-tooltip";
+
 type Props = {
   plan: iPlan;
   recurrence: "monthly" | "yearly" | "once";
@@ -16,6 +19,7 @@ type Props = {
   onceP?: number;
   className?: string;
 };
+
 export const CouponApplied = ({
   plan,
   recurrence,
@@ -28,17 +32,36 @@ export const CouponApplied = ({
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { saasSettings } = useSaasSettingsStore();
   const planCoupons = saasPlans.find((p) => p.id === plan.id)?.coupons;
+  const currencies = currenciesData as Currencies;
 
-  const calculYearlyPriceWithDiscount = (price: number, discount: number) => {
-    return price - price * (discount / 100);
+  const calculatePriceWithDiscount = (
+    price: number,
+    discount: number,
+    mode: "percent" | "fixed"
+  ) => {
+    if (mode === "percent") {
+      return price - price * (discount / 100);
+    } else if (mode === "fixed") {
+      return price - discount;
+    }
+    return price;
   };
-  const calculMonthlyPriceWithDiscount = (price: number, discount: number) => {
-    return price - price * (discount / 100);
-  };
+ const calculatePrice = (price: number, coupon: any) => {
+   let discount = 0;
+   let mode = "fixed"; 
 
-  const calculOncePriceWithDiscount = (price: number, discount: number) => {
-    return price - price * (discount / 100);
-  };
+   if (coupon?.percent_off) {
+     discount = coupon.percent_off;
+     mode = "percent";
+   } else if (coupon?.amount_off) {
+     discount = coupon.amount_off;
+     mode = "fixed";
+   }
+
+   const discountedPrice =
+     calculatePriceWithDiscount(price * 100, discount, mode as "percent" | "fixed") / 100;
+   return discountedPrice.toFixed(2);
+ };
   const handleRevokeCoupon = async (couponId: string) => {
     const revoke = await revokeCoupon(couponId);
     if (revoke) {
@@ -60,14 +83,14 @@ export const CouponApplied = ({
 
       toaster({
         type: "success",
-        description: `Coupon has been revoke to the plan ${
+        description: `Coupon has been revoked from the plan ${
           recurrence && `for ${recurrence} price`
         }`,
       });
     } else {
       toaster({
         type: "error",
-        description: `Coupon could not be applied to the plan ${
+        description: `Failed to revoke coupon from the plan ${
           recurrence && `for ${recurrence} price`
         }`,
       });
@@ -92,13 +115,17 @@ export const CouponApplied = ({
                 className=" text-destructive opacity-80 hover:opacity-100 hover:cursor-pointer"
               />
               <p className="text-xs flex flex-row font-light self-center">
-                <span>-{stripeCoupon?.percent_off ?? "Coupon"}%{" "}
-                {stripeCoupon?.duration === "once"
-                  ? "for once"
-                  : stripeCoupon?.duration === "repeating"
-                  ? stripeCoupon?.duration_in_months + " months"
-                  : "for lifetime"}
-                  </span>
+                <span>
+                  - {stripeCoupon?.percent_off
+                        ? stripeCoupon?.percent_off + "%"
+                        : ((stripeCoupon?.amount_off??0)/100) +
+                          `${currencies[stripeCoupon?.currency ?? "usd"]?.sigle}`}{" "}
+                  {stripeCoupon?.duration === "once"
+                    ? "for once"
+                    : stripeCoupon?.duration === "repeating"
+                    ? stripeCoupon?.duration_in_months + " months"
+                    : "for lifetime"}
+                </span>
                 <small className="opacity-50">
                   {stripeCoupon?.name} {stripeCoupon?.id}
                 </small>
@@ -106,28 +133,13 @@ export const CouponApplied = ({
                   Tot.{" "}
                   {recurrence === "monthly" &&
                     monthlyP &&
-                    (
-                      calculMonthlyPriceWithDiscount(
-                        monthlyP * 100,
-                        stripeCoupon?.percent_off ?? 0
-                      ) / 100
-                    ).toFixed(2)}
+                    calculatePrice(monthlyP, stripeCoupon)}
                   {recurrence === "yearly" &&
                     yearlyP &&
-                    (
-                      calculYearlyPriceWithDiscount(
-                        yearlyP * 100,
-                        stripeCoupon?.percent_off ?? 0
-                      ) / 100
-                    ).toFixed(2)}{" "}
+                    calculatePrice(yearlyP, stripeCoupon)}
                   {recurrence === "once" &&
                     onceP &&
-                    (
-                      calculOncePriceWithDiscount(
-                        onceP * 100,
-                        stripeCoupon?.percent_off ?? 0
-                      ) / 100
-                    ).toFixed(2)}
+                    calculatePrice(onceP, stripeCoupon)}
                   {saasSettings?.currency}
                 </small>
               </p>

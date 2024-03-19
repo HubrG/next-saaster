@@ -162,7 +162,7 @@ export const PriceCardHeader = ({
           )}
           {!plan.isCustom ? (
           <>
-          {price.percent_off ? (
+          {price.percent_off || price.amount_off ? (
             <>
               <span className="price-stroke">
                 {price.price}

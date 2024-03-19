@@ -1,6 +1,6 @@
 import {
   HandleResponseProps,
-  handleRes
+  handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action } from "@/src/lib/safe-actions";
@@ -104,24 +104,61 @@ export const createUserSubscription = action(
   async ({
     stripeSignature,
     data,
-  }): Promise<HandleResponseProps<iUserSubscription>> => {
+  }): Promise<HandleResponseProps<iUserSubscription[] | iUserSubscription>> => {
     // 🔐 Security
     if (!verifyStripeRequest(stripeSignature))
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
     try {
-      // Ensure that the items property is of the correct type
-
-      const subscription = await prisma.userSubscription.create({
-        data: data,
-        include,
+      // Get the user
+      const user = await prisma.user.findUnique({
+        where: {
+          id: data.userId,
+        },
       });
-      if (!subscription)
-        throw new ActionError("Problem while updating users subscription");
-      return handleRes<iUserSubscription>({
-        success: subscription,
-        statusCode: 200,
-      });
+      // We check if he has an organization. If yes, we add the subscription to all user of the organization
+      if (user?.organizationId) {
+        const users = await prisma.user.findMany({
+          where: {
+            organizationId: user.organizationId,
+          },
+        });
+        const userSubscriptions = users.map((user) => {
+          return prisma.userSubscription.create({
+            data: {
+              userId: user.id,
+              subscriptionId: data.subscriptionId,
+              isActive: data.isActive,
+              creditRemaining: data.creditRemaining,
+            },
+            include,
+          });
+        });
+        const subscriptions = await Promise.all(userSubscriptions);
+        if (!subscriptions)
+          throw new ActionError("Problem while updating users subscription");
+        return handleRes<iUserSubscription[]>({
+          success: subscriptions,
+          statusCode: 200,
+        });
+      } else {
+        // If the user is not part of an organization, we just create the subscription for him
+        const subscription = await prisma.userSubscription.create({
+          data: {
+            userId: data.userId,
+            subscriptionId: data.subscriptionId,
+            isActive: data.isActive,
+            creditRemaining: data.creditRemaining,
+          },
+          include,
+        });
+        if (!subscription)
+          throw new ActionError("Problem while creating subscription");
+        return handleRes<iUserSubscription>({
+          success: subscription,
+          statusCode: 200,
+        });
+      }
     } catch (ActionError) {
       console.error(ActionError);
       return handleRes<iUserSubscription>({
@@ -136,4 +173,3 @@ const include = {
   user: true,
   subscription: true,
 };
-

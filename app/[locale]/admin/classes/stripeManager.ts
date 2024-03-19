@@ -271,6 +271,7 @@ export class StripeManager {
         name: data.name,
         percent_off: data.percent_off,
       };
+      console.log(datas)
       if (datas.duration === "repeating") {
         datas.duration_in_months = data.duration_in_months;
       }
@@ -286,6 +287,8 @@ export class StripeManager {
             : undefined,
           name: datas.name,
           percent_off: datas.percent_off,
+          amount_off: datas.amount_off,
+          currency: datas.currency
         });
         if (!createCoupon)
           throw new ActionError(
@@ -330,6 +333,7 @@ export class StripeManager {
         statusCode: 500,
       });
     } catch (ActionError) {
+      console.error(ActionError)
       return handleRes<iStripeCoupon>({
         error: "An unknown error has occured",
         statusCode: 500,

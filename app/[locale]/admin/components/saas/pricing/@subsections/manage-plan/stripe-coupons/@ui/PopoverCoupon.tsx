@@ -4,13 +4,15 @@ import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Button } from "@/src/components/ui/button";
 import { Label } from "@/src/components/ui/label";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import currenciesData from "@/src/jsons/currencies.json";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
+import { Currencies } from "@/src/types/Currencies";
 import { iPlan } from "@/src/types/db/iPlans";
 import { SaasTypes } from "@prisma/client";
 import { PopoverClose } from "@radix-ui/react-popover";
@@ -24,6 +26,7 @@ type Props = {
 export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { setSaasPlans } = useSaasPlansStore();
+  const currencies = currenciesData as Currencies;
 
   const handleApplyCoupon = async (couponId: string) => {
     const apply = await applyCoupon(couponId, planId, recurrence ?? "monthly");
@@ -85,9 +88,13 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
                   key={coupon.id}
                   className="grid grid-cols-12 mb-2 justify-center center  items-center">
                   <Label className="col-span-4 pt-1">{coupon.name}</Label>
-                  <div className="col-span-5 p-0 flex flex-col gap-0">
-                    <small className=" text-center">
-                      {coupon.percent_off}% / {coupon.duration}{" "}
+                  <div className="col-span-5 p-0 flex flex-col gap-2">
+                    <small className="text-sm text-center">
+                      {coupon.percent_off
+                        ? coupon.percent_off + "%"
+                        : (coupon.amount_off??0)/100 +
+                          `${currencies[coupon.currency ?? "usd"]?.sigle}`}{" "}
+                      / {coupon.duration}{" "}
                       {coupon.duration === "repeating" &&
                         `${coupon.duration_in_months} month${
                           coupon.duration_in_months &&
@@ -95,7 +102,7 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
                           "s"
                         }`}
                     </small>
-                    <small className="-mt-2 opacity-50 text-center">
+                    <small className="-mt-2 text-xs opacity-50 text-center">
                       {coupon.id}
                     </small>
                   </div>

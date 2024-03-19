@@ -58,16 +58,20 @@ export async function POST(req: NextRequest) {
     }
   }
   switch (event.type) {
+    // NOTE : Checkout session completed
     case "checkout.session.completed":
-      // NOTE : Fill this function with the code to be executed when the payment is successful
       todoWhenPaymentSuceeded();
       //
       return NextResponse.json({ status: 200 });
+    // NOTE : Subscription created
     case "customer.subscription.created":
       const subscription = event.data.object as Stripe.Subscription;
       const priceId = subscription.items.data[0].price.id;
       const customerId = subscription.customer as string;
-      let user = await getUserByCustomerId({ customerId, stripeSignature: secret});
+      let user = await getUserByCustomerId({
+        customerId,
+        stripeSignature: secret,
+      });
       if (handleError(user).error)
         return NextResponse.json(
           { error: handleError(user).message },
@@ -131,7 +135,7 @@ export async function POST(req: NextRequest) {
         console.error("Error retrieving session details:", error);
         return NextResponse.json({ error: error }, { status: 500 });
       }
-
+    // NOTE : Subscription updated
     case "customer.subscription.updated":
       const upsubscription = event.data.object as Stripe.Subscription;
       await new Promise((resolve) => setTimeout(resolve, 4000));
@@ -152,6 +156,7 @@ export async function POST(req: NextRequest) {
           { status: 500 }
         );
       return NextResponse.json({ status: 200 });
+    // NOTE : Subscription deleted
     case "customer.subscription.deleted":
       const delsubscription = event.data.object as Stripe.Subscription;
       const delpriceId = delsubscription.items.data[0].price.id;
@@ -186,6 +191,7 @@ export async function POST(req: NextRequest) {
           { status: 500 }
         );
       return NextResponse.json({ status: 200 });
+    // NOTE : Invoice paid
     case "invoice.paid":
       // We wait 5sc before create invoice (to be sure that the payment is well done and the invoice is created in the database)
       await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -207,8 +213,10 @@ export async function POST(req: NextRequest) {
           { status: 500 }
         );
       return NextResponse.json({ status: 200 });
+    // NOTE : Invoice payment succeeded
     case "invoice.payment_succeeded":
       return NextResponse.json({ status: 200 });
+    // NOTE : Invoice payment failed
     case "invoice.payment_failed":
       const invoiceFailed = event.data.object as Stripe.Invoice;
       const createInvoiceFailed = await createSubcriptionPayment({
@@ -241,6 +249,7 @@ export async function POST(req: NextRequest) {
           { status: 500 }
         );
       return NextResponse.json({ status: 200 });
+    // NOTE : Payment intent succeeded
     case "payment_intent.succeeded":
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
@@ -278,6 +287,7 @@ export async function POST(req: NextRequest) {
         );
       }
       return NextResponse.json({ status: 200 });
+    // NOTE : Invoice upcoming
     case "invoice.upcoming":
       const invoiceUpdated = event.data.object;
       const invoiceUpdatedUpSubscription = await updateSubscription({
@@ -294,7 +304,6 @@ export async function POST(req: NextRequest) {
           { status: 500 }
         );
       return NextResponse.json({ status: 200 });
-
     // SECTION Product and Price management
     // NOTE : Product created
     case "product.created":
@@ -385,6 +394,7 @@ export async function POST(req: NextRequest) {
         );
       }
       return NextResponse.json({ status: 200 });
+    // NOTE : Price updated
     case "price.updated":
       await createOrUpdatePriceStripeToBdd({
         type: "update",
@@ -392,6 +402,7 @@ export async function POST(req: NextRequest) {
         stripeSignature: secret ?? "",
       });
       return NextResponse.json({ status: 200 });
+    // NOTE : Price created
     case "price.created":
       const isPriceExist = await getStripePrice({
         id: event.data.object.id,
@@ -418,14 +429,14 @@ export async function POST(req: NextRequest) {
           );
       }
       return NextResponse.json({ status: 200 });
-
+    // NOTE : Price deleted
     case "price.deleted":
       await deleteStripePrice({
         id: event.data.object.id,
         stripeSignature: secret ?? "",
       });
       return NextResponse.json({ status: 200 });
-
+    // NOTE : Coupon created
     case "coupon.created":
       await createOrUpdateCouponStripeToBdd({
         type: "create",
@@ -433,6 +444,7 @@ export async function POST(req: NextRequest) {
         stripeSignature: secret ?? "",
       });
       return NextResponse.json({ status: 200 });
+    // NOTE : Coupon updated
     case "coupon.updated":
       await createOrUpdateCouponStripeToBdd({
         type: "update",
@@ -440,14 +452,14 @@ export async function POST(req: NextRequest) {
         stripeSignature: secret ?? "",
       });
       return NextResponse.json({ status: 200 });
-
+    // NOTE : Coupon deleted
     case "coupon.deleted":
       await deleteStripeCoupon({
         id: event.data.object.id,
         stripeSignature: secret ?? "",
       });
       return NextResponse.json({ status: 200 });
-
+    // NOTE : Default
     default:
       return NextResponse.json(
         { error: "An unknown error occurred" },

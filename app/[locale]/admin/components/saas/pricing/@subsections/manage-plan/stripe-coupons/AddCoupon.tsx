@@ -17,44 +17,55 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
 import { cn } from "@/src/lib/utils";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
+import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import { StripeCoupon } from "@prisma/client";
 import { PlusCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { AddButtonWrapper } from "../@ui/AddButtonWrapper";
 export const AddCoupon = () => {
+  const { saasSettings } = useSaasSettingsStore();
   const [loading, setLoading] = useState(false);
   const { saasStripeCoupons, setSaasStripeCoupons } = useSaasStripeCoupons();
   const [disabled, setDisabled] = useState(false);
-  const [couponState, setcouponState] = useState<Partial<StripeCoupon>>({
+  const [couponState, setCouponState] = useState<Partial<StripeCoupon>>({
     duration_in_months: 0,
     name: "",
     percent_off: 0,
+    amount_off: 0,
     max_redemptions: null,
     duration: "",
   });
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: string
-  ) => {
-    if (key === "percent_off" || key === "max_redemptions") {
-      const value = parseInt(e.target.value, 10);
-      if (value < 0) {
-        setcouponState({ ...couponState, [key]: null });
-      } else {
-        setcouponState({ ...couponState, [key]: value });
-      }
-      return;
-    }
-    setcouponState({ ...couponState, [key]: e.target.value });
-  };
+  const [percentOrFixed, setPercentOrFixed] = useState<"percent" | "fixed">(
+    "percent"
+  );
+ const handleInputChange = (
+   e: React.ChangeEvent<HTMLInputElement>,
+   key: string
+ ) => {
+   const value = e.target.value;
+   let newValue;
+   if (
+     [
+       "amount_off",
+       "percent_off",
+       "duration_in_months",
+       "max_redemptions",
+     ].includes(key)
+   ) {
+     newValue = !isNaN(parseInt(value, 10)) ? parseInt(value, 10) : null;
+   } else {
+     newValue = value;
+   }
 
+   setCouponState({ ...couponState, [key]: newValue });
+ };
   const handleSelectChange = (value: string, key: string) => {
     if (value !== "repeating") {
-      setcouponState({ ...couponState, [key]: value, duration_in_months: 0 });
+      setCouponState({ ...couponState, [key]: value, duration_in_months: 0 });
     } else {
       console.log("Setting duration without changing duration_in_months");
-      setcouponState({ ...couponState, [key]: value });
+      setCouponState({ ...couponState, [key]: value });
     }
   };
 
@@ -62,40 +73,26 @@ export const AddCoupon = () => {
     const newDisabledState =
       !isStripeSetted() ||
       couponState.name === "" ||
-      Number(couponState.percent_off) === 0 ||
+      (couponState.percent_off === 0 && couponState.amount_off === 0) ||
       couponState.duration === "" ||
       (couponState.duration === "repeating" &&
-        Number(couponState.duration_in_months) === 0);
-
+        couponState.duration_in_months === 0);
     setDisabled(newDisabledState);
   }, [couponState]);
 
   const handleAddCoupon = async () => {
     setLoading(true);
-    const percent_off = parseInt(
-      couponState.percent_off?.toString() ?? "0",
-      10
-    );
-    const maxRedemption = parseInt(
-      couponState.max_redemptions?.toString() ?? "0",
-      10
-    );
-    let duration_in_months = parseInt(
-      couponState.duration_in_months?.toString() ?? "0",
-      10
-    );
-
-    duration_in_months =
-      couponState.duration === "repeating" && !isNaN(duration_in_months)
-        ? duration_in_months
-        : 0;
-
     const dataToSend = await addStripeCoupon({
       name: couponState.name ?? "",
-      percent_off: !isNaN(percent_off) ? percent_off : null,
+      percent_off: couponState.percent_off ?? undefined,
+      amount_off: couponState.amount_off ?? undefined,
       duration: couponState.duration ?? "recurring",
-      duration_in_months,
-      max_redemptions: maxRedemption > 0 ? maxRedemption : null,
+      currency: saasSettings.currency,
+      duration_in_months:
+        couponState.duration === "repeating"
+          ? couponState.duration_in_months
+          : 0,
+      max_redemptions: couponState.max_redemptions ?? null,
     });
     if (!dataToSend.success) {
       setLoading(false);
@@ -106,13 +103,16 @@ export const AddCoupon = () => {
       });
     }
 
-    setSaasStripeCoupons([...saasStripeCoupons, dataToSend.success as iStripeCoupon]);
+    setSaasStripeCoupons([
+      ...saasStripeCoupons,
+      dataToSend.success as iStripeCoupon,
+    ]);
     toaster({
       type: "success",
       description: "Coupon created",
       title: "Success",
     });
-    setcouponState({
+    setCouponState({
       duration_in_months: 0,
       name: "",
       percent_off: 0,
@@ -126,7 +126,7 @@ export const AddCoupon = () => {
   return (
     <>
       <div className="grid grid-cols-13 w-full gap-5 p-2 mt-5">
-        <div className="col-span-3">
+        <div className="col-span-2">
           <div className="inputs">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -137,17 +137,55 @@ export const AddCoupon = () => {
             />
           </div>
         </div>
-        <div className="col-span-2">
+        <div className="col-span-3">
           <div className="inputs">
-            <Label htmlFor="percent">Percent</Label>
-            <Input
-              type="number"
-              name="percent_off"
-              value={couponState.percent_off ?? 0}
-              onChange={(e) => {
-                handleInputChange(e, "percent_off");
-              }}
-            />
+            <div className="flex flex-row justify-evenly">
+              <Label
+                onClick={() => {
+                  setPercentOrFixed("percent");
+                  setCouponState({ ...couponState, amount_off: 0 });
+                }}
+                className={cn(
+                  { "opacity-50 hover:opacity-60": percentOrFixed === "fixed" },
+                  "cursor-pointer"
+                )}
+                htmlFor="percent">
+                Percent
+              </Label>
+              <Label
+                onClick={() => {
+                  setPercentOrFixed("fixed");
+                  setCouponState({ ...couponState, percent_off: 0 });
+                }}
+                className={cn(
+                  {
+                    "opacity-50 hover:opacity-60": percentOrFixed === "percent",
+                  },
+                  "cursor-pointer"
+                )}
+                htmlFor="percent">
+                Fixed
+              </Label>
+            </div>
+            {percentOrFixed === "fixed" ? (
+              <Input
+                type="number"
+                name="amount_off"
+                value={couponState.amount_off ?? 0}
+                onChange={(e) => {
+                  handleInputChange(e, "amount_off");
+                }}
+              />
+            ) : (
+              <Input
+                type="number"
+                name="percent_off"
+                value={couponState.percent_off ?? 0}
+                onChange={(e) => {
+                  handleInputChange(e, "percent_off");
+                }}
+              />
+            )}
           </div>
         </div>
         <div className="col-span-3">

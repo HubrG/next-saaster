@@ -1,6 +1,7 @@
 "use client";
 import PercentageCalculator from "@/src/helpers/functions/maths/calcPercentage";
 import { iPlan } from "@/src/types/db/iPlans";
+
 type PriceCardPayOnceProps = {
   plan: iPlan;
   isYearly: boolean;
@@ -11,6 +12,7 @@ export const MRRPricesAndFeatures = ({
   isYearly,
 }: PriceCardPayOnceProps): {
   percent_off: number | undefined;
+  amount_off: number | undefined;
   priceWithDiscount: number | undefined;
   price: number | undefined;
   monthlypercent_off?: number | undefined;
@@ -23,7 +25,7 @@ export const MRRPricesAndFeatures = ({
   if (plan.isFree) {
     price = 0;
   } else if (plan.saasType === "METERED_USAGE") {
-      price = plan.monthlyPrice ?? 0;
+    price = plan.monthlyPrice ?? 0;
   } else if (isYearly) {
     price = plan.yearlyPrice ?? 0;
   } else {
@@ -32,25 +34,39 @@ export const MRRPricesAndFeatures = ({
 
   const coupon = plan.coupons;
   let percent_off;
+  let amount_off;
   if (coupon.length > 0) {
     if (isYearly) {
       const yearlyCoupon = coupon.find((c) => c.recurrence === "yearly");
       percent_off = yearlyCoupon?.coupon.percent_off;
+      amount_off = yearlyCoupon?.coupon.amount_off;
     } else {
       const monthlyCoupon = coupon.find((c) => c.recurrence === "monthly");
       percent_off = monthlyCoupon?.coupon.percent_off;
+      amount_off = monthlyCoupon?.coupon.amount_off;
     }
   } else {
     percent_off = undefined;
+    amount_off = undefined;
   }
 
-  const priceWithDiscount = percent_off
-    ? percentage.decreaseValueByPercentage(price, percent_off)
-    : undefined;
+  let priceWithDiscount;
 
+  if (amount_off) {
+    priceWithDiscount = price - (amount_off??0)/100;
+  } else if (percent_off) {
+   priceWithDiscount = percentage.decreaseValueByPercentage(
+     price,
+     percent_off ?? 0
+   );
+  } else {
+    priceWithDiscount = price;
+  }
+// 
   const data = {
     price,
     percent_off: percent_off ? percent_off : undefined,
+    amount_off: amount_off ? amount_off : undefined,
     priceWithDiscount,
   };
 

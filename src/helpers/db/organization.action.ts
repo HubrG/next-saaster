@@ -360,18 +360,15 @@ export const removeUserFromOrganization = authAction(
         },
       });
       if (!user) throw new ActionError("User not found");
-      const organization = await prisma.userSubscription.updateMany({
+      const organization = await prisma.userSubscription.deleteMany({
         where: {
           userId: user.id,
-        },
-        data: {
-          isActive: false,
-        },
+        }
       });
       if (!organization) throw new ActionError("No user subscription found");
       const newOrganization = await prisma.organization.findUnique({
         where: { id: organizationId },
-        include: include,
+        include,
       });
       if (!newOrganization) throw new ActionError("No organization found");
       return handleRes<iOrganization>({

@@ -132,7 +132,7 @@
     "prisma": "^5.10.2",
     "react-table": "link:@types/@tanstack/react-table",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   },
   "browser": {
     "crypto": false,

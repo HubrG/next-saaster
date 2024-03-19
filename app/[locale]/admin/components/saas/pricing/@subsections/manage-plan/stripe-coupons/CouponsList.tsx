@@ -2,12 +2,15 @@
 import { deleteCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
 import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import currenciesData from "@/src/jsons/currencies.json";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
+import { Currencies } from "@/src/types/Currencies";
 import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import capitalize from "lodash/capitalize";
 
 export const CouponsList = () => {
   const { saasStripeCoupons, setSaasStripeCoupons } = useSaasStripeCoupons();
+  const currencies = currenciesData as Currencies;
 
   const handleDelete = async (couponId: string) => {
     const deleteResponse = await deleteCoupon(couponId);
@@ -34,7 +37,14 @@ export const CouponsList = () => {
           <div key={index} className="grid grid-cols-7 items-center">
             <div className="font-bold">{capitalize(coupon.name ?? "")}</div>
             <div className="italic opacity-50">apply</div>
-            <div className="font-bold">{coupon.percent_off}%</div>
+            {coupon.percent_off ? (
+              <div className="font-bold">{coupon.percent_off}%</div>
+            ) : (
+              <div className="font-bold">
+                {(coupon.amount_off ?? 0)/100}
+                {currencies[coupon.currency ?? "usd"]?.sigle}
+              </div>
+            )}
             <div className="italic opacity-50">
               {coupon.duration === "once" && "for"}
               {coupon.duration === "forever" && "for"}

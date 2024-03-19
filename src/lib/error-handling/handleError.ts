@@ -1,5 +1,5 @@
 interface ErrorData<TValidationErrors = Record<string, string | string[]>> {
-  serverError?: string | Record<string, any>; // Accepte maintenant une string ou un objet
+  serverError?: string | Record<string, any>; 
   validationErrors?: TValidationErrors;
 }
 
@@ -7,8 +7,7 @@ export function handleError<T extends ErrorData>(
   data: T
 ): { error: boolean; message?: string } {
   if (data.serverError && Object.keys(data.serverError).length > 0) {
-    console.log("Server error: ", data.serverError);
-    // Convertissez serverError en string si c'est un objet
+    console.error("Server error: ", data.serverError);
     const message =
       typeof data.serverError === "string"
         ? data.serverError

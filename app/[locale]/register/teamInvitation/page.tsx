@@ -18,7 +18,6 @@ export default async function TeamInvitation({
     id: searchParams?.organizationId ?? "",
     secret: chosenSecret(),
   });
-console.log(organization)
 
   if (organization.serverError) {
     notFound = true;

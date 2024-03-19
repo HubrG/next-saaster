@@ -147,11 +147,15 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                             : ""}{" "}
                           {toLower(saasSettings.creditName ?? "token")}
                         </span>
-                        <span className="text-sm font-normal">billed each{" "} 
-                        {userInfo?.planItems?.price?.recurring?.interval ?? ""}
+                        <span className="text-sm font-normal">
+                          billed each{" "}
+                          {userInfo?.planItems?.price?.recurring?.interval ??
+                            ""}
                         </span>
                         {userInfo?.planItems?.plan.usage_type === "metered" && (
-                          <span className="text-sm font-normal">(according to use)</span>
+                          <span className="text-sm font-normal">
+                            (according to use)
+                          </span>
                         )}
                       </>
                     )}
@@ -168,33 +172,25 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                 </h3>
               </div>
               <ul className="mt-3">
-                {userInfo?.planDiscount?.coupon?.percent_off && (
-                  <li className="mt-2 text-theming-text-900  grid grid-cols-12">
-                    <span className="col-span-1">
-                      <Check className="icon text-theming-text-500-second mt-1" />
-                    </span>
-                    <span className=" col-span-11">
-                      You save{" "}
-                      {userInfo?.planDiscount?.coupon?.percent_off &&
-                        userInfo?.planDiscount?.coupon?.percent_off + "%"}{" "}
-                      on this plan
-                    </span>
-                  </li>
-                )}
-                {userInfo?.planDiscount?.coupon?.amount_off && (
-                  <li className="mt-2 text-theming-text-900  grid grid-cols-12">
-                    <span className="col-span-1">
-                      <Check className="icon text-theming-text-500-second mt-1" />
-                    </span>
-                    <span className=" col-span-11">
-                      You save{" "}
-                      {userInfo?.planDiscount?.coupon?.amount_off &&
-                        userInfo?.planDiscount?.coupon?.percent_off +
-                          currencies[userInfo?.currency]?.sigle}
-                      on this plan
-                    </span>
-                  </li>
-                )}
+                {userInfo?.planDiscount?.coupon?.percent_off ||
+                  (userInfo?.planDiscount?.coupon?.amount_off && (
+                    <li className="mt-2 text-theming-text-900  grid grid-cols-12">
+                      <span className="col-span-1">
+                        <Check className="icon text-theming-text-500-second mt-1" />
+                      </span>
+                      <span className=" col-span-11">
+                        You save{" "}
+                        {userInfo?.planDiscount?.coupon?.percent_off
+                          ? userInfo?.planDiscount?.coupon?.percent_off + "%"
+                          : (userInfo?.planDiscount?.coupon?.amount_off??0)/100 +
+                            currencies[
+                              userInfo?.planDiscount?.coupon?.currency ?? "usd"
+                            ]?.sigle}{" "}
+                        on this plan
+                      </span>
+                    </li>
+                  ))}
+                
                 {userInfo?.planAllDatas?.trial_end && (
                   <li className="mt-2 text-theming-text-900 grid grid-cols-12">
                     <span className="col-span-1">

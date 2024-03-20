@@ -1,0 +1,108 @@
+"use client";
+import React from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
+import {
+  Crown,
+  GripVertical,
+  UserRoundX,
+} from "lucide-react";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import {
+  removeUserFromOrganization,
+  updateOrganization,
+} from "@/src/helpers/db/organization.action";
+import { ReturnProps } from "@/src/helpers/dependencies/user";
+import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
+import { handleError } from "@/src/lib/error-handling/handleError";
+import { useRouter } from "next/navigation";
+
+type PopoverOrganizationMemberProps = {
+  userInfo: ReturnProps | null;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  member: {
+    email: string | null;
+    id: string;
+  };
+};
+
+export const PopoverOrganizationMember = ({
+  userInfo,
+  setRefresh,
+  member,
+}: PopoverOrganizationMemberProps) => {
+  
+  const router = useRouter();
+  const handleRemoveUser = async (email: string) => {
+    const remove = await removeUserFromOrganization({
+      email,
+      organizationId: userInfo?.userInfo.organizationId ?? "",
+    });
+    if (remove.serverError) {
+      toaster({ type: "error", description: remove.serverError });
+    } else {
+      toaster({ type: "success", description: "User removed" });
+      setRefresh(true);
+    }
+  };
+
+  const handlePromoteUser = async (email: string) => {
+    const promote = await updateOrganization({
+      id: userInfo?.userInfo.organizationId ?? "",
+      owner: member.id,
+    });
+    if (handleError(promote).error) {
+      return toaster({
+        description: handleError(promote).message,
+        type: "error",
+      });
+    }
+    toaster({
+      type: "success",
+      description:
+        "User promoted. You are no longer the owner of this organization",
+    });
+    return setTimeout(() => {
+      document.location.reload();
+    }, 2000);
+  };
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="ghost" size="icon" className="mr-10">
+          <GripVertical />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-80">
+        <div className="grid gap-4">
+          <div className="grid gap-2">
+            <PopoverConfirm
+              what="to promote this member to owner ? There can only be one owner, in which case you will lose all your publishing rights to this organization."
+              handleFunction={() => {
+                handlePromoteUser(member.email ?? "");
+              }}
+              icon={<Crown className="icon" />}
+              display="Promote this member"
+              variant="default"
+            />
+          </div>
+          <div className="grid gap-2">
+            <PopoverConfirm
+              what="revoke this member from organization"
+              handleFunction={() => {
+                handleRemoveUser(member.email ?? "");
+              }}
+              icon={<UserRoundX className="icon" />}
+              display="Revoke this member"
+              variant="default"
+            />
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+};

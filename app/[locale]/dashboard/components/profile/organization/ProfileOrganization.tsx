@@ -5,16 +5,25 @@ import { Loader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
   createOrganization,
+  deleteOrganization,
   removePendingUser,
   removeUserFromOrganization,
 } from "@/src/helpers/db/organization.action";
 import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
 import { sliced } from "@/src/helpers/functions/slice";
+import { cn } from "@/src/lib/utils";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { useUserStore } from "@/src/stores/userStore";
-import { Hourglass, Users } from "lucide-react";
+import { Crown, Hourglass, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { InviteMember } from "./@ui/InviteMember";
+import { OrganizationName } from "./@ui/OrganizationName";
+import { Tooltip } from "react-tooltip";
+import { PopoverDelete } from "@/src/components/ui/popover-delete";
+import { PopoverOrganizationMember } from "./@ui/PopoverMember";
+import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
+import { handleError } from "@/src/lib/error-handling/handleError";
+import { ActionError } from "@/src/lib/safe-actions";
 
 type ProfileOrganizationProps = {};
 
@@ -56,7 +65,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   const handleRemovePending = async (email: string) => {
     const remove = await removePendingUser({
       organizationId: userInfo.userInfo.organizationId ?? "",
-      email
+      email,
     });
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });
@@ -66,59 +75,82 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
     }
   };
 
-  const handleRemoveUser = async (email: string) => {
+  const handleQuitOrganization = async () => {
     const remove = await removeUserFromOrganization({
-      email,
+      email: userInfo.userInfo.email ?? "",
       organizationId: userInfo.userInfo.organizationId ?? "",
     });
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });
     } else {
-      toaster({ type: "success", description: "User removed" });
-      setRefresh(true);
+      toaster({ type: "success", description: "Organization quitted" });
+      window.location.reload();
     }
   };
-  
 
+  const delOrganization = async () => {
+    const deleteOrg = await deleteOrganization({
+      id: userInfo.userInfo.organizationId ?? "",
+    });
+    if (handleError(deleteOrg).error) {
+      toaster({ type: "error", description: handleError(deleteOrg).message });
+    }
+    toaster({ type: "success", description: "Organization deleted" });
+    window.location.reload();
+  };
   return (
     <>
       {userInfo.userInfo.organization ? (
         <>
-          <div className="grid grid-cols-2 items-start mt-20">
+          <div className="grid grid-cols-2 items-start mt-14">
             <div className="w-full">
-              <div>
-                <h3 className="text-base text-left flex flex-row  items-center">
+              <h3 className="text-2xl font-normal text-left mb-5">
+                {organizationStore.name}
+              </h3>
+              <div className="pt-5">
+                <h4 className="text-base text-left flex flex-row  items-center">
                   <Users className="icon" /> Members
-                </h3>
+                </h4>
                 <ul className="ml-8">
                   {organizationStore.members?.map((member) => (
                     <li
                       key={member.id}
                       className="flex flex-row justify-between items-center">
-                      <p>{sliced(member.email, 30)}</p>
+                      <p className="flex flex-row justify-between w-full pr-10 gap-x-2">
+                        {sliced(member.email, 30)}
+                        {userInfo.userInfo.organization?.ownerId ===
+                          member.id && (
+                          <Crown
+                            data-tooltip-id="ownerID"
+                            className="icon mt-1 text-yellow-500"
+                          />
+                        )}
+                      </p>
+                      <Tooltip
+                        className="tooltip z-50"
+                        opacity={100}
+                        id="ownerID">
+                        Owner
+                      </Tooltip>
                       {userInfo.userInfo.organization?.ownerId ===
                         userInfo.userInfo.id &&
                         userInfo.userInfo.email !== member.email && (
-                          <Button
-                            variant={"link"}
-                            className="text-xs"
-                            onClick={(e) =>
-                              handleRemoveUser(member.email ?? "")
-                            }>
-                            Remove
-                          </Button>
+                          <PopoverOrganizationMember
+                            userInfo={userInfo}
+                            setRefresh={setRefresh}
+                            member={member}
+                          />
                         )}
                     </li>
                   ))}
                 </ul>
               </div>
-
               {organizationStore.organizationInvitations &&
                 organizationStore.organizationInvitations?.length > 0 && (
                   <>
-                    <h3 className="text-base text-left mt-5 flex flex-row items-center">
+                    <h4 className="text-base text-left mt-5 flex flex-row items-center">
                       <Hourglass className="icon" /> Pending
-                    </h3>
+                    </h4>
                     <ul className="ml-8 ">
                       {organizationStore.organizationInvitations?.map(
                         (invitation) => (
@@ -129,14 +161,13 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                             {userInfo.userInfo.organization?.ownerId ===
                               userInfo.userInfo.id &&
                               userInfo.userInfo.email !== invitation.email && (
-                                <Button
-                                  variant={"link"}
-                                  onClick={(e) =>
-                                    handleRemovePending(invitation.email)
-                                  }
-                                  className="text-xs">
-                                  Remove
-                                </Button>
+                                <PopoverDelete
+                                  what="this member"
+                                  className="mr-5"
+                                  handleDelete={() => {
+                                    handleRemovePending(invitation.email);
+                                  }}
+                                />
                               )}
                           </li>
                         )
@@ -146,9 +177,35 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                 )}
             </div>
             <div className="w-full border-l border-dashed flex flex-col px-5">
-              <InviteMember user={userInfo.userInfo} />
+              <div
+                className={cn({
+                  "opacity-50 pointer-events-none !cursor-not-allowed":
+                    userInfo.userInfo.organization?.ownerId !==
+                    userInfo.userInfo.id,
+                })}>
+                <OrganizationName user={userInfo.userInfo} />
+                <InviteMember user={userInfo.userInfo} />
+              </div>
             </div>
           </div>
+          {/* If user is ownerId, he cant */}
+          {userInfo.userInfo.organization?.ownerId === userInfo.userInfo.id ? (
+            <PopoverConfirm
+              what="to delete this organization ?"
+              display="Delete organization"
+              className="text-left float-left dark:text-red-400 text-red-500"
+              variant={"link"}
+              handleFunction={delOrganization}
+            />
+          ) : (
+            <PopoverConfirm
+              what="to quit this organization ?"
+              display="Quit organization"
+              className="text-left float-left dark:text-red-400 text-red-500"
+              variant={"link"}
+              handleFunction={handleQuitOrganization}
+            />
+          )}
         </>
       ) : (
         <>

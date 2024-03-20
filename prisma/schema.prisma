@@ -121,6 +121,7 @@ model UserSubscription {
   subscriptionId  String
   creditRemaining Int?         @default(0)
   isActive        Boolean      @default(false)
+  createdAt       DateTime?    @default(now())
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   subscription    Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 

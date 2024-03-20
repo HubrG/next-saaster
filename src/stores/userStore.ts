@@ -22,8 +22,10 @@ export const useUserStore = create<Store>()((set) => ({
   fetchUserStore: async (email: string) => {
     set({ isStoreLoading: true });
     const user = await getUser({ email: email, secret: chosenSecret() });
-    if (!user.data?.success)
+    if (!user.data?.success) {
+      console.error(user.serverError)
       throw new Error(user.serverError || "Failed to fetch user");
+      }
     set({ userStore: user.data.success, isStoreLoading: false });
   },
 }));

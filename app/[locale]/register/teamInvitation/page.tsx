@@ -5,6 +5,9 @@ import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
 import { TeamInvitationIndex } from "./components/Index";
+import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { LogoutInviteButton } from "./components/logoutButton";
 
 export default async function TeamInvitation({
   searchParams,
@@ -46,7 +49,6 @@ export default async function TeamInvitation({
       </>
     );
   }
- 
 
   if (session && session.user.email !== searchParams?.email) {
     return (
@@ -69,6 +71,15 @@ export default async function TeamInvitation({
         </div>
       </>
     );
+  }
+
+  if (session && session.user.email === searchParams?.email) {
+   return <>  <DivFullScreenGradient gradient="gradient-to-t" />
+        <div className=" items-center justify-center ">
+          <div className="lg:w-2/5  sm:3/5 max-sm:w-full px-5 mx-auto self-center ">
+            <Card>
+          <LogoutInviteButton /> </Card></div>
+      </div></>
   }
 
   return (

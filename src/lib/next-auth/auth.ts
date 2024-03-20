@@ -1,3 +1,4 @@
+import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
 import { createAudience } from "@/src/helpers/emails/audience";
 import { createContact } from "@/src/helpers/emails/contact";
 import { stripeCustomerIdManager } from "@/src/helpers/functions/stripeCustomerIdManager";
@@ -12,6 +13,8 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "../prisma";
 import { env } from "../zodEnv";
+const stripeManager = new StripeManager();
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -128,10 +131,10 @@ export const authOptions: AuthOptions = {
         session.user.id = token.sub as string;
         session.user.customerId = token.customerId as string;
         session.user.userId = isCuid(token.uid as string)
-          // if it's Google, Mail or Credential, we use the uid as userId, because token.uid appear as cuid()
-          ? (token.uid as string)
-          // if it's GitHub, we use the sub as userId, because it's the only way to get the user's db id
-          : (token.sub as string);
+          ? // if it's Google, Mail or Credential, we use the uid as userId, because token.uid appear as cuid()
+            (token.uid as string)
+          : // if it's GitHub, we use the sub as userId, because it's the only way to get the user's db id
+            (token.sub as string);
       }
       return session;
     },
@@ -209,6 +212,7 @@ export const authOptions: AuthOptions = {
             // We check the owner subscription through userSubscription
             const userSubscription = await prisma.userSubscription.findFirst({
               where: { userId: owner.id },
+              orderBy: { createdAt: "desc" },
               include: {
                 subscription: {
                   include: {
@@ -237,6 +241,39 @@ export const authOptions: AuthOptions = {
                       ?.PlanRelation?.creditAllouedByMonth ?? null,
                 },
               });
+              // if subscription is active, we add quantity to Stripe subscription
+              if (userSubscription.isActive) {
+                // We count the number of users in the organization
+                const users = await prisma.user.count({
+                  where: { organizationId: invited.organizationId },
+                });
+                // We update the quantity
+                const upSub = await stripeManager.updateSubscription({
+                  subscriptionId: userSubscription.subscriptionId,
+                  data: {
+                    quantity: users,
+                  },
+                });
+                if (!upSub.success) {
+                  // We delete the userSubscription 
+                  await prisma.userSubscription.delete({
+                    where: {
+                      userId_subscriptionId: {
+                        userId: message.user.id,
+                        subscriptionId: userSubscription.subscriptionId,
+                      },
+                    },
+                  });
+                  // We delete the user from organization
+                  await prisma.user.update({
+                    where: { id: message.user.id },
+                    data: {
+                      organizationId: null,
+                    },
+                  });
+                  console.error("Error updating subscription quantity:", upSub);
+                }
+              }
             }
           }
         }

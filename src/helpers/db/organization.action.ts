@@ -1,4 +1,5 @@
 "use server";
+import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
 import {
   HandleResponseProps,
   handleRes,
@@ -8,10 +9,12 @@ import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iOrganization } from "@/src/types/db/iOrganization";
 import { z } from "zod";
 import { sendEmail } from "../emails/sendEmail";
+import { isOrganizationOwner } from "../functions/isUserRole";
 import {
-  isOrganizationOwner,
-} from "../functions/isUserRole";
-import { chosenSecret, verifySecretRequest } from "../functions/verifySecretRequest";
+  chosenSecret,
+  verifySecretRequest,
+} from "../functions/verifySecretRequest";
+const stripeManager = new StripeManager();
 
 /**
  * Create an organization
@@ -91,8 +94,7 @@ export const getOrganization = action(
     secret: z.string(),
   }),
   async ({ id, secret }): Promise<HandleResponseProps<iOrganization>> => {
-    if (!verifySecretRequest(secret))
-      throw new ActionError("Unauthorized");
+    if (!verifySecretRequest(secret)) throw new ActionError("Unauthorized");
     try {
       const organization = await prisma.organization.findUnique({
         where: { id },
@@ -106,6 +108,39 @@ export const getOrganization = action(
         statusCode: 200,
       });
     } catch (ActionError) {
+      return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
+    }
+  }
+);
+
+export const updateOrganization = authAction(
+  z.object({
+    id: z.string().cuid(),
+    name: z.string().optional(),
+    owner: z.string().optional(),
+  }),
+  async ({ name, owner, id }): Promise<HandleResponseProps<iOrganization>> => {
+    const isOwner = await isOrganizationOwner();
+    if (!isOwner)
+      throw new ActionError(
+        "You are not authorized to update this organization"
+      );
+    try {
+      const organization = await prisma.organization.update({
+        where: { id },
+        data: {
+          name,
+          ownerId: owner,
+        },
+        include: include,
+      });
+      if (!organization) throw new ActionError("No organization found");
+      return handleRes<iOrganization>({
+        success: organization,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
       return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }
@@ -284,8 +319,7 @@ export const acceptInvitationToOrganization = action(
     email,
     secret,
   }): Promise<HandleResponseProps<iOrganization>> => {
-    if (!verifySecretRequest(secret))
-      throw new ActionError("Unauthorized");
+    if (!verifySecretRequest(secret)) throw new ActionError("Unauthorized");
     try {
       const organization = await prisma.organizationInvitation.findFirst({
         where: {
@@ -316,6 +350,62 @@ export const acceptInvitationToOrganization = action(
   }
 );
 
+export const deleteOrganization = authAction(
+  z.object({
+    id: z.string().cuid(),
+  }),
+  async ({ id }): Promise<HandleResponseProps<iOrganization>> => {
+    const isOwner = await isOrganizationOwner();
+    if (!isOwner)
+      throw new ActionError("You are not authorized to delete this organization");
+    try {
+      // We get the organization
+      const organization = await prisma.organization.findUnique({
+        where: { id },
+        include,
+      });
+      if (!organization) throw new ActionError("No organization found");
+      // We check the subscription through userSubscription
+      const userSubscription = await prisma.userSubscription.findFirst({
+        where: { userId: organization.ownerId },
+        orderBy: { createdAt: "desc" },
+      });
+      // We pass the stripe quantity to 1
+      if (userSubscription?.isActive) {
+        const upSub = await stripeManager.updateSubscription({
+          subscriptionId: userSubscription.subscriptionId,
+          data: {
+            quantity: 1,
+          },
+        });
+        if (!upSub.success) throw new ActionError("Error while updating subscription");
+      }
+      // We delete users from userSubscription
+      const deleteUsersFromSubscription = await prisma.userSubscription.deleteMany({
+        where: {
+          userId: { not: organization.ownerId },
+          subscriptionId: userSubscription?.subscriptionId,
+        },
+      });
+      if (!deleteUsersFromSubscription)
+        throw new ActionError("Error while deleting users from subscription");
+      // We delete the organization
+      const deleteOrganization = await prisma.organization.delete({
+        where: { id },
+        include,
+      });
+      if (!deleteOrganization) throw new ActionError("Error while deleting organization");
+      // We get the organization
+      return handleRes<iOrganization>({
+        success: deleteOrganization,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
+    }
+  }
+);
+
 /**
  * Add a user to an organization
  * - The user must be connected
@@ -337,13 +427,28 @@ export const removeUserFromOrganization = authAction(
   async ({
     organizationId,
     email,
-  }): Promise<HandleResponseProps<iOrganization>> => {
+  }, {userSession}): Promise<HandleResponseProps<iOrganization>> => {
     const isOwner = await isOrganizationOwner();
-    if (!isOwner)
+    console.log(email, userSession?.user.email);
+    // We verify if the email user is member of the organization
+    if (!isOwner && userSession?.user.email !== email)
       throw new ActionError(
         "You are not authorized to remove a user from this organization"
       );
     try {
+      // We get the user
+      const getUser = await prisma.user.findFirst({
+        where: {
+          email,
+        },
+      });
+      if (!getUser) throw new ActionError("No user found");
+      // We check the subscription through userSubscription
+      const userSubscription = await prisma.userSubscription.findFirst({
+        where: { userId: getUser.id },
+        orderBy: { createdAt: "desc" },
+      });
+      // We delete the user from the organization
       const user = await prisma.user.update({
         where: {
           email,
@@ -351,22 +456,50 @@ export const removeUserFromOrganization = authAction(
         data: {
           organizationId: null,
         },
-        include: {
-          subscriptions: {
-            include: {
-              subscription: true,
-            },
-          },
-        },
       });
-      // 
+      //
       if (!user) throw new ActionError("User not found");
+      // We count the number of members in the organization
+      const users = await prisma.user.count({
+        where: { organizationId },
+      });
+      if (!users) throw new ActionError("No user found");
+      // We delete the userSubscription
       const organization = await prisma.userSubscription.deleteMany({
         where: {
           userId: user.id,
-        }
+        },
       });
       if (!organization) throw new ActionError("No user subscription found");
+      // We update the quantity in Stripe, only if subscription is active
+      if (userSubscription?.isActive) {
+        const upSub = await stripeManager.updateSubscription({
+          subscriptionId: userSubscription.subscriptionId,
+          data: {
+            quantity: users,
+          },
+        });
+        if (!upSub.success) {
+          // We add user again
+          await prisma.user.update({
+            where: { id: user.id },
+            data: {
+              organizationId: organizationId,
+            },
+          });
+          if (!organization)
+            throw new ActionError("Error while updating subscription");
+          // We add userSubscription again
+          await prisma.userSubscription.create({
+            data: {
+              userId: user.id,
+              subscriptionId: userSubscription.subscriptionId,
+              isActive: userSubscription.isActive,
+            },
+          });
+          throw new ActionError("Error while updating subscription");
+        }
+      }
       const newOrganization = await prisma.organization.findUnique({
         where: { id: organizationId },
         include,
@@ -377,6 +510,7 @@ export const removeUserFromOrganization = authAction(
         statusCode: 200,
       });
     } catch (ActionError) {
+      console.error(ActionError)
       return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }
@@ -387,4 +521,3 @@ const include = {
   members: true,
   organizationInvitations: true,
 };
-

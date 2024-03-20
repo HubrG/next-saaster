@@ -21,6 +21,16 @@ type ButtonWithLoaderProps = {
   onClick?: () => void;
   children: React.ReactNode;
 };
+/**
+ * Button with loader
+ * @param {string} children
+ * @param {boolean} loading - Loading state
+ * @param {string} className - Custom class
+ * @param {string} type - Button type (button, submit, reset)
+ * @param {boolean} disabled - Button disabled state
+ * @param {string} variant - Button variant (default, destructive, outline, ghostDestructive, secondary, ghost, second, link, tooltip)
+ * @param {string} size - Button size (sm, default, lg)
+ */
 export const ButtonWithLoader = ({
   children = "Button",
   loading = false,

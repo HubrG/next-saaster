@@ -5,11 +5,12 @@ import { Button } from "./button";
 import { SimpleLoader } from "./loader";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 type Props = {
-  handleDelete: () => void;
+  handleFunction: () => void;
   size?: "sm" | "lg" | "icon";
   what: string;
-  display?: string;
   icon?: React.ReactNode;
+  display?: string;
+  className?: string;
   variant?:
     | "link"
     | "destructive"
@@ -17,15 +18,23 @@ type Props = {
     | "ghostDestructive"
     | "outline"
     | "default";
-  className?: string;
 };
-export const PopoverDelete = ({
-  handleDelete,
+/**
+ * PopoverConfirm is a component that will display a popover with a confirmation message and two buttons, one to confirm and one to cancel.
+ * @param handleFunction - The function that will be called when the user confirms the action.
+ * @param size - (optional) The size of the button, can be "sm", "lg" or "icon".
+ * @param what - (optional)  The message that will be displayed in the popover.
+ * @param icon - (optional) - The icon that will be displayed in the button.
+ * @param display - (optional) The text that will be displayed in the button « are you sure you want... [your display]
+ *
+ */
+export const PopoverConfirm = ({
+  handleFunction,
   variant,
   size,
   className,
-  icon,
   what,
+  icon,
   display,
 }: Props) => {
   const [loading, setLoading] = useState(false);
@@ -48,7 +57,7 @@ export const PopoverDelete = ({
         <div className="grid gap-4">
           <p className="text-center font-bold flex flex-col gap-2 justify-center">
             <MessageCircleWarningIcon className="mx-auto" />
-            <span>Are you sure you want to delete {what} ?</span>
+            <span>Are you sure you want {what}</span>
           </p>
           <div className="flex flex-row gap-5 justify-evenly">
             <Button
@@ -57,7 +66,7 @@ export const PopoverDelete = ({
               className="w-full"
               onClick={() => {
                 setLoading(true);
-                handleDelete();
+                handleFunction();
               }}>
               {loading ? <SimpleLoader /> : "Yes"}
             </Button>

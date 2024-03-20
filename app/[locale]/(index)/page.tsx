@@ -1,5 +1,6 @@
 import { FirstConnexion } from "@/app/[locale]/(index)/components/FirstConnexion";
 import { Index } from "@/app/[locale]/(index)/components/Index";
+import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
 import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
@@ -7,6 +8,7 @@ import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth/next";
 import { getTranslations } from "next-intl/server";
 import { isEmptyUser } from "../../../src/helpers/db/emptyUser.action";
+const stripeManager = new StripeManager();
 
 export const generateMetadata = async () => {
   return createMetadata({

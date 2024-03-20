@@ -7,15 +7,18 @@ import { inviteMemberToOrganization } from "@/src/helpers/db/organization.action
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Info } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 type InviteMemberProps = {
   user: iUsers;
 };
+
 export const InviteMember = ({ user }: InviteMemberProps) => {
   const { organizationStore, fetchOrganizationStore } = useOrganizationStore();
-  const formSchema = z.object({
+
+  const formInvitationSchema = z.object({
     email: z
       .string()
       .email()
@@ -24,19 +27,16 @@ export const InviteMember = ({ user }: InviteMemberProps) => {
       }),
   });
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const formInvitation = useForm<z.infer<typeof formInvitationSchema>>({
+    resolver: zodResolver(formInvitationSchema),
     defaultValues: {
       email: "",
     },
   });
-  const {
-    handleSubmit,
-    reset,
-    formState: { isValid },
-  } = form;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const handleInvitationSubmit = async (
+    values: z.infer<typeof formInvitationSchema>
+  ) => {
     const formData = values;
     const invite = await inviteMemberToOrganization({
       organizationId: organizationStore.id,
@@ -50,32 +50,36 @@ export const InviteMember = ({ user }: InviteMemberProps) => {
         type: "success",
         description: `Invite sent to ${formData.email}`,
       });
-      reset({
+      formInvitation.reset({
         email: "",
       });
     }
   };
 
   return (
-    <>
-      {user.organization?.ownerId === user.id && (
-        <Form {...form}>
+        <Form {...formInvitation}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={formInvitation.handleSubmit(handleInvitationSubmit)}
             className="space-y-3 -mt-10">
             <Field
               type="email"
               label="Invite new member"
               name="email"
               placeholder="Email"
-              form={form}
+              form={formInvitation}
             />
-            <Button type="submit" disabled={!isValid} className="w-full">
+                    {user.subscriptions?.find((sub) => sub.isActive) && (
+        <p className="text-left text-sm">
+        <Info className="icon mt-1" /> Note: you have an active subscription. The addition of a new member to your organization will be billed on a pro-rata basis if the member accepts the invitation.
+        </p>)}
+
+            <Button
+              type="submit"
+              disabled={!formInvitation.formState.isValid}
+              className="w-full">
               Invite
-            </Button>
+        </Button>
           </form>
         </Form>
-      )}
-    </>
   );
 };

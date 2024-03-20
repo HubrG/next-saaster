@@ -11,6 +11,7 @@ import {
   handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 
+import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { ActionError } from "@/src/lib/safe-actions";
@@ -271,7 +272,7 @@ export class StripeManager {
         name: data.name,
         percent_off: data.percent_off,
       };
-      console.log(datas)
+      console.log(datas);
       if (datas.duration === "repeating") {
         datas.duration_in_months = data.duration_in_months;
       }
@@ -288,7 +289,7 @@ export class StripeManager {
           name: datas.name,
           percent_off: datas.percent_off,
           amount_off: datas.amount_off,
-          currency: datas.currency
+          currency: datas.currency,
         });
         if (!createCoupon)
           throw new ActionError(
@@ -333,7 +334,7 @@ export class StripeManager {
         statusCode: 500,
       });
     } catch (ActionError) {
-      console.error(ActionError)
+      console.error(ActionError);
       return handleRes<iStripeCoupon>({
         error: "An unknown error has occured",
         statusCode: 500,
@@ -404,7 +405,50 @@ export class StripeManager {
       return { error: "An error has occurred while creating the customer." };
     }
   }
-
+  async fetchSubscription(subscriptionId: string): Promise<{
+    success?: boolean;
+    data?: any;
+    error?: string;
+  }> {
+    try {
+      const subscription = await this.stripe.subscriptions.retrieve(
+        subscriptionId
+      );
+      if (!subscription)
+        throw new Error("An error has occured while fetching the subscription");
+      return { success: true, data: subscription };
+    } catch (error) {
+      return { error: getErrorMessage(error) };
+    }
+  }
+  async updateSubscription({
+    subscriptionId,
+    data,
+  }: {
+    subscriptionId: string;
+    data: {
+      quantity?: number;
+    };
+  }): Promise<{
+    success?: boolean;
+    data?: any;
+    error?: string;
+  }> {
+    try {
+      const saasSettings = await getSaasSettings();
+      if (saasSettings.error) throw new Error(saasSettings.error);
+      if (saasSettings.data?.saasType === "METERED_USAGE") {
+       return { success: true, data: subscriptionId };
+      }
+      const sub = await this.stripe.subscriptions.update(subscriptionId, data as any);
+      if (!sub)
+        throw new Error("An error has occured while updating the subscription");
+      return { success: true, data: sub.id };
+    } catch (error) {
+      console.error(getErrorMessage(error));
+      return { error: getErrorMessage(error) };
+    }
+  }
   // SECTION : Checkout
   async getCheckoutSession(sessionId: string): Promise<{
     success?: boolean;

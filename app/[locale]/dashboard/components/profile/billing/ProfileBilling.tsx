@@ -12,11 +12,17 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { Currencies } from "@/src/types/Currencies";
 import { toLower } from "lodash";
-import { Check, RotateCcw, XCircle } from "lucide-react";
+import { Check, CreditCard, RotateCcw, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { formatDateRelativeToNow } from "../../../../../../src/helpers/functions/convertDate";
-import { cancelSubscription, reportUsage } from "../../../queries/queries";
+import {
+  cancelSubscription,
+  changePaymentMethod,
+  reportUsage,
+} from "../../../queries/queries";
+import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { Tooltip } from "react-tooltip";
 
 type ProfileBillingProps = {};
 
@@ -26,6 +32,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
   const currencies = currenciesData as Currencies;
   const { userStore, isStoreLoading, fetchUserStore } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [userInfo, setUserInfo] = useState<ReturnProps | null>();
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
@@ -38,13 +45,19 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     return <Loader noHFull />;
   }
 
+  // Dans votre composant ProfileBilling.tsx
+
   const handleCancelOrRestartSubscription = async (
     action: "cancel" | "restart",
     subscriptionId: string,
-    userId: string
+    userEmail: string
   ) => {
     setIsLoading(true);
-    const cancel = await cancelSubscription(subscriptionId, action);
+    const cancel = await cancelSubscription(
+      subscriptionId,
+      userInfo?.userInfo?.email ?? "",
+      action
+    );
     if (cancel.error) {
       toaster({
         type: "error",
@@ -53,11 +66,10 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
       setIsLoading(false);
       return;
     }
-    // We wait the webhook response to update the user store
-    setTimeout(() => {
+    setTimeout(async () => {
       setIsLoading(false);
-      fetchUserStore(userId);
-      setRefresh(true);
+      await fetchUserStore(userEmail ?? "");
+      setRefresh(!refresh);
       toaster({
         type: "success",
         description:
@@ -65,7 +77,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
             ? "Your subscription has been canceled"
             : "Your subscription has been restarted",
       });
-    }, 2000);
+    }, 7000);
   };
 
   const handleGoToPricingPage = () => {
@@ -84,10 +96,23 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     }
   };
 
+  const changePayMethod = async () => {
+    setButtonLoading(true);
+    const changePayMeth = await changePaymentMethod(
+      userInfo?.userInfo?.customerId ?? ""
+    );
+    if (!changePayMeth) return;
+    setButtonLoading(false);
+    return router.push(changePayMeth);
+  };
+
   return (
-    <div className="rounded-default  flex flex-col w-full gap-2 items-start p-5 ">
+    <div className="rounded-default relative flex flex-col w-full gap-2 items-start p-5 ">
       <SimpleLoader
-        className={cn({ hidden: !isLoading }, "!absolute top-[45%] left-[45%]")}
+        className={cn(
+          { hidden: !isLoading },
+          "!absolute top-[40%] z-50 left-[48%]"
+        )}
       />
       {userInfo?.planName !== "No plan" ? (
         <>
@@ -182,7 +207,8 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                         You save{" "}
                         {userInfo?.planDiscount?.coupon?.percent_off
                           ? userInfo?.planDiscount?.coupon?.percent_off + "%"
-                          : (userInfo?.planDiscount?.coupon?.amount_off??0)/100 +
+                          : (userInfo?.planDiscount?.coupon?.amount_off ?? 0) /
+                              100 +
                             currencies[
                               userInfo?.planDiscount?.coupon?.currency ?? "usd"
                             ]?.sigle}{" "}
@@ -190,7 +216,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       </span>
                     </li>
                   ))}
-                
+
                 {userInfo?.planAllDatas?.trial_end && (
                   <li className="mt-2 text-theming-text-900 grid grid-cols-12">
                     <span className="col-span-1">
@@ -252,22 +278,34 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
           <Goodline />
           <div className="col-span-full  gap-2  flex flex-row w-full">
             <Button className="w-full">Upgrade or downgrade plan</Button>
+            <ButtonWithLoader
+              onClick={changePayMethod}
+              type="button"
+              disabled={buttonLoading}
+              loading={buttonLoading}
+              variant="link">
+              <CreditCard className="icon mt-1" /> Change payment method
+            </ButtonWithLoader>
             {!userInfo?.planAllDatas?.cancel_at_period_end ? (
-              <Button
-                disabled={isLoading}
-                className="w-full"
-                variant={"link"}
-                onClick={() =>
-                  handleCancelOrRestartSubscription(
-                    "cancel",
-                    userInfo?.plan?.id ?? "",
-                    userStore.email ?? ""
-                  )
-                }>
-                <XCircle className="icon text-red-500" /> Cancel subscription
-              </Button>
+              <>
+                <Button
+                  data-tooltip-id="cancel-subscription"
+                  disabled={isLoading}
+                  className="w-full"
+                  variant={"link"}
+                  onClick={() =>
+                    handleCancelOrRestartSubscription(
+                      "cancel",
+                      userInfo?.plan?.id ?? "",
+                      userStore.email ?? ""
+                    )
+                  }>
+                  <XCircle className="icon text-red-500" /> Cancel subscription
+                </Button>
+              </>
             ) : (
               <Button
+                data-tooltip-id="restart-subscription"
                 disabled={isLoading}
                 className="w-full"
                 variant={"link"}
@@ -282,9 +320,23 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                 subscription
               </Button>
             )}
-            <Button onClick={() => handlAddItem(userInfo?.subItem)}>
+            <Tooltip
+              id="cancel-subscription"
+              place="top"
+              className="tooltip">
+              <span>Your subscription will be canceled at the end of the current period at {formatDateRelativeToNow(userInfo?.planAllDatas?.current_period_end ?? 0, "US")}. You can continue to use the service until then and you won&apos;t be charged again.</span>
+            </Tooltip>
+            <Tooltip
+              id="restart-subscription"
+              place="top"
+              className="tooltip">
+              <span>
+                Your subscription will be restarted and you will not be charged more. 
+              </span>
+              </Tooltip>
+            {/* <Button onClick={() => handlAddItem(userInfo?.subItem)}>
               Add item
-            </Button>
+            </Button> */}
           </div>
         </>
       ) : (

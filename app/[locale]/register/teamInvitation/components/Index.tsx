@@ -56,6 +56,7 @@ export const TeamInvitationIndex = ({
         setIsLoading(false);
         return;
       } else {
+        
         toaster({ type: "success", description: "Invitation accepted, please login to your account to finalize.", duration:5000 });
         router.push(`/login`);
         setIsLoading(false);

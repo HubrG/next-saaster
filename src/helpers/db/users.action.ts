@@ -1,16 +1,18 @@
 "use server";
 import {
   HandleResponseProps,
-  handleRes
+  handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import { ActionError, action } from "@/src/lib/safe-actions";
+import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iUsers } from "@/src/types/db/iUsers";
 import { updateUserSchema } from "@/src/types/schemas/dbSchema";
 import { User } from "@prisma/client";
 import { z } from "zod";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
+import { iOrganization } from "@/src/types/db/iOrganization";
+import { removeUserFromOrganization } from "./organization.action";
 
 /**
  *  Get user by email
@@ -131,6 +133,60 @@ export const updateUser = action(
     } catch (ActionError) {
       console.error(ActionError);
       return handleRes<iUsers>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
+
+export const deleteUser = authAction(
+  z.object({
+    email: z.string().email(),
+  }),
+  async ({ email }, { userSession }): Promise<HandleResponseProps<User>> => {
+    // 🔐 Security
+    if (userSession.user.email !== email && userSession.user.role === "USER") {
+      throw new ActionError("Unauthorized");
+    }
+    // 🔓 Unlocked
+    try {
+      // We get user
+      const user = await prisma.user.findUnique({
+        where: { email },
+        include: {
+          organization: true,
+        },
+      });
+      if (!user) throw new ActionError("User not found");
+      // We get organization if user is owner, we throw error (forbidden)
+      if (user.organizationId && user.organization?.ownerId === user.id) {
+        throw new ActionError(
+          "You cannot delete your account because you are the owner of an organization. Please transfer ownership to another user or delete the organization."
+        );
+      }
+      // We get organization if user is member, we remove user from organization
+      if (user.organizationId && user.organization?.ownerId !== user.id) {
+        const deleteUserFromOrganization = await removeUserFromOrganization({
+          email,
+          organizationId: user.organizationId,
+        });
+        if (deleteUserFromOrganization.serverError)
+          throw new ActionError(deleteUserFromOrganization.serverError);
+      }
+      // We delete the user, definitely
+      const deleteDefinitely = await prisma.user.delete({
+        where: { email },
+      });
+      if (!deleteDefinitely)
+        throw new ActionError("Problem while deleting user");
+      return handleRes<User>({
+        success: deleteDefinitely,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<User>({
         error: ActionError,
         statusCode: 500,
       });

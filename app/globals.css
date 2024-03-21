@@ -530,7 +530,7 @@ code {
   @apply bg-primary/40 dark:bg-primary/40 mx-0.5 !text-inherit  p-1 rounded-default !important;
 }
 .user-profile-dd {
-  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-primary-50 bg-blend-luminosity;
+  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-background-100 bg-blend-luminosity;
 }
 .user-profile-dd a {
   @apply py-2 !important;

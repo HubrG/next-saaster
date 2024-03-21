@@ -1,9 +1,10 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -15,6 +16,7 @@ const formSchema = z.object({
 });
 
 export default function Credentials() {
+  const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -24,12 +26,14 @@ export default function Credentials() {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true)
     const formData = values;
-    signIn("credentials", {
+    await signIn("credentials", {
       email: formData.email,
       password: formData.password,
       redirect: true,
     });
+    setIsLoading(false)
   };
 
   return (
@@ -49,9 +53,9 @@ export default function Credentials() {
           placeholder="Password"
           form={form}
         />
-        <Button type="submit" className="w-full">
+        <ButtonWithLoader loading={isLoading} disabled={isLoading} type="submit" className="w-full">
           Login with email
-        </Button>
+        </ButtonWithLoader>
       </form>
     </Form>
   );

@@ -67,11 +67,15 @@ export const PopoverConfirm = ({
               onClick={() => {
                 setLoading(true);
                 handleFunction();
+                setTimeout(() => setLoading(false), 3000);
               }}>
               {loading ? <SimpleLoader /> : "Yes"}
             </Button>
             <PopoverClose asChild>
-              <Button variant={"ghost"} className=" w-full">
+              <Button
+                variant={"ghost"}
+                onClick={() => setLoading(false)}
+                className=" w-full">
                 No
               </Button>
             </PopoverClose>

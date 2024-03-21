@@ -1,5 +1,5 @@
 "use client";
-import { GoodlineSecond } from "@/src/components/ui/@aceternity/good-line";
+import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -57,7 +57,7 @@ export const SwitchRecurrence = ({
           animate={isYearly ? "yearly" : "monthly"}
           transition={{ type: "tween" }}
           className="absolute  w-1/2 bottom-0 ">
-          <GoodlineSecond />
+          <Goodline />
         </motion.div>
         <div className="absolute w-full flex flex-row h-full mt-1.5 cursor-pointer rounded-default">
           <div

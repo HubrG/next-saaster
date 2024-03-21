@@ -37,7 +37,7 @@ export default function SwitchActiveMonthlyPlan() {
         setSaasSettings({ ...saasSettings, activeMonthlyPlans: !e });
         return toaster({
           type: "error",
-          description: "Monthly plans otpion not changed, please try again",
+          description: "Monthly plans option not changed, please try again",
         });
       }
     }

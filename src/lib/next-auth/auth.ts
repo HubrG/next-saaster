@@ -140,8 +140,8 @@ export const authOptions: AuthOptions = {
     },
   },
   pages: {
-    signIn: "/",
-    error: "/",
+    signIn: "/login/error",
+    error: "/login/error",
   },
   events: {
     createUser: async (message) => {

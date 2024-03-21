@@ -13,9 +13,13 @@ export const generateMetadata = async () => {
   });
 };
 
-export default async function LoginPage() {
-  const session = await getServerSession(authOptions);
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: { error: boolean };
+  }) {
 
+  const session = await getServerSession(authOptions);
   if (session) {
     redirect("/");
   }
@@ -26,7 +30,7 @@ export default async function LoginPage() {
       <div className=" items-center justify-center ">
         <div className="lg:w-2/5  sm:3/5 max-sm:w-full px-5 mx-auto self-center ">
           <Suspense>
-            <Index />
+            <Index error={searchParams.error} />
           </Suspense>
         </div>
       </div>

@@ -20,7 +20,7 @@ export const SectionWrapper = ({
 }: Props) => {
   return (
     <>
-      <Card className={`user-inteface-main-content-section !border-0 `} id={id}>
+      <Card className={`user-inteface-main-content-section  `} id={id}>
         <div className="user-inteface-main-content-section-header">
           <h2>
             <span className="section-name">

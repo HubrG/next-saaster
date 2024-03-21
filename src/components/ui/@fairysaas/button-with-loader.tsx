@@ -23,13 +23,13 @@ type ButtonWithLoaderProps = {
 };
 /**
  * Button with loader
- * @param {string} children
- * @param {boolean} loading - Loading state
- * @param {string} className - Custom class
- * @param {string} type - Button type (button, submit, reset)
- * @param {boolean} disabled - Button disabled state
- * @param {string} variant - Button variant (default, destructive, outline, ghostDestructive, secondary, ghost, second, link, tooltip)
- * @param {string} size - Button size (sm, default, lg)
+ * @param {string} children 
+ * @param {boolean} loading (optional) - Loading state
+ * @param {string} className (optional) - Custom class
+ * @param {string} type (optional) - Button type (button, submit, reset)
+ * @param {boolean} disabled (optional) - Button disabled state
+ * @param {string} variant (optional) - Button variant (default, destructive, outline, ghostDestructive, secondary, ghost, second, link, tooltip)
+ * @param {string} size (optional) - Button size (sm, default, lg)
  */
 export const ButtonWithLoader = ({
   children = "Button",

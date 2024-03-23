@@ -24,6 +24,7 @@ import { PopoverOrganizationMember } from "./@ui/PopoverMember";
 import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { ActionError } from "@/src/lib/safe-actions";
+import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 
 type ProfileOrganizationProps = {};
 
@@ -189,11 +190,12 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
             </div>
           </div>
           {/* If user is ownerId, he cant */}
+          <Goodline className="mb-10" />
           {userInfo.userInfo.organization?.ownerId === userInfo.userInfo.id ? (
             <PopoverConfirm
               what="to delete this organization ?"
               display="Delete organization"
-              className="text-left float-left dark:text-red-400 text-red-500"
+              className="text-left float-right dark:text-red-400 text-red-500"
               variant={"link"}
               handleFunction={delOrganization}
             />
@@ -201,7 +203,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
             <PopoverConfirm
               what="to quit this organization ?"
               display="Quit organization"
-              className="text-left float-left dark:text-red-400 text-red-500"
+              className="text-left float-right dark:text-red-400 text-red-500"
               variant={"link"}
               handleFunction={handleQuitOrganization}
             />

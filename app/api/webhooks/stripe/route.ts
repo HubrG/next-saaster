@@ -255,6 +255,7 @@ export async function POST(req: NextRequest) {
 
       const userId = await getUserByCustomerId({
         customerId: paymentIntent.customer as string,
+        stripeSignature: secret ?? ""
       });
       if (handleError(userId).error)
         return NextResponse.json(
@@ -268,21 +269,16 @@ export async function POST(req: NextRequest) {
           amount: paymentIntent.amount,
           priceId: paymentIntent.metadata.priceId,
           userId: userId.data?.success?.id as string,
+          metadata: JSON.stringify(paymentIntent.metadata),
           currency: paymentIntent.currency,
           status: paymentIntent.status,
           stripeCustomerId: paymentIntent.customer as string,
         },
       });
-      if (
-        createPaymentIntent.serverError ||
-        createPaymentIntent.validationErrors
-      ) {
-        const error = await errorHandling(createPaymentIntent);
-        console.error("Error payment intent succeeded :", error);
+      if (handleError(createPaymentIntent).error) {
+        console.error("Error payment intent succeeded :", handleError(createPaymentIntent).message);
         return NextResponse.json(
-          {
-            error,
-          },
+          { error: handleError(createPaymentIntent).message },
           { status: 500 }
         );
       }

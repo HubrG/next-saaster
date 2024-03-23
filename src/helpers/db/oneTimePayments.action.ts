@@ -77,8 +77,12 @@ export const createOneTimePayment = action(
     )
       throw new ActionError("Unauthorized");
     try {
+       const dataWithCorrectItemsType = {
+        ...data,
+        metadata: data.metadata ? JSON.parse(data.metadata as string) : {},
+      };
       const oneTimePayment = await prisma.oneTimePayment.create({
-        data,
+        data:dataWithCorrectItemsType,
         include,
       });
       if (!oneTimePayment)

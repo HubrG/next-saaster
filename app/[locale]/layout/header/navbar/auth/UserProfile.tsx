@@ -107,10 +107,10 @@ export const UserProfile = ({ className }: UserProfileProps) => {
         {saasSettings.activeRefillCredit && (
           <>
             <DropdownMenuItem className="w-full" asChild>
-              <Link href="/pricing" className="user-profile-buy-credit">
+              <Link href="/refill" className="user-profile-buy-credit">
                 <CreditCard className="icon" />
                 {/* Buy credits */}
-                Buy credit {saasSettings.creditName}
+                Refill {saasSettings.creditName}
               </Link>
             </DropdownMenuItem>
           </>

@@ -1,4 +1,5 @@
 import {
+  Account,
   Feature,
   OneTimePayment,
   Organization,
@@ -64,6 +65,7 @@ export interface iUsers extends User {
   contacts?: ResendContact[];
   stripePrice?: UserStripePrice | null;
   organization?: UserOrganization | null;
+  accounts?: Account[] | null;
 }
 
 

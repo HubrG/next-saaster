@@ -1,4 +1,5 @@
 "use server";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import {
   HandleResponseProps,
   handleRes,
@@ -8,11 +9,12 @@ import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iUsers } from "@/src/types/db/iUsers";
 import { updateUserSchema } from "@/src/types/schemas/dbSchema";
 import { User } from "@prisma/client";
+import Stripe from "stripe";
 import { z } from "zod";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
-import { iOrganization } from "@/src/types/db/iOrganization";
 import { removeUserFromOrganization } from "./organization.action";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 
 /**
  *  Get user by email
@@ -83,7 +85,7 @@ export const getUserByCustomerId = action(
     // 🔓 Unlocked
     try {
       const user = await prisma.user.findFirst({
-        where: { customerId: customerId },
+        where: { customerId },
         select: {
           id: true,
           email: true,
@@ -152,24 +154,46 @@ export const deleteUser = authAction(
     // 🔓 Unlocked
     try {
       // We get user
-      const user = await prisma.user.findUnique({
-        where: { email },
-        include: {
-          organization: true,
-        },
+      const user = await getUser({
+        email,
+        secret: chosenSecret(),
       });
-      if (!user) throw new ActionError("User not found");
+      if (user.serverError) throw new ActionError("User not found");
       // We get organization if user is owner, we throw error (forbidden)
-      if (user.organizationId && user.organization?.ownerId === user.id) {
+      if (
+        user.data?.success?.organizationId &&
+        user.data?.success?.organization?.ownerId === user.data?.success?.id
+      ) {
         throw new ActionError(
           "You cannot delete your account because you are the owner of an organization. Please transfer ownership to another user or delete the organization."
         );
       }
+      // If  user has an active aubscription and is not member of an organization, we cancel the subscription
+      const subscription = user.data?.success?.subscriptions?.find(
+        (sub) => sub.isActive
+      );
+      if (subscription && !user.data?.success?.organizationId) {
+        const cancelSubscriptions = await stripe.subscriptions.cancel(
+          subscription.subscriptionId,
+          {
+            cancellation_details: {
+              comment: "User deleted account",
+            },
+          }
+        );
+        if (!cancelSubscriptions)
+          throw new ActionError(
+            "Problem while canceling subscriptions on Stripe"
+          );
+      }
       // We get organization if user is member, we remove user from organization
-      if (user.organizationId && user.organization?.ownerId !== user.id) {
+      if (
+        user.data?.success?.organizationId &&
+        user.data?.success?.organization?.ownerId !== user.data?.success?.id
+      ) {
         const deleteUserFromOrganization = await removeUserFromOrganization({
           email,
-          organizationId: user.organizationId,
+          organizationId: user.data?.success?.organizationId,
         });
         if (deleteUserFromOrganization.serverError)
           throw new ActionError(deleteUserFromOrganization.serverError);
@@ -195,6 +219,7 @@ export const deleteUser = authAction(
 );
 
 const include = {
+  accounts: true,
   organization: {
     include: {
       owner: true,

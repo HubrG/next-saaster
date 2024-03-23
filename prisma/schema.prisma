@@ -66,7 +66,6 @@ model User {
   customerId      String?
   createdAt       DateTime?          @default(now())
   updatedAt       DateTime?          @updatedAt
-  planId          String?
   organizationId  String?
   role            UserRole           @default(USER)
   organization    Organization?      @relation("OrganizationMembers", fields: [organizationId], references: [id])
@@ -176,6 +175,7 @@ model OneTimePayment {
   amount                Int
   currency              String
   priceId               String?
+  metadata              Json?
   status                String
   createdAt             DateTime?    @default(now())
   updatedAt             DateTime?    @updatedAt
@@ -335,21 +335,21 @@ model StripePrice {
 }
 
 model StripeCoupon {
-  id               String             @id
-  amount_off        Float?
-  currency         String?
-  duration         String
+  id                 String             @id
+  amount_off         Float?
+  currency           String?
+  duration           String
   duration_in_months Int?
-  max_redemptions   Int?
-  metadata         Json
-  name             String?
-  percent_off       Float?
-  redeem_by         Int?
-  times_redeemed    Int
-  valid            Boolean
-  createdAt        DateTime?          @default(now())
-  updatedAt        DateTime?          @updatedAt
-  Plan             StripePlanCoupon[]
+  max_redemptions    Int?
+  metadata           Json
+  name               String?
+  percent_off        Float?
+  redeem_by          Int?
+  times_redeemed     Int
+  valid              Boolean
+  createdAt          DateTime?          @default(now())
+  updatedAt          DateTime?          @updatedAt
+  Plan               StripePlanCoupon[]
 }
 
 model StripePlanCoupon {

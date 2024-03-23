@@ -6,7 +6,7 @@ import { iPlan } from "@/src/types/db/iPlans";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createCheckoutSession } from "../queries/queries";
+import { createCheckoutSession } from "../queries/queries.action";
 
 type PriceCardBuyButtonProps = {
   plan: iPlan;

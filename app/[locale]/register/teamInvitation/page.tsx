@@ -5,8 +5,6 @@ import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
 import { TeamInvitationIndex } from "./components/Index";
-import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { LogoutInviteButton } from "./components/logoutButton";
 
 export default async function TeamInvitation({

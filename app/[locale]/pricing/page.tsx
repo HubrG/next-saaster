@@ -2,10 +2,10 @@ import { SwitchRecurrence } from "@/app/[locale]/pricing/components/SwitchRecurr
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
 import { getUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { PriceCardsFeaturesByCategories } from "./components/PriceCardFeaturesByCategories";
 import { PriceCardsSimple } from "./components/PriceCardsSimple";
 

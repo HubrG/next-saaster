@@ -8,8 +8,8 @@ import { Card } from "@/src/components/ui/card";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { acceptInvitationToOrganization, removePendingUser } from "@/src/helpers/db/organization.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { useRouter } from "@/src/lib/intl/navigation";
 import { iOrganization } from "@/src/types/db/iOrganization";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type TeamInvitationProps = {

@@ -15,6 +15,7 @@ type Props = {
   label: string;
   placeholder?: string;
   description?: string;
+  children?: React.ReactNode;
   className?: string;
   type?: "text" | "email" | "password" | "textarea";
 };
@@ -24,6 +25,7 @@ export const Field = ({
   name,
   label,
   className,
+  children,
   placeholder,
   description,
   type = "text",
@@ -64,6 +66,7 @@ export const Field = ({
                   {...field}
                 />
               </FormControl>
+              {children}
               <FormDescription>{description}</FormDescription>
             </FormItem>
           )}

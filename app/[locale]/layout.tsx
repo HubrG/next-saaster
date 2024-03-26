@@ -13,7 +13,6 @@ import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import { Caveat, Commissioner, Playfair_Display } from "next/font/google";
-import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
 import { getAppSettings } from "../../src/helpers/db/appSettings.action";
 import Footer from "./layout/footer/Footer";
@@ -74,7 +73,7 @@ export default async function LocaleLayout(props: Props) {
                 appSettings={appSettings.data}
                 saasSettings={saasSettings.data}
               />
-              <Toaster richColors={true} closeButton={true} />
+              <Toaster richColors={true} position="top-right" closeButton={true} />
               {appSettings.data.activeTopLoader && <TopLoader />}
               <ThemeProvider
                 disableTransitionOnChange={false}

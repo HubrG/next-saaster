@@ -1,13 +1,13 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { SimpleLoader } from "@/src/components/ui/loader";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sendEmail } from "@/src/helpers/emails/sendEmail";
+import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,7 +41,6 @@ export default function Credentials() {
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-
     const { confirmPassword, ...formData } = values;
     const response = await fetch("/api/register", {
       method: "POST",
@@ -123,12 +122,12 @@ export default function Credentials() {
               placeholder="Confirm Password"
               form={form}
             />
-            <Button
+            <ButtonWithLoader
               type="submit"
               disabled={isLoading}
               className={cn({ disabled: isLoading }, "w-full")}>
               Register with email
-            </Button>
+            </ButtonWithLoader>
           </div>
         </form>
       </Form>

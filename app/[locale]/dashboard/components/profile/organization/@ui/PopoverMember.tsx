@@ -1,25 +1,25 @@
 "use client";
-import React from "react";
+import { Button } from "@/src/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/src/components/ui/popover";
-import { Button } from "@/src/components/ui/button";
-import {
-  Crown,
-  GripVertical,
-  UserRoundX,
-} from "lucide-react";
+import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
   removeUserFromOrganization,
   updateOrganization,
 } from "@/src/helpers/db/organization.action";
 import { ReturnProps } from "@/src/helpers/dependencies/user";
-import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
 import { handleError } from "@/src/lib/error-handling/handleError";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/src/lib/intl/navigation";
+import {
+  Crown,
+  GripVertical,
+  UserRoundX,
+} from "lucide-react";
+import React from "react";
 
 type PopoverOrganizationMemberProps = {
   userInfo: ReturnProps | null;
@@ -40,7 +40,7 @@ export const PopoverOrganizationMember = ({
   const handleRemoveUser = async (email: string) => {
     const remove = await removeUserFromOrganization({
       email,
-      organizationId: userInfo?.userInfo.organizationId ?? "",
+      organizationId: userInfo?.info.organizationId ?? "",
     });
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });
@@ -52,7 +52,7 @@ export const PopoverOrganizationMember = ({
 
   const handlePromoteUser = async (email: string) => {
     const promote = await updateOrganization({
-      id: userInfo?.userInfo.organizationId ?? "",
+      id: userInfo?.info.organizationId ?? "",
       owner: member.id,
     });
     if (handleError(promote).error) {

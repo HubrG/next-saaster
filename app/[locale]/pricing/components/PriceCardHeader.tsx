@@ -1,9 +1,8 @@
 import { Input } from "@/src/components/ui/input";
 import { DotBlurredAndGradient } from "@/src/components/ui/layout-elements/dot-blured-and-gradient";
-import currenciesData from "@/src/jsons/currencies.json";
+import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
-import { Currencies } from "@/src/types/Currencies";
 import { iPlan } from "@/src/types/db/iPlans";
 import { SaasSettings } from "@prisma/client";
 import { toLower } from "lodash";
@@ -29,7 +28,6 @@ const GenerateRecurrenceText = ({
   price,
 }: GenerateProps) => {
   const { seatQuantity } = usePublicSaasPricingStore();
-  const currencies = currenciesData as Currencies;
 
   const renderMRRSimple = () => {
     if (plan.saasType === "MRR_SIMPLE" && !plan.isFree) {
@@ -42,7 +40,7 @@ const GenerateRecurrenceText = ({
     if (plan.saasType === "METERED_USAGE" && !plan.isFree) {
       return (
         <span className="block">
-          / per {plan.meteredMode ==="UNIT" ? "" : plan.meteredUnit}{" "}
+          / per {plan.meteredMode === "UNIT" ? "" : plan.meteredUnit}{" "}
           {toLower(saasSettings.creditName ?? "credit")}
           {plan.meteredMode === "PACKAGE" ? "s" : ""}
         </span>
@@ -64,7 +62,7 @@ const GenerateRecurrenceText = ({
               seat{seatQuantity > 1 && "s"} -{" "}
               {price ? (price * seatQuantity).toString() : "0"}
               {saasSettings.currency
-                ? currencies[saasSettings.currency]?.sigle
+                ? convertCurrencyName(saasSettings.currency, "sigle")
                 : ""}
             </div>
           </div>
@@ -83,9 +81,9 @@ const GenerateRecurrenceText = ({
   );
 };
 type NumberOfSeatProps = {
-  className:string;
-}
-const NumberOfSeat = ({className}:NumberOfSeatProps) => {
+  className: string;
+};
+const NumberOfSeat = ({ className }: NumberOfSeatProps) => {
   const { seatQuantity, setSeatQuantity } = usePublicSaasPricingStore();
   const handleUpdateSeat = (e: string) => {
     const seatQuantity = parseInt(e);
@@ -122,9 +120,8 @@ export const PriceCardHeader = ({
   }
   if (!price) return null;
 
-  const currencies = currenciesData as Currencies;
   const currencySymbol = saasSettings.currency
-    ? currencies[saasSettings.currency]?.sigle
+    ? convertCurrencyName(saasSettings.currency, "sigle")
     : "";
 
   return (
@@ -161,49 +158,55 @@ export const PriceCardHeader = ({
             </>
           )}
           {!plan.isCustom ? (
-          <>
-          {price.percent_off || price.amount_off ? (
             <>
-              <span className="price-stroke">
-                {price.price}
-                {currencySymbol}
-              </span>
-              &nbsp;
-              {price.priceWithDiscount}
-              {currencySymbol}
-              <span className="recurrence">
-                {GenerateRecurrenceText({
-                  plan,
-                  isYearly,
-                  saasSettings,
-                  price: price.priceWithDiscount,
-                })}
-              </span>
+              {price.percent_off || price.amount_off ? (
+                <>
+                  <span className="price-stroke">
+                    {price.price}
+                    {currencySymbol}
+                  </span>
+                  &nbsp;
+                  {price.priceWithDiscount}
+                  {currencySymbol}
+                  <span className="recurrence">
+                    {GenerateRecurrenceText({
+                      plan,
+                      isYearly,
+                      saasSettings,
+                      price: price.priceWithDiscount,
+                    })}
+                  </span>
+                </>
+              ) : (
+                <>
+                  {price.price}
+                  {currencySymbol}
+                  <span className="recurrence">
+                    {GenerateRecurrenceText({
+                      plan,
+                      isYearly,
+                      saasSettings,
+                      price: price.price,
+                    })}
+                  </span>
+                </>
+              )}
+              {plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0 ? (
+                <span className="block text-xs">
+                  {plan.creditAllouedByMonth}{" "}
+                  {toLower(saasSettings.creditName ?? "")}
+                  {saasSettings.creditName &&
+                    plan.creditAllouedByMonth > 1 &&
+                    "s"}{" "}
+                  / month
+                </span>
+              ) : null}
             </>
           ) : (
             <>
-              {price.price}
-              {currencySymbol}
-              <span className="recurrence">
-                {GenerateRecurrenceText({
-                  plan,
-                  isYearly,
-                  saasSettings,
-                  price: price.price,
-                })}
-              </span>
+              <p>Contact us for customizing your offer.</p>
             </>
           )}
-          {plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0 ? (
-            <span className="block text-xs">
-              {plan.creditAllouedByMonth}{" "}
-              {toLower(saasSettings.creditName ?? "")}
-              {saasSettings.creditName && plan.creditAllouedByMonth > 1 && "s"} /
-              month
-            </span>
-          ) : null}
-           </>
-          ):(<><p>Contact us for customizing your offer.</p></>)}
         </h3>
       </div>
     </>

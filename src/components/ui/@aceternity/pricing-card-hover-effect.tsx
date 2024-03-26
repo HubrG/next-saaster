@@ -1,19 +1,12 @@
 "use client";
-import currenciesData from "@/src/jsons/currencies.json";
+import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "../../../lib/utils";
-interface Currency {
-  sigle: string;
-  name: string;
-}
 
-interface Currencies {
-  [key: string]: Currency;
-}
 export const HoverEffect = ({
   items,
   className,
@@ -24,7 +17,6 @@ export const HoverEffect = ({
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { isYearly } = usePublicSaasPricingStore();
   const { saasSettings } = useSaasSettingsStore();
-  const currencies: Currencies = currenciesData as Currencies;
 
   return (
     <>
@@ -56,7 +48,7 @@ export const HoverEffect = ({
             <h3 className="!text-primary-foreground mt-5">
               {isYearly ? item.yearlyPrice : item.monthlyPrice}{" "}
               {saasSettings.currency
-                ? currencies[saasSettings.currency]?.sigle
+                ? convertCurrencyName(saasSettings.currency,"sigle")
                 : ""}
               /{isYearly ? "year" : "month"}
             </h3>

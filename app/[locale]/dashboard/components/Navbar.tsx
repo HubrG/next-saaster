@@ -3,7 +3,7 @@ import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { Building2, CircleUser, Cog, CreditCard, Mail, UserRoundCog } from "lucide-react";
+import { BarChart2, Building2, CircleUser, Cog, CreditCard, Mail, UserRoundCog } from "lucide-react";
 import { useState } from "react";
 
 export const DashboardNavbar = () => {
@@ -69,6 +69,13 @@ export const DashboardNavbar = () => {
                 text="Billing"
                 icon={<CreditCard className="icon" />}
                 sectionObserve="Billing"
+                handleScroll={handleScroll}
+              />
+              <MenuItem
+                activeSection={activeSection}
+                text="Usage"
+                icon={<BarChart2 className="icon" />}
+                sectionObserve="Usage"
                 handleScroll={handleScroll}
               />
             </>

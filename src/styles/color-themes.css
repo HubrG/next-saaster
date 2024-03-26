@@ -117,7 +117,6 @@
   --accent-800-second: var(--800-second);
   --accent-900-second: var(--900-second);
   --accent-950-second: var(--950-second);
-  
 }
 .dark {
   --text-50: var(--950);
@@ -237,6 +236,9 @@
 
   --grad1: var(--gra1);
   --grad2: var(--gra2);
+}
+.my-glow {
+   box-shadow: 0px 0px 239px 0px var(--400);
 }
 
 .slate {

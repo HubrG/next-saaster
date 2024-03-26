@@ -235,9 +235,9 @@ div.progressToken {
   z-index: 9999999999;
 }
 .tooltip span {
-  @apply text-white font-normal  ;
-  font-size:inherit !important;
-  font-weight:inherit;
+  @apply text-white font-normal;
+  font-size: inherit !important;
+  font-weight: inherit;
 }
 .theme-card .card-tooltip {
   @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
@@ -396,11 +396,9 @@ ol li {
   @apply grid 2xl:grid-cols-2 xl:grid-cols-2 pt-10  max-sm:grid-cols-1 gap-10 px-2 mt-2;
 }
 .user-interface div.user-inteface-main .user-inteface-main-content-section {
-  @apply rounded-default my-card ;
+  @apply rounded-default my-card;
 }
-.my-card:not(.tooltip) {
-  @apply rounded-default bg-white dark:bg-theming-background-200/20 !important;
-}
+
 form {
   @apply flex flex-col py-10 rounded-default !important;
 }
@@ -417,8 +415,12 @@ form button {
   @apply self-end float-right text-center !important;
 }
 /* NOTE --> Toaster  */
+
+.toast {
+  @apply my-shadow mt-14;
+}
 .toast-success {
-  @apply bg-primary-foreground font-sans dark:bg-primary !text-theming-text-50 dark:text-primary-foreground border-0 shadow-lg !important;
+  @apply dark:bg-theming-background-100 bg-theming-background-900  my-shadow font-sans  !text-theming-text-50 dark:text-primary-foreground border-0 !important;
 }
 .toast-error {
   @apply bg-destructive font-sans  !text-red-50 dark:text-primary-foreground border-0 shadow-lg !important;
@@ -427,7 +429,7 @@ form button {
   @apply font-sans bg-blue-500 !text-blue-50 border-0 shadow-lg !important;
 }
 .toast-success > button {
-  @apply bg-theming-background-500 !text-theming-text-50 dark:!text-theming-text-950  border-primary shadow-lg  !important;
+  @apply bg-theming-background-500 my-shadow !text-theming-text-50 dark:!text-theming-text-950  border-primary   !important;
 }
 
 .switch-info {
@@ -490,7 +492,7 @@ label {
   @apply hover:cursor-grab cursor-grabbing text-text-500 opacity-50 hover:opacity-100 dark:text-secondary-foreground hover:text-accent-foreground;
 }
 .dragged {
-  @apply  !flex !justify-between items-center !cursor-grabbing hover:cursor-grabbing bg-transparent  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important;
+  @apply !flex !justify-between items-center !cursor-grabbing hover:cursor-grabbing bg-transparent  z-[999999] shadow-2xl border opacity-50 border-dashed rounded-default !important;
 }
 
 .label {
@@ -636,7 +638,7 @@ code {
   @apply text-left text-theming-text-600-second !important;
 }
 .price-card-wrapper p.description {
-@apply text-sm text-theming-text-900/70;
+  @apply text-sm text-theming-text-900/70;
 }
 
 .price-card-wrapper h2 {
@@ -654,4 +656,19 @@ code {
 
 .price-card-wrapper h3 span.trial {
   @apply text-sm  font-normal inline-block !important;
+}
+
+.my-shadow {
+  box-shadow: 23.8px 23.8px 25.8px rgba(0, 0, 0, 0.019),
+    27.2px 27.2px 49.5px rgba(0, 0, 0, 0.027),
+    19px 19px 63.8px rgba(0, 0, 0, 0.033),
+    11.2px 11.2px 72.9px rgba(0, 0, 0, 0.041),
+    100px 100px 80px rgba(0, 0, 0, 0.06);
+}
+
+.dark .my-card:not(.tooltip) {
+  @apply rounded-default my-shadow bg-theming-background-200/20  !important;
+}
+.my-card {
+  @apply rounded-default bg-white   !important;
 }

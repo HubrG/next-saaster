@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 type Props = {
   children?: React.ReactNode;
-  handleScroll: (e: any) => void;
+  handleScroll?: (e: any) => void;
   activeSection: string;
   sectionObserve: string;
   icon?: React.ReactNode; // Prop pour l'icône
@@ -40,7 +40,7 @@ export const MenuItem = ({
     } else {
       setForceOpen(sectionObserve, false);
     }
-    handleScroll(sectionObserve);
+    handleScroll && handleScroll(sectionObserve);
   };
 
   const isScrolling = useScrollDetect();

@@ -1,10 +1,9 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
 import { SimpleLoader } from "@/src/components/ui/loader";
+import { useRouter } from "@/src/lib/intl/navigation";
+import { LogIn } from "lucide-react";
 import { useTransition } from "react";
-import { LogIn, User } from "lucide-react";
-import { useRouter } from "next/navigation";
-
 export const LoginButton = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();

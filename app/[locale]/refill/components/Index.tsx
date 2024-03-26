@@ -1,7 +1,8 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/src/lib/intl/navigation";
 import { createRefillSession, portailclient } from "../queries/refill.action";
+
 type RefillButtonProps = {};
 
 export const Index = ({}: RefillButtonProps) => {

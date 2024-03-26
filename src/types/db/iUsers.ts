@@ -73,7 +73,7 @@ export interface iUsers extends User {
 interface Metadata {
   [key: string]: any;
 }
-interface Coupon {
+export interface Coupon {
   id: string;
   name: string;
   valid: boolean;

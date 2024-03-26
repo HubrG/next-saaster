@@ -3,10 +3,9 @@
 import { PriceCardFeatures } from "@/app/[locale]/pricing/components/PriceCardFeatures";
 import { Loader } from "@/src/components/ui/loader";
 import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
+import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { formatDateWithFns } from "@/src/helpers/functions/convertDate";
-import currenciesData from "@/src/jsons/currencies.json";
 import { useUserStore } from "@/src/stores/userStore";
-import { Currencies } from "@/src/types/Currencies";
 import { iPlan } from "@/src/types/db/iPlans";
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -15,23 +14,22 @@ import { PurchaseAction } from "./@ui/Action";
 type ProfilePurchaseProps = {};
 
 export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
-  const currencies = currenciesData as Currencies;
   const { userStore, isStoreLoading } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [userInfo, setUserInfo] = useState<ReturnProps | null>();
+  const [userProfile, setUserProfile] = useState<ReturnProps | null>();
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     if (!isStoreLoading) {
-      setUserInfo(getUserInfos({ user: userStore }));
+      setUserProfile(getUserInfos({ user: userStore }));
       setRefresh(false);
     }
   }, [userStore, refresh, isLoading, isStoreLoading]);
-  if (!userInfo || userInfo?.isLoading) {
+  if (!userProfile || userProfile?.isLoading) {
     return <Loader noHFull />;
   }
   return (
     <div className="flex flex-col gap-5 mt-14">
-      {userInfo.oneTimePayments
+      {userProfile.oneTimePayments
         ?.filter((e) => e.priceId)
         .sort((a, b) => {
           const dateA =
@@ -53,7 +51,7 @@ export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
                 </div>
                 <div className="flex flew-row items-center gap-x-5">
                   <span>
-                    {currencies[payment.currency]?.sigle}
+                    {convertCurrencyName(payment.currency, "sigle")}
                     {payment.amount / 100}
                   </span>
                   <span className="flex flex-row items-center gap-1">

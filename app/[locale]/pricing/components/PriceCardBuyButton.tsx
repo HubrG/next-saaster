@@ -1,10 +1,10 @@
 "use client";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { useRouter } from "@/src/lib/intl/navigation";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createCheckoutSession } from "../queries/queries.action";
 

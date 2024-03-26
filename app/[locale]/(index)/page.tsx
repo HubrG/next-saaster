@@ -47,6 +47,7 @@ export default async function Home({
         </Link>
         <Link href="/admin">Admin</Link>
         <Index />
+        
       </div>
     </>
   );

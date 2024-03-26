@@ -1,7 +1,10 @@
 "use client";
 
+import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Button } from "@/src/components/ui/button";
-import { Loader } from "@/src/components/ui/loader";
+import { SkeletonLoader } from "@/src/components/ui/loader";
+import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
+import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
   createOrganization,
@@ -11,45 +14,41 @@ import {
 } from "@/src/helpers/db/organization.action";
 import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
 import { sliced } from "@/src/helpers/functions/slice";
+import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { Crown, Hourglass, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 import { InviteMember } from "./@ui/InviteMember";
 import { OrganizationName } from "./@ui/OrganizationName";
-import { Tooltip } from "react-tooltip";
-import { PopoverDelete } from "@/src/components/ui/popover-delete";
 import { PopoverOrganizationMember } from "./@ui/PopoverMember";
-import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
-import { handleError } from "@/src/lib/error-handling/handleError";
-import { ActionError } from "@/src/lib/safe-actions";
-import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 
 type ProfileOrganizationProps = {};
 
 export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   const { organizationStore, fetchOrganizationStore } = useOrganizationStore();
   const { userStore, isStoreLoading, fetchUserStore } = useUserStore();
-  const [userInfo, setUserInfo] = useState<ReturnProps | null>();
+  const [userProfile, setUserProfile] = useState<ReturnProps | null>();
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     if (!isStoreLoading) {
-      setUserInfo(getUserInfos({ user: userStore }));
+      setUserProfile(getUserInfos({ user: userStore }));
       setRefresh(false);
     }
   }, [userStore, refresh, isLoading, isStoreLoading]);
 
   useEffect(() => {
-    if (userInfo?.userInfo.organization && !userInfo?.isLoading) {
-      fetchOrganizationStore(userInfo.userInfo.organizationId ?? "");
+    if (userProfile?.info.organization && !userProfile?.isLoading) {
+      fetchOrganizationStore(userProfile?.info.organizationId ?? "");
     }
-  }, [userInfo, fetchOrganizationStore]);
+  }, [userProfile, fetchOrganizationStore]);
 
-  if (!userInfo || userInfo?.isLoading) {
-    return <Loader noHFull />;
+  if (!userProfile || userProfile?.isLoading) {
+    return <SkeletonLoader type="card" />;
   }
 
   const handleCreateOrganization = async (id: string, email: string) => {
@@ -65,7 +64,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
 
   const handleRemovePending = async (email: string) => {
     const remove = await removePendingUser({
-      organizationId: userInfo.userInfo.organizationId ?? "",
+      organizationId: userProfile.info.organizationId ?? "",
       email,
     });
     if (remove.serverError) {
@@ -78,8 +77,8 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
 
   const handleQuitOrganization = async () => {
     const remove = await removeUserFromOrganization({
-      email: userInfo.userInfo.email ?? "",
-      organizationId: userInfo.userInfo.organizationId ?? "",
+      email: userProfile.info.email ?? "",
+      organizationId: userProfile.info.organizationId ?? "",
     });
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });
@@ -91,7 +90,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
 
   const delOrganization = async () => {
     const deleteOrg = await deleteOrganization({
-      id: userInfo.userInfo.organizationId ?? "",
+      id: userProfile.info.organizationId ?? "",
     });
     if (handleError(deleteOrg).error) {
       toaster({ type: "error", description: handleError(deleteOrg).message });
@@ -101,9 +100,9 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   };
   return (
     <>
-      {userInfo.userInfo.organization ? (
+      {userProfile?.info.organization ? (
         <>
-          <div className="grid grid-cols-2 items-start mt-14">
+          <div className="md:grid flex md:grid-cols-2 flex-col gap-y-10 items-start mt-14">
             <div className="w-full">
               <h3 className="text-2xl font-normal text-left mb-5">
                 {organizationStore.name}
@@ -119,7 +118,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                       className="flex flex-row justify-between items-center">
                       <p className="flex flex-row justify-between w-full pr-10 gap-x-2">
                         {sliced(member.email, 30)}
-                        {userInfo.userInfo.organization?.ownerId ===
+                        {userProfile?.info.organization?.ownerId ===
                           member.id && (
                           <Crown
                             data-tooltip-id="ownerID"
@@ -133,11 +132,11 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                         id="ownerID">
                         Owner
                       </Tooltip>
-                      {userInfo.userInfo.organization?.ownerId ===
-                        userInfo.userInfo.id &&
-                        userInfo.userInfo.email !== member.email && (
+                      {userProfile?.info.organization?.ownerId ===
+                        userProfile?.info.id &&
+                        userProfile?.info.email !== member.email && (
                           <PopoverOrganizationMember
-                            userInfo={userInfo}
+                            userInfo={userProfile}
                             setRefresh={setRefresh}
                             member={member}
                           />
@@ -159,9 +158,9 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                             key={invitation.id}
                             className="flex flex-row justify-between items-center !pt-0 !pb-0 !py-0">
                             <p>{sliced(invitation.email, 30)}</p>
-                            {userInfo.userInfo.organization?.ownerId ===
-                              userInfo.userInfo.id &&
-                              userInfo.userInfo.email !== invitation.email && (
+                            {userProfile?.info.organization?.ownerId ===
+                              userProfile?.info.id &&
+                              userProfile?.info.email !== invitation.email && (
                                 <PopoverDelete
                                   what="this member"
                                   className="mr-5"
@@ -177,25 +176,25 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                   </>
                 )}
             </div>
-            <div className="w-full border-l border-dashed flex flex-col px-5">
+            <div className="w-full max-md:border-none border-l border-dashed flex flex-col px-5">
               <div
                 className={cn({
                   "opacity-50 pointer-events-none !cursor-not-allowed":
-                    userInfo.userInfo.organization?.ownerId !==
-                    userInfo.userInfo.id,
+                    userProfile?.info.organization?.ownerId !==
+                    userProfile?.info.id,
                 })}>
-                <OrganizationName user={userInfo.userInfo} />
-                <InviteMember user={userInfo.userInfo} />
+                <OrganizationName user={userProfile?.info} />
+                <InviteMember user={userProfile?.info} />
               </div>
             </div>
           </div>
           {/* If user is ownerId, he cant */}
           <Goodline className="mb-10" />
-          {userInfo.userInfo.organization?.ownerId === userInfo.userInfo.id ? (
+          {userProfile?.info.organization?.ownerId === userProfile?.info.id ? (
             <PopoverConfirm
               what="to delete this organization ?"
-              display="Delete organization"
-              className="text-left float-right dark:text-red-400 text-red-500"
+              display="Delete organization..."
+              className="text-left float-right dark:text-theming-text-900 text-red-500"
               variant={"link"}
               handleFunction={delOrganization}
             />
@@ -203,7 +202,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
             <PopoverConfirm
               what="to quit this organization ?"
               display="Quit organization"
-              className="text-left float-right dark:text-red-400 text-red-500"
+              className="text-left float-right dark:text-theming-text-900 text-red-500"
               variant={"link"}
               handleFunction={handleQuitOrganization}
             />
@@ -215,8 +214,8 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
             className="w-full mt-5"
             onClick={() =>
               handleCreateOrganization(
-                userInfo.userInfo.id,
-                userInfo.userInfo.email ?? ""
+                userProfile?.info.id ?? "",
+                userProfile?.info.email ?? ""
               )
             }>
             Create an organization

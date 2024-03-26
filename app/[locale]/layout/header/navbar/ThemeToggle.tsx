@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
+import { Skeleton } from "@/src/components/ui/skeleton";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -11,6 +12,12 @@ export const ThemeToggle = ({ className, classNameMoon }: ThemeToggleProps) => {
   const { setTheme, theme } = useTheme();
   const { appSettings } = useAppSettingsStore();
 
+  if (!appSettings.id && !appSettings.activeDarkMode)
+    return (
+      <div className="flex items-center space-x-3 h-11">
+        <Skeleton className="h-8 w-8 rounded-full" />
+      </div>
+    );
   if (!appSettings.activeDarkMode) return null;
   return (
     <Button

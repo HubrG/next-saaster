@@ -1,6 +1,6 @@
 "use client";
 import { Button } from '@/src/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/src/lib/intl/navigation';
 
 type PriceCardContactUsButtonProps = {
 }

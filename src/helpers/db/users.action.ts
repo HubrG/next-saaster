@@ -108,14 +108,14 @@ export const getUserByCustomerId = action(
 
 export const updateUser = action(
   updateUserSchema,
-  async ({
-    data,
-    stripeSignature,
-    secret,
-  }): Promise<HandleResponseProps<iUsers>> => {
+  async (
+    { data, stripeSignature, secret },
+    { userSession }
+  ): Promise<HandleResponseProps<iUsers>> => {
     // 🔐 Security
     if (
       (!stripeSignature && !secret) ||
+      (userSession?.user.email !== data.email && userSession?.user.role !== "USER") ||
       (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )

@@ -9,10 +9,9 @@ import {
   PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import currenciesData from "@/src/jsons/currencies.json";
+import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
-import { Currencies } from "@/src/types/Currencies";
 import { iPlan } from "@/src/types/db/iPlans";
 import { SaasTypes } from "@prisma/client";
 import { PopoverClose } from "@radix-ui/react-popover";
@@ -26,7 +25,6 @@ type Props = {
 export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { setSaasPlans } = useSaasPlansStore();
-  const currencies = currenciesData as Currencies;
 
   const handleApplyCoupon = async (couponId: string) => {
     const apply = await applyCoupon(couponId, planId, recurrence ?? "monthly");
@@ -93,7 +91,7 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
                       {coupon.percent_off
                         ? coupon.percent_off + "%"
                         : (coupon.amount_off??0)/100 +
-                          `${currencies[coupon.currency ?? "usd"]?.sigle}`}{" "}
+                          `${convertCurrencyName(coupon.currency ?? "usd","sigle")}`}{" "}
                       / {coupon.duration}{" "}
                       {coupon.duration === "repeating" &&
                         `${coupon.duration_in_months} month${

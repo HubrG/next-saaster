@@ -1,36 +1,39 @@
-import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { iPlan } from "@/src/types/db/iPlans";
-import {
-  SubItemsPlan,
-  SubItemsPrice,
-  SubscriptionDiscount,
-  SubscriptionItem,
-  iUsers,
-} from "@/src/types/db/iUsers";
+import { iStripePrice } from "@/src/types/db/iStripePrices";
+import { Coupon, iUsers } from "@/src/types/db/iUsers";
 import { Subscription, SubscriptionStatus } from "@prisma/client";
 import Stripe from "stripe";
 
 export type ReturnProps = {
-  userInfo: iUsers;
-  planName: string | "No plan";
-  planPrice: number;
-  planStatus: SubscriptionStatus;
-  currency: string;
-  planDiscount: SubscriptionDiscount | null;
-  planItemsPlan?: SubItemsPlan | null;
-  planItemsPrice?: SubItemsPrice | null;
-  planItems?: SubscriptionItem[0] | null;
   isLoading: boolean;
-  planPriceWithDiscount?: number;
-  planInterval: string;
-  plan: Subscription | null;
-  isActivePlan: boolean | null;
-  planTrialRemaining?: number;
-  planAllDatas: Stripe.Subscription | null;
-  featuresList: iPlanToFeature[] | null;
-  planPlan: iPlan | null;
-  subItem: string;
   oneTimePayments: iUsers["oneTimePayments"];
+  //
+  activeSubscription: {
+    subscription: (Subscription & Stripe.Subscription) | null;
+    usageType: "metered" | "licensed" | null;
+    recurring: "day" | "week" | "month" | "year" | null;
+    creditRemaining: number;
+    meteredUnit: number | null;
+    creditAllouedByMonth: number;
+    priceObject: iStripePrice;
+    productObject: any;
+    planObject: iPlan;
+    quantity: number;
+    currency: string;
+    coupon: Coupon | null;
+    priceWithDiscount: number;
+    priceWithoutDiscount: number;
+    priceWithDiscountAndQuantity: number | null;
+    creditPercentage: number;
+    isTrial: boolean;
+    trialDateEnd: number | null;
+    trialDaysRemaining: number | null;
+    isCanceling: boolean;
+    canceledActiveUntil: number | null;
+    subscriptionItemId: string | null;
+    status: SubscriptionStatus;
+  };
+  info: iUsers;
 };
 /**
  *  Get user dependency
@@ -42,46 +45,40 @@ export type ReturnProps = {
  * @returns The user dependency
  */
 export const getUserInfos = ({ user }: { user: iUsers }) => {
-
   // We get the user's subscription
   const subscription = user.subscriptions?.find(
     (sub) => sub.isActive
   )?.subscription;
 
-  // We get the user's subscription datas
-  const subAllDatas = subscription?.allDatas as Stripe.Subscription | null;
+  const activeSubscription = user.subscriptions?.find((sub) => sub.isActive);
 
-  // 
+  const activeSubscriptionData = activeSubscription?.subscription
+    ?.allDatas as Stripe.Subscription | null;
 
-  const planDiscount = subAllDatas?.discount;
-
-  const planItems = subAllDatas?.items;
-
-  // const planItems: SubscriptionItem | null =
-  //   subscription?.items as SubscriptionItem | null;
+  const subscriptionDiscount = activeSubscriptionData?.discount;
 
   const priceWithDiscount = () => {
     if (
-      planDiscount?.coupon &&
-      planDiscount?.coupon.amount_off !== undefined &&
-      planDiscount?.coupon.amount_off !== null
+      subscriptionDiscount?.coupon &&
+      subscriptionDiscount?.coupon.amount_off !== undefined &&
+      subscriptionDiscount?.coupon.amount_off !== null
     ) {
       return (
         (subscription?.price?.unit_amount &&
           subscription?.price?.unit_amount / 100 -
-            planDiscount.coupon.amount_off / 100) ??
+            subscriptionDiscount.coupon.amount_off / 100) ??
         null
       );
     } else if (
-      planDiscount?.coupon &&
-      planDiscount?.coupon.percent_off !== undefined &&
-      planDiscount?.coupon.percent_off !== null
+      subscriptionDiscount?.coupon &&
+      subscriptionDiscount?.coupon.percent_off !== undefined &&
+      subscriptionDiscount?.coupon.percent_off !== null
     ) {
       return (
         (subscription?.price?.unit_amount &&
           subscription?.price?.unit_amount / 100 -
             (subscription?.price?.unit_amount / 100) *
-              (planDiscount.coupon.percent_off / 100)) ??
+              (subscriptionDiscount.coupon.percent_off / 100)) ??
         null
       );
     } else {
@@ -106,39 +103,68 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
   };
 
   const userInfo = {
-    isActivePlan:
-      subscription?.status === "active" || subscription?.status === "trialing"
-        ? true
-        : false,
     isLoading: user.role ? false : true,
-    planTrialRemaining:
-      subscription?.status === "trialing" ? trialDaysRemaining() : undefined,
-    plan: subscription,
-    planName:
-      subscription?.price?.productRelation?.PlanRelation?.name ?? "No plan",
-    planPrice:
-      (subscription?.price?.unit_amount &&
-        subscription?.price?.unit_amount / 100) ??
-      0,
-   planPriceWithDiscount:
-    priceWithDiscount() ??
-    (subscription?.price?.unit_amount &&
-      subscription?.price?.unit_amount / 100) ??
-    0,
-    currency: subscription?.price?.currency ?? "USD",
-    planStatus: subscription?.status ?? "active",
-    planDiscount: planDiscount,
-    planItems: planItems ? planItems.data[0] : null,
-    planInterval: planItems?.data[0]
-      ? planItems.data[0].price.recurring?.interval
-      : "",
-    planAllDatas: subAllDatas,
-    featuresList:
-      subscription?.price?.productRelation?.PlanRelation?.Features ?? null,
-    planPlan: subscription?.price?.productRelation?.PlanRelation,
-    subItem: planItems?.data[0].id ?? "",
-    oneTimePayments: user.oneTimePayments,
-    userInfo: user,
+    // Active subscription
+    activeSubscription: activeSubscription?.subscription
+      ? {
+          subscriptionItemId: activeSubscriptionData?.items?.data[0].id ?? null,
+          status: activeSubscription?.subscription?.status ?? "active",
+          subscription:
+            (activeSubscription?.subscription as Subscription) ?? null, // Active subscription
+          usageType:
+            activeSubscriptionData?.items?.data[0].plan.usage_type ?? null, // Usage type
+          recurring:
+            activeSubscriptionData?.items?.data[0].price.recurring?.interval ??
+            null, // Recurring interval
+          quantity: activeSubscriptionData?.items?.data[0].quantity ?? 0, // Quantity
+          coupon: activeSubscriptionData?.discount?.coupon ?? null, // Coupon
+          meteredUnit: activeSubscriptionData?.items?.data[0].price
+            .transform_quantity
+            ? activeSubscription?.subscription?.price?.productRelation
+                ?.PlanRelation?.meteredUnit
+            : null, // Metered unit
+          currency: activeSubscription?.subscription?.price?.currency ?? "USD", // Currency
+          creditAllouedByMonth:
+            activeSubscription?.subscription?.price?.productRelation
+              ?.PlanRelation?.creditAllouedByMonth ?? 0, // Credit alloued by month
+          creditRemaining: activeSubscription?.creditRemaining ?? 0, // Credit remaining for the current month
+          priceObject: activeSubscription?.subscription?.price ?? null,
+          productObject:
+            activeSubscription?.subscription?.price?.productRelation ?? null,
+          planObject:
+            activeSubscription?.subscription?.price?.productRelation
+              ?.PlanRelation ?? null,
+          priceWithDiscount:
+            priceWithDiscount() ??
+            (activeSubscription?.subscription?.price?.unit_amount &&
+              activeSubscription?.subscription?.price?.unit_amount / 100) ??
+            0,
+          priceWithoutDiscount: activeSubscription?.subscription?.price ?? 0,
+          // Multiplication by quantity
+          priceWithDiscountAndQuantity:
+            (activeSubscriptionData?.items.data[0].quantity ?? 0) *
+              (priceWithDiscount() ??
+                (activeSubscription?.subscription?.price?.unit_amount &&
+                  activeSubscription?.subscription?.price?.unit_amount / 100) ??
+                0) ?? null,
+          creditPercentage:
+            ((activeSubscription?.creditRemaining ?? 0) /
+              (activeSubscription?.subscription?.price?.productRelation
+                ?.PlanRelation?.creditAllouedByMonth ?? 0)) *
+            100, // Credit remaining in percentage
+          isTrial: activeSubscription?.subscription?.status === "trialing",
+          trialDateEnd: activeSubscriptionData?.trial_end ?? null,
+          trialDaysRemaining:
+            activeSubscription?.subscription?.status === "trialing"
+              ? trialDaysRemaining()
+              : null,
+          isCanceling: activeSubscriptionData?.cancel_at_period_end ?? false,
+          canceledActiveUntil:
+            activeSubscriptionData?.current_period_end ?? null,
+        }
+      : null,
+    // User info
+    info: user,
   };
   return userInfo as ReturnProps;
 };

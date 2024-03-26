@@ -3,7 +3,6 @@ import { useIsClient } from "@/src/hooks/useIsClient";
 import { appSettings } from "@prisma/client";
 import { ShoppingBagIcon } from "lucide-react";
 import { Session } from "next-auth";
-import { Suspense } from "react";
 import { Button } from "../../../../src/components/ui/button";
 import BurgerMenu from "./navbar/BurgerMenu";
 import Logo from "./navbar/Logo";
@@ -59,9 +58,7 @@ export const Navbar = ({ session, settings }: NavbarProps) => {
               />
               <Button className="hidden"></Button>
               <div className="sm:block hidden">
-                <Suspense>
                   {session ? <UserProfile /> : <LoginButton />}
-                </Suspense>
               </div>
               <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
             </div>

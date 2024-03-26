@@ -1,9 +1,9 @@
 import { Index } from "@/app/[locale]/login/components/Index";
 import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
+import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
 export const generateMetadata = async () => {
   return createMetadata({

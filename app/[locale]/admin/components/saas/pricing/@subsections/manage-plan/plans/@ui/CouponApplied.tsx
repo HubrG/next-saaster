@@ -2,11 +2,10 @@
 
 import { revokeCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import currenciesData from "@/src/jsons/currencies.json";
+import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { Currencies } from "@/src/types/Currencies";
 import { iPlan } from "@/src/types/db/iPlans";
 import { MinusCircle } from "lucide-react";
 import { Tooltip } from "react-tooltip";
@@ -32,7 +31,6 @@ export const CouponApplied = ({
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { saasSettings } = useSaasSettingsStore();
   const planCoupons = saasPlans.find((p) => p.id === plan.id)?.coupons;
-  const currencies = currenciesData as Currencies;
 
   const calculatePriceWithDiscount = (
     price: number,
@@ -119,7 +117,7 @@ export const CouponApplied = ({
                   - {stripeCoupon?.percent_off
                         ? stripeCoupon?.percent_off + "%"
                         : ((stripeCoupon?.amount_off??0)/100) +
-                          `${currencies[stripeCoupon?.currency ?? "usd"]?.sigle}`}{" "}
+                          `${convertCurrencyName(stripeCoupon?.currency ?? "usd","sigle")}`}{" "}
                   {stripeCoupon?.duration === "once"
                     ? "for once"
                     : stripeCoupon?.duration === "repeating"

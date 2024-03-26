@@ -4,6 +4,7 @@ import { PlanCard } from "@/app/[locale]/admin/components/saas/pricing/@subsecti
 import { updatePlanPosition } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
 import { Loader } from "@/src/components/ui/loader";
 import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
+import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
@@ -11,7 +12,6 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { AnimatePresence, motion } from "framer-motion";
 import { toLower } from "lodash";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { DeteledPlanDialog } from "./@ui/DeletedPlanDialog";

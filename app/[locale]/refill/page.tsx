@@ -1,6 +1,6 @@
 import { DivFullScreenGradient } from '@/src/components/ui/layout-elements/gradient-background';
 import { getSaasSettings } from '@/src/helpers/db/saasSettings.action';
-import { redirect } from 'next/navigation';
+import { redirect } from '@/src/lib/intl/navigation';
 import { Index } from './components/Index';
 
 export default async function page() {

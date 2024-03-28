@@ -30,7 +30,7 @@ export const ProfileInformation = ({ user }: InformationProps) => {
       name: user?.name ?? "",
     },
   });
-
+// 
   const onSubmit = async () => {
     setLoading(true);
     const up = await updateUser({

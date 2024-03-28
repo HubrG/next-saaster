@@ -1,22 +1,27 @@
 "use client";
 
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
-import { UploadFile } from "@/src/lib/storage.action";
+import { cn } from "@/src/lib/utils";
 import { useUserStore } from "@/src/stores/userStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+
 import { upperCase } from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Tooltip } from "react-tooltip";
 import { z } from "zod";
-
+type ApiResponse = {
+  error?: string;
+  success?: string;
+  json?: () => Promise<any>;
+};
 export const ProfilePicture = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File>();
@@ -69,42 +74,47 @@ export const ProfilePicture = () => {
     }
     const data = new FormData();
     data.set("file", file);
-    const response = await UploadFile({
-      data,
-      provider: "Cloudinary",
-      secret: chosenSecret(),
-    });
-    if (handleError(response).error) {
-      toaster({ type: "error", description: handleError(response).message });
+    data.set("provider", "Cloudinary");
+    data.set("secret", chosenSecret());
+    const response: ApiResponse = (await fetch("/api/upload", {
+      method: "POST",
+      body: data,
+    })) as unknown as { success: string; data: { success: string } };
+
+    if (response.error) {
+      toaster({ type: "error", description: response.error });
       setLoading(false);
       return;
     }
-    setUserStore({
-      ...userStore,
-      image: response.data?.success ?? userStore.image,
-    });
-    const updateUserPP = await updateUser({
-      data: {
-        email: userStore.email ?? "",
-        image: response.data?.success,
-      },
-      secret: chosenSecret(),
-    });
-    if (handleError(updateUserPP).error) {
-      toaster({
-        type: "error",
-        description: handleError(updateUserPP).message,
+    if (response.json) {
+      const responseBody = await response.json();
+      setUserStore({
+        ...userStore,
+        image: responseBody.success ?? userStore.image,
       });
+      const updateUserPP = await updateUser({
+        data: {
+          email: userStore.email ?? "",
+          image: responseBody.success,
+        },
+        secret: chosenSecret(),
+      });
+      if (handleError(updateUserPP).error) {
+        toaster({
+          type: "error",
+          description: handleError(updateUserPP).message,
+        });
+        setLoading(false);
+        return;
+      }
+      toaster({
+        type: "success",
+        description: "File uploaded successfully",
+      });
+      // we reset the form after the file has been uploaded
+      form.reset({ file });
       setLoading(false);
-      return;
     }
-    toaster({
-      type: "success",
-      description: "File uploaded successfully",
-    });
-    // we reset the form after the file has been uploaded
-    form.reset({ file });
-    setLoading(false);
   }, [file, userStore, setUserStore, form]);
   useEffect(() => {
     // Only if file changes
@@ -115,22 +125,25 @@ export const ProfilePicture = () => {
   }, [file, onSubmit, loading]);
   return (
     <div className="w-full">
-      <Avatar className="!no-underline">
+      <Avatar className="!no-underline h-36 w-36 mx-auto mt-20">
         {userStore?.image && (
           <AvatarImage
             data-tooltip-id="change-avatar"
             onClick={handleAvatarClick}
             src={userStore.image}
-            className="rounded-full w-24 h-24 mx-auto mt-20  cursor-pointer"
+            className={cn(
+              { "animate-pulse": loading },
+              `rounded-full mx-auto cursor-pointer`
+            )}
             alt={userStore.name ?? "User avatar"}
           />
         )}
         <AvatarFallback
           onClick={handleAvatarClick}
-          className="!no-underline  cursor-pointer"
+          className={cn({ "animate-pulse": loading }, "cursor-pointer")}
           data-tooltip-id="change-avatar"
           style={{ textDecoration: "transparent" }}>
-          <span className="!no-underline">
+          <span className="!no-underline text-5xl">
             {upperCase(
               userStore?.name
                 ?.toString()
@@ -141,6 +154,7 @@ export const ProfilePicture = () => {
           </span>
         </AvatarFallback>
       </Avatar>
+
       <Tooltip id="change-avatar" className="tooltip" place="top">
         Change avatar
       </Tooltip>

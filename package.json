@@ -72,6 +72,7 @@
     "embla-carousel-react": "8.0.0-rc19",
     "filepond": "^4.30.6",
     "formidable": "^3.5.1",
+    "formidable-serverless": "^1.1.1",
     "framer-motion": "^11.0.6",
     "install": "^0.13.0",
     "js-cookie": "^3.0.5",

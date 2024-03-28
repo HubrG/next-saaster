@@ -8,6 +8,7 @@ declare module "node" {
 declare module "nodemailer";
 declare module "react-beautiful-dnd";
 declare module "formidable";
+declare module "formidable-serverless";
 declare module "bcrypt";
 declare module "@t3-oss/env-core";
 declare module "js-cookie";

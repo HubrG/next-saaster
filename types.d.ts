@@ -9,6 +9,7 @@ declare module "nodemailer";
 declare module "react-beautiful-dnd";
 declare module "formidable";
 declare module "formidable-serverless";
+declare module "blob-to-buffer";
 declare module "bcrypt";
 declare module "@t3-oss/env-core";
 declare module "js-cookie";
@@ -24,6 +25,7 @@ declare module "react-lazyload";
 declare module "react-lottie"
 declare module "@/utils/openAIStream";
 declare module "uuid";
+declare module "streamifier";
 
 declare module "isomorphic-fetch";
 declare module "unified";

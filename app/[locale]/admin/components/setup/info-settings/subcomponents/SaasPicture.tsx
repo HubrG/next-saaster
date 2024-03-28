@@ -12,6 +12,7 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateAppSettings } from "@/src/helpers/db/appSettings.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
+import { cn } from "@/src/lib/utils";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { upperCase } from "lodash";
@@ -132,13 +133,13 @@ export const SaasPicture = () => {
             data-tooltip-id="change-avatar"
             onClick={handleAvatarClick}
             src={appSettings.image}
-            className="rounded-full   cursor-pointer"
+            className={cn({ "animate-pulse": loading }, ` rounded cursor-pointer`)}
             alt={appSettings.name ?? "User avatar"}
           />
         )}
         <AvatarFallback
           onClick={handleAvatarClick}
-          className="!no-underline  cursor-pointer "
+          className={cn({ "animate-pulse": loading }, ` cursor-pointer`)}
           data-tooltip-id="change-avatar"
           style={{ textDecoration: "transparent" }}>
           <span className="!no-underline text-6xl">

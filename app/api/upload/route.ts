@@ -1,16 +1,28 @@
 import { v2 as cloudinary } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
 
+// Votre configuration Cloudinary devrait être faite en dehors de votre fonction d'API.
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-export async function POST(req: NextRequest, res: NextResponse) {
-  const data = await req.formData();
-  const file: File | null = data.get("file") as unknown as File;
-  if (!file) throw new Error("No file provided");
-  if (file.size < 1) throw new Error("File is empty");
+
+export async function POST(req: NextRequest) {
+    const formData = await req.formData();
+    const file = formData.get("file") as File;
+
+    if (!file) {
+      return new NextResponse(JSON.stringify({ error: "No file provided" }), {
+        status: 400,
+      });
+    }
+
+    if (file.size < 1) {
+      return new NextResponse(JSON.stringify({ error: "File is empty" }), {
+        status: 400,
+      });
+    }
   try {
     const url: string = await new Promise(async (resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
@@ -28,9 +40,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
         (error, result) => {
           if (error) {
-              console.error("Cloudinary Upload Error:", error);
-              reject("Failed to upload file to Cloudinary");
-              throw new Error("Failed to upload file to Cloudinary");
+            console.error("Cloudinary Upload Error:", error);
+            reject("Failed to upload file to Cloudinary");
+            throw new Error("Failed to upload file to Cloudinary");
           } else {
             console.log("Cloudinary Upload Result:", result?.secure_url);
             resolve(result?.secure_url ?? "");

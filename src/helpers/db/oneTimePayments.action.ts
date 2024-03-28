@@ -82,7 +82,7 @@ export const createOneTimePayment = action(
         metadata: data.metadata ? JSON.parse(data.metadata as string) : {},
       };
       const oneTimePayment = await prisma.oneTimePayment.create({
-        data:dataWithCorrectItemsType,
+        data: dataWithCorrectItemsType,
         include,
       });
       if (!oneTimePayment)

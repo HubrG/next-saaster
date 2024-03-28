@@ -115,7 +115,9 @@ export const updateUser = action(
     // 🔐 Security
     if (
       (!stripeSignature && !secret) ||
-      (userSession?.user.email !== data.email && userSession?.user.role !== "USER") ||
+      (userSession &&
+        userSession?.user.email !== data.email &&
+        userSession?.user.role !== "USER") ||
       (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )

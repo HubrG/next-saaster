@@ -113,8 +113,7 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
                     label="Actual password"
                     name="oldPassword"
                     form={form}>
-                    {" "}
-                    <ForgotPassword className="block -mt-[2.89rem] font-bold !rounded-l-none text-sm !mr-0.5" user={user} />
+                    <ForgotPassword className="button-in-input" user={user} />
                   </Field>
                   <Field
                     type="password"
@@ -133,7 +132,10 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
                     type="submit"
                     loading={isLoading}
                     disabled={isLoading || !form.formState.isValid}
-                    className={cn({ disabled: isLoading }, "w-full !mt-10 mb-0")}>
+                    className={cn(
+                      { disabled: isLoading },
+                      "w-full !mt-10 mb-0"
+                    )}>
                     Update password
                   </ButtonWithLoader>
                 </div>

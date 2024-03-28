@@ -18,6 +18,8 @@ import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { useUserStore } from "@/src/stores/userStore";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { upperCase } from "lodash";
 import { Crown, Hourglass, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
@@ -31,7 +33,6 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   const { organizationStore, fetchOrganizationStore } = useOrganizationStore();
   const { userStore, isStoreLoading, fetchUserStore } = useUserStore();
   const [userProfile, setUserProfile] = useState<ReturnProps | null>();
-  const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
       setUserProfile(getUserInfos({ user: userStore }));
       setRefresh(false);
     }
-  }, [userStore, refresh, isLoading, isStoreLoading]);
+  }, [userStore, refresh, isStoreLoading]);
 
   useEffect(() => {
     if (userProfile?.info.organization && !userProfile?.isLoading) {
@@ -115,7 +116,29 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                   {organizationStore.members?.map((member) => (
                     <li
                       key={member.id}
-                      className="flex flex-row justify-between items-center">
+                      className="flex flex-row justify-between gap-3 items-center">
+                      <Avatar className="!no-underline w-5 h-5 mt-0.5">
+                        {member?.image && (
+                          <AvatarImage
+                            src={member.image}
+                            className="rounded-full"
+                            alt={userStore.name ?? "User avatar"}
+                          />
+                        )}
+                        <AvatarFallback
+                          className="!no-underline"
+                          style={{ textDecoration: "transparent" }}>
+                          <span className="!no-underline">
+                            {upperCase(
+                              member?.name
+                                ?.toString()
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")
+                            )}
+                          </span>
+                        </AvatarFallback>
+                      </Avatar>
                       <p className="flex flex-row justify-between w-full pr-10 gap-x-2">
                         {sliced(member.email, 30)}
                         {userProfile?.info.organization?.ownerId ===

@@ -28,7 +28,7 @@ type SendEmailProps = {
   text?: string;
   reply_to?: string;
   tag_name?: "category" | undefined;
-  tag_value?: "invite_member_to_organisation" | "confirm_email" | undefined;
+  tag_value?: "invite_member_to_organisation" | "confirm_email" | "forgot_password" | undefined;
   preview?: string;
 };
 export const sendEmail = async ({
@@ -64,7 +64,6 @@ export const sendEmail = async ({
       }),
       tags: [{ name: tag_name ?? "", value: tag_value ?? "" }],
     });
-
     if (!send) {
       throw new Error("An error has occured");
     } else if (send.error) {
@@ -74,6 +73,7 @@ export const sendEmail = async ({
       success: send.data?.id,
     };
   } catch (error) {
+    console.error(error);
     return { error: getErrorMessage(error) };
   }
 };

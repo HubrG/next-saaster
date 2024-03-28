@@ -2,13 +2,14 @@
 import { createPassword } from "@/app/[locale]/dashboard/queries/profile.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { Button } from "@/src/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
@@ -81,11 +82,10 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
 
   return (
     <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <span className={className}>
-          Click here to create one and log in with your username and password if
-          you wish.
-        </span>
+      <DialogTrigger className="w-full">
+        <Button className={className}>
+          Create password
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-y-6">

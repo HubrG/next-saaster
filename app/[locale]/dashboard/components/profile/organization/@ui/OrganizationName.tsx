@@ -1,6 +1,6 @@
 // RenameOrganization.tsx
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { toaster } from "@/src/components/ui/toaster/ToastConfig";
@@ -37,7 +37,10 @@ export const OrganizationName = ({ user }: RenameOrganizationProps) => {
       name: formData.name,
     });
     if (update.serverError) {
-      setOrganizationStore({ ...organizationStore, name: user.organization?.name ?? "" });
+      setOrganizationStore({
+        ...organizationStore,
+        name: user.organization?.name ?? "",
+      });
       toaster({ type: "error", description: update.serverError });
     } else {
       setOrganizationStore({ ...organizationStore, name: formData.name });
@@ -46,24 +49,25 @@ export const OrganizationName = ({ user }: RenameOrganizationProps) => {
   };
 
   return (
-        <Form {...formName}>
-          <form
-            onSubmit={formName.handleSubmit(handleNameSubmit)}
-            className="space-y-3 -mt-10">
-            <Field
-              type="text"
-              label="Organization name"
-              name="name"
-              placeholder="Name"
-              form={formName}
-            />
-            <Button
-              type="submit"
-              disabled={!formName.formState.isValid}
-              className="w-full">
-              Rename
-            </Button>
-          </form>
-        </Form>
+    <Form {...formName}>
+      <form
+        onSubmit={formName.handleSubmit(handleNameSubmit)}
+        className="space-y-3 -mt-10">
+        <Field
+          type="text"
+          label="Organization name"
+          name="name"
+          placeholder="Name"
+          form={formName}
+        />
+        <ButtonWithLoader
+          type="submit"
+          loading={formName.formState.isSubmitting}
+          disabled={!formName.formState.isValid || formName.formState.isSubmitting}
+          className="w-full">
+          Rename
+        </ButtonWithLoader>
+      </form>
+    </Form>
   );
 };

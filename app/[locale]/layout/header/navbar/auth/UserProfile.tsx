@@ -48,7 +48,6 @@ export const UserProfile = ({ className }: UserProfileProps) => {
     );
   }
 
-  console.log("userProfile", userProfile);
 
   return (
     <DropdownMenu>

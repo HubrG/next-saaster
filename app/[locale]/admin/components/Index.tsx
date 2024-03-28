@@ -13,6 +13,7 @@ import { AdminSetup } from "./setup/AdminSetup";
 // FIX : Bug "first user" selon qu'on créé un compte avec Next Auth ou par credentials --> Du coup, pas de Stripe ID, ni d'inscription dans Resend (par ailleurs ce bug existe aussi lors d'une connexion avec Gmail. sur un ouveau compte)
 // FIX : Bug création de compte avec Github
 // FIX : Bug avec le "allDatas" lorsqu'on obtient un abonnement (webhook)
+// FIX : Sécurité : toutes les requêtes qui passent par un x.action depuis le client doivent être vérifiées avec un secret (et pas depuis le server)
 export const Index = () => {
   const { isStoreLoading } = useSaasSettingsStore();
 

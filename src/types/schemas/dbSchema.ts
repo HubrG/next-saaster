@@ -38,7 +38,7 @@ export const updateFeaturesCategorySchema = z.object({
 export const createOneTimePaymentSchema = z.object({
   data: z.object({
     userId: z.string().cuid(),
-    stripePaymentIntentId: z.string(),
+    stripePaymentIntentId: z.string().nullable(),
     stripeCustomerId: z.string().optional(),
     amount: z.number(),
     currency: z.string(),

@@ -12,12 +12,15 @@ import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
 import { getServerSession } from "next-auth/next";
-import { Caveat, Commissioner, Playfair_Display } from "next/font/google";
+import {
+  Caveat,
+  Playfair_Display, Rethink_Sans
+} from "next/font/google";
 import { Toaster } from "sonner";
 import { getAppSettings } from "../../src/helpers/db/appSettings.action";
 import Footer from "./layout/footer/Footer";
 
-const sans = Commissioner({
+const sans = Rethink_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",

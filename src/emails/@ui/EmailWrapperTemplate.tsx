@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
+import ForgotPasswordTemplate from "../ForgotPasswordTemplate";
 import VerifyEmailTemplate from "../VerifyEmailTemplate";
 import EmailFooterTemplate from "./EmailFooterTemplate";
 
@@ -41,6 +42,9 @@ export default function EmailWrapperTemplate({
             {type === "verifyEmail" && vars && "verifyEmail" in vars && (
               <VerifyEmailTemplate vars={vars.verifyEmail} />
             )}
+            {type === "forgotPassword" && vars && "forgotPassword" in vars && (
+              <ForgotPasswordTemplate vars={vars.forgotPassword} />
+            )}
             {!type && text && (
               <>
                 {subject && (
@@ -49,7 +53,7 @@ export default function EmailWrapperTemplate({
                     <Hr />
                   </>
                 )}
-                <Text>text</Text>
+                <Text>{text}</Text>
               </>
             )}
           </Container>

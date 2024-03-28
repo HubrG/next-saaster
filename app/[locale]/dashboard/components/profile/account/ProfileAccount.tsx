@@ -57,26 +57,25 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
     <>
       {provider && (
         <Card className="mt-14">
-          <h4 className="font-normal">{userStore.email}</h4>
-          <p className="italic text-center flex flex-col justify-center">
+          <p className="font-bold text-center hyphens-auto">
+            {userStore.email}
+          </p>
+          <p className="italic text-center flex text-sm flex-col justify-center">
             You are connected with your {capitalize(provider)} account.
           </p>
         </Card>
       )}
       <div className="my-10">
         <h3 className="!text-left md:text-xl text-base opacity-90">
-          Manage your password
+          Manage password
         </h3>
         {!userStore.password ? (
           <>
             <p className="text-sm opacity-70 !text-left">
               You haven&apos;t created a password because you&apos;re logged in
-              with a {capitalize(provider ?? "")} account.{" "}
-              <CreatePassword
-                user={userProfile.info}
-                className="inline font-bold underline"
-              />
+              with a {capitalize(provider ?? "")} account.
             </p>
+            <CreatePassword user={userProfile.info} className="w-full mt-5" />
           </>
         ) : (
           <p className="text-base opacity-70 !text-left">

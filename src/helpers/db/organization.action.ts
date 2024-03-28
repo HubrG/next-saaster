@@ -176,23 +176,23 @@ export const inviteMemberToOrganization = authAction(
         "You are not authorized to invite a user to this organization"
       );
     // 🔓 Unlocked
+    // We check if user is already invited
     try {
-      // We check if user is already invited
-      const isInvited = await prisma.organizationInvitation.findFirst({
-        where: {
-          organizationId,
-          email,
-        },
-      });
-      if (isInvited) throw new ActionError("User is already invited");
-      // We check if user is already a member of an organization
-      const isMember = await prisma.user.findFirst({
-        where: {
-          email,
-        },
-      });
-      if (isMember && isMember.organizationId)
-        throw new ActionError("User is already a member of an organization");
+    const isInvited = await prisma.organizationInvitation.findFirst({
+      where: {
+        organizationId,
+        email,
+      },
+    });
+    if (isInvited) throw new ActionError("User is already invited");
+    // We check if user is already a member of an organization
+    const isMember = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+    if (isMember && isMember.organizationId)
+      throw new ActionError("User is already a member of an organization");
       // We create the invitation
       const create = await prisma.organizationInvitation.create({
         data: {
@@ -357,7 +357,9 @@ export const deleteOrganization = authAction(
   async ({ id }): Promise<HandleResponseProps<iOrganization>> => {
     const isOwner = await isOrganizationOwner();
     if (!isOwner)
-      throw new ActionError("You are not authorized to delete this organization");
+      throw new ActionError(
+        "You are not authorized to delete this organization"
+      );
     try {
       // We get the organization
       const organization = await prisma.organization.findUnique({
@@ -378,15 +380,17 @@ export const deleteOrganization = authAction(
             quantity: 1,
           },
         });
-        if (!upSub.success) throw new ActionError("Error while updating subscription");
+        if (!upSub.success)
+          throw new ActionError("Error while updating subscription");
       }
       // We delete users from userSubscription
-      const deleteUsersFromSubscription = await prisma.userSubscription.deleteMany({
-        where: {
-          userId: { not: organization.ownerId },
-          subscriptionId: userSubscription?.subscriptionId,
-        },
-      });
+      const deleteUsersFromSubscription =
+        await prisma.userSubscription.deleteMany({
+          where: {
+            userId: { not: organization.ownerId },
+            subscriptionId: userSubscription?.subscriptionId,
+          },
+        });
       if (!deleteUsersFromSubscription)
         throw new ActionError("Error while deleting users from subscription");
       // We delete the organization
@@ -394,7 +398,8 @@ export const deleteOrganization = authAction(
         where: { id },
         include,
       });
-      if (!deleteOrganization) throw new ActionError("Error while deleting organization");
+      if (!deleteOrganization)
+        throw new ActionError("Error while deleting organization");
       // We get the organization
       return handleRes<iOrganization>({
         success: deleteOrganization,
@@ -424,10 +429,10 @@ export const removeUserFromOrganization = authAction(
     organizationId: z.string().cuid(),
     email: z.string().email(),
   }),
-  async ({
-    organizationId,
-    email,
-  }, {userSession}): Promise<HandleResponseProps<iOrganization>> => {
+  async (
+    { organizationId, email },
+    { userSession }
+  ): Promise<HandleResponseProps<iOrganization>> => {
     const isOwner = await isOrganizationOwner();
     console.log(email, userSession?.user.email);
     // We verify if the email user is member of the organization
@@ -510,7 +515,7 @@ export const removeUserFromOrganization = authAction(
         statusCode: 200,
       });
     } catch (ActionError) {
-      console.error(ActionError)
+      console.error(ActionError);
       return handleRes<iOrganization>({ error: ActionError, statusCode: 500 });
     }
   }

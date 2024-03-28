@@ -48,8 +48,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
                 <p
                   className="flex items-center opacity-50  !text-sm cursor-default"
                   data-tooltip-id={feature.feature.id}
-                  data-tooltip-position-strategy="fixed"
-                  data-tooltip-float={true}>
+                 >
                   <X className="w-4 h-4 mr-2" />
                   {creditAlloued}
                   {feature.feature.name}
@@ -57,7 +56,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
                 {feature.feature.description && (
                   <Tooltip
                     place="left"
-                    noArrow
+                   
                     className="tooltip"
                     id={feature.feature.id}
                     opacity={100}>

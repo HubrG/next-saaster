@@ -9,7 +9,7 @@ export type ReturnProps = {
   oneTimePayments: iUsers["oneTimePayments"];
   //
   activeSubscription: {
-    subscription: (Subscription & Stripe.Subscription) | null;
+    subscription: (Subscription) | null;
     usageType: "metered" | "licensed" | null;
     recurring: "day" | "week" | "month" | "year" | null;
     creditRemaining: number;
@@ -109,8 +109,7 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
       ? {
           subscriptionItemId: activeSubscriptionData?.items?.data[0].id ?? null,
           status: activeSubscription?.subscription?.status ?? "active",
-          subscription:
-            (activeSubscription?.subscription as Subscription) ?? null, // Active subscription
+          subscription: activeSubscription.subscription as Subscription ?? null, // Active subscription
           usageType:
             activeSubscriptionData?.items?.data[0].plan.usage_type ?? null, // Usage type
           recurring:
@@ -142,7 +141,7 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
           priceWithoutDiscount: activeSubscription?.subscription?.price ?? 0,
           // Multiplication by quantity
           priceWithDiscountAndQuantity:
-            (activeSubscriptionData?.items.data[0].quantity ?? 0) *
+            (activeSubscriptionData?.items?.data[0]?.quantity ?? 0) *
               (priceWithDiscount() ??
                 (activeSubscription?.subscription?.price?.unit_amount &&
                   activeSubscription?.subscription?.price?.unit_amount / 100) ??
@@ -165,6 +164,8 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
       : null,
     // User info
     info: user,
+    // One time payments
+    oneTimePayments: user.oneTimePayments,
   };
   return userInfo as ReturnProps;
 };

@@ -42,12 +42,12 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
  
 
   // Dans votre composant ProfileBilling.tsx
-
   const handleCancelOrRestartSubscription = async (
     action: "cancel" | "restart",
     subscriptionId: string,
     userEmail: string
   ) => {
+
     setIsLoading(true);
     const cancel = await cancelSubscription(
       subscriptionId,
@@ -140,9 +140,10 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     {userProfile.activeSubscription.usageType !== "metered" ? (
                       <>
                         <span>
-                          {
-                            convertCurrencyName(userProfile.activeSubscription.currency, "sigle")
-                          }
+                          {convertCurrencyName(
+                            userProfile.activeSubscription.currency,
+                            "sigle"
+                          )}
                           {
                             userProfile.activeSubscription
                               .priceWithDiscountAndQuantity
@@ -159,9 +160,10 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     ) : (
                       <>
                         <span>
-                          {
-                            convertCurrencyName(userProfile.activeSubscription.currency, "sigle")
-                          }
+                          {convertCurrencyName(
+                            userProfile.activeSubscription.currency,
+                            "sigle"
+                          )}
                           {userProfile.activeSubscription.priceWithDiscount ??
                             0 / 100}
                         </span>
@@ -180,9 +182,10 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     )}
                     {userProfile.activeSubscription.quantity > 1 && (
                       <span className="text-sm font-normal">
-                        {
-                          convertCurrencyName(userProfile.activeSubscription.currency, "sigle")
-                        }
+                        {convertCurrencyName(
+                          userProfile.activeSubscription.currency,
+                          "sigle"
+                        )}
                         {userProfile.activeSubscription.priceWithDiscount +
                           " per user"}
                       </span>
@@ -205,7 +208,11 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                           : (userProfile.activeSubscription?.coupon
                               .amount_off ?? 0) /
                               100 +
-                        `${convertCurrencyName(userProfile.activeSubscription?.coupon.currency ?? undefined, "sigle")} `}
+                            `${convertCurrencyName(
+                              userProfile.activeSubscription?.coupon.currency ??
+                                undefined,
+                              "sigle"
+                            )} `}
                         on this plan
                       </span>
                     </li>
@@ -300,7 +307,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     onClick={() =>
                       handleCancelOrRestartSubscription(
                         "cancel",
-                        userProfile.activeSubscription.planObject.id ?? "",
+                        userProfile.activeSubscription.subscription?.id ?? "",
                         userStore.email ?? ""
                       )
                     }>
@@ -317,7 +324,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                   onClick={() =>
                     handleCancelOrRestartSubscription(
                       "restart",
-                      userProfile.activeSubscription.planObject.id ?? "",
+                      userProfile.activeSubscription.subscription?.id ?? "",
                       userStore.email ?? ""
                     )
                   }>

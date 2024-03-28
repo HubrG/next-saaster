@@ -1,5 +1,5 @@
 export interface EmailsInterface {
-  type: "inviteUserInOrganization" | "verifyEmail" | "default";
+  type: "inviteUserInOrganization" | "verifyEmail" | "forgotPassword" | "default";
   vars:
     | {
         inviteUserInOrganization: {
@@ -10,6 +10,11 @@ export interface EmailsInterface {
       }
     | {
         verifyEmail: {
+          verificationToken: string;
+        };
+      }
+    | {
+        forgotPassword: {
           verificationToken: string;
         };
       };

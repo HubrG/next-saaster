@@ -11,9 +11,10 @@ import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { SaasPicture } from "./subcomponents/SaasPicture";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Username must be at least 2 characters."),
+  name: z.string().min(2, "Name must be at least 2 characters."),
   description: z
     .string()
     .min(50, "Description must be at least 50 characters."),
@@ -64,7 +65,7 @@ export const InfoApp = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => handleSave(data);
 
   return (
-    <div>
+    <div className="grid grid-cols-2 items-center justify-center">
       <Form {...form}>
         <form
           className="flex flex-col space-y-6"
@@ -89,7 +90,7 @@ export const InfoApp = () => {
           <Field
             type="textarea"
             label="Description"
-            className="!h-32"
+            className="!h-22"
             name="description"
             description={`${
               form.watch("description").length
@@ -116,6 +117,7 @@ export const InfoApp = () => {
           </div>
         </form>
       </Form>
+      <SaasPicture />
     </div>
   );
 };

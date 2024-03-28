@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { ForgotPassword } from "../../dashboard/components/profile/account/components/ForgotPassword";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -51,9 +52,14 @@ export default function Credentials() {
           label="Password"
           name="password"
           placeholder="Password"
-          form={form}
-        />
-        <ButtonWithLoader loading={isLoading} disabled={isLoading} type="submit" className="w-full">
+          form={form}>
+          <ForgotPassword className="button-in-input" />
+        </Field>
+        <ButtonWithLoader
+          loading={isLoading}
+          disabled={isLoading}
+          type="submit"
+          className="w-full">
           Login with email
         </ButtonWithLoader>
       </form>

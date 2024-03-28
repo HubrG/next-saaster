@@ -17,20 +17,22 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
 
   return (
     <>
-      <SectionWrapper
-        id="Profile"
-        sectionName="Profile"
-        mainSectionName="Profile"
-        icon={<CircleUser className="icon" />}>
-        <ProfileSetup />
-      </SectionWrapper>
-      <SectionWrapper
-        id="Account"
-        sectionName="Account"
-        mainSectionName="Account"
-        icon={<UserRoundCog className="icon" />}>
-        <ProfileAccount />
-      </SectionWrapper>
+      <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
+        <SectionWrapper
+          id="Profile"
+          sectionName="Profile"
+          mainSectionName="Profile"
+          icon={<CircleUser className="icon" />}>
+          <ProfileSetup />
+        </SectionWrapper>
+        <SectionWrapper
+          id="Account"
+          sectionName="Account"
+          mainSectionName="Account"
+          icon={<UserRoundCog className="icon" />}>
+          <ProfileAccount />
+        </SectionWrapper>
+      </div>
       {saasSettings.saasType === "PAY_ONCE" ? (
         <SectionWrapper
           id="Purchase"

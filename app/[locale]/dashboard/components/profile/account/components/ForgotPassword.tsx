@@ -1,26 +1,33 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { Button } from "@/src/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
+import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { sendEmail } from "@/src/helpers/emails/sendEmail";
 import { cn } from "@/src/lib/utils";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
 type ForgotPasswordProps = {
   className?: string;
-  user: iUsers;
+  user?: iUsers;
+};
+type ApiResponse = {
+  error?: string;
+  message?: string;
+  token?: string;
 };
 export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,42 +41,73 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     const { ...formData } = values;
-    // const changePassword = await updatePassword({
-    //   email: user.email ?? "",
-    //   password: formData.password,
-    //   oldPassword: formData.oldPassword,
-    //   oldPasswordCrypted: user.password ?? "",
-    // });
-    // if (handleError(changePassword).error) {
-    //   toaster({
-    //     type: "error",
-    //     description: handleError(changePassword).message,
-    //   });
-    //   setIsLoading(false);
-    //   return;
-    // }
-    // toaster({ type: "success", description: "Password updated" });
-    // setUserStore({
-    //   ...user,
-    //   password: changePassword.data?.success?.password ?? null,
-    // });
-    // setOpen(false);
-    // setIsLoading(false);
+    const response = await fetch("/api/forgot-password", {
+      method: "POST",
+      body: JSON.stringify({
+        email: formData.email,
+      }),
+    });
+    const responseData: ApiResponse = await response.json();
+
+    if (!responseData.error) {
+      try {
+        // Resend API (mail)
+        const send = await sendEmail({
+          to: formData.email,
+          type: "forgotPassword",
+          subject: "Reset your password",
+          vars: {
+            forgotPassword: {
+                verificationToken: responseData.token ?? "",
+            },
+          },
+          tag_name: "category",
+          tag_value: "forgot_password",
+        });
+        if (!send.error) {
+          toaster({
+            type: "success",
+            description: responseData.message,
+          });
+          setIsLoading(false);
+        } else {
+          toaster({
+            type: "error",
+            description:
+              "An error occurred while sending the email. Please try again.",
+          });
+        }
+      } catch (error) {
+        toaster({
+          type: "error",
+          description:
+            "An error occurred while sending the email. Please try again.",
+        });
+        setIsLoading(false);
+      }
+    } else {
+      toaster({
+        type: "success",
+        description: responseData.error,
+      });
+      setIsLoading(false);
+    }
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: user.email ?? "",
+      email: (user && user.email) ?? "",
     },
   });
 
   return (
     <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button  size={"sm"} className={`${className}`}>
+        <div
+          className={`${className}`}>
           Forgot password ?
-        </Button>
+        </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-y-6">
@@ -91,7 +129,6 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
                     name="email"
                     form={form}
                   />
-
                   <Goodline className="!mt-10" />
                   <ButtonWithLoader
                     type="submit"

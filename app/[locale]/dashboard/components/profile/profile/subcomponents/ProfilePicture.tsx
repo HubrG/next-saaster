@@ -12,10 +12,10 @@ import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
+import { UploadFile } from "@/src/lib/storage.action";
 import { cn } from "@/src/lib/utils";
 import { useUserStore } from "@/src/stores/userStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PutBlobResult } from "@vercel/blob";
 import { upperCase } from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -78,19 +78,31 @@ export const ProfilePicture = () => {
     }
     const data = new FormData();
     data.set("file", file);
-    const response = await fetch(`/api/avatar?filename=${file.name}`, {
-      method: "POST",
-      body: file,
-    });
-    const newBlob = (await response.json()) as PutBlobResult;
-    console.log(newBlob);
+    // const response = await fetch(`/api/avatar?filename=${file.name}`, {
+    //   method: "POST",
+    //   body: file,
+    // });
+    // const newBlob = (await response.json()) as PutBlobResult;
+    // console.log(newBlob);
     // data.set("provider", "Cloudinary");
     // data.set("secret", chosenSecret());
     // const response: ApiResponse = (await fetch("/api/upload", {
     //   method: "POST",
     //   body: data,
     // })) as unknown as { success: string; data: { success: string } };
-
+    const upload = await UploadFile({
+      data,
+      provider: "cloudinary",
+      secret: chosenSecret(),
+    });
+    if (handleError(upload).error) {
+      toaster({
+        type: "error",
+        description: handleError(upload).message,
+      });
+      setLoading(false);
+      return;
+    }
     // if (response.error) {
     //   toaster({ type: "error", description: response.error });
     //   setLoading(false);
@@ -100,12 +112,12 @@ export const ProfilePicture = () => {
     //   const responseBody = await response.json();
     setUserStore({
       ...userStore,
-      image: newBlob.url ?? userStore.image,
+      image: upload.data?.success ?? userStore.image,
     });
     const updateUserPP = await updateUser({
       data: {
         email: userStore.email ?? "",
-        image: newBlob.url,
+        image: upload.data?.success,
       },
       secret: chosenSecret(),
     });

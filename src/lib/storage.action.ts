@@ -1,6 +1,7 @@
 "use server";
 
 import { Storage } from "@google-cloud/storage";
+import { put } from "@vercel/blob";
 import { v2 as cloudinary } from "cloudinary";
 import { z } from "zod";
 import { verifySecretRequest } from "../helpers/functions/verifySecretRequest";
@@ -20,7 +21,7 @@ cloudinary.config({
 export const UploadFile = authAction(
   z.object({
     data: z.instanceof(FormData),
-    provider: z.enum(["GCS", "Cloudinary"]),
+    provider: z.enum(["GCS", "cloudinary", "vercel-blob"]),
     secret: z.string(),
   }),
   async ({ data, provider, secret }): Promise<HandleResponseProps<string>> => {
@@ -54,7 +55,7 @@ export const UploadFile = authAction(
         });
       }
       // NOTE: Cloudinary
-      else if (provider === "Cloudinary") {
+      else if (provider === "cloudinary") {
         const url: string = await new Promise(async (resolve, reject) => {
           const uploadStream = cloudinary.uploader.upload_stream(
             {
@@ -89,6 +90,14 @@ export const UploadFile = authAction(
 
         return handleRes<string>({
           success: url,
+          statusCode: 200,
+        });
+      } else if  (provider === "vercel-blob") {
+        const blob = await put(file.name, Buffer.from(bytes), {
+          access: "public",
+        });
+        return handleRes<string>({
+          success: blob.url,
           statusCode: 200,
         });
       }

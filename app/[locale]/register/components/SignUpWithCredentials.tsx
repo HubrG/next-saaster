@@ -1,9 +1,9 @@
 "use client";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
-import { SimpleLoader } from "@/src/components/ui/loader";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { sendEmail } from "@/src/helpers/emails/sendEmail";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";

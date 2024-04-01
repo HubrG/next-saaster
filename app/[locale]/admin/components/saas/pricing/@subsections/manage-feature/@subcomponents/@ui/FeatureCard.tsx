@@ -1,9 +1,9 @@
 "use client";
 import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
-import { CopySomething } from "@/src/components/ui/copy-something";
-import { PopoverArchive } from "@/src/components/ui/popover-archive";
+import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
+import { PopoverArchive } from "@/src/components/ui/@fairysaas/popover-archive";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Switch } from "@/src/components/ui/switch";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateFeature } from "@/src/helpers/db/features.action";
 import { sliced } from "@/src/helpers/functions/slice";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";

@@ -1,5 +1,5 @@
 import { SwitchRecurrence } from "@/app/[locale]/pricing/components/SwitchRecurrence";
-import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
+import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
 import { getUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { redirect } from "@/src/lib/intl/navigation";

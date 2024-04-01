@@ -1,21 +1,21 @@
 "use client";
 
 import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
 } from "@/src/components/ui/command";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/src/components/ui/popover";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { createFeaturesCategory } from "@/src/helpers/db/featuresCategories.action";
 import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";

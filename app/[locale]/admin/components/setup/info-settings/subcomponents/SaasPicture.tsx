@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import {
   Avatar,
   AvatarFallback,
@@ -8,10 +9,10 @@ import {
 } from "@/src/components/ui/avatar";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateAppSettings } from "@/src/helpers/db/appSettings.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
+import { UploadFile } from "@/src/lib/storage.action";
 import { cn } from "@/src/lib/utils";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,11 +21,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Tooltip } from "react-tooltip";
 import { z } from "zod";
-type ApiResponse = {
-  error?: string;
-  success?: string;
-  json?: () => Promise<any>;
-};
+
 export const SaasPicture = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File>();
@@ -77,47 +74,47 @@ export const SaasPicture = () => {
     }
     const data = new FormData();
     data.set("file", file);
-    data.set("provider", "Cloudinary");
-    data.set("secret", chosenSecret());
-    const response: ApiResponse = (await fetch("/api/upload", {
-      method: "POST",
-      body: data,
-    })) as unknown as { success: string; data: { success: string } };
-
-    if (response.error) {
-      toaster({ type: "error", description: response.error });
+    const upload = await UploadFile({
+      data,
+      provider: "cloudinary",
+      secret: chosenSecret(),
+    });
+    if (handleError(upload).error) {
+      toaster({
+        type: "error",
+        description: handleError(upload).message,
+      });
       setLoading(false);
       return;
     }
-    if (response.json) {
-      const responseBody = await response.json();
-      setAppSettings({
-        ...appSettings,
-        image: responseBody.success ?? appSettings.image,
-      });
-      const updateAppPP = await updateAppSettings({
-        data: {
-          image: responseBody.success,
-        },
-        secret: chosenSecret(),
-      });
-      if (handleError(updateAppPP).error) {
-        toaster({
-          type: "error",
-          description: handleError(updateAppPP).message,
-        });
-        setLoading(false);
-        return;
-      }
+     const url = upload.data?.success;
+    setAppSettings({
+      ...appSettings,
+      image: url ?? appSettings.image,
+    });
+    const updateAppPP = await updateAppSettings({
+      data: {
+        image: url,
+      },
+      secret: chosenSecret(),
+    });
+    if (handleError(updateAppPP).error) {
       toaster({
-        type: "success",
-        description: "File uploaded successfully",
+        type: "error",
+        description: handleError(updateAppPP).message,
       });
-
-      form.reset({ file });
       setLoading(false);
+      return;
     }
+    toaster({
+      type: "success",
+      description: "File uploaded successfully",
+    });
+
+    form.reset({ file });
+    setLoading(false);
   }, [file, appSettings, setAppSettings, form]);
+  // 
   useEffect(() => {
     // Only if file changes
     if (file) {
@@ -133,7 +130,10 @@ export const SaasPicture = () => {
             data-tooltip-id="change-avatar"
             onClick={handleAvatarClick}
             src={appSettings.image}
-            className={cn({ "animate-pulse": loading }, ` rounded cursor-pointer`)}
+            className={cn(
+              { "animate-pulse": loading },
+              ` rounded cursor-pointer`
+            )}
             alt={appSettings.name ?? "User avatar"}
           />
         )}

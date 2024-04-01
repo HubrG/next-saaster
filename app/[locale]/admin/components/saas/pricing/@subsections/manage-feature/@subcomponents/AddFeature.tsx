@@ -1,8 +1,8 @@
 "use client";
 import { addNewMMRSFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import { SimpleLoader } from "@/src/components/ui/loader";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";

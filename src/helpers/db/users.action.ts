@@ -64,6 +64,33 @@ export const getUser = action(
   }
 );
 
+export const getUsers = action(
+  z.object({
+    secret: z.string().optional(),
+  }),
+  async ({ secret }): Promise<HandleResponseProps<iUsers[]>> => {
+    // 🔐 Security
+    if (!secret || (secret && !verifySecretRequest(secret)))
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const users = await prisma.user.findMany({
+        include,
+      });
+      if (!users) throw new ActionError("No users found");
+      return handleRes<iUsers[]>({
+        success: users,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iUsers[]>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
 export const getUserByCustomerId = action(
   z.object({
     customerId: z.string(),
@@ -117,7 +144,7 @@ export const updateUser = action(
       (!stripeSignature && !secret) ||
       (userSession &&
         userSession?.user.email !== data.email &&
-        userSession?.user.role !== "USER") ||
+        userSession?.user.role === "USER") ||
       (secret && !verifySecretRequest(secret)) ||
       (stripeSignature && !verifyStripeRequest(stripeSignature))
     )
@@ -229,7 +256,7 @@ const include = {
     },
   },
   subscriptions: {
-    where: { isActive: true },
+    // where: { isActive: true },
     include: {
       subscription: {
         include: {
@@ -259,6 +286,11 @@ const include = {
     },
   },
   contacts: true,
+  usage: {
+    include: {
+      feature: true,
+    },
+  },
   oneTimePayments: {
     include: {
       price: {

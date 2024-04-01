@@ -1,12 +1,12 @@
 "use client";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import { SimpleLoader } from "@/src/components/ui/loader";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/src/components/ui/popover";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
   createFeaturesCategory,
   getFeaturesCategories,

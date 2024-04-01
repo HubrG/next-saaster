@@ -1,11 +1,11 @@
 "use client";
 import {
-  isUserExists
+    isUserExists
 } from "@/app/[locale]/dashboard/queries/organization.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { acceptInvitationToOrganization, removePendingUser } from "@/src/helpers/db/organization.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useRouter } from "@/src/lib/intl/navigation";

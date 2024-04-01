@@ -51,12 +51,6 @@ export const SaasTypeList = [
     description:
       "This model charges customers based on the number of users or seats accessing the software. It is particularly suitable for businesses with a large number of users who require access to the software. It offers a predictable and scalable pricing structure, allowing businesses to add or remove users as needed. This model is ideal for businesses seeking a straightforward and predictable pricing model based on the number of users accessing the software. It encourages businesses to scale their operations without worrying about additional costs for new users.",
   },
-  // {
-  //   name: "User-defined price",
-  //   value: SaasTypes.CUSTOM_AMOUNT,
-  //   description:
-  //     "This model allows users to define their own price based on their budget and requirements. It offers a high degree of flexibility, allowing businesses to customize their pricing based on unique requirements, features, and usage patterns. This model is ideal for businesses with complex needs that cannot be met by standard pricing models. It encourages businesses to work closely with the vendor to design a pricing model that aligns with their specific requirements.",
-  // },
   {
     name: "Fine tuned custom pricing (development required)",
     value: SaasTypes.CUSTOM,

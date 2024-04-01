@@ -1,9 +1,9 @@
 "use client";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
-import { SimpleLoader } from "@/src/components/ui/loader";
-import { PopoverDelete } from "@/src/components/ui/popover-delete";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
   deleteFeaturesCategory,
   updateFeaturesCategory,

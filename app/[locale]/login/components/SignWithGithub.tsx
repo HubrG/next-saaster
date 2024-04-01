@@ -1,5 +1,5 @@
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { Button } from "@/src/components/ui/button";
-import { SimpleLoader } from "@/src/components/ui/loader";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useTransition } from "react";

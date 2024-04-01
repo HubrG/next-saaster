@@ -231,13 +231,17 @@ div.progressToken {
 }
 /* NOTE - Tooltip */
 .tooltip {
-  @apply absolute !text-sm my-little-shadow  font-semibold rounded-default  max-w-md dark:bg-theming-background-500 bg-theming-background-800 !opacity-100 !important;
+  @apply absolute !text-sm my-little-shadow  font-semibold !rounded-lg  max-w-md dark:bg-theming-background-500 bg-theming-background-800 !opacity-100 !important;
   z-index: 9999999999;
 }
 .tooltip span {
-  @apply text-white font-normal;
+  @apply text-white font-normal float-right;
   font-size: inherit !important;
   font-weight: inherit;
+}
+button[data-close-button] {
+  @apply !-right-[0.419rem] !rounded !rounded-tl-none !rounded-br-none !top-[0.429rem] !border-none p-2 cursor-pointer;
+  left:inherit !important;
 }
 .theme-card .card-tooltip {
   @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
@@ -436,7 +440,7 @@ form button {
   @apply text-sm opacity-75 mt-2;
 }
 .admin-plan-card {
-  @apply p-7  dark:hover:bg-theming-background-200/10 bg-transparent opacity-80 shadow-lg dark:shadow-2xl  border-0 border-theming-text-300/50 rounded-default flex flex-col h-fit flex-1 gap-5 items-center relative;
+  @apply p-7  dark:hover:bg-theming-background-200/10 bg-transparent   dark:shadow-2xl  border border-theming-text-300/50 rounded-default flex flex-col h-fit flex-1 gap-5 items-center relative;
 }
 .admin-plan-card > input,
 .admin-plan-card textarea {
@@ -560,6 +564,21 @@ code {
   -webkit-mask: var(--mask);
   mask: var(--mask);
 }
+/* Footer */
+
+footer {
+  @apply !min-h-[30vh] bg-theming-background-200/10 pt-20 grid md:grid-cols-4 max-md:grid-rows-4 md:justify-start justify-center w-full md:items-start items-center text-white p-6 ;
+}
+footer nav {
+  @apply md:mt-0 mt-10 md:text-center max-md:flex max-md:flex-col max-md:items-center max-md:w-full;
+}
+footer h4 {
+  @apply text-xl font-bold md:mx-auto ml-0 mb-5 flex flex-row items-center gap-x-2 !important;
+}
+footer a {
+  @apply text-theming-text-900/80 font-normal !important;
+
+}
 
 /* SECTION  Gradients and UI styles */
 /* NOTE : Gradients */
@@ -681,4 +700,8 @@ code {
 
 .button-in-input {
   @apply -mt-[2.76rem] mr-1 p-1.5 px-2 items-center justify-center whitespace-nowrap push-effect rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-theming-text-200 dark:text-theming-text-700 dark:bg-theming-text-200/50 bg-theming-text-500 hover:bg-theming-text-500/90 text-sm;
+}
+
+table.user-dialog-subscriptions tbody td {
+  @apply !text-sm;
 }

@@ -1,9 +1,9 @@
 "use client";
 import { AdminNavbar } from "@/app/[locale]/admin/components/Navbar";
-import { SkeletonLoader } from "@/src/components/ui/loader";
-import { UserInterfaceMainWrapper } from "@/src/components/ui/user-interface/UserInterfaceMainWrapper";
-import { UserInterfaceNavWrapper } from "@/src/components/ui/user-interface/UserInterfaceNavWrapper";
-import { UserInterfaceWrapper } from "@/src/components/ui/user-interface/UserInterfaceWrapper";
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { UserInterfaceMainWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceMainWrapper";
+import { UserInterfaceNavWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceNavWrapper";
+import { UserInterfaceWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { AdminSaas } from "./saas/AdminSaas";
 import { AdminSetup } from "./setup/AdminSetup";

@@ -1,7 +1,7 @@
 "use client";
 import { updateSaasSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { SwitchWrapper } from "@/src/components/ui/user-interface/ui/SwitchWrapper";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { SwitchWrapper } from "@/src/components/ui/@fairysaas/user-interface/ui/SwitchWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { Wallet } from "lucide-react";
 import { useEffect, useState } from "react";

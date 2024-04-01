@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import {
   Avatar,
   AvatarFallback,
@@ -8,7 +9,6 @@ import {
 } from "@/src/components/ui/avatar";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
@@ -78,18 +78,6 @@ export const ProfilePicture = () => {
     }
     const data = new FormData();
     data.set("file", file);
-    // const response = await fetch(`/api/avatar?filename=${file.name}`, {
-    //   method: "POST",
-    //   body: file,
-    // });
-    // const newBlob = (await response.json()) as PutBlobResult;
-    // console.log(newBlob);
-    // data.set("provider", "Cloudinary");
-    // data.set("secret", chosenSecret());
-    // const response: ApiResponse = (await fetch("/api/upload", {
-    //   method: "POST",
-    //   body: data,
-    // })) as unknown as { success: string; data: { success: string } };
     const upload = await UploadFile({
       data,
       provider: "cloudinary",
@@ -103,21 +91,15 @@ export const ProfilePicture = () => {
       setLoading(false);
       return;
     }
-    // if (response.error) {
-    //   toaster({ type: "error", description: response.error });
-    //   setLoading(false);
-    //   return;
-    // }
-    // if (response.json) {
-    //   const responseBody = await response.json();
+    const url = upload.data?.success;
     setUserStore({
       ...userStore,
-      image: upload.data?.success ?? userStore.image,
+      image: url ?? userStore.image,
     });
     const updateUserPP = await updateUser({
       data: {
         email: userStore.email ?? "",
-        image: upload.data?.success,
+        image: url,
       },
       secret: chosenSecret(),
     });

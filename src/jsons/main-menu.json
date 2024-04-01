@@ -1,0 +1,14 @@
+[
+  {
+    "url": "how-it-works",
+    "name": "Components.Features.Layout.Header.Navbar.MainMenu.links.howItWorks"
+  },
+  {
+    "url": "pricing",
+    "name": "Components.Features.Layout.Header.Navbar.MainMenu.links.pricing"
+  },
+  {
+    "url": "contact",
+    "name": "Components.Features.Layout.Header.Navbar.MainMenu.links.contact"
+  }
+]

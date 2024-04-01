@@ -15,7 +15,6 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
-  
 });
 
 export const UploadFile = authAction(
@@ -87,12 +86,13 @@ export const UploadFile = authAction(
           bufferStream.end(buffer);
           bufferStream.pipe(uploadStream);
         });
-
         return handleRes<string>({
           success: url,
           statusCode: 200,
         });
-      } else if  (provider === "vercel-blob") {
+      }
+      // NOTE: Vercel Blob
+      else if (provider === "vercel-blob") {
         const blob = await put(file.name, Buffer.from(bytes), {
           access: "public",
         });

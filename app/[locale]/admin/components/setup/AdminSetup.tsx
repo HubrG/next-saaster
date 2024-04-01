@@ -1,7 +1,7 @@
 "use client";
 import { SetupDesign } from "@/app/[locale]/admin/components/setup/design-settings/SetupDesign";
 import { InfoApp } from "@/app/[locale]/admin/components/setup/info-settings/InfoApp";
-import { SectionWrapper } from "@/src/components/ui/user-interface/SectionWrapper";
+import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
 import { Info, LayoutDashboard, Palette } from "lucide-react";
 import { Layout } from "./layout-settings/Layout";
 

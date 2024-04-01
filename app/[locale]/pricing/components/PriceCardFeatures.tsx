@@ -1,5 +1,5 @@
 "use client";
-import { Loader } from "@/src/components/ui/loader";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { iPlan } from "@/src/types/db/iPlans";

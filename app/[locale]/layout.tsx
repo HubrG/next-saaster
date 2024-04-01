@@ -1,7 +1,7 @@
-import { Navbar } from "@/app/[locale]/layout/header/Navbar";
-import { TopLoader } from "@/app/[locale]/layout/header/TopLoader";
-import { Init } from "@/app/[locale]/layout/init";
-import { Loader } from "@/src/components/ui/loader";
+import { Navbar } from "@/app/[locale]/@layout/header/Navbar";
+import { TopLoader } from "@/app/[locale]/@layout/header/TopLoader";
+import { Init } from "@/app/[locale]/@layout/init";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
@@ -18,7 +18,7 @@ import {
 } from "next/font/google";
 import { Toaster } from "sonner";
 import { getAppSettings } from "../../src/helpers/db/appSettings.action";
-import Footer from "./layout/footer/Footer";
+import Footer from "./@layout/footer/Footer";
 
 const sans = Rethink_Sans({
   subsets: ["latin"],

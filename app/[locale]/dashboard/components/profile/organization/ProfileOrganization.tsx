@@ -1,18 +1,21 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Button } from "@/src/components/ui/button";
-import { SkeletonLoader } from "@/src/components/ui/loader";
-import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
-import { PopoverDelete } from "@/src/components/ui/popover-delete";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
+import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import {
   createOrganization,
   deleteOrganization,
   removePendingUser,
   removeUserFromOrganization,
 } from "@/src/helpers/db/organization.action";
-import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
+import {
+  ReturnUserDependencyProps,
+  getUserInfos,
+} from "@/src/helpers/dependencies/user";
 import { sliced } from "@/src/helpers/functions/slice";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
@@ -31,16 +34,18 @@ type ProfileOrganizationProps = {};
 
 export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   const { organizationStore, fetchOrganizationStore } = useOrganizationStore();
-  const { userStore, isStoreLoading, fetchUserStore } = useUserStore();
-  const [userProfile, setUserProfile] = useState<ReturnProps | null>();
+  const { userStore, isUserStoreLoading, fetchUserStore } = useUserStore();
+  const [userProfile, setUserProfile] =
+    useState<ReturnUserDependencyProps | null>();
   const [refresh, setRefresh] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!isStoreLoading) {
+    if (!isUserStoreLoading) {
       setUserProfile(getUserInfos({ user: userStore }));
       setRefresh(false);
     }
-  }, [userStore, refresh, isStoreLoading]);
+  }, [userStore, refresh, isUserStoreLoading]);
 
   useEffect(() => {
     if (userProfile?.info.organization && !userProfile?.isLoading) {
@@ -53,13 +58,16 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
   }
 
   const handleCreateOrganization = async (id: string, email: string) => {
+    setIsLoading(true);
     const create = await createOrganization({ ownerId: id });
     if (create.serverError) {
       toaster({ type: "error", description: create.serverError });
+      setIsLoading(false);
     } else {
       toaster({ type: "success", description: "Organization created" });
       fetchUserStore(email);
       setRefresh(true);
+      setIsLoading(false);
     }
   };
 
@@ -233,8 +241,10 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
         </>
       ) : (
         <>
-          <Button
+          <ButtonWithLoader
             className="w-full mt-5"
+            loading={isLoading}
+            disabled={isLoading}
             onClick={() =>
               handleCreateOrganization(
                 userProfile?.info.id ?? "",
@@ -242,7 +252,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
               )
             }>
             Create an organization
-          </Button>
+          </ButtonWithLoader>
         </>
       )}
     </>

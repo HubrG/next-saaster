@@ -147,6 +147,20 @@ export const authOptions: AuthOptions = {
     createUser: async (message) => {
       // Create Resend contact (and audience Registered Users if not already created)
       if (env.RESEND_API_KEY) {
+        const newNewsletterAudience = await createAudience({
+          name: "Newsletter",
+        });
+        if (
+          newNewsletterAudience.success &&
+          newNewsletterAudience.data &&
+          message.user.email
+        ) {
+          await createContact({
+            email: message.user.email,
+            audienceId: newNewsletterAudience.data.id,
+            first_name: message.user.name ?? message.user.email.split("@")[0],
+          });
+        }
         const newAudience = await createAudience({
           name: "Registered Users",
         });
@@ -255,7 +269,7 @@ export const authOptions: AuthOptions = {
                   },
                 });
                 if (!upSub.success) {
-                  // We delete the userSubscription 
+                  // We delete the userSubscription
                   await prisma.userSubscription.delete({
                     where: {
                       userId_subscriptionId: {

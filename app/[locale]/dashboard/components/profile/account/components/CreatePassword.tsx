@@ -2,18 +2,18 @@
 import { createPassword } from "@/app/[locale]/dashboard/queries/profile.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useUserStore } from "@/src/stores/userStore";

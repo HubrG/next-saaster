@@ -4,12 +4,12 @@ import { Coupon, iUsers } from "@/src/types/db/iUsers";
 import { Subscription, SubscriptionStatus } from "@prisma/client";
 import Stripe from "stripe";
 
-export type ReturnProps = {
+export type ReturnUserDependencyProps = {
   isLoading: boolean;
   oneTimePayments: iUsers["oneTimePayments"];
   //
   activeSubscription: {
-    subscription: (Subscription) | null;
+    subscription: Subscription | null;
     usageType: "metered" | "licensed" | null;
     recurring: "day" | "week" | "month" | "year" | null;
     creditRemaining: number;
@@ -34,6 +34,10 @@ export type ReturnProps = {
     status: SubscriptionStatus;
   };
   info: iUsers;
+  payments: {
+    total_amount_ontime_payments: number | null;
+    total_amount_subscriptions: number | null;
+  };
 };
 /**
  *  Get user dependency
@@ -109,7 +113,8 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
       ? {
           subscriptionItemId: activeSubscriptionData?.items?.data[0].id ?? null,
           status: activeSubscription?.subscription?.status ?? "active",
-          subscription: activeSubscription.subscription as Subscription ?? null, // Active subscription
+          subscription:
+            (activeSubscription.subscription as Subscription) ?? null, // Active subscription
           usageType:
             activeSubscriptionData?.items?.data[0].plan.usage_type ?? null, // Usage type
           recurring:
@@ -164,8 +169,31 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
       : null,
     // User info
     info: user,
+    payments: {
+      total_amount_ontime_payments: user.oneTimePayments?.reduce(
+        (acc, payment) => acc + payment.amount / 100,
+        0
+      ),
+      total_amount_subscriptions:
+        user.subscriptions?.reduce((acc, sub) => {
+          if (sub.subscription && sub.subscription.SubscriptionPayments) {
+            const totalPaidForSub =
+              sub.subscription.SubscriptionPayments.reduce(
+                (accPayment, payment) => {
+                  if (payment.status === "paid") {
+                    return accPayment + (payment.amount ?? 0); 
+                  }
+                  return accPayment;
+                },
+                0
+              );
+            return acc + totalPaidForSub / 100;
+          }
+          return acc;
+        }, 0) ?? 0,
+    },
     // One time payments
     oneTimePayments: user.oneTimePayments,
   };
-  return userInfo as ReturnProps;
+  return userInfo as ReturnUserDependencyProps;
 };

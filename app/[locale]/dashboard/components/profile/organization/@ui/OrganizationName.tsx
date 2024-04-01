@@ -1,9 +1,9 @@
 // RenameOrganization.tsx
 "use client";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { updateOrganization } from "@/src/helpers/db/organization.action";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { iUsers } from "@/src/types/db/iUsers";

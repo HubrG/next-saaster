@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader } from "@/src/components/ui/loader";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { useIsClient } from "@/src/hooks/useIsClient";
 import { useUserStore } from "@/src/stores/userStore";
 

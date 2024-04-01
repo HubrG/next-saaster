@@ -1,9 +1,17 @@
 "use client";
-import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
+import { MenuItem } from "@/src/components/ui/@fairysaas/user-interface/MenuItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { BarChart2, Building2, CircleUser, Cog, CreditCard, Mail, UserRoundCog } from "lucide-react";
+import {
+    BarChart2,
+    Building2,
+    CircleUser,
+    Cog,
+    CreditCard,
+    Mail,
+    UserRoundCog,
+} from "lucide-react";
 import { useState } from "react";
 
 export const DashboardNavbar = () => {
@@ -30,7 +38,7 @@ export const DashboardNavbar = () => {
     <>
       <div>
         <h3>
-          Profile
+          My account
           <Cog className="icon" />
         </h3>
         <ul>
@@ -47,15 +55,8 @@ export const DashboardNavbar = () => {
             activeSection={activeSection}
             sectionObserve="Account"
             handleScroll={handleScroll}></MenuItem>
-          {saasSettings.saasType === "PAY_ONCE" ? (
-            <MenuItem
-              activeSection={activeSection}
-              text="Purchase"
-              icon={<CreditCard className="icon" />}
-              sectionObserve="Purchase"
-              handleScroll={handleScroll}
-            />
-          ) : (
+
+          {saasSettings.saasType !== "PAY_ONCE" && (
             <>
               <MenuItem
                 activeSection={activeSection}
@@ -80,6 +81,13 @@ export const DashboardNavbar = () => {
               />
             </>
           )}
+          <MenuItem
+            activeSection={activeSection}
+            text="Purchases"
+            icon={<CreditCard className="icon" />}
+            sectionObserve="Purchase"
+            handleScroll={handleScroll}
+          />
           <MenuItem
             activeSection={activeSection}
             icon={<Mail className="icon" />}

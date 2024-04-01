@@ -1,7 +1,7 @@
 "use client";
 import { deleteCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
-import { PopoverDelete } from "@/src/components/ui/popover-delete";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
+import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";

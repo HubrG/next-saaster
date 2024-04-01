@@ -3,10 +3,13 @@
 import { PriceCardFeatures } from "@/app/[locale]/pricing/components/PriceCardFeatures";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { SimpleLoader, SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import { SimpleLoader, SkeletonLoader } from "@/src/components/ui/loader";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
+import {
+  ReturnUserDependencyProps,
+  getUserInfos,
+} from "@/src/helpers/dependencies/user";
 import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
@@ -28,17 +31,17 @@ type ProfileBillingProps = {};
 export const ProfileBilling = ({}: ProfileBillingProps) => {
   const router = useRouter();
   const { saasSettings } = useSaasSettingsStore();
-  const [userProfile, setUserProfile] = useState<ReturnProps>();
-  const { userStore, isStoreLoading, fetchUserStore } = useUserStore();
+  const [userProfile, setUserProfile] = useState<ReturnUserDependencyProps>();
+  const { userStore, isUserStoreLoading, fetchUserStore } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     setUserProfile(getUserInfos({ user: userStore }));
-    if (!isStoreLoading) {
+    if (!isUserStoreLoading) {
       setRefresh(false);
     }
-  }, [userStore, refresh, isLoading, isStoreLoading]);
+  }, [userStore, refresh, isLoading, isUserStoreLoading]);
  
 
   // Dans votre composant ProfileBilling.tsx

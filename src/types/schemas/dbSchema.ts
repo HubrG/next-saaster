@@ -261,6 +261,7 @@ export const updateUserSchema = z.object({
   data: z.object({
     id: z.string().cuid().optional(),
     name: z.string().nullable().optional(),
+    isNewsletterSub: z.boolean().optional(),
     email: z.string().email(),
     emailVerified: z.date().nullable().optional(),
     image: z.string().nullable().optional(),

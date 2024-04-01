@@ -1,12 +1,15 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
-import { SkeletonLoader } from "@/src/components/ui/loader";
-import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { deleteUser } from "@/src/helpers/db/users.action";
-import { ReturnProps, getUserInfos } from "@/src/helpers/dependencies/user";
+import {
+  ReturnUserDependencyProps,
+  getUserInfos,
+} from "@/src/helpers/dependencies/user";
 import { useUserStore } from "@/src/stores/userStore";
 import { capitalize } from "lodash";
 import { signOut } from "next-auth/react";
@@ -17,18 +20,19 @@ import { UpdatePassword } from "./components/UpdatePassword";
 type ProfileAccountProps = {};
 
 export const ProfileAccount = ({}: ProfileAccountProps) => {
-  const { userStore, isStoreLoading } = useUserStore();
-  const [userProfile, setUserProfile] = useState<ReturnProps | null>();
+  const { userStore, isUserStoreLoading } = useUserStore();
+  const [userProfile, setUserProfile] =
+    useState<ReturnUserDependencyProps | null>();
   const [refresh, setRefresh] = useState(false);
   const [stopLoading, setStopLoading] = useState(true);
-  const isLoading = isStoreLoading;
+  const isLoading = isUserStoreLoading;
 
   useEffect(() => {
-    if (!isStoreLoading) {
+    if (!isUserStoreLoading) {
       setUserProfile(getUserInfos({ user: userStore }));
       setRefresh(false);
     }
-  }, [userStore, refresh, isLoading, isStoreLoading]);
+  }, [userStore, refresh, isLoading, isUserStoreLoading]);
 
   const handleDeleteAccount = async () => {
     const deleteAccount = (await deleteUser({
@@ -93,7 +97,7 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
         }}
         className="mt-5 text-left float-right dark:text-theming-text-900 text-red-500"
         display="Close account definitely..."
-        what={"to delete your account? This action cannot be undone."}
+        what={"to delete your account? This action cannot be undone. If you have any subscription, it will be cancelled."}
       />
     </>
   );

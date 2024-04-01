@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "../button";
-import { SimpleLoader } from "../loader";
+import { SimpleLoader } from "./loader";
 type ButtonWithLoaderProps = {
   size?: "sm" | "default" | "lg";
   variant?:

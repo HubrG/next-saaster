@@ -1,16 +1,16 @@
 "use client";
 import { updateLinkPlanToFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseIntInput } from "@/src/helpers/functions/parse";
 import { sliced } from "@/src/helpers/functions/slice";
 import { cn } from "@/src/lib/utils";

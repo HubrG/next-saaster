@@ -1,5 +1,5 @@
+import { DotBlurredAndGradient } from "@/src/components/ui/@fairysaas/layout-elements/dot-blured-and-gradient";
 import { Input } from "@/src/components/ui/input";
-import { DotBlurredAndGradient } from "@/src/components/ui/layout-elements/dot-blured-and-gradient";
 import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";

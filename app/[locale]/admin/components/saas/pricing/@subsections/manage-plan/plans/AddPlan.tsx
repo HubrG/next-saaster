@@ -1,8 +1,8 @@
 "use client";
 import { createNewPlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import { SimpleLoader } from "@/src/components/ui/loader";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
 import useScrollToSection from "@/src/hooks/useScrollToSection";

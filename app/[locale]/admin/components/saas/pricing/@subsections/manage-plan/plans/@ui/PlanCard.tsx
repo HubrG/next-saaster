@@ -1,20 +1,20 @@
 "use client";
 import { manageClashes } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@functions/manageClashes";
 import { updatePlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
+import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
 } from "@/src/components/ui/collapsible";
-import { CopySomething } from "@/src/components/ui/copy-something";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { parseFloatInput, parseIntInput } from "@/src/helpers/functions/parse";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
@@ -32,8 +32,8 @@ import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
 import {
-  MRRInputFields,
-  RecurringSwitchFields,
+    MRRInputFields,
+    RecurringSwitchFields,
 } from "./plan-card-fields-by-saas-type/MRRFields";
 import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
 import { UsageInputFields } from "./plan-card-fields-by-saas-type/UsageFields";

@@ -1,14 +1,14 @@
 "use client";
 import { applyCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import { Label } from "@/src/components/ui/label";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/src/components/ui/popover";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";

@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/src/lib/prisma";
+import { ResendContact } from "@prisma/client";
 import { Resend } from "resend";
 import { getErrorMessage } from "../../lib/error-handling/getErrorMessage";
 import { getAudience } from "./audience";
@@ -228,3 +229,28 @@ export const getContact = async (
     return { error: getErrorMessage(error) };
   }
 };
+
+export const getContactByUserEmail = async(
+  email: string,
+  audienceId: string
+): Promise<{
+  success?: boolean;
+  data?: {};
+  error?: string;
+}> => {
+  try {
+    const contact = await prisma.resendContact.findFirst({
+      where: {
+        email: email,
+        audienceId: audienceId,
+      },
+    });
+    if (!contact) throw new Error("Contact not found");
+    return {
+      success: true,
+      data: contact as ResendContact,
+    };
+  } catch (error) {
+    return { error: getErrorMessage(error) };
+  }
+}

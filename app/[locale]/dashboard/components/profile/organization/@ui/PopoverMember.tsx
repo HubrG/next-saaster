@@ -1,17 +1,17 @@
 "use client";
+import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/src/components/ui/popover";
-import { PopoverConfirm } from "@/src/components/ui/popover-confirm";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import {
   removeUserFromOrganization,
   updateOrganization,
 } from "@/src/helpers/db/organization.action";
-import { ReturnProps } from "@/src/helpers/dependencies/user";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { useRouter } from "@/src/lib/intl/navigation";
 import {
@@ -22,7 +22,7 @@ import {
 import React from "react";
 
 type PopoverOrganizationMemberProps = {
-  userInfo: ReturnProps | null;
+  userInfo: ReturnUserDependencyProps | null;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
   member: {
     email: string | null;

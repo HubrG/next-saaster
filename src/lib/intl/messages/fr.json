@@ -13,7 +13,7 @@
             },
             "MainMenu": {
               "links": {
-                "how-it-works": "Comment ça marche ?",
+                "howItWorks": "Comment ça marche ?",
                 "features": "Fonctionnalités",
                 "home": "Accueil",
                 "pricing": "Tarification",

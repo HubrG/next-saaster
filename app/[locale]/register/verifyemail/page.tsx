@@ -1,7 +1,7 @@
 "use client";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
-import { SimpleLoader } from "@/src/components/ui/loader";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { Link } from "@/src/lib/intl/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";

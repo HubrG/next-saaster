@@ -3,10 +3,10 @@ import { RoundedCornerChange } from "@/app/[locale]/admin/components/setup/desig
 import { ThemeColorChange } from "@/app/[locale]/admin/components/setup/design-settings/@subsections/ThemeColorChange";
 import { updateAppSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
-import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
 import useSaveAndCancel, {
-  GenericDataObject,
+    GenericDataObject,
 } from "@/src/hooks/useSaveAndCancel";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useEffect, useState } from "react";

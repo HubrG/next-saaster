@@ -13,7 +13,7 @@
             },
             "MainMenu": {
               "links": {
-                "how-it-works": "How it works ?",
+                "howItWorks": "How it works ?",
                 "features": "Features",
                 "home": "Home",
                 "pricing": "Pricing",

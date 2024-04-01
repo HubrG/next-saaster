@@ -1,4 +1,4 @@
-import { toaster } from "../../components/ui/toaster/ToastConfig";
+import { toaster } from "../../components/ui/@fairysaas/toaster/ToastConfig";
 
 export const handleCopy = (string: string, what?: string) => {
   navigator.clipboard.writeText(string);

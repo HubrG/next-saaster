@@ -1,7 +1,7 @@
 import { Index } from "@/app/[locale]/admin/components/Index";
 import { Index as LoginForm } from "@/app/[locale]/login/components/Index";
-import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
-import { Loader } from "@/src/components/ui/loader";
+import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";

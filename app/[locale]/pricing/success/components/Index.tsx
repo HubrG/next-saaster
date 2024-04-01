@@ -1,6 +1,6 @@
 "use client";
+import { Loader } from '@/src/components/ui/@fairysaas/loader';
 import { Card } from '@/src/components/ui/card';
-import { Loader } from '@/src/components/ui/loader';
 import { useIsClient } from '@/src/hooks/useIsClient';
 import { Link } from '@/src/lib/intl/navigation';
 import dynamic from "next/dynamic";

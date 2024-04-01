@@ -1,9 +1,10 @@
 "use client";
-import { SectionWrapper } from "@/src/components/ui/user-interface/SectionWrapper";
+import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
 import { useIsClient } from "@/src/hooks/useIsClient";
-import { Coins, Settings2 } from "lucide-react";
+import { Coins, Settings2, UsersRound } from "lucide-react";
 import { SaasPricing } from "./pricing/SaasPricing";
 import { AdminSaasSettings } from "./settings/AdminSaasSettings";
+import { AdminSaasUsers } from "./users/AdminSaasUsers";
 
 export const AdminSaas = () => {
   const isClient = useIsClient();
@@ -23,6 +24,13 @@ export const AdminSaas = () => {
         mainSectionName="SaaS"
         icon={<Coins className="icon" />}>
         <SaasPricing />
+      </SectionWrapper>
+      <SectionWrapper
+        id="SaasUsers"
+        sectionName="Users"
+        mainSectionName="SaaS"
+        icon={<UsersRound className="icon" />}>
+        <AdminSaasUsers />
       </SectionWrapper>
     </>
   );

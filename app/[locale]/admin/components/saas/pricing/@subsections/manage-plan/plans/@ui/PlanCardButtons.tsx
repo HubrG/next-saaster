@@ -1,7 +1,7 @@
 "use client";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { PopoverArchive } from "@/src/components/ui/@fairysaas/popover-archive";
 import { Button } from "@/src/components/ui/button";
-import { SimpleLoader } from "@/src/components/ui/loader";
-import { PopoverArchive } from "@/src/components/ui/popover-archive";
 import { cn } from "@/src/lib/utils";
 type Props = {
   save: boolean;

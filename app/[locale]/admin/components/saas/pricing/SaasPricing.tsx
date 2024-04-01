@@ -1,12 +1,12 @@
 "use client";
-import { Loader } from "@/src/components/ui/loader";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/src/components/ui/tabs";
-import { SubSectionWrapper } from "@/src/components/ui/user-interface/SubSectionWrapper";
 import { useIsClient } from "@/src/hooks/useIsClient";
 import { Suspense } from "react";
 import { AlertFrame } from "./@subcomponents/AlertFrame";
@@ -46,7 +46,7 @@ export const SaasPricing = () => {
       <SubSectionWrapper
         id="ManageFeatures"
         sectionName="Manage Features"
-        info="Link any feature to any plan, or even to several plans. In addition to simply displaying the feature on the plan to inform the user of what they are subscribing to, when a user selects and subscribes to a plan, all the feature options linked to that plan will be assigned to them as soon as they are purchased. This allows you to better manage the use of each of these features according to their use within a function, by managing them via their  « key »">
+        info="Link any feature to any plan, or even to several plans. In addition to simply displaying the feature on the plan to inform the user of what they are subscribing to, when a user selects and subscribes to a plan, all the feature options linked to that plan will be assigned to them as soon as they are purchased. This allows you to better manage the use of each of these features according to their use within a function, by managing them via their  « alias »">
         <Suspense fallback={<Loader noHFull />}>
           <Features />
         </Suspense>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader } from "@/src/components/ui/loader";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { cn } from "@/src/lib/utils";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

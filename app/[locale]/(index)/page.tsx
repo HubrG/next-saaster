@@ -1,7 +1,7 @@
 import { FirstConnexion } from "@/app/[locale]/(index)/components/FirstConnexion";
 import { Index } from "@/app/[locale]/(index)/components/Index";
 import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
-import { DivFullScreenGradient } from "@/src/components/ui/layout-elements/gradient-background";
+import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
 import { Link } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
@@ -41,13 +41,14 @@ export default async function Home({
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="flex min-h-screen flex-col items-center  p-24">
         <h1 className="font-mono font-bold">{t("title")}</h1>
-        <Link href="/">In english</Link>
+        <Link href="/" locale="en">
+          In english
+        </Link>
         <Link href="/" locale="fr">
           En français
         </Link>
         <Link href="/admin">Admin</Link>
         <Index />
-        
       </div>
     </>
   );

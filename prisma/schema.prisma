@@ -67,6 +67,7 @@ model User {
   createdAt       DateTime?          @default(now())
   updatedAt       DateTime?          @updatedAt
   organizationId  String?
+  isNewsletterSub Boolean?           @default(true)
   role            UserRole           @default(USER)
   organization    Organization?      @relation("OrganizationMembers", fields: [organizationId], references: [id])
   accounts        Account[]
@@ -127,24 +128,27 @@ model UserSubscription {
   @@id([userId, subscriptionId])
 }
 
+// This model is used to track the usage of the user for each action or feature used in the app.
 model UserUsage {
-  id        String    @id @default(cuid())
-  userId    String
-  quantity  Int       @default(0)
-  featureId String?
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feature   Feature?  @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  id                          String    @id @default(cuid())
+  userId                      String
+  featureId                   String?
+  quantityForFeature          Int?      @default(0) // Quantity for feature (about limit by feature/month)
+  ConsumeCreditAllouedByMonth Int?      @default(0) // Consume credit alloued by month (about credit alloued by month)
+  ConsumeCredit               Int?      @default(0) // Consume credit (metered usage)
+  createdAt                   DateTime? @default(now())
+  updatedAt                   DateTime? @updatedAt
+  user                        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature                     Feature?  @relation(fields: [featureId], references: [id], onDelete: Cascade)
 }
 
 model appSettings {
-  id          String  @id @default(cuid())
-  name        String? @default("Fairysaas")
-  baseline    String? @default("Just develop your best feature, the rest is already done and well done.")
-  description String? @default("Fairysaas is a SaaS starter kit based on NextJS that allows you to develop your best feature, the rest is already done and well done. It is a full-stack solution that includes a modern frontend, a scalable backend, and a secure infrastructure. It is designed to help you save time and money, and to focus on what really matters: your business. SaaSeed is built with the latest technologies and best practices, and it is fully customizable and extensible.")
-  theme       String? @default("purple")
-  image       String? @default("")
+  id                String    @id @default(cuid())
+  name              String?   @default("Fairysaas")
+  baseline          String?   @default("Just develop your best feature, the rest is already done and well done.")
+  description       String?   @default("NextJS SaaS starter kit for rapid development: only focus on main features, rest assured with a modern frontend, scalable and secure backend. Save effort & money. ")
+  theme             String?   @default("purple")
+  image             String?   @default("")
   roundedCorner     Float?    @default(10)
   defaultDarkMode   Boolean?  @default(true)
   activeTopLoader   Boolean?  @default(true)
@@ -364,6 +368,29 @@ model StripePlanCoupon {
   @@unique([PlanId, couponId, recurrence])
 }
 
+// SECTION : Resend (mailer)
+model ResendAudience {
+  id        String          @id
+  name      String          @unique
+  contacts  ResendContact[]
+  createdAt DateTime?       @default(now())
+  updatedAt DateTime?       @updatedAt
+}
+
+model ResendContact {
+  id           String          @id
+  email        String
+  firstName    String
+  lastName     String?
+  unsubscribed Boolean?        @default(false)
+  audienceId   String?
+  audience     ResendAudience? @relation(fields: [audienceId], references: [id])
+  createdAt    DateTime?       @default(now())
+  updatedAt    DateTime?       @updatedAt
+  userId       String?
+  user         User?           @relation(fields: [userId], references: [id])
+}
+
 enum SaasTypes {
   // One-time payments
   PAY_ONCE
@@ -415,27 +442,4 @@ enum SubscriptionStatus {
   past_due
   canceled
   unpaid
-}
-
-// SECTION : Resend (mailer)
-model ResendAudience {
-  id        String          @id
-  name      String          @unique
-  contacts  ResendContact[] // Relation one-to-many avec ResendContact
-  createdAt DateTime?       @default(now())
-  updatedAt DateTime?       @updatedAt
-}
-
-model ResendContact {
-  id           String          @id
-  email        String
-  firstName    String
-  lastName     String?
-  unsubscribed Boolean?        @default(false)
-  audienceId   String?
-  audience     ResendAudience? @relation(fields: [audienceId], references: [id])
-  createdAt    DateTime?       @default(now())
-  updatedAt    DateTime?       @updatedAt
-  userId       String?
-  user         User?           @relation(fields: [userId], references: [id]) // Correctement configuré
 }

@@ -1,10 +1,9 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { Button } from "@/src/components/ui/button";
 import { Card } from "@/src/components/ui/card";
-import { Loader } from "@/src/components/ui/loader";
-import { Separator } from "@/src/components/ui/separator";
 import { HandMetal } from "lucide-react";
 import { signIn } from "next-auth/react";
 import React from "react";

@@ -29,9 +29,14 @@ export const createAudience = async ({
     });
 
     if (isAudienceExist) {
-      throw new Error("This audience already exist");
+      const audience = await getAudienceByName(name);
+      if (audience.success && audience.data) {
+        return {
+          success: true,
+          data: audience.data,
+        };
+      }
     }
-
     const audience = await resend.audiences.create({
       name: name,
     });

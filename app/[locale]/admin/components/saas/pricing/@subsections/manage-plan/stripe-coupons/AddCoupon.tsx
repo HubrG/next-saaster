@@ -1,9 +1,10 @@
 "use client";
 import { addStripeCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
+import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
-import { SimpleLoader } from "@/src/components/ui/loader";
 import {
   Select,
   SelectContent,
@@ -13,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
 import { cn } from "@/src/lib/utils";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";

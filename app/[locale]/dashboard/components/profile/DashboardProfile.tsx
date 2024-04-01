@@ -1,8 +1,14 @@
 "use client";
 
-import { SectionWrapper } from "@/src/components/ui/user-interface/SectionWrapper";
+import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { Building2, CircleUser, CreditCard, Mail, UserRoundCog } from "lucide-react";
+import {
+    Building2,
+    CircleUser,
+    CreditCard,
+    Mail,
+    UserRoundCog,
+} from "lucide-react";
 import { ProfileAccount } from "./account/ProfileAccount";
 import { ProfileBilling } from "./billing/ProfileBilling";
 import { ProfileEmail } from "./emails/ProfileEmail";
@@ -33,15 +39,8 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
           <ProfileAccount />
         </SectionWrapper>
       </div>
-      {saasSettings.saasType === "PAY_ONCE" ? (
-        <SectionWrapper
-          id="Purchase"
-          sectionName="Purchase"
-          mainSectionName="Purchase"
-          icon={<CreditCard className="icon" />}>
-          <ProfilePurchase />
-        </SectionWrapper>
-      ) : (
+
+      {saasSettings.saasType !== "PAY_ONCE" && (
         <>
           <SectionWrapper
             id="Organization"
@@ -59,6 +58,13 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
           </SectionWrapper>
         </>
       )}
+      <SectionWrapper
+        id="Purchase"
+        sectionName="Purchases"
+        mainSectionName="Purchase"
+        icon={<CreditCard className="icon" />}>
+        <ProfilePurchase />
+      </SectionWrapper>
       <SectionWrapper
         id="Emails"
         sectionName="Emails"

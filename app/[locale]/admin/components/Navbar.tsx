@@ -1,6 +1,6 @@
 "use client";
-import { MenuItem } from "@/src/components/ui/user-interface/MenuItem";
-import { MenuSubItem } from "@/src/components/ui/user-interface/MenuSubItem";
+import { MenuItem } from "@/src/components/ui/@fairysaas/user-interface/MenuItem";
+import { MenuSubItem } from "@/src/components/ui/@fairysaas/user-interface/MenuSubItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -8,17 +8,15 @@ import {
   BadgeDollarSign,
   Cog,
   Coins,
-  Contact2,
   Dot,
   Info,
-  Languages,
   LayoutDashboard,
   Palette,
   Rss,
   Settings2,
   SquarePen,
-  UserCheck,
-  View,
+  UsersRound,
+  View
 } from "lucide-react";
 import { useState } from "react";
 
@@ -88,20 +86,20 @@ export const AdminNavbar = () => {
             sectionObserve="Layout"
             handleScroll={handleScroll}
           />
-          <MenuItem
+          {/* <MenuItem
             activeSection={activeSection}
             icon={<Languages className="icon" />}
             text="Languages"
             sectionObserve="testt"
             handleScroll={handleScroll}
-          />
-          <MenuItem
+          /> */}
+          {/* <MenuItem
             activeSection={activeSection}
             icon={<UserCheck className="icon" />}
             text="Administrators"
             sectionObserve="Administrators"
             handleScroll={handleScroll}
-          />
+          /> */}
         </ul>
       </div>
       <div>
@@ -168,9 +166,9 @@ export const AdminNavbar = () => {
           {/*  */}
           <MenuItem
             activeSection={activeSection}
-            sectionObserve="SaasCustomers"
-            icon={<Contact2 className="icon" />}
-            text="Customers"
+            sectionObserve="SaasUsers"
+            icon={<UsersRound className="icon" />}
+            text="Users"
             handleScroll={handleScroll}
           />
         </ul>

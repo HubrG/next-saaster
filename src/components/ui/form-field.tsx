@@ -1,3 +1,5 @@
+import { cn } from "@/src/lib/utils";
+import { useForm } from "react-hook-form";
 import {
   FormControl,
   FormDescription,
@@ -17,18 +19,22 @@ type Props = {
   accept?: string;
   placeholder?: string;
   description?: string;
+  displayLabel?: boolean;
   children?: React.ReactNode;
   inputRef?: any;
   className?: string;
   type?: "text" | "email" | "file" | "password" | "textarea";
 };
-
+type Inputs = {
+  file: File;
+};
 export const Field = ({
   form,
   name,
   label,
   setFile,
   inputRef,
+  displayLabel = true,
   className,
   accept,
   children,
@@ -36,6 +42,8 @@ export const Field = ({
   description,
   type = "text",
 }: Props) => {
+  const { register, handleSubmit } = useForm<Inputs>();
+  const { ref, ...rest } = register("file");
 
   return (
     <FormField
@@ -43,12 +51,12 @@ export const Field = ({
       name={name}
       render={({ field }) => (
         <>
-          {type === "textarea" ? (
-            <FormItem>
-              <FormLabel>
-                {label} <FormMessage />
-              </FormLabel>
-              <FormControl>
+          <FormItem className={className}>
+            <FormLabel className={cn({ "!hidden": !displayLabel })}>
+              {label} <FormMessage />
+            </FormLabel>
+            <FormControl>
+              {type === "textarea" ? (
                 <Textarea
                   onKeyDown={(e) => {
                     e.preventDefault;
@@ -57,16 +65,9 @@ export const Field = ({
                   placeholder={placeholder}
                   {...field}
                 />
-              </FormControl>
-              <FormDescription>{description}</FormDescription>
-            </FormItem>
-          ) : type === "file" ? (
-            <FormItem>
-              <FormLabel>
-                {label} <FormMessage />
-              </FormLabel>
-              <FormControl>
+              ) : type === "file" ? (
                 <Input
+                  {...rest}
                   ref={inputRef}
                   type={type}
                   placeholder={placeholder}
@@ -80,22 +81,11 @@ export const Field = ({
                       setFile(e.target.files[0]);
                     }
                     field.onChange(e);
-                   
                   }}
                   accept={accept}
                   className={className}
-                  {...form}
                 />
-              </FormControl>
-              {children}
-              <FormDescription>{description}</FormDescription>
-            </FormItem>
-          ) : (
-            <FormItem className={className}>
-              <FormLabel>
-                {label} <FormMessage />
-              </FormLabel>
-              <FormControl>
+              ) : (
                 <Input
                   type={type}
                   onKeyDown={(e) => e.preventDefault}
@@ -103,11 +93,11 @@ export const Field = ({
                   placeholder={placeholder}
                   {...field}
                 />
-              </FormControl>
-              {children}
-              <FormDescription>{description}</FormDescription>
-            </FormItem>
-          )}
+              )}
+            </FormControl>
+            {children}
+            <FormDescription>{description}</FormDescription>
+          </FormItem>
         </>
       )}
     />

@@ -1,8 +1,8 @@
 "use client";
 import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Switch } from "@/src/components/ui/switch";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { iFeature } from "@/src/types/db/iFeatures";
 import { Feature } from "@prisma/client";

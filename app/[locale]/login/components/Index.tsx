@@ -1,12 +1,12 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
 import { Link } from "@/src/lib/intl/navigation";
-import { Suspense, useState, useCallback, useRef, useEffect } from "react";
+import { Suspense, useCallback, useEffect, useRef } from "react";
 import Credentials from "./SignCredentials";
 import { SignWithGithub } from "./SignWithGithub";
 import { SignWithGoogle } from "./SignWithGoogle";
-import { toaster } from "@/src/components/ui/toaster/ToastConfig";
 type Props = {
   withGithub?: boolean;
   error?: boolean;

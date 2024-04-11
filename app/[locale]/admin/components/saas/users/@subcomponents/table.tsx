@@ -20,8 +20,7 @@ import {
   CircleOff,
   Crown,
   Hourglass,
-  User,
-  View,
+  User
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
@@ -33,7 +32,6 @@ import {
   AvatarImage,
 } from "@/src/components/ui/avatar";
 import { Button } from "@/src/components/ui/button";
-import { Dialog, DialogTrigger } from "@/src/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -91,28 +89,7 @@ export const columns: ColumnDef<iUsers>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       return (
-        <Dialog>
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem> */}
-          <DialogTrigger>
-            <div className="px-0 text-sm">
-              <View className="icon mt-1" />
-            </div>
-          </DialogTrigger>
-          {/* </DropdownMenuItem>
-              <DropdownMenuItem>View payment details</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
-          <UserDialog user={row.original as iUsers} />
-        </Dialog>
+          <UserDialog user={row.original as iUsers} /> 
       );
     },
   },
@@ -141,11 +118,6 @@ export const columns: ColumnDef<iUsers>[] = [
       </Avatar>
     ),
   },
-  // {
-  //   accessorKey: "name",
-  //   header: undefined,
-  //   cell: undefined,
-  // },
   {
     accessorKey: "email",
     header: ({ column }) => {

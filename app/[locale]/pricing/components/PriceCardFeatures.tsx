@@ -55,8 +55,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
                 </p>
                 {feature.feature.description && (
                   <Tooltip
-                    place="left"
-                   
+                    place="left"    
                     className="tooltip"
                     id={feature.feature.id}
                     opacity={100}>
@@ -73,8 +72,6 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
             <Fragment key={index}>
               <p
                 className="flex items-center  !text-sm cursor-default"
-                data-tooltip-float={true}
-                data-tooltip-position-strategy="fixed"
                 data-tooltip-id={feature.feature.id}>
                 <CheckCircle2 className="w-4 h-4 mr-2 text-theming-text-500-second" />
                 {creditAlloued}

@@ -57,7 +57,7 @@ const stripePrice = (plan: iPlan, isYearly: boolean) => {
     }
     setIsLoading(false);
     if (!stripeCheckout) return;
-    return router.push(stripeCheckout);
+    return router.push(stripeCheckout as any);
   };
 
   const handleSignin = () => {

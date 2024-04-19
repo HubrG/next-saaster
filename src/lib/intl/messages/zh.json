@@ -1,0 +1,141 @@
+{
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "cancel": "取消",
+        "confirm": "确认",
+        "message": "你确定要吗"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "帐户",
+          "billing": "计费",
+          "emails": "电子邮件",
+          "organization": "组织",
+          "profile": "轮廓",
+          "purchases": "购买",
+          "usage": "用法"
+        },
+        "title": "我的账户"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "您尚未创建密码，因为您使用的是 {provider} 帐户登录。\n您可以在此处创建一个。",
+              "form": {
+                "password": "密码",
+                "password-confirmation": "确认密码",
+                "password-error": "密码长度必须至少为 {min} 个字符。",
+                "passwords-not-matching": "密码不匹配。",
+                "submit": "创建密码"
+              },
+              "title": "创建密码",
+              "toasters": {
+                "succes-password-created": "您的密码已创建。"
+              }
+            },
+            "ForgotPassword": {
+              "description": "没问题，我们可以向您发送重置密码的链接。",
+              "emailSent": {
+                "subject": "重置你的密码"
+              },
+              "form": {
+                "email": "您的电子邮件地址",
+                "email-error": "这不是有效的电子邮件地址。",
+                "submit": "把链接发给我"
+              },
+              "title": "忘记密码了吗 ？",
+              "toasters": {
+                "send-email-error": "发送电子邮件时发生错误。\n请再试一次。"
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "实际密码",
+                "new-password": "新密码",
+                "password-confirmation": "确认密码",
+                "password-error": "密码长度必须至少为 {min} 个字符。",
+                "passwords-not-matching": "密码不匹配。",
+                "submit": "更新密码"
+              },
+              "title": "更新您的密码",
+              "toasters": {
+                "password-update-error": "更新密码时发生错误。\n请再试一次。",
+                "password-updated": "您的密码已更新。"
+              }
+            }
+          },
+          "close-account": "绝对关闭你的帐户...",
+          "close-account-popover-message": "删除您的帐户？\n此操作无法撤消。\n如果您有任何订阅，它将被取消。",
+          "connectedWith": "您已与您的 {provider} 帐户关联",
+          "create-password": "你还没有",
+          "manage-password": "管理您的密码",
+          "title": "康泰"
+        },
+        "Billing": {
+          "id": "计费",
+          "title": "计费"
+        },
+        "Organization": {
+          "title": "组织"
+        },
+        "Profile": {
+          "change-avatar": "更改个人资料图片",
+          "form": {
+            "name": "姓名",
+            "submit": "更新",
+            "upload": "上传"
+          },
+          "title": "轮廓",
+          "toasters": {
+            "file-is-empty": "文件为空",
+            "file-is-not-an-image": "文件不是图像",
+            "file-is-too-large": "文件太大（最大 2MB）",
+            "no-file-provided": "没有提供文件",
+            "success": "个人资料已更新",
+            "success-file-uploaded": "个人资料图片已更新"
+          }
+        },
+        "Purchases": {
+          "title": "购买"
+        }
+      }
+    },
+    "button": "转到仪表板",
+    "description": "欢迎来到您的仪表板！",
+    "title": "仪表板"
+  },
+  "Index": {
+    "first-connexion": "第一次连接",
+    "metadatas": {
+      "description": "用于快速开发的 NextJS SaaS 入门套件：仅关注主要功能，现代化的前端、可扩展且安全的后端让您放心。\n省力",
+      "title": "家"
+    },
+    "title": "欢迎 ！"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "接触",
+          "features": "特征",
+          "home": "家",
+          "howItWorks": "怎么运行的 ？",
+          "pricing": "价钱"
+        },
+        "UserProfile": {
+          "login": "登录",
+          "logout": "登出",
+          "my-account": "我的账户",
+          "refill": "补充装"
+        },
+        "buy-now": "立即购买 ！"
+      }
+    }
+  }
+}

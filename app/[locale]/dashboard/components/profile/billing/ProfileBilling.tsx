@@ -102,7 +102,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     );
     if (!changePayMeth) return;
     setButtonLoading(false);
-    return router.push(changePayMeth);
+    return router.push(changePayMeth as any);
   };
 
    if (!userProfile || userProfile?.isLoading) {

@@ -1,14 +1,14 @@
 [
   {
     "url": "how-it-works",
-    "name": "Components.Features.Layout.Header.Navbar.MainMenu.links.howItWorks"
+    "name": "Layout.Header.Navbar.MainMenu.howItWorks"
   },
   {
     "url": "pricing",
-    "name": "Components.Features.Layout.Header.Navbar.MainMenu.links.pricing"
+    "name": "Layout.Header.Navbar.MainMenu.pricing"
   },
   {
     "url": "contact",
-    "name": "Components.Features.Layout.Header.Navbar.MainMenu.links.contact"
+    "name": "Layout.Header.Navbar.MainMenu.contact"
   }
 ]

@@ -1,0 +1,141 @@
+{
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "cancel": "キャンセル",
+        "confirm": "確認する",
+        "message": "本当によろしいですか"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "アカウント",
+          "billing": "請求する",
+          "emails": "メール",
+          "organization": "組織",
+          "profile": "プロフィール",
+          "purchases": "購入品",
+          "usage": "使用法"
+        },
+        "title": "私のアカウント"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "{provider} アカウントでログインしているため、パスワードを作成していません。\nここで作成できます。",
+              "form": {
+                "password": "パスワード",
+                "password-confirmation": "パスワードの確認",
+                "password-error": "パスワードは少なくとも {min} 文字の長さである必要があります。",
+                "passwords-not-matching": "パスワードが一致しません。",
+                "submit": "パスワードの作成"
+              },
+              "title": "パスワードを作成",
+              "toasters": {
+                "succes-password-created": "パスワードが作成されました。"
+              }
+            },
+            "ForgotPassword": {
+              "description": "問題ありません。パスワードをリセットするためのリンクをお送りいたします。",
+              "emailSent": {
+                "subject": "あなたのパスワードをリセット"
+              },
+              "form": {
+                "email": "あなたのメールアドレス",
+                "email-error": "有効な電子メール アドレスではありません。",
+                "submit": "リンクを送ってください"
+              },
+              "title": "パスワードをお忘れですか ？",
+              "toasters": {
+                "send-email-error": "メールの送信中にエラーが発生しました。\nもう一度試してください。"
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "実際のパスワード",
+                "new-password": "新しいパスワード",
+                "password-confirmation": "パスワードの確認",
+                "password-error": "パスワードは少なくとも {min} 文字の長さである必要があります。",
+                "passwords-not-matching": "パスワードが一致しません。",
+                "submit": "パスワードを更新する"
+              },
+              "title": "パスワードを更新してください",
+              "toasters": {
+                "password-update-error": "パスワードの更新中にエラーが発生しました。\nもう一度試してください。",
+                "password-updated": "パスワードが更新されました。"
+              }
+            }
+          },
+          "close-account": "アカウントを確実に閉鎖してください...",
+          "close-account-popover-message": "アカウントを削除するには?\nこの操作は元に戻すことができません。\n定期購読をされている場合はキャンセルさせていただきます。",
+          "connectedWith": "{provider} アカウントに接続されています",
+          "create-password": "あなたは持っています",
+          "manage-password": "パスワードを管理する",
+          "title": "コンプする"
+        },
+        "Billing": {
+          "id": "請求する",
+          "title": "請求する"
+        },
+        "Organization": {
+          "title": "組織"
+        },
+        "Profile": {
+          "change-avatar": "プロフィール写真を変更する",
+          "form": {
+            "name": "名前",
+            "submit": "アップデート",
+            "upload": "アップロード"
+          },
+          "title": "プロフィール",
+          "toasters": {
+            "file-is-empty": "ファイルが空です",
+            "file-is-not-an-image": "ファイルは画像ではありません",
+            "file-is-too-large": "ファイルが大きすぎます（最大2MB）",
+            "no-file-provided": "ファイルが提供されていません",
+            "success": "プロフィール更新",
+            "success-file-uploaded": "プロフィール写真を更新しました"
+          }
+        },
+        "Purchases": {
+          "title": "購入品"
+        }
+      }
+    },
+    "button": "ダッシュボードに移動します",
+    "description": "ダッシュボードへようこそ!",
+    "title": "ダッシュボード"
+  },
+  "Index": {
+    "first-connexion": "最初の接続",
+    "metadatas": {
+      "description": "迅速な開発のための NextJS SaaS スターター キット: 主要な機能のみに焦点を当て、最新のフロントエンド、スケーラブルで安全なバックエンドを備えているので安心です。\n労力を節約",
+      "title": "家"
+    },
+    "title": "いらっしゃいませ"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "接触",
+          "features": "特徴",
+          "home": "家",
+          "howItWorks": "使い方 ？",
+          "pricing": "価格設定"
+        },
+        "UserProfile": {
+          "login": "ログイン",
+          "logout": "ログアウト",
+          "my-account": "私のアカウント",
+          "refill": "リフィル"
+        },
+        "buy-now": "今すぐ購入 ！"
+      }
+    }
+  }
+}

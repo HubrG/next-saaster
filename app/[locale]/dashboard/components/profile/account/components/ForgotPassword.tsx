@@ -3,12 +3,12 @@ import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
@@ -16,6 +16,7 @@ import { sendEmail } from "@/src/helpers/emails/sendEmail";
 import { cn } from "@/src/lib/utils";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -30,12 +31,13 @@ type ApiResponse = {
   token?: string;
 };
 export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
+  const t = useTranslations("Dashboard.Components.Profile.Account.Components.ForgotPassword");
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const formSchema = z.object({
     email: z.string().email({
-      message: "Must be at least 6 characters.",
+      message: t("form.email-error"),
     }),
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -55,7 +57,7 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
         const send = await sendEmail({
           to: formData.email,
           type: "forgotPassword",
-          subject: "Reset your password",
+          subject: t("emailSent.subject"),
           vars: {
             forgotPassword: {
                 verificationToken: responseData.token ?? "",
@@ -73,15 +75,13 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
         } else {
           toaster({
             type: "error",
-            description:
-              "An error occurred while sending the email. Please try again.",
+            description: t("toasters.send-email-error"),
           });
         }
       } catch (error) {
         toaster({
           type: "error",
-          description:
-            "An error occurred while sending the email. Please try again.",
+          description: t("toasters.send-email-error"),
         });
         setIsLoading(false);
       }
@@ -104,20 +104,14 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
   return (
     <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div
-          className={`${className}`}>
-          Forgot password ?
-        </div>
+        <div className={`${className}`}>{t("title")}</div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-y-6">
-          <DialogTitle>Forgot password</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <Goodline />
           <DialogDescription>
-            <p className="mb-5">
-              Enter your email address and we&apos;ll send you a link to reset
-              your password.
-            </p>
+            <p className="mb-5">{t("description")}</p>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -125,7 +119,7 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
                 <div className={cn("space-y-3 -mt-10 ")}>
                   <Field
                     type="email"
-                    label="Your email"
+                    label={t("form.email")}
                     name="email"
                     form={form}
                   />
@@ -135,7 +129,7 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
                     loading={isLoading}
                     disabled={isLoading || !form.formState.isValid}
                     className={cn({ disabled: isLoading }, "w-full !mt-10")}>
-                    Send me a reset link
+                    {t("form.submit")}
                   </ButtonWithLoader>
                 </div>
               </form>

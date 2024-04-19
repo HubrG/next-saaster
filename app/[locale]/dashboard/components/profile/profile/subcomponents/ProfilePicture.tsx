@@ -17,16 +17,14 @@ import { cn } from "@/src/lib/utils";
 import { useUserStore } from "@/src/stores/userStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { upperCase } from "lodash";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Tooltip } from "react-tooltip";
 import { z } from "zod";
-type ApiResponse = {
-  error?: string;
-  success?: string;
-  json?: () => Promise<any>;
-};
+
 export const ProfilePicture = () => {
+  const t = useTranslations("Dashboard.Components.Profile.Profile");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File>();
   const { userStore, setUserStore } = useUserStore();
@@ -49,20 +47,20 @@ export const ProfilePicture = () => {
     if (!file) {
       toaster({
         type: "error",
-        description: "No file provided",
+        description: t('toasters.no-file-provided'),
         duration: 5000,
       });
       setLoading(false);
       return;
     } else if (file.size < 1) {
-      toaster({ type: "error", description: "File is empty", duration: 5000 });
+      toaster({ type: "error", description: t('toasters.file-is-empty'), duration: 5000 });
       setLoading(false);
       return;
     } else if (file.size > 2097152) {
       // 2MB
       toaster({
         type: "error",
-        description: "File is too large (2MB maximum)",
+        description: t('toasters.file-is-too-large'),
         duration: 5000,
       });
       setLoading(false);
@@ -70,7 +68,7 @@ export const ProfilePicture = () => {
     } else if (!file.type.includes("image")) {
       toaster({
         type: "error",
-        description: "File is not an image",
+        description:t('toasters.file-is-not-an-image'),
         duration: 5000,
       });
       setLoading(false);
@@ -113,12 +111,12 @@ export const ProfilePicture = () => {
     }
     toaster({
       type: "success",
-      description: "File uploaded successfully",
+      description: t('toasters.success-file-uploaded'),
     });
     // we reset the form after the file has been uploaded
     form.reset({ file });
     setLoading(false);
-  }, [file, userStore, setUserStore, form]);
+  }, [file, userStore, setUserStore, form, t]);
   useEffect(() => {
     // Only if file changes
     if (file) {
@@ -156,7 +154,7 @@ export const ProfilePicture = () => {
       </Avatar>
 
       <Tooltip id="change-avatar" className="tooltip" place="top">
-        Change avatar
+        {t('change-avatar')}
       </Tooltip>
       <Form {...form}>
         <form

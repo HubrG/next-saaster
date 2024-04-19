@@ -1,9 +1,12 @@
+"use client";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { MessageCircleWarningIcon, Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "../button";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import { SimpleLoader } from "./loader";
+
 type Props = {
   handleFunction: () => void;
   size?: "sm" | "lg" | "icon";
@@ -37,6 +40,7 @@ export const PopoverConfirm = ({
   icon,
   display,
 }: Props) => {
+  const t = useTranslations("Components.UI.popover-confirm");
   const [loading, setLoading] = useState(false);
   return (
     <Popover>
@@ -57,7 +61,9 @@ export const PopoverConfirm = ({
         <div className="grid gap-4">
           <p className="text-center font-bold flex flex-col gap-2 justify-center">
             <MessageCircleWarningIcon className="mx-auto" />
-            <span>Are you sure you want {what}</span>
+            <span>
+              {t("message")} {what}
+            </span>
           </p>
           <div className="flex flex-row gap-5 justify-evenly">
             <Button
@@ -69,14 +75,14 @@ export const PopoverConfirm = ({
                 handleFunction();
                 setTimeout(() => setLoading(false), 3000);
               }}>
-              {loading ? <SimpleLoader /> : "Yes"}
+              {loading ? <SimpleLoader /> : t("confirm")}
             </Button>
             <PopoverClose asChild>
               <Button
                 variant={"ghost"}
                 onClick={() => setLoading(false)}
                 className=" w-full">
-                No
+                {t("cancel")}
               </Button>
             </PopoverClose>
           </div>

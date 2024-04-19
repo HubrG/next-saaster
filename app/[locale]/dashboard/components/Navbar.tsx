@@ -4,17 +4,20 @@ import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
-    BarChart2,
-    Building2,
-    CircleUser,
-    Cog,
-    CreditCard,
-    Mail,
-    UserRoundCog,
+  BarChart2,
+  Building2,
+  CircleUser,
+  Cog,
+  CreditCard,
+  Mail,
+  UserRoundCog,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export const DashboardNavbar = () => {
+  const t = useTranslations("Dashboard.Components.Navbar");
+  //
   const { saasSettings } = useSaasSettingsStore();
   const [activeSection, setActiveSection] = useState("");
   const [activeSubSection, setActiveSubSection] = useState("");
@@ -38,20 +41,20 @@ export const DashboardNavbar = () => {
     <>
       <div>
         <h3>
-          My account
+          {t("title")}
           <Cog className="icon" />
         </h3>
         <ul>
           <MenuItem
             activeSection={activeSection}
             icon={<CircleUser className="icon" />}
-            text="Profile"
+            text={t("links.profile")}
             sectionObserve="Profile"
             handleScroll={handleScroll}
           />
           <MenuItem
             icon={<UserRoundCog className="icon" />}
-            text="Account"
+            text={t("links.account")}
             activeSection={activeSection}
             sectionObserve="Account"
             handleScroll={handleScroll}></MenuItem>
@@ -60,21 +63,21 @@ export const DashboardNavbar = () => {
             <>
               <MenuItem
                 activeSection={activeSection}
-                text="Organization"
+                text={t("links.organization")}
                 icon={<Building2 className="icon" />}
                 sectionObserve="Organization"
                 handleScroll={handleScroll}
               />
               <MenuItem
                 activeSection={activeSection}
-                text="Billing"
+                text={t("links.billing")}
                 icon={<CreditCard className="icon" />}
-                sectionObserve="Billing"
+                sectionObserve={t("links.billing")}
                 handleScroll={handleScroll}
               />
               <MenuItem
                 activeSection={activeSection}
-                text="Usage"
+                text={t("links.usage")}
                 icon={<BarChart2 className="icon" />}
                 sectionObserve="Usage"
                 handleScroll={handleScroll}
@@ -83,7 +86,7 @@ export const DashboardNavbar = () => {
           )}
           <MenuItem
             activeSection={activeSection}
-            text="Purchases"
+            text={t("links.purchases")}
             icon={<CreditCard className="icon" />}
             sectionObserve="Purchase"
             handleScroll={handleScroll}
@@ -91,7 +94,7 @@ export const DashboardNavbar = () => {
           <MenuItem
             activeSection={activeSection}
             icon={<Mail className="icon" />}
-            text="Emails"
+            text={t("links.emails")}
             sectionObserve="Emails"
             handleScroll={handleScroll}
           />

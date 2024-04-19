@@ -1,49 +1,138 @@
 {
   "Index": {
     "title": "Bienvenue !",
-    "first-connexion": "Première connexion"
+    "first-connexion": "Première connexion",
+    "metadatas": {
+      "title": "Accueil",
+      "description": "Kit de démarrage NextJS SaaS pour un développement rapide : concentrez-vous uniquement sur les fonctionnalités principales, soyez assuré avec un frontend moderne, un backend évolutif et sécurisé. \nÉconomisez des efforts"
+    }
   },
-  "Components": {
-    "Features": {
-      "Layout": {
-        "Header": {
-          "Navbar": {
-            "TryUsButton": {
-              "try": "Essayer !"
-            },
-            "MainMenu": {
-              "links": {
-                "howItWorks": "Comment ça marche ?",
-                "features": "Fonctionnalités",
-                "home": "Accueil",
-                "pricing": "Tarification",
-                "contact": "Contact"
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "title": "Mon compte",
+        "links": {
+          "profile": "Profil",
+          "account": "Compte",
+          "organization": "Organisation",
+          "billing": "Facturation",
+          "usage": "Utilisation",
+          "purchases": "Achats",
+          "emails": "Emails"
+        }
+      },
+      "Profile": {
+        "Account": {
+          "title": "Compte",
+          "connectedWith": "Vous êtes connecté avec votre compte {provider}",
+          "manage-password": "Gérer votre mot de passe",
+          "create-password": "Vous n'avez pas créé de mot de passe car vous êtes connecté avec un compte {provider}.",
+          "close-account": "Désactiver mon compte...",
+          "close-account-popover-message": "supprimer votre compte ? Cette action est irréversible. Si vous avez un abonnement, il sera annulé.",
+          "Components": {
+            "UpdatePassword": {
+              "title": "Mettre à jour votre mot de passe",
+              "form": {
+                "actual-password": "Mot de passe actuel",
+                "new-password": "Nouveau mot de passe",
+                "password-confirmation": "Confirmation du mot de passe",
+                "submit": "Mettre à jour le mot de passe",
+                "password-error": "Le mot de passe doit comporter au moins {min} caractères.",
+                "passwords-not-matching": "Les mots de passe ne correspondent pas."
+              },
+              "toasters": {
+                "password-updated": "Mot de passe mis à jour.",
+                "password-update-error": "Une erreur s'est produite lors de la mise à jour du mot de passe. Veuillez réessayer."
               }
             },
-            "Auth": {
-              "UserProfile": {
-                "tooltips": {
-                  "credits": "Crédits restants"
-                },
-                "links": {
-                  "buy": "Acheter des crédits",
-                  "account": "Mon compte"
-                }
+            "ForgotPassword": {
+              "title": "Mot de passe oublié ?",
+              "description": "Pas de problème, nous pouvons vous envoyer un lien pour réinitialiser votre mot de passe.",
+              "form": {
+                "email": "Votre adresse email",
+                "email-error": "Ce n'est pas une adresse email valide.",
+                "submit": "Envoyez-moi le lien"
               },
-              "LogoutButton": {
-                "title": "Déconnexion"
+              "emailSent": {
+                "subject": "Réinitialisez votre mot de passe"
+              },
+              "toasters": {
+                "send-email-error": "Une erreur s'est produite lors de l'envoi de l'email. Veuillez réessayer."
+              }
+            },
+            "CreatePassword": {
+              "title": "Créer un mot de passe",
+              "description": "Vous n'avez pas créé de mot de passe car vous êtes connecté avec un compte {provider}. Vous pouvez en créer un ici.",
+              "form": {
+                "password": "Mot de passe",
+                "password-confirmation": "Confirmation du mot de passe",
+                "submit": "Créer le mot de passe",
+                "password-error": "Le mot de passe doit comporter au moins {min} caractères.",
+                "passwords-not-matching": "Les mots de passe ne correspondent pas."
+              },
+              "toasters": {
+                "succes-password-created": "Votre mot de passe a été créé."
               }
             }
           }
-        }
-      },
-      "Pages": {
-        "Index": {
-          "FirstConnexion": {
-            "title": "Première connexion",
-            "description": "Connectez-vous avec Github pour créer le compte administrateur et commencer à configurer le <strong>SaaSter</strong>",
-            "button-github": "Se connecter à GitHub"
+        },
+        "Profile": {
+          "change-avatar": "Modifier la photo de profil",
+          "form": {
+            "submit": "Mettre à jour",
+            "name": "Nom d'affichage"
+          },
+          "title": "Profil",
+          "toasters": {
+            "success": "Profil mis à jour",
+            "no-file-provided": "Aucun fichier fourni",
+            "file-is-empty": "Le fichier est vide",
+            "file-is-too-large": "Le fichier est trop volumineux (2 Mo maximum)",
+            "file-is-not-an-image": "Le fichier n'est pas une image",
+            "success-file-uploaded": "Photo de profil modifiée avec succès"
           }
+        },
+        "Organization": {
+          "title": "Organisation"
+        },
+        "Billing": {
+          "id": "Facturation",
+          "title": "Facturation"
+        },
+        "Purchases": {
+          "title": "Achats"
+        }
+      }
+    },
+    "title": "Tableau de bord",
+    "description": "Bienvenue sur votre tableau de bord !",
+    "button": "Aller au tableau de bord"
+  },
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "message": "Êtes-vous sûr de vouloir",
+        "confirm": "Confirmer",
+        "cancel": "Annuler"
+      }
+    }
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "buy-now": "Acheter",
+        "UserProfile": {
+          "refill": "Recharger",
+          "my-account": "Mon compte",
+          "login": "Se connecter",
+          "logout": "Se déconnecter"
+        },
+        "MainMenu": {
+          "howItWorks": "Comment ça fonctionne ?",
+          "features": "Fonctionnalités",
+          "home": "Accueil",
+          "pricing": "Tarifs",
+          "contact": "Contact"
         }
       }
     }

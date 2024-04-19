@@ -1,50 +1,140 @@
 {
   "Index": {
     "title": "Welcome !",
-    "first-connexion": "First connexion"
+    "first-connexion": "First connexion",
+    "metadatas": {
+      "title": "Home",
+      "description": "NextJS SaaS starter kit for rapid development: only focus on main features, rest assured with a modern frontend, scalable and secure backend. Save effort & money."
+    }
   },
-  "Components": {
-    "Features": {
-      "Layout": {
-        "Header": {
-          "Navbar": {
-            "TryUsButton": {
-              "try": "Try us for free"
-            },
-            "MainMenu": {
-              "links": {
-                "howItWorks": "How it works ?",
-                "features": "Features",
-                "home": "Home",
-                "pricing": "Pricing",
-                "contact": "Contact"
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "buy-now": "Buy now !",
+        "UserProfile": {
+          "refill": "Refill",
+          "my-account": "My account",
+          "login": "Login",
+          "logout": "Logout"
+        },
+        "MainMenu": {
+          "howItWorks": "How it works ?",
+          "features": "Features",
+          "home": "Home",
+          "pricing": "Pricing",
+          "contact": "Contact"
+        }
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "title": "My account",
+        "links": {
+          "profile": "Profile",
+          "account": "Account",
+          "organization": "Organization",
+          "billing": "Billing",
+          "usage": "Usage",
+          "purchases": "Purchases",
+          "emails": "Emails"
+        }
+      },
+      "Profile": {
+        "Account": {
+          "title": "Compte",
+          "connectedWith": "You are connected with your {provider} account",
+          "manage-password": "Manage your password",
+          "create-password": "You haven&apos;t created a password because you&apos;re logged in with a {provider} account.",
+          "close-account": "Close your account definitely...",
+          "close-account-popover-message": "to delete your account? This action cannot be undone. If you have any subscription, it will be cancelled.",
+          "Components": {
+            "UpdatePassword": {
+              "title": "Update your password",
+              "form": {
+                "actual-password": "Actual password",
+                "new-password": "New password",
+                "password-confirmation": "Password confirmation",
+                "submit": "Update password",
+                "password-error": "Passwords must be at least {min} characters long.",
+                "passwords-not-matching": "Passwords are not matching."
+              },
+              "toasters": {
+                "password-updated": "Your password has been updated.",
+                "password-update-error": "An error occurred while updating your password. Please try again."
               }
             },
-            "Auth": {
-              "UserProfile": {
-                "tooltips": {
-                  "credits": "Remaining"
-                },
-                "links": {
-                  "buy": "Buy more",
-                  "account": "My account"
-                }
+            "ForgotPassword": {
+              "title": "Forgot your password ?",
+              "description": "No problem, we can send you a link to reset your password.",
+              "form": {
+                "email": "Your email address",
+                "email-error": "It's not a valid email address.",
+                "submit": "Send me the link"
               },
-              "LogoutButton": {
-                "title": "Log out"
+              "emailSent": {
+                "subject": "Reset your password"
+              },
+              "toasters": {
+                "send-email-error": "An error occurred while sending the email. Please try again."
+              }
+            },
+            "CreatePassword": {
+              "title": "Create a password",
+              "description": "You haven't created a password because you're logged in with a {provider} account. You can create one here.",
+              "form": {
+                "password": "Password",
+                "password-confirmation": "Password confirmation",
+                "submit": "Create password",
+                "password-error": "Passwords must be at least {min} characters long.",
+                "passwords-not-matching": "Passwords are not matching."
+              },
+              "toasters": {
+                "succes-password-created": "Your password has been created."
               }
             }
           }
-        }
-      },
-      "Pages": {
-        "Index": {
-          "FirstConnexion": {
-            "title": "First connexion",
-            "description": "Log in with Github to create the admin account and start configuring the <strong>SaaSter</strong>",
-            "button-github": "Connect to GitHub"
+        },
+        "Profile": {
+          "change-avatar": "Change profil picture",
+          "form": {
+            "upload": "Upload",
+            "submit": "Update",
+            "name": "Name"
+          },
+          "title": "Profile",
+          "toasters": {
+            "success": "Profile updated",
+            "no-file-provided": "No file provided",
+            "file-is-empty": "File is empty",
+            "file-is-too-large": "File is too large (2MB maximum)",
+            "file-is-not-an-image": "File is not an image",
+            "success-file-uploaded": "Profil picture updated"
           }
+        },
+        "Organization": {
+          "title": "Organization"
+        },
+        "Billing": {
+          "id": "Billing",
+          "title": "Billing"
+        },
+        "Purchases": {
+          "title": "Purchases"
         }
+      }
+    },
+    "title": "Dashboard",
+    "description": "Welcome to your dashboard !",
+    "button": "Go to the dashboard"
+  },
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "message": "Are you sure you want",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
       }
     }
   }

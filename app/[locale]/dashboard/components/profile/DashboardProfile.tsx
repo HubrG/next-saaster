@@ -3,12 +3,13 @@
 import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
-    Building2,
-    CircleUser,
-    CreditCard,
-    Mail,
-    UserRoundCog,
+  Building2,
+  CircleUser,
+  CreditCard,
+  Mail,
+  UserRoundCog,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ProfileAccount } from "./account/ProfileAccount";
 import { ProfileBilling } from "./billing/ProfileBilling";
 import { ProfileEmail } from "./emails/ProfileEmail";
@@ -18,7 +19,8 @@ import { ProfilePurchase } from "./purchase/ProfilePurchase";
 
 type DashboardProfileProps = {};
 
-export const DashboardProfile = ({}: DashboardProfileProps) => {
+export const DashboardProfile = ({ }: DashboardProfileProps) => {
+  const t = useTranslations("Dashboard.Components.Profile");
   const { saasSettings } = useSaasSettingsStore();
 
   return (
@@ -26,15 +28,15 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
         <SectionWrapper
           id="Profile"
-          sectionName="Profile"
-          mainSectionName="Profile"
+          sectionName={t("Profile.title")}
+          // mainSectionName={t("Account.title")}
           icon={<CircleUser className="icon" />}>
           <ProfileSetup />
         </SectionWrapper>
         <SectionWrapper
           id="Account"
-          sectionName="Account"
-          mainSectionName="Account"
+          sectionName={t("Account.title")}
+          // mainSectionName={t("Account.title")}
           icon={<UserRoundCog className="icon" />}>
           <ProfileAccount />
         </SectionWrapper>
@@ -44,15 +46,15 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
         <>
           <SectionWrapper
             id="Organization"
-            sectionName="Organization"
-            mainSectionName="Organization"
+            sectionName={t("Organization.title")}
+            // mainSectionName={t("Account.title")}
             icon={<Building2 className="icon" />}>
             <ProfileOrganization />
           </SectionWrapper>
           <SectionWrapper
-            id="Billing"
-            sectionName="Billing"
-            mainSectionName="Billing"
+            id={t('Billing.id')}
+            sectionName={t('Billing.title')}
+            // mainSectionName="Billing"
             icon={<CreditCard className="icon" />}>
             <ProfileBilling />
           </SectionWrapper>
@@ -60,15 +62,15 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
       )}
       <SectionWrapper
         id="Purchase"
-        sectionName="Purchases"
-        mainSectionName="Purchase"
+        sectionName={t('Purchases.title')}
+        // mainSectionName="Purchase"
         icon={<CreditCard className="icon" />}>
         <ProfilePurchase />
       </SectionWrapper>
       <SectionWrapper
         id="Emails"
         sectionName="Emails"
-        mainSectionName="Emails"
+        // mainSectionName="Emails"
         icon={<Mail className="icon" />}>
         <ProfileEmail />
       </SectionWrapper>

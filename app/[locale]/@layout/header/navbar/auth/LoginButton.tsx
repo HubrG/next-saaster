@@ -3,8 +3,10 @@ import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { Button } from "@/src/components/ui/button";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { LogIn } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 export const LoginButton = () => {
+  const t = useTranslations("Layout.Header.Navbar.UserProfile");
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -19,7 +21,7 @@ export const LoginButton = () => {
       ) : (
         <LogIn className="mr-2 h-4 w-4" />
       )}
-      <span className="lg:block md:hidden block font-bold">Login</span>
+      <span className="lg:block md:hidden block font-bold">{t("login")}</span>
     </Button>
   );
 };

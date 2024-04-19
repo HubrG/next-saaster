@@ -11,6 +11,7 @@ import { handleError } from "@/src/lib/error-handling/handleError";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,6 +21,7 @@ type InformationProps = {
 };
 
 export const ProfileInformation = ({ user }: InformationProps) => {
+    const t = useTranslations("Dashboard.Components.Profile.Profile");
   const [loading, setLoading] = useState(false);
   const { setUserStore } = useUserStore();
   const formSchema = z.object({
@@ -50,7 +52,7 @@ export const ProfileInformation = ({ user }: InformationProps) => {
       return;
     }
     setUserStore({ ...user, name: form.getValues("name") });
-    toaster({ type: "success", description: "Updated" });
+    toaster({ type: "success", description: t('toasters.success') });
   };
 
   return (
@@ -60,12 +62,12 @@ export const ProfileInformation = ({ user }: InformationProps) => {
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           encType="multipart/form-data">
-          <Field type="text" label="Name" name="name" form={form} />
+          <Field type="text" label={t('form.name')} name="name" form={form} />
           <ButtonWithLoader
             loading={form.formState.isSubmitting}
             disabled={form.formState.isSubmitting || !form.formState.isValid}
             type="submit">
-            Update
+            {t('form.submit')}
           </ButtonWithLoader>
         </form>
       </Form>

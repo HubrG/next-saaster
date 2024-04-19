@@ -4,12 +4,12 @@ import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
@@ -19,6 +19,7 @@ import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LockKeyhole } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,7 +28,9 @@ type UpdatePasswordProps = {
   className: string;
   user: iUsers;
 };
+
 export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
+  const t = useTranslations("Dashboard.Components.Profile.Account.Components.UpdatePassword");
   const [isLoading, setIsLoading] = useState(false);
   const { setUserStore } = useUserStore();
   const [open, setOpen] = useState(false);
@@ -35,20 +38,20 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
   const formSchema = z
     .object({
       oldPassword: z.string().min(6, {
-        message: "Must be at least 6 characters.",
+        message: t("form.password-error", { min: 6 }),
       }),
       password: z.string().min(6, {
-        message: "Must be at least 6 characters.",
+        message: t("form.password-error", { min: 6 }),
       }),
       confirmPassword: z.string().min(6, {
-        message: "Must be at least 6 characters.",
+        message: t("form.password-error", { min: 6 }),
       }),
     })
     .superRefine((data, ctx) => {
       if (data.password !== data.confirmPassword) {
         ctx.addIssue({
           path: ["confirmPassword"],
-          message: "The passwords did not match.",
+          message: t("form.passwords-not-matching"),
           code: "custom",
         });
       }
@@ -70,7 +73,11 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
       setIsLoading(false);
       return;
     }
-    toaster({ type: "success", duration:5000, description: "Password updated" });
+    toaster({
+      type: "success",
+      duration: 5000,
+      description: t("toasters.password-updated"),
+    });
     setUserStore({
       ...user,
       password: changePassword.data?.success?.password ?? null,
@@ -95,12 +102,12 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
     <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
       <DialogTrigger>
         <span className={`${className} flex flex-row mt-5`}>
-          <LockKeyhole className="icon mt-1" /> Update your password
+          <LockKeyhole className="icon mt-1" /> {t("title")}
         </span>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-y-6">
-          <DialogTitle>Update your password</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <Goodline />
           <DialogDescription>
             <Form {...form}>
@@ -110,20 +117,20 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
                 <div className={cn("space-y-3 -mt-10 ")}>
                   <Field
                     type="password"
-                    label="Actual password"
+                    label={t("form.actual-password")}
                     name="oldPassword"
                     form={form}>
                     <ForgotPassword className="button-in-input" user={user} />
                   </Field>
                   <Field
                     type="password"
-                    label="New password"
+                    label={t("form.new-password")}
                     name="password"
                     form={form}
                   />
                   <Field
                     type="password"
-                    label="Confirm password"
+                    label={t("form.password-confirmation")}
                     name="confirmPassword"
                     form={form}
                   />
@@ -136,7 +143,7 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
                       { disabled: isLoading },
                       "w-full !mt-10 mb-0"
                     )}>
-                    Update password
+                    {t("form.submit")}
                   </ButtonWithLoader>
                 </div>
               </form>

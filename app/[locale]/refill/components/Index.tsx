@@ -10,13 +10,13 @@ export const Index = ({}: RefillButtonProps) => {
   const handleStripeRefill = async () => {
     const refill = await createRefillSession();
     if (!refill) return;
-    return router.push(refill);
+    return router.push(refill as any);
   };
 
   const handleClient = async () => {
     const refill = await portailclient();
     if (!refill) return;
-    return router.push(refill);
+    return router.push(refill as any);
   }
   return (
     <div>

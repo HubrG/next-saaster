@@ -25,7 +25,7 @@ export default function MainMenu(props: MenuProps) {
         return (
           <li key={index} className={props.className}>
             <Link
-              href={`/${link.url}`}
+              href={`/${link.url}` as any}
               scroll={true}
               onClick={() => {
                 document.getElementById("close-sheet")?.click();
@@ -40,7 +40,7 @@ export default function MainMenu(props: MenuProps) {
                     !pathname.includes(link.url) && !props.className,
                 },
                 {
-                  "nunderline": !props.className,
+                  nunderline: !props.className,
                 }
               )}>
               {t(link.name)}

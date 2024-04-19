@@ -1,0 +1,141 @@
+{
+  "Index": {
+    "title": "¡Bienvenido!",
+    "first-connexion": "Primera conexión",
+    "metadatas": {
+      "title": "Inicio",
+      "description": "Kit de inicio NextJS SaaS para un desarrollo rápido: concéntrate solo en las características principales, asegúrate con un frontend moderno, un backend escalable y seguro. \nAhorra esfuerzos"
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "title": "Mi cuenta",
+        "links": {
+          "profile": "Perfil",
+          "account": "Cuenta",
+          "organization": "Organización",
+          "billing": "Facturación",
+          "usage": "Uso",
+          "purchases": "Compras",
+          "emails": "Correos"
+        }
+      },
+      "Profile": {
+        "Account": {
+          "title": "Cuenta",
+          "connectedWith": "Estás conectado con tu cuenta {provider}",
+          "manage-password": "Gestionar tu contraseña",
+          "create-password": "No has creado una contraseña porque estás conectado con una cuenta {provider}.",
+          "close-account": "Desactivar mi cuenta...",
+          "close-account-popover-message": "¿Eliminar tu cuenta? Esta acción es irreversible. Si tienes una suscripción, será cancelada.",
+          "Components": {
+            "UpdatePassword": {
+              "title": "Actualizar tu contraseña",
+              "form": {
+                "actual-password": "Contraseña actual",
+                "new-password": "Nueva contraseña",
+                "password-confirmation": "Confirmación de contraseña",
+                "submit": "Actualizar contraseña",
+                "password-error": "La contraseña debe tener al menos {min} caracteres.",
+                "passwords-not-matching": "Las contraseñas no coinciden."
+              },
+              "toasters": {
+                "password-updated": "Contraseña actualizada.",
+                "password-update-error": "Se produjo un error al actualizar la contraseña. Por favor, inténtalo de nuevo."
+              }
+            },
+            "ForgotPassword": {
+              "title": "¿Olvidaste tu contraseña?",
+              "description": "No hay problema, podemos enviarte un enlace para restablecer tu contraseña.",
+              "form": {
+                "email": "Tu dirección de correo electrónico",
+                "email-error": "Esta no es una dirección de correo electrónico válida.",
+                "submit": "Enviarme el enlace"
+              },
+              "emailSent": {
+                "subject": "Restablece tu contraseña"
+              },
+              "toasters": {
+                "send-email-error": "Se produjo un error al enviar el correo electrónico. Por favor, inténtalo de nuevo."
+              }
+            },
+            "CreatePassword": {
+              "title": "Crear una contraseña",
+              "description": "No has creado una contraseña porque estás conectado con una cuenta {provider}. Puedes crear una aquí.",
+              "form": {
+                "password": "Contraseña",
+                "password-confirmation": "Confirmación de contraseña",
+                "submit": "Crear contraseña",
+                "password-error": "La contraseña debe tener al menos {min} caracteres.",
+                "passwords-not-matching": "Las contraseñas no coinciden."
+              },
+              "toasters": {
+                "succes-password-created": "Tu contraseña ha sido creada."
+              }
+            }
+          }
+        },
+        "Profile": {
+          "change-avatar": "Cambiar foto de perfil",
+          "form": {
+            "submit": "Actualizar",
+            "name": "Nombre visible",
+            "upload": "Subir"
+          },
+          "title": "Perfil",
+          "toasters": {
+            "success": "Perfil actualizado",
+            "no-file-provided": "No se proporcionó ningún archivo",
+            "file-is-empty": "El archivo está vacío",
+            "file-is-too-large": "El archivo es demasiado grande (máximo 2 MB)",
+            "file-is-not-an-image": "El archivo no es una imagen",
+            "success-file-uploaded": "Foto de perfil actualizada con éxito"
+          }
+        },
+        "Organization": {
+          "title": "Organización"
+        },
+        "Billing": {
+          "id": "Facturación",
+          "title": "Facturación"
+        },
+        "Purchases": {
+          "title": "Compras"
+        }
+      }
+    },
+    "title": "Tablero de control",
+    "description": "¡Bienvenido a tu tablero de control!",
+    "button": "Ir al tablero de control"
+  },
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "message": "¿Estás seguro de querer",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+      }
+    }
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "buy-now": "Comprar ahora",
+        "UserProfile": {
+          "refill": "Recargar",
+          "my-account": "Mi cuenta",
+          "login": "Iniciar sesión",
+          "logout": "Cerrar sesión"
+        },
+        "MainMenu": {
+          "howItWorks": "¿Cómo funciona?",
+          "features": "Características",
+          "home": "Inicio",
+          "pricing": "Precios",
+          "contact": "Contacto"
+        }
+      }
+    }
+  }
+}

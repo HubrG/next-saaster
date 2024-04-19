@@ -1,0 +1,140 @@
+{
+  "Index": {
+    "title": "स्वागत है!",
+    "first-connexion": "पहली बार कनेक्शन",
+    "metadatas": {
+      "title": "होम",
+      "description": "तेजी से विकास के लिए NextJS SaaS स्टार्टर किट: केवल मुख्य विशेषताओं पर ध्यान केंद्रित करें, एक आधुनिक फ्रंटेंड, स्केलेबल और सुरक्षित बैकएंड के साथ आश्वस्त रहें। \nप्रयासों को बचाएं"
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "title": "मेरा खाता",
+        "links": {
+          "profile": "प्रोफ़ाइल",
+          "account": "खाता",
+          "organization": "संगठन",
+          "billing": "बिलिंग",
+          "usage": "उपयोग",
+          "purchases": "खरीदारी",
+          "emails": "ईमेल"
+        }
+      },
+      "Profile": {
+        "Account": {
+          "title": "खाता",
+          "connectedWith": "आप अपने {provider} खाते से जुड़े हुए हैं",
+          "manage-password": "अपना पासवर्ड प्रबंधित करें",
+          "create-password": "आपने {provider} खाते के साथ जुड़ने के कारण पासवर्ड नहीं बनाया है।",
+          "close-account": "मेरा खाता निष्क्रिय करें...",
+          "close-account-popover-message": "अपना खाता हटाना चाहते हैं? यह क्रिया अपरिवर्तनीय है। अगर आपका कोई सदस्यता है, तो वह रद्द हो जाएगी।",
+          "Components": {
+            "UpdatePassword": {
+              "title": "अपना पासवर्ड अपडेट करें",
+              "form": {
+                "actual-password": "वर्तमान पासवर्ड",
+                "new-password": "नया पासवर्ड",
+                "password-confirmation": "पासवर्ड की पुष्टि करें",
+                "submit": "पासवर्ड अपडेट करें",
+                "password-error": "पासवर्ड में कम से कम {min} वर्ण होने चाहिए।",
+                "passwords-not-matching": "पासवर्ड मेल नहीं खा रहे।"
+              },
+              "toasters": {
+                "password-updated": "पासवर्ड अपडेट हो गया।",
+                "password-update-error": "पासवर्ड अपडेट करते समय एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+              }
+            },
+            "ForgotPassword": {
+              "title": "पासवर्ड भूल गए?",
+              "description": "कोई समस्या नहीं, हम आपको अपना पासवर्ड रीसेट करने के लिए एक लिंक भेज सकते हैं।",
+              "form": {
+                "email": "आपका ईमेल पता",
+                "email-error": "यह एक वैध ईमेल पता नहीं है।",
+                "submit": "मुझे लिंक भेजें"
+              },
+              "emailSent": {
+                "subject": "अपना पासवर्ड रीसेट करें"
+              },
+              "toasters": {
+                "send-email-error": "ईमेल भेजते समय एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+              }
+            },
+            "CreatePassword": {
+              "title": "पासवर्ड बनाएं",
+              "description": "आपने {provider} खाते के साथ जुड़ने के कारण पासवर्ड नहीं बनाया है। आप यहाँ एक बना सकते हैं।",
+              "form": {
+                "password": "पासवर्ड",
+                "password-confirmation": "पासवर्ड की पुष्टि",
+                "submit": "पासवर्ड बनाएं",
+                "password-error": "पासवर्ड में कम से कम {min} वर्ण होने चाहिए।",
+                "passwords-not-matching": "पासवर्ड मेल नहीं खा रहे।"
+              },
+              "toasters": {
+                "succes-password-created": "आपका पासवर्ड बन गया है।"
+              }
+            }
+          }
+        },
+        "Profile": {
+          "change-avatar": "प्रोफ़ाइल फोटो बदलें",
+          "form": {
+            "submit": "अपडेट करें",
+            "name": "प्रदर्शन नाम"
+          },
+          "title": "प्रोफ़ाइल",
+          "toasters": {
+            "success": "प्रोफ़ाइल अपडेट हो गई",
+            "no-file-provided": "कोई फ़ाइल प्रदान नहीं की गई",
+            "file-is-empty": "फ़ाइल खाली है",
+            "file-is-too-large": "फ़ाइल बहुत बड़ी है (अधिकतम 2 MB)",
+            "file-is-not-an-image": "फ़ाइल एक छवि नहीं है",
+            "success-file-uploaded": "प्रोफ़ाइल फोटो सफलतापूर्वक अपडेट की गई"
+          }
+        },
+        "Organization": {
+          "title": "संगठन"
+        },
+        "Billing": {
+          "id": "बिलिंग",
+          "title": "बिलिंग"
+        },
+        "Purchases": {
+          "title": "खरीदारी"
+        }
+      }
+    },
+    "title": "डैशबोर्ड",
+    "description": "आपके डैशबोर्ड में आपका स्वागत है!",
+    "button": "डैशबोर्ड पर जाएं"
+  },
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "message": "क्या आप सुनिश्चित हैं कि आप",
+        "confirm": "पुष्टि करें",
+        "cancel": "रद्द करें"
+      }
+    }
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "buy-now": "अभी खरीदें",
+        "UserProfile": {
+          "refill": "रिफिल",
+          "my-account": "मेरा खाता",
+          "login": "लॉग इन करें",
+          "logout": "लॉग आउट"
+        },
+        "MainMenu": {
+          "howItWorks": "यह कैसे काम करता है?",
+          "features": "विशेषताएँ",
+          "home": "होम",
+          "pricing": "मूल्य निर्धारण",
+          "contact": "संपर्क करें"
+        }
+      }
+    }
+  }
+}

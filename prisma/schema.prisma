@@ -146,7 +146,7 @@ model appSettings {
   id                String    @id @default(cuid())
   name              String?   @default("Fairysaas")
   baseline          String?   @default("Just develop your best feature, the rest is already done and well done.")
-  description       String?   @default("NextJS SaaS starter kit for rapid development: only focus on main features, rest assured with a modern frontend, scalable and secure backend. Save effort & money. ")
+  description       String?   @default("NextJS SaaS starter kit for rapid development: only focus on main features, rest assured with a modern frontend, scalable and secure backend. Save effort & money.")
   theme             String?   @default("purple")
   image             String?   @default("")
   roundedCorner     Float?    @default(10)

@@ -2,6 +2,7 @@ import {
   defaultLocale,
   localePrefix,
   locales,
+  pathnames,
 } from "@/src/lib/intl/navigation";
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,6 +12,7 @@ const nextIntlMiddleware = createMiddleware({
   localePrefix,
   locales,
   defaultLocale,
+  pathnames,
 });
 
 // Custom middleware that encapsulates next-intl

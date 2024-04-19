@@ -13,6 +13,7 @@ import {
 import { useUserStore } from "@/src/stores/userStore";
 import { capitalize } from "lodash";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { CreatePassword } from "./components/CreatePassword";
 import { UpdatePassword } from "./components/UpdatePassword";
@@ -20,6 +21,7 @@ import { UpdatePassword } from "./components/UpdatePassword";
 type ProfileAccountProps = {};
 
 export const ProfileAccount = ({}: ProfileAccountProps) => {
+  const t = useTranslations("Dashboard.Components.Profile.Account");
   const { userStore, isUserStoreLoading } = useUserStore();
   const [userProfile, setUserProfile] =
     useState<ReturnUserDependencyProps | null>();
@@ -65,19 +67,18 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
             {userStore.email}
           </p>
           <p className="italic text-center flex text-sm flex-col justify-center">
-            You are connected with your {capitalize(provider)} account.
+            {t("connectedWith", { provider: capitalize(provider) })}
           </p>
         </Card>
       )}
       <div className="my-10">
         <h3 className="!text-left md:text-xl text-base opacity-90">
-          Manage password
+          {t("manage-password")}
         </h3>
         {!userStore.password ? (
           <>
             <p className="text-sm opacity-70 !text-left">
-              You haven&apos;t created a password because you&apos;re logged in
-              with a {capitalize(provider ?? "")} account.
+              {t("create-password", { provider: capitalize(provider ?? "") })}
             </p>
             <CreatePassword user={userProfile.info} className="w-full mt-5" />
           </>
@@ -96,8 +97,8 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
           handleDeleteAccount();
         }}
         className="mt-5 text-left float-right dark:text-theming-text-900 text-red-500"
-        display="Close account definitely..."
-        what={"to delete your account? This action cannot be undone. If you have any subscription, it will be cancelled."}
+        display={t("close-account")}
+        what={t("close-account-popover-message")}
       />
     </>
   );

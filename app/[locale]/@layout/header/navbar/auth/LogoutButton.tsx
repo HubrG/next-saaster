@@ -4,9 +4,11 @@ import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { DropdownMenuItem } from "@/src/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 
 export const DropdownMenuItemLogout = () => {
+  const t = useTranslations("Layout.Header.Navbar.UserProfile");
   const [isPending, startTransition] = useTransition();
   return (
     <DropdownMenuItem
@@ -20,7 +22,7 @@ export const DropdownMenuItemLogout = () => {
         <LogOut className="mr-2 h-4 w-4" />
       )}
       {/* Logout */}
-      Logout
+      {t('logout')}
     </DropdownMenuItem>
   );
 };

@@ -1,0 +1,141 @@
+{
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "cancel": "يلغي",
+        "confirm": "يتأكد",
+        "message": "هل انت متأكد أنك تريد"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "حساب",
+          "billing": "الفواتير",
+          "emails": "رسائل البريد الإلكتروني",
+          "organization": "منظمة",
+          "profile": "حساب تعريفي",
+          "purchases": "المشتريات",
+          "usage": "الاستخدام"
+        },
+        "title": "حسابي"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "لم تقم بإنشاء كلمة مرور لأنك قمت بتسجيل الدخول باستخدام حساب {provider}. \nيمكنك إنشاء واحدة هنا.",
+              "form": {
+                "password": "كلمة المرور",
+                "password-confirmation": "تأكيد كلمة المرور",
+                "password-error": "يجب أن يبلغ طول كلمات المرور {min} حرفًا على الأقل.",
+                "passwords-not-matching": "كلمات المرور غير متطابقة.",
+                "submit": "إنشاء كلمة المرور"
+              },
+              "title": "أنشئ كلمة مرور",
+              "toasters": {
+                "succes-password-created": "لقد تم إنشاء كلمة المرور الخاصة بك."
+              }
+            },
+            "ForgotPassword": {
+              "description": "لا توجد مشكلة، يمكننا أن نرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك.",
+              "emailSent": {
+                "subject": "اعد ضبط كلمه السر"
+              },
+              "form": {
+                "email": "عنوان بريدك  الإلكتروني",
+                "email-error": "إنه ليس عنوان بريد إلكتروني صالحًا.",
+                "submit": "ترسل لي الرابط"
+              },
+              "title": "نسيت كلمة السر ؟",
+              "toasters": {
+                "send-email-error": "حدث خطأ أثناء إرسال البريد الإلكتروني. \nحاول مرة اخرى."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "كلمة المرور الفعلية",
+                "new-password": "كلمة المرور الجديدة",
+                "password-confirmation": "تأكيد كلمة المرور",
+                "password-error": "يجب أن يبلغ طول كلمات المرور {min} حرفًا على الأقل.",
+                "passwords-not-matching": "كلمات المرور غير متطابقة.",
+                "submit": "تطوير كلمة السر"
+              },
+              "title": "قم بتحديث كلمة المرور الخاصة بك",
+              "toasters": {
+                "password-update-error": "حدث خطأ أثناء تحديث كلمة المرور الخاصة بك. \nحاول مرة اخرى.",
+                "password-updated": "لقد تم تحديث كلمة السر الخاصة بك."
+              }
+            }
+          },
+          "close-account": "اغلق حسابك بالتأكيد...",
+          "close-account-popover-message": "لحذف حسابك؟ \nلا يمكن التراجع عن هذا الإجراء. \nإذا كان لديك أي اشتراك، فسيتم إلغاؤه.",
+          "connectedWith": "أنت متصل بحساب {provider} الخاص بك",
+          "create-password": "كنت ملاذ",
+          "manage-password": "إدارة كلمة المرور الخاصة بك",
+          "title": "حساب"
+        },
+        "Billing": {
+          "id": "الفواتير",
+          "title": "الفواتير"
+        },
+        "Organization": {
+          "title": "منظمة"
+        },
+        "Profile": {
+          "change-avatar": "تغيير الصورة الشخصية",
+          "form": {
+            "name": "اسم",
+            "submit": "تحديث",
+            "upload": "رفع"
+          },
+          "title": "حساب تعريفي",
+          "toasters": {
+            "file-is-empty": "الملف فارغ",
+            "file-is-not-an-image": "الملف ليس صورة",
+            "file-is-too-large": "الملف كبير جدًا (2 ميجابايت كحد أقصى)",
+            "no-file-provided": "لم يتم تقديم أي ملف",
+            "success": "تحديث الملف الشخصي",
+            "success-file-uploaded": "تم تحديث صورة الملف الشخصي"
+          }
+        },
+        "Purchases": {
+          "title": "المشتريات"
+        }
+      }
+    },
+    "button": "اذهب إلى لوحة القيادة",
+    "description": "مرحبا بكم في لوحة القيادة الخاصة بك!",
+    "title": "لوحة القيادة"
+  },
+  "Index": {
+    "first-connexion": "الاتصال الأول",
+    "metadatas": {
+      "description": "مجموعة أدوات NextJS SaaS المبدئية للتطوير السريع: ركز فقط على الميزات الرئيسية، وكن مطمئنًا مع واجهة أمامية حديثة وواجهة خلفية آمنة وقابلة للتطوير. \nحفظ الجهد",
+      "title": "بيت"
+    },
+    "title": "مرحباً !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "اتصال",
+          "features": "سمات",
+          "home": "بيت",
+          "howItWorks": "كيف تعمل ؟",
+          "pricing": "التسعير"
+        },
+        "UserProfile": {
+          "login": "تسجيل الدخول",
+          "logout": "تسجيل خروج",
+          "my-account": "حسابي",
+          "refill": "اعادة تعبئه"
+        },
+        "buy-now": "اشتري الآن !"
+      }
+    }
+  }
+}

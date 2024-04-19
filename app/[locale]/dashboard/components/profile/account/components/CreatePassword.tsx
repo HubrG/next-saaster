@@ -5,12 +5,12 @@ import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loa
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
@@ -19,14 +19,17 @@ import { cn } from "@/src/lib/utils";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
 type CreatePasswordProps = {
   className?: string;
   user: iUsers;
 };
 export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
+  const t = useTranslations("Dashboard.Components.Profile.Account.Components.CreatePassword");
   const [isLoading, setIsLoading] = useState(false);
   const { setUserStore } = useUserStore();
   const [open, setOpen] = useState(false);
@@ -34,17 +37,17 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
   const formSchema = z
     .object({
       password: z.string().min(6, {
-        message: "Must be at least 6 characters.",
+        message: t("form.password-error", { min: 6 }),
       }),
       confirmPassword: z.string().min(6, {
-        message: "Must be at least 6 characters.",
+        message: t("form.password-error", { min: 6 }),
       }),
     })
     .superRefine((data, ctx) => {
       if (data.password !== data.confirmPassword) {
         ctx.addIssue({
           path: ["confirmPassword"],
-          message: "The passwords did not match.",
+          message: t("form.passwords-not-matching"),
           code: "custom",
         });
       }
@@ -64,7 +67,10 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
       setIsLoading(false);
       return;
     }
-    toaster({ type: "success", description: "Password created" });
+    toaster({
+      type: "success",
+      description: t("toasters.succes-password-created"),
+    });
     setUserStore({
       ...user,
       password: changePassword.data?.success?.password ?? null,
@@ -83,13 +89,11 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
   return (
     <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">
-        <Button className={className}>
-          Create password
-        </Button>
+        <Button className={className}>{t("title")}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-y-6">
-          <DialogTitle>Create you password</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <Goodline />
           <DialogDescription>
             <Form {...form}>
@@ -99,16 +103,14 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
                 <div className={cn("space-y-3 -mt-10 ")}>
                   <Field
                     type="password"
-                    label="Password"
+                    label={t("form.password")}
                     name="password"
-                    placeholder="Password"
                     form={form}
                   />
                   <Field
                     type="password"
-                    label="Confirm password"
+                    label={t("form.password-confirmation")}
                     name="confirmPassword"
-                    placeholder="Confirm Password"
                     form={form}
                   />
                   <Goodline className="!mt-10" />
@@ -117,7 +119,7 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
                     loading={isLoading}
                     disabled={isLoading || !form.formState.isValid}
                     className={cn({ disabled: isLoading }, "w-full !mt-10")}>
-                    Create password
+                    {t("form.submit")}
                   </ButtonWithLoader>
                 </div>
               </form>

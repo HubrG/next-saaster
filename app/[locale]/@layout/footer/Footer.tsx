@@ -52,8 +52,8 @@ export default async function Footer() {
         </nav>
         <nav className="flex flex-col">
           <h4>Legal</h4>
-          <Link href="terms">Terms of services</Link>
-          <Link href="privacy">Privacy policy</Link>
+          <Link href="/terms">Terms of services</Link>
+          <Link href="/privacy">Privacy policy</Link>
         </nav>
         <nav className="flex flex-col">
           <h4>Subscribe to our newsletter</h4>

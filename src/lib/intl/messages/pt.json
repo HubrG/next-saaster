@@ -1,0 +1,141 @@
+{
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "cancel": "Cancelar",
+        "confirm": "confirme",
+        "message": "Você tem certeza que quer"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Conta",
+          "billing": "Cobrança",
+          "emails": "E-mails",
+          "organization": "Organização",
+          "profile": "Perfil",
+          "purchases": "Compras",
+          "usage": "Uso"
+        },
+        "title": "Minha conta"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Você não criou uma senha porque está conectado com uma conta de {provider}. \nVocê pode criar um aqui.",
+              "form": {
+                "password": "Senha",
+                "password-confirmation": "ConfirmaÇão Da Senha",
+                "password-error": "As senhas devem ter pelo menos {min} caracteres.",
+                "passwords-not-matching": "As senhas não correspondem.",
+                "submit": "Criar senha"
+              },
+              "title": "Criar uma senha",
+              "toasters": {
+                "succes-password-created": "Sua senha foi criada."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Não tem problema, podemos enviar-lhe um link para redefinir sua senha.",
+              "emailSent": {
+                "subject": "Redefinir sua senha"
+              },
+              "form": {
+                "email": "Seu endereço de email",
+                "email-error": "Não é um endereço de e-mail válido.",
+                "submit": "Me mande o link"
+              },
+              "title": "Esqueceu sua senha ?",
+              "toasters": {
+                "send-email-error": "Ocorreu um erro ao enviar o e-mail. \nPor favor, tente novamente."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Senha real",
+                "new-password": "Nova Senha",
+                "password-confirmation": "ConfirmaÇão Da Senha",
+                "password-error": "As senhas devem ter pelo menos {min} caracteres.",
+                "passwords-not-matching": "As senhas não correspondem.",
+                "submit": "Atualizar senha"
+              },
+              "title": "Atualize sua senha",
+              "toasters": {
+                "password-update-error": "Ocorreu um erro ao atualizar sua senha. \nPor favor, tente novamente.",
+                "password-updated": "Sua senha foi atualizada."
+              }
+            }
+          },
+          "close-account": "Feche sua conta definitivamente...",
+          "close-account-popover-message": "excluir sua conta? \nEssa ação não pode ser desfeita. \nSe você tiver alguma assinatura, ela será cancelada.",
+          "connectedWith": "Você está conectado à sua conta {provider}",
+          "create-password": "Você não",
+          "manage-password": "Gerencie sua senha",
+          "title": "Compete"
+        },
+        "Billing": {
+          "id": "Cobrança",
+          "title": "Cobrança"
+        },
+        "Organization": {
+          "title": "Organização"
+        },
+        "Profile": {
+          "change-avatar": "Alterar foto do perfil",
+          "form": {
+            "name": "Nome",
+            "submit": "Atualizar",
+            "upload": "Carregar"
+          },
+          "title": "Perfil",
+          "toasters": {
+            "file-is-empty": "O arquivo está vazio",
+            "file-is-not-an-image": "Arquivo não é uma imagem",
+            "file-is-too-large": "O arquivo é muito grande (máximo de 2 MB)",
+            "no-file-provided": "Nenhum arquivo fornecido",
+            "success": "perfil atualizado",
+            "success-file-uploaded": "Foto do perfil atualizada"
+          }
+        },
+        "Purchases": {
+          "title": "Compras"
+        }
+      }
+    },
+    "button": "Vá para o painel",
+    "description": "Bem-vindo ao seu painel!",
+    "title": "Painel"
+  },
+  "Index": {
+    "first-connexion": "Primeira conexão",
+    "metadatas": {
+      "description": "Kit inicial NextJS SaaS para desenvolvimento rápido: concentre-se apenas nos recursos principais, fique tranquilo com um front-end moderno, back-end escalonável e seguro. \nEconomize esforço",
+      "title": "Lar"
+    },
+    "title": "Bem-vindo !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Contato",
+          "features": "Características",
+          "home": "Lar",
+          "howItWorks": "Como funciona ?",
+          "pricing": "Preços"
+        },
+        "UserProfile": {
+          "login": "Conecte-se",
+          "logout": "Sair",
+          "my-account": "Minha conta",
+          "refill": "Reabastecer"
+        },
+        "buy-now": "Comprar agora !"
+      }
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "cancel": "İptal etmek",
+        "confirm": "Onaylamak",
+        "message": "İstediğine emin misin"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Hesap",
+          "billing": "Faturalandırma",
+          "emails": "E-postalar",
+          "organization": "Organizasyon",
+          "profile": "Profil",
+          "purchases": "Satın almalar",
+          "usage": "Kullanım"
+        },
+        "title": "Hesabım"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "{provider} hesabıyla oturum açtığınız için şifre oluşturmadınız. \nBurada bir tane oluşturabilirsiniz.",
+              "form": {
+                "password": "Şifre",
+                "password-confirmation": "Şifre onayı",
+                "password-error": "Şifreler en az {min} karakter uzunluğunda olmalıdır.",
+                "passwords-not-matching": "Şifreler eşleşmiyor.",
+                "submit": "Şifre oluştur"
+              },
+              "title": "Bir şifre oluşturun",
+              "toasters": {
+                "succes-password-created": "Şifreniz oluşturuldu."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Sorun değil, şifrenizi sıfırlamanız için size bir bağlantı gönderebiliriz.",
+              "emailSent": {
+                "subject": "Şifrenizi sıfırlayın"
+              },
+              "form": {
+                "email": "E-posta adresiniz",
+                "email-error": "Geçerli bir e-posta adresi değil.",
+                "submit": "Bana bağlantıyı gönder"
+              },
+              "title": "Parolanızı mı unuttunuz ?",
+              "toasters": {
+                "send-email-error": "E-postayı yollar iken bir sorun oluştu. \nLütfen tekrar deneyin."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Gerçek şifre",
+                "new-password": "Yeni Şifre",
+                "password-confirmation": "Şifre onayı",
+                "password-error": "Şifreler en az {min} karakter uzunluğunda olmalıdır.",
+                "passwords-not-matching": "Şifreler eşleşmiyor.",
+                "submit": "Şifre güncelle"
+              },
+              "title": "Şifrenizi güncelleyin",
+              "toasters": {
+                "password-update-error": "Şifreniz güncellenirken bir hata oluştu. \nLütfen tekrar deneyin.",
+                "password-updated": "Şifreniz güncellenmiştir."
+              }
+            }
+          },
+          "close-account": "Hesabınızı mutlaka kapatın...",
+          "close-account-popover-message": "hesabınızı silmek için? \nBu eylem geri alınamaz. \nAboneliğiniz varsa iptal edilecektir.",
+          "connectedWith": "{provider} hesabınıza bağlısınız",
+          "create-password": "sende",
+          "manage-password": "Şifrenizi yönetin",
+          "title": "Hesapla"
+        },
+        "Billing": {
+          "id": "Faturalandırma",
+          "title": "Faturalandırma"
+        },
+        "Organization": {
+          "title": "Organizasyon"
+        },
+        "Profile": {
+          "change-avatar": "Profil resmini değiştir",
+          "form": {
+            "name": "İsim",
+            "submit": "Güncelleme",
+            "upload": "Yüklemek"
+          },
+          "title": "Profil",
+          "toasters": {
+            "file-is-empty": "Dosya boş",
+            "file-is-not-an-image": "Dosya bir resim değil",
+            "file-is-too-large": "Dosya çok büyük (maksimum 2 MB)",
+            "no-file-provided": "Dosya sağlanmadı",
+            "success": "Profil güncellendi",
+            "success-file-uploaded": "Profil resmi güncellendi"
+          }
+        },
+        "Purchases": {
+          "title": "Satın almalar"
+        }
+      }
+    },
+    "button": "Kontrol paneline git",
+    "description": "Kontrol panelinize hoş geldiniz!",
+    "title": "Gösterge Paneli"
+  },
+  "Index": {
+    "first-connexion": "İlk bağlantı",
+    "metadatas": {
+      "description": "Hızlı geliştirme için NextJS SaaS başlangıç ​​seti: yalnızca ana özelliklere odaklanın, modern bir ön uç, ölçeklenebilir ve güvenli bir arka uç ile içiniz rahat olsun. \nÇabadan tasarruf edin",
+      "title": "Ev"
+    },
+    "title": "Hoş geldin !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Temas etmek",
+          "features": "Özellikler",
+          "home": "Ev",
+          "howItWorks": "Nasıl çalışır ?",
+          "pricing": "Fiyatlandırma"
+        },
+        "UserProfile": {
+          "login": "Giriş yapmak",
+          "logout": "Çıkış Yap",
+          "my-account": "Hesabım",
+          "refill": "Yeniden doldurma"
+        },
+        "buy-now": "Şimdi al !"
+      }
+    }
+  }
+}

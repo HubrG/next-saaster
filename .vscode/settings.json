@@ -1,4 +1,11 @@
 {
     "todo-tree.tree.scanMode": "current file",
-    "todo-tree.tree.showBadges": false
+    "todo-tree.tree.showBadges": false,
+    "i18n-ally.localesPaths": [
+        "src/lib/intl/messages"
+    ],
+    "i18n-ally.translate.engines": [
+        "google",
+    ],
+    "i18n-ally.keystyle": "nested"
 }

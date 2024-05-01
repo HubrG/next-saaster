@@ -5,9 +5,12 @@ import {
 
 type Locale = typeof locales[number];
 
-export const locales = ["en", "fr", "es", "hi", "zh", "tr", "ja", "pt", "ar", "ru","de","it", "bn"] as const;
+export const locales = ["en", "fr", "es", "hi", "zh", "tr", "ja", "pt", "ar", "ru","de","it", "bn", "ko"] as const;
 export const localePrefix = "always"; 
 export const defaultLocale = "en" as Locale;
+function encodePath(path: string): string {
+  return encodeURI(path);
+}
 export const pathnames = {
   // If all locales use the same pathname, a
   // single external path can be provided.
@@ -32,6 +35,7 @@ export const pathnames = {
     it: "/planello#Billing",
     de: "/armaturenbrett#Billing",
     bn: "/dashboard#Billing",
+    ko: "/dashboard#Billing",
   },
   "/contact": {
     en: "/contact",
@@ -47,6 +51,7 @@ export const pathnames = {
     it: "/contatto",
     de: "/kontakt",
     bn: "/contact",
+    ko: "/contact",
     
   },
   "/login": {
@@ -63,6 +68,7 @@ export const pathnames = {
     it: "/accesso",
     de: "/anmeldung",
     bn: "/login",
+    ko: "/login",
   },
   "/dashboard": {
     en: "/dashboard",
@@ -78,6 +84,7 @@ export const pathnames = {
     it: "/planello",
     de: "/armaturenbrett",
     bn: "/dashboard",
+    ko: "/dashboard",
   },
   "/pricing": {
     en: "/pricing",
@@ -93,6 +100,7 @@ export const pathnames = {
     it: "/prezzi",
     de: "/preisgestaltung",
     bn: "/pricing",
+    ko: "/pricing",
   },
   "/how-it-works": {
     en: "/how-it-works",
@@ -108,6 +116,7 @@ export const pathnames = {
     it: "/come-funziona",
     de: "/wie-es-funktioniert",
     bn: "/how-it-works",
+    ko: "/how-it-works",
   },
   "/terms": {
     en: "/terms",
@@ -123,6 +132,7 @@ export const pathnames = {
     it: "/termini",
     de: "/bedingungen",
     bn: "/terms",
+    ko: "/terms",
   },
   "/privacy": {
     en: "/privacy",
@@ -138,6 +148,7 @@ export const pathnames = {
     it: "/privacy",
     de: "/datenschutz",
     bn: "/privacy",
+    ko: "/privacy",
   },
   "/refill": {
     en: "/refill",
@@ -153,6 +164,7 @@ export const pathnames = {
     it: "/ricaricare",
     de: "/nachfullen",
     bn: "/refill",
+    ko: "/refill",
   },
   "/register": {
     en: "/register",
@@ -168,6 +180,7 @@ export const pathnames = {
     it: "/registrare",
     de: "/registrieren",
     bn: "/register",
+    ko: "/register",
   },
   // Dynamic params are supported via square brackets
   // "/news/[articleSlug]-[articleId]": {

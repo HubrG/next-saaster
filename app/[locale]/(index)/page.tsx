@@ -74,8 +74,10 @@ export default async function Home() {
           Auf Deutsch
         </Link>
         <Link href="/" locale="bn">
-          bn - (bangali) -
-          বাংলা
+          বাংলা (bn - bangali)
+        </Link>
+        <Link href="/" locale="ko">
+          한국어로 (ko)
         </Link>
         <Link href="/admin">Admin</Link>
         <Index />

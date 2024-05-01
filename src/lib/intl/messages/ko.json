@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "비밀번호를 재설정할 수 있는 링크가 {varIntlEmail}로 전송되었습니다. \n이메일 계정을 확인해주세요."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "인증 토큰을 생성하는 중에 오류가 발생했습니다. \n다시 시도하십시오.",
+        "unknown-error": "알 수 없는 오류가 발생했습니다. \n다시 시도하거나 당사에 문의해 주십시오.",
+        "user-already-exists": "이 이메일 주소는 이미 가입되어있는 주소입니다. \n소유자인 경우 후자로 로그인하거나 필요한 경우 비밀번호 재설정을 요청하세요.",
+        "user-not-created": "계정을 만드는 동안 오류가 발생했습니다. \n다시 시도하십시오."
+      },
+      "success": "{varIntlName}님을 환영합니다! \n신뢰에 감사드립니다. \n유효성을 확인할 수 있는 링크가 포함된 이메일을 받게 됩니다.\n\n \n이제 자격 증명을 사용하여 로그인할 수 있습니다."
+    },
+    "VerifyEmail": {
+      "expired-token": "확인 토큰이 이미 검증되었거나 만료되었거나 찾을 수 없습니다.",
+      "success": "귀하의 이메일 주소가 확인되었습니다."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "귀하는 조직에 가입하도록 초대되었습니다.",
+              "subject-end": "그리고 그의 팀",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "사용자는 이미 조직의 구성원입니다.",
+              "already-invited": "사용자가 이미 초대되었습니다.",
+              "error-while-creating-invitation": "오류가 발생했습니다. \n초대장이 전송되지 않았습니다. \n다시 시도하십시오.",
+              "no-organization-found": "조직을 찾을 수 없습니다. \n이것은 확실히 오류입니다. \n다시 시도해 주세요."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "계정을 삭제하는 동안 문제가 발생했습니다. \n문의하시기 바랍니다.",
+              "cancel-subscription": "구독을 취소하는 중에 문제가 발생했습니다.",
+              "delete": "귀하는 조직의 소유자이므로 계정을 삭제할 수 없습니다. \n귀하의 권리를 다른 사용자에게 양도하거나, 그렇지 않으면 조직을 삭제하십시오."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "자신을 초대할 수 없습니다!",
+              "field-invite-new-member": "새 회원 초대",
+              "placeholder-email": "이메일",
+              "submit": "초대하다"
+            },
+            "note": "활성 구독이 있습니다. \n조직에 새 구성원을 추가하면 해당 구성원이 이 초대를 수락하면 비례 배분된 요금이 청구됩니다.",
+            "toasters": {
+              "invitation-sent": "해당 주소로 초대장이 발송되었습니다"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "유명한 조직"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "조직 만들기"
+        },
+        "members": "회원",
+        "pending-invitations": "대기 중인 사용자",
+        "popover": {
+          "delete-member": "이 회원",
+          "delete-organization": "조직 폐쇄",
+          "what-delete-organization": "이 조직 삭제"
+        },
+        "toasters": {
+          "organization-created": "조직이 생성되었습니다.",
+          "organization-deleted": "조직이 삭제되었습니다. \n모든 구성원이 제외되고 권리가 상실되었습니다.",
+          "organization-left": "조직이 나갔습니다.",
+          "pendin-user-removed": "대기 중인 사용자가 삭제되었습니다."
+        },
+        "tooltip": {
+          "owner": "소유자"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "귀하의 이메일 주소",
+          "email-exemple": "예",
+          "submit": "뉴스레터를 구독하세요"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "취소",
+        "confirm": "확인하다",
+        "message": "정말로 원하시나요?"
+      },
+      "popover-delete": {
+        "cancel": "취소",
+        "confirm": "확인하다",
+        "message": "삭제 하시겠습니까"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "계정",
+          "billing": "신청",
+          "emails": "이메일",
+          "organization": "조직",
+          "profile": "프로필",
+          "purchases": "구매",
+          "usage": "사용"
+        },
+        "title": "내 계정"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "귀하는 {varIntlProvider} 계정으로 로그인했기 때문에 비밀번호를 생성하지 않았습니다. \n여기서 만들 수 있습니다.",
+              "form": {
+                "password": "비밀번호",
+                "password-confirmation": "비밀번호 확인",
+                "password-error": "비밀번호는 {varIntlMin}자 이상이어야 합니다.",
+                "passwords-not-matching": "비밀번호가 일치하지 않습니다.",
+                "submit": "비밀번호 만들기"
+              },
+              "title": "비밀번호를 만들어라",
+              "toasters": {
+                "succes-password-created": "귀하의 비밀번호가 생성되었습니다."
+              }
+            },
+            "ForgotPassword": {
+              "description": "문제없습니다. 비밀번호를 재설정할 수 있는 링크를 보내드리겠습니다.",
+              "emailSent": {
+                "subject": "비밀번호를 재설정"
+              },
+              "form": {
+                "email": "귀하의 이메일 주소",
+                "email-error": "유효한 이메일 주소가 아닙니다.",
+                "submit": "나에게 복구 링크 보내기"
+              },
+              "title": "비밀번호를 잊어 버렸습니까 ?",
+              "toasters": {
+                "send-email-error": "이메일을 보내는 동안 오류가 발생했습니다. \n다시 시도하십시오."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "현재 비밀번호",
+                "new-password": "새 비밀번호",
+                "password-confirmation": "비밀번호 확인",
+                "password-error": "비밀번호는 {varIntlMin}자 이상이어야 합니다.",
+                "passwords-not-matching": "비밀번호가 일치하지 않습니다.",
+                "required-message": "필수적인",
+                "submit": "비밀번호 업데이트"
+              },
+              "title": "비밀번호 업데이트",
+              "toasters": {
+                "password-update-error": "비밀번호를 업데이트하는 동안 오류가 발생했습니다. \n다시 시도하십시오.",
+                "password-updated": "비밀번호가 업데이트되었습니다."
+              }
+            }
+          },
+          "close-account": "계정 비활성화...",
+          "close-account-popover-message": "계정을 삭제하시겠습니까? \n이 작업은 되돌릴 수 없습니다. \n구독을 구매한 경우 구독이 취소됩니다.",
+          "connectedWith": "귀하는 귀하의 계정({varIntlProvider})으로 로그인되어 있습니다.",
+          "create-password": "귀하는 {varIntlProvider} 계정으로 자동 로그인되었기 때문에 비밀번호를 생성하지 않았습니다.",
+          "manage-password": "비밀번호 관리",
+          "title": "계정"
+        },
+        "Billing": {
+          "according-to-use": "용도에 따라",
+          "billed-each": "각각 청구됨",
+          "buttons": {
+            "cancel-subscription": "구독 취소",
+            "restart-subscription": "구독 다시 시작",
+            "update-payment": "결제 수단 변경",
+            "update-plan": "다운그레이드 또는 업그레이드"
+          },
+          "daily": "낮",
+          "features-title": "특징",
+          "id": "청구",
+          "monthly": "월",
+          "next-invoice-at": "다음 송장",
+          "no-plan-subscribed-yet": "구독을 구매하지 않았습니다.",
+          "per-user": "사용자당",
+          "subscribe-now": "구독하고 싶습니다!",
+          "subscription-will-be-canceled-at": "귀하의 구독이 에 영구적으로 취소됩니다",
+          "title": "청구",
+          "tooltips": {
+            "cancel-subscription": "귀하의 구독은 {varIntlDate}에 청구 기간이 끝나면 영구적으로 취소됩니다. \n이 날짜까지 기능을 계속 사용할 수 있습니다. \n그러면 더 이상 비용이 청구되지 않습니다.",
+            "restart-subscription": "추가 청구 없이 구독이 다시 시작됩니다."
+          },
+          "trial-days-remaining": "평가판 사용 기간은 {varIntlDays}일 남았습니다.",
+          "users": "사용자",
+          "weekly": "주",
+          "yearly": "년도",
+          "you-save": "이 구독에 대해 {varIntlSave} 비용이 절약됩니다.",
+          "your-plan": "귀하의 구독",
+          "your-trial-ends-at": "평가판 기간은 다음 날짜에 종료됩니다."
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "신문 구독",
+            "toasters": {
+              "error-delete-contact": "뉴스레터 독자의 연락처를 삭제하는 중 오류가 발생했습니다.",
+              "error-get-contact": "뉴스레터 연락처를 검색하는 동안 오류가 발생했습니다. \n다시 시도하십시오.",
+              "error-update-newsletter": "뉴스레터 기본 설정을 업데이트하는 동안 오류가 발생했습니다. \n다시 시도하십시오.",
+              "newsletter-disabled": "장애가 있는",
+              "newsletter-enabled": "활성화됨"
+            }
+          },
+          "title": "이메일"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "자신을 초대할 수 없습니다!",
+                "field-invite-new-member": "새 회원 초대",
+                "placeholder-email": "이메일",
+                "submit": "초대하다"
+              },
+              "note": "활성 구독이 있습니다. \n조직에 새 구성원을 추가하면 해당 구성원이 이 초대를 수락하면 비례 배분된 요금이 청구됩니다.",
+              "toasters": {
+                "invitation-sent": "해당 주소로 초대장이 발송되었습니다"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "이 회원을 소유자로 승격하시겠습니까? \n소유자는 한 명만 있을 수 있으며, 이 경우 해당 조직에 게시할 수 있는 모든 권한을 잃게 됩니다.",
+                "promote-member-display": "이 회원을 홍보하세요",
+                "revoke-member": "조직에서 이 구성원을 제거합니다.",
+                "revoke-member-display": "이 사용자 취소"
+              },
+              "toasters": {
+                "user-promoted": "승격된 사용자입니다. \n귀하는 더 이상 이 조직의 소유자가 아닙니다.",
+                "user-removed": "사용자가 취소되었습니다."
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "이름에는 최소한 {varIntlMin} 문자가 포함되어야 합니다.",
+                "field-organization-name": "조직의 이름",
+                "submit": "이름 바꾸기"
+              },
+              "organization-renamed": "유명한 조직",
+              "toasters": {
+                "organization-renamed": "조직 이름이 변경됨"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "조직 만들기"
+          },
+          "members": "회원",
+          "pending-invitations": "대기 중인 사용자",
+          "popover": {
+            "delete-member": "이 회원",
+            "delete-organization": "조직을 폐쇄해라...",
+            "what-delete-organization": "이 조직 삭제"
+          },
+          "title": "조직",
+          "toasters": {
+            "organization-created": "조직이 생성되었습니다.",
+            "organization-deleted": "조직이 삭제되었습니다. \n모든 구성원이 제외되고 권리가 상실되었습니다.",
+            "organization-left": "조직이 나갔습니다.",
+            "pendin-user-removed": "대기 중인 사용자가 삭제되었습니다."
+          },
+          "tooltip": {
+            "owner": "소유자"
+          }
+        },
+        "Profile": {
+          "change-avatar": "프로필 사진을 바꾸다",
+          "form": {
+            "name": "이름 표시하기",
+            "submit": "업데이트하려면",
+            "upload": "다운로드"
+          },
+          "title": "프로필",
+          "toasters": {
+            "file-is-empty": "파일이 비어 있습니다.",
+            "file-is-not-an-image": "파일이 이미지가 아닙니다",
+            "file-is-too-large": "파일이 너무 큽니다(최대 2MB).",
+            "no-file-provided": "제공된 파일이 없습니다.",
+            "success": "프로필이 업데이트되었습니다.",
+            "success-file-uploaded": "프로필 사진이 변경되었습니다."
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "구매 내역이 없습니다",
+          "no-purchase-history-description": "귀하는 아직 당사 사이트에서 제품을 구매하지 않았습니다!",
+          "title": "구매"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "알 수 없는 이메일 주소",
+        "invalid-token": "잘못된 토큰",
+        "password-not-updated": "비밀번호를 변경하는 중에 문제가 발생했습니다. \n다시 시도하십시오.",
+        "token-expired": "토큰이 만료되었습니다.",
+        "token-not-found": "재설정 토큰을 찾을 수 없습니다."
+      }
+    },
+    "button": "대시 보드로 이동",
+    "description": "대시보드에 오신 것을 환영합니다!",
+    "title": "계기반"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "비밀번호를 재설정",
+      "resetPassword": "암호를 재설정",
+      "text": "비밀번호 재설정을 요청하셨습니다. \n이렇게 하려면 아래 버튼을 클릭하세요."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "초대를 수락하다",
+      "heading": "귀하는 {varIntlTeamName} 팀에 합류하도록 초대되었습니다",
+      "text": "초대를 수락하려면 아래 버튼을 클릭하세요."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "환영 !",
+      "text": "등록을 확실히 확인하려면 아래 버튼을 클릭하세요.",
+      "verifyEmail": "내 계정 확인"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "우리의 소식을 놓치지 마세요! \n뉴스레터를 구독하세요",
+      "privacy": "개인 정보 정책",
+      "terms": "법적 고지",
+      "title": "합법적인"
+    },
+    "Navigation": {
+      "blog": "블로그",
+      "faq": "자주 묻는 질문",
+      "title": "항해"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "새 비밀번호를 확인하세요",
+          "email": "계정 이메일 주소",
+          "email-error": "이메일 주소 형식이 잘못되었습니다.",
+          "new-password": "새 비밀번호를 선택하세요",
+          "password-error": "길이는 {varIntlMin}자 이상이어야 합니다.",
+          "password-match-error": "두 비밀번호는 동일해야 합니다.",
+          "submit": "초기화",
+          "success": "비밀번호가 성공적으로 변경되었습니다."
+        }
+      }
+    },
+    "invalid-token": "재설정 토큰이 잘못되었습니다. \n다시 시작하거나 다시 신청하세요.",
+    "reset-password": "비밀번호 재설정",
+    "token-expired": "재설정 토큰을 알 수 없습니다."
+  },
+  "Index": {
+    "first-connexion": "첫 번째 연결",
+    "metadatas": {
+      "description": "신속한 개발을 위한 NextJS SaaS 스타터 키트: 핵심 기능에만 집중하고 최신 프런트엔드, 확장 가능하고 안전한 백엔드로 안심하세요. \n노력을 절약하세요",
+      "title": "환영"
+    },
+    "title": "환영 !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "연락하다",
+          "features": "특징",
+          "home": "환영",
+          "howItWorks": "어떻게 작동하나요?",
+          "pricing": "가격"
+        },
+        "UserProfile": {
+          "login": "로그인하기",
+          "logout": "로그아웃",
+          "my-account": "내 계정",
+          "refill": "새로고침"
+        },
+        "buy-now": "구입하다"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "이메일",
+        "login-with-email": "로그인",
+        "password": "비밀번호"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "예",
+        "submit": "나에게 로그인 링크를 보내주세요",
+        "your-email": "귀하의 이메일 주소"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Github로 로그인"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Google로 계속하기"
+      },
+      "buttons": {
+        "continue-with-google": "Google로 로그인"
+      }
+    },
+    "button": {
+      "no-account": "계정이 없나요?",
+      "register": "가입하려면 여기를 클릭하세요."
+    },
+    "title": "귀하의 계정에 로그인하십시오",
+    "toasters": {
+      "bad-credentials": "잘못된 식별자"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "월",
+        "contact-us": "귀하의 제안을 개인화하려면 당사에 문의하십시오.",
+        "metered-unit": "~에 의해",
+        "monthly": "월",
+        "per-seat": "좌석당",
+        "popular": "인기 있는",
+        "recommended": "추천",
+        "trial": "그럼 재판일은...",
+        "yearly": "년도"
+      },
+      "PriceCard": {
+        "bottom-sentence": "한 번의 결제, 다양한 프로젝트"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "구입하다",
+        "startTrial": "{varIntlTrialDays}일 동안 시도해 보세요.",
+        "subscribeNow": "구독하다"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "문의하기"
+      },
+      "SwitchRecurrence": {
+        "monthly": "월간 간행물",
+        "yearly": "연간"
+      }
+    },
+    "title": "가격"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "환영 ! \n귀하의 이메일 주소가 유효한지 확인해주세요."
+      },
+      "form": {
+        "confirm-password": "비밀번호 확인",
+        "email": "이메일 주소",
+        "email-error": "귀하의 이메일 주소가 올바른 형식이 아닙니다",
+        "password": "비밀번호",
+        "password-did-not-match": "비밀번호는 유사해야 합니다.",
+        "password-error": "비밀번호는 {varIntlMin}자 이상이어야 합니다.",
+        "register-with-email": "내 계정 만들기"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "수용하다",
+          "already-accept": "귀하는 이미 초대를 수락했습니다.",
+          "decline": "거절하다",
+          "do-you-accept": "이 조직에 가입하는 데 동의하십니까?",
+          "invitation-accepted": "초대가 수락되었습니다. 계정을 만든 다음 로그인하여 초대를 완료하세요. \n계정 생성 페이지로 리디렉션됩니다.",
+          "invitation-accepted-2": "초대가 수락되었습니다. 계정에 로그인하여 초대를 완료하세요.",
+          "invitation-declined": "초대가 거부되었습니다.",
+          "invited": "귀하는 “{varIntlOrganization}” 팀에 합류하도록 초대되었습니다",
+          "join": "“{varIntlOrganization}” 조직에 가입",
+          "logout": "연결 끊기",
+          "organization-not-found": "존재하지 않는 조직."
+        }
+      },
+      "invitation-not-found": "존재하지 않는 조직.",
+      "invited-with-different-email": "초대를 받은 이메일 주소와 다른 이메일 주소로 로그인되어 있습니다.",
+      "logged-in-with-right-email": "올바른 이메일 주소로 로그인되어 있지만 초대를 수락하려면 로그아웃한 후 다시 로그인해야 합니다.",
+      "please-logout": "해당 이메일 주소로 로그인한 후 이 페이지로 돌아오십시오. \n게스트 주소가 포함된 계정이 없으면 로그아웃한 후 이 페이지로 돌아와 계정을 만드세요."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "귀하의 계정에 로그인하십시오",
+      "request-new-validation": "아직 확인하지 않은 경우 새 확인 링크를 요청하세요.",
+      "success": "이메일이 확인되었습니다.",
+      "title": "이메일 주소 확인 중"
+    },
+    "already-account-sentence": "이미 계정이 있습니까?",
+    "button": {
+      "login": "로그인"
+    },
+    "title": "계정 만들기"
+  }
+}

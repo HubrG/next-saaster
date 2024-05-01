@@ -7,7 +7,9 @@
     "i18n-ally.translate.engines": [
         "google",
     ],
+    "i18n-ally.translate.openai.apiKey": "sk-proj-pEKurXuojdIyfC4iOH2YT3BlbkFJUk5yaolluUJum6dicPud",
     "i18n-ally.translate.openai.engine": "gpt-4-turbo",
+    "i18n-ally.translate.deepl.apiKey": "0b26bcac-b6f3-4974-add7-1ef932c3278a:fx",
     "i18n-ally.translate.deepl.useFreeApiEntry": true,
     "i18n-ally.keystyle": "nested",
     "i18n-ally.sourceLanguage": "fr"

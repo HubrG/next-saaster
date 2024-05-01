@@ -92,7 +92,7 @@ export default async function Home() {
           🇮🇩 Dalam bahasa Indonesia
         </Link>
         <Link href="/" locale="is">
-          🇮🇸 Á íslensku
+          🇮🇸 Á íslensku s
         </Link>
         <Link href="/" locale="nl">
           🇳🇱 In het Nederlands

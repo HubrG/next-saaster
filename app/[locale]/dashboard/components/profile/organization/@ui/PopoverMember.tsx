@@ -13,13 +13,14 @@ import {
 } from "@/src/helpers/db/organization.action";
 import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
 import { handleError } from "@/src/lib/error-handling/handleError";
-import { useRouter } from "@/src/lib/intl/navigation";
 import {
   Crown,
   GripVertical,
   UserRoundX,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import React from "react";
+
 
 type PopoverOrganizationMemberProps = {
   userInfo: ReturnUserDependencyProps | null;
@@ -35,8 +36,9 @@ export const PopoverOrganizationMember = ({
   setRefresh,
   member,
 }: PopoverOrganizationMemberProps) => {
-  
-  const router = useRouter();
+   const t = useTranslations(
+     "Dashboard.Components.Profile.Organization.UI.PopoverOrganizationMember"
+   );
   const handleRemoveUser = async (email: string) => {
     const remove = await removeUserFromOrganization({
       email,
@@ -45,7 +47,7 @@ export const PopoverOrganizationMember = ({
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });
     } else {
-      toaster({ type: "success", description: "User removed" });
+      toaster({ type: "success", description: t('toasters.user-removed') });
       setRefresh(true);
     }
   };
@@ -64,7 +66,7 @@ export const PopoverOrganizationMember = ({
     toaster({
       type: "success",
       description:
-        "User promoted. You are no longer the owner of this organization",
+        t("toasters.user-promoted")
     });
     return setTimeout(() => {
       document.location.reload();
@@ -81,23 +83,23 @@ export const PopoverOrganizationMember = ({
         <div className="grid gap-4">
           <div className="grid gap-2">
             <PopoverConfirm
-              what="to promote this member to owner ? There can only be one owner, in which case you will lose all your publishing rights to this organization."
+              what={t("popover.promote-member")}
               handleFunction={() => {
                 handlePromoteUser(member.email ?? "");
               }}
               icon={<Crown className="icon" />}
-              display="Promote this member"
+              display={t("popover.promote-member-display")}
               variant="default"
             />
           </div>
           <div className="grid gap-2">
             <PopoverConfirm
-              what="revoke this member from organization"
+              what={t("popover.revoke-member")}
               handleFunction={() => {
                 handleRemoveUser(member.email ?? "");
               }}
               icon={<UserRoundX className="icon" />}
-              display="Revoke this member"
+              display={t("popover.revoke-member-display")}
               variant="default"
             />
           </div>

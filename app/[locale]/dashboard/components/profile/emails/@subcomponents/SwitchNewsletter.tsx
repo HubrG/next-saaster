@@ -15,11 +15,14 @@ import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { iUsers } from "@/src/types/db/iUsers";
 import { ResendContact } from "@prisma/client";
 import { Newspaper } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+
 type SwitchNewsletterProps = {
   user: iUsers;
 };
 export default function SwitchNewsletter({ user }: SwitchNewsletterProps) {
+  const t = useTranslations("Dashboard.Components.Profile.Emails.SwitchNewsletter");
   const [activeNewsletter, setActiveNewsletter] = useState<boolean>(false);
   useEffect(() => {
     if (user.id) {
@@ -73,7 +76,7 @@ export default function SwitchNewsletter({ user }: SwitchNewsletterProps) {
           if (!contact.data) {
             toaster({
               type: "error",
-              description: "Contact not found",
+              description: t("toasters.error-get-contact"),
             });
           }
           const cont = contact.data as ResendContact;
@@ -82,19 +85,20 @@ export default function SwitchNewsletter({ user }: SwitchNewsletterProps) {
           if (!removeUser.success) {
             toaster({
               type: "error",
-              description: "Error while deleting contact from newsletter audience",
+              description: t("toasters.error-delete-contact"),
+              // description: "Error while deleting contact from newsletter audience",
             });
           }
         }
         setActiveNewsletter(e);
         return toaster({
-          description: `Newsletter ${e ? "enabled" : "disabled"}`,
+          description: `Newsletter ${e ? t("toasters.newsletter-enabled") : t("toasters.newsletter-disabled")}`,
           type: "success",
         });
       } else {
         return toaster({
           type: "error",
-          description: "Newsletter not changed, please try again",
+          description: t("toasters.error-update-newsletter"),
         });
       }
     }
@@ -105,7 +109,7 @@ export default function SwitchNewsletter({ user }: SwitchNewsletterProps) {
       checked={activeNewsletter}
       icon={<Newspaper className="icon" />}
       id="switch-active-newsletter">
-      Subscribe to our newsletter
+      {t("switch-newsletter")}
     </SwitchWrapper>
   );
 }

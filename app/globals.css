@@ -664,13 +664,13 @@ footer a {
   @apply text-sm font-medium text-left !important;
 }
 .price-card-wrapper h3 {
-  @apply text-4xl my-5 text-left relative font-bold text-theming-text-700-second  !important;
+  @apply text-5xl my-5 text-left relative font-bold text-theming-text-700-second  !important;
 }
 .price-card-wrapper h3 span.price-stroke {
-  @apply text-theming-text-900 text-xl line-through   !important;
+  @apply opacity-50 text-lg line-through   !important;
 }
 .price-card-wrapper h3 span.recurrence {
-  @apply text-sm opacity-50   !important;
+  @apply text-lg opacity-50   !important;
 }
 
 .price-card-wrapper h3 span.trial {

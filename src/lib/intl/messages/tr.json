@@ -1,10 +1,92 @@
 {
   "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Katılmak için davet edildiniz",
+              "subject-end": "ve ekibi",
+              "subject-middle": " "
+            },
+            "throws": {
+              "already-in-an-organization": "Kullanıcı zaten bir kuruluşun üyesidir.",
+              "already-invited": "Kullanıcı zaten davet edildi.",
+              "error-while-creating-invitation": "Bir hata oluştu. Davetiye gönderilmedi. Lütfen tekrar deneyin.",
+              "no-organization-found": "Hiçbir kuruluş bulunamadı. Bu bir hata olmalı. Lütfen tekrar deneyin."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Hesabınızı silerken bir sorun oluştu. Lütfen bizimle iletişime geçin.",
+              "cancel-subscription": "Abonelik iptal edilirken bir sorun oluştu",
+              "delete": "Hesabınızı silemezsiniz, çünkü kuruluşunuzun sahibi sizsiniz. Lütfen haklarınızı başka bir kullanıcıya devredin, aksi takdirde kuruluşu silin."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Kendini davet edemezsin!",
+              "field-invite-new-member": "Yeni bir üye davet edin",
+              "placeholder-email": "E-posta",
+              "submit": "Davetiye"
+            },
+            "note": "Aktif bir aboneliğiniz var. Kuruluşunuza yeni bir üyenin eklenmesi, üyenin bu daveti kabul etmesi halinde orantılı olarak faturalandırılacaktır.",
+            "toasters": {
+              "invitation-sent": "Davetiye şu adrese gönderildi"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Tanınmış kuruluş"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Bir organizasyon oluşturun"
+        },
+        "members": "Üyeler",
+        "pending-invitations": "Beklemedeki kullanıcılar",
+        "popover": {
+          "delete-member": "bu üye",
+          "delete-organization": "Organizasyonu kapatın",
+          "what-delete-organization": "bu kuruluşu lağvedin"
+        },
+        "toasters": {
+          "organization-created": "Organizasyon oluşturuldu",
+          "organization-deleted": "Örgüt lağvedildi. Tüm üyeler dışlandı ve hakları kaybedildi.",
+          "organization-left": "Organizasyon ayrıldı",
+          "pendin-user-removed": "Bekleyen kullanıcı silindi"
+        },
+        "tooltip": {
+          "owner": "Sahibi"
+        }
+      }
+    },
     "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "E-posta adresiniz",
+          "email-exemple": "örnek",
+          "submit": "Haber bültenimize abone olun"
+        }
+      },
       "popover-confirm": {
-        "cancel": "İptal etmek",
-        "confirm": "Onaylamak",
-        "message": "İstediğine emin misin"
+        "cancel": "İptal",
+        "confirm": "Onaylayın",
+        "message": "Bunu yapmak istediğine emin misin?"
+      },
+      "popover-delete": {
+        "cancel": "İptal",
+        "confirm": "Onaylayın",
+        "message": "Silmek istediğinizden emin misiniz?"
       }
     }
   },
@@ -13,30 +95,30 @@
       "Navbar": {
         "links": {
           "account": "Hesap",
-          "billing": "Faturalandırma",
+          "billing": "Abonelik",
           "emails": "E-postalar",
           "organization": "Organizasyon",
           "profile": "Profil",
-          "purchases": "Satın almalar",
+          "purchases": "Satın Alma",
           "usage": "Kullanım"
         },
-        "title": "Hesabım"
+        "title": "Benim hesabım"
       },
       "Profile": {
         "Account": {
           "Components": {
             "CreatePassword": {
-              "description": "{provider} hesabıyla oturum açtığınız için şifre oluşturmadınız. \nBurada bir tane oluşturabilirsiniz.",
+              "description": "Bir {varIntlProvider} hesabıyla oturum açtığınız için bir parola oluşturmadınız. Buradan bir tane oluşturabilirsiniz.",
               "form": {
                 "password": "Şifre",
-                "password-confirmation": "Şifre onayı",
-                "password-error": "Şifreler en az {min} karakter uzunluğunda olmalıdır.",
+                "password-confirmation": "Şifreyi onayla",
+                "password-error": "Parola en az {varIntlMin} karakter uzunluğunda olmalıdır.",
                 "passwords-not-matching": "Şifreler eşleşmiyor.",
-                "submit": "Şifre oluştur"
+                "submit": "Parola oluştur"
               },
-              "title": "Bir şifre oluşturun",
+              "title": "Parola oluşturma",
               "toasters": {
-                "succes-password-created": "Şifreniz oluşturuldu."
+                "succes-password-created": "Parolanız oluşturuldu."
               }
             },
             "ForgotPassword": {
@@ -46,96 +128,387 @@
               },
               "form": {
                 "email": "E-posta adresiniz",
-                "email-error": "Geçerli bir e-posta adresi değil.",
-                "submit": "Bana bağlantıyı gönder"
+                "email-error": "Bu geçerli bir e-posta adresi değil.",
+                "submit": "Bana kurtarma bağlantısını gönder"
               },
-              "title": "Parolanızı mı unuttunuz ?",
+              "title": "Şifrenizi mi unuttunuz?",
               "toasters": {
-                "send-email-error": "E-postayı yollar iken bir sorun oluştu. \nLütfen tekrar deneyin."
+                "send-email-error": "E-posta gönderilirken bir hata oluştu. Lütfen tekrar deneyin."
               }
             },
             "UpdatePassword": {
               "form": {
-                "actual-password": "Gerçek şifre",
-                "new-password": "Yeni Şifre",
-                "password-confirmation": "Şifre onayı",
-                "password-error": "Şifreler en az {min} karakter uzunluğunda olmalıdır.",
+                "actual-password": "Geçerli şifre",
+                "new-password": "Yeni şifre",
+                "password-confirmation": "Şifreyi onayla",
+                "password-error": "Parola en az {varIntlMin} karakter uzunluğunda olmalıdır.",
                 "passwords-not-matching": "Şifreler eşleşmiyor.",
-                "submit": "Şifre güncelle"
+                "submit": "Şifreyi güncelle",
+                "required-message": "Zorunlu"
               },
               "title": "Şifrenizi güncelleyin",
               "toasters": {
-                "password-update-error": "Şifreniz güncellenirken bir hata oluştu. \nLütfen tekrar deneyin.",
-                "password-updated": "Şifreniz güncellenmiştir."
+                "password-update-error": "Şifre güncellenirken bir hata oluştu. Lütfen tekrar deneyiniz.",
+                "password-updated": "Şifre güncellendi."
               }
             }
           },
-          "close-account": "Hesabınızı mutlaka kapatın...",
-          "close-account-popover-message": "hesabınızı silmek için? \nBu eylem geri alınamaz. \nAboneliğiniz varsa iptal edilecektir.",
-          "connectedWith": "{provider} hesabınıza bağlısınız",
-          "create-password": "sende",
+          "close-account": "Hesabımı devre dışı bırak...",
+          "close-account-popover-message": "hesabınızı silmek mi istiyorsunuz? Bu işlem geri alınamaz. Eğer bir abonelik aldıysanız, bu abonelik iptal edilecektir.",
+          "connectedWith": "{varIntlProvider} hesabınızla oturum açtınız.",
+          "create-password": "Otomatik olarak bir {varIntlProvider} hesabıyla oturum açtığınız için bir parola oluşturmadınız.",
           "manage-password": "Şifrenizi yönetin",
-          "title": "Hesapla"
+          "title": "Hesap"
         },
         "Billing": {
+          "according-to-use": "kullanıma bağlı olarak",
+          "billed-each": "her biri faturalandırıldı",
+          "buttons": {
+            "cancel-subscription": "Aboneliği iptal et",
+            "restart-subscription": "Aboneliği yeniden başlat",
+            "update-payment": "Ödeme yöntemini değiştir",
+            "update-plan": "Sürüm düşürme veya yükseltme"
+          },
+          "daily": "gün",
+          "features-title": "Özellikler",
           "id": "Faturalandırma",
-          "title": "Faturalandırma"
+          "monthly": "ay",
+          "next-invoice-at": "Bir sonraki fatura",
+          "no-plan-subscribed-yet": "Bir abonelik almadınız",
+          "per-user": "kullanıcı başına",
+          "subscribe-now": "Abone olmak istiyorum!",
+          "subscription-will-be-canceled-at": "Aboneliğiniz şu tarihte kesin olarak iptal edilecektir",
+          "title": "Faturalandırma",
+          "tooltips": {
+            "cancel-subscription": "Aboneliğiniz {varIntlDate} tarihinde fatura döneminin sonunda kesin olarak iptal edilecektir. Bu tarihe kadar özelliklerinizi kullanmaya devam edebilirsiniz. Daha sonra artık faturalandırılmayacaksınız.",
+            "restart-subscription": "Aboneliğiniz herhangi bir ek faturalandırma olmadan yeniden başlayacaktır."
+          },
+          "trial-days-remaining": "VarIntlDays} deneme gün(ler)iniz kaldı",
+          "users": "kullanıcılar",
+          "weekly": "hafta",
+          "yearly": "bir",
+          "you-save": "Bu abonelikte {varIntlSave} kaydedersiniz",
+          "your-plan": "Aboneliğiniz",
+          "your-trial-ends-at": "Deneme süreniz şu tarihte sona erer"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Bülten aboneliği",
+            "toasters": {
+              "error-delete-contact": "Haber bülteni kitlesinden kişi silme hatası",
+              "error-get-contact": "Haber bülteni kişisi alınırken bir hata oluştu. Lütfen tekrar deneyin.",
+              "error-update-newsletter": "Haber bülteni tercihinizi güncellerken bir hata oluştu. Lütfen tekrar deneyin.",
+              "newsletter-disabled": "devre dışı",
+              "newsletter-enabled": "akti̇f hale geti̇ri̇ldi̇"
+            }
+          },
+          "title": "E-postalar"
         },
         "Organization": {
-          "title": "Organizasyon"
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Kendini davet edemezsin!",
+                "field-invite-new-member": "Yeni bir üye davet edin",
+                "placeholder-email": "E-posta",
+                "submit": "Davetiye"
+              },
+              "note": "Aktif bir aboneliğiniz var. Kuruluşunuza yeni bir üyenin eklenmesi, üyenin bu daveti kabul etmesi halinde orantılı olarak faturalandırılacaktır.",
+              "toasters": {
+                "invitation-sent": "Davetiye şu adrese gönderildi"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "Bu üyeyi sahip olarak tanıtabilir misiniz? Sadece bir sahip olabilir, bu durumda bu kuruluş için tüm yayın haklarınızı kaybedersiniz.",
+                "promote-member-display": "Bu üyeyi tanıtın",
+                "revoke-member": "bu üyeyi kuruluştan çıkarın",
+                "revoke-member-display": "Bu kullanıcıyı iptal et"
+              },
+              "toasters": {
+                "user-promoted": "Terfi eden kullanıcı. Artık bu kuruluşun sahibi değilsiniz",
+                "user-removed": "Kullanıcı iptal edildi"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "İsim en az {varIntlMin} karakterleri içermelidir.",
+                "field-organization-name": "Kuruluşun adı",
+                "submit": "Yeniden Adlandır"
+              },
+              "organization-renamed": "Tanınmış kuruluş",
+              "toasters": {
+                "organization-renamed": "Kuruluşun adı değiştirildi"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Bir organizasyon oluşturun"
+          },
+          "members": "Üyeler",
+          "pending-invitations": "Beklemedeki kullanıcılar",
+          "popover": {
+            "delete-member": "bu üye",
+            "delete-organization": "Organizasyonu kapatın...",
+            "what-delete-organization": "bu kuruluşu lağvedin"
+          },
+          "title": "Organizasyon",
+          "toasters": {
+            "organization-created": "Organizasyon oluşturuldu",
+            "organization-deleted": "Örgüt lağvedildi. Tüm üyeler dışlandı ve hakları kaybedildi.",
+            "organization-left": "Organizasyon ayrıldı",
+            "pendin-user-removed": "Bekleyen kullanıcı silindi"
+          },
+          "tooltip": {
+            "owner": "Sahibi"
+          }
         },
         "Profile": {
-          "change-avatar": "Profil resmini değiştir",
+          "change-avatar": "Profil fotoğrafını değiştir",
           "form": {
-            "name": "İsim",
+            "name": "Görünen ad",
             "submit": "Güncelleme",
-            "upload": "Yüklemek"
+            "upload": "İndir"
           },
           "title": "Profil",
           "toasters": {
             "file-is-empty": "Dosya boş",
             "file-is-not-an-image": "Dosya bir resim değil",
             "file-is-too-large": "Dosya çok büyük (maksimum 2 MB)",
-            "no-file-provided": "Dosya sağlanmadı",
-            "success": "Profil güncellendi",
-            "success-file-uploaded": "Profil resmi güncellendi"
+            "no-file-provided": "Sağlanan dosya yok",
+            "success": "Güncellenmiş profil",
+            "success-file-uploaded": "Profil fotoğrafı başarıyla değiştirildi"
           }
         },
         "Purchases": {
-          "title": "Satın almalar"
+          "no-purchase-history": "Satın alma geçmişi yok",
+          "no-purchase-history-description": "Sitemizden henüz herhangi bir ürün satın almadınız!",
+          "title": "Satın Alma"
         }
       }
     },
     "button": "Kontrol paneline git",
     "description": "Kontrol panelinize hoş geldiniz!",
-    "title": "Gösterge Paneli"
+    "title": "Gösterge Tablosu",
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Bilinmeyen e-posta adresi",
+        "invalid-token": "Geçersiz belirteç",
+        "password-not-updated": "Şifrenizi değiştirirken bir sorun oluştu. Lütfen tekrar deneyiniz.",
+        "token-expired": "Jeton süresi doldu.",
+        "token-not-found": "Sıfırlama belirteci bulunamadı."
+      }
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Hiçbir haberimizi kaçırmayın! Haber bültenimize abone olun",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Yasal bilgiler",
+      "title": "Yasal"
+    },
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "SSS",
+      "title": "Navigasyon"
+    }
   },
   "Index": {
     "first-connexion": "İlk bağlantı",
     "metadatas": {
-      "description": "Hızlı geliştirme için NextJS SaaS başlangıç ​​seti: yalnızca ana özelliklere odaklanın, modern bir ön uç, ölçeklenebilir ve güvenli bir arka uç ile içiniz rahat olsun. \nÇabadan tasarruf edin",
+      "description": "Hızlı geliştirme için NextJS SaaS Başlangıç Kiti: yalnızca temel özelliklere odaklanın, modern bir ön uç ve ölçeklenebilir, güvenli bir arka uç ile içiniz rahat olsun. Efordan tasarruf edin",
       "title": "Ev"
     },
-    "title": "Hoş geldin !"
+    "title": "Hoş geldiniz!"
   },
   "Layout": {
     "Header": {
       "Navbar": {
         "MainMenu": {
-          "contact": "Temas etmek",
+          "contact": "İletişim",
           "features": "Özellikler",
           "home": "Ev",
-          "howItWorks": "Nasıl çalışır ?",
+          "howItWorks": "Nasıl çalışıyor?",
           "pricing": "Fiyatlandırma"
         },
         "UserProfile": {
-          "login": "Giriş yapmak",
-          "logout": "Çıkış Yap",
-          "my-account": "Hesabım",
-          "refill": "Yeniden doldurma"
+          "login": "Oturum aç",
+          "logout": "Bağlantının Kesilmesi",
+          "my-account": "Benim hesabım",
+          "refill": "Yeniden Yükle"
         },
-        "buy-now": "Şimdi al !"
+        "buy-now": "Satın Al"
       }
     }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-posta",
+        "login-with-email": "Bağlayın beni",
+        "password": "Şifre"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "örnek",
+        "submit": "Bana bir giriş bağlantısı gönder",
+        "your-email": "E-posta adresiniz"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Github ile Bağlantı Kurma"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Google ile devam edin"
+      },
+      "buttons": {
+        "continue-with-google": "Google ile bağlantı kurun"
+      }
+    },
+    "button": {
+      "no-account": "Hesap yok mu?",
+      "register": "Kayıt olmak için buraya tıklayın."
+    },
+    "title": "Hesabınıza giriş yapın",
+    "toasters": {
+      "bad-credentials": "Yanlış tanımlayıcılar"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "ay",
+        "contact-us": "Teklifinizi kişiselleştirmek için bizimle iletişime geçin.",
+        "metered-unit": "tarafından",
+        "monthly": "ay",
+        "per-seat": "koltuk başına",
+        "popular": "Popüler",
+        "recommended": "Tavsiye edilir",
+        "trial": "deneme günleri, sonra...",
+        "yearly": "bir"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Tek ödeme, birçok proje"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Satın Al",
+        "startTrial": "{varIntlTrialDays} gün boyunca deneyin",
+        "subscribeNow": "Abone Olun"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Bize ulaşın"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Aylık",
+        "yearly": "Yıllık"
+      }
+    },
+    "title": "Fiyatlandırma"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "form": {
+        "confirm-password": "Şifreyi onayla",
+        "email": "E-posta adresi",
+        "email-error": "E-posta adresiniz doğru formatta değil",
+        "password": "Şifre",
+        "password-did-not-match": "Parolalar benzer olmalıdır",
+        "password-error": "Parolanız en az {varIntlMin} karakter uzunluğunda olmalıdır.",
+        "register-with-email": "Hesabımı oluştur"
+      },
+      "emailSent": {
+        "subject": "Sitemize hoş geldiniz! Lütfen e-posta adresinizin geçerli olduğunu onaylayın."
+      }
+    },
+    "already-account-sentence": "Zaten bir hesabınız var mı?",
+    "button": {
+      "login": "Şuraya giriş yapın"
+    },
+    "title": "Bir hesap oluşturun",
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Kabul et",
+          "already-accept": "Daveti çoktan kabul ettiniz.",
+          "decline": "Çöp",
+          "do-you-accept": "Bu organizasyona katılmayı kabul ediyor musunuz?",
+          "invitation-accepted": "Davet kabul edildi, lütfen bir hesap oluşturun ve daveti sonuçlandırmak için giriş yapın. Hesap oluşturma sayfasına yönlendirileceksiniz.",
+          "invitation-accepted-2": "Davetiye kabul edildi, sonuçlandırmak için lütfen hesabınıza giriş yapın.",
+          "invitation-declined": "Davet reddedildi",
+          "invited": "\"{varIntlOrganization}\" ekibine katılmak üzere davet edildiniz.",
+          "join": "\" {varIntlOrganization} \" kuruluşuna katılın.",
+          "logout": "Oturumu kapat",
+          "organization-not-found": "Organizasyon yok."
+        }
+      },
+      "invitation-not-found": "Organizasyon yok.",
+      "invited-with-different-email": "Davetiyeyi aldığınız e-posta adresinden farklı bir e-posta adresiyle giriş yaptınız.",
+      "logged-in-with-right-email": "Doğru e-posta adresiyle giriş yaptınız, ancak daveti kabul etmek için oturumu kapatıp tekrar giriş yapmanız gerekiyor.",
+      "please-logout": "Lütfen ilgili e-posta adresiyle giriş yapın ve bu sayfaya geri dönün. Davet edilen adrese sahip bir hesabınız yoksa, oturumu kapatın ve bir hesap oluşturmak için bu sayfaya geri dönün."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Hesabınıza giriş yapın",
+      "request-new-validation": "ve henüz doğrulamadıysanız yeni bir doğrulama bağlantısı talep edin.",
+      "success": "E-posta doğrulandı.",
+      "title": "E-posta adresinizi kontrol etme"
+    }
+  },
+  "API": {
+    "ForgotPassword": {
+      "success": "Parolanızı sıfırlamak için {varIntlEmail} adresine bir bağlantı gönderildi. Lütfen e-posta gelen kutunuzu kontrol edin."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Doğrulama belirteci oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
+        "unknown-error": "Bilinmeyen bir hata ile karşılaştık. Lütfen tekrar deneyin veya bizimle iletişime geçin.",
+        "user-already-exists": "Bu e-posta adresi zaten kayıtlı. Eğer sahibiyseniz, lütfen bu adresi kullanarak giriş yapın veya gerekirse şifrenizin sıfırlanmasını isteyin.",
+        "user-not-created": "Hesap oluşturma sırasında bir hata oluştu. Lütfen tekrar deneyin."
+      },
+      "success": "Hoşgeldiniz {varIntlName} ! Güveniniz için teşekkür ederiz. Geçerliliğini onaylamanıza olanak tanıyan bir bağlantı içeren bir e-posta alacaksınız.\n\n Artık giriş bilgilerinizi kullanarak giriş yapabilirsiniz."
+    },
+    "VerifyEmail": {
+      "expired-token": "Doğrulama belirteci zaten onaylandı, süresi doldu veya bulunamadı.",
+      "success": "E-posta adresiniz doğrulandı."
+    }
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Şifrenizi sıfırlayın",
+      "resetPassword": "Şifreyi sıfırla",
+      "text": "Şifrenizi sıfırlamak istediniz. Bunu yapmak için lütfen aşağıdaki düğmeye tıklayın."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Daveti kabul et",
+      "heading": "Siz {varIntlTeamName} takımına katılmak üzere davet edildiniz.",
+      "text": "Daveti kabul etmek için lütfen aşağıdaki butona tıklayınız."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Hoş geldiniz!",
+      "text": "Kaydınızı onaylamak için lütfen aşağıdaki butona tıklayınız.",
+      "verifyEmail": "Hesabımı doğrulayın"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Yeni şifreyi onaylayın",
+          "email": "Hesap e-posta adresi",
+          "email-error": "Yanlış e-posta adresi formatı.",
+          "new-password": "Yeni bir parola seçin",
+          "password-error": "En az {varIntlMin} karakteri içermelidir.",
+          "password-match-error": "İki parola aynı olmalıdır.",
+          "submit": "Sıfırla",
+          "success": "Şifre başarıyla değiştirildi."
+        }
+      }
+    },
+    "invalid-token": "Geçersiz sıfırlama belirteci. Lütfen tekrar deneyin veya yeni bir talepte bulunun.",
+    "reset-password": "Şifrenizi sıfırlama",
+    "token-expired": "Sıfırlama belirteci bilinmiyor."
   }
 }

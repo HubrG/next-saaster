@@ -64,6 +64,19 @@ export default async function Home() {
         <Link href="/" locale="ar">
           بالعربية
         </Link>
+        <Link href="/" locale="ru">
+          На русском
+        </Link>
+        <Link href="/" locale="it">
+          In italiano
+        </Link>
+        <Link href="/" locale="de">
+          Auf Deutsch
+        </Link>
+        <Link href="/" locale="bn">
+          bn - (bangali) -
+          বাংলা
+        </Link>
         <Link href="/admin">Admin</Link>
         <Index />
       </div>

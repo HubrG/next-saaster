@@ -1,15 +1,17 @@
 "use client";
-import {
-    isUserExists
-} from "@/app/[locale]/dashboard/queries/organization.action";
+import { isUserExists } from "@/app/[locale]/dashboard/queries/organization.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
-import { acceptInvitationToOrganization, removePendingUser } from "@/src/helpers/db/organization.action";
+import {
+  acceptInvitationToOrganization,
+  removePendingUser,
+} from "@/src/helpers/db/organization.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { iOrganization } from "@/src/types/db/iOrganization";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 type TeamInvitationProps = {
@@ -21,13 +23,19 @@ export const TeamInvitationIndex = ({
   organization,
   email,
 }: TeamInvitationProps) => {
+  const t = useTranslations("Register.TeamInvitationPage");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   if (!organization) {
-    toaster({ type: "error", description: "Organization not found" });
+    toaster({
+      type: "error",
+      description: t("Register.TeamInvitationPage.organization-not-found"),
+    });
     return (
       <Card>
-        <h1 className="text-xl mb-5">Organization not found</h1>
+        <h1 className="text-xl mb-5">
+          {t("Register.TeamInvitationPage.organization-not-found")}
+        </h1>
       </Card>
     );
   }
@@ -51,13 +59,21 @@ export const TeamInvitationIndex = ({
       // We verifiy if the user has an account
       const user = await isUserExists(email);
       if (!user) {
-        toaster({ type: "success", description: "Invitation accepted, please create an account and login with it to finalize.", duration:5000 });
+        toaster({
+          type: "success",
+          description: t("Register.TeamInvitationPage.invitation-accepted"),
+          duration: 5000,
+        });
+
         router.push(`/register`);
         setIsLoading(false);
         return;
       } else {
-        
-        toaster({ type: "success", description: "Invitation accepted, please login to your account to finalize.", duration:5000 });
+        toaster({
+          type: "success",
+          description: t("Register.TeamInvitationPage.invitation-accepted-2"),
+          duration: 5000,
+        });
         router.push(`/login`);
         setIsLoading(false);
         return;
@@ -75,9 +91,11 @@ export const TeamInvitationIndex = ({
     if (decline.serverError) {
       toaster({ type: "error", description: decline.serverError });
       setIsLoading(false);
-    }
-    else {
-      toaster({ type: "success", description: "Invitation declined" });
+    } else {
+      toaster({
+        type: "success",
+        description: t("Register.TeamInvitationPage.invitation-declined"),
+      });
       setTimeout(() => {
         router.push("/");
         setIsLoading(false);
@@ -86,17 +104,21 @@ export const TeamInvitationIndex = ({
   };
   return (
     <Card>
-      <h1 className="text-xl mb-5">Join the {organizationName}&apos;s team</h1>
+      <h1 className="text-xl mb-5">
+        {t("Register.TeamInvitationPage.join", {
+          varIntlOrganization: organizationName,
+        })}
+      </h1>
       {organization.organizationInvitations?.find(
         (invitation) => invitation.email === email && invitation.isAccepted
       ) ? (
-        <p className="text-center">You have already accepted the invitation.</p>
+        <p className="text-center">
+          {t("Register.TeamInvitationPage.already-accept")}
+        </p>
       ) : (
         <>
-          <p>
-            You have been invited to join {organizationName} team.
-            <br />
-            <strong>Do you accept this invitation ?</strong>
+          <p className="text-center">
+            <strong>{t("Register.TeamInvitationPage.do-you-accept")}</strong>
           </p>
           <Goodline />
           <div className="flex flex-row w-full items-center gap-x-5 justify-between mt-10">
@@ -105,7 +127,7 @@ export const TeamInvitationIndex = ({
               disabled={isLoading}
               className="w-full"
               loading={isLoading}>
-              Accept
+              {t("Register.TeamInvitationPage.accept")}
             </ButtonWithLoader>
             <ButtonWithLoader
               onClick={() => handleDecline()}
@@ -113,7 +135,7 @@ export const TeamInvitationIndex = ({
               disabled={isLoading}
               variant={"ghostDestructive"}
               loading={isLoading}>
-              Decline
+              {t("Register.TeamInvitationPage.decline")}
             </ButtonWithLoader>
           </div>
         </>

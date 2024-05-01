@@ -8,36 +8,41 @@ import { sendEmail } from "@/src/helpers/emails/sendEmail";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const formSchema = z
-  .object({
-    email: z.string().email(),
-    password: z.string().min(6, {
-      message: "Must be at least 6 characters.",
-    }),
-    confirmPassword: z.string().min(6, {
-      message: "Must be at least 6 characters.",
-    }),
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.confirmPassword) {
-      ctx.addIssue({
-        path: ["confirmPassword"],
-        message: "The passwords did not match.",
-        code: "custom",
-      });
-    }
-  });
 type ApiResponse = {
   error?: string;
   message?: string;
   token?: string;
 };
 export default function Credentials() {
+  const t = useTranslations("Register.SignUpWithCredentials");
+  const locale = useLocale();
   const router = useRouter();
+  const formSchema = z
+    .object({
+      email: z.string().email({
+        message: t("form.email-error"),
+      }),
+      password: z.string().min(6, {
+        message: t("form.password-error", { varIntlMin: 6 }),
+      }),
+      confirmPassword: z.string().min(6, {
+        message: t("form.password-error", { varIntlMin: 6 }),
+      }),
+    })
+    .superRefine((data, ctx) => {
+      if (data.password !== data.confirmPassword) {
+        ctx.addIssue({
+          path: ["confirmPassword"],
+          message: t("form.password-did-not-match"),
+          code: "custom",
+        });
+      }
+    });
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
@@ -45,6 +50,7 @@ export default function Credentials() {
     const response = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify({
+        locale,
         email: formData.email,
         password: formData.password,
       }),
@@ -54,16 +60,16 @@ export default function Credentials() {
       try {
         // Resend API (mail)
         await sendEmail({
-        to: formData.email,
-        type: "verifyEmail",
-        subject: "Verify your email",
-        vars: {
-          "verifyEmail": {
-            verificationToken: responseData.token ?? "",
+          to: formData.email,
+          type: "verifyEmail",
+          subject: t("emailSent.subject"),
+          vars: {
+            verifyEmail: {
+              verificationToken: responseData.token ?? "",
+            },
           },
-        },
-        tag_name: "category",
-        tag_value: "confirm_email",
+          tag_name: "category",
+          tag_value: "confirm_email",
         });
       } catch (error) {
         console.error("Error sending email", error);
@@ -103,30 +109,30 @@ export default function Credentials() {
           <div className={cn({ "blur-md": isLoading }, "space-y-3 -mt-10 ")}>
             <Field
               type="email"
-              label="Email"
+              label={t("form.email")}
               name="email"
-              placeholder="Email"
+              placeholder={t("form.email")}
               form={form}
             />
             <Field
               type="password"
-              label="Password"
+              label={t("form.password")}
               name="password"
-              placeholder="Password"
+              placeholder={t("form.password")}
               form={form}
             />
             <Field
               type="password"
-              label="Confirm Password"
+              label={t("form.confirm-password")}
               name="confirmPassword"
-              placeholder="Confirm Password"
+              placeholder={t("form.confirm-password")}
               form={form}
             />
             <ButtonWithLoader
               type="submit"
               disabled={isLoading}
               className={cn({ disabled: isLoading }, "w-full")}>
-              Register with email
+              {t("form.register-with-email")}
             </ButtonWithLoader>
           </div>
         </form>

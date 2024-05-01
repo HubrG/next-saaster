@@ -4,6 +4,7 @@ import { getOrganization } from "@/src/helpers/db/organization.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
+import { getTranslations } from "next-intl/server";
 import { TeamInvitationIndex } from "./components/Index";
 import { LogoutInviteButton } from "./components/logoutButton";
 
@@ -11,7 +12,8 @@ export default async function TeamInvitation({
   searchParams,
 }: {
   searchParams?: { organizationId: string; email: string };
-}) {
+  }) {
+  const t = await getTranslations();
   const session = await getServerSession(authOptions);
 
   let notFound = false;
@@ -40,7 +42,7 @@ export default async function TeamInvitation({
         <div className=" items-center justify-center ">
           <div className="lg:w-2/5  sm:3/5 max-sm:w-full px-5 mx-auto self-center ">
             <Card>
-              <h1 className="text-xl mb-5">Organization not found</h1>
+              <h1 className="text-xl mb-5">{t("Register.TeamInvitationPage.invitation-not-found")}</h1>
             </Card>
           </div>
         </div>
@@ -56,13 +58,10 @@ export default async function TeamInvitation({
           <div className="lg:w-2/5  sm:3/5 max-sm:w-full px-5 mx-auto self-center ">
             <Card>
               <h1 className="text-xl mb-5">
-                You are logged in with a different email address than the one
-                invited
+                {t("Register.TeamInvitationPage.invited-with-different-email")}
               </h1>
               <p className="text-center">
-                Please logout, or login with the invited e-mail if you already
-                have an account, then return to this page to accept the
-                invitation.
+                {t("Register.TeamInvitationPage.please-logout")}
               </p>
             </Card>
           </div>

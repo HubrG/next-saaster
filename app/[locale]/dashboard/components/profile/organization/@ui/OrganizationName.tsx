@@ -8,6 +8,7 @@ import { updateOrganization } from "@/src/helpers/db/organization.action";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -16,10 +17,15 @@ type RenameOrganizationProps = {
 };
 
 export const OrganizationName = ({ user }: RenameOrganizationProps) => {
+  const t = useTranslations(
+    "Dashboard.Components.Profile.Organization.UI.RenameOrganization"
+  );
   const { setOrganizationStore, organizationStore } = useOrganizationStore();
 
   const formNameSchema = z.object({
-    name: z.string().min(1),
+    name: z.string().min(1, {
+      message: t("form.error-name-min", { varIntlMin: 1 }),
+    }),
   });
 
   const formName = useForm<z.infer<typeof formNameSchema>>({
@@ -44,7 +50,7 @@ export const OrganizationName = ({ user }: RenameOrganizationProps) => {
       toaster({ type: "error", description: update.serverError });
     } else {
       setOrganizationStore({ ...organizationStore, name: formData.name });
-      toaster({ type: "success", description: "Organization renamed" });
+      toaster({ type: "success", description: t('organization-renamed') });
     }
   };
 
@@ -55,17 +61,19 @@ export const OrganizationName = ({ user }: RenameOrganizationProps) => {
         className="space-y-3 -mt-10">
         <Field
           type="text"
-          label="Organization name"
+          label={t("form.field-organization-name")}
           name="name"
-          placeholder="Name"
+          // placeholder="Name"
           form={formName}
         />
         <ButtonWithLoader
           type="submit"
           loading={formName.formState.isSubmitting}
-          disabled={!formName.formState.isValid || formName.formState.isSubmitting}
+          disabled={
+            !formName.formState.isValid || formName.formState.isSubmitting
+          }
           className="w-full">
-          Rename
+          {t("form.submit")}
         </ButtonWithLoader>
       </form>
     </Form>

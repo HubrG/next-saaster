@@ -37,7 +37,7 @@ export const SimpleLoader = ({
   );
 };
 
-export const SkeletonLoader = ({ type, className }: { type?: "card" | "card-page" | "rounded", className?: string; }) => {
+export const SkeletonLoader = ({ type, className }: { type?: "card" | "card-page" | "rounded" | "simple-line", className?: string; }) => {
   if (type === "card") {
     return (
       <div className="flex items-center space-x-4 mt-16 w-full justify-center mx-auto">
@@ -78,6 +78,12 @@ export const SkeletonLoader = ({ type, className }: { type?: "card" | "card-page
     return (
       <div className="flex items-center space-x-4 mt-16 w-full justify-center mx-auto">
         <Skeleton className={`${className} rounded-full`} />
+      </div>
+    );
+  } else if (type === "simple-line") {
+    return (
+      <div className="flex items-center space-x-4 w-full justify-start">
+        <Skeleton className="h-4 w-1/3  rounded-default" />
       </div>
     );
   }

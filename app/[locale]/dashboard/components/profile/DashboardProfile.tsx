@@ -69,7 +69,7 @@ export const DashboardProfile = ({ }: DashboardProfileProps) => {
       </SectionWrapper>
       <SectionWrapper
         id="Emails"
-        sectionName="Emails"
+        sectionName={t('Emails.title')}
         // mainSectionName="Emails"
         icon={<Mail className="icon" />}>
         <ProfileEmail />

@@ -1,12 +1,16 @@
 "use client";
+import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
 import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
-import { Link } from "@/src/lib/intl/navigation";
+import { Link, redirect } from "@/src/lib/intl/navigation";
 import { useSession } from "next-auth/react";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 export default function VerifyEmailPage() {
+  const t = useTranslations("Register.VerifyEmailPage");
+  const locale = useLocale();
   const { data: session } = useSession();
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
@@ -19,7 +23,7 @@ export default function VerifyEmailPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ token }),
+        body: JSON.stringify({ token, locale }),
       });
       const data = await res.json();
       if (data.error) {
@@ -34,9 +38,10 @@ export default function VerifyEmailPage() {
 
   useEffect(() => {
     if (verified) {
-      toaster({ type: "success", description: "Email Verified" });
+      toaster({ type: "success", description: t("success") });
+      redirect("/login");
     }
-  }, [verified]);
+  }, [verified, t]);
   useEffect(() => {
     if (error.length > 0) {
       toaster({ type: "error", description: error });
@@ -59,30 +64,35 @@ export default function VerifyEmailPage() {
   }, [token]);
 
   return (
-    <section className="flex h-screen justify-center items-center">
-      <Card className="max-w-xl mx-auto my-card">
-        <h1>Email verification</h1>
-        <p className="text-xl py-5 flex flex-col justify-center">
-          {!verified && !error && <SimpleLoader className="self-center" />}
-          {verified && "Your email has been verified"}
-          {error.length > 0 && error && (
-            <>
-              {error}
-              {!session?.user.email && (
+    <>
+      <DivFullScreenGradient gradient="gradient-to-tl" />
+      <div className=" items-center justify-center ">
+        <div className="lg:w-2/5  sm:3/5 max-sm:w-full px-5 mx-auto self-center ">
+          <Card className=" my-card">
+            <h1 className="text-2xl">{t("title")}</h1>
+            <p className="text-center py-5 flex flex-col justify-center">
+              {!verified && !error && <SimpleLoader className="self-center" />}
+              {verified && t("success")}
+              {error.length > 0 && error && (
                 <>
-                  <span>
-                    <br />
-                    <br />
-                    <Link href="/login">Log in to your account</Link> and
-                    request a new validation link if you still haven&apos;t
-                    validated it.
-                  </span>
+                  {error}
+                  {!session?.user.email && (
+                    <>
+                      <span>
+                        <br />
+                        <Link href="/login">
+                          {t("login-to-you-account")}
+                        </Link>{" "}
+                        {t("request-new-validation")}
+                      </span>
+                    </>
+                  )}
                 </>
               )}
-            </>
-          )}
-        </p>
-      </Card>
-    </section>
+            </p>
+          </Card>
+        </div>
+      </div>
+    </>
   );
 }

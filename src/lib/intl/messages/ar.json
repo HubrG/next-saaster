@@ -1,10 +1,92 @@
 {
   "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "لقد تمت دعوتك للانضمام إلى",
+              "subject-end": "وفريقه",
+              "subject-middle": " "
+            },
+            "throws": {
+              "already-in-an-organization": "المستخدم عضو بالفعل في إحدى المؤسسات.",
+              "already-invited": "المستخدم مدعو بالفعل.",
+              "error-while-creating-invitation": "حدث خطأ. لم يتم إرسال الدعوة. يرجى المحاولة مرة أخرى.",
+              "no-organization-found": "لم يتم العثور على أي منظمة. يجب أن يكون هذا خطأ. يرجى المحاولة مرة أخرى."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "حدثت مشكلة أثناء حذف حسابك. يرجى الاتصال بنا.",
+              "cancel-subscription": "حدثت مشكلة أثناء إلغاء الاشتراك",
+              "delete": "لا يمكنك حذف حسابك، لأنك مالك مؤسستك. يُرجى نقل حقوقك إلى مستخدم آخر، وإلا فاحذف المؤسسة."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "لا يمكنك دعوة نفسك!",
+              "field-invite-new-member": "دعوة عضو جديد",
+              "placeholder-email": "البريد الإلكتروني",
+              "submit": "دعوة"
+            },
+            "note": "لديك اشتراك نشط. سيتم إصدار فاتورة إضافة عضو جديد إلى مؤسستك على أساس تناسبي إذا قبل العضو هذه الدعوة.",
+            "toasters": {
+              "invitation-sent": "الدعوة المرسلة إلى"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "منظمة مشهورة"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "إنشاء منظمة"
+        },
+        "members": "الأعضاء",
+        "pending-invitations": "المستخدمون قيد الانتظار",
+        "popover": {
+          "delete-member": "هذا العضو",
+          "delete-organization": "إغلاق المنظمة",
+          "what-delete-organization": "إلغاء هذه المنظمة"
+        },
+        "toasters": {
+          "organization-created": "تم إنشاء المنظمة",
+          "organization-deleted": "ألغيت المنظمة. استُبعد جميع الأعضاء وضاعت حقوقهم.",
+          "organization-left": "يسار المنظمة",
+          "pendin-user-removed": "تم حذف المستخدم المعلق"
+        },
+        "tooltip": {
+          "owner": "المالك"
+        }
+      }
+    },
     "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "عنوان بريدك الإلكتروني",
+          "email-exemple": "مثال",
+          "submit": "اشترك في نشرتنا الإخبارية"
+        }
+      },
       "popover-confirm": {
-        "cancel": "يلغي",
-        "confirm": "يتأكد",
-        "message": "هل انت متأكد أنك تريد"
+        "cancel": "إلغاء",
+        "confirm": "تأكيد",
+        "message": "هل أنت متأكد أنك تريد"
+      },
+      "popover-delete": {
+        "cancel": "إلغاء",
+        "confirm": "تأكيد",
+        "message": "هل أنت متأكد أنك تريد حذف"
       }
     }
   },
@@ -12,12 +94,12 @@
     "Components": {
       "Navbar": {
         "links": {
-          "account": "حساب",
-          "billing": "الفواتير",
+          "account": "الحساب",
+          "billing": "الاشتراك",
           "emails": "رسائل البريد الإلكتروني",
-          "organization": "منظمة",
-          "profile": "حساب تعريفي",
-          "purchases": "المشتريات",
+          "organization": "المنظمة",
+          "profile": "الملف الشخصي",
+          "purchases": "الشراء",
           "usage": "الاستخدام"
         },
         "title": "حسابي"
@@ -26,116 +108,407 @@
         "Account": {
           "Components": {
             "CreatePassword": {
-              "description": "لم تقم بإنشاء كلمة مرور لأنك قمت بتسجيل الدخول باستخدام حساب {provider}. \nيمكنك إنشاء واحدة هنا.",
+              "description": "لم تقم بإنشاء كلمة مرور لأنك قمت بتسجيل الدخول بحساب {varIntlProvider}. يمكنك إنشاء واحدة هنا.",
               "form": {
                 "password": "كلمة المرور",
                 "password-confirmation": "تأكيد كلمة المرور",
-                "password-error": "يجب أن يبلغ طول كلمات المرور {min} حرفًا على الأقل.",
+                "password-error": "يجب أن لا يقل طول كلمة المرور عن {varIntlMin} من الأحرف.",
                 "passwords-not-matching": "كلمات المرور غير متطابقة.",
-                "submit": "إنشاء كلمة المرور"
+                "submit": "إنشاء كلمة مرور"
               },
-              "title": "أنشئ كلمة مرور",
+              "title": "إنشاء كلمة مرور",
               "toasters": {
-                "succes-password-created": "لقد تم إنشاء كلمة المرور الخاصة بك."
+                "succes-password-created": "تم إنشاء كلمة المرور الخاصة بك."
               }
             },
             "ForgotPassword": {
-              "description": "لا توجد مشكلة، يمكننا أن نرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك.",
+              "description": "لا مشكلة، يمكننا إرسال رابط لإعادة تعيين كلمة المرور الخاصة بك.",
               "emailSent": {
-                "subject": "اعد ضبط كلمه السر"
+                "subject": "إعادة تعيين كلمة المرور"
               },
               "form": {
-                "email": "عنوان بريدك  الإلكتروني",
-                "email-error": "إنه ليس عنوان بريد إلكتروني صالحًا.",
-                "submit": "ترسل لي الرابط"
+                "email": "عنوان بريدك الإلكتروني",
+                "email-error": "هذا عنوان بريد إلكتروني غير صالح.",
+                "submit": "أرسل لي رابط الاسترداد"
               },
-              "title": "نسيت كلمة السر ؟",
+              "title": "هل نسيت كلمة المرور الخاصة بك؟",
               "toasters": {
-                "send-email-error": "حدث خطأ أثناء إرسال البريد الإلكتروني. \nحاول مرة اخرى."
+                "send-email-error": "حدث خطأ أثناء إرسال البريد الإلكتروني. يرجى المحاولة مرة أخرى."
               }
             },
             "UpdatePassword": {
               "form": {
-                "actual-password": "كلمة المرور الفعلية",
-                "new-password": "كلمة المرور الجديدة",
+                "actual-password": "كلمة المرور الحالية",
+                "new-password": "كلمة مرور جديدة",
                 "password-confirmation": "تأكيد كلمة المرور",
-                "password-error": "يجب أن يبلغ طول كلمات المرور {min} حرفًا على الأقل.",
+                "password-error": "يجب أن لا يقل طول كلمة المرور عن {varIntlMin} من الأحرف.",
                 "passwords-not-matching": "كلمات المرور غير متطابقة.",
-                "submit": "تطوير كلمة السر"
+                "submit": "تحديث كلمة المرور",
+                "required-message": "إلزامي"
               },
-              "title": "قم بتحديث كلمة المرور الخاصة بك",
+              "title": "تحديث كلمة المرور الخاصة بك",
               "toasters": {
-                "password-update-error": "حدث خطأ أثناء تحديث كلمة المرور الخاصة بك. \nحاول مرة اخرى.",
-                "password-updated": "لقد تم تحديث كلمة السر الخاصة بك."
+                "password-update-error": "حدث خطأ أثناء تحديث كلمة المرور. يرجى المحاولة مرة أخرى.",
+                "password-updated": "تم تحديث كلمة المرور."
               }
             }
           },
-          "close-account": "اغلق حسابك بالتأكيد...",
-          "close-account-popover-message": "لحذف حسابك؟ \nلا يمكن التراجع عن هذا الإجراء. \nإذا كان لديك أي اشتراك، فسيتم إلغاؤه.",
-          "connectedWith": "أنت متصل بحساب {provider} الخاص بك",
-          "create-password": "كنت ملاذ",
+          "close-account": "إلغاء تنشيط حسابي...",
+          "close-account-popover-message": "حذف حسابك؟ هذا الإجراء لا رجعة فيه. إذا كنت قد حصلت على اشتراك، فسيتم إلغاؤه.",
+          "connectedWith": "لقد قمت بتسجيل الدخول باستخدام حساب {varIntlProvider} الخاص بك.",
+          "create-password": "لم تقم بإنشاء كلمة مرور لأنك قمت بتسجيل الدخول تلقائيًا باستخدام حساب {varIntlProvider}.",
           "manage-password": "إدارة كلمة المرور الخاصة بك",
-          "title": "حساب"
+          "title": "الحساب"
         },
         "Billing": {
+          "according-to-use": "حسب الاستخدام",
+          "billed-each": "فوترة كل",
+          "buttons": {
+            "cancel-subscription": "إلغاء الاشتراك",
+            "restart-subscription": "إعادة تشغيل الاشتراك",
+            "update-payment": "تغيير طريقة الدفع",
+            "update-plan": "التخفيض أو الترقية"
+          },
+          "daily": "اليوم",
+          "features-title": "الميزات",
           "id": "الفواتير",
-          "title": "الفواتير"
+          "monthly": "الشهر",
+          "next-invoice-at": "الفاتورة التالية على",
+          "no-plan-subscribed-yet": "لم تحصل على اشتراك",
+          "per-user": "لكل مستخدم",
+          "subscribe-now": "أرغب في الاشتراك!",
+          "subscription-will-be-canceled-at": "سيتم إلغاء اشتراكك بشكل نهائي في",
+          "title": "الفواتير",
+          "tooltips": {
+            "cancel-subscription": "سيتم إلغاء اشتراكك بشكل نهائي في نهاية فترة الفوترة في {varIntlDate}. يمكنك الاستمرار في استخدام ميزاتك حتى ذلك التاريخ. لن تتم محاسبتك بعد ذلك.",
+            "restart-subscription": "سيتم إعادة تشغيل اشتراكك دون أي فواتير إضافية."
+          },
+          "trial-days-remaining": "لديك {varIntlDays} يوم (أيام) تجريبية متبقية",
+          "users": "المستخدمون",
+          "weekly": "الأسبوع",
+          "yearly": "أن",
+          "you-save": "يمكنك حفظ {varIntlSave} في هذا الاشتراك",
+          "your-plan": "اشتراكك",
+          "your-trial-ends-at": "تنتهي الفترة التجريبية في"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "الاشتراك في النشرة الإخبارية",
+            "toasters": {
+              "error-delete-contact": "خطأ في حذف جهة اتصال من جمهور الرسائل الإخبارية",
+              "error-get-contact": "حدث خطأ أثناء استرداد جهة اتصال النشرة الإخبارية. يرجى المحاولة مرة أخرى.",
+              "error-update-newsletter": "حدث خطأ أثناء تحديث تفضيلات النشرة الإخبارية الخاصة بك. يرجى المحاولة مرة أخرى.",
+              "newsletter-disabled": "معطل",
+              "newsletter-enabled": "تفعيلها"
+            }
+          },
+          "title": "رسائل البريد الإلكتروني"
         },
         "Organization": {
-          "title": "منظمة"
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "لا يمكنك دعوة نفسك!",
+                "field-invite-new-member": "دعوة عضو جديد",
+                "placeholder-email": "البريد الإلكتروني",
+                "submit": "دعوة"
+              },
+              "note": "لديك اشتراك نشط. سيتم إصدار فاتورة إضافة عضو جديد إلى مؤسستك على أساس تناسبي إذا قبل العضو هذه الدعوة.",
+              "toasters": {
+                "invitation-sent": "الدعوة المرسلة إلى"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "ترقية هذا العضو كمالك؟ يمكن أن يكون هناك مالك واحد فقط، وفي هذه الحالة ستفقد جميع حقوق النشر الخاصة بك لهذه المنظمة.",
+                "promote-member-display": "ترقية هذا العضو",
+                "revoke-member": "إزالة هذا العضو من المنظمة",
+                "revoke-member-display": "إبطال هذا المستخدم"
+              },
+              "toasters": {
+                "user-promoted": "مستخدم تمت ترقيته. لم تعد مالك هذه المؤسسة",
+                "user-removed": "تم إبطال المستخدم"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "يجب أن يحتوي الاسم على أحرف {varIntlMin} على الأقل.",
+                "field-organization-name": "اسم المنظمة",
+                "submit": "إعادة التسمية"
+              },
+              "organization-renamed": "منظمة مشهورة",
+              "toasters": {
+                "organization-renamed": "إعادة تسمية المنظمة"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "إنشاء منظمة"
+          },
+          "members": "الأعضاء",
+          "pending-invitations": "المستخدمون قيد الانتظار",
+          "popover": {
+            "delete-member": "هذا العضو",
+            "delete-organization": "إغلاق المنظمة...",
+            "what-delete-organization": "إلغاء هذه المنظمة"
+          },
+          "title": "المنظمة",
+          "toasters": {
+            "organization-created": "تم إنشاء المنظمة",
+            "organization-deleted": "ألغيت المنظمة. استُبعد جميع الأعضاء وضاعت حقوقهم.",
+            "organization-left": "يسار المنظمة",
+            "pendin-user-removed": "تم حذف المستخدم المعلق"
+          },
+          "tooltip": {
+            "owner": "المالك"
+          }
         },
         "Profile": {
-          "change-avatar": "تغيير الصورة الشخصية",
+          "change-avatar": "تغيير صورة الملف الشخصي",
           "form": {
-            "name": "اسم",
+            "name": "اسم العرض",
             "submit": "تحديث",
-            "upload": "رفع"
+            "upload": "تنزيل"
           },
-          "title": "حساب تعريفي",
+          "title": "الملف الشخصي",
           "toasters": {
             "file-is-empty": "الملف فارغ",
             "file-is-not-an-image": "الملف ليس صورة",
-            "file-is-too-large": "الملف كبير جدًا (2 ميجابايت كحد أقصى)",
-            "no-file-provided": "لم يتم تقديم أي ملف",
-            "success": "تحديث الملف الشخصي",
-            "success-file-uploaded": "تم تحديث صورة الملف الشخصي"
+            "file-is-too-large": "الملف كبير جداً (2 ميغابايت كحد أقصى)",
+            "no-file-provided": "لم يتم توفير أي ملفات",
+            "success": "الملف الشخصي المحدّث",
+            "success-file-uploaded": "تم تعديل صورة الملف الشخصي بنجاح"
           }
         },
         "Purchases": {
-          "title": "المشتريات"
+          "no-purchase-history": "لا يوجد تاريخ شراء",
+          "no-purchase-history-description": "لم تشتري أي منتجات من موقعنا بعد!",
+          "title": "الشراء"
         }
       }
     },
-    "button": "اذهب إلى لوحة القيادة",
-    "description": "مرحبا بكم في لوحة القيادة الخاصة بك!",
-    "title": "لوحة القيادة"
+    "button": "الانتقال إلى لوحة التحكم",
+    "description": "مرحباً بك في لوحة التحكم الخاصة بك!",
+    "title": "لوحة التحكم",
+    "Queries": {
+      "Profile": {
+        "email-not-found": "عنوان بريد إلكتروني غير معروف",
+        "invalid-token": "رمز مميز غير صالح",
+        "password-not-updated": "حدثت مشكلة أثناء تغيير كلمة المرور الخاصة بك. \nالمرجو اعادة المحاولة.",
+        "token-expired": "انتهت صلاحية الرمز المميز.",
+        "token-not-found": "لم يتم العثور على رمز إعادة التعيين."
+      }
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "لا تفوّت آخر أخبارنا! اشترك في نشرتنا الإخبارية",
+      "privacy": "سياسة الخصوصية",
+      "terms": "المعلومات القانونية",
+      "title": "قانوني"
+    },
+    "Navigation": {
+      "blog": "المدونة",
+      "faq": "الأسئلة الشائعة",
+      "title": "الملاحة"
+    }
   },
   "Index": {
     "first-connexion": "الاتصال الأول",
     "metadatas": {
-      "description": "مجموعة أدوات NextJS SaaS المبدئية للتطوير السريع: ركز فقط على الميزات الرئيسية، وكن مطمئنًا مع واجهة أمامية حديثة وواجهة خلفية آمنة وقابلة للتطوير. \nحفظ الجهد",
-      "title": "بيت"
+      "description": "مجموعة أدوات NextJS SaaS Starter Kit للتطوير السريع: ركز فقط على الميزات الأساسية، واطمئن مع واجهة أمامية حديثة وواجهة خلفية آمنة وقابلة للتطوير. توفير الجهد",
+      "title": "الصفحة الرئيسية"
     },
-    "title": "مرحباً !"
+    "title": "أهلاً وسهلاً بك!"
   },
   "Layout": {
     "Header": {
       "Navbar": {
         "MainMenu": {
-          "contact": "اتصال",
-          "features": "سمات",
-          "home": "بيت",
-          "howItWorks": "كيف تعمل ؟",
+          "contact": "اتصل بنا",
+          "features": "الميزات",
+          "home": "الصفحة الرئيسية",
+          "howItWorks": "كيف تعمل؟",
           "pricing": "التسعير"
         },
         "UserProfile": {
           "login": "تسجيل الدخول",
-          "logout": "تسجيل خروج",
+          "logout": "قطع الاتصال",
           "my-account": "حسابي",
-          "refill": "اعادة تعبئه"
+          "refill": "إعادة التحميل"
         },
-        "buy-now": "اشتري الآن !"
+        "buy-now": "اشترِ"
       }
     }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "البريد الإلكتروني",
+        "login-with-email": "صلني",
+        "password": "كلمة المرور"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "مثال",
+        "submit": "أرسل لي رابط تسجيل الدخول",
+        "your-email": "عنوان بريدك الإلكتروني"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "التواصل مع Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "المتابعة مع Google"
+      },
+      "buttons": {
+        "continue-with-google": "تواصل مع جوجل"
+      }
+    },
+    "button": {
+      "no-account": "لا يوجد حساب؟",
+      "register": "انقر هنا للتسجيل."
+    },
+    "title": "تسجيل الدخول إلى حسابك",
+    "toasters": {
+      "bad-credentials": "معرّفات غير صحيحة"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "الشهر",
+        "contact-us": "اتصل بنا لإضفاء الطابع الشخصي على عرضك.",
+        "metered-unit": "بواسطة",
+        "monthly": "الشهر",
+        "per-seat": "لكل مقعد",
+        "popular": "مشهور",
+        "recommended": "موصى به",
+        "trial": "أيام المحاكمة، ثم...",
+        "yearly": "أن"
+      },
+      "PriceCard": {
+        "bottom-sentence": "دفعة واحدة، العديد من المشاريع"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "اشترِ",
+        "startTrial": "جرب أيام {varIntlTrialDays} الأيام",
+        "subscribeNow": "اشتراك"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "اتصل بنا"
+      },
+      "SwitchRecurrence": {
+        "monthly": "شهرياً",
+        "yearly": "سنوي"
+      }
+    },
+    "title": "التسعير"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "form": {
+        "confirm-password": "تأكيد كلمة المرور",
+        "email": "عنوان البريد الإلكتروني",
+        "email-error": "عنوان بريدك الإلكتروني ليس بالصيغة الصحيحة",
+        "password": "كلمة المرور",
+        "password-did-not-match": "يجب أن تكون كلمات المرور متشابهة",
+        "password-error": "يجب أن تكون كلمة المرور الخاصة بك على الأقل {varIntlMin} من الأحرف.",
+        "register-with-email": "إنشاء حسابي"
+      },
+      "emailSent": {
+        "subject": "مرحبا ! \nيرجى التأكد من صحة عنوان البريد الإلكتروني الخاص بك."
+      }
+    },
+    "already-account-sentence": "هل لديك حساب بالفعل؟",
+    "button": {
+      "login": "سجّل الدخول إلى"
+    },
+    "title": "إنشاء حساب",
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "يقبل",
+          "already-accept": "لقد قبلت الدعوة بالفعل.",
+          "decline": "رفض",
+          "do-you-accept": "هل توافق على الانضمام لهذه المنظمة؟",
+          "invitation-accepted": "تم قبول الدعوة، يرجى إنشاء حساب ثم تسجيل الدخول لإنهاء الدعوة. \nسيتم إعادة توجيهك إلى صفحة إنشاء الحساب.",
+          "invitation-accepted-2": "تم قبول الدعوة، يرجى تسجيل الدخول إلى حسابك لإتمامها.",
+          "invitation-declined": "تم رفض الدعوة",
+          "invited": "لقد تمت دعوتك للانضمام إلى فريق \"{varIntlOrganization}\".",
+          "join": "انضم إلى المنظمة \"{varIntlOrganization}\"",
+          "logout": "قطع الاتصال",
+          "organization-not-found": "تنظيم غير موجود."
+        }
+      },
+      "invitation-not-found": "تنظيم غير موجود.",
+      "invited-with-different-email": "لقد قمت بتسجيل الدخول باستخدام عنوان بريد إلكتروني مختلف عن الذي تلقيت الدعوة.",
+      "logged-in-with-right-email": "لقد قمت بتسجيل الدخول باستخدام عنوان البريد الإلكتروني الصحيح، ولكن يجب عليك تسجيل الخروج وتسجيل الدخول مرة أخرى لقبول الدعوة.",
+      "please-logout": "يرجى تسجيل الدخول باستخدام عنوان البريد الإلكتروني المناسب والعودة إلى هذه الصفحة. \nإذا لم يكن لديك حساب بعنوان الضيف، فقم بتسجيل الخروج والعودة إلى هذه الصفحة لإنشائه."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "تسجيل الدخول إلى حسابك",
+      "request-new-validation": "واطلب رابط التحقق الجديد إذا لم تقم بالتحقق من صحته بعد.",
+      "success": "تم التحقق من البريد الإلكتروني.",
+      "title": "التحقق من عنوان بريدك الإلكتروني"
+    }
+  },
+  "API": {
+    "ForgotPassword": {
+      "success": "تم إرسال رابط لإعادة تعيين كلمة المرور الخاصة بك إلى {varIntlEmail}. \nيرجى التحقق من حساب البريد الإلكتروني الخاص بك."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "حدث خطأ أثناء إنشاء رمز التحقق. \nالمرجو اعادة المحاولة.",
+        "unknown-error": "واجهنا خطأ غير معروف. \nيرجى المحاولة مرة أخرى أو الاتصال بنا.",
+        "user-already-exists": "هذا البريد الالكتروني مسجل سابقا. \nإذا كنت المالك، فيرجى تسجيل الدخول باستخدام الأخير أو، إذا لزم الأمر، طلب إعادة تعيين كلمة المرور.",
+        "user-not-created": "حدث خطأ أثناء إنشاء الحساب. \nالمرجو اعادة المحاولة."
+      },
+      "success": "مرحبًا {varIntlName}! \nأشكركم على ثقتكم. \nستتلقى بريدًا إلكترونيًا يحتوي على رابط يسمح لك بتأكيد صلاحيته.\n\n \nيمكنك الآن تسجيل الدخول باستخدام بيانات الاعتماد الخاصة بك."
+    },
+    "VerifyEmail": {
+      "expired-token": "تم بالفعل التحقق من صحة رمز التحقق أو انتهت صلاحيته أو لم يتم العثور عليه.",
+      "success": "تم التحقق من عنوان البريد الإلكتروني الخاص بك."
+    }
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "اعد ضبط كلمه السر",
+      "resetPassword": "إعادة تعيين كلمة المرور",
+      "text": "لقد طلبت إعادة تعيين كلمة المرور الخاصة بك. \nللقيام بذلك، الرجاء الضغط على الزر أدناه."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "قبول الدعوة",
+      "heading": "لقد تمت دعوتك للانضمام إلى فريق {varIntlTeamName}.",
+      "text": "لقبول الدعوة، الرجاء الضغط على الزر أدناه."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "مرحبا !",
+      "text": "للتحقق بشكل نهائي من صحة تسجيلك، يرجى النقر على الزر أدناه.",
+      "verifyEmail": "التحقق من صحة حسابي"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "قم بتأكيد كلمة المرور الجديدة",
+          "email": "عنوان البريد الإلكتروني للحساب",
+          "email-error": "عنوان البريد الإلكتروني المنسق بشكل خاطئ.",
+          "new-password": "اختر كلمة مرور جديدة",
+          "password-error": "يجب أن يبلغ طوله {varIntlMin} من الأحرف على الأقل.",
+          "password-match-error": "يجب أن تكون كلمتا المرور متماثلتين.",
+          "submit": "إعادة ضبط",
+          "success": "الرقم السري تغير بنجاح."
+        }
+      }
+    },
+    "invalid-token": "رمز إعادة التعيين غير صالح. \nيرجى البدء مرة أخرى أو إعادة تقديم الطلب.",
+    "reset-password": "إعادة تعيين كلمة المرور الخاصة بك",
+    "token-expired": "رمز إعادة التعيين غير معروف."
   }
 }

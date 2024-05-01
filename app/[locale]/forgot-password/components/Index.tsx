@@ -9,6 +9,7 @@ import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Session } from "next-auth";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,25 +22,30 @@ type IndexProps = {
 };
 
 export const Index = ({ token, userEmail }: IndexProps) => {
+  const t = useTranslations("ForgotPassword.Components.Index");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const formSchema = z
     .object({
       email: z.string().email({
-        message: "Invalid email address.",
+        message: t("form.email-error"),
       }),
       password: z.string().min(6, {
-        message: "Must be at least 6 characters.",
+        message: t("form.password-error", {
+          min: 6,
+        }),
       }),
       confirmPassword: z.string().min(6, {
-        message: "Must be at least 6 characters.",
+        message: t("form.password-error", {
+          min: 6,
+        }),
       }),
     })
     .superRefine((data, ctx) => {
       if (data.password !== data.confirmPassword) {
         ctx.addIssue({
           path: ["confirmPassword"],
-          message: "The passwords did not match.",
+          message: t("form.password-match-error"),
           code: "custom",
         });
       }
@@ -65,7 +71,7 @@ export const Index = ({ token, userEmail }: IndexProps) => {
     toaster({
       type: "success",
       duration: 5000,
-      description: "Password reset successfully.",
+      description: t("form.success"),
     });
     form.reset({
       email: "",
@@ -93,19 +99,19 @@ export const Index = ({ token, userEmail }: IndexProps) => {
           <Field
             className={cn({ "opacity-50 pointer-events-none": userEmail })}
             type="email"
-            label="Your email address"
+            label={t("form.email")}
             name="email"
             form={form}
           />
           <Field
             type="password"
-            label="New password"
+            label={t("form.new-password")}
             name="password"
             form={form}
           />
           <Field
             type="password"
-            label="Confirm password"
+            label={t("form.confirm-password")}
             name="confirmPassword"
             form={form}
           />
@@ -115,7 +121,7 @@ export const Index = ({ token, userEmail }: IndexProps) => {
             loading={isLoading}
             disabled={isLoading || !form.formState.isValid}
             className={cn({ disabled: isLoading }, "w-full !mt-10 mb-0")}>
-            Update password
+            {t("form.submit")}
           </ButtonWithLoader>
         </div>
       </form>

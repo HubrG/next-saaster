@@ -4,6 +4,7 @@ import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 type SwitchRecurrenceProps = {
   ifOnceSentence?: string;
@@ -12,6 +13,7 @@ type SwitchRecurrenceProps = {
 export const SwitchRecurrence = ({
   yearlypercent_off,
 }: SwitchRecurrenceProps) => {
+  const t = useTranslations("Pricing.Components.SwitchRecurrence");
   const { isYearly, setIsYearly, togglePricingPlan } =
     usePublicSaasPricingStore();
   const { saasSettings } = useSaasSettingsStore();
@@ -42,11 +44,11 @@ export const SwitchRecurrence = ({
   return (
     <div
       className={cn(
-        {
-          "justify-end": saasSettings.displayFeaturesByCategory,
-          "justify-center": !saasSettings.displayFeaturesByCategory,
-        },
-        "w-full  flex mt-10 mb-10 items-center"
+        // {
+        //   "justify-end": saasSettings.displayFeaturesByCategory,
+        //   "justify-center": !saasSettings.displayFeaturesByCategory,
+        // },
+        "justify-center w-full  flex mt-10 mb-10 items-center"
       )}>
       <div
         className={cn(
@@ -69,7 +71,7 @@ export const SwitchRecurrence = ({
               "flex-1 text-center font-bold line-40"
             )}
             onClick={() => togglePricingPlan()}>
-            Monthly
+            {t("monthly")}
           </div>
           <div
             className={cn(
@@ -80,7 +82,7 @@ export const SwitchRecurrence = ({
               "flex-1 text-center font-bold line-40"
             )}
             onClick={() => togglePricingPlan()}>
-            Yearly{" "}
+            {t("yearly")}
             <span className="text-sm opacity-70">
               {yearlypercent_off && `— save ${yearlypercent_off}% !`}
             </span>

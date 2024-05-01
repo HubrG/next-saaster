@@ -38,13 +38,13 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
   const formSchema = z
     .object({
       oldPassword: z.string().min(6, {
-        message: t("form.password-error", { min: 6 }),
+        message: t("form.password-error", { varIntlMin: 6 }),
       }),
       password: z.string().min(6, {
-        message: t("form.password-error", { min: 6 }),
+        message: t("form.password-error", { varIntlMin: 6 }),
       }),
       confirmPassword: z.string().min(6, {
-        message: t("form.password-error", { min: 6 }),
+        message: t("form.password-error", { varIntlMin: 6 }),
       }),
     })
     .superRefine((data, ctx) => {

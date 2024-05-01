@@ -1,26 +1,33 @@
-import { Button, Heading, Hr, Section, Text } from "@react-email/components";
+import { Heading, Hr, Section, Text } from "@react-email/components";
+import { getTranslations } from "next-intl/server";
+import ButtonTemplate from "./@ui/ButtonTemplate";
 
 export type InviteUserTemplateProps = {
-   vars: {
+  vars: {
     organizationId: string;
     email: string;
-    name:string;
+    name: string;
   };
 };
-export default function InviteUserTemplate({
+export default async function InviteUserTemplate({
   vars,
 }: InviteUserTemplateProps) {
   const uri = process.env.NEXT_PUBLIC_URI;
+  const t = await getTranslations();
+
   return (
     <Section>
-      <Heading>You have been invited to join the {vars.name} team</Heading>
+      <Heading>
+        {t("Emails.InviteUserTemplate.heading", {
+          varIntlTeamName: vars.name,
+        })}
+      </Heading>
       <Hr />
-      <Text>To accept the invitation, click here :</Text>
-      <Button
-        className="w-full p-5"
-        href={`${uri}/register/teamInvitation?organizationId=${vars.organizationId}&email=${vars.email}`}>
-        Verify my email
-      </Button>
+      <Text>{t("Emails.InviteUserTemplate.text")}</Text>
+      <ButtonTemplate
+        uri={`${uri}/register/teamInvitation?organizationId=${vars.organizationId}&email=${vars.email}`}
+        text={t("Emails.InviteUserTemplate.buttonText")}
+      />
     </Section>
   );
 }

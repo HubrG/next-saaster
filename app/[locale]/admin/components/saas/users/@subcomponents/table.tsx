@@ -20,7 +20,7 @@ import {
   CircleOff,
   Crown,
   Hourglass,
-  User
+  User,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
@@ -62,35 +62,11 @@ export const CurrencyComponentStore = () => {
   return convertCurrencyName(currency ?? "", "sigle");
 };
 export const columns: ColumnDef<iUsers>[] = [
-  //   {
-  //     id: "select",
-  //     header: ({ table }) => (
-  //       <Checkbox
-  //         checked={
-  //           table.getIsAllPageRowsSelected() ||
-  //           (table.getIsSomePageRowsSelected() && "indeterminate")
-  //         }
-  //         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //         aria-label="Select all"
-  //       />
-  //     ),
-  //     cell: ({ row }) => (
-  //       <Checkbox
-  //         checked={row.getIsSelected()}
-  //         onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //         aria-label="Select row"
-  //       />
-  //     ),
-  //     enableSorting: false,
-  //     enableHiding: false,
-  //   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      return (
-          <UserDialog user={row.original as iUsers} /> 
-      );
+      return <UserDialog user={row.original as iUsers} />;
     },
   },
   {
@@ -234,15 +210,7 @@ export const columns: ColumnDef<iUsers>[] = [
   {
     accessorKey: "subscriptions2",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="link"
-          className="mx-auto"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Total spent
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <>Total spent</>;
     },
     cell: ({ row }) => {
       const userInfo = getUserInfos({ user: row.original as iUsers });

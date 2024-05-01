@@ -1,17 +1,17 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
 import { signOut } from "next-auth/react";
-import React from "react";
+import { useTranslations } from "next-intl";
 type LogoutInviteButtonProps = {};
 
 export const LogoutInviteButton = ({}: LogoutInviteButtonProps) => {
+  const t = useTranslations("Register.TeamInvitationPage");
   return (
     <>
-      <p>
-        You are logged with the right email address, but you need to log out to
-        accept the invitation.
-      </p>
-      <Button className="w-full mt-5" onClick={() => signOut()}>Sign out</Button>
+      <p>{t("logged-in-with-right-email")}</p>
+      <Button className="w-full mt-5" onClick={() => signOut()}>
+        {t("Register.TeamInvitationPage.logout")}
+      </Button>
     </>
   );
 };

@@ -4,17 +4,17 @@ import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
 } from "@/src/components/ui/command";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { createFeaturesCategory } from "@/src/helpers/db/featuresCategories.action";
 import { sliced } from "@/src/helpers/functions/slice";
@@ -36,8 +36,8 @@ export const FeatureCardCategory = ({ feature }: Props) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [searchInput, setSearchInput] = useState("");
-  const { saasFeatures, setSaasFeatures } = useSaasFeaturesStore();
-  const { saasFeaturesCategories, setSaasFeaturesCategories } =
+  const { saasFeatures, setSaasFeatures, fetchSaasFeatures } = useSaasFeaturesStore();
+  const { saasFeaturesCategories, setSaasFeaturesCategories} =
     useSaasFeaturesCategoriesStore();
 
   useEffect(() => {
@@ -120,16 +120,28 @@ export const FeatureCardCategory = ({ feature }: Props) => {
     if (dataToSet.serverError || dataToSet.validationErrors) {
       return toaster({
         description:
-          dataToSet.serverError ||
-          dataToSet.validationErrors?.data ||
-          "An error occurred",
+        dataToSet.serverError ||
+        dataToSet.validationErrors?.data ||
+        "An error occurred",
         type: "error",
       });
     }
+    setSaasFeatures(
+      saasFeatures.map((feat) =>
+        feat.id === feature.id
+          ? {
+              ...feat,
+              categoryId: e ? e : null,
+            }
+          : feat
+      )
+    );
     setSearchInput("");
     return toaster({
       type: "success",
-      description: `« ${feature.name} » assigned successfully`,
+      description: `« ${
+        dataToSet.data?.success?.category?.name ?? ""
+      } » assigned successfully`,
       duration: 1000,
     });
   };
@@ -209,7 +221,8 @@ export const FeatureCardCategory = ({ feature }: Props) => {
                       setValue(category.name ?? "");
                       setOpen(false);
                       handleSelectCategory(category.id);
-                    }}>
+                    }}
+                   >
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4",

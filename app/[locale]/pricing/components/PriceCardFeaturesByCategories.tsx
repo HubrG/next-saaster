@@ -3,12 +3,12 @@
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Card } from "@/src/components/ui/card";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/src/components/ui/table";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 import { PriceCardBuyButton } from "./PriceCardBuyButton";
 import { PriceCardContactUsButton } from "./PriceCardContactUsButton";
+import { PriceCardFeatureNameAndDesc } from "./PriceCardFeatureNameAndDesc";
 import { PriceCardHeader } from "./PriceCardHeader";
 
 export const PriceCardsFeaturesByCategories = () => {
@@ -50,9 +51,9 @@ export const PriceCardsFeaturesByCategories = () => {
         "mx-auto"
       )}>
       <div className="w-full">
-        <Table className="w-full rounded-default">
-          <TableHeader>
-            <TableRow className="!border-0">
+        <Table className="w-full rounded-default" style={{tableLayout:"fixed"}}>
+          <TableHeader >
+            <TableRow className="!border-0" >
               <TableHead></TableHead>
               {plansFiltered.map((plan) => (
                 <TableHead key={plan.id} className="pb-5">
@@ -61,11 +62,11 @@ export const PriceCardsFeaturesByCategories = () => {
                       {
                         "card-popular": plan.isPopular || plan.isRecommended,
                       },
-                      `price-card-wrapper  w-full  h-[90.3%] grid grid-rows-3 place-content-end justify-between items-start mt-10`
+                      `price-card-wrapper  w-full  h-[90.3%] grid place-content-end justify-between items-start`
                     )}>
                     <PriceCardHeader plan={plan} saasSettings={saasSettings} />
                     {plan.isCustom ? (
-                      <PriceCardContactUsButton />
+                      <PriceCardContactUsButton className="mt-7 w-full z-[99999999]" />
                     ) : (
                       <PriceCardBuyButton
                         className="mt-7 w-full z-[99999999]"
@@ -79,7 +80,9 @@ export const PriceCardsFeaturesByCategories = () => {
           </TableHeader>
           <TableBody>
             {saasFeaturesCategories
-              .filter((e) => e.Features.find((e) => e.active))
+              .filter((e) =>
+                e.Features.find((e) => e.active && !e.deleted && e.name)
+              )
               .map((category, index) => (
                 <>
                   <TableRow
@@ -100,7 +103,12 @@ export const PriceCardsFeaturesByCategories = () => {
                           left: "10px",
                           zIndex: 1,
                         }}>
-                        {category.name}
+                        <PriceCardFeatureNameAndDesc
+                          onlyFeatureCategory
+                          id={category.id}
+                          featName={category.name}
+                          featCategory={category.name}
+                        />
                       </span>
                     </TableCell>
                   </TableRow>
@@ -109,10 +117,10 @@ export const PriceCardsFeaturesByCategories = () => {
                     const positionB = b.position != null ? b.position : 0;
                     return positionA - positionB;
                   })
-                    .filter((e) => e.active)
+                    .filter((e) => e.active && !e.deleted && e.name)
                     .map((feature, featureIndex) => (
                       <TableRow
-                        key={feature.id}
+                        key={Math.random() + feature.id}
                         className={`${getRowClass(
                           featureIndex
                         )} border-0 text-center`}>
@@ -132,14 +140,21 @@ export const PriceCardsFeaturesByCategories = () => {
                                 />{" "}
                               </>
                             )}
-                            {feature.name}
-                                <Tooltip
-                                  place="left"
-                                  className="tooltip"
-                                  id={feature.id}
-                                  opacity={1}>
-                                  {feature.description}
-                                </Tooltip>
+                            <PriceCardFeatureNameAndDesc
+                              onlyFeatureName
+                              featName={feature.name}
+                            />
+                            <Tooltip
+                              place="left"
+                              className="tooltip"
+                              id={feature.id}
+                              opacity={1}>
+                              <PriceCardFeatureNameAndDesc
+                                onlyFeatureDesc
+                                featName={feature.id}
+                                featDesc={feature.description}
+                              />
+                            </Tooltip>
                           </span>
                         </TableCell>
                         {plansFiltered.map((plan) => {

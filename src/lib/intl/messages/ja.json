@@ -1,10 +1,92 @@
 {
   "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "あなたは招待されている",
+              "subject-end": "と彼のチーム",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "ユーザーはすでに組織のメンバーです。",
+              "already-invited": "ユーザーはすでに招待されています。",
+              "error-while-creating-invitation": "エラーが発生しました。招待状が送信されていません。もう一度お試しください。",
+              "no-organization-found": "組織が見つかりません。これはエラーに違いありません。もう一度お試しください。"
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "アカウントの削除中に問題が発生しました。ご連絡ください。",
+              "cancel-subscription": "購読のキャンセル中に問題が発生しました",
+              "delete": "あなたが組織の所有者であるため、アカウントを削除することはできません。他のユーザーに権利を譲渡するか、組織を削除してください。"
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "自分を招待することはできない！",
+              "field-invite-new-member": "新しいメンバーを招待する",
+              "placeholder-email": "電子メール",
+              "submit": "招待"
+            },
+            "note": "有効な購読契約がある。あなたの組織に新しい会員が加わった場合、その会員がこの招待を承諾した場合、日割りで請求されます。",
+            "toasters": {
+              "invitation-sent": "招待状送付先"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "有名な組織"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "組織を作る"
+        },
+        "members": "メンバー",
+        "pending-invitations": "保留中のユーザー",
+        "popover": {
+          "delete-member": "メンバー",
+          "delete-organization": "組織を閉じる",
+          "what-delete-organization": "この組織を廃止する"
+        },
+        "toasters": {
+          "organization-created": "創設された組織",
+          "organization-deleted": "組織廃止。全メンバーが排除され、権利は失われた。",
+          "organization-left": "左の組織",
+          "pendin-user-removed": "保留中のユーザーを削除"
+        },
+        "tooltip": {
+          "owner": "オーナー"
+        }
+      }
+    },
     "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Eメールアドレス",
+          "email-exemple": "例",
+          "submit": "ニュースレターを購読する"
+        }
+      },
       "popover-confirm": {
         "cancel": "キャンセル",
-        "confirm": "確認する",
-        "message": "本当によろしいですか"
+        "confirm": "確認",
+        "message": "本当にそうしたいのか？"
+      },
+      "popover-delete": {
+        "cancel": "キャンセル",
+        "confirm": "確認",
+        "message": "本当に削除しますか？"
       }
     }
   },
@@ -13,129 +95,420 @@
       "Navbar": {
         "links": {
           "account": "アカウント",
-          "billing": "請求する",
-          "emails": "メール",
+          "billing": "サブスクリプション",
+          "emails": "電子メール",
           "organization": "組織",
           "profile": "プロフィール",
-          "purchases": "購入品",
-          "usage": "使用法"
+          "purchases": "購買",
+          "usage": "用途"
         },
-        "title": "私のアカウント"
+        "title": "マイアカウント"
       },
       "Profile": {
         "Account": {
           "Components": {
             "CreatePassword": {
-              "description": "{provider} アカウントでログインしているため、パスワードを作成していません。\nここで作成できます。",
+              "description": "varIntlProvider}アカウントでログインしているため、パスワードを作成していません。ここで作成できます。",
               "form": {
                 "password": "パスワード",
                 "password-confirmation": "パスワードの確認",
-                "password-error": "パスワードは少なくとも {min} 文字の長さである必要があります。",
-                "passwords-not-matching": "パスワードが一致しません。",
+                "password-error": "パスワードは少なくとも{varIntlMin}文字でなければならない。",
+                "passwords-not-matching": "パスワードが一致しない。",
                 "submit": "パスワードの作成"
               },
-              "title": "パスワードを作成",
+              "title": "パスワードの作成",
               "toasters": {
                 "succes-password-created": "パスワードが作成されました。"
               }
             },
             "ForgotPassword": {
-              "description": "問題ありません。パスワードをリセットするためのリンクをお送りいたします。",
+              "description": "パスワードをリセットするためのリンクをお送りします。",
               "emailSent": {
-                "subject": "あなたのパスワードをリセット"
+                "subject": "パスワードのリセット"
               },
               "form": {
-                "email": "あなたのメールアドレス",
-                "email-error": "有効な電子メール アドレスではありません。",
-                "submit": "リンクを送ってください"
+                "email": "メールアドレス",
+                "email-error": "有効なメールアドレスではありません。",
+                "submit": "復旧リンクを送ってください"
               },
-              "title": "パスワードをお忘れですか ？",
+              "title": "パスワードをお忘れですか？",
               "toasters": {
-                "send-email-error": "メールの送信中にエラーが発生しました。\nもう一度試してください。"
+                "send-email-error": "メール送信中にエラーが発生しました。もう一度お試しください。"
               }
             },
             "UpdatePassword": {
               "form": {
-                "actual-password": "実際のパスワード",
+                "actual-password": "現在のパスワード",
                 "new-password": "新しいパスワード",
                 "password-confirmation": "パスワードの確認",
-                "password-error": "パスワードは少なくとも {min} 文字の長さである必要があります。",
-                "passwords-not-matching": "パスワードが一致しません。",
-                "submit": "パスワードを更新する"
+                "password-error": "パスワードは少なくとも{varIntlMin}文字でなければならない。",
+                "passwords-not-matching": "パスワードが一致しない。",
+                "submit": "パスワードの更新",
+                "required-message": "必須"
               },
-              "title": "パスワードを更新してください",
+              "title": "パスワードの更新",
               "toasters": {
-                "password-update-error": "パスワードの更新中にエラーが発生しました。\nもう一度試してください。",
+                "password-update-error": "パスワードの更新中にエラーが発生しました。もう一度お試しください。",
                 "password-updated": "パスワードが更新されました。"
               }
             }
           },
-          "close-account": "アカウントを確実に閉鎖してください...",
-          "close-account-popover-message": "アカウントを削除するには?\nこの操作は元に戻すことができません。\n定期購読をされている場合はキャンセルさせていただきます。",
-          "connectedWith": "{provider} アカウントに接続されています",
-          "create-password": "あなたは持っています",
-          "manage-password": "パスワードを管理する",
-          "title": "コンプする"
+          "close-account": "アカウントの停止",
+          "close-account-popover-message": "アカウントを削除しますか？この措置は不可逆的です。サブスクリプションをご利用の場合は、キャンセルされます。",
+          "connectedWith": "{varIntlProvider}アカウントでログインしています。",
+          "create-password": "varIntlProvider}アカウントで自動的にログインしているため、パスワードを作成していません。",
+          "manage-password": "パスワードの管理",
+          "title": "アカウント"
         },
         "Billing": {
-          "id": "請求する",
-          "title": "請求する"
+          "according-to-use": "用途による",
+          "billed-each": "請求書",
+          "buttons": {
+            "cancel-subscription": "購読のキャンセル",
+            "restart-subscription": "サブスクリプションの再開",
+            "update-payment": "支払い方法の変更",
+            "update-plan": "ダウングレードまたはアップグレード"
+          },
+          "daily": "日",
+          "features-title": "特徴",
+          "id": "請求",
+          "monthly": "月",
+          "next-invoice-at": "次の請求書",
+          "no-plan-subscribed-yet": "加入していない",
+          "per-user": "ユーザーあたり",
+          "subscribe-now": "購読したい！",
+          "subscription-will-be-canceled-at": "あなたの購読は、以下の日に最終的にキャンセルされます。",
+          "title": "請求",
+          "tooltips": {
+            "cancel-subscription": "お客様のサブスクリプションは、{varIntlDate}の請求期間の終了時に確定的にキャンセルされます。その日まで機能を使用し続けることができます。その後、課金は行われません。",
+            "restart-subscription": "サブスクリプションは追加請求なしで再開されます。"
+          },
+          "trial-days-remaining": "varIntlDays}試用期間が残っています。",
+          "users": "ユーザー",
+          "weekly": "週間",
+          "yearly": "アン",
+          "you-save": "このサブスクリプションで {varIntlSave} を保存します。",
+          "your-plan": "サブスクリプション",
+          "your-trial-ends-at": "試用期間の終了日"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "ニュースレター購読",
+            "toasters": {
+              "error-delete-contact": "ニュースレター購読者からのコンタクト削除エラー",
+              "error-get-contact": "ニュースレターの連絡先を取得中にエラーが発生しました。もう一度お試しください。",
+              "error-update-newsletter": "ニュースレターの設定を更新中にエラーが発生しました。もう一度お試しください。",
+              "newsletter-disabled": "使用不能",
+              "newsletter-enabled": "活性化"
+            }
+          },
+          "title": "電子メール"
         },
         "Organization": {
-          "title": "組織"
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "自分を招待することはできない！",
+                "field-invite-new-member": "新しいメンバーを招待する",
+                "placeholder-email": "電子メール",
+                "submit": "招待"
+              },
+              "note": "有効な購読契約がある。あなたの組織に新しい会員が加わった場合、その会員がこの招待を承諾した場合、日割りで請求されます。",
+              "toasters": {
+                "invitation-sent": "招待状送付先"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "このメンバーをオーナーとして宣伝しますか？オーナーは一人しか存在できません。その場合、あなたはこの組織に関するすべての出版権を失うことになります。",
+                "promote-member-display": "この会員をプロモートする",
+                "revoke-member": "このメンバーを組織から外す",
+                "revoke-member-display": "このユーザーを取り消す"
+              },
+              "toasters": {
+                "user-promoted": "プロモートされたユーザーあなたはもうこの組織のオーナーではありません",
+                "user-removed": "ユーザー失効"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "この名前には少なくとも{varIntlMin}文字が含まれていなければならない。",
+                "field-organization-name": "団体名",
+                "submit": "名前変更"
+              },
+              "organization-renamed": "有名な組織",
+              "toasters": {
+                "organization-renamed": "組織名を変更"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "組織を作る"
+          },
+          "members": "メンバー",
+          "pending-invitations": "保留中のユーザー",
+          "popover": {
+            "delete-member": "メンバー",
+            "delete-organization": "組織を閉じる",
+            "what-delete-organization": "この組織を廃止する"
+          },
+          "title": "組織",
+          "toasters": {
+            "organization-created": "創設された組織",
+            "organization-deleted": "組織廃止。全メンバーが排除され、権利は失われた。",
+            "organization-left": "左の組織",
+            "pendin-user-removed": "保留中のユーザーを削除"
+          },
+          "tooltip": {
+            "owner": "オーナー"
+          }
         },
         "Profile": {
-          "change-avatar": "プロフィール写真を変更する",
+          "change-avatar": "プロフィール写真の変更",
           "form": {
-            "name": "名前",
-            "submit": "アップデート",
-            "upload": "アップロード"
+            "name": "表示名",
+            "submit": "更新",
+            "upload": "ダウンロード"
           },
           "title": "プロフィール",
           "toasters": {
-            "file-is-empty": "ファイルが空です",
-            "file-is-not-an-image": "ファイルは画像ではありません",
-            "file-is-too-large": "ファイルが大きすぎます（最大2MB）",
-            "no-file-provided": "ファイルが提供されていません",
+            "file-is-empty": "ファイルは空です。",
+            "file-is-not-an-image": "ファイルが画像ではない",
+            "file-is-too-large": "ファイルが大きすぎます（最大2 MB）",
+            "no-file-provided": "ファイル提供なし",
             "success": "プロフィール更新",
-            "success-file-uploaded": "プロフィール写真を更新しました"
+            "success-file-uploaded": "プロフィール写真の修正に成功"
           }
         },
         "Purchases": {
-          "title": "購入品"
+          "no-purchase-history": "購入履歴なし",
+          "no-purchase-history-description": "あなたはまだ当サイトで商品を購入していません！",
+          "title": "購買"
         }
       }
     },
-    "button": "ダッシュボードに移動します",
-    "description": "ダッシュボードへようこそ!",
-    "title": "ダッシュボード"
+    "button": "ダッシュボードへ",
+    "description": "ダッシュボードへようこそ！",
+    "title": "ダッシュボード",
+    "Queries": {
+      "Profile": {
+        "email-not-found": "不明なメールアドレス",
+        "invalid-token": "無効なトークン",
+        "password-not-updated": "パスワードの変更中に問題が発生しました。\nもう一度やり直してください。",
+        "token-expired": "トークンの有効期限が切れました。",
+        "token-not-found": "リセットトークンが見つかりません。"
+      }
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "最新ニュースをお見逃しなくニュースレターを購読する",
+      "privacy": "プライバシーポリシー",
+      "terms": "法的情報",
+      "title": "リーガル"
+    },
+    "Navigation": {
+      "blog": "ブログ",
+      "faq": "よくあるご質問",
+      "title": "ナビゲーション"
+    }
   },
   "Index": {
     "first-connexion": "最初の接続",
     "metadatas": {
-      "description": "迅速な開発のための NextJS SaaS スターター キット: 主要な機能のみに焦点を当て、最新のフロントエンド、スケーラブルで安全なバックエンドを備えているので安心です。\n労力を節約",
-      "title": "家"
+      "description": "迅速な開発のためのNextJS SaaSスターターキット：コア機能のみに集中し、モダンなフロントエンドとスケーラブルでセキュアなバックエンドで安心してください。労力を節約",
+      "title": "ホーム"
     },
-    "title": "いらっしゃいませ"
+    "title": "ようこそ！"
   },
   "Layout": {
     "Header": {
       "Navbar": {
         "MainMenu": {
-          "contact": "接触",
+          "contact": "連絡先",
           "features": "特徴",
-          "home": "家",
-          "howItWorks": "使い方 ？",
-          "pricing": "価格設定"
+          "home": "ホーム",
+          "howItWorks": "どのように機能するのか？",
+          "pricing": "価格"
         },
         "UserProfile": {
           "login": "ログイン",
-          "logout": "ログアウト",
-          "my-account": "私のアカウント",
-          "refill": "リフィル"
+          "logout": "切断",
+          "my-account": "マイアカウント",
+          "refill": "リロード"
         },
-        "buy-now": "今すぐ購入 ！"
+        "buy-now": "購入"
       }
     }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "電子メール",
+        "login-with-email": "コネクトミー",
+        "password": "パスワード"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "例",
+        "submit": "ログインリンクを送る",
+        "your-email": "Eメールアドレス"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Githubとの接続"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Googleで続ける"
+      },
+      "buttons": {
+        "continue-with-google": "グーグルとつながる"
+      }
+    },
+    "button": {
+      "no-account": "アカウントがない？",
+      "register": "登録はこちらから。"
+    },
+    "title": "アカウントにログイン",
+    "toasters": {
+      "bad-credentials": "誤った識別子"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "月",
+        "contact-us": "お問い合わせください。",
+        "metered-unit": "によって",
+        "monthly": "月",
+        "per-seat": "1席あたり",
+        "popular": "ポピュラー",
+        "recommended": "おすすめ",
+        "trial": "試用期間、その後...",
+        "yearly": "アン"
+      },
+      "PriceCard": {
+        "bottom-sentence": "一度の支払いで多くのプロジェクトを"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "購入",
+        "startTrial": "{varIntlTrialDays}日間試してみる。",
+        "subscribeNow": "サブスクライブ"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "お問い合わせ"
+      },
+      "SwitchRecurrence": {
+        "monthly": "毎月",
+        "yearly": "年間"
+      }
+    },
+    "title": "価格"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "form": {
+        "confirm-password": "パスワードの確認",
+        "email": "Eメールアドレス",
+        "email-error": "電子メールアドレスの形式が正しくありません。",
+        "password": "パスワード",
+        "password-did-not-match": "パスワードは類似していなければならない",
+        "password-error": "パスワードは最低 {varIntlMin} 文字必要です。",
+        "register-with-email": "アカウントの作成"
+      },
+      "emailSent": {
+        "subject": "いらっしゃいませ ！\nメールアドレスが有効であることを確認してください。"
+      }
+    },
+    "already-account-sentence": "すでにアカウントをお持ちですか？",
+    "button": {
+      "login": "ログイン"
+    },
+    "title": "アカウントの作成",
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "受け入れる",
+          "already-accept": "あなたはすでに招待を受け入れています。",
+          "decline": "拒否する",
+          "do-you-accept": "この組織に参加することに同意しますか?",
+          "invitation-accepted": "招待が受理されました。アカ​​ウントを作成してからログインし、招待を完了してください。\nアカウント作成ページにリダイレクトされます。",
+          "invitation-accepted-2": "招待が受理されました。アカ​​ウントにログインして完了してください。",
+          "invitation-declined": "招待が拒否されました",
+          "invited": "「{varIntlOrganization}」チームに招待されました",
+          "join": "組織「{varIntlOrganization}」に参加します",
+          "logout": "切断する",
+          "organization-not-found": "存在しない組織。"
+        }
+      },
+      "invitation-not-found": "存在しない組織。",
+      "invited-with-different-email": "招待を受け取ったメール アドレスとは異なるメール アドレスでログインしています。",
+      "logged-in-with-right-email": "正しい電子メール アドレスでログインしていますが、招待を受け入れるにはログアウトして再度ログインする必要があります。",
+      "please-logout": "対応するメールアドレスでログインし、このページに戻ってください。\nゲスト アドレスを持つアカウントをお持ちでない場合は、ログアウトしてこのページに戻ってアカウントを作成してください。"
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "アカウントにサインインする",
+      "request-new-validation": "まだ検証していない場合は、新しい検証リンクをリクエストします。",
+      "success": "メールアドレスが確認されました。",
+      "title": "メールアドレスの認証"
+    }
+  },
+  "API": {
+    "ForgotPassword": {
+      "success": "パスワードをリセットするためのリンクが {varIntlEmail} に送信されました。\nメールアカウントを確認してください。"
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "検証トークンの作成中にエラーが発生しました。\nもう一度やり直してください。",
+        "unknown-error": "不明なエラーが発生しました。\nもう一度お試しいただくか、お問い合わせください。",
+        "user-already-exists": "このメールアドレスはすでに登録されています。\nあなたが所有者の場合は、後者でログインするか、必要に応じてパスワードのリセットを要求してください。",
+        "user-not-created": "アカウントの作成中にエラーが発生しました。\nもう一度やり直してください。"
+      },
+      "success": "{varIntlName} へようこそ!\nご信頼ありがとうございます。\n有効性を確認できるリンクが記載された電子メールが届きます。\n\n \nこれで、資格情報を使用してログインできるようになります。"
+    },
+    "VerifyEmail": {
+      "expired-token": "検証トークンはすでに検証されているか、有効期限が切れているか、または見つかりません。",
+      "success": "あなたのメールアドレスが確認されました。"
+    }
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "あなたのパスワードをリセット",
+      "resetPassword": "パスワードを再設定する",
+      "text": "パスワードのリセットをリクエストしました。\nこれを行うには、下のボタンをクリックしてください。"
+    },
+    "InviteUserTemplate": {
+      "buttonText": "招待を承諾する",
+      "heading": "{varIntlTeamName} チームに招待されました",
+      "text": "招待を承諾するには、下のボタンをクリックしてください。"
+    },
+    "VerifyEmailTemplate": {
+      "heading": "いらっしゃいませ ！",
+      "text": "登録を最終的に確認するには、下のボタンをクリックしてください。",
+      "verifyEmail": "私のアカウントを認証してください"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "新しいパスワードを確認します",
+          "email": "アカウントのメールアドレス",
+          "email-error": "電子メール アドレスの形式が間違っています。",
+          "new-password": "新しいパスワードを選択してください",
+          "password-error": "少なくとも {varIntlMin} 文字の長さである必要があります。",
+          "password-match-error": "両方のパスワードは同じである必要があります。",
+          "submit": "リセット",
+          "success": "パスワードが正常に変更されました。"
+        }
+      }
+    },
+    "invalid-token": "無効なリセット トークンです。\nもう一度やり直すか、再申請してください。",
+    "reset-password": "パスワードをリセットする",
+    "token-expired": "リセットトークンが不明です。"
   }
 }

@@ -1,24 +1,26 @@
-import { Button, Heading, Hr, Section, Text } from "@react-email/components";
+import { Heading, Hr, Section, Text } from "@react-email/components";
+import { getTranslations } from "next-intl/server";
+import ButtonTemplate from "./@ui/ButtonTemplate";
 
 export type ForgotPasswordTemplateProps = {
   vars: {
     verificationToken: string;
   };
 };
-export default function ForgotPasswordTemplate({ vars }: ForgotPasswordTemplateProps) {
+export default async function ForgotPasswordTemplate({
+  vars,
+}: ForgotPasswordTemplateProps) {
+  const t = await getTranslations();
   const uri = process.env.NEXT_PUBLIC_URI;
   return (
     <Section>
-      <Heading>Reset your password</Heading>
+      <Heading>{t("Emails.ForgotPasswordTemplate.heading")}</Heading>
       <Hr />
-      <Text>
-        You requested to reset your password. To reset your password, click the button below.
-      </Text>
-      <Button
-        className="w-full p-5"
-        href={`${uri}/forgot-password?token=${vars.verificationToken}`}>
-        Reset password
-      </Button>
+      <Text>{t("Emails.ForgotPasswordTemplate.text")}</Text>
+      <ButtonTemplate
+        uri={`${uri}/forgot-password?token=${vars.verificationToken}`}
+        text={t("Emails.ForgotPasswordTemplate.resetPassword")}
+      />
     </Section>
   );
 }

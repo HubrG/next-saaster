@@ -1,0 +1,514 @@
+{
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Sie wurden eingeladen, der Organisation beizutreten",
+              "subject-end": "und sein Team",
+              "subject-middle": " "
+            },
+            "throws": {
+              "already-in-an-organization": "Der Nutzer ist bereits Mitglied einer Organisation.",
+              "already-invited": "Bereits eingeladener Nutzer.",
+              "error-while-creating-invitation": "Es ist ein Fehler aufgetreten. Die Einladung wurde nicht gesendet. Bitte versuchen Sie es erneut.",
+              "no-organization-found": "Es wurde keine Organisation gefunden. Es handelt sich hierbei sicherlich um einen Fehler. Bitte versuchen Sie es noch einmal."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Beim Löschen Ihres Kontos ist ein Problem aufgetreten. Bitte kontaktieren Sie uns.",
+              "cancel-subscription": "Bei der Stornierung des Abonnements ist ein Problem aufgetreten.",
+              "delete": "Sie können Ihr Konto nicht löschen, da Sie der Eigentümer Ihrer Organisation sind. Bitte übertragen Sie Ihre Rechte auf einen anderen Nutzer, andernfalls löschen Sie die Organisation."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Sie können sich nicht selbst einladen!",
+              "field-invite-new-member": "Ein neues Mitglied einladen",
+              "placeholder-email": "E-Mail",
+              "submit": "Einladen"
+            },
+            "note": "Sie haben eine aktive Mitgliedschaft. Das Hinzufügen eines neuen Mitglieds zu Ihrer Organisation wird anteilig berechnet, wenn das Mitglied die Einladung annimmt.",
+            "toasters": {
+              "invitation-sent": "Einladung gesendet an die Adresse"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Renommierte Organisation"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Eine Organisation erstellen"
+        },
+        "members": "Mitglieder",
+        "pending-invitations": "Wartende Nutzer",
+        "popover": {
+          "delete-member": "dieses Mitglied",
+          "delete-organization": "Organisation schließen",
+          "what-delete-organization": "diese Organisation abschaffen"
+        },
+        "toasters": {
+          "organization-created": "Gegründete Organisation",
+          "organization-deleted": "Organisation wurde aufgelöst. Alle Mitglieder wurden aus ihr ausgeschlossen und ihre Rechte gingen verloren.",
+          "organization-left": "Verlassene Organisation",
+          "pendin-user-removed": "Benutzer in der Warteschleife gelöscht"
+        },
+        "tooltip": {
+          "owner": "Eigentümer"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Ihre E-Mail-Adresse",
+          "email-exemple": "Beispiel",
+          "submit": "Mich für den Newsletter anmelden"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Abbrechen",
+        "confirm": "Bestätigen",
+        "message": "Sind Sie sicher, dass Sie"
+      },
+      "popover-delete": {
+        "cancel": "Abbrechen",
+        "confirm": "Bestätigen",
+        "message": "Sind Sie sicher, dass Sie löschen wollen"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Konto",
+          "billing": "Abonnement",
+          "emails": "E-Mails",
+          "organization": "Organisation",
+          "profile": "Profil",
+          "purchases": "Einkaufen",
+          "usage": "Verwendung"
+        },
+        "title": "Mein Konto"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Sie haben kein Passwort erstellt, da Sie mit einem {varIntlProvider}-Konto angemeldet sind. Sie können hier ein solches erstellen.",
+              "form": {
+                "password": "Passwort",
+                "password-confirmation": "Bestätigung des Passworts",
+                "password-error": "Das Passwort muss mindestens {varIntlMin} Zeichen enthalten.",
+                "passwords-not-matching": "Die Passwörter stimmen nicht überein.",
+                "submit": "Das Passwort erstellen"
+              },
+              "title": "Ein Passwort erstellen",
+              "toasters": {
+                "succes-password-created": "Ihr Passwort wurde erstellt."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Kein Problem, wir können Ihnen einen Link zum Zurücksetzen Ihres Passworts schicken.",
+              "emailSent": {
+                "subject": "Ihr Passwort zurücksetzen"
+              },
+              "form": {
+                "email": "Deine E-Mail-Adresse",
+                "email-error": "Dies ist keine gültige E-Mail-Adresse.",
+                "submit": "Mir den Link zur Wiederherstellung schicken"
+              },
+              "title": "Passwort vergessen?",
+              "toasters": {
+                "send-email-error": "Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Aktuelles Passwort",
+                "new-password": "Neues Passwort",
+                "password-confirmation": "Bestätigung des Passworts",
+                "password-error": "Das Passwort muss mindestens {varIntlMin} Zeichen enthalten.",
+                "passwords-not-matching": "Die Passwörter stimmen nicht überein.",
+                "submit": "Das Passwort aktualisieren",
+                "required-message": "Obligatorisch"
+              },
+              "title": "Ihr Passwort aktualisieren",
+              "toasters": {
+                "password-update-error": "Beim Aktualisieren des Passworts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+                "password-updated": "Aktualisiertes Passwort."
+              }
+            }
+          },
+          "close-account": "Mein Konto deaktivieren...",
+          "close-account-popover-message": "Ihr Konto löschen? Diese Aktion kann nicht rückgängig gemacht werden. Wenn Sie ein Abonnement abgeschlossen haben, wird es storniert.",
+          "connectedWith": "Sie sind mit Ihrem {varIntlProvider}-Konto angemeldet.",
+          "create-password": "Sie haben kein Passwort erstellt, da Sie automatisch mit einem {varIntlProvider}-Konto angemeldet werden.",
+          "manage-password": "Ihr Passwort verwalten",
+          "title": "Konto"
+        },
+        "Billing": {
+          "according-to-use": "je nach Verwendung",
+          "billed-each": "berechnet jeden",
+          "buttons": {
+            "cancel-subscription": "Abonnement kündigen",
+            "restart-subscription": "Das Abonnement neu starten",
+            "update-payment": "Zahlungsmittel ändern",
+            "update-plan": "Herunterstufen oder Upgraden"
+          },
+          "daily": "Tag",
+          "features-title": "Funktionen",
+          "id": "Rechnungsstellung",
+          "monthly": "Monat",
+          "next-invoice-at": "Nächste Rechnung am",
+          "no-plan-subscribed-yet": "Sie haben kein Abonnement abgeschlossen",
+          "per-user": "pro Nutzer",
+          "subscribe-now": "Ich möchte mich abonnieren!",
+          "subscription-will-be-canceled-at": "Ihr Abonnement wird endgültig gekündigt am",
+          "title": "Rechnungsstellung",
+          "tooltips": {
+            "cancel-subscription": "Ihr Abonnement wird am Ende des Abrechnungszeitraums, am {varIntlDate}, endgültig gekündigt. Sie können Ihre Funktionen bis zu diesem Datum weiterhin nutzen. Danach werden Ihnen keine weiteren Rechnungen mehr ausgestellt.",
+            "restart-subscription": "Ihr Abonnement wird ohne weitere Berechnung neu gestartet."
+          },
+          "trial-days-remaining": "Sie haben noch {varIntlDays} Testtag(e) übrig",
+          "users": "Nutzer",
+          "weekly": "Woche",
+          "yearly": "an",
+          "you-save": "Sie sparen {varIntlSave} bei diesem Abonnement",
+          "your-plan": "Ihr Abonnement",
+          "your-trial-ends-at": "Ihre Probezeit endet am"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Abonnement des Newsletters",
+            "toasters": {
+              "error-delete-contact": "Fehler beim Löschen des Kontakts aus dem Newsletter-Publikum",
+              "error-get-contact": "Beim Abrufen des Kontakts aus dem Newsletter ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+              "error-update-newsletter": "Beim Aktualisieren Ihrer Newsletter-Einstellungen ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+              "newsletter-disabled": "deaktiviert",
+              "newsletter-enabled": "aktiviert"
+            }
+          },
+          "title": "E-Mails"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Sie können sich nicht selbst einladen!",
+                "field-invite-new-member": "Ein neues Mitglied einladen",
+                "placeholder-email": "E-Mail",
+                "submit": "Einladen"
+              },
+              "note": "Sie haben eine aktive Mitgliedschaft. Das Hinzufügen eines neuen Mitglieds zu Ihrer Organisation wird anteilig berechnet, wenn das Mitglied die Einladung annimmt.",
+              "toasters": {
+                "invitation-sent": "Einladung gesendet an die Adresse"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "dieses Mitglied als Besitzer befördern? Es kann nur einen Eigentümer geben, in diesem Fall verlieren Sie alle Veröffentlichungsrechte für diese Organisation.",
+                "promote-member-display": "Dieses Mitglied fördern",
+                "revoke-member": "dieses Mitglied der Organisation abberufen",
+                "revoke-member-display": "Diesen Nutzer widerrufen"
+              },
+              "toasters": {
+                "user-promoted": "Benutzer wird befördert. Sie sind nicht mehr der Eigentümer dieser Organisation",
+                "user-removed": "Widerrufener Nutzer"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Der Name muss mindestens {varIntlMin} Zeichen enthalten",
+                "field-organization-name": "Name der Organisation",
+                "submit": "Umbenennen"
+              },
+              "organization-renamed": "Renommierte Organisation",
+              "toasters": {
+                "organization-renamed": "Renamed Organization"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Eine Organisation erstellen"
+          },
+          "members": "Mitglieder",
+          "pending-invitations": "Wartende Nutzer",
+          "popover": {
+            "delete-member": "dieses Mitglied",
+            "delete-organization": "Organisation schließen...",
+            "what-delete-organization": "diese Organisation abschaffen"
+          },
+          "title": "Organisation",
+          "toasters": {
+            "organization-created": "Gegründete Organisation",
+            "organization-deleted": "Organisation wurde aufgelöst. Alle Mitglieder wurden aus ihr ausgeschlossen und ihre Rechte gingen verloren.",
+            "organization-left": "Verlassene Organisation",
+            "pendin-user-removed": "Benutzer in der Warteschleife gelöscht"
+          },
+          "tooltip": {
+            "owner": "Eigentümer"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Profilbild bearbeiten",
+          "form": {
+            "name": "Name der Anzeige",
+            "submit": "Aktualisieren",
+            "upload": "Download"
+          },
+          "title": "Profil",
+          "toasters": {
+            "file-is-empty": "Die Datei ist leer",
+            "file-is-not-an-image": "Die Datei ist kein Bild",
+            "file-is-too-large": "Die Datei ist zu groß (maximal 2 MB)",
+            "no-file-provided": "Keine Dateien bereitgestellt",
+            "success": "Aktualisiertes Profil",
+            "success-file-uploaded": "Profilbild erfolgreich bearbeitet"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Keine Kaufhistorie",
+          "no-purchase-history-description": "Sie haben noch kein Produkt auf unserer Seite gekauft!",
+          "title": "Einkaufen"
+        }
+      }
+    },
+    "button": "Zur Übersicht gehen",
+    "description": "Willkommen auf Ihrem Dashboard!",
+    "title": "Anzeigentafel",
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Unbekannte E-Mail-Adresse",
+        "invalid-token": "Ungültiger Jeton",
+        "password-not-updated": "Bei der Änderung Ihres Passworts ist ein Problem aufgetreten. Bitte versuchen Sie es erneut.",
+        "token-expired": "Jeton abgelaufen.",
+        "token-not-found": "Reset-Token nicht gefunden."
+      }
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Verpassen Sie keine unserer Neuigkeiten! Melden Sie sich für unseren Newsletter an",
+      "privacy": "Datenschutzrichtlinie",
+      "terms": "Rechtliche Hinweise",
+      "title": "Legal"
+    },
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "title": "Navigation"
+    }
+  },
+  "Index": {
+    "first-connexion": "Erste Verbindung",
+    "metadatas": {
+      "description": "NextJS SaaS-Starterkit für eine schnelle Entwicklung: Konzentrieren Sie sich nur auf die wichtigsten Funktionen, sichern Sie sich mit einem modernen Frontend, einem skalierbaren und sicheren Backend ab. Sparen Sie Aufwand",
+      "title": "Startseite"
+    },
+    "title": "Willkommen!"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Kontakt",
+          "features": "Funktionen",
+          "home": "Startseite",
+          "howItWorks": "Wie funktioniert das?",
+          "pricing": "Preisgestaltung"
+        },
+        "UserProfile": {
+          "login": "Sich anmelden",
+          "logout": "Sich abmelden",
+          "my-account": "Mein Konto",
+          "refill": "Aufladen"
+        },
+        "buy-now": "Kaufen"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-Mail",
+        "login-with-email": "Mich anmelden",
+        "password": "Passwort"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "Beispiel",
+        "submit": "Mir einen Anmeldelink schicken",
+        "your-email": "Ihre E-Mail-Adresse"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Sich mit Github anmelden"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Weiter mit Google"
+      },
+      "buttons": {
+        "continue-with-google": "Verbindung mit Google"
+      }
+    },
+    "button": {
+      "no-account": "Kein Konto?",
+      "register": "Klicken Sie hier, um sich anzumelden."
+    },
+    "title": "Anmelden bei Ihrem Konto",
+    "toasters": {
+      "bad-credentials": "Falsche Identifikatoren"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "Monat",
+        "contact-us": "Kontaktieren Sie uns, um Ihr Angebot zu personalisieren.",
+        "metered-unit": "von",
+        "monthly": "Monat",
+        "per-seat": "pro Sitz",
+        "popular": "Beliebt",
+        "recommended": "Empfohlen",
+        "trial": "Testtage, dann",
+        "yearly": "an"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Eine Zahlung, viele Projekte"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Kaufen",
+        "startTrial": "Testen während {varIntlTrialDays} Tagen",
+        "subscribeNow": "Abonnieren"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Kontaktieren Sie uns"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Monatlich",
+        "yearly": "Jährlich"
+      }
+    },
+    "title": "Preisgestaltung"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "form": {
+        "confirm-password": "Bestätigen Sie das Passwort",
+        "email": "E-Mail-Adresse",
+        "email-error": "Ihre E-Mail-Adresse hat nicht das richtige Format",
+        "password": "Passwort",
+        "password-did-not-match": "Die Passwörter müssen ähnlich sein",
+        "password-error": "Ihr Passwort muss mindestens {varIntlMin} Zeichen enthalten.",
+        "register-with-email": "Mein Konto erstellen"
+      },
+      "emailSent": {
+        "subject": "Herzlich willkommen! Bitte bestätigen Sie die Gültigkeit Ihrer E-Mail-Adresse."
+      }
+    },
+    "already-account-sentence": "Haben Sie bereits ein Konto?",
+    "button": {
+      "login": "Melden Sie sich an"
+    },
+    "title": "Ein Konto erstellen",
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Akzeptieren",
+          "already-accept": "Sie haben die Einladung bereits angenommen.",
+          "decline": "Ablehnen",
+          "do-you-accept": "Sind Sie bereit, sich dieser Organisation anzuschließen?",
+          "invitation-accepted": "Einladung angenommen, bitte erstellen Sie ein Konto und melden Sie sich dann an, um die Einladung abzuschließen. Sie werden nun auf die Seite zur Kontoerstellung weitergeleitet.",
+          "invitation-accepted-2": "Einladung angenommen, bitte melden Sie sich in Ihrem Konto an, um die Einladung abzuschließen.",
+          "invitation-declined": "Einladung abgelehnt",
+          "invited": "Sie wurden eingeladen, dem Team von \"{varIntlOrganization}\" beizutreten.",
+          "join": "Der Organisation \"{varIntlOrganization}\" beitreten",
+          "logout": "Mich abmelden",
+          "organization-not-found": "Nicht vorhandene Organisation."
+        }
+      },
+      "invitation-not-found": "Nicht vorhandene Organisation.",
+      "invited-with-different-email": "Sie sind mit einer anderen E-Mail-Adresse angemeldet als der, die die Einladung erhalten hat.",
+      "logged-in-with-right-email": "Sie sind mit der richtigen E-Mail-Adresse angemeldet, müssen sich aber nacheinander aus- und wieder einloggen, um die Einladung anzunehmen.",
+      "please-logout": "Bitte melden Sie sich mit der entsprechenden E-Mail-Adresse an und kehren Sie auf diese Seite zurück. Wenn Sie kein Konto mit der eingeladenen Adresse haben, loggen Sie sich bitte aus und kehren Sie zu dieser Seite zurück, um ein Konto zu erstellen."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Loggen Sie sich in Ihr Konto ein",
+      "request-new-validation": "und fordern Sie einen neuen Validierungslink an, wenn Sie ihn noch nicht validiert haben.",
+      "success": "Verifizierte E-Mail.",
+      "title": "Überprüfung Ihrer E-Mail-Adresse"
+    }
+  },
+  "API": {
+    "ForgotPassword": {
+      "success": "Ein Link zum Zurücksetzen Ihres Passworts wurde an die Adresse {varIntlEmail} gesendet. Bitte überprüfen Sie Ihre E-Mail-Nachrichten."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Bei der Erstellung des Verifizierungstokens ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+        "unknown-error": "Wir sind auf einen unbekannten Fehler gestoßen. Bitte versuchen Sie es noch einmal oder nehmen Sie Kontakt mit uns auf.",
+        "user-already-exists": "Diese E-Mail-Adresse ist bereits registriert. Wenn Sie der Besitzer sind, melden Sie sich bitte mit dieser an oder fordern Sie ggf. eine Rücksetzung Ihres Passworts an.",
+        "user-not-created": "Bei der Erstellung des Kontos ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+      },
+      "success": "Herzlich willkommen {varIntlName}! Vielen Dank für Ihr Vertrauen. Sie erhalten nun eine E-Mail mit einem Link, mit dem Sie die Gültigkeit bestätigen können.\n\n Sie können sich bereits jetzt mit Ihren Zugangsdaten einloggen."
+    },
+    "VerifyEmail": {
+      "expired-token": "Verifizierungs-Token bereits validiert, abgelaufen oder nicht gefunden.",
+      "success": "Ihre E-Mail-Adresse wurde verifiziert."
+    }
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Ihr Passwort zurücksetzen",
+      "resetPassword": "Das Passwort zurücksetzen",
+      "text": "Sie haben darum gebeten, Ihr Passwort zurückzusetzen. Klicken Sie dazu bitte auf die untenstehende Schaltfläche."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Einladung annehmen",
+      "heading": "Sie wurden eingeladen, sich dem Team von {varIntlTeamName} anzuschließen.",
+      "text": "Um die Einladung anzunehmen, klicken Sie bitte auf die Schaltfläche unten."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Willkommen!",
+      "text": "Um Ihre Anmeldung endgültig zu bestätigen, klicken Sie bitte auf die untenstehende Schaltfläche.",
+      "verifyEmail": "Mein Konto bestätigen"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Bestätigen Sie das neue Passwort",
+          "email": "E-Mail-Adresse des Kontos",
+          "email-error": "E-Mail-Adresse im falschen Format.",
+          "new-password": "Wählen Sie ein neues Passwort",
+          "password-error": "Muss mindestens {varIntlMin} Zeichen enthalten.",
+          "password-match-error": "Beide Passwörter müssen identisch sein.",
+          "submit": "Zurücksetzen",
+          "success": "Passwort erfolgreich geändert."
+        }
+      }
+    },
+    "invalid-token": "Ungültiger Jeton zum Zurücksetzen. Bitte beginnen Sie erneut oder stellen Sie einen neuen Antrag.",
+    "reset-password": "Ihr Passwort zurücksetzen",
+    "token-expired": "Das Token zum Zurücksetzen ist unbekannt."
+  }
+}

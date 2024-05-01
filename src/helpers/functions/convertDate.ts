@@ -1,10 +1,11 @@
+"use client";
 import {
   addMonths,
   differenceInCalendarDays,
   differenceInMonths,
-  formatRelative
+  formatRelative,
 } from "date-fns";
-import { enUS, fr, } from "date-fns/locale";
+import { enUS, fr } from "date-fns/locale";
 
 type Locale = "US" | "EN" | "FR";
 
@@ -55,11 +56,11 @@ export function formatUnixDate(
   unixTimestamp: number,
   locale: Locale,
   type: "format_fn" | "simple" = "simple",
-  withHours:boolean = false
+  withHours: boolean = false
 ): string | undefined {
   const date = new Date(unixTimestamp * 1000);
   if (type === "simple") {
-    if(withHours){
+    if (withHours) {
       return date.toLocaleString();
     } else {
       return date.toLocaleDateString();
@@ -131,36 +132,47 @@ export function daysUntil(unixTimestamp: number, locale: Locale): string {
  * @param {number | Date} end - The end date in Unix timestamp or Date object format.
  * @returns {string} - The difference between the dates in terms of months and days (e.g., "2 months and 5 days").
  */
-export function calculateDifferenceBetweenUnixDates(start: number, end: number): string {
+export function calculateDifferenceBetweenUnixDates(
+  start: number,
+  end: number
+): string {
   // Ensure both start and end are Date objects
-   const startDate = new Date(start * 1000);
-   const endDate = new Date(end * 1000);
+  const startDate = new Date(start * 1000);
+  const endDate = new Date(end * 1000);
 
-   let monthDiff = differenceInMonths(endDate, startDate);
-   let dayDiff = differenceInCalendarDays(
-     endDate,
-     addMonths(startDate, monthDiff)
-   );
+  let monthDiff = differenceInMonths(endDate, startDate);
+  let dayDiff = differenceInCalendarDays(
+    endDate,
+    addMonths(startDate, monthDiff)
+  );
 
-   // If dayDiff is negative, it means we went too far by one month
-   if (dayDiff < 0) {
-     monthDiff -= 1; // Reduce the month count by one
-     dayDiff = differenceInCalendarDays(
-       endDate,
-       addMonths(startDate, monthDiff)
-     );
-   }
+  // If dayDiff is negative, it means we went too far by one month
+  if (dayDiff < 0) {
+    monthDiff -= 1; // Reduce the month count by one
+    dayDiff = differenceInCalendarDays(
+      endDate,
+      addMonths(startDate, monthDiff)
+    );
+  }
 
-   let result = "";
-   if (monthDiff > 0) {
-     result += `${monthDiff} month${monthDiff > 1 ? "s" : ""}`;
-   }
-   if (dayDiff > 0) {
-     if (result.length > 0) {
-       result += " and ";
-     }
-     result += `${dayDiff} day${dayDiff > 1 ? "s" : ""}`;
-   }
+  let result = "";
+  if (monthDiff > 0) {
+    result += `${monthDiff} month${monthDiff > 1 ? "s" : ""}`;
+  }
+  if (dayDiff > 0) {
+    if (result.length > 0) {
+      result += " and ";
+    }
+    result += `${dayDiff} day${dayDiff > 1 ? "s" : ""}`;
+  }
 
-   return result || "0 days";
+  return result || "0 days";
 }
+
+export const convertUnixToDate = (date: number): Date => {
+  let unixTimestamp = date * 1000;
+
+  // Création de l'objet Date
+  let ret = new Date(unixTimestamp);
+  return ret;
+};

@@ -6,6 +6,7 @@ import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
+import { getTranslations } from "next-intl/server";
 import { PriceCardsFeaturesByCategories } from "./components/PriceCardFeaturesByCategories";
 import { PriceCardsSimple } from "./components/PriceCardsSimple";
 
@@ -21,7 +22,8 @@ export default async function Pricing({
   params: { locale },
 }: {
   params: { locale: string };
-}) {
+  }) {
+  const t = await getTranslations();
   const session = await getServerSession(authOptions);
   if (session) {
     const email = session?.user?.email;
@@ -36,7 +38,7 @@ export default async function Pricing({
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="flex flex-col gap-y-8 ">
-        <h1 className="!bg-gradient2">Pricing</h1>
+        <h1 className="!bg-gradient2">{t("Pricing.title")}</h1>
         {/* Display recurrence if not "Pay once" or "Metered" business model */}
         <SwitchRecurrence
         // yearlypercent_off={20}

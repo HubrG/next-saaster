@@ -16,7 +16,7 @@ import { sendEmail } from "@/src/helpers/emails/sendEmail";
 import { cn } from "@/src/lib/utils";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,6 +32,7 @@ type ApiResponse = {
 };
 export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
   const t = useTranslations("Dashboard.Components.Profile.Account.Components.ForgotPassword");
+  const locale = useLocale();
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -47,6 +48,7 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
       method: "POST",
       body: JSON.stringify({
         email: formData.email,
+        locale,
       }),
     });
     const responseData: ApiResponse = await response.json();
@@ -69,6 +71,7 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
         if (!send.error) {
           toaster({
             type: "success",
+            duration: 5000,
             description: responseData.message,
           });
           setIsLoading(false);

@@ -1,140 +1,514 @@
 {
-  "Index": {
-    "title": "स्वागत है!",
-    "first-connexion": "पहली बार कनेक्शन",
-    "metadatas": {
-      "title": "होम",
-      "description": "तेजी से विकास के लिए NextJS SaaS स्टार्टर किट: केवल मुख्य विशेषताओं पर ध्यान केंद्रित करें, एक आधुनिक फ्रंटेंड, स्केलेबल और सुरक्षित बैकएंड के साथ आश्वस्त रहें। \nप्रयासों को बचाएं"
-    }
-  },
   "Dashboard": {
     "Components": {
-      "Navbar": {
-        "title": "मेरा खाता",
-        "links": {
-          "profile": "प्रोफ़ाइल",
-          "account": "खाता",
-          "organization": "संगठन",
-          "billing": "बिलिंग",
-          "usage": "उपयोग",
-          "purchases": "खरीदारी",
-          "emails": "ईमेल"
-        }
-      },
       "Profile": {
-        "Account": {
-          "title": "खाता",
-          "connectedWith": "आप अपने {provider} खाते से जुड़े हुए हैं",
-          "manage-password": "अपना पासवर्ड प्रबंधित करें",
-          "create-password": "आपने {provider} खाते के साथ जुड़ने के कारण पासवर्ड नहीं बनाया है।",
-          "close-account": "मेरा खाता निष्क्रिय करें...",
-          "close-account-popover-message": "अपना खाता हटाना चाहते हैं? यह क्रिया अपरिवर्तनीय है। अगर आपका कोई सदस्यता है, तो वह रद्द हो जाएगी।",
-          "Components": {
-            "UpdatePassword": {
-              "title": "अपना पासवर्ड अपडेट करें",
+        "Billing": {
+          "buttons": {
+            "update-plan": "डाउनग्रेड या अपग्रेड करें",
+            "cancel-subscription": "सदस्यता रद्द",
+            "restart-subscription": "सदस्यता पुनः प्रारंभ करें",
+            "update-payment": "भुगतान का तरीका बदलें"
+          },
+          "daily": "दिन",
+          "features-title": "विशेषताएँ",
+          "id": "बिलिंग",
+          "monthly": "महीना",
+          "next-invoice-at": "अगला चालान चालू",
+          "no-plan-subscribed-yet": "आपने कोई सदस्यता नहीं खरीदी है",
+          "per-user": "प्रति उपयोगकर्ता",
+          "subscribe-now": "मैं सदस्यता लेना चाहूँगा!",
+          "subscription-will-be-canceled-at": "आपकी सदस्यता स्थायी रूप से रद्द कर दी जाएगी",
+          "title": "बिलिंग",
+          "tooltips": {
+            "cancel-subscription": "आपकी सदस्यता बिलिंग अवधि के अंत में {varIntlDate} को स्थायी रूप से रद्द कर दी जाएगी। \nआप इस तिथि तक अपनी सुविधाओं का उपयोग जारी रख सकते हैं। \nफिर आपको बिल नहीं भेजा जाएगा.",
+            "restart-subscription": "आपकी सदस्यता अतिरिक्त बिलिंग के बिना पुनः आरंभ होगी।"
+          },
+          "trial-days-remaining": "आपके पास {varIntlDays} परीक्षण के दिन बचे हैं",
+          "users": "उपयोगकर्ताओं",
+          "weekly": "सप्ताह",
+          "yearly": "वर्ष",
+          "you-save": "आप इस सदस्यता पर {varIntlSave} सहेजें",
+          "your-plan": "आपकी सदस्यता",
+          "your-trial-ends-at": "आपकी परीक्षण अवधि समाप्त हो रही है",
+          "according-to-use": "उपयोग पर निर्भर करता है",
+          "billed-each": "प्रत्येक को बिल दिया गया"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "न्यूज़लैटर की सदस्यता",
+            "toasters": {
+              "error-delete-contact": "न्यूज़लेटर दर्शकों से संपर्क हटाते समय त्रुटि",
+              "error-get-contact": "न्यूज़लेटर संपर्क पुनः प्राप्त करते समय एक त्रुटि उत्पन्न हुई। \nपुनः प्रयास करें।",
+              "error-update-newsletter": "आपकी न्यूज़लेटर प्राथमिकता को अद्यतन करते समय एक त्रुटि उत्पन्न हुई। \nपुनः प्रयास करें।",
+              "newsletter-disabled": "अक्षम",
+              "newsletter-enabled": "सक्रिय"
+            }
+          },
+          "title": "ईमेल"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
               "form": {
-                "actual-password": "वर्तमान पासवर्ड",
-                "new-password": "नया पासवर्ड",
-                "password-confirmation": "पासवर्ड की पुष्टि करें",
-                "submit": "पासवर्ड अपडेट करें",
-                "password-error": "पासवर्ड में कम से कम {min} वर्ण होने चाहिए।",
-                "passwords-not-matching": "पासवर्ड मेल नहीं खा रहे।"
+                "error-you-cant-invite-yourself": "आप स्वयं को आमंत्रित नहीं कर सकते!",
+                "field-invite-new-member": "नये सदस्य को आमंत्रित करें",
+                "placeholder-email": "ईमेल",
+                "submit": "आमंत्रित करना"
               },
+              "note": "आपके पास एक सक्रिय सदस्यता है. \nयदि सदस्य इस निमंत्रण को स्वीकार करता है तो आपके संगठन में एक नया सदस्य जोड़ने पर आनुपातिक आधार पर बिल भेजा जाएगा",
               "toasters": {
-                "password-updated": "पासवर्ड अपडेट हो गया।",
-                "password-update-error": "पासवर्ड अपडेट करते समय एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+                "invitation-sent": "पते पर निमंत्रण भेजा गया"
               }
             },
-            "ForgotPassword": {
-              "title": "पासवर्ड भूल गए?",
-              "description": "कोई समस्या नहीं, हम आपको अपना पासवर्ड रीसेट करने के लिए एक लिंक भेज सकते हैं।",
-              "form": {
-                "email": "आपका ईमेल पता",
-                "email-error": "यह एक वैध ईमेल पता नहीं है।",
-                "submit": "मुझे लिंक भेजें"
-              },
-              "emailSent": {
-                "subject": "अपना पासवर्ड रीसेट करें"
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "इस सदस्य को स्वामी के रूप में प्रचारित करें? \nकेवल एक ही स्वामी हो सकता है, ऐसी स्थिति में आप उस संगठन में पोस्ट करने के सभी अधिकार खो देंगे।",
+                "promote-member-display": "इस सदस्य का प्रचार करें",
+                "revoke-member": "इस सदस्य को संगठन से हटा दें",
+                "revoke-member-display": "इस उपयोगकर्ता को निरस्त करें"
               },
               "toasters": {
-                "send-email-error": "ईमेल भेजते समय एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+                "user-promoted": "प्रचारित उपयोगकर्ता. \nअब आप इस संगठन के स्वामी नहीं हैं",
+                "user-removed": "उपयोगकर्ता निरस्त कर दिया गया"
               }
             },
-            "CreatePassword": {
-              "title": "पासवर्ड बनाएं",
-              "description": "आपने {provider} खाते के साथ जुड़ने के कारण पासवर्ड नहीं बनाया है। आप यहाँ एक बना सकते हैं।",
+            "RenameOrganization": {
               "form": {
-                "password": "पासवर्ड",
-                "password-confirmation": "पासवर्ड की पुष्टि",
-                "submit": "पासवर्ड बनाएं",
-                "password-error": "पासवर्ड में कम से कम {min} वर्ण होने चाहिए।",
-                "passwords-not-matching": "पासवर्ड मेल नहीं खा रहे।"
+                "error-name-min": "नाम में कम से कम {varIntlMin} अक्षर होना चाहिए",
+                "field-organization-name": "संगठन का नाम",
+                "submit": "नाम बदलें"
               },
+              "organization-renamed": "प्रसिद्ध संस्था",
               "toasters": {
-                "succes-password-created": "आपका पासवर्ड बन गया है।"
+                "organization-renamed": "संगठन का नाम बदला गया"
               }
             }
+          },
+          "buttons": {
+            "create-organization": "एक संगठन बनाएं"
+          },
+          "members": "सदस्यों",
+          "pending-invitations": "लंबित उपयोगकर्ता",
+          "popover": {
+            "delete-member": "यह सदस्य",
+            "delete-organization": "संगठन बंद करें...",
+            "what-delete-organization": "इस संगठन को हटाएं"
+          },
+          "title": "संगठन",
+          "toasters": {
+            "organization-created": "संगठन बनाया गया",
+            "organization-deleted": "संगठन हटा दिया गया. \nसभी सदस्यों को बाहर कर दिया गया और उनके अधिकार खो दिये गये।",
+            "organization-left": "संगठन छोड़ दिया",
+            "pendin-user-removed": "लंबित उपयोगकर्ता हटा दिया गया"
+          },
+          "tooltip": {
+            "owner": "मालिक"
           }
         },
         "Profile": {
-          "change-avatar": "प्रोफ़ाइल फोटो बदलें",
+          "change-avatar": "प्रोफ़ाइल तस्वीर बदलें",
           "form": {
-            "submit": "अपडेट करें",
-            "name": "प्रदर्शन नाम"
+            "name": "प्रदर्शित होने वाला नाम",
+            "submit": "अद्यतन करने के लिए",
+            "upload": "डाउनलोड करना"
           },
           "title": "प्रोफ़ाइल",
           "toasters": {
-            "success": "प्रोफ़ाइल अपडेट हो गई",
-            "no-file-provided": "कोई फ़ाइल प्रदान नहीं की गई",
             "file-is-empty": "फ़ाइल खाली है",
-            "file-is-too-large": "फ़ाइल बहुत बड़ी है (अधिकतम 2 MB)",
-            "file-is-not-an-image": "फ़ाइल एक छवि नहीं है",
-            "success-file-uploaded": "प्रोफ़ाइल फोटो सफलतापूर्वक अपडेट की गई"
+            "file-is-not-an-image": "फ़ाइल कोई छवि नहीं है",
+            "file-is-too-large": "फ़ाइल बहुत बड़ी है (अधिकतम 2 एमबी)",
+            "no-file-provided": "कोई फ़ाइल उपलब्ध नहीं कराई गई",
+            "success": "प्रोफाइल अद्यतन किया गया",
+            "success-file-uploaded": "प्रोफ़ाइल चित्र सफलतापूर्वक बदला गया"
           }
         },
-        "Organization": {
-          "title": "संगठन"
-        },
-        "Billing": {
-          "id": "बिलिंग",
-          "title": "बिलिंग"
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "आपने पासवर्ड नहीं बनाया क्योंकि आप {varIntlProvider} खाते से लॉग इन हैं। \nआप यहां एक बना सकते हैं.",
+              "form": {
+                "password": "पासवर्ड",
+                "password-confirmation": "पासवर्ड पुष्टि",
+                "password-error": "पासवर्ड कम से कम {varIntlMin} अक्षर लंबा होना चाहिए।",
+                "passwords-not-matching": "सांकेतिक शब्द मेल नहीं खाते।",
+                "submit": "पासवर्ड बनाएं"
+              },
+              "title": "एक पासवर्ड बनाएं",
+              "toasters": {
+                "succes-password-created": "आपका पासवर्ड बन गया है."
+              }
+            },
+            "ForgotPassword": {
+              "description": "कोई समस्या नहीं, हम आपका पासवर्ड रीसेट करने के लिए आपको एक लिंक भेज सकते हैं।",
+              "emailSent": {
+                "subject": "अपना पासवर्ड रीसेट करें"
+              },
+              "form": {
+                "email": "आपका ईमेल पता",
+                "email-error": "यह कोई मान्य ईमेल पता नहीं है।",
+                "submit": "मुझे पुनर्प्राप्ति लिंक भेजें"
+              },
+              "title": "अपना कूट शब्द भूल गए ?",
+              "toasters": {
+                "send-email-error": "ईमेल भेजते समय एक त्रुटि हुई। \nपुनः प्रयास करें।"
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "वर्तमान पासवर्ड",
+                "new-password": "नया पासवर्ड",
+                "password-confirmation": "पासवर्ड पुष्टि",
+                "password-error": "पासवर्ड कम से कम {varIntlMin} अक्षर लंबा होना चाहिए।",
+                "passwords-not-matching": "सांकेतिक शब्द मेल नहीं खाते।",
+                "submit": "पासवर्ड अपडेट करें",
+                "required-message": "अनिवार्य"
+              },
+              "title": "अपना पासवर्ड अपडेट करें",
+              "toasters": {
+                "password-update-error": "पासवर्ड अद्यतन करते समय कोई त्रुटि उत्पन्न हुई. \nपुनः प्रयास करें।",
+                "password-updated": "पासवर्ड अपडेट किया गया।"
+              }
+            }
+          },
+          "close-account": "मेरे खाते को निष्क्रिय करें...",
+          "close-account-popover-message": "अपने खाते को नष्ट करो? \nयह क्रिया अपरिवर्तनीय है. \nयदि आपने कोई सदस्यता खरीदी है, तो उसे रद्द कर दिया जाएगा।",
+          "connectedWith": "आप अपने खाते {varIntlProvider} से लॉग इन हैं",
+          "create-password": "आपने पासवर्ड नहीं बनाया है क्योंकि आप स्वचालित रूप से {varIntlProvider} खाते से लॉग इन हैं।",
+          "manage-password": "अपना पासवर्ड प्रबंधित करें",
+          "title": "खाता"
         },
         "Purchases": {
-          "title": "खरीदारी"
+          "no-purchase-history": "कोई खरीदारी इतिहास नहीं",
+          "title": "खरीद",
+          "no-purchase-history-description": "आपने अभी तक हमारी साइट पर कोई उत्पाद नहीं खरीदा है!"
         }
+      },
+      "Navbar": {
+        "links": {
+          "account": "खाता",
+          "billing": "अंशदान",
+          "emails": "ईमेल",
+          "organization": "संगठन",
+          "profile": "प्रोफ़ाइल",
+          "purchases": "खरीद",
+          "usage": "उपयोग"
+        },
+        "title": "मेरा खाता"
       }
     },
-    "title": "डैशबोर्ड",
+    "button": "डैशबोर्ड पर जाएँ",
     "description": "आपके डैशबोर्ड में आपका स्वागत है!",
-    "button": "डैशबोर्ड पर जाएं"
-  },
-  "Components": {
-    "UI": {
-      "popover-confirm": {
-        "message": "क्या आप सुनिश्चित हैं कि आप",
-        "confirm": "पुष्टि करें",
-        "cancel": "रद्द करें"
+    "title": "डैशबोर्ड",
+    "Queries": {
+      "Profile": {
+        "email-not-found": "अज्ञात ईमेल पता",
+        "invalid-token": "अमान्य टोकन",
+        "password-not-updated": "आपका पासवर्ड बदलते समय एक समस्या उत्पन्न हुई. \nपुनः प्रयास करें।",
+        "token-expired": "टोकन समाप्त हो गया.",
+        "token-not-found": "रीसेट टोकन नहीं मिला."
       }
     }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "हमारी खबर न चूकें! \nहमारे न्युजलेटर की सदस्यता प्राप्त करें",
+      "privacy": "गोपनीयता नीति",
+      "terms": "कानूनी नोटिस",
+      "title": "कानूनी"
+    },
+    "Navigation": {
+      "blog": "ब्लॉग",
+      "faq": "पूछे जाने वाले प्रश्न",
+      "title": "मार्गदर्शन"
+    }
+  },
+  "Index": {
+    "first-connexion": "पहला कनेक्शन",
+    "metadatas": {
+      "description": "तीव्र विकास के लिए नेक्स्टजेएस सास स्टार्टर किट: केवल मुख्य विशेषताओं पर ध्यान केंद्रित करें, आधुनिक फ्रंटएंड, स्केलेबल और सुरक्षित बैकएंड के साथ निश्चिंत रहें। \nप्रयास बचाएं",
+      "title": "स्वागत"
+    },
+    "title": "स्वागत !"
   },
   "Layout": {
     "Header": {
       "Navbar": {
-        "buy-now": "अभी खरीदें",
-        "UserProfile": {
-          "refill": "रिफिल",
-          "my-account": "मेरा खाता",
-          "login": "लॉग इन करें",
-          "logout": "लॉग आउट"
-        },
         "MainMenu": {
-          "howItWorks": "यह कैसे काम करता है?",
+          "contact": "संपर्क",
           "features": "विशेषताएँ",
-          "home": "होम",
-          "pricing": "मूल्य निर्धारण",
-          "contact": "संपर्क करें"
-        }
+          "home": "स्वागत",
+          "howItWorks": "यह काम किस प्रकार करता है ?",
+          "pricing": "मूल्य निर्धारण"
+        },
+        "UserProfile": {
+          "login": "लॉग इन करने के लिए",
+          "logout": "साइन आउट",
+          "my-account": "मेरा खाता",
+          "refill": "पुनः लोड करें"
+        },
+        "buy-now": "खरीदना"
       }
     }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "ईमेल",
+        "login-with-email": "लॉग इन करें",
+        "password": "पासवर्ड"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "उदाहरण",
+        "submit": "मुझे एक लॉगिन लिंक भेजें",
+        "your-email": "आपका ईमेल पता"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Github के साथ लॉगिन करें"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Google के साथ जारी रखें"
+      },
+      "buttons": {
+        "continue-with-google": "Google से साइन इन करें"
+      }
+    },
+    "button": {
+      "no-account": "खाता नहीं?",
+      "register": "जुड़ने के लिए यहाँ क्लिक करे।"
+    },
+    "title": "अपने अकाउंट में लॉग इन करें",
+    "toasters": {
+      "bad-credentials": "ग़लत पहचानकर्ता"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "महीना",
+        "contact-us": "अपने प्रस्ताव को निजीकृत करने के लिए हमसे संपर्क करें।",
+        "metered-unit": "द्वारा",
+        "monthly": "महीना",
+        "per-seat": "प्रति सीट",
+        "popular": "लोकप्रिय",
+        "recommended": "अनुशंसित",
+        "trial": "परीक्षण के दिन, फिर...",
+        "yearly": "वर्ष"
+      },
+      "PriceCard": {
+        "bottom-sentence": "एक भुगतान, अनेक परियोजनाएँ"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "खरीदना",
+        "startTrial": "{varIntlTrialDays} दिनों के लिए प्रयास करें",
+        "subscribeNow": "सदस्यता लें"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "संपर्क करें"
+      },
+      "SwitchRecurrence": {
+        "monthly": "महीने के",
+        "yearly": "वार्षिक"
+      }
+    },
+    "title": "मूल्य निर्धारण"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "form": {
+        "confirm-password": "पासवर्ड की पुष्टि कीजिये",
+        "email": "मेल पता",
+        "email-error": "आपका ईमेल पता सही प्रारूप में नहीं है",
+        "password": "पासवर्ड",
+        "password-did-not-match": "पासवर्ड समान होने चाहिए",
+        "password-error": "आपका पासवर्ड कम से कम {varIntlMin} अक्षर लंबा होना चाहिए",
+        "register-with-email": "मेरा खाता बनाएं"
+      },
+      "emailSent": {
+        "subject": "स्वागत ! \nकृपया अपने ईमेल पते की वैधता की पुष्टि करें।"
+      }
+    },
+    "already-account-sentence": "क्या आपके पास पहले से एक खाता मौजूद है ?",
+    "button": {
+      "login": "लॉग इन करें"
+    },
+    "title": "खाता बनाएं",
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "स्वीकार करना",
+          "already-accept": "आपने पहले ही निमंत्रण स्वीकार कर लिया है.",
+          "decline": "अस्वीकार करना",
+          "do-you-accept": "क्या आप इस संगठन में शामिल होने के लिए सहमत हैं?",
+          "invitation-accepted": "निमंत्रण स्वीकार कर लिया गया है, कृपया एक खाता बनाएं और फिर निमंत्रण को अंतिम रूप देने के लिए लॉग इन करें। \nआपको खाता निर्माण पृष्ठ पर पुनः निर्देशित किया जाएगा।",
+          "invitation-accepted-2": "निमंत्रण स्वीकार कर लिया गया है, कृपया इसे अंतिम रूप देने के लिए अपने खाते में लॉग इन करें।",
+          "invitation-declined": "निमंत्रण अस्वीकार कर दिया",
+          "invited": "आपको \"{varIntlOrganization}\" टीम में शामिल होने के लिए आमंत्रित किया गया है",
+          "join": "संगठन \"{varIntlOrganization}\" से जुड़ें",
+          "logout": "डिस्कनेक्ट",
+          "organization-not-found": "अस्तित्वहीन संगठन."
+        }
+      },
+      "invitation-not-found": "अस्तित्वहीन संगठन.",
+      "invited-with-different-email": "आप आमंत्रण प्राप्त करने वाले ईमेल पते से भिन्न ईमेल पते से लॉग इन हैं।",
+      "logged-in-with-right-email": "आप सही ईमेल पते से लॉग इन हैं, लेकिन निमंत्रण स्वीकार करने के लिए आपको लॉग आउट करना होगा और फिर से लॉग इन करना होगा।",
+      "please-logout": "कृपया संबंधित ईमेल पते से लॉग इन करें और इस पृष्ठ पर वापस आएं। \nयदि आपके पास अतिथि पते वाला कोई खाता नहीं है, तो लॉग आउट करें और इसे बनाने के लिए इस पृष्ठ पर वापस आएं।"
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "अपने अकाउंट में साइन इन करें",
+      "request-new-validation": "और यदि आपने इसे अभी तक सत्यापित नहीं किया है तो एक नए सत्यापन लिंक का अनुरोध करें।",
+      "success": "ईमेल सत्यापित हुआ।",
+      "title": "आपका ईमेल पता सत्यापित किया जा रहा है"
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "आपको संगठन में शामिल होने के लिए आमंत्रित किया गया है",
+              "subject-end": "और उसकी टीम",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "उपयोगकर्ता पहले से ही किसी संगठन का सदस्य है.",
+              "error-while-creating-invitation": "एक गलती हुई है। \nनिमंत्रण नहीं भेजा गया है. \nपुनः प्रयास करें।",
+              "no-organization-found": "कोई संगठन नहीं मिला. \nयह निश्चित रूप से एक त्रुटि है. \nकृपया पुन: प्रयास करें।",
+              "already-invited": "उपयोगकर्ता को पहले ही आमंत्रित किया जा चुका है."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "आपका खाता हटाते समय एक समस्या उत्पन्न हुई. \nकृपया हमसे संपर्क करें।",
+              "cancel-subscription": "सदस्यता रद्द करते समय एक समस्या उत्पन्न हुई",
+              "delete": "आप अपना खाता नहीं हटा सकते, क्योंकि आप अपने संगठन के स्वामी हैं। \nकृपया अपने अधिकार किसी अन्य उपयोगकर्ता को हस्तांतरित करें, अन्यथा संगठन को हटा दें।"
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "आप स्वयं को आमंत्रित नहीं कर सकते!",
+              "field-invite-new-member": "नये सदस्य को आमंत्रित करें",
+              "placeholder-email": "ईमेल",
+              "submit": "आमंत्रित करना"
+            },
+            "note": "आपके पास एक सक्रिय सदस्यता है. \nयदि सदस्य इस निमंत्रण को स्वीकार करता है तो आपके संगठन में एक नया सदस्य जोड़ने पर आनुपातिक आधार पर बिल भेजा जाएगा",
+            "toasters": {
+              "invitation-sent": "पते पर निमंत्रण भेजा गया"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "प्रसिद्ध संस्था"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "एक संगठन बनाएं"
+        },
+        "members": "सदस्यों",
+        "pending-invitations": "लंबित उपयोगकर्ता",
+        "popover": {
+          "delete-member": "यह सदस्य",
+          "delete-organization": "संगठन बंद करें",
+          "what-delete-organization": "इस संगठन को हटाएं"
+        },
+        "toasters": {
+          "organization-created": "संगठन बनाया गया",
+          "organization-deleted": "संगठन हटा दिया गया. \nसभी सदस्यों को बाहर कर दिया गया और उनके अधिकार खो दिये गये।",
+          "organization-left": "संगठन छोड़ दिया",
+          "pendin-user-removed": "लंबित उपयोगकर्ता हटा दिया गया"
+        },
+        "tooltip": {
+          "owner": "मालिक"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "आपका ईमेल पता",
+          "email-exemple": "उदाहरण",
+          "submit": "न्यूज़लेटर की सदस्यता लें"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "रद्द करना",
+        "confirm": "पुष्टि करना",
+        "message": "क्या आप वाकई यह चाहते हैं"
+      },
+      "popover-delete": {
+        "cancel": "रद्द करना",
+        "confirm": "पुष्टि करना",
+        "message": "क्या आप आश्वस्त है कि आपको डिलीट करना है"
+      }
+    }
+  },
+  "API": {
+    "ForgotPassword": {
+      "success": "आपका पासवर्ड रीसेट करने के लिए एक लिंक {varIntlEmail} पर भेज दिया गया है। \nकृपया अपना ईमेल खाता जांचें."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "सत्यापन टोकन बनाते समय एक त्रुटि उत्पन्न हुई. \nपुनः प्रयास करें।",
+        "unknown-error": "हमें एक अज्ञात त्रुटि का सामना करना पड़ा. \nकृपया पुनः प्रयास करें या हमसे संपर्क करें।",
+        "user-already-exists": "यह ईमेल पता पहले से ही पंजीकृत है। \nयदि आप स्वामी हैं, तो कृपया बाद वाले से लॉग इन करें या, यदि आवश्यक हो, तो पासवर्ड रीसेट का अनुरोध करें।",
+        "user-not-created": "खाता बनाते समय एक त्रुटि उत्पन्न हुई. \nपुनः प्रयास करें।"
+      },
+      "success": "स्वागत है {varIntlName}! \nआपके विश्वास के लिए धन्यवाद। \nआपको एक लिंक के साथ एक ईमेल प्राप्त होगा जिससे आप इसकी वैधता की पुष्टि कर सकेंगे।\n\n \nअब आप अपने क्रेडेंशियल्स के साथ लॉग इन कर सकते हैं।"
+    },
+    "VerifyEmail": {
+      "expired-token": "सत्यापन टोकन पहले ही मान्य हो चुका है, समाप्त हो चुका है या नहीं मिला है।",
+      "success": "आपका ईमेल पता सत्यापित कर दिया गया है।"
+    }
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "अपना पासवर्ड रीसेट करें",
+      "resetPassword": "पासवर्ड रीसेट",
+      "text": "आपने अपना पासवर्ड रीसेट करने का अनुरोध किया है. \nऐसा करने के लिए, कृपया नीचे दिए गए बटन पर क्लिक करें।"
+    },
+    "InviteUserTemplate": {
+      "buttonText": "आमंत्रण स्वीकार कीजिये",
+      "heading": "आपको {varIntlTeamName} टीम में शामिल होने के लिए आमंत्रित किया गया है",
+      "text": "निमंत्रण स्वीकार करने के लिए कृपया नीचे दिए गए बटन पर क्लिक करें।"
+    },
+    "VerifyEmailTemplate": {
+      "heading": "स्वागत !",
+      "text": "अपने पंजीकरण को निश्चित रूप से सत्यापित करने के लिए, कृपया नीचे दिए गए बटन पर क्लिक करें।",
+      "verifyEmail": "मेरे खाते को मान्य करें"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "नये पासवर्ड की पुष्टि करें",
+          "email": "खाता ईमेल पता",
+          "email-error": "ग़लत फ़ॉर्मेट किया गया ईमेल पता.",
+          "new-password": "एक नया पासवर्ड चुनें",
+          "password-error": "कम से कम {varIntlMin} अक्षर लंबा होना चाहिए।",
+          "password-match-error": "दोनों पासवर्ड एक जैसे होने चाहिए.",
+          "submit": "रीसेट",
+          "success": "पासवर्ड सफलतापूर्वक बदला गया।"
+        }
+      }
+    },
+    "invalid-token": "अमान्य रीसेट टोकन. \nकृपया पुनः प्रारंभ करें या पुनः आवेदन करें।",
+    "reset-password": "अपना पासवर्ड रीसेट करना",
+    "token-expired": "रीसेट टोकन अज्ञात है."
   }
 }

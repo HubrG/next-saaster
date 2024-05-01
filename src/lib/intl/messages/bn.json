@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "আপনার পাসওয়ার্ড রিসেট করার একটি লিঙ্ক {varIntlEmail} এ পাঠানো হয়েছে। \nআপনার ইমেল অ্যাকাউন্ট চেক করুন."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "যাচাইকরণ টোকেন তৈরি করার সময় একটি ত্রুটি ঘটেছে৷ \nআবার চেষ্টা কর.",
+        "unknown-error": "আমরা একটি অজানা ত্রুটির সম্মুখীন হয়েছি৷ \nআবার চেষ্টা করুন বা আমাদের সাথে যোগাযোগ করুন.",
+        "user-already-exists": "এই মেইল ​​ঠিকানা ইতোমধ্যে নিবন্ধিত। \nআপনি যদি মালিক হন, অনুগ্রহ করে পরবর্তীটির সাথে লগ ইন করুন বা, প্রয়োজনে, একটি পাসওয়ার্ড রিসেট করার অনুরোধ করুন৷",
+        "user-not-created": "অ্যাকাউন্ট তৈরি করার সময় একটি ত্রুটি ঘটেছে৷ \nআবার চেষ্টা কর."
+      },
+      "success": "স্বাগতম {varIntlName}! \nতোমার বিশ্বাসের জন্য ধন্যবাদ. \nআপনি একটি লিঙ্ক সহ একটি ইমেল পাবেন যা আপনাকে এটির বৈধতা নিশ্চিত করার অনুমতি দেয়।\n\n \nআপনি এখন আপনার শংসাপত্রের সাথে লগ ইন করতে পারেন।"
+    },
+    "VerifyEmail": {
+      "expired-token": "যাচাইকরণ টোকেন ইতিমধ্যেই বৈধ, মেয়াদ উত্তীর্ণ বা পাওয়া যায়নি।",
+      "success": "আপনার ইমেল ঠিকানা যাচাই করা হয়েছে."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "আপনাকে সংগঠনে যোগদানের জন্য আমন্ত্রণ জানানো হয়েছে",
+              "subject-end": "এবং তার দল",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "ব্যবহারকারী ইতিমধ্যেই একটি সংস্থার সদস্য৷",
+              "already-invited": "ব্যবহারকারী ইতিমধ্যেই আমন্ত্রিত।",
+              "error-while-creating-invitation": "একটি ত্রুটি উৎপন্ন হয়েছে. \nআমন্ত্রণ পাঠানো হয়নি. \nআবার চেষ্টা কর.",
+              "no-organization-found": "কোন প্রতিষ্ঠান পাওয়া যায়নি। \nএটি অবশ্যই একটি ত্রুটি। \nঅনুগ্রহপূর্বক আবার চেষ্টা করুন."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "আপনার অ্যাকাউন্ট মুছে ফেলার সময় একটি সমস্যা হয়েছে৷ \nআমাদের সাথে যোগাযোগ করুন.",
+              "cancel-subscription": "সদস্যতা বাতিল করার সময় একটি সমস্যা হয়েছে৷",
+              "delete": "আপনি আপনার অ্যাকাউন্ট মুছতে পারবেন না, কারণ আপনি আপনার প্রতিষ্ঠানের মালিক৷ \nঅনুগ্রহ করে আপনার অধিকার অন্য ব্যবহারকারীর কাছে হস্তান্তর করুন, অন্যথায় সংস্থাটি মুছুন।"
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "আপনি নিজেকে আমন্ত্রণ জানাতে পারবেন না!",
+              "field-invite-new-member": "একজন নতুন সদস্যকে আমন্ত্রণ জানান",
+              "placeholder-email": "ই-মেইল",
+              "submit": "আমন্ত্রণ"
+            },
+            "note": "আপনার একটি সক্রিয় সদস্যতা আছে. \nযদি সদস্য এই আমন্ত্রণটি গ্রহণ করে তবে আপনার প্রতিষ্ঠানে একটি নতুন সদস্য যোগ করার জন্য একটি প্রো-রেটেড ভিত্তিতে বিল করা হবে",
+            "toasters": {
+              "invitation-sent": "ঠিকানায় আমন্ত্রণ পাঠানো হয়েছে"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "নামকরা প্রতিষ্ঠান"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "একটি সংস্থা তৈরি করুন"
+        },
+        "members": "সদস্যরা",
+        "pending-invitations": "মুলতুবি ব্যবহারকারী",
+        "popover": {
+          "delete-member": "এই সদস্য",
+          "delete-organization": "বন্ধ সংগঠন",
+          "what-delete-organization": "এই সংস্থা মুছে ফেলুন"
+        },
+        "toasters": {
+          "organization-created": "সংগঠন তৈরি করেছে",
+          "organization-deleted": "প্রতিষ্ঠান মুছে ফেলা হয়েছে। \nসমস্ত সদস্যদের বাদ দেওয়া হয়েছিল এবং তাদের অধিকার হারিয়েছিল।",
+          "organization-left": "সংগঠন চলে গেছে",
+          "pendin-user-removed": "মুলতুবি ব্যবহারকারী মুছে ফেলা হয়েছে"
+        },
+        "tooltip": {
+          "owner": "মালিক"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "আপনার ইমেইল ঠিকানা",
+          "email-exemple": "উদাহরণ",
+          "submit": "নিউজলেটার সদস্যতা"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "বাতিল করুন",
+        "confirm": "নিশ্চিত করুন",
+        "message": "আপনি কি নিশ্চিত আপনি এটি চান"
+      },
+      "popover-delete": {
+        "cancel": "বাতিল করুন",
+        "confirm": "নিশ্চিত করুন",
+        "message": "আপনি মুছে ফেলতে চান"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "হিসাব",
+          "billing": "সাবস্ক্রিপশন",
+          "emails": "ইমেইল",
+          "organization": "সংগঠন",
+          "profile": "প্রোফাইল",
+          "purchases": "ক্রয়",
+          "usage": "ব্যবহার করুন"
+        },
+        "title": "আমার অ্যাকাউন্ট"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "আপনি একটি পাসওয়ার্ড তৈরি করেননি কারণ আপনি একটি অ্যাকাউন্ট {varIntlProvider} দিয়ে লগ ইন করেছেন৷ \nআপনি এখানে তৈরি করতে পারেন।",
+              "form": {
+                "password": "পাসওয়ার্ড",
+                "password-confirmation": "পাসওয়ার্ড নিশ্চিতকরণ",
+                "password-error": "পাসওয়ার্ডটি কমপক্ষে {varIntlMin} অক্ষরের হতে হবে৷",
+                "passwords-not-matching": "পাসওয়ার্ড মিলছে না.",
+                "submit": "পাসওয়ার্ড তৈরি করুন"
+              },
+              "title": "একটি পাসওয়ার্ড তৈরি করুন",
+              "toasters": {
+                "succes-password-created": "আপনার পাসওয়ার্ড তৈরি করা হয়েছে."
+              }
+            },
+            "ForgotPassword": {
+              "description": "কোন সমস্যা নেই, আমরা আপনার পাসওয়ার্ড রিসেট করার জন্য আপনাকে একটি লিঙ্ক পাঠাতে পারি।",
+              "emailSent": {
+                "subject": "আপনার পাসওয়ার্ড পুনরায় সেট করুন"
+              },
+              "form": {
+                "email": "আপনার ইমেইল ঠিকানা",
+                "email-error": "এটা বৈধ ইমেল এড্রেস না.",
+                "submit": "আমাকে পুনরুদ্ধার লিঙ্ক পাঠান"
+              },
+              "title": "আপনি কি পাসওয়ার্ড ভুলে গেছেন ?",
+              "toasters": {
+                "send-email-error": "ইমেইল পাঠানোর সময় একটি ত্রুটি ঘটেছে। \nআবার চেষ্টা কর."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "বর্তমান পাসওয়ার্ড",
+                "new-password": "নতুন পাসওয়ার্ড",
+                "password-confirmation": "পাসওয়ার্ড নিশ্চিতকরণ",
+                "password-error": "পাসওয়ার্ডটি কমপক্ষে {varIntlMin} অক্ষরের হতে হবে৷",
+                "passwords-not-matching": "পাসওয়ার্ড মিলছে না.",
+                "required-message": "বাধ্যতামূলক",
+                "submit": "পাসওয়ার্ড আপডেট করুন"
+              },
+              "title": "আপনার পাসওয়ার্ড আপডেট করুন",
+              "toasters": {
+                "password-update-error": "পাসওয়ার্ড আপডেট করার সময় একটি ত্রুটি ঘটেছে৷ \nআবার চেষ্টা কর.",
+                "password-updated": "পাসওয়ার্ড আপডেট করা."
+              }
+            }
+          },
+          "close-account": "আমার অ্যাকাউন্ট নিষ্ক্রিয় করুন...",
+          "close-account-popover-message": "আপনার একাউন্ট মুছে ফেলুন? \nএই কর্ম অপরিবর্তনীয়. \nআপনি যদি একটি সাবস্ক্রিপশন ক্রয় করে থাকেন তবে তা বাতিল হয়ে যাবে।",
+          "connectedWith": "আপনি আপনার অ্যাকাউন্ট {varIntlProvider} দিয়ে লগ ইন করেছেন",
+          "create-password": "আপনি একটি পাসওয়ার্ড তৈরি করেননি কারণ আপনি একটি {varIntlProvider} অ্যাকাউন্ট দিয়ে স্বয়ংক্রিয়ভাবে লগ ইন করেছেন৷",
+          "manage-password": "আপনার পাসওয়ার্ড পরিচালনা করুন",
+          "title": "হিসাব"
+        },
+        "Billing": {
+          "according-to-use": "ব্যবহারের উপর নির্ভর করে",
+          "billed-each": "প্রতিটি বিল",
+          "buttons": {
+            "cancel-subscription": "সদস্যতা ত্যাগ করুন",
+            "restart-subscription": "সদস্যতা পুনরায় চালু করুন",
+            "update-payment": "টাকা পরিশোধের পদ্ধতি পরিবর্তন করুন",
+            "update-plan": "ডাউনগ্রেড বা আপগ্রেড করুন"
+          },
+          "daily": "দিন",
+          "features-title": "বৈশিষ্ট্য",
+          "id": "বিলিং",
+          "monthly": "মাস",
+          "next-invoice-at": "পরবর্তী চালান চালু",
+          "no-plan-subscribed-yet": "আপনি কোনো সদস্যতা ক্রয় করেননি",
+          "per-user": "ব্যবহারকারী প্রতি",
+          "subscribe-now": "আমি সাবস্ক্রাইব করতে চাই!",
+          "subscription-will-be-canceled-at": "আপনার সদস্যতা স্থায়ীভাবে বাতিল করা হবে",
+          "title": "বিলিং",
+          "tooltips": {
+            "cancel-subscription": "আপনার সদস্যতা {varIntlDate}-এ বিলিং মেয়াদ শেষে স্থায়ীভাবে বাতিল করা হবে। \nআপনি এই তারিখ পর্যন্ত আপনার বৈশিষ্ট্য ব্যবহার চালিয়ে যেতে পারেন. \nতারপরে আপনাকে আর বিল করা হবে না।",
+            "restart-subscription": "অতিরিক্ত বিলিং ছাড়াই আপনার সদস্যতা পুনরায় চালু হবে।"
+          },
+          "trial-days-remaining": "আপনার {varIntlDays} ট্রায়ালের দিন বাকি আছে",
+          "users": "ব্যবহারকারীদের",
+          "weekly": "সপ্তাহ",
+          "yearly": "বছর",
+          "you-save": "আপনি এই সাবস্ক্রিপশনে {varIntlSave} সংরক্ষণ করুন",
+          "your-plan": "আপনার সদস্যতা",
+          "your-trial-ends-at": "আপনার ট্রায়াল সময় শেষ হয়"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "নিউজলেটার সদস্যতা",
+            "toasters": {
+              "error-delete-contact": "নিউজলেটার দর্শকদের থেকে পরিচিতি মুছে ফেলার সময় ত্রুটি",
+              "error-get-contact": "নিউজলেটার পরিচিতি পুনরুদ্ধার করার সময় একটি ত্রুটি ঘটেছে৷ \nআবার চেষ্টা কর.",
+              "error-update-newsletter": "আপনার নিউজলেটার পছন্দ আপডেট করার সময় একটি ত্রুটি ঘটেছে৷ \nআবার চেষ্টা কর.",
+              "newsletter-disabled": "অক্ষম",
+              "newsletter-enabled": "সক্রিয়"
+            }
+          },
+          "title": "ইমেইল"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "আপনি নিজেকে আমন্ত্রণ জানাতে পারবেন না!",
+                "field-invite-new-member": "একজন নতুন সদস্যকে আমন্ত্রণ জানান",
+                "placeholder-email": "ই-মেইল",
+                "submit": "আমন্ত্রণ"
+              },
+              "note": "আপনার একটি সক্রিয় সদস্যতা আছে. \nযদি সদস্য এই আমন্ত্রণটি গ্রহণ করে তবে আপনার প্রতিষ্ঠানে একটি নতুন সদস্য যোগ করার জন্য একটি প্রো-রেটেড ভিত্তিতে বিল করা হবে",
+              "toasters": {
+                "invitation-sent": "ঠিকানায় আমন্ত্রণ পাঠানো হয়েছে"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "এই সদস্যকে একজন মালিক হিসাবে প্রচার করবেন? \nশুধুমাত্র একজন মালিক হতে পারে, এই ক্ষেত্রে আপনি সেই সংস্থায় পোস্ট করার সমস্ত অধিকার হারাবেন৷",
+                "promote-member-display": "এই সদস্য প্রচার করুন",
+                "revoke-member": "সংগঠন থেকে এই সদস্য অপসারণ",
+                "revoke-member-display": "এই ব্যবহারকারী প্রত্যাহার করুন"
+              },
+              "toasters": {
+                "user-promoted": "প্রচারিত ব্যবহারকারী। \nআপনি আর এই সংস্থার মালিক নন৷",
+                "user-removed": "ব্যবহারকারী প্রত্যাহার করা হয়েছে৷"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "নামটিতে কমপক্ষে {varIntlMin} অক্ষর থাকতে হবে",
+                "field-organization-name": "সংগঠনের নাম",
+                "submit": "নাম পরিবর্তন করুন"
+              },
+              "organization-renamed": "নামকরা প্রতিষ্ঠান",
+              "toasters": {
+                "organization-renamed": "সংস্থার নাম পরিবর্তন করা হয়েছে"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "একটি সংস্থা তৈরি করুন"
+          },
+          "members": "সদস্যরা",
+          "pending-invitations": "মুলতুবি ব্যবহারকারী",
+          "popover": {
+            "delete-member": "এই সদস্য",
+            "delete-organization": "সংগঠন বন্ধ করুন...",
+            "what-delete-organization": "এই সংস্থা মুছে ফেলুন"
+          },
+          "title": "সংগঠন",
+          "toasters": {
+            "organization-created": "সংগঠন তৈরি করেছে",
+            "organization-deleted": "প্রতিষ্ঠান মুছে ফেলা হয়েছে। \nসমস্ত সদস্যদের বাদ দেওয়া হয়েছিল এবং তাদের অধিকার হারিয়েছিল।",
+            "organization-left": "সংগঠন চলে গেছে",
+            "pendin-user-removed": "মুলতুবি ব্যবহারকারী মুছে ফেলা হয়েছে"
+          },
+          "tooltip": {
+            "owner": "মালিক"
+          }
+        },
+        "Profile": {
+          "change-avatar": "প্রোফাইল ছবি পরিবর্তন",
+          "form": {
+            "name": "প্রদর্শনের নাম",
+            "submit": "আপডেট",
+            "upload": "ডাউনলোড করুন"
+          },
+          "title": "প্রোফাইল",
+          "toasters": {
+            "file-is-empty": "ফাইলটি খালি",
+            "file-is-not-an-image": "ফাইলটি একটি ছবি নয়",
+            "file-is-too-large": "ফাইলটি খুব বড় (2 MB সর্বোচ্চ)",
+            "no-file-provided": "কোন ফাইল প্রদান করা হয়",
+            "success": "প্রোফাইল আপডেট",
+            "success-file-uploaded": "প্রোফাইল ছবি সফলভাবে পরিবর্তিত হয়েছে"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "কোনো ক্রয়ের ইতিহাস নেই",
+          "no-purchase-history-description": "আপনি এখনও আমাদের সাইটে কোন পণ্য ক্রয় করেননি!",
+          "title": "ক্রয়"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "অজানা ইমেল ঠিকানা",
+        "invalid-token": "অবৈধ টোকেন",
+        "password-not-updated": "আপনার পাসওয়ার্ড পরিবর্তন করার সময় একটি সমস্যা হয়েছে৷ \nআবার চেষ্টা কর.",
+        "token-expired": "টোকেনের মেয়াদ শেষ।",
+        "token-not-found": "রিসেট টোকেন পাওয়া যায়নি।"
+      }
+    },
+    "button": "ড্যাশবোর্ড এ যান",
+    "description": "আপনার ড্যাশবোর্ডে স্বাগতম!",
+    "title": "ড্যাশবোর্ড"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "আপনার পাসওয়ার্ড পুনরায় সেট করুন",
+      "resetPassword": "পাসওয়ার্ড রিসেট করুন",
+      "text": "আপনি আপনার পাসওয়ার্ড রিসেট করার অনুরোধ করেছেন৷ \nএটি করতে, নীচের বোতামে ক্লিক করুন."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "আমন্ত্রণ গ্রহণ",
+      "heading": "আপনাকে {varIntlTeamName} টিমে যোগ দেওয়ার জন্য আমন্ত্রণ জানানো হয়েছে৷",
+      "text": "আমন্ত্রণ গ্রহণ করতে, অনুগ্রহ করে নীচের বোতামে ক্লিক করুন।"
+    },
+    "VerifyEmailTemplate": {
+      "heading": "স্বাগত !",
+      "text": "আপনার রেজিস্ট্রেশন নিশ্চিতভাবে যাচাই করতে, অনুগ্রহ করে নীচের বোতামে ক্লিক করুন।",
+      "verifyEmail": "আমার অ্যাকাউন্ট যাচাই করুন"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "আমাদের খবর মিস করবেন না! \nআমাদের নিউজলেটার সদস্যতা",
+      "privacy": "গোপনীয়তা নীতি",
+      "terms": "আইনি নোটিশ",
+      "title": "আইনি"
+    },
+    "Navigation": {
+      "blog": "ব্লগ",
+      "faq": "FAQs",
+      "title": "নেভিগেশন"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "নতুন পাসওয়ার্ড নিশ্চিত করুন",
+          "email": "অ্যাকাউন্ট ইমেল ঠিকানা",
+          "email-error": "ভুলভাবে ফরম্যাট করা ইমেল ঠিকানা।",
+          "new-password": "একটি নতুন পাসওয়ার্ড পছন্দ করুন",
+          "password-error": "কমপক্ষে {varIntlMin} অক্ষর দীর্ঘ হতে হবে৷",
+          "password-match-error": "উভয় পাসওয়ার্ড একই হতে হবে.",
+          "submit": "রিসেট",
+          "success": "পাসওয়ার্ড সফলভাবে পরিবর্তন।"
+        }
+      }
+    },
+    "invalid-token": "অবৈধ রিসেট টোকেন। \nঅনুগ্রহ করে আবার শুরু করুন বা পুনরায় আবেদন করুন।",
+    "reset-password": "আপনার পাসওয়ার্ড রিসেট করা হচ্ছে",
+    "token-expired": "রিসেট টোকেন অজানা."
+  },
+  "Index": {
+    "first-connexion": "প্রথম সংযোগ",
+    "metadatas": {
+      "description": "দ্রুত বিকাশের জন্য NextJS SaaS স্টার্টার কিট: শুধুমাত্র মূল বৈশিষ্ট্যগুলিতে ফোকাস করুন, একটি আধুনিক ফ্রন্টএন্ড, স্কেলযোগ্য এবং সুরক্ষিত ব্যাকএন্ড সহ নিশ্চিত থাকুন। \nপ্রচেষ্টা সংরক্ষণ করুন",
+      "title": "স্বাগত"
+    },
+    "title": "স্বাগত !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "যোগাযোগ",
+          "features": "বৈশিষ্ট্য",
+          "home": "স্বাগত",
+          "howItWorks": "কিভাবে এটা কাজ করে ?",
+          "pricing": "মূল্য নির্ধারণ"
+        },
+        "UserProfile": {
+          "login": "লগ - ইন করতে",
+          "logout": "সাইন আউট",
+          "my-account": "আমার অ্যাকাউন্ট",
+          "refill": "পুনরায় লোড করুন"
+        },
+        "buy-now": "কেনা"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "ই-মেইল",
+        "login-with-email": "প্রবেশ করুন",
+        "password": "পাসওয়ার্ড"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "উদাহরণ",
+        "submit": "আমাকে একটি লগইন লিঙ্ক পাঠান",
+        "your-email": "আপনার ইমেইল ঠিকানা"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Github দিয়ে লগইন করুন"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Google এর সাথে চালিয়ে যান"
+      },
+      "buttons": {
+        "continue-with-google": "Google দিয়ে সাইন ইন করুন"
+      }
+    },
+    "button": {
+      "no-account": "কোন হিসাব নেই?",
+      "register": "যোগদানের জন্য এখানে চাপ দিন."
+    },
+    "title": "আপনার অ্যাকাউন্টে লগ ইন করুন",
+    "toasters": {
+      "bad-credentials": "ভুল শনাক্তকারী"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "মাস",
+        "contact-us": "আপনার অফার ব্যক্তিগতকৃত করতে আমাদের সাথে যোগাযোগ করুন.",
+        "metered-unit": "দ্বারা",
+        "monthly": "মাস",
+        "per-seat": "আসন প্রতি",
+        "popular": "জনপ্রিয়",
+        "recommended": "প্রস্তাবিত",
+        "trial": "পরীক্ষার দিন, তারপর...",
+        "yearly": "বছর"
+      },
+      "PriceCard": {
+        "bottom-sentence": "একটি অর্থপ্রদান, অনেক প্রকল্প"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "কেনা",
+        "startTrial": "{varIntlTrialDays} দিনের জন্য চেষ্টা করুন",
+        "subscribeNow": "সাবস্ক্রাইব"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "যোগাযোগ করুন"
+      },
+      "SwitchRecurrence": {
+        "monthly": "মাসিক",
+        "yearly": "বার্ষিক"
+      }
+    },
+    "title": "মূল্য নির্ধারণ"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "স্বাগত ! \nআপনার ইমেল ঠিকানার বৈধতা নিশ্চিত করুন."
+      },
+      "form": {
+        "confirm-password": "পাসওয়ার্ড নিশ্চিত করুন",
+        "register-with-email": "আমার একাউন্ট তৈরি কর",
+        "email": "ই-মেইল ঠিকানা",
+        "email-error": "আপনার ইমেল ঠিকানা সঠিক বিন্যাসে নেই",
+        "password": "পাসওয়ার্ড",
+        "password-did-not-match": "পাসওয়ার্ড একই হতে হবে",
+        "password-error": "আপনার পাসওয়ার্ড কমপক্ষে {varIntlMin} অক্ষরের হতে হবে"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "গ্রহণ করুন",
+          "already-accept": "আপনি ইতিমধ্যেই আমন্ত্রণ গ্রহণ করেছেন৷",
+          "decline": "প্রত্যাখ্যান",
+          "do-you-accept": "আপনি কি এই সংগঠনে যোগ দিতে রাজি?",
+          "invitation-accepted": "আমন্ত্রণ গৃহীত হয়েছে, অনুগ্রহ করে একটি অ্যাকাউন্ট তৈরি করুন তারপর আমন্ত্রণ চূড়ান্ত করতে লগ ইন করুন৷ \nআপনাকে অ্যাকাউন্ট তৈরির পৃষ্ঠায় পুনঃনির্দেশিত করা হবে।",
+          "invitation-accepted-2": "আমন্ত্রণ গৃহীত হয়েছে, এটি চূড়ান্ত করতে অনুগ্রহ করে আপনার অ্যাকাউন্টে লগ ইন করুন৷",
+          "invitation-declined": "আমন্ত্রণ প্রত্যাখ্যান",
+          "invited": "আপনাকে “{varIntlOrganization}” দলে যোগদানের জন্য আমন্ত্রণ জানানো হয়েছে",
+          "join": "\"{varIntlOrganization}\" সংগঠনে যোগ দিন",
+          "logout": "সংযোগ বিচ্ছিন্ন করুন",
+          "organization-not-found": "অস্তিত্বহীন সংগঠন।"
+        }
+      },
+      "invitation-not-found": "অস্তিত্বহীন সংগঠন।",
+      "invited-with-different-email": "আপনি যে আমন্ত্রণটি পেয়েছেন তার চেয়ে আলাদা ইমেল ঠিকানা দিয়ে লগ ইন করেছেন৷",
+      "logged-in-with-right-email": "আপনি সঠিক ইমেল ঠিকানা দিয়ে লগ ইন করেছেন, তবে আপনাকে অবশ্যই লগ আউট করতে হবে এবং আমন্ত্রণ গ্রহণ করতে আবার লগ ইন করতে হবে।",
+      "please-logout": "অনুগ্রহ করে সংশ্লিষ্ট ইমেল ঠিকানা দিয়ে লগ ইন করুন এবং এই পৃষ্ঠায় ফিরে যান। \nআপনার যদি অতিথি ঠিকানা সহ একটি অ্যাকাউন্ট না থাকে, লগ আউট করুন এবং এটি তৈরি করতে এই পৃষ্ঠায় ফিরে আসুন।"
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "আপনার অ্যাকাউন্টে সাইন ইন করুন",
+      "request-new-validation": "এবং আপনি যদি এটি এখনও যাচাই না করে থাকেন তবে একটি নতুন বৈধতা লিঙ্কের জন্য অনুরোধ করুন৷",
+      "success": "ইমেইল যাচাই.",
+      "title": "আপনার ইমেল ঠিকানা যাচাই করা হচ্ছে"
+    },
+    "already-account-sentence": "ইতিমধ্যে একটি সদস্যপদ আছে ?",
+    "button": {
+      "login": "প্রবেশ করুন"
+    },
+    "title": "একটি অ্যাকাউন্ট তৈরি করুন"
+  }
+}

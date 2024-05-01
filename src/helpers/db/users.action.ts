@@ -9,6 +9,7 @@ import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iUsers } from "@/src/types/db/iUsers";
 import { updateUserSchema } from "@/src/types/schemas/dbSchema";
 import { User } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 import Stripe from "stripe";
 import { z } from "zod";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
@@ -181,6 +182,7 @@ export const deleteUser = authAction(
       throw new ActionError("Unauthorized");
     }
     // 🔓 Unlocked
+    const t = await getTranslations();
     try {
       // We get user
       const user = await getUser({
@@ -194,7 +196,9 @@ export const deleteUser = authAction(
         user.data?.success?.organization?.ownerId === user.data?.success?.id
       ) {
         throw new ActionError(
-          "You cannot delete your account because you are the owner of an organization. Please transfer ownership to another user or delete the organization."
+          t(
+            "Components.Helpers.DB.Users.deleteUser.throws.delete"
+          )
         );
       }
       // If  user has an active aubscription and is not member of an organization, we cancel the subscription
@@ -212,7 +216,7 @@ export const deleteUser = authAction(
         );
         if (!cancelSubscriptions)
           throw new ActionError(
-            "Problem while canceling subscriptions on Stripe"
+            t("Components.Helpers.DB.Users.deleteUser.throws.cancel-subscription")
           );
       }
       // We get organization if user is member, we remove user from organization
@@ -232,7 +236,7 @@ export const deleteUser = authAction(
         where: { email },
       });
       if (!deleteDefinitely)
-        throw new ActionError("Problem while deleting user");
+        throw new ActionError(t("Components.Helpers.DB.Users.deleteUser.throws.cancel"));
       return handleRes<User>({
         success: deleteDefinitely,
         statusCode: 200,

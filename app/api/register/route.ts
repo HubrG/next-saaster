@@ -1,10 +1,12 @@
 import { prisma } from "@/src/lib/prisma";
 import bcrypt, { hash } from "bcrypt";
 import { capitalize } from "lodash";
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  const { email, password, locale } = await req.json();
+  const t = await getTranslations({ locale });
 
   try {
     const hashedPassword = await hash(password, 10);
@@ -15,7 +17,7 @@ export async function POST(req: Request) {
       },
     });
     if (user) {
-      throw new Error("A user has already registered this email address");
+      throw new Error(t("API.Register.error.user-already-exists"));
     }
     const createUser = await prisma.user.create({
       data: {
@@ -25,7 +27,7 @@ export async function POST(req: Request) {
       },
     });
     if (!createUser) {
-      throw new Error("An error occurred while creating the user");
+      throw new Error(t("API.Register.error.user-not-created"));
     }
     const token = await bcrypt.hash(email, 10);
 
@@ -38,15 +40,15 @@ export async function POST(req: Request) {
     });
     if (!addToken) {
       throw new Error(
-        "An error occurred while creating the token verification"
+        t("API.Register.error.token-not-created")
       );
     }
 
     return NextResponse.json(
       {
-        message: `Welcome ${capitalize(
-          createUser.name ?? ""
-        )} ! Thank you for your trust. You will receive a welcome email with a link to confirm its validity. \n\nYou can now log in with your username and password.`,
+        message: `${t("API.Register.success", {
+          varIntlName: capitalize(createUser.name ?? ""),
+        })}`,
         token: token,
       },
       { status: 200 }
@@ -56,7 +58,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
       return NextResponse.json(
-        { error: "An unknown error occurred" },
+        { error: t("API.Register.error.unknown-error") },
         { status: 500 }
       );
     }

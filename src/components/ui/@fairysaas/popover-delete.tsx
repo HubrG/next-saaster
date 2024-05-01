@@ -1,5 +1,7 @@
+"use client";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { MessageCircleWarningIcon, Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "../button";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
@@ -28,6 +30,7 @@ export const PopoverDelete = ({
   what,
   display,
 }: Props) => {
+  const t = useTranslations("Components.UI.popover-delete");
   const [loading, setLoading] = useState(false);
   return (
     <Popover>
@@ -48,7 +51,9 @@ export const PopoverDelete = ({
         <div className="grid gap-4">
           <p className="text-center font-bold flex flex-col gap-2 justify-center">
             <MessageCircleWarningIcon className="mx-auto" />
-            <span>Are you sure you want to delete {what} ?</span>
+            <span>
+              {t("message")} {what} ?
+            </span>
           </p>
           <div className="flex flex-row gap-5 justify-evenly">
             <Button
@@ -59,11 +64,11 @@ export const PopoverDelete = ({
                 setLoading(true);
                 handleDelete();
               }}>
-              {loading ? <SimpleLoader /> : "Yes"}
+              {loading ? <SimpleLoader /> : t("confirm")}
             </Button>
             <PopoverClose asChild>
               <Button variant={"ghost"} className=" w-full">
-                No
+                {t("cancel")}
               </Button>
             </PopoverClose>
           </div>

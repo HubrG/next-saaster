@@ -1,10 +1,12 @@
 import { prisma } from "@/src/lib/prisma";
 import bcrypt from "bcrypt";
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { email } = await req.json();
+  const { email, locale } = await req.json();
 
+  const t = await getTranslations({ locale });
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -35,7 +37,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        message: `A link to reset your password has been sent to ${email} if it is associated with an account. Please check your email.`,
+        message: `${t("API.ForgotPassword.success", {
+          varIntlEmail: email,
+        })}`,
         token: token,
       },
       { status: 200 }
@@ -43,7 +47,9 @@ export async function POST(req: Request) {
   } catch (error) {
     return NextResponse.json(
       {
-        error: `A link to reset your password has been sent if ${email} it is associated with an account. Please check your email.`,
+        error: `${t("API.ForgotPassword.success", {
+          varIntlEmail: email,
+        })}`,
       },
       { status: 200 }
     );

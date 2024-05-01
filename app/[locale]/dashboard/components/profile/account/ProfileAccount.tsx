@@ -67,7 +67,7 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
             {userStore.email}
           </p>
           <p className="italic text-center flex text-sm flex-col justify-center">
-            {t("connectedWith", { provider: capitalize(provider) })}
+            {t("connectedWith", { varIntlProvider: capitalize(provider) })}
           </p>
         </Card>
       )}
@@ -78,7 +78,9 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
         {!userStore.password ? (
           <>
             <p className="text-sm opacity-70 !text-left">
-              {t("create-password", { provider: capitalize(provider ?? "") })}
+              {t("create-password", {
+                varIntlProvider: capitalize(provider ?? ""),
+              })}
             </p>
             <CreatePassword user={userProfile.info} className="w-full mt-5" />
           </>

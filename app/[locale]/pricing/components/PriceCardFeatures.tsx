@@ -5,7 +5,7 @@ import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { iPlan } from "@/src/types/db/iPlans";
 import { CheckCircle2, X } from "lucide-react";
 import { Fragment } from "react";
-import { Tooltip } from "react-tooltip";
+import { PriceCardFeatureNameAndDesc } from "./PriceCardFeatureNameAndDesc";
 type PriceCardFeaturesProps = {
   plan: Partial<iPlan>;
 };
@@ -45,23 +45,16 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
           if (saasSettings.activeFeatureComparison) {
             return !feature.feature.onlyOnSelectedPlans ? (
               <Fragment key={index}>
-                <p
-                  className="flex items-center opacity-50  !text-sm cursor-default"
-                  data-tooltip-id={feature.feature.id}
-                 >
-                  <X className="w-4 h-4 mr-2" />
-                  {creditAlloued}
-                  {feature.feature.name}
-                </p>
-                {feature.feature.description && (
-                  <Tooltip
-                    place="left"    
-                    className="tooltip"
-                    id={feature.feature.id}
-                    opacity={100}>
-                    {feature.feature.description}
-                  </Tooltip>
-                )}
+                <PriceCardFeatureNameAndDesc
+                  icon={
+                    <X className="w-4 h-4 mr-2 text-theming-text-500-second" />
+                  }
+                  featName={feature.feature.name}
+                  enabledFeature={false}
+                  featDesc={feature.feature.description}
+                  id={feature.feature.id}
+                  creditAlloued={creditAlloued}
+                />
               </Fragment>
             ) : null;
           } else {
@@ -70,25 +63,14 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
         } else {
           return (
             <Fragment key={index}>
-              <p
-                className="flex items-center  !text-sm cursor-default"
-                data-tooltip-id={feature.feature.id}>
-                <CheckCircle2 className="w-4 h-4 mr-2 text-theming-text-500-second" />
-                {creditAlloued}
-                {feature.feature.name}
-              </p>
-              {feature.feature.description && (
-                <Tooltip
-                  // data-tooltip-position-strategy="fixed"
-                  data-tooltip-float={true}
-                  place="left"
-                  noArrow
-                  className="tooltip"
-                  id={feature.feature.id}
-                  opacity={100}>
-                  {feature.feature.description}
-                </Tooltip>
-              )}
+              <PriceCardFeatureNameAndDesc
+                icon={<CheckCircle2 className="w-4 h-4 mr-2 text-theming-text-500-second" />}
+                featName={feature.feature.name}
+                enabledFeature={true}
+                featDesc={feature.feature.description}
+                id={feature.feature.id}
+                creditAlloued={creditAlloued}
+              />
             </Fragment>
           );
         }

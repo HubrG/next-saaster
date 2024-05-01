@@ -5,6 +5,7 @@ import { Card } from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
+import { useTranslations } from "next-intl";
 import { PriceCardBottomSentence } from "./PriceCardBottomSentence";
 import { PriceCardBuyButton } from "./PriceCardBuyButton";
 import { PriceCardContactUsButton } from "./PriceCardContactUsButton";
@@ -17,7 +18,8 @@ type PriceCardProps = {
 
 export const PriceCard = ({ plan }: PriceCardProps) => {
   const { saasSettings } = useSaasSettingsStore();
-  // 
+  //
+  const t = useTranslations("Pricing.Components.PriceCard");
   return (
     <>
       <Card
@@ -31,19 +33,17 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
         {plan.isCustom ? (
           <PriceCardContactUsButton />
         ) : (
-          <PriceCardBuyButton
-            className="w-full z-[99999999]"
-            plan={plan}
-          />
+          <PriceCardBuyButton className="w-full z-[99999999]" plan={plan} />
         )}
-        <Goodline className={cn({"hidden":plan.isCustom})} />
+        <Goodline className={cn({ hidden: plan.isCustom })} />
         <div className="features">
           <PriceCardFeatures plan={plan} />
         </div>
       </Card>
+
       <PriceCardBottomSentence
-        className="text-center my-2  !font-normal text-theming-text-50"
-        sentence="Single payment. Limitless projects"
+        className="text-center my-2  !font-normal !text-theming-text-800"
+        sentence={t("bottom-sentence")}
       />
     </>
   );

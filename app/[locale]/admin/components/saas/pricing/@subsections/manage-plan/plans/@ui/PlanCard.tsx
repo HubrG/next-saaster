@@ -6,9 +6,9 @@ import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/src/components/ui/collapsible";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
@@ -32,8 +32,8 @@ import { SortableKnob } from "react-easy-sort";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
 import {
-    MRRInputFields,
-    RecurringSwitchFields,
+  MRRInputFields,
+  RecurringSwitchFields,
 } from "./plan-card-fields-by-saas-type/MRRFields";
 import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
 import { UsageInputFields } from "./plan-card-fields-by-saas-type/UsageFields";

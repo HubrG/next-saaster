@@ -37,10 +37,10 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
   const formSchema = z
     .object({
       password: z.string().min(6, {
-        message: t("form.password-error", { min: 6 }),
+        message: t("form.password-error", { varIntlMin: 6 }),
       }),
       confirmPassword: z.string().min(6, {
-        message: t("form.password-error", { min: 6 }),
+        message: t("form.password-error", { varIntlMin: 6 }),
       }),
     })
     .superRefine((data, ctx) => {

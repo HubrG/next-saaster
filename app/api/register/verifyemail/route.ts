@@ -1,11 +1,12 @@
 import { prisma } from "@/src/lib/prisma";
+import { getTranslations } from "next-intl/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const reqBody = await req.json();
-    const { token } = reqBody;
-
+    const { token, locale } = reqBody;
+    const t = await getTranslations({ locale });
     const user = await prisma.verificationToken.findUnique({
       where: {
         token: token,
@@ -15,7 +16,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
     });
     if (!user) {
-      throw new Error("Verification token expired or not found");
+      throw new Error(t("API.VerifyEmail.expired-token"));
     }
 
     const userVerified = await prisma.user.update({
@@ -42,7 +43,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     return NextResponse.json(
-      { message: "Your email has been verified", success: true },
+      { message: t("API.VerifyEmail.success"), success: true },
       { status: 200 }
     );
   } catch (error: any) {

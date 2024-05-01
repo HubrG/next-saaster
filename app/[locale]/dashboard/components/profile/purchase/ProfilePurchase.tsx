@@ -6,17 +6,22 @@ import {
   ReturnUserDependencyProps,
   getUserInfos,
 } from "@/src/helpers/dependencies/user";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
-import { formatDateWithFns } from "@/src/helpers/functions/convertDate";
 import { useUserStore } from "@/src/stores/userStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { CheckCircle } from "lucide-react";
+import { useFormatter, useNow, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PurchaseAction } from "./@ui/Action";
 
 type ProfilePurchaseProps = {};
 
 export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
+  const t = useTranslations("Dashboard.Components.Profile.Purchases");
+  const formater = useFormatter();
+  const now = useNow({
+    updateInterval: 1000 * 10,
+  });
+
   const { userStore, isUserStoreLoading } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const [userProfile, setUserProfile] =
@@ -29,19 +34,16 @@ export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
     }
   }, [userStore, refresh, isLoading, isUserStoreLoading]);
   if (!userProfile || userProfile?.isLoading) {
-     return <SkeletonLoader type="card" />;
+    return <SkeletonLoader type="card" />;
   }
 
   return (
     <div className="flex flex-col gap-5 mt-14">
       {(userProfile.oneTimePayments?.filter((e) => !e.priceId).length ?? 0) ===
-        0 ? (
+      0 ? (
         <div className="flex flex-col items-center justify-center gap-5">
-          <h2 className="text-xl">No purchase history</h2>
-          <p className="text-center">
-            You have not purchased any product yet. Go to the pricing page to
-            make a purchase.
-          </p>
+          <h2 className="text-xl">{t("no-purchase-history")}</h2>
+          <p className="text-center">{t("no-purchase-history-description")}</p>
         </div>
       ) : (
         <div className="flex flex-col gap-5">
@@ -65,20 +67,20 @@ export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
                   className="rounded-default flex flex-col border items-center shadow w-full gap-2 p-5 ">
                   <div className="flex flex-row w-full justify-between mb-0">
                     <div>
-                      <h2 className="font-bold text-xl">
-                        Refill
-                      </h2>
+                      <h2 className="font-bold text-xl">Refill</h2>
                     </div>
                     <div className="flex flew-row items-center gap-x-5">
                       <span>
-                        {convertCurrencyName(payment.currency, "sigle")}
-                        {payment.amount / 100}
+                        {formater.number(payment.amount / 100, {
+                          style: "currency",
+                          currency: payment.currency,
+                        })}
                       </span>
                       <span className="flex flex-row items-center gap-1">
                         <CheckCircle className="icon text-green-500 self-center mt-0.5" />
-                        {formatDateWithFns(
-                          new Date(payment.createdAt ?? Date.now()),
-                          "US"
+                        {formater.relativeTime(
+                          payment.createdAt ?? Date.now(),
+                          now
                         )}
                       </span>
                     </div>
@@ -87,7 +89,6 @@ export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
               );
             })}
         </div>
-      
       )}
       {userProfile.oneTimePayments
         ?.filter((e) => e.priceId)
@@ -111,14 +112,16 @@ export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
                 </div>
                 <div className="flex flew-row items-center gap-x-5">
                   <span>
-                    {convertCurrencyName(payment.currency, "sigle")}
-                    {payment.amount / 100}
+                    {formater.number(payment.amount / 100, {
+                      style: "currency",
+                      currency: payment.currency,
+                    })}
                   </span>
                   <span className="flex flex-row items-center gap-1">
                     <CheckCircle className="icon text-green-500 self-center mt-0.5" />
-                    {formatDateWithFns(
-                      new Date(payment.createdAt ?? Date.now()),
-                      "US"
+                    {formater.relativeTime(
+                      payment.createdAt ?? Date.now(),
+                      now
                     )}
                   </span>
                 </div>

@@ -1,10 +1,12 @@
 import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { Button } from "@/src/components/ui/button";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useTransition } from "react";
 
 export const SignWithGithub = () => {
+  const t = useTranslations("Login.WithGitbub");
   const [isPending, startTransition] = useTransition();
 
   const onGithubSignIn = async () => {
@@ -26,7 +28,7 @@ export const SignWithGithub = () => {
           width={18}
         />
       )}
-      Login with GitHub
+      {t('button.login-with-github')}
     </Button>
   );
 };

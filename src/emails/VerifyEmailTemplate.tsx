@@ -1,22 +1,27 @@
-import { Button, Heading, Hr, Section, Text } from "@react-email/components";
+import { Heading, Hr, Section, Text } from "@react-email/components";
+import { getTranslations } from "next-intl/server";
+import ButtonTemplate from "./@ui/ButtonTemplate";
 
 export type verificationEmailTemplateProps = {
   vars: {
     verificationToken: string;
   };
 };
-export default function VerifyEmailTemplate({ vars }: verificationEmailTemplateProps) {
+export default async function VerifyEmailTemplate({
+  vars,
+}: verificationEmailTemplateProps) {
   const uri = process.env.NEXT_PUBLIC_URI;
+  const t = await getTranslations();
+
   return (
-      <Section>
-        <Heading>Welcome to Saaster</Heading>
-        <Hr />
-        <Text>To verify your email click on the button bellow :</Text>
-        <Button
-          className="w-full p-5"
-          href={`${uri}/register/verifyemail?token=${vars.verificationToken}`}>
-          Verify my email
-        </Button>
-      </Section>
+    <Section>
+      <Heading>{t("Emails.VerifyEmailTemplate.heading")}</Heading>
+      <Hr />
+      <Text>{t("Emails.VerifyEmailTemplate.text")}</Text>
+      <ButtonTemplate
+        uri={`${uri}/register/verifyemail?token=${vars.verificationToken}`}
+        text={t("Emails.VerifyEmailTemplate.verifyEmail")}
+      />
+    </Section>
   );
 }

@@ -9,6 +9,7 @@ import { useOrganizationStore } from "@/src/stores/organizationStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -17,6 +18,7 @@ type InviteMemberProps = {
 };
 
 export const InviteMember = ({ user }: InviteMemberProps) => {
+    const t = useTranslations("Dashboard.Components.Profile.Organization.UI.InviteMember");
   const { organizationStore, fetchOrganizationStore } = useOrganizationStore();
 
   const formInvitationSchema = z.object({
@@ -24,7 +26,7 @@ export const InviteMember = ({ user }: InviteMemberProps) => {
       .string()
       .email()
       .refine((email) => email !== user.email, {
-        message: "You can't invite yourself",
+        message: t('form.error-you-cant-invite-yourself'),
       }),
   });
 
@@ -54,7 +56,9 @@ export const InviteMember = ({ user }: InviteMemberProps) => {
       fetchOrganizationStore(user.organizationId ?? "");
       toaster({
         type: "success",
-        description: `Invite sent to ${formData.email}`,
+        description: `${t("toasters.invitation-sent")} ${
+          formData.email
+        }`,
       });
       formInvitation.reset({
         email: "",
@@ -69,25 +73,26 @@ export const InviteMember = ({ user }: InviteMemberProps) => {
         className="space-y-3 -mt-10">
         <Field
           type="email"
-          label="Invite new member"
+          label={t("form.field-invite-new-member")}
           name="email"
-          placeholder="Email"
+          placeholder={t("form.placeholder-email")}
           form={formInvitation}
         />
         {user.subscriptions?.find((sub) => sub.isActive) && (
           <p className="text-left text-sm">
-            <Info className="icon mt-1" /> Note: you have an active
-            subscription. The addition of a new member to your organization will
-            be billed on a pro-rata basis if the member accepts the invitation.
+            <Info className="icon mt-1" /> {t("note")}
           </p>
         )}
 
         <ButtonWithLoader
           type="submit"
           loading={formInvitation.formState.isSubmitting}
-          disabled={!formInvitation.formState.isValid || formInvitation.formState.isSubmitting}
+          disabled={
+            !formInvitation.formState.isValid ||
+            formInvitation.formState.isSubmitting
+          }
           className="w-full">
-          Invite
+          {t("form.submit")}
         </ButtonWithLoader>
       </form>
     </Form>

@@ -4,6 +4,7 @@ import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,6 +18,7 @@ const formSchema = z.object({
 });
 
 export default function Credentials() {
+  const t = useTranslations("Login.Credentials");
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,16 +44,16 @@ export default function Credentials() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 -mt-10">
         <Field
           type="email"
-          label="Email"
+          label={t("form.email")}
           name="email"
-          placeholder="Email"
+          placeholder={t("form.email")}
           form={form}
         />
         <Field
           type="password"
-          label="Password"
+          label={t("form.password")}
           name="password"
-          placeholder="Password"
+          placeholder={t("form.password")}
           form={form}>
           <ForgotPassword className="button-in-input" />
         </Field>
@@ -60,7 +62,7 @@ export default function Credentials() {
           disabled={isLoading}
           type="submit"
           className="w-full">
-          Login with email
+         {t('form.login-with-email')}
         </ButtonWithLoader>
       </form>
     </Form>

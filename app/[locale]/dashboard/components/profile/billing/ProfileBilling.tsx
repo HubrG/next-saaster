@@ -3,23 +3,28 @@
 import { PriceCardFeatures } from "@/app/[locale]/pricing/components/PriceCardFeatures";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { SimpleLoader, SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import {
+  SimpleLoader,
+  SkeletonLoader,
+} from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
 } from "@/src/helpers/dependencies/user";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { toLower } from "lodash";
 import { Check, CreditCard, RotateCcw, XCircle } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
-import { formatDateRelativeToNow } from "../../../../../../src/helpers/functions/convertDate";
+import {
+  convertUnixToDate
+} from "../../../../../../src/helpers/functions/convertDate";
 import {
   cancelSubscription,
   changePaymentMethod,
@@ -29,6 +34,8 @@ import {
 type ProfileBillingProps = {};
 
 export const ProfileBilling = ({}: ProfileBillingProps) => {
+  const format = useFormatter();
+  const t = useTranslations("Dashboard.Components.Profile.Billing");
   const router = useRouter();
   const { saasSettings } = useSaasSettingsStore();
   const [userProfile, setUserProfile] = useState<ReturnUserDependencyProps>();
@@ -42,7 +49,6 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
       setRefresh(false);
     }
   }, [userStore, refresh, isLoading, isUserStoreLoading]);
- 
 
   // Dans votre composant ProfileBilling.tsx
   const handleCancelOrRestartSubscription = async (
@@ -50,7 +56,6 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     subscriptionId: string,
     userEmail: string
   ) => {
-
     setIsLoading(true);
     const cancel = await cancelSubscription(
       subscriptionId,
@@ -105,9 +110,22 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     return router.push(changePayMeth as any);
   };
 
-   if (!userProfile || userProfile?.isLoading) {
-     return <SkeletonLoader type="card" />;
-   }
+  if (!userProfile || userProfile?.isLoading) {
+    return <SkeletonLoader type="card" />;
+  }
+
+  const recurringTranslation = (rec: string) => {
+    if (rec === "month") {
+      return t("monthly");
+    } else if (rec === "year") {
+      return t("yearly");
+    } else if (rec === "week") {
+      return t("weekly");
+    } else if (rec === "day") {
+      return t("daily");
+    }
+    return;
+  };
 
   return (
     <div className="rounded-default relative flex flex-col w-full gap-2 items-start p-5 ">
@@ -126,7 +144,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
             )}>
             <div className="md:w-1/2 w-full flex flex-col  h-full text-left  pr-5">
               <div className="flex flex-col border rounded-default p-5">
-                <h2 className="text-base mb-2">Your plan</h2>
+                <h2 className="text-base mb-2">{t("your-plan")}</h2>
                 <h3 className="text-2xl flex flex-row  items-start justify-between w-full">
                   <span className="flex flex-col">
                     <span>
@@ -135,62 +153,80 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     <span className="text-xs font-normal">
                       {/* {userInfo?.subItem} */}
                       {userProfile?.activeSubscription.trialDaysRemaining &&
-                        userProfile?.activeSubscription.trialDaysRemaining +
-                          " trial days remaining, then..."}
+                        `${t("trial-days-remaining", {
+                          varIntlDays:
+                            userProfile?.activeSubscription.trialDaysRemaining,
+                        })}`}
                     </span>
                   </span>
                   <span className="flex flex-col">
                     {userProfile.activeSubscription.usageType !== "metered" ? (
                       <>
                         <span>
-                          {convertCurrencyName(
-                            userProfile.activeSubscription.currency,
-                            "sigle"
-                          )}
-                          {
+                          {format.number(
                             userProfile.activeSubscription
-                              .priceWithDiscountAndQuantity
-                          }
+                              .priceWithDiscountAndQuantity ?? 0 / 100,
+                            {
+                              style: "currency",
+                              currency:
+                                userProfile.activeSubscription.currency ??
+                                undefined,
+                            }
+                          )}
                         </span>
                         <span className="text-sm">
-                          /{userProfile.activeSubscription.recurring ?? ""}
+                          /
+                          {recurringTranslation(
+                            userProfile.activeSubscription.recurring ?? ""
+                          ) ?? ""}
                           {userProfile.activeSubscription.quantity > 1 &&
                             "/" +
                               userProfile.activeSubscription.quantity +
-                              " users"}
+                              t("users")}
                         </span>
                       </>
                     ) : (
                       <>
                         <span>
-                          {convertCurrencyName(
-                            userProfile.activeSubscription.currency,
-                            "sigle"
+                          {format.number(
+                            userProfile.activeSubscription.priceWithDiscount ??
+                              0 / 100,
+                            {
+                              style: "currency",
+                              currency:
+                                userProfile.activeSubscription.currency ??
+                                undefined,
+                            }
                           )}
-                          {userProfile.activeSubscription.priceWithDiscount ??
-                            0 / 100}
                         </span>
                         <span className="text-sm">
-                          /per {userProfile.activeSubscription.meteredUnit}{" "}
+                          /{t("trial-days-remaining")}{" "}
+                          {userProfile.activeSubscription.meteredUnit}{" "}
                           {toLower(saasSettings.creditName ?? "credits")}
                         </span>
                         <span className="text-sm font-normal">
-                          billed each{" "}
-                          {userProfile.activeSubscription.recurring ?? ""}
+                          {t("billed-each")}{" "}
+                          {recurringTranslation(
+                            userProfile.activeSubscription.recurring ?? ""
+                          ) ?? ""}
                         </span>
                         <span className="text-sm font-normal">
-                          (according to use)
+                          {t("according-to-use")}{" "}
                         </span>
                       </>
                     )}
                     {userProfile.activeSubscription.quantity > 1 && (
                       <span className="text-sm font-normal">
-                        {convertCurrencyName(
-                          userProfile.activeSubscription.currency,
-                          "sigle"
-                        )}
-                        {userProfile.activeSubscription.priceWithDiscount +
-                          " per user"}
+                        {format.number(
+                          userProfile.activeSubscription.priceWithDiscount ??
+                            0 / 100,
+                          {
+                            style: "currency",
+                            currency:
+                              userProfile.activeSubscription.currency ??
+                              undefined,
+                          }
+                        ) + ` ${t("per-user")}`}
                       </span>
                     )}
                   </span>
@@ -204,19 +240,22 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                         <Check className="icon text-theming-text-500-second mt-1" />
                       </span>
                       <span className=" col-span-11">
-                        You save{" "}
-                        {userProfile.activeSubscription?.coupon.percent_off
-                          ? userProfile.activeSubscription?.coupon.percent_off +
-                            "%"
-                          : (userProfile.activeSubscription?.coupon
-                              .amount_off ?? 0) /
-                              100 +
-                            `${convertCurrencyName(
-                              userProfile.activeSubscription?.coupon.currency ??
-                                undefined,
-                              "sigle"
-                            )} `}
-                        on this plan
+                        {t("you-save", {
+                          varIntlSave: userProfile.activeSubscription.coupon
+                            ?.percent_off
+                            ? userProfile.activeSubscription.coupon
+                                ?.percent_off + "%"
+                            : format.number(
+                                (userProfile.activeSubscription.coupon
+                                  ?.amount_off ?? 0) / 100,
+                                {
+                                  style: "currency",
+                                  currency:
+                                    userProfile.activeSubscription.coupon
+                                      ?.currency ?? undefined,
+                                }
+                              ),
+                        })}{" "}
                       </span>
                     </li>
                   ))}
@@ -227,11 +266,12 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       <Check className="icon text-theming-text-500-second mt-1" />
                     </span>
                     <span className="flex flex-col col-span-11">
-                      <span>Your trial ends at :</span>
+                      <span> {t("your-trial-ends-at")}</span>
                       <span className="dark:text-theming-text-500-second !text-sm text-theming-text-500-second">
-                        {formatDateRelativeToNow(
-                          userProfile.activeSubscription.trialDateEnd ?? 0,
-                          "US"
+                        {format.dateTime(
+                          convertUnixToDate(
+                            userProfile.activeSubscription.trialDateEnd ?? 0
+                          )
                         )}
                       </span>
                     </span>
@@ -243,12 +283,13 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       <Check className="icon text-theming-text-500-second mt-1" />
                     </span>
                     <span className="flex flex-col col-span-11">
-                      <span>Your subscription will be canceled at :</span>
+                      <span>{t("subscription-will-be-canceled-at")} :</span>
                       <span className="dark:text-theming-text-500-second !text-sm text-theming-text-500-second">
-                        {formatDateRelativeToNow(
-                          userProfile.activeSubscription.canceledActiveUntil ??
-                            0,
-                          "US"
+                        {format.dateTime(
+                          convertUnixToDate(
+                            userProfile.activeSubscription
+                              .canceledActiveUntil ?? 0
+                          )
                         )}
                       </span>
                     </span>
@@ -259,12 +300,13 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       <Check className="icon text-theming-text-500-second mt-1" />
                     </span>
                     <span className="flex flex-col col-span-11">
-                      <span>Next invoice at :</span>
+                      <span>{t("next-invoice-at")} :</span>
                       <span className="dark:text-theming-text-500-second !text-sm text-theming-text-500-second">
-                        {formatDateRelativeToNow(
-                          userProfile.activeSubscription.canceledActiveUntil ??
-                            0,
-                          "US"
+                        {format.dateTime(
+                          convertUnixToDate(
+                            userProfile.activeSubscription
+                              .canceledActiveUntil ?? 0
+                          )
                         )}
                       </span>
                     </span>
@@ -274,7 +316,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
             </div>
             <Goodline className="md:hidden" />
             <div className={"md:w-1/2 w-full flex flex-col  text-left  pl-5"}>
-              <h2 className="text-base mb-2">Features</h2>
+              <h2 className="text-base mb-2">{t("features-title")}</h2>
               <ul>
                 {userProfile.activeSubscription.planObject && (
                   <PriceCardFeatures
@@ -287,7 +329,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
           <Goodline />
           <div className="col-span-full  gap-2 flex md:flex-row flex-col justify-between w-full">
             <Button className="md:w-2/5 w-full" variant={"default"}>
-              Downgrad or upgrade plan
+              {t("buttons.update-plan")}
             </Button>
             <div className="md:w-1/4 w-full">&nbsp;</div>
             <div className="md:w-2/3 w-full flex flex-row justify-end items-end">
@@ -298,7 +340,8 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                 loading={buttonLoading}
                 className="w-full !px-0 !pr-0"
                 variant="link">
-                <CreditCard className="icon mt-1" /> Change payment method
+                <CreditCard className="icon mt-1" />{" "}
+                {t("buttons.update-payment")}
               </ButtonWithLoader>
               {!userProfile.activeSubscription.isCanceling ? (
                 <>
@@ -314,8 +357,8 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                         userStore.email ?? ""
                       )
                     }>
-                    <XCircle className="icon text-red-500 mt-1" /> Cancel
-                    subscription
+                    <XCircle className="icon text-red-500 mt-1" />{" "}
+                    {t("buttons.cancel-subscription")}
                   </Button>
                 </>
               ) : (
@@ -331,38 +374,35 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       userStore.email ?? ""
                     )
                   }>
-                  <RotateCcw className="icon text-green-500" /> Restart
-                  subscription
+                  <RotateCcw className="icon text-green-500" />{" "}
+                  {t("buttons.restart-subscription")}
                 </Button>
               )}
             </div>
             <Tooltip id="cancel-subscription" place="top" className="tooltip">
               <span>
-                Your subscription will be canceled at the end of the current
-                period at{" "}
-                {formatDateRelativeToNow(
-                  userProfile.activeSubscription.canceledActiveUntil ?? 0,
-                  "US"
-                )}
-                . You can continue to use the service until then and you
-                won&apos;t be charged again.
+                {t("tooltips.cancel-subscription", {
+                  varIntlDate: format.dateTime(
+                    convertUnixToDate(
+                      userProfile.activeSubscription.canceledActiveUntil ?? 0
+                    )
+                  ),
+                })}
               </span>
             </Tooltip>
             <Tooltip id="restart-subscription" place="top" className="tooltip">
-              <span>
-                Your subscription will be restarted and you will not be charged
-                more.
-              </span>
+              <span>{t("tooltips.restart-subscription")}</span>
             </Tooltip>
-            {/* <Button onClick={() => handlAddItem(userInfo?.subItem)}>
+            {/* NOTE : METERED USAGE BUTTON
+            <Button onClick={() => handlAddItem(userInfo?.subItem)}>
               Add item
             </Button> */}
           </div>
         </>
       ) : (
         <div className="flex flex-col w-full items-start justify-center">
-          <h2 className="text-2xl mb-2">No plan</h2>
-          <Button onClick={handleGoToPricingPage}>Subscribe to a plan</Button>
+          <h2 className="text-2xl mb-2"> {t("no-plan-subscribed-yet")}</h2>
+          <Button onClick={handleGoToPricingPage}> {t("subscribe-now")}</Button>
         </div>
       )}
     </div>

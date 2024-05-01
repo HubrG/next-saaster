@@ -24,6 +24,7 @@ import { useUserStore } from "@/src/stores/userStore";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { upperCase } from "lodash";
 import { Crown, Hourglass, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { InviteMember } from "./@ui/InviteMember";
@@ -32,7 +33,8 @@ import { PopoverOrganizationMember } from "./@ui/PopoverMember";
 
 type ProfileOrganizationProps = {};
 
-export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
+export const ProfileOrganization = ({ }: ProfileOrganizationProps) => {
+  const t = useTranslations("Dashboard.Components.Profile.Organization");
   const { organizationStore, fetchOrganizationStore } = useOrganizationStore();
   const { userStore, isUserStoreLoading, fetchUserStore } = useUserStore();
   const [userProfile, setUserProfile] =
@@ -64,7 +66,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
       toaster({ type: "error", description: create.serverError });
       setIsLoading(false);
     } else {
-      toaster({ type: "success", description: "Organization created" });
+      toaster({ type: "success", description: t('toasters.organization-created')});
       fetchUserStore(email);
       setRefresh(true);
       setIsLoading(false);
@@ -79,7 +81,10 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });
     } else {
-      toaster({ type: "success", description: "Pending user removed" });
+      toaster({
+        type: "success",
+        description: t("toasters.pendin-user-removed"),
+      });
       setRefresh(true);
     }
   };
@@ -92,7 +97,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
     if (remove.serverError) {
       toaster({ type: "error", description: remove.serverError });
     } else {
-      toaster({ type: "success", description: "Organization quitted" });
+      toaster({ type: "success", description: t('toasters.organization-left')} );
       window.location.reload();
     }
   };
@@ -104,7 +109,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
     if (handleError(deleteOrg).error) {
       toaster({ type: "error", description: handleError(deleteOrg).message });
     }
-    toaster({ type: "success", description: "Organization deleted" });
+    toaster({ type: "success", description: t('toasters.organization-deleted') });
     window.location.reload();
   };
   return (
@@ -118,7 +123,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
               </h3>
               <div className="pt-5">
                 <h4 className="text-base text-left flex flex-row  items-center">
-                  <Users className="icon" /> Members
+                  <Users className="icon" /> {t("members")}
                 </h4>
                 <ul className="ml-8">
                   {organizationStore.members?.map((member) => (
@@ -161,7 +166,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                         className="tooltip z-50"
                         opacity={100}
                         id="ownerID">
-                        Owner
+                        {t("tooltip.owner")}
                       </Tooltip>
                       {userProfile?.info.organization?.ownerId ===
                         userProfile?.info.id &&
@@ -180,7 +185,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                 organizationStore.organizationInvitations?.length > 0 && (
                   <>
                     <h4 className="text-base text-left mt-5 flex flex-row items-center">
-                      <Hourglass className="icon" /> Pending
+                      <Hourglass className="icon" /> {t("pending-invitations")}
                     </h4>
                     <ul className="ml-8 ">
                       {organizationStore.organizationInvitations?.map(
@@ -193,7 +198,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                               userProfile?.info.id &&
                               userProfile?.info.email !== invitation.email && (
                                 <PopoverDelete
-                                  what="this member"
+                                  what={t("popover.delete-member")}
                                   className="mr-5"
                                   handleDelete={() => {
                                     handleRemovePending(invitation.email);
@@ -223,8 +228,8 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
           <Goodline className="mb-10" />
           {userProfile?.info.organization?.ownerId === userProfile?.info.id ? (
             <PopoverConfirm
-              what="to delete this organization ?"
-              display="Delete organization..."
+              what={t("popover.what-delete-organization")}
+              display={t("popover.delete-organization")}
               className="text-left float-right dark:text-theming-text-900 text-red-500"
               variant={"link"}
               handleFunction={delOrganization}
@@ -251,7 +256,7 @@ export const ProfileOrganization = ({}: ProfileOrganizationProps) => {
                 userProfile?.info.email ?? ""
               )
             }>
-            Create an organization
+            {t("buttons.create-organization")}
           </ButtonWithLoader>
         </>
       )}

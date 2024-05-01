@@ -10,9 +10,11 @@ import links from "@/src/jsons/main-menu.json";
 import { Link } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { upperCase } from "lodash";
+import { getTranslations } from "next-intl/server";
 import MainMenu from "../header/navbar/MainMenu";
 
 export default async function Footer() {
+  const t = await getTranslations();
   const settings = (await getAppSettings()).data;
   return (
     <>
@@ -45,18 +47,18 @@ export default async function Footer() {
         </nav>
         <Goodline className="md:hidden block" />
         <nav className="flex flex-col max-md:-mt-10">
-          <h4>Navigation</h4>
+          <h4>{t("Footer.Navigation.title")}</h4>
           <MainMenu links={links} className="list-none nunderline" />
-          <Link href="/blog">Blog</Link>
-          <Link href="/faq">FAQ</Link>
+          <Link href="/blog">{t("Footer.Navigation.blog")}</Link>
+          <Link href="/faq">{t("Footer.Navigation.faq")}</Link>
         </nav>
         <nav className="flex flex-col">
-          <h4>Legal</h4>
-          <Link href="/terms">Terms of services</Link>
-          <Link href="/privacy">Privacy policy</Link>
+          <h4>{t("Footer.Legal.title")}</h4>
+          <Link href="/terms">{t("Footer.Legal.terms")}</Link>
+          <Link href="/privacy">{t("Footer.Legal.privacy")}</Link>
         </nav>
-        <nav className="flex flex-col">
-          <h4>Subscribe to our newsletter</h4>
+        <nav className="flex flex-col md:w-2/3 w-full">
+          <h4 className="text-center">{t("Footer.Legal.newsletter")}</h4>
           <NewsletterForm className="-mt-10" />
         </nav>
       </footer>

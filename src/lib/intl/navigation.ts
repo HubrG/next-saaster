@@ -3,9 +3,11 @@ import {
   createLocalizedPathnamesNavigation
 } from "next-intl/navigation";
 
-export const locales = ["en", "fr", "es", "hi", "zh", "tr", "ja", "pt", "ar"] as const;
+type Locale = typeof locales[number];
+
+export const locales = ["en", "fr", "es", "hi", "zh", "tr", "ja", "pt", "ar", "ru","de","it", "bn"] as const;
 export const localePrefix = "always"; 
-export const defaultLocale = "en";
+export const defaultLocale = "en" as Locale;
 export const pathnames = {
   // If all locales use the same pathname, a
   // single external path can be provided.
@@ -26,6 +28,10 @@ export const pathnames = {
     ja: "/dashboard#Billing",
     pt: "/painel#Billing",
     ar: "/dashboard#Billing",
+    ru: "/dashboard#Billing",
+    it: "/planello#Billing",
+    de: "/armaturenbrett#Billing",
+    bn: "/dashboard#Billing",
   },
   "/contact": {
     en: "/contact",
@@ -37,6 +43,11 @@ export const pathnames = {
     ja: "/contact",
     pt: "/contacto",
     ar: "/contact",
+    ru: "/contact",
+    it: "/contatto",
+    de: "/kontakt",
+    bn: "/contact",
+    
   },
   "/login": {
     en: "/login",
@@ -48,6 +59,10 @@ export const pathnames = {
     ja: "/login",
     pt: "/Conecte-se",
     ar: "/login",
+    ru: "/login",
+    it: "/accesso",
+    de: "/anmeldung",
+    bn: "/login",
   },
   "/dashboard": {
     en: "/dashboard",
@@ -59,6 +74,10 @@ export const pathnames = {
     ja: "/dashboard",
     pt: "/painel",
     ar: "/dashboard",
+    ru: "/dashboard",
+    it: "/planello",
+    de: "/armaturenbrett",
+    bn: "/dashboard",
   },
   "/pricing": {
     en: "/pricing",
@@ -70,6 +89,10 @@ export const pathnames = {
     ja: "/pricing",
     pt: "/precos",
     ar: "/pricing",
+    ru: "/pricing",
+    it: "/prezzi",
+    de: "/preisgestaltung",
+    bn: "/pricing",
   },
   "/how-it-works": {
     en: "/how-it-works",
@@ -81,6 +104,10 @@ export const pathnames = {
     ja: "/how-it-works",
     pt: "/como-funciona",
     ar: "/how-it-works",
+    ru: "/how-it-works",
+    it: "/come-funziona",
+    de: "/wie-es-funktioniert",
+    bn: "/how-it-works",
   },
   "/terms": {
     en: "/terms",
@@ -92,6 +119,10 @@ export const pathnames = {
     ja: "/terms",
     pt: "/termos",
     ar: "/terms",
+    ru: "/terms",
+    it: "/termini",
+    de: "/bedingungen",
+    bn: "/terms",
   },
   "/privacy": {
     en: "/privacy",
@@ -103,6 +134,10 @@ export const pathnames = {
     ja: "/privacy",
     pt: "/privacidade",
     ar: "/privacy",
+    ru: "/privacy",
+    it: "/privacy",
+    de: "/datenschutz",
+    bn: "/privacy",
   },
   "/refill": {
     en: "/refill",
@@ -114,6 +149,10 @@ export const pathnames = {
     ja: "/refill",
     pt: "/recarregar",
     ar: "/refill",
+    ru: "/refill",
+    it: "/ricaricare",
+    de: "/nachfullen",
+    bn: "/refill",
   },
   "/register": {
     en: "/register",
@@ -125,6 +164,10 @@ export const pathnames = {
     ja: "/register",
     pt: "/registro",
     ar: "/register",
+    ru: "/register",
+    it: "/registrare",
+    de: "/registrieren",
+    bn: "/register",
   },
   // Dynamic params are supported via square brackets
   // "/news/[articleSlug]-[articleId]": {

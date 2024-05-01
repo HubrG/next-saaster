@@ -1,10 +1,12 @@
 import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { Button } from "@/src/components/ui/button";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useTransition } from "react";
 
 export const SignWithGoogle = () => {
+  const t = useTranslations("Login.WithGoogle")
   const [isPending, startTransition] = useTransition();
   const onGoogleSignIn = async () => {
     await signIn("google");
@@ -24,7 +26,7 @@ export const SignWithGoogle = () => {
           width={18}
         />
       )}
-      Continue with Google
+     {t('buttons.continue-with-google')}
     </Button>
   );
 };

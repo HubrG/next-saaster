@@ -7,6 +7,7 @@ import {
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iOrganization } from "@/src/types/db/iOrganization";
+import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 import { sendEmail } from "../emails/sendEmail";
 import { isOrganizationOwner } from "../functions/isUserRole";
@@ -177,22 +178,27 @@ export const inviteMemberToOrganization = authAction(
       );
     // 🔓 Unlocked
     // We check if user is already invited
+    const t = await getTranslations();
     try {
-    const isInvited = await prisma.organizationInvitation.findFirst({
-      where: {
-        organizationId,
-        email,
-      },
-    });
-    if (isInvited) throw new ActionError("User is already invited");
-    // We check if user is already a member of an organization
-    const isMember = await prisma.user.findFirst({
-      where: {
-        email,
-      },
-    });
-    if (isMember && isMember.organizationId)
-      throw new ActionError("User is already a member of an organization");
+      const isInvited = await prisma.organizationInvitation.findFirst({
+        where: {
+          organizationId,
+          email,
+        },
+      });
+      if (isInvited) throw new ActionError(
+        t(
+          "Components.Helpers.DB.Organization.inviteMemberToOrganization.throws.already-invited"
+        )
+      );
+      // We check if user is already a member of an organization
+      const isMember = await prisma.user.findFirst({
+        where: {
+          email,
+        },
+      });
+      if (isMember && isMember.organizationId)
+        throw new ActionError(t("Components.Helpers.DB.Organization.inviteMemberToOrganization.throws.already-in-an-organization"));
       // We create the invitation
       const create = await prisma.organizationInvitation.create({
         data: {
@@ -201,13 +207,21 @@ export const inviteMemberToOrganization = authAction(
         },
       });
       if (!create)
-        throw new ActionError("An error occured while creating the invitation");
+        throw new ActionError(
+          t(
+            "Components.Helpers.DB.Organization.inviteMemberToOrganization.throws.error-while-creating-invitation"
+          )
+        );
       // We return the organization for refresh
       const getOrganization = await prisma.organization.findUnique({
         where: { id: organizationId },
         include: include,
       });
-      if (!getOrganization) throw new ActionError("No features found");
+      if (!getOrganization) throw new ActionError(
+        t(
+          "Components.Helpers.DB.Organization.inviteMemberToOrganization.throws.no-organization-found"
+        )
+      );
       // We send email to the user
       const name =
         getOrganization.name === "Organization name" ||
@@ -217,12 +231,12 @@ export const inviteMemberToOrganization = authAction(
       const sendmail = await sendEmail({
         to: email,
         type: "inviteUserInOrganization",
-        subject: `You have been invited to join the ${
+        subject: `${t("Components.Helpers.DB.Organization.inviteMemberToOrganization.mailing.subject")} ${
           getOrganization.name === "Organization name" ||
           getOrganization.name === ""
-            ? getOrganization.owner.name + "'s"
+            ? getOrganization.owner.name + t("Components.Helpers.DB.Organization.inviteMemberToOrganization.mailing.subject-middle")
             : getOrganization.name
-        } team`,
+        } ${t("Components.Helpers.DB.Organization.inviteMemberToOrganization.mailing.subject-end")}`,
         vars: {
           inviteUserInOrganization: {
             organizationId: organizationId,
@@ -372,7 +386,7 @@ export const deleteOrganization = authAction(
         where: { userId: organization.ownerId },
         orderBy: { createdAt: "desc" },
       });
-      // We pass the stripe quantity to 1
+      // We check if the subscription is expired
       if (userSubscription?.isActive) {
         const upSub = await stripeManager.updateSubscription({
           subscriptionId: userSubscription.subscriptionId,
@@ -380,8 +394,20 @@ export const deleteOrganization = authAction(
             quantity: 1,
           },
         });
-        if (!upSub.success)
-          throw new ActionError("Error while updating subscription");
+        if (!upSub.success) {
+          // We delete the userSubscription
+          const deleteUsersFromSubscription =
+            await prisma.userSubscription.deleteMany({
+              where: {
+                userId: { not: organization.ownerId },
+                subscriptionId: userSubscription?.subscriptionId,
+              },
+            });
+          if (!deleteUsersFromSubscription)
+            throw new ActionError(
+              "Error while deleting users from subscription"
+            );
+        }
       }
       // We delete users from userSubscription
       const deleteUsersFromSubscription =

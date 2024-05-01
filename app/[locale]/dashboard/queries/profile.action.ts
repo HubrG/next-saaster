@@ -10,6 +10,7 @@ import { prisma } from "@/src/lib/prisma";
 import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iUsers } from "@/src/types/db/iUsers";
 import { compare, hash } from "bcrypt";
+import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 
 export const createPassword = authAction(
@@ -90,23 +91,24 @@ export const resetPassword = action(
     token: z.string(),
   }),
   async ({ password, token, email }): Promise<HandleResponseProps<iUsers>> => {
+    const t = await getTranslations();
     const hashedPassword = await hash(password, 10);
       const isEmailExist = await prisma.user.findUnique({
         where: {
           email,
         },
       });
-      if (!isEmailExist) throw new ActionError("Email not found");
+      if (!isEmailExist) throw new ActionError(t("Dashboard.Queries.Profile.email-not-found"));
       const isTokenExist = await prisma.verificationToken.findFirst({
         where: {
           token: token,
         },
       });
-      if (!isTokenExist) throw new ActionError("Token not found");
+      if (!isTokenExist) throw new ActionError(t("Dashboard.Queries.Profile.token-not-found"));
       if (isTokenExist.expires < new Date())
-        throw new ActionError("Token expired");
+        throw new ActionError(t("Dashboard.Queries.Profile.token-expired"));
       if (isTokenExist.identifier !== email)
-        throw new ActionError("Token is not valid");
+        throw new ActionError(t("Dashboard.Queries.Profile.invalid-token"));
         try {
           const upUserPassword = await prisma.user.update({
             where: {
@@ -117,7 +119,9 @@ export const resetPassword = action(
             },
           });
           if (!upUserPassword)
-            throw new ActionError("Problem while updating user password");
+            throw new ActionError(
+              t("Dashboard.Queries.Profile.password-not-updated")
+            );
           // We delete the token
           await prisma.verificationToken.delete({
             where: {

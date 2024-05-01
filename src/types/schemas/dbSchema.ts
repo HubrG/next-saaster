@@ -79,7 +79,7 @@ export const updatePlanSchema = z.object({
       creditAllouedByMonth: z.number().nonnegative().optional(),
       isCustom: z.boolean().optional(),
       isPopular: z.boolean().optional(),
-      isRecommanded: z.boolean().optional(),
+      isRecommended: z.boolean().optional(),
       isTrial: z.boolean().optional(),
       isFree: z.boolean().optional(),
       trialDays: z.number().nonnegative().optional(),

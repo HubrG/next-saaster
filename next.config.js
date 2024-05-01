@@ -11,7 +11,8 @@ const nextConfig = {
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
-    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    TRANSLATE_API_KEY: process.env.TRANSLATE_API_KEY
   },
   images: {
     remotePatterns: [

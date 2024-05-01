@@ -7,6 +7,7 @@ import { updateFeature } from "@/src/helpers/db/features.action";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
+import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { Feature } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ import { FeaturesCategoriesList } from "./FeaturesCategoriesList";
 
 export const FeaturesList = () => {
   const router = useRouter();
+  const { fetchSaasPlan } = useSaasPlansStore();
 
   const {
     saasFeatures,
@@ -29,13 +31,18 @@ export const FeaturesList = () => {
 
   // // Fetch the features from the store when the component is mounted
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchSaasFeatures();
-      setStoreLoading(false);
-    }, 5000);
-    return () => clearTimeout(timeoutId);
+    if (isStoreLoading) {
+      const timeoutId = setTimeout(() => {
+        fetchSaasFeatures();
+        fetchSaasPlan();
+        setStoreLoading(false);
+      }, 5000);
+
+      return () => clearTimeout(timeoutId);
+    }
   }, [
     isStoreLoading,
+    fetchSaasPlan,
     fetchSaasFeatures,
     router,
     saasFeatures,

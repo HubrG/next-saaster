@@ -1,6 +1,7 @@
 "use client";
 import { Form } from "@/src/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Field } from "../../form-field";
@@ -11,6 +12,7 @@ type NewsletterFormProps = {
   className?: string;
 };
 export const NewsletterForm = ({ className }: NewsletterFormProps) => {
+  const t = useTranslations("Components.UI.NewsletterForm");
   const formSchema = z.object({
     email: z.string().email(),
   });
@@ -47,8 +49,8 @@ export const NewsletterForm = ({ className }: NewsletterFormProps) => {
             <Field
               type="email"
               displayLabel={false}
-              label="Email"
-              placeholder="Your email"
+              label={t("form.email")}
+              placeholder={t("form.email-exemple") + "@gmail.com"}
               name="email"
               className="mt-1 w-full"
               form={form}
@@ -58,7 +60,7 @@ export const NewsletterForm = ({ className }: NewsletterFormProps) => {
               disabled={form.formState.isSubmitting || !form.formState.isValid}
               className="text-sm w-full"
               type="submit">
-              Subscribe
+              {t("form.submit")}
             </ButtonWithLoader>
           </div>
         </form>

@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "Linkki salasanasi palauttamiseksi on lähetetty osoitteeseen {varIntlEmail}. Tarkista sähköpostilaatikkosi."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Verifiointitunnuksen luomisessa tapahtui virhe. Yritä uudelleen.",
+        "unknown-error": "Olemme kohdanneet tuntemattoman virheen. Yritä uudelleen tai ota yhteyttä.",
+        "user-already-exists": "Tämä sähköpostiosoite on jo rekisteröity. Jos olet omistaja, kirjaudu sisään tällä osoitteella tai pyydä tarvittaessa salasanasi palauttamista.",
+        "user-not-created": "Tilin luomisessa on tapahtunut virhe. Yritä uudelleen."
+      },
+      "success": "Tervetuloa {varIntlName} ! Kiitos luottamuksesta. Saat sähköpostiviestin, jossa on linkki, jonka avulla voit vahvistaa sen voimassaolon.\n\n Voit nyt kirjautua sisään käyttämällä kirjautumistietojasi."
+    },
+    "VerifyEmail": {
+      "expired-token": "Varmistusmerkki on jo vahvistettu, vanhentunut tai sitä ei löydy.",
+      "success": "Sähköpostiosoitteesi on vahvistettu."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Sinut on kutsuttu liittymään",
+              "subject-end": "ja hänen tiiminsä",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "Käyttäjä on jo jonkin organisaation jäsen.",
+              "already-invited": "Käyttäjä on jo kutsuttu.",
+              "error-while-creating-invitation": "On tapahtunut virhe. Kutsua ei ole lähetetty. Yritä uudelleen.",
+              "no-organization-found": "Organisaatiota ei ole löydetty. Tämän täytyy olla virhe. Yritä uudelleen."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Tilisi poistamisessa on ilmennyt ongelma. Ota meihin yhteyttä.",
+              "cancel-subscription": "Tilauksen peruuttamisessa on ilmennyt ongelma",
+              "delete": "Et voi poistaa tiliäsi, koska olet organisaatiosi omistaja. Siirrä oikeuksiasi toiselle käyttäjälle tai poista organisaatio."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Et voi kutsua itseäsi!",
+              "field-invite-new-member": "Kutsu uusi jäsen",
+              "placeholder-email": "Sähköposti",
+              "submit": "Kutsu"
+            },
+            "note": "Sinulla on aktiivinen tilaus. Uuden jäsenen lisäämisestä organisaatioonne laskutetaan suhteellisesti, jos jäsen hyväksyy tämän kutsun.",
+            "toasters": {
+              "invitation-sent": "Kutsu lähetetään osoitteeseen"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Tunnettu organisaatio"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Organisaation luominen"
+        },
+        "members": "Jäsenet",
+        "pending-invitations": "Odottavat käyttäjät",
+        "popover": {
+          "delete-member": "tämä jäsen",
+          "delete-organization": "Organisaation sulkeminen",
+          "what-delete-organization": "lakkauttaa tämä järjestö"
+        },
+        "toasters": {
+          "organization-created": "Perustettu organisaatio",
+          "organization-deleted": "Organisaatio lakkautetaan. Kaikki jäsenet suljettiin pois ja heidän oikeutensa menetettiin.",
+          "organization-left": "Organisaatio vasemmalle",
+          "pendin-user-removed": "Odottava käyttäjä poistettu"
+        },
+        "tooltip": {
+          "owner": "Omistaja"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Sähköpostiosoitteesi",
+          "email-exemple": "esimerkki",
+          "submit": "Tilaa uutiskirjeemme"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Peruuta",
+        "confirm": "Vahvista",
+        "message": "Oletko varma, että haluat"
+      },
+      "popover-delete": {
+        "cancel": "Peruuta",
+        "confirm": "Vahvista",
+        "message": "Haluatko varmasti poistaa"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Tili",
+          "billing": "Tilaus",
+          "emails": "Sähköpostit",
+          "organization": "Organisaatio",
+          "profile": "Profiili",
+          "purchases": "Ostaminen",
+          "usage": "Käytä"
+        },
+        "title": "Tilini"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Et ole luonut salasanaa, koska olet kirjautunut sisään {varIntlProvider}-tilillä. Voit luoda sellaisen täällä.",
+              "form": {
+                "password": "Salasana",
+                "password-confirmation": "Vahvista salasana",
+                "password-error": "Salasanan on oltava vähintään {varIntlMin} merkkiä pitkä.",
+                "passwords-not-matching": "Salasanat eivät täsmää.",
+                "submit": "Luo salasana"
+              },
+              "title": "Luo salasana",
+              "toasters": {
+                "succes-password-created": "Salasanasi on luotu."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Ei hätää, voimme lähettää sinulle linkin salasanasi palauttamista varten.",
+              "emailSent": {
+                "subject": "Nollaa salasanasi"
+              },
+              "form": {
+                "email": "Sähköpostiosoitteesi",
+                "email-error": "Tämä ei ole kelvollinen sähköpostiosoite.",
+                "submit": "Lähetä minulle palautuslinkki"
+              },
+              "title": "Unohditko salasanasi?",
+              "toasters": {
+                "send-email-error": "Sähköpostin lähettämisessä tapahtui virhe. Yritä uudelleen."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Nykyinen salasana",
+                "new-password": "Uusi salasana",
+                "password-confirmation": "Vahvista salasana",
+                "password-error": "Salasanan on oltava vähintään {varIntlMin} merkkiä pitkä.",
+                "passwords-not-matching": "Salasanat eivät täsmää.",
+                "required-message": "Pakollinen",
+                "submit": "Päivitä salasana"
+              },
+              "title": "Päivitä salasanasi",
+              "toasters": {
+                "password-update-error": "Salasanan päivityksessä tapahtui virhe. Yritä uudelleen.",
+                "password-updated": "Salasana päivitetty."
+              }
+            }
+          },
+          "close-account": "Deaktivoi tilini...",
+          "close-account-popover-message": "poistaa tilisi? Tämä toimenpide on peruuttamaton. Jos olet tehnyt tilauksen, se peruutetaan.",
+          "connectedWith": "Olet kirjautunut sisään {varIntlProvider}-tililläsi.",
+          "create-password": "Et ole luonut salasanaa, koska olet automaattisesti kirjautunut sisään {varIntlProvider}-tilillä.",
+          "manage-password": "Hallitse salasanaasi",
+          "title": "Tili"
+        },
+        "Billing": {
+          "according-to-use": "käytöstä riippuen",
+          "billed-each": "laskutetaan kutakin",
+          "buttons": {
+            "cancel-subscription": "Peruuta tilaus",
+            "restart-subscription": "Käynnistä tilaus uudelleen",
+            "update-payment": "Vaihda maksutapaa",
+            "update-plan": "Downgrade tai päivitys"
+          },
+          "daily": "päivä",
+          "features-title": "Ominaisuudet",
+          "id": "Laskutus",
+          "monthly": "kuukausi",
+          "next-invoice-at": "Seuraava lasku",
+          "no-plan-subscribed-yet": "Et ole ottanut tilausta",
+          "per-user": "käyttäjää kohti",
+          "subscribe-now": "Haluaisin tilata!",
+          "subscription-will-be-canceled-at": "Tilauksesi peruutetaan lopullisesti seuraavana päivänä.",
+          "title": "Laskutus",
+          "tooltips": {
+            "cancel-subscription": "Tilauksesi peruutetaan lopullisesti laskutuskauden lopussa {varIntlDate}. Voit jatkaa ominaisuuksiesi käyttöä kyseiseen päivämäärään asti. Sen jälkeen sinua ei enää laskuteta.",
+            "restart-subscription": "Tilauksesi käynnistyy uudelleen ilman lisälaskutusta."
+          },
+          "trial-days-remaining": "Sinulla on {varIntlDays} kokeilupäivä(t) jäljellä.",
+          "users": "käyttäjät",
+          "weekly": "viikko",
+          "yearly": "osoitteessa",
+          "you-save": "Tallennat {varIntlSave} tämän tilauksen yhteydessä.",
+          "your-plan": "Tilauksesi",
+          "your-trial-ends-at": "Kokeilujaksosi päättyy"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Uutiskirjeen tilaus",
+            "toasters": {
+              "error-delete-contact": "Virhe yhteystiedon poistamisessa uutiskirjeyleisöstä",
+              "error-get-contact": "Uutiskirjeen yhteystietoa haettaessa tapahtui virhe. Yritä uudelleen.",
+              "error-update-newsletter": "Uutiskirjeasetuksiasi päivitettäessä tapahtui virhe. Yritä uudelleen.",
+              "newsletter-disabled": "disabled",
+              "newsletter-enabled": "aktivoitu"
+            }
+          },
+          "title": "Sähköpostit"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Et voi kutsua itseäsi!",
+                "field-invite-new-member": "Kutsu uusi jäsen",
+                "placeholder-email": "Sähköposti",
+                "submit": "Kutsu"
+              },
+              "note": "Sinulla on aktiivinen tilaus. Uuden jäsenen lisäämisestä organisaatioonne laskutetaan suhteellisesti, jos jäsen hyväksyy tämän kutsun.",
+              "toasters": {
+                "invitation-sent": "Kutsu lähetetään osoitteeseen"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "mainostaa tätä jäsentä omistajana? Omistajia voi olla vain yksi, jolloin menetät kaikki julkaisuoikeutesi tämän organisaation osalta.",
+                "promote-member-display": "Edistä tätä jäsentä",
+                "revoke-member": "poistaa kyseinen jäsen organisaatiosta",
+                "revoke-member-display": "Peruuta tämä käyttäjä"
+              },
+              "toasters": {
+                "user-promoted": "Edistetty käyttäjä. Et ole enää tämän organisaation omistaja",
+                "user-removed": "Käyttäjä peruutettu"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Nimen on sisällettävä vähintään {varIntlMin}-merkkejä.",
+                "field-organization-name": "Organisaation nimi",
+                "submit": "Nimeä uudelleen"
+              },
+              "organization-renamed": "Tunnettu organisaatio",
+              "toasters": {
+                "organization-renamed": "Organisaation nimi muutettu"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Organisaation luominen"
+          },
+          "members": "Jäsenet",
+          "pending-invitations": "Odottavat käyttäjät",
+          "popover": {
+            "delete-member": "tämä jäsen",
+            "delete-organization": "Organisaation sulkeminen...",
+            "what-delete-organization": "lakkauttaa tämä järjestö"
+          },
+          "title": "Organisaatio",
+          "toasters": {
+            "organization-created": "Perustettu organisaatio",
+            "organization-deleted": "Organisaatio lakkautetaan. Kaikki jäsenet suljettiin pois ja heidän oikeutensa menetettiin.",
+            "organization-left": "Organisaatio vasemmalle",
+            "pendin-user-removed": "Odottava käyttäjä poistettu"
+          },
+          "tooltip": {
+            "owner": "Omistaja"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Muuta profiilikuvaa",
+          "form": {
+            "name": "Näytä nimi",
+            "submit": "Päivitys",
+            "upload": "Lataa"
+          },
+          "title": "Profiili",
+          "toasters": {
+            "file-is-empty": "Tiedosto on tyhjä",
+            "file-is-not-an-image": "Tiedosto ei ole kuva",
+            "file-is-too-large": "Tiedosto on liian suuri (enintään 2 Mt).",
+            "no-file-provided": "Ei toimitettuja tiedostoja",
+            "success": "Päivitetty profiili",
+            "success-file-uploaded": "Profiilikuva onnistuneesti muokattu"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Ei ostohistoriaa",
+          "no-purchase-history-description": "Et ole vielä ostanut yhtään tuotetta sivustoltamme!",
+          "title": "Ostaminen"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Tuntematon sähköpostiosoite",
+        "invalid-token": "Virheellinen merkki",
+        "password-not-updated": "Salasanan vaihtamisessa on ilmennyt ongelma. Yritä uudelleen.",
+        "token-expired": "Merkki vanhentunut.",
+        "token-not-found": "Nollausmerkkiä ei löydy."
+      }
+    },
+    "button": "Siirry kojelautaan",
+    "description": "Tervetuloa kojelautaan!",
+    "title": "Kojelauta"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Nollaa salasanasi",
+      "resetPassword": "Nollaa salasana",
+      "text": "Olet pyytänyt salasanasi palauttamista. Voit tehdä sen klikkaamalla alla olevaa painiketta."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Hyväksy kutsu",
+      "heading": "Sinut on kutsuttu liittymään {varIntlTeamName}-joukkueeseen.",
+      "text": "Voit hyväksyä kutsun klikkaamalla alla olevaa painiketta."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Tervetuloa!",
+      "text": "Vahvistaaksesi ilmoittautumisesi klikkaa alla olevaa painiketta.",
+      "verifyEmail": "Vahvista tilini"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Älä missaa viimeisimpiä uutisiamme! Tilaa uutiskirjeemme",
+      "privacy": "Tietosuojakäytäntö",
+      "terms": "Oikeudelliset tiedot",
+      "title": "Oikeudellinen"
+    },
+    "Navigation": {
+      "blog": "Blogi",
+      "faq": "FAQ",
+      "title": "Navigointi"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Vahvista uusi salasana",
+          "email": "Tilin sähköpostiosoite",
+          "email-error": "Väärä sähköpostiosoitteen muoto.",
+          "new-password": "Valitse uusi salasana",
+          "password-error": "Täytyy sisältää vähintään {varIntlMin} merkkiä.",
+          "password-match-error": "Näiden kahden salasanan on oltava identtiset.",
+          "submit": "Nollaa",
+          "success": "Salasana vaihdettu onnistuneesti."
+        }
+      }
+    },
+    "invalid-token": "Virheellinen nollausmerkki. Yritä uudelleen tai tee uusi pyyntö.",
+    "reset-password": "Salasanan palauttaminen",
+    "token-expired": "Nollausmerkki on tuntematon."
+  },
+  "Index": {
+    "first-connexion": "Ensimmäinen yhteys",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit nopeaan kehitykseen: keskity vain ydinominaisuuksiin, ja voit olla varma modernista etusivusta ja skaalautuvasta, turvallisesta taustapalvelusta. Säästä vaivaa",
+      "title": "Etusivu"
+    },
+    "title": "Tervetuloa!"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Ota yhteyttä",
+          "features": "Ominaisuudet",
+          "home": "Etusivu",
+          "howItWorks": "Miten se toimii?",
+          "pricing": "Hinnoittelu"
+        },
+        "UserProfile": {
+          "login": "Kirjaudu sisään",
+          "logout": "Irrottaminen",
+          "my-account": "Tilini",
+          "refill": "Lataa uudelleen"
+        },
+        "buy-now": "Osta"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "Sähköposti",
+        "login-with-email": "Yhdistä minut",
+        "password": "Salasana"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "esimerkki",
+        "submit": "Lähetä minulle kirjautumislinkki",
+        "your-email": "Sähköpostiosoitteesi"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Yhteyden muodostaminen Githubiin"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Jatka Googlen kanssa"
+      },
+      "buttons": {
+        "continue-with-google": "Yhdistä Googlen kanssa"
+      }
+    },
+    "button": {
+      "no-account": "Ei tiliä?",
+      "register": "Klikkaa tästä rekisteröityäksesi."
+    },
+    "title": "Kirjaudu tilillesi",
+    "toasters": {
+      "bad-credentials": "Virheelliset tunnisteet"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "kuukausi",
+        "contact-us": "Ota meihin yhteyttä yksilöidäksesi tarjouksesi.",
+        "metered-unit": "by",
+        "monthly": "kuukausi",
+        "per-seat": "istuinta kohti",
+        "popular": "Suosittu",
+        "recommended": "Suositeltu",
+        "trial": "koepäiviä, sitten...",
+        "yearly": "osoitteessa"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Yksi maksu, monta hanketta"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Osta",
+        "startTrial": "Kokeile {varIntlTrialDays} päivää",
+        "subscribeNow": "Tilaa"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Ota yhteyttä"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Kuukausittain",
+        "yearly": "Vuosittainen"
+      }
+    },
+    "title": "Hinnoittelu"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Tervetuloa sivustollemme! Vahvista, että sähköpostiosoitteesi on voimassa."
+      },
+      "form": {
+        "confirm-password": "Vahvista salasana",
+        "email": "Sähköpostiosoite",
+        "email-error": "Sähköpostiosoitteesi ei ole oikeassa muodossa",
+        "password": "Salasana",
+        "password-did-not-match": "Salasanojen on oltava samanlaisia",
+        "password-error": "Salasanan on oltava vähintään {varIntlMin} merkkiä pitkä.",
+        "register-with-email": "Luo tilini"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Hyväksy",
+          "already-accept": "Olet jo hyväksynyt kutsun.",
+          "decline": "Jätteet",
+          "do-you-accept": "Suostutko liittymään tähän järjestöön?",
+          "invitation-accepted": "Kutsu hyväksytty, luo tili ja kirjaudu sisään täydentämään kutsua. Sinut ohjataan tilin luomisen sivulle.",
+          "invitation-accepted-2": "Kutsu hyväksytty, kirjaudu tilillesi viimeistelläksesi sen.",
+          "invitation-declined": "Kutsu evätty",
+          "invited": "Sinut on kutsuttu liittymään \"{varIntlOrganization}\"-tiimiin.",
+          "join": "Liity organisaatioon \" {varIntlOrganization} \".",
+          "logout": "Kirjaudu ulos",
+          "organization-not-found": "Ei organisaatiota."
+        }
+      },
+      "invitation-not-found": "Ei organisaatiota.",
+      "invited-with-different-email": "Olet kirjautunut sisään eri sähköpostiosoitteella kuin kutsun saanut.",
+      "logged-in-with-right-email": "Olet kirjautunut sisään oikealla sähköpostiosoitteella, mutta sinun on kirjauduttava ulos ja kirjauduttava takaisin sisään hyväksyksesi kutsun.",
+      "please-logout": "Kirjaudu sisään vastaavalla sähköpostiosoitteella ja palaa tälle sivulle. Jos sinulla ei ole tiliä kutsutulla osoitteella, kirjaudu ulos ja palaa tälle sivulle luodaksesi sellaisen."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Kirjaudu tilillesi",
+      "request-new-validation": "ja pyydä uusi validointilinkki, jos et ole vielä validoinut sitä.",
+      "success": "Sähköposti vahvistettu.",
+      "title": "Sähköpostiosoitteen tarkistaminen"
+    },
+    "already-account-sentence": "Onko sinulla jo tili?",
+    "button": {
+      "login": "Kirjaudu sisään osoitteessa"
+    },
+    "title": "Luo tili"
+  }
+}

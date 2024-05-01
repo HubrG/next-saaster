@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "Tengill til að endurstilla lykilorðið þitt hefur verið sendur á {varIntlEmail}. \nVinsamlegast athugaðu tölvupóstreikninginn þinn."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Villa kom upp við að búa til staðfestingartáknið. \nReyndu aftur.",
+        "unknown-error": "Við fundum óþekkta villu. \nVinsamlegast reyndu aftur eða hafðu samband við okkur.",
+        "user-already-exists": "Þetta netfang er þegar skráð. \nEf þú ert eigandinn, vinsamlegast skráðu þig inn með þeim síðarnefnda eða, ef nauðsyn krefur, biðja um endurstillingu lykilorðs.",
+        "user-not-created": "Villa kom upp við að búa til reikninginn. \nReyndu aftur."
+      },
+      "success": "Velkominn {varIntlName}! \nÞakka þér fyrir traustið. \nÞú færð tölvupóst með hlekk sem gerir þér kleift að staðfesta réttmæti þess.\n\n \nÞú getur nú skráð þig inn með skilríkjum þínum."
+    },
+    "VerifyEmail": {
+      "expired-token": "Staðfestingarlykill er þegar staðfestur, útrunninn eða fannst ekki.",
+      "success": "Netfangið þitt hefur verið staðfest."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Þér hefur verið boðið að ganga í samtökin",
+              "subject-end": "og lið hans",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "Notandinn er nú þegar meðlimur fyrirtækis.",
+              "already-invited": "Notanda þegar boðið.",
+              "error-while-creating-invitation": "Villa hefur komið upp. \nBoð hefur ekki verið sent. \nReyndu aftur.",
+              "no-organization-found": "Engin stofnun fannst. \nÞetta er vissulega villa. \nVinsamlegast reyndu aftur."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Vandamál kom upp við að eyða reikningnum þínum. \nVinsamlegast hafðu samband við okkur.",
+              "cancel-subscription": "Vandamál kom upp við að segja upp áskriftinni",
+              "delete": "Þú getur ekki eytt reikningnum þínum vegna þess að þú ert eigandi fyrirtækisins þíns. \nVinsamlegast framseldu réttindi þín til annars notanda, annars eyddu fyrirtækinu."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Þú getur ekki boðið sjálfum þér!",
+              "field-invite-new-member": "Bjóddu nýjum meðlim",
+              "placeholder-email": "Tölvupóstur",
+              "submit": "Bjóða"
+            },
+            "note": "Þú ert með virka áskrift. \nEf nýr meðlimur er bætt við fyrirtækið þitt verður innheimt hlutfallslega ef meðlimurinn samþykkir þetta boð",
+            "toasters": {
+              "invitation-sent": "Boð sent á heimilisfangið"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Fræg stofnun"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Búðu til stofnun"
+        },
+        "members": "Meðlimir",
+        "pending-invitations": "Notendur í bið",
+        "popover": {
+          "delete-member": "þessum meðlimi",
+          "delete-organization": "Náið skipulag",
+          "what-delete-organization": "eyða þessari stofnun"
+        },
+        "toasters": {
+          "organization-created": "Stofnun stofnuð",
+          "organization-deleted": "Stofnun eytt. \nAllir félagsmenn voru útilokaðir og réttur þeirra glataður.",
+          "organization-left": "Skipulag fór",
+          "pendin-user-removed": "Notanda í bið eytt"
+        },
+        "tooltip": {
+          "owner": "Eigandi"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Netfangið þitt",
+          "email-exemple": "dæmi",
+          "submit": "Gerast áskrifandi að fréttabréfinu"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Hætta við",
+        "confirm": "Staðfesta",
+        "message": "Ertu viss um að þú viljir"
+      },
+      "popover-delete": {
+        "cancel": "Hætta við",
+        "confirm": "Staðfesta",
+        "message": "Ertu viss um að þú viljir eyða"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Reikningur",
+          "billing": "Áskrift",
+          "emails": "Tölvupóstar",
+          "organization": "Skipulag",
+          "profile": "Prófíll",
+          "purchases": "Innkaup",
+          "usage": "Notaðu"
+        },
+        "title": "Minn reikningur"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Þú bjóst ekki til lykilorð vegna þess að þú ert skráður inn með reikningnum {varIntlProvider}. \nÞú getur búið til einn hér.",
+              "form": {
+                "password": "Lykilorð",
+                "password-confirmation": "Staðfesting lykilorðs",
+                "password-error": "Lykilorðið verður að vera að minnsta kosti {varIntlMin} stafir að lengd.",
+                "passwords-not-matching": "Lykilorð passa ekki saman.",
+                "submit": "Búðu til lykilorðið"
+              },
+              "title": "Búðu til lykilorð",
+              "toasters": {
+                "succes-password-created": "Lykilorðið þitt hefur verið búið til."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Ekkert mál, við getum sent þér hlekk til að endurstilla lykilorðið þitt.",
+              "emailSent": {
+                "subject": "Endurstilltu lykilorðið þitt"
+              },
+              "form": {
+                "email": "Netfangið þitt",
+                "email-error": "Þetta er ekki gilt netfang.",
+                "submit": "Sendu mér endurheimtartengilinn"
+              },
+              "title": "Gleymt lykilorðinu þínu?",
+              "toasters": {
+                "send-email-error": "Villa kom upp við að senda tölvupóstinn. \nReyndu aftur."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Núverandi lykilorð",
+                "new-password": "nýtt lykilorð",
+                "password-confirmation": "Staðfesting lykilorðs",
+                "password-error": "Lykilorðið verður að vera að minnsta kosti {varIntlMin} stafir að lengd.",
+                "passwords-not-matching": "Lykilorð passa ekki saman.",
+                "required-message": "Skylt",
+                "submit": "Uppfærðu lykilorð"
+              },
+              "title": "Uppfærðu lykilorðið þitt",
+              "toasters": {
+                "password-update-error": "Villa kom upp við að uppfæra lykilorðið. \nReyndu aftur.",
+                "password-updated": "Lykilorð uppfært."
+              }
+            }
+          },
+          "close-account": "Slökktu á reikningnum mínum...",
+          "close-account-popover-message": "eyða reikningnum þínum? \nÞessi aðgerð er óafturkræf. \nEf þú hefur keypt áskrift verður henni sagt upp.",
+          "connectedWith": "Þú ert skráður inn með reikningnum þínum {varIntlProvider}",
+          "create-password": "Þú hefur ekki búið til lykilorð vegna þess að þú ert sjálfkrafa skráður inn með {varIntlProvider} reikningi.",
+          "manage-password": "Stjórnaðu lykilorðinu þínu",
+          "title": "Reikningur"
+        },
+        "Billing": {
+          "according-to-use": "eftir notkun",
+          "billed-each": "innheimt hver",
+          "buttons": {
+            "cancel-subscription": "segja upp áskrift",
+            "restart-subscription": "Endurræstu áskrift",
+            "update-payment": "Breyta greiðslumáta",
+            "update-plan": "Niðurfærsla eða uppfærsla"
+          },
+          "daily": "dagur",
+          "features-title": "Eiginleikar",
+          "id": "Innheimta",
+          "monthly": "mánuði",
+          "next-invoice-at": "Næsti reikningur á",
+          "no-plan-subscribed-yet": "Þú hefur ekki keypt neina áskrift",
+          "per-user": "á hvern notanda",
+          "subscribe-now": "Mig langar að gerast áskrifandi!",
+          "subscription-will-be-canceled-at": "Áskrift þinni verður sagt upp varanlega þann",
+          "title": "Innheimta",
+          "tooltips": {
+            "cancel-subscription": "Áskriftinni þinni verður sagt upp varanlega í lok innheimtutímabilsins {varIntlDate}. \nÞú getur haldið áfram að nota eiginleika þína til þessa dags. \nÞú verður þá ekki lengur rukkaður.",
+            "restart-subscription": "Áskriftin þín mun endurræsa án frekari innheimtu."
+          },
+          "trial-days-remaining": "Þú átt {varIntlDays} prufudag(a) eftir",
+          "users": "notendur",
+          "weekly": "vika",
+          "yearly": "ári",
+          "you-save": "Þú sparar {varIntlSave} í þessari áskrift",
+          "your-plan": "Áskriftin þín",
+          "your-trial-ends-at": "Reynslutímabilinu lýkur kl"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Fréttabréfsáskrift",
+            "toasters": {
+              "error-delete-contact": "Villa við að eyða tengilið úr áhorfendum fréttabréfs",
+              "error-get-contact": "Villa kom upp við að sækja tengilið fréttabréfsins. \nReyndu aftur.",
+              "error-update-newsletter": "Villa kom upp við uppfærslu fréttabréfavalsins. \nReyndu aftur.",
+              "newsletter-disabled": "fatlaður",
+              "newsletter-enabled": "virkjaður"
+            }
+          },
+          "title": "Tölvupóstar"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Þú getur ekki boðið sjálfum þér!",
+                "field-invite-new-member": "Bjóddu nýjum meðlim",
+                "placeholder-email": "Tölvupóstur",
+                "submit": "Bjóða"
+              },
+              "note": "Þú ert með virka áskrift. \nEf nýr meðlimur er bætt við fyrirtækið þitt verður innheimt hlutfallslega ef meðlimurinn samþykkir þetta boð",
+              "toasters": {
+                "invitation-sent": "Boð sent á heimilisfangið"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "kynna þennan meðlim sem eiganda? \nÞað getur aðeins verið einn eigandi, en í því tilviki missir þú allan rétt til að birta færslur í viðkomandi fyrirtæki.",
+                "promote-member-display": "Efla þennan meðlim",
+                "revoke-member": "fjarlægja þennan meðlim úr samtökunum",
+                "revoke-member-display": "Afturkalla þennan notanda"
+              },
+              "toasters": {
+                "user-promoted": "Kynntur notandi. \nÞú ert ekki lengur eigandi þessarar stofnunar",
+                "user-removed": "Notandi afturkallaður"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Nafnið verður að innihalda að minnsta kosti {varIntlMin} staf",
+                "field-organization-name": "nafn stofnunarinnar",
+                "submit": "Endurnefna"
+              },
+              "organization-renamed": "Fræg stofnun",
+              "toasters": {
+                "organization-renamed": "Stofnun endurnefnd"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Búðu til stofnun"
+          },
+          "members": "Meðlimir",
+          "pending-invitations": "Notendur í bið",
+          "popover": {
+            "delete-member": "þessum meðlimi",
+            "delete-organization": "Lokaðu stofnuninni...",
+            "what-delete-organization": "eyða þessari stofnun"
+          },
+          "title": "Skipulag",
+          "toasters": {
+            "organization-created": "Stofnun stofnuð",
+            "organization-deleted": "Stofnun eytt. \nAllir félagsmenn voru útilokaðir og réttur þeirra glataður.",
+            "organization-left": "Skipulag fór",
+            "pendin-user-removed": "Notanda í bið eytt"
+          },
+          "tooltip": {
+            "owner": "Eigandi"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Breyta prófílmynd",
+          "form": {
+            "name": "Birta nafn",
+            "submit": "Að uppfæra",
+            "upload": "Sækja"
+          },
+          "title": "Prófíll",
+          "toasters": {
+            "file-is-empty": "Skráin er tóm",
+            "file-is-not-an-image": "Skráin er ekki mynd",
+            "file-is-too-large": "Skráin er of stór (2 MB hámark)",
+            "no-file-provided": "Engar skrár veittar",
+            "success": "Prófíll uppfærður",
+            "success-file-uploaded": "Prófílmynd breyttist"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Enginn kaupsaga",
+          "no-purchase-history-description": "Þú hefur ekki enn keypt neinar vörur á síðunni okkar!",
+          "title": "Innkaup"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Óþekkt netfang",
+        "invalid-token": "Ógildur Miði",
+        "password-not-updated": "Vandamál kom upp við að breyta lykilorðinu þínu. \nReyndu aftur.",
+        "token-expired": "Tákn rann út.",
+        "token-not-found": "Endurstilla auðkenni fannst ekki."
+      }
+    },
+    "button": "Farðu á mælaborðið",
+    "description": "Velkomin á mælaborðið þitt!",
+    "title": "Mælaborð"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Endurstilltu lykilorðið þitt",
+      "resetPassword": "Endur stilla lykilorð",
+      "text": "Þú hefur beðið um að endurstilla lykilorðið þitt. \nTil að gera þetta, vinsamlegast smelltu á hnappinn hér að neðan."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Samþykkja boðið",
+      "heading": "Þér hefur verið boðið að ganga í {varIntlTeamName} teymið",
+      "text": "Til að samþykkja boðið skaltu smella á hnappinn hér að neðan."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Velkominn !",
+      "text": "Til að staðfesta skráningu þína endanlega skaltu smella á hnappinn hér að neðan.",
+      "verifyEmail": "Staðfestu reikninginn minn"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Ekki missa af fréttum okkar! \nGerast áskrifandi að fréttabréfinu okkar",
+      "privacy": "Friðhelgisstefna",
+      "terms": "Lagatilkynning",
+      "title": "Löglegt"
+    },
+    "Navigation": {
+      "blog": "Blogg",
+      "faq": "Algengar spurningar",
+      "title": "Leiðsögn"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Staðfestu nýja lykilorðið",
+          "email": "Netfang reiknings",
+          "email-error": "Rangt sniðið netfang.",
+          "new-password": "Veldu nýtt lykilorð",
+          "password-error": "Verður að vera að minnsta kosti {varIntlMin} stafir að lengd.",
+          "password-match-error": "Bæði lykilorðin verða að vera eins.",
+          "submit": "Endurstilla",
+          "success": "Lykilorðinu var breytt."
+        }
+      }
+    },
+    "invalid-token": "Ógildur endurstillingarlykill. \nVinsamlegast byrjaðu aftur eða sóttu aftur um.",
+    "reset-password": "Endurstillir lykilorðið þitt",
+    "token-expired": "Endurstillingartáknið er óþekkt."
+  },
+  "Index": {
+    "first-connexion": "Fyrsta tenging",
+    "metadatas": {
+      "description": "NextJS SaaS byrjendasett fyrir hraða þróun: Einbeittu þér aðeins að kjarnaeiginleikum, vertu viss með nútímalegt framenda, skalanlegt og öruggt bakenda. \nSparaðu fyrirhöfn",
+      "title": "Velkominn"
+    },
+    "title": "Velkominn !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Hafðu samband",
+          "features": "Eiginleikar",
+          "home": "Velkominn",
+          "howItWorks": "Hvernig það virkar ?",
+          "pricing": "Verðlag"
+        },
+        "UserProfile": {
+          "login": "Til að skrá þig inn",
+          "logout": "Útskrá",
+          "my-account": "Minn reikningur",
+          "refill": "Endurhlaða"
+        },
+        "buy-now": "Kaupa"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "Tölvupóstur",
+        "login-with-email": "Skrá inn",
+        "password": "Lykilorð"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "dæmi",
+        "submit": "Sendu mér innskráningartengil",
+        "your-email": "Netfangið þitt"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Skráðu þig inn með Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Haltu áfram með Google"
+      },
+      "buttons": {
+        "continue-with-google": "Skráðu þig inn með Google"
+      }
+    },
+    "button": {
+      "no-account": "Enginn reikningur?",
+      "register": "Smelltu hér til að taka þátt."
+    },
+    "title": "Skráðu þig inn á reikninginn þinn",
+    "toasters": {
+      "bad-credentials": "Rangt auðkenni"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "mánuði",
+        "contact-us": "Hafðu samband við okkur til að sérsníða tilboð þitt.",
+        "metered-unit": "af",
+        "monthly": "mánuði",
+        "per-seat": "á sæti",
+        "popular": "Vinsælt",
+        "recommended": "Mælt er með",
+        "trial": "prufudagar þá...",
+        "yearly": "ári"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Ein greiðsla, mörg verkefni"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Kaupa",
+        "startTrial": "Reyndu í {varIntlTrialDays} daga",
+        "subscribeNow": "Gerast áskrifandi"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Hafðu samband við okkur"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Mánaðarlega",
+        "yearly": "Árlegt"
+      }
+    },
+    "title": "Verðlag"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Velkominn ! \nVinsamlegast staðfestu réttmæti netfangsins þíns."
+      },
+      "form": {
+        "confirm-password": "Staðfesta lykilorð",
+        "email": "Netfang",
+        "email-error": "Netfangið þitt er ekki á réttu sniði",
+        "password": "Lykilorð",
+        "password-did-not-match": "Lykilorð ættu að vera svipuð",
+        "password-error": "Lykilorðið þitt verður að vera að minnsta kosti {varIntlMin} stafir að lengd",
+        "register-with-email": "stofna reikninginn minn"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Samþykkja",
+          "already-accept": "Þú hefur þegar samþykkt boðið.",
+          "decline": "Neita",
+          "do-you-accept": "Samþykkir þú að ganga í þessa stofnun?",
+          "invitation-accepted": "Boð samþykkt, vinsamlegast búðu til reikning og skráðu þig inn til að ganga frá boðinu. \nÞér verður vísað á síðuna til að búa til reikning.",
+          "invitation-accepted-2": "Boð samþykkt, vinsamlegast skráðu þig inn á reikninginn þinn til að ganga frá því.",
+          "invitation-declined": "Boðinu hafnað",
+          "invited": "Þér hefur verið boðið að ganga til liðs við „{varIntlOrganization}“ teymið",
+          "join": "Skráðu þig í samtökin „{varIntlOrganization}“",
+          "logout": "Aftengjast",
+          "organization-not-found": "Ekkert skipulag."
+        }
+      },
+      "invitation-not-found": "Ekkert skipulag.",
+      "invited-with-different-email": "Þú ert skráður inn með öðru netfangi en því sem fékk boðið.",
+      "logged-in-with-right-email": "Þú ert skráður inn með réttu netfangi en þú verður að skrá þig út og inn aftur til að samþykkja boðið.",
+      "please-logout": "Vinsamlegast skráðu þig inn með tilheyrandi netfangi og farðu aftur á þessa síðu. \nEf þú ert ekki með reikning með heimilisfangi gesta, skráðu þig út og komdu aftur á þessa síðu til að búa hana til."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Skráðu þig inn á reikninginn þinn",
+      "request-new-validation": "og biðja um nýjan staðfestingartengil ef þú hefur ekki staðfest hann ennþá.",
+      "success": "Netfang staðfest.",
+      "title": "Staðfestir netfangið þitt"
+    },
+    "already-account-sentence": "Ertu nú þegar með reikning?",
+    "button": {
+      "login": "Skrá inn"
+    },
+    "title": "Búðu til reikning"
+  }
+}

@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "A jelszó visszaállításához szükséges linket elküldtük a {varIntlEmail} címre. Kérjük, ellenőrizze az e-mail postaládáját."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Hiba történt az ellenőrző token létrehozása során. Kérjük, próbálja meg újra.",
+        "unknown-error": "Ismeretlen hibával találkoztunk. Kérjük, próbálja meg újra, vagy lépjen kapcsolatba velünk.",
+        "user-already-exists": "Ez az e-mail cím már regisztrálva van. Ha Ön a tulajdonos, kérjük, jelentkezzen be ezen a címen, vagy ha szükséges, kérje jelszava visszaállítását.",
+        "user-not-created": "Hiba történt a fiók létrehozása során. Kérjük, próbálja meg újra."
+      },
+      "success": "Üdvözöljük {varIntlName} ! Köszönjük a bizalmat. Kapni fog egy e-mailt egy linkkel, amely lehetővé teszi, hogy megerősítse az érvényességét.\n\n Most már bejelentkezhet a bejelentkezési adatokkal."
+    },
+    "VerifyEmail": {
+      "expired-token": "Az ellenőrző token már érvényesített, lejárt vagy nem található.",
+      "success": "Az e-mail címét ellenőriztük."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Meghívást kapott, hogy csatlakozzon",
+              "subject-end": "és csapata",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "A felhasználó már tagja egy szervezetnek.",
+              "already-invited": "A felhasználó már meghívást kapott.",
+              "error-while-creating-invitation": "Hiba történt. A meghívó nem került elküldésre. Kérjük, próbálja meg újra.",
+              "no-organization-found": "Nem találtak szervezetet. Ez biztosan hiba. Kérjük, próbálja meg újra."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "A fiók törlése során probléma merült fel. Kérjük, lépjen kapcsolatba velünk.",
+              "cancel-subscription": "Probléma merült fel az előfizetés lemondásakor",
+              "delete": "Nem törölheti fiókját, mivel Ön a szervezet tulajdonosa. Kérjük, adja át a jogait egy másik felhasználónak, ellenkező esetben törölje a szervezetet."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Nem hívhatod meg magad!",
+              "field-invite-new-member": "Új tag meghívása",
+              "placeholder-email": "E-mail",
+              "submit": "Meghívó"
+            },
+            "note": "Önnek aktív előfizetése van. Az Ön szervezetének új taggal való bővítése időarányosan kerül kiszámlázásra, amennyiben a tag elfogadja ezt a meghívást.",
+            "toasters": {
+              "invitation-sent": "Meghívót küldtek a következő címre"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Neves szervezet"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Szervezet létrehozása"
+        },
+        "members": "Tagok",
+        "pending-invitations": "Várakozó felhasználók",
+        "popover": {
+          "delete-member": "ez a tag",
+          "delete-organization": "A szervezet bezárása",
+          "what-delete-organization": "szüntesse meg ezt a szervezetet"
+        },
+        "toasters": {
+          "organization-created": "Létrehozott szervezet",
+          "organization-deleted": "A szervezet megszűnt. Minden tagot kizártak, és jogaik megszűntek.",
+          "organization-left": "Szervezet balra",
+          "pendin-user-removed": "Függő felhasználó törölve"
+        },
+        "tooltip": {
+          "owner": "Tulajdonos"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Az Ön e-mail címe",
+          "email-exemple": "példa",
+          "submit": "Iratkozzon fel hírlevelünkre"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Törölje",
+        "confirm": "Megerősítés",
+        "message": "Biztos vagy benne, hogy"
+      },
+      "popover-delete": {
+        "cancel": "Törölje",
+        "confirm": "Megerősítés",
+        "message": "Biztos, hogy törölni akarja"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Számla",
+          "billing": "Előfizetés",
+          "emails": "E-mailek",
+          "organization": "Szervezet",
+          "profile": "Profil",
+          "purchases": "Vásárlás",
+          "usage": "Használja a  címet."
+        },
+        "title": "Az én számlám"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Ön nem hozott létre jelszót, mert egy {varIntlProvider} fiókkal van bejelentkezve. Itt hozhat létre egyet.",
+              "form": {
+                "password": "Jelszó",
+                "password-confirmation": "Jelszó megerősítése",
+                "password-error": "A jelszónak legalább {varIntlMin} karakter hosszúságúnak kell lennie.",
+                "passwords-not-matching": "A jelszavak nem egyeznek.",
+                "submit": "Jelszó létrehozása"
+              },
+              "title": "Jelszó létrehozása",
+              "toasters": {
+                "succes-password-created": "A jelszavát létrehoztuk."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Nem probléma, küldhetünk egy linket a jelszó visszaállításához.",
+              "emailSent": {
+                "subject": "Jelszó visszaállítása"
+              },
+              "form": {
+                "email": "Az Ön e-mail címe",
+                "email-error": "Ez nem érvényes e-mail cím.",
+                "submit": "Küldje el a helyreállítási linket"
+              },
+              "title": "Elfelejtette jelszavát?",
+              "toasters": {
+                "send-email-error": "Hiba történt az e-mail küldése közben. Kérjük, próbálja meg újra."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Jelenlegi jelszó",
+                "new-password": "Új jelszó",
+                "password-confirmation": "Jelszó megerősítése",
+                "password-error": "A jelszónak legalább {varIntlMin} karakter hosszúságúnak kell lennie.",
+                "passwords-not-matching": "A jelszavak nem egyeznek.",
+                "required-message": "Kötelező",
+                "submit": "Jelszó frissítése"
+              },
+              "title": "Jelszó frissítése",
+              "toasters": {
+                "password-update-error": "Hiba történt a jelszó frissítése közben. Kérjük, próbálja meg újra.",
+                "password-updated": "Jelszó frissítve."
+              }
+            }
+          },
+          "close-account": "Deaktiválja a fiókomat...",
+          "close-account-popover-message": "törölje a fiókját? Ez a művelet visszafordíthatatlan. Ha előfizetést kötött, az törlésre kerül.",
+          "connectedWith": "Ön a {varIntlProvider} fiókjával van bejelentkezve.",
+          "create-password": "Ön nem hozott létre jelszót, mert automatikusan bejelentkezett egy {varIntlProvider} fiókkal.",
+          "manage-password": "Jelszó kezelése",
+          "title": "Számla"
+        },
+        "Billing": {
+          "according-to-use": "felhasználástól függően",
+          "billed-each": "kiszámlázott minden",
+          "buttons": {
+            "cancel-subscription": "Előfizetés törlése",
+            "restart-subscription": "Előfizetés újraindítása",
+            "update-payment": "Fizetési mód módosítása",
+            "update-plan": "Visszaminősítés vagy frissítés"
+          },
+          "daily": "nap",
+          "features-title": "Jellemzők",
+          "id": "Számlázás",
+          "monthly": "hónap",
+          "next-invoice-at": "Következő számla a",
+          "no-plan-subscribed-yet": "Ön nem kötött előfizetést",
+          "per-user": "felhasználónként",
+          "subscribe-now": "Szeretnék feliratkozni!",
+          "subscription-will-be-canceled-at": "Az előfizetés véglegesen törlésre kerül a következő időpontban",
+          "title": "Számlázás",
+          "tooltips": {
+            "cancel-subscription": "Az előfizetése a számlázási időszak végén {varIntlDate} végleg megszűnik. A funkciókat addig a napig továbbra is használhatja. Ezt követően már nem kerül kiszámlázásra.",
+            "restart-subscription": "Az előfizetése további számlázás nélkül újraindul."
+          },
+          "trial-days-remaining": "Önnek {varIntlDays} próbanap(ok) van(nak) hátra",
+          "users": "felhasználók",
+          "weekly": "hét",
+          "yearly": "egy",
+          "you-save": "Mentés {varIntlSave} ezen az előfizetésen",
+          "your-plan": "Az Ön előfizetése",
+          "your-trial-ends-at": "A próbaidőszak a következő időpontban ér véget"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Hírlevél feliratkozás",
+            "toasters": {
+              "error-delete-contact": "Hiba a kapcsolat törlése a hírlevél közönségéből",
+              "error-get-contact": "Hiba történt a hírlevél-kapcsolat lekérdezése során. Kérjük, próbálja meg újra.",
+              "error-update-newsletter": "Hiba történt a hírlevél beállításainak frissítése közben. Kérjük, próbálja meg újra.",
+              "newsletter-disabled": "disabled",
+              "newsletter-enabled": "aktivált"
+            }
+          },
+          "title": "E-mailek"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Nem hívhatod meg magad!",
+                "field-invite-new-member": "Új tag meghívása",
+                "placeholder-email": "E-mail",
+                "submit": "Meghívó"
+              },
+              "note": "Önnek aktív előfizetése van. Az Ön szervezetének új taggal való bővítése időarányosan kerül kiszámlázásra, amennyiben a tag elfogadja ezt a meghívást.",
+              "toasters": {
+                "invitation-sent": "Meghívót küldtek a következő címre"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "ezt a tagot tulajdonosként népszerűsíteni? Csak egy tulajdonos lehet, ebben az esetben elveszíti az összes közzétételi jogát erre a szervezetre vonatkozóan.",
+                "promote-member-display": "Támogassa ezt a tagot",
+                "revoke-member": "eltávolítja ezt a tagot a szervezetből",
+                "revoke-member-display": "A felhasználó visszavonása"
+              },
+              "toasters": {
+                "user-promoted": "Előléptetett felhasználó. Ön már nem tulajdonosa ennek a szervezetnek",
+                "user-removed": "Visszavont felhasználó"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "A névnek legalább {varIntlMin} karaktereket kell tartalmaznia.",
+                "field-organization-name": "A szervezet neve",
+                "submit": "Átnevezés"
+              },
+              "organization-renamed": "Neves szervezet",
+              "toasters": {
+                "organization-renamed": "Szervezet átnevezése"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Szervezet létrehozása"
+          },
+          "members": "Tagok",
+          "pending-invitations": "Várakozó felhasználók",
+          "popover": {
+            "delete-member": "ez a tag",
+            "delete-organization": "Zárja le a szervezetet...",
+            "what-delete-organization": "szüntesse meg ezt a szervezetet"
+          },
+          "title": "Szervezet",
+          "toasters": {
+            "organization-created": "Létrehozott szervezet",
+            "organization-deleted": "A szervezet megszűnt. Minden tagot kizártak, és jogaik megszűntek.",
+            "organization-left": "Szervezet balra",
+            "pendin-user-removed": "Függő felhasználó törölve"
+          },
+          "tooltip": {
+            "owner": "Tulajdonos"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Profilkép módosítása",
+          "form": {
+            "name": "Név megjelenítése",
+            "submit": "Frissítés",
+            "upload": "Letöltés"
+          },
+          "title": "Profil",
+          "toasters": {
+            "file-is-empty": "A fájl üres",
+            "file-is-not-an-image": "A fájl nem kép",
+            "file-is-too-large": "A fájl túl nagy (maximum 2 MB)",
+            "no-file-provided": "Nincs mellékelt fájl",
+            "success": "Frissített profil",
+            "success-file-uploaded": "Profilkép sikeresen módosítva"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Nincs vásárlási előzmény",
+          "no-purchase-history-description": "Még nem vásároltál terméket az oldalunkon!",
+          "title": "Vásárlás"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Ismeretlen e-mail cím",
+        "invalid-token": "Érvénytelen token",
+        "password-not-updated": "A jelszó módosítása során probléma merült fel. Kérjük, próbálja meg újra.",
+        "token-expired": "A jelvény lejárt.",
+        "token-not-found": "Nem találtuk a jelszót."
+      }
+    },
+    "button": "Menjen a műszerfalhoz",
+    "description": "Üdvözöljük a műszerfalon!",
+    "title": "Műszerfal"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Jelszó visszaállítása",
+      "resetPassword": "Jelszó visszaállítása",
+      "text": "Ön kérte a jelszava visszaállítását. Ehhez kattintson az alábbi gombra."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Meghívás elfogadása",
+      "heading": "Önt meghívták a {varIntlTeamName} csapatba.",
+      "text": "A meghívás elfogadásához kattintson az alábbi gombra."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Üdvözöljük!",
+      "text": "Regisztrációjának megerősítéséhez kattintson az alábbi gombra.",
+      "verifyEmail": "Érvényesítse a fiókomat"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Ne maradjon le legújabb híreinkről! Iratkozzon fel hírlevelünkre",
+      "privacy": "Adatvédelmi szabályzat",
+      "terms": "Jogi információk",
+      "title": "Jogi"
+    },
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "GYIK",
+      "title": "Navigáció"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Az új jelszó megerősítése",
+          "email": "Számla e-mail címe",
+          "email-error": "Rossz e-mail cím formátum.",
+          "new-password": "Új jelszó kiválasztása",
+          "password-error": "Legalább {varIntlMin} karaktereket kell tartalmaznia.",
+          "password-match-error": "A két jelszónak azonosnak kell lennie.",
+          "submit": "Reset",
+          "success": "A jelszó sikeresen megváltozott."
+        }
+      }
+    },
+    "invalid-token": "Érvénytelen reset token. Kérjük, próbálja meg újra, vagy tegyen új kérelmet.",
+    "reset-password": "Jelszó visszaállítása",
+    "token-expired": "A reset token ismeretlen."
+  },
+  "Index": {
+    "first-connexion": "Első kapcsolat",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit a gyors fejlesztéshez: csak az alapfunkciókra koncentráljon, és nyugodt lehet a modern frontend és a skálázható, biztonságos backend miatt. Erőfeszítés megtakarítás",
+      "title": "Home"
+    },
+    "title": "Üdvözöljük!"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Kapcsolat",
+          "features": "Jellemzők",
+          "home": "Home",
+          "howItWorks": "Hogyan működik?",
+          "pricing": "Árképzés"
+        },
+        "UserProfile": {
+          "login": "Bejelentkezés",
+          "logout": "A  leválasztása",
+          "my-account": "Az én számlám",
+          "refill": "Újratöltés"
+        },
+        "buy-now": "Vásároljon"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-mail",
+        "login-with-email": "Csatlakozz hozzám",
+        "password": "Jelszó"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "példa",
+        "submit": "Küldjön nekem egy bejelentkezési linket",
+        "your-email": "Az Ön e-mail címe"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Csatlakozás a Githubhoz"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Folytatás a Google-lal"
+      },
+      "buttons": {
+        "continue-with-google": "Csatlakozás a Google-hoz"
+      }
+    },
+    "button": {
+      "no-account": "Nincs számla?",
+      "register": "Kattintson ide a regisztrációhoz."
+    },
+    "title": "Bejelentkezés a fiókjába",
+    "toasters": {
+      "bad-credentials": "Hibás azonosítók"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "hónap",
+        "contact-us": "Lépjen kapcsolatba velünk, hogy személyre szabhassa ajánlatát.",
+        "metered-unit": "a",
+        "monthly": "hónap",
+        "per-seat": "ülőhelyenként",
+        "popular": "Népszerű",
+        "recommended": "Ajánlott",
+        "trial": "próbaidőszak, majd...",
+        "yearly": "egy"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Egy kifizetés, sok projekt"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Vásároljon",
+        "startTrial": "Próbálkozzon {varIntlTrialDays} napokig",
+        "subscribeNow": "Feliratkozás"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Kapcsolatfelvétel"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Havi",
+        "yearly": "Éves"
+      }
+    },
+    "title": "Árképzés"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Üdvözöljük oldalunkon! Kérjük, erősítse meg, hogy az e-mail címe érvényes."
+      },
+      "form": {
+        "confirm-password": "Jelszó megerősítése",
+        "email": "E-mail cím",
+        "email-error": "Az e-mail címe nem a megfelelő formátumban van",
+        "password": "Jelszó",
+        "password-did-not-match": "A jelszavaknak hasonlónak kell lenniük",
+        "password-error": "A jelszónak legalább {varIntlMin} karakter hosszúnak kell lennie.",
+        "register-with-email": "Fiókom létrehozása"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Elfogadom",
+          "already-accept": "Ön már elfogadta a meghívást.",
+          "decline": "Hulladék",
+          "do-you-accept": "Egyetért azzal, hogy csatlakozzon ehhez a szervezethez?",
+          "invitation-accepted": "Meghívás elfogadva, kérjük, hozzon létre egy fiókot és jelentkezzen be a meghívás véglegesítéséhez. A rendszer átirányítja Önt a fiók létrehozásának oldalára.",
+          "invitation-accepted-2": "Meghívás elfogadva, kérjük, jelentkezzen be fiókjába a véglegesítéshez.",
+          "invitation-declined": "Visszautasított meghívás",
+          "invited": "Önt meghívták a \"{varIntlOrganization}\" csapatba.",
+          "join": "Csatlakozzon a \" {varIntlOrganization} \" szervezethez.",
+          "logout": "Kijelentkezés",
+          "organization-not-found": "Nincs szervezet."
+        }
+      },
+      "invitation-not-found": "Nincs szervezet.",
+      "invited-with-different-email": "Ön a meghívótól eltérő e-mail címmel van bejelentkezve.",
+      "logged-in-with-right-email": "A megfelelő e-mail címmel van bejelentkezve, de a meghívás elfogadásához ki kell jelentkeznie, majd újra be kell jelentkeznie.",
+      "please-logout": "Kérjük, jelentkezzen be a megfelelő e-mail címmel, és térjen vissza erre az oldalra. Ha nincs fiókja a meghívott címmel, jelentkezzen ki, és térjen vissza erre az oldalra, hogy létrehozzon egyet."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Jelentkezzen be fiókjába",
+      "request-new-validation": "és kérjen új érvényesítési linket, ha még nem érvényesítette.",
+      "success": "E-mail megerősítve.",
+      "title": "Az e-mail cím ellenőrzése"
+    },
+    "already-account-sentence": "Már van fiókja?",
+    "button": {
+      "login": "Jelentkezzen be a"
+    },
+    "title": "Fiók létrehozása"
+  }
+}

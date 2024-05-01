@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "Tautan untuk mengatur ulang kata sandi Anda telah dikirim ke {varIntlEmail}. Silakan periksa kotak masuk email Anda."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Terjadi kesalahan saat membuat token verifikasi. Silakan coba lagi.",
+        "unknown-error": "Kami mengalami kesalahan yang tidak diketahui. Silakan coba lagi atau hubungi kami.",
+        "user-already-exists": "Alamat email ini sudah terdaftar. Jika Anda adalah pemiliknya, silakan masuk menggunakan alamat ini atau, jika perlu, minta kata sandi Anda diatur ulang.",
+        "user-not-created": "Terjadi kesalahan saat pembuatan akun. Silakan coba lagi."
+      },
+      "success": "Selamat datang {varIntlName}! Terima kasih atas kepercayaan Anda. Anda akan menerima email berisi tautan yang memungkinkan Anda mengonfirmasi keabsahannya.\n\n Anda sekarang dapat masuk menggunakan detail login Anda."
+    },
+    "VerifyEmail": {
+      "expired-token": "Token verifikasi sudah divalidasi, kedaluwarsa atau tidak ditemukan.",
+      "success": "Alamat email Anda telah diverifikasi."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Anda telah diundang untuk bergabung",
+              "subject-end": "dan timnya",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "Pengguna sudah menjadi anggota organisasi.",
+              "already-invited": "Pengguna sudah diundang.",
+              "error-while-creating-invitation": "Telah terjadi kesalahan. Undangan belum terkirim. Silakan coba lagi.",
+              "no-organization-found": "Tidak ada organisasi yang ditemukan. Ini pasti kesalahan. Silakan coba lagi."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Terjadi masalah saat menghapus akun Anda. Silakan hubungi kami.",
+              "cancel-subscription": "Terjadi masalah saat membatalkan langganan",
+              "delete": "Anda tidak dapat menghapus akun Anda, karena Anda adalah pemilik organisasi Anda. Harap alihkan hak Anda ke pengguna lain, atau hapus organisasi."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Anda tidak dapat mengundang diri Anda sendiri!",
+              "field-invite-new-member": "Mengundang anggota baru",
+              "placeholder-email": "E-mail",
+              "submit": "Mengundang"
+            },
+            "note": "Anda memiliki langganan aktif. Penambahan anggota baru ke organisasi Anda akan ditagih secara pro-rata jika anggota tersebut menerima undangan ini.",
+            "toasters": {
+              "invitation-sent": "Undangan dikirim ke"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Organisasi terkenal"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Membuat organisasi"
+        },
+        "members": "Anggota",
+        "pending-invitations": "Pengguna ditahan",
+        "popover": {
+          "delete-member": "anggota ini",
+          "delete-organization": "Menutup organisasi",
+          "what-delete-organization": "menghapuskan organisasi ini"
+        },
+        "toasters": {
+          "organization-created": "Organisasi yang dibuat",
+          "organization-deleted": "Organisasi dihapuskan. Semua anggota dikeluarkan dan hak-hak mereka hilang.",
+          "organization-left": "Organisasi yang tersisa",
+          "pendin-user-removed": "Pengguna yang tertunda dihapus"
+        },
+        "tooltip": {
+          "owner": "Pemilik"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Alamat email Anda",
+          "email-exemple": "contoh",
+          "submit": "Berlangganan buletin kami"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Batal",
+        "confirm": "Konfirmasi",
+        "message": "Apakah Anda yakin ingin"
+      },
+      "popover-delete": {
+        "cancel": "Batal",
+        "confirm": "Konfirmasi",
+        "message": "Apakah Anda yakin ingin menghapus"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Akun",
+          "billing": "Berlangganan",
+          "emails": "Surat elektronik",
+          "organization": "Organisasi",
+          "profile": "Profil",
+          "purchases": "Pembelian",
+          "usage": "Gunakan"
+        },
+        "title": "Akun saya"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Anda belum membuat kata sandi karena Anda masuk dengan akun {varIntlProvider}. Anda dapat membuatnya di sini.",
+              "form": {
+                "password": "Kata sandi",
+                "password-confirmation": "Konfirmasi kata sandi",
+                "password-error": "Kata sandi harus terdiri dari setidaknya {varIntlMin} karakter.",
+                "passwords-not-matching": "Kata sandi tidak cocok.",
+                "submit": "Buat kata sandi"
+              },
+              "title": "Membuat kata sandi",
+              "toasters": {
+                "succes-password-created": "Kata sandi Anda telah dibuat."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Tidak masalah, kami dapat mengirimkan tautan untuk mengatur ulang kata sandi Anda.",
+              "emailSent": {
+                "subject": "Atur ulang kata sandi Anda"
+              },
+              "form": {
+                "email": "Alamat email Anda",
+                "email-error": "Ini bukan alamat email yang valid.",
+                "submit": "Kirimkan saya tautan pemulihan"
+              },
+              "title": "Lupa kata sandi Anda?",
+              "toasters": {
+                "send-email-error": "Terjadi kesalahan saat mengirim email. Silakan coba lagi."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Kata sandi saat ini",
+                "new-password": "Kata sandi baru",
+                "password-confirmation": "Konfirmasi kata sandi",
+                "password-error": "Kata sandi harus terdiri dari setidaknya {varIntlMin} karakter.",
+                "passwords-not-matching": "Kata sandi tidak cocok.",
+                "required-message": "Wajib",
+                "submit": "Perbarui kata sandi"
+              },
+              "title": "Perbarui kata sandi Anda",
+              "toasters": {
+                "password-update-error": "Terjadi kesalahan saat memperbarui kata sandi. Silakan coba lagi.",
+                "password-updated": "Kata sandi diperbarui."
+              }
+            }
+          },
+          "close-account": "Nonaktifkan akun saya...",
+          "close-account-popover-message": "menghapus akun Anda? Tindakan ini tidak dapat dibatalkan. Jika Anda telah mengambil langganan, maka langganan tersebut akan dibatalkan.",
+          "connectedWith": "Anda masuk dengan akun {varIntlProvider} Anda.",
+          "create-password": "Anda belum membuat kata sandi karena Anda secara otomatis masuk dengan akun {varIntlProvider}.",
+          "manage-password": "Mengelola kata sandi Anda",
+          "title": "Akun"
+        },
+        "Billing": {
+          "according-to-use": "tergantung pada penggunaan",
+          "billed-each": "ditagih masing-masing",
+          "buttons": {
+            "cancel-subscription": "Membatalkan langganan",
+            "restart-subscription": "Mulai ulang langganan",
+            "update-payment": "Ubah metode pembayaran",
+            "update-plan": "Turunkan atau tingkatkan"
+          },
+          "daily": "hari",
+          "features-title": "Fitur",
+          "id": "Penagihan",
+          "monthly": "bulan",
+          "next-invoice-at": "Faktur berikutnya pada",
+          "no-plan-subscribed-yet": "Anda belum mengambil langganan",
+          "per-user": "per pengguna",
+          "subscribe-now": "Saya ingin berlangganan!",
+          "subscription-will-be-canceled-at": "Langganan Anda akan dibatalkan secara definitif pada saat",
+          "title": "Penagihan",
+          "tooltips": {
+            "cancel-subscription": "Langganan Anda akan dibatalkan secara definitif pada akhir periode penagihan pada tanggal {varIntlDate}. Anda dapat terus menggunakan fitur-fitur Anda hingga tanggal tersebut. Setelah itu, Anda tidak akan ditagih lagi.",
+            "restart-subscription": "Langganan Anda akan dimulai ulang tanpa tagihan tambahan."
+          },
+          "trial-days-remaining": "Anda memiliki {varIntlDays} hari uji coba yang tersisa",
+          "users": "pengguna",
+          "weekly": "minggu",
+          "yearly": "sebuah",
+          "you-save": "Anda menyimpan {varIntlSave} pada langganan ini",
+          "your-plan": "Langganan Anda",
+          "your-trial-ends-at": "Masa uji coba Anda berakhir pada"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Langganan buletin",
+            "toasters": {
+              "error-delete-contact": "Kesalahan menghapus kontak dari pembaca buletin",
+              "error-get-contact": "Terjadi kesalahan saat mengambil kontak buletin. Silakan coba lagi.",
+              "error-update-newsletter": "Terjadi kesalahan saat memperbarui preferensi buletin Anda. Silakan coba lagi.",
+              "newsletter-disabled": "dinonaktifkan",
+              "newsletter-enabled": "diaktifkan"
+            }
+          },
+          "title": "Surat elektronik"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Anda tidak dapat mengundang diri Anda sendiri!",
+                "field-invite-new-member": "Mengundang anggota baru",
+                "placeholder-email": "E-mail",
+                "submit": "Mengundang"
+              },
+              "note": "Anda memiliki langganan aktif. Penambahan anggota baru ke organisasi Anda akan ditagih secara pro-rata jika anggota tersebut menerima undangan ini.",
+              "toasters": {
+                "invitation-sent": "Undangan dikirim ke"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "mempromosikan anggota ini sebagai pemilik? Hanya ada satu pemilik, dalam hal ini Anda akan kehilangan semua hak publikasi untuk organisasi ini.",
+                "promote-member-display": "Promosikan anggota ini",
+                "revoke-member": "menghapus anggota ini dari organisasi",
+                "revoke-member-display": "Cabut pengguna ini"
+              },
+              "toasters": {
+                "user-promoted": "Pengguna yang dipromosikan. Anda bukan lagi pemilik organisasi ini",
+                "user-removed": "Pengguna dicabut"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Nama harus mengandung setidaknya karakter {varIntlMin}.",
+                "field-organization-name": "Nama organisasi",
+                "submit": "Ganti nama"
+              },
+              "organization-renamed": "Organisasi terkenal",
+              "toasters": {
+                "organization-renamed": "Organisasi berganti nama"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Membuat organisasi"
+          },
+          "members": "Anggota",
+          "pending-invitations": "Pengguna ditahan",
+          "popover": {
+            "delete-member": "anggota ini",
+            "delete-organization": "Menutup organisasi...",
+            "what-delete-organization": "menghapuskan organisasi ini"
+          },
+          "title": "Organisasi",
+          "toasters": {
+            "organization-created": "Organisasi yang dibuat",
+            "organization-deleted": "Organisasi dihapuskan. Semua anggota dikeluarkan dan hak-hak mereka hilang.",
+            "organization-left": "Organisasi yang tersisa",
+            "pendin-user-removed": "Pengguna yang tertunda dihapus"
+          },
+          "tooltip": {
+            "owner": "Pemilik"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Mengubah foto profil",
+          "form": {
+            "name": "Nama tampilan",
+            "submit": "Memperbarui",
+            "upload": "Unduh"
+          },
+          "title": "Profil",
+          "toasters": {
+            "file-is-empty": "File kosong",
+            "file-is-not-an-image": "File tersebut bukan gambar",
+            "file-is-too-large": "File terlalu besar (maksimum 2 MB)",
+            "no-file-provided": "Tidak ada file yang disediakan",
+            "success": "Profil yang diperbarui",
+            "success-file-uploaded": "Foto profil berhasil dimodifikasi"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Tidak ada riwayat pembelian",
+          "no-purchase-history-description": "Anda belum membeli produk apa pun dari situs kami!",
+          "title": "Pembelian"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Alamat email tidak dikenal",
+        "invalid-token": "Token tidak valid",
+        "password-not-updated": "Terjadi masalah saat mengubah kata sandi Anda. Silakan coba lagi.",
+        "token-expired": "Token telah kedaluwarsa.",
+        "token-not-found": "Reset token tidak ditemukan."
+      }
+    },
+    "button": "Buka dasbor",
+    "description": "Selamat datang di dasbor Anda!",
+    "title": "Dasbor"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Atur ulang kata sandi Anda",
+      "resetPassword": "Atur ulang kata sandi",
+      "text": "Anda diminta untuk mengatur ulang kata sandi Anda. Untuk melakukannya, silakan klik tombol di bawah ini."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Menerima undangan",
+      "heading": "Anda telah diundang untuk bergabung dengan tim {varIntlTeamName}.",
+      "text": "Untuk menerima undangan, silakan klik tombol di bawah ini."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Selamat datang!",
+      "text": "Untuk mengonfirmasi pendaftaran Anda, silakan klik tombol di bawah ini.",
+      "verifyEmail": "Memvalidasi akun saya"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Jangan lewatkan berita terbaru kami! Berlangganan buletin kami",
+      "privacy": "Kebijakan privasi",
+      "terms": "Informasi hukum",
+      "title": "Hukum"
+    },
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "PERTANYAAN YANG SERING DIAJUKAN",
+      "title": "Navigasi"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Konfirmasikan kata sandi baru",
+          "email": "Alamat email akun",
+          "email-error": "Format alamat email salah.",
+          "new-password": "Memilih kata sandi baru",
+          "password-error": "Harus berisi setidaknya karakter {varIntlMin}.",
+          "password-match-error": "Kedua kata sandi tersebut harus identik.",
+          "submit": "Atur ulang",
+          "success": "Kata sandi berhasil diubah."
+        }
+      }
+    },
+    "invalid-token": "Token reset tidak valid. Silakan coba lagi atau buat permintaan baru.",
+    "reset-password": "Mengatur ulang kata sandi Anda",
+    "token-expired": "Token reset tidak diketahui."
+  },
+  "Index": {
+    "first-connexion": "Koneksi pertama",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit untuk pengembangan yang cepat: fokus hanya pada fitur-fitur inti, yakinlah dengan frontend modern dan backend yang dapat diskalakan dan aman. Menghemat usaha",
+      "title": "Beranda"
+    },
+    "title": "Selamat datang!"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Kontak",
+          "features": "Fitur",
+          "home": "Beranda",
+          "howItWorks": "Bagaimana cara kerjanya?",
+          "pricing": "Harga"
+        },
+        "UserProfile": {
+          "login": "Masuk",
+          "logout": "Memutuskan sambungan",
+          "my-account": "Akun saya",
+          "refill": "Muat ulang"
+        },
+        "buy-now": "Beli"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "Email",
+        "login-with-email": "Hubungkan aku",
+        "password": "Kata sandi"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "contoh",
+        "submit": "Kirimkan saya tautan masuk",
+        "your-email": "Alamat email Anda"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Menghubungkan dengan Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Lanjutkan dengan Google"
+      },
+      "buttons": {
+        "continue-with-google": "Terhubung dengan Google"
+      }
+    },
+    "button": {
+      "no-account": "Tidak ada akun?",
+      "register": "Klik di sini untuk mendaftar."
+    },
+    "title": "Masuk ke akun Anda",
+    "toasters": {
+      "bad-credentials": "Pengidentifikasi yang salah"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "bulan",
+        "contact-us": "Hubungi kami untuk mempersonalisasi penawaran Anda.",
+        "metered-unit": "oleh",
+        "monthly": "bulan",
+        "per-seat": "per kursi",
+        "popular": "Populer",
+        "recommended": "Direkomendasikan",
+        "trial": "hari uji coba, lalu...",
+        "yearly": "sebuah"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Satu pembayaran, banyak proyek"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Beli",
+        "startTrial": "Coba untuk {varIntlTrialDays} hari",
+        "subscribeNow": "Berlangganan"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Hubungi kami"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Bulanan",
+        "yearly": "Tahunan"
+      }
+    },
+    "title": "Harga"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Selamat datang di situs kami! Mohon konfirmasi bahwa alamat email Anda valid."
+      },
+      "form": {
+        "confirm-password": "Konfirmasi kata sandi",
+        "email": "Alamat email",
+        "email-error": "Alamat email Anda tidak dalam format yang benar",
+        "password": "Kata sandi",
+        "password-did-not-match": "Kata sandi harus serupa",
+        "password-error": "Kata sandi Anda harus terdiri dari setidaknya {varIntlMin} karakter.",
+        "register-with-email": "Buat akun saya"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Menerima",
+          "already-accept": "Anda telah menerima undangan tersebut.",
+          "decline": "Menolak",
+          "do-you-accept": "Apakah Anda setuju untuk bergabung dengan organisasi ini?",
+          "invitation-accepted": "Undangan diterima, silakan buat akun dan masuk untuk menyelesaikan undangan. Anda akan diarahkan ke halaman pembuatan akun.",
+          "invitation-accepted-2": "Undangan diterima, silakan masuk ke akun Anda untuk menyelesaikannya.",
+          "invitation-declined": "Undangan ditolak",
+          "invited": "Anda telah diundang untuk bergabung dengan tim \"{varIntlOrganization}\".",
+          "join": "Bergabunglah dengan organisasi \"{varIntlOrganization}\".",
+          "logout": "Log off",
+          "organization-not-found": "Tidak ada organisasi."
+        }
+      },
+      "invitation-not-found": "Tidak ada organisasi.",
+      "invited-with-different-email": "Anda masuk dengan alamat email yang berbeda dengan alamat email yang menerima undangan.",
+      "logged-in-with-right-email": "Anda masuk dengan alamat email yang benar, tetapi Anda harus keluar dan kemudian masuk kembali untuk menerima undangan.",
+      "please-logout": "Silakan masuk dengan alamat email yang sesuai dan kembali ke halaman ini. Jika Anda tidak memiliki akun dengan alamat yang diundang, keluar dan kembali ke halaman ini untuk membuatnya."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Masuk ke akun Anda",
+      "request-new-validation": "dan meminta tautan validasi baru jika Anda belum memvalidasinya.",
+      "success": "Email terverifikasi.",
+      "title": "Memeriksa alamat email Anda"
+    },
+    "already-account-sentence": "Sudah memiliki akun?",
+    "button": {
+      "login": "Masuk ke"
+    },
+    "title": "Membuat akun"
+  }
+}

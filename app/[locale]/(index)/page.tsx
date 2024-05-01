@@ -38,47 +38,81 @@ export default async function Home() {
       <div className="flex min-h-screen flex-col items-center  p-24">
         <h1 className="font-mono font-bold">{t("Index.title")}</h1>
         <Link href="/" locale="en">
-          In english
+          🇬🇧 In english
         </Link>
         <Link href="/" locale="fr">
-          En français
+          🇫🇷 En français
         </Link>
         <Link href="/" locale="es">
-          En español
+          🇪🇸 En español
         </Link>
         <Link href="/" locale="hi">
-          हिंदी में
+          🇮🇳 हिंदी में
         </Link>
         <Link href="/" locale="zh">
-          在中文
+          🇨🇳 在中文
         </Link>
         <Link href="/" locale="tr">
-          Türkçe
+          🇹🇷 Türkçe
         </Link>
         <Link href="/" locale="ja">
-          日本語で
+          🇯🇵 日本語で
         </Link>
         <Link href="/" locale="pt">
-          Em português
+          🇵🇹 Em português
         </Link>
         <Link href="/" locale="ar">
-          بالعربية
+          🇸🇦 بالعربية
         </Link>
         <Link href="/" locale="ru">
-          На русском
+          🇷🇺 На русском
         </Link>
         <Link href="/" locale="it">
-          In italiano
+          🇮🇹 In italiano
         </Link>
         <Link href="/" locale="de">
-          Auf Deutsch
+          🇩🇪 Auf Deutsch
         </Link>
         <Link href="/" locale="bn">
-          বাংলা (bn - bangali)
+          🇧🇩 বাংলা (bn - bangali)
         </Link>
         <Link href="/" locale="ko">
-          한국어로 (ko)
+          🇰🇷 한국어로 (ko)
         </Link>
+        <Link href="/" locale="el">
+          🇬🇷 Στα ελληνικά
+        </Link>
+        <Link href="/" locale="fi">
+          🇫🇮 Suomeksi
+        </Link>
+        <Link href="/" locale="hu">
+          🇭🇺 Magyarul
+        </Link>
+        <Link href="/" locale="id">
+          🇮🇩 Dalam bahasa Indonesia
+        </Link>
+        <Link href="/" locale="is">
+          🇮🇸 Á íslensku
+        </Link>
+        <Link href="/" locale="nl">
+          🇳🇱 In het Nederlands
+        </Link>
+        <Link href="/" locale="no">
+          🇳🇴 På norsk
+        </Link>
+        <Link href="/" locale="pl">
+          🇵🇱 Po polsku
+        </Link>
+        <Link href="/" locale="sv">
+          🇸🇪 På svenska
+        </Link>
+        <Link href="/" locale="th">
+          🇹🇭 ในภาษาไทย
+        </Link>
+        <Link href="/" locale="vi">
+          🇻🇳 Bằng tiếng Việt
+        </Link>
+
         <Link href="/admin">Admin</Link>
         <Index />
       </div>

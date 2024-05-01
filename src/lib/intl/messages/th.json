@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "ลิงก์สำหรับรีเซ็ตรหัสผ่านของคุณถูกส่งไปยัง {varIntlEmail} แล้ว \nกรุณาตรวจสอบบัญชีอีเมลของคุณ"
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "เกิดข้อผิดพลาดขณะสร้างโทเค็นการยืนยัน \nลองอีกครั้ง.",
+        "unknown-error": "เราพบข้อผิดพลาดที่ไม่ทราบสาเหตุ \nโปรดลองอีกครั้งหรือติดต่อเรา",
+        "user-already-exists": "ที่อยู่อีเมลนี้มีการลงทะเบียนแล้ว \nหากคุณเป็นเจ้าของ โปรดเข้าสู่ระบบด้วยอันหลัง หรือหากจำเป็น ให้ขอรีเซ็ตรหัสผ่าน",
+        "user-not-created": "เกิดข้อผิดพลาดขณะสร้างบัญชี \nลองอีกครั้ง."
+      },
+      "success": "ยินดีต้อนรับ {varIntlName}! \nขอขอบคุณสำหรับความไว้วางใจของคุณ. \nคุณจะได้รับอีเมลพร้อมลิงก์เพื่อยืนยันความถูกต้อง\n\n \nตอนนี้คุณสามารถเข้าสู่ระบบด้วยข้อมูลประจำตัวของคุณ"
+    },
+    "VerifyEmail": {
+      "expired-token": "โทเค็นการยืนยันได้รับการตรวจสอบแล้ว หมดอายุ หรือไม่พบ",
+      "success": "ที่อยู่อีเมลของคุณได้รับการยืนยันแล้ว"
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "คุณได้รับเชิญให้เข้าร่วมองค์กร",
+              "subject-end": "และทีมของเขา",
+              "subject-middle": "-"
+            },
+            "throws": {
+              "already-in-an-organization": "ผู้ใช้เป็นสมาชิกขององค์กรอยู่แล้ว",
+              "already-invited": "เชิญผู้ใช้แล้ว",
+              "error-while-creating-invitation": "เกิดข้อผิดพลาด. \nยังไม่ได้ส่งคำเชิญ \nลองอีกครั้ง.",
+              "no-organization-found": "ไม่พบองค์กร \nนี่เป็นข้อผิดพลาดอย่างแน่นอน \nกรุณาลองอีกครั้ง."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "เกิดปัญหาขณะลบบัญชีของคุณ \nกรุณาติดต่อเรา.",
+              "cancel-subscription": "เกิดปัญหาขณะยกเลิกการสมัครสมาชิก",
+              "delete": "คุณไม่สามารถลบบัญชีของคุณได้ เนื่องจากคุณเป็นเจ้าขององค์กรของคุณ \nโปรดโอนสิทธิ์ของคุณไปยังผู้ใช้รายอื่น ไม่เช่นนั้นจะลบองค์กรออก"
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "เชิญตัวเองไม่ได้!",
+              "field-invite-new-member": "เชิญสมาชิกใหม่",
+              "placeholder-email": "อีเมล",
+              "submit": "เชิญ"
+            },
+            "note": "คุณมีการสมัครใช้งานอยู่ \nการเพิ่มสมาชิกใหม่ในองค์กรของคุณจะถูกเรียกเก็บเงินตามสัดส่วนหากสมาชิกยอมรับคำเชิญนี้",
+            "toasters": {
+              "invitation-sent": "คำเชิญส่งไปยังที่อยู่"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "องค์กรที่มีชื่อเสียง"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "สร้างองค์กร"
+        },
+        "members": "สมาชิก",
+        "pending-invitations": "ผู้ใช้ที่รอดำเนินการ",
+        "popover": {
+          "delete-member": "สมาชิกคนนี้",
+          "delete-organization": "ปิดองค์กร",
+          "what-delete-organization": "ลบองค์กรนี้"
+        },
+        "toasters": {
+          "organization-created": "สร้างองค์กรแล้ว",
+          "organization-deleted": "ลบองค์กรแล้ว \nสมาชิกทุกคนถูกแยกออกและสูญเสียสิทธิของพวกเขา",
+          "organization-left": "องค์กรออกไป",
+          "pendin-user-removed": "ลบผู้ใช้ที่รอดำเนินการแล้ว"
+        },
+        "tooltip": {
+          "owner": "เจ้าของ"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "ที่อยู่อีเมลของคุณ",
+          "email-exemple": "ตัวอย่าง",
+          "submit": "สมัครรับจดหมายข่าว"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "ยกเลิก",
+        "confirm": "ยืนยัน",
+        "message": "คุณแน่ใจหรือว่าต้องการ"
+      },
+      "popover-delete": {
+        "cancel": "ยกเลิก",
+        "confirm": "ยืนยัน",
+        "message": "คุณแน่ใจหรือว่าต้องการลบ"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "บัญชี",
+          "billing": "สมัครสมาชิก",
+          "emails": "อีเมล",
+          "organization": "องค์กร",
+          "profile": "ประวัติโดยย่อ",
+          "purchases": "การซื้อ",
+          "usage": "ใช้"
+        },
+        "title": "บัญชีของฉัน"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "คุณไม่ได้สร้างรหัสผ่านเนื่องจากคุณเข้าสู่ระบบด้วยบัญชี {varIntlProvider} \nคุณสามารถสร้างได้ที่นี่",
+              "form": {
+                "password": "รหัสผ่าน",
+                "password-confirmation": "การยืนยันรหัสผ่าน",
+                "password-error": "รหัสผ่านต้องมีความยาวอย่างน้อย {varIntlMin} อักขระ",
+                "passwords-not-matching": "รหัสผ่านไม่ตรงกัน.",
+                "submit": "สร้างรหัสผ่าน"
+              },
+              "title": "สร้างรหัสผ่าน",
+              "toasters": {
+                "succes-password-created": "รหัสผ่านของคุณถูกสร้างขึ้นแล้ว"
+              }
+            },
+            "ForgotPassword": {
+              "description": "ไม่มีปัญหา เราสามารถส่งลิงก์เพื่อรีเซ็ตรหัสผ่านให้คุณได้",
+              "emailSent": {
+                "subject": "รีเซ็ตรหัสผ่านของคุณ"
+              },
+              "form": {
+                "email": "ที่อยู่อีเมลของคุณ",
+                "email-error": "นี่ไม่ใช่ที่อยู่อีเมลที่ถูกต้อง",
+                "submit": "ส่งลิงค์การกู้คืนมาให้ฉัน"
+              },
+              "title": "ลืมรหัสผ่านหรือไม่ ?",
+              "toasters": {
+                "send-email-error": "เกิดข้อผิดพลาดขณะส่งอีเมล \nลองอีกครั้ง."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "รหัสผ่านปัจจุบัน",
+                "new-password": "รหัสผ่านใหม่",
+                "password-confirmation": "การยืนยันรหัสผ่าน",
+                "password-error": "รหัสผ่านต้องมีความยาวอย่างน้อย {varIntlMin} อักขระ",
+                "passwords-not-matching": "รหัสผ่านไม่ตรงกัน.",
+                "required-message": "บังคับ",
+                "submit": "อัปเดตรหัสผ่าน"
+              },
+              "title": "อัปเดตรหัสผ่านของคุณ",
+              "toasters": {
+                "password-update-error": "เกิดข้อผิดพลาดขณะอัปเดตรหัสผ่าน \nลองอีกครั้ง.",
+                "password-updated": "อัปเดตรหัสผ่านแล้ว"
+              }
+            }
+          },
+          "close-account": "ปิดการใช้งานบัญชีของฉัน...",
+          "close-account-popover-message": "ลบบัญชีของคุณเหรอ? \nการกระทำนี้ไม่สามารถย้อนกลับได้ \nหากคุณได้ซื้อการสมัครสมาชิก มันจะถูกยกเลิก",
+          "connectedWith": "คุณเข้าสู่ระบบด้วยบัญชี {varIntlProvider} ของคุณ",
+          "create-password": "คุณยังไม่ได้สร้างรหัสผ่านเนื่องจากคุณเข้าสู่ระบบโดยอัตโนมัติด้วยบัญชี {varIntlProvider}",
+          "manage-password": "จัดการรหัสผ่านของคุณ",
+          "title": "บัญชี"
+        },
+        "Billing": {
+          "according-to-use": "ขึ้นอยู่กับการใช้งาน",
+          "billed-each": "เรียกเก็บเงินแต่ละรายการ",
+          "buttons": {
+            "cancel-subscription": "ยกเลิกการสมัคร",
+            "restart-subscription": "เริ่มการสมัครสมาชิกใหม่",
+            "update-payment": "เปลี่ยนวิธีการชำระเงิน",
+            "update-plan": "ดาวน์เกรดหรืออัปเกรด"
+          },
+          "daily": "วัน",
+          "features-title": "คุณสมบัติ",
+          "id": "การเรียกเก็บเงิน",
+          "monthly": "เดือน",
+          "next-invoice-at": "ใบแจ้งหนี้ครั้งต่อไปในวันที่",
+          "no-plan-subscribed-yet": "คุณยังไม่ได้ซื้อการสมัครสมาชิกใด ๆ",
+          "per-user": "ต่อผู้ใช้",
+          "subscribe-now": "ฉันอยากจะสมัครสมาชิก!",
+          "subscription-will-be-canceled-at": "การสมัครของคุณจะถูกยกเลิกอย่างถาวรในวันที่",
+          "title": "การเรียกเก็บเงิน",
+          "tooltips": {
+            "cancel-subscription": "การสมัครของคุณจะถูกยกเลิกอย่างถาวรเมื่อสิ้นสุดช่วงเวลาที่เรียกเก็บเงินในวันที่ {varIntlDate} \nคุณสามารถใช้ฟีเจอร์ของคุณต่อไปได้จนถึงวันนี้ \nจากนั้นคุณจะไม่ถูกเรียกเก็บเงินอีกต่อไป",
+            "restart-subscription": "การสมัครของคุณจะเริ่มต้นใหม่โดยไม่มีการเรียกเก็บเงินเพิ่มเติม"
+          },
+          "trial-days-remaining": "คุณเหลือเวลาทดลองใช้งานอีก {varIntlDays} วัน",
+          "users": "ผู้ใช้",
+          "weekly": "สัปดาห์",
+          "yearly": "ปี",
+          "you-save": "คุณประหยัด {varIntlSave} ในการสมัครรับข้อมูลนี้",
+          "your-plan": "การสมัครของคุณ",
+          "your-trial-ends-at": "ระยะเวลาทดลองใช้ของคุณสิ้นสุดในวันที่"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "การสมัครรับจดหมายข่าว",
+            "toasters": {
+              "error-delete-contact": "เกิดข้อผิดพลาดเมื่อลบผู้ติดต่อออกจากผู้ชมจดหมายข่าว",
+              "error-get-contact": "เกิดข้อผิดพลาดขณะเรียกข้อมูลผู้ติดต่อจดหมายข่าว \nลองอีกครั้ง.",
+              "error-update-newsletter": "เกิดข้อผิดพลาดขณะอัปเดตการตั้งค่าจดหมายข่าวของคุณ \nลองอีกครั้ง.",
+              "newsletter-disabled": "พิการ",
+              "newsletter-enabled": "เปิดใช้งานแล้ว"
+            }
+          },
+          "title": "อีเมล"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "เชิญตัวเองไม่ได้!",
+                "field-invite-new-member": "เชิญสมาชิกใหม่",
+                "placeholder-email": "อีเมล",
+                "submit": "เชิญ"
+              },
+              "note": "คุณมีการสมัครใช้งานอยู่ \nการเพิ่มสมาชิกใหม่ในองค์กรของคุณจะถูกเรียกเก็บเงินตามสัดส่วนหากสมาชิกยอมรับคำเชิญนี้",
+              "toasters": {
+                "invitation-sent": "คำเชิญส่งไปยังที่อยู่"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "เลื่อนระดับสมาชิกรายนี้เป็นเจ้าของหรือไม่? \nมีเจ้าของได้เพียงคนเดียว ในกรณีนี้ คุณจะสูญเสียสิทธิ์ทั้งหมดในการโพสต์ไปยังองค์กรนั้น",
+                "promote-member-display": "โปรโมทสมาชิกท่านนี้",
+                "revoke-member": "ลบสมาชิกรายนี้ออกจากองค์กร",
+                "revoke-member-display": "เพิกถอนผู้ใช้รายนี้"
+              },
+              "toasters": {
+                "user-promoted": "ผู้ใช้ที่ได้รับการเลื่อนตำแหน่ง \nคุณไม่ได้เป็นเจ้าขององค์กรนี้อีกต่อไป",
+                "user-removed": "ผู้ใช้ถูกเพิกถอน"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "ชื่อต้องมีอักขระอย่างน้อย {varIntlMin}",
+                "field-organization-name": "ชื่อขององค์กร",
+                "submit": "เปลี่ยนชื่อ"
+              },
+              "organization-renamed": "องค์กรที่มีชื่อเสียง",
+              "toasters": {
+                "organization-renamed": "เปลี่ยนชื่อองค์กรแล้ว"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "สร้างองค์กร"
+          },
+          "members": "สมาชิก",
+          "pending-invitations": "ผู้ใช้ที่รอดำเนินการ",
+          "popover": {
+            "delete-member": "สมาชิกคนนี้",
+            "delete-organization": "ปิดองค์กร...",
+            "what-delete-organization": "ลบองค์กรนี้"
+          },
+          "title": "องค์กร",
+          "toasters": {
+            "organization-created": "สร้างองค์กรแล้ว",
+            "organization-deleted": "ลบองค์กรแล้ว \nสมาชิกทุกคนถูกแยกออกและสูญเสียสิทธิของพวกเขา",
+            "organization-left": "องค์กรออกไป",
+            "pendin-user-removed": "ลบผู้ใช้ที่รอดำเนินการแล้ว"
+          },
+          "tooltip": {
+            "owner": "เจ้าของ"
+          }
+        },
+        "Profile": {
+          "change-avatar": "เปลี่ยนรูปโปรไฟล์",
+          "form": {
+            "name": "ชื่อที่แสดง",
+            "submit": "หากต้องการอัปเดต",
+            "upload": "ดาวน์โหลด"
+          },
+          "title": "ประวัติโดยย่อ",
+          "toasters": {
+            "file-is-empty": "ไฟล์ว่างเปล่า",
+            "file-is-not-an-image": "ไฟล์นี้ไม่ใช่รูปภาพ",
+            "file-is-too-large": "ไฟล์มีขนาดใหญ่เกินไป (สูงสุด 2 MB)",
+            "no-file-provided": "ไม่มีไฟล์ให้",
+            "success": "อัปเดตโปรไฟล์แล้ว",
+            "success-file-uploaded": "เปลี่ยนรูปโปรไฟล์เรียบร้อยแล้ว"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "ไม่มีประวัติการซื้อ",
+          "no-purchase-history-description": "คุณยังไม่ได้ซื้อผลิตภัณฑ์ใด ๆ บนเว็บไซต์ของเรา!",
+          "title": "การซื้อ"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "ที่อยู่อีเมลที่ไม่รู้จัก",
+        "invalid-token": "โทเค็นไม่ถูกต้อง",
+        "password-not-updated": "เกิดปัญหาขณะเปลี่ยนรหัสผ่านของคุณ \nลองอีกครั้ง.",
+        "token-expired": "โทเค็นหมดอายุ",
+        "token-not-found": "ไม่พบโทเค็นการรีเซ็ต"
+      }
+    },
+    "button": "ไปที่แผงควบคุม",
+    "description": "ยินดีต้อนรับสู่แดชบอร์ดของคุณ!",
+    "title": "แผงควบคุม"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "รีเซ็ตรหัสผ่านของคุณ",
+      "resetPassword": "รีเซ็ตรหัสผ่าน",
+      "text": "คุณได้ร้องขอให้รีเซ็ตรหัสผ่านของคุณ \nโดยคลิกที่ปุ่มด้านล่าง"
+    },
+    "InviteUserTemplate": {
+      "buttonText": "ยอมรับคำเชิญ",
+      "heading": "คุณได้รับเชิญให้เข้าร่วมทีม {varIntlTeamName}",
+      "text": "หากต้องการยอมรับคำเชิญ โปรดคลิกปุ่มด้านล่าง"
+    },
+    "VerifyEmailTemplate": {
+      "heading": "ยินดีต้อนรับ !",
+      "text": "หากต้องการตรวจสอบการลงทะเบียนของคุณให้แน่ชัด โปรดคลิกที่ปุ่มด้านล่าง",
+      "verifyEmail": "ตรวจสอบบัญชีของฉัน"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "อย่าพลาดข่าวสารของเรา! \nสมัครรับจดหมายข่าวของเรา",
+      "privacy": "นโยบายความเป็นส่วนตัว",
+      "terms": "ประกาศทางกฎหมาย",
+      "title": "ถูกกฎหมาย"
+    },
+    "Navigation": {
+      "blog": "บล็อก",
+      "faq": "คำถามที่พบบ่อย",
+      "title": "การนำทาง"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "ยืนยันรหัสผ่านใหม่",
+          "email": "ที่อยู่อีเมลของบัญชี",
+          "email-error": "ที่อยู่อีเมลมีรูปแบบไม่ถูกต้อง",
+          "new-password": "เลือกรหัสผ่านใหม่",
+          "password-error": "ต้องมีความยาวอย่างน้อย {varIntlMin} อักขระ",
+          "password-match-error": "รหัสผ่านทั้งสองจะต้องเหมือนกัน",
+          "submit": "รีเซ็ต",
+          "success": "เปลี่ยนรหัสผ่านเรียบร้อยแล้ว"
+        }
+      }
+    },
+    "invalid-token": "โทเค็นการรีเซ็ตไม่ถูกต้อง \nกรุณาเริ่มต้นใหม่อีกครั้งหรือสมัครใหม่",
+    "reset-password": "การรีเซ็ตรหัสผ่านของคุณ",
+    "token-expired": "ไม่รู้จักโทเค็นการรีเซ็ต"
+  },
+  "Index": {
+    "first-connexion": "การเชื่อมต่อครั้งแรก",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit สำหรับการพัฒนาอย่างรวดเร็ว: มุ่งเน้นเฉพาะฟีเจอร์หลัก มั่นใจได้ด้วยฟรอนต์เอนด์ที่ทันสมัย ​​แบ็กเอนด์ที่ปลอดภัยและปรับขนาดได้ \nประหยัดความพยายาม",
+      "title": "ยินดีต้อนรับ"
+    },
+    "title": "ยินดีต้อนรับ !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "ติดต่อ",
+          "features": "คุณสมบัติ",
+          "home": "ยินดีต้อนรับ",
+          "howItWorks": "มันทำงานอย่างไร ?",
+          "pricing": "ราคา"
+        },
+        "UserProfile": {
+          "login": "เพื่อเข้าสู่ระบบ",
+          "logout": "ออกจากระบบ",
+          "my-account": "บัญชีของฉัน",
+          "refill": "โหลดซ้ำ"
+        },
+        "buy-now": "ซื้อ"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "อีเมล",
+        "login-with-email": "เข้าสู่ระบบ",
+        "password": "รหัสผ่าน"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "ตัวอย่าง",
+        "submit": "ส่งลิงค์เข้าสู่ระบบให้ฉัน",
+        "your-email": "ที่อยู่อีเมลของคุณ"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "เข้าสู่ระบบด้วย Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "ดำเนินการต่อด้วย Google"
+      },
+      "buttons": {
+        "continue-with-google": "ลงชื่อเข้าใช้งานด้วย Google"
+      }
+    },
+    "button": {
+      "no-account": "ไม่มีบัญชี?",
+      "register": "คลิกที่นี่เพื่อเข้าร่วม"
+    },
+    "title": "ลงชื่อเข้าใช้บัญชีของคุณ",
+    "toasters": {
+      "bad-credentials": "ตัวระบุไม่ถูกต้อง"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "เดือน",
+        "contact-us": "ติดต่อเราเพื่อปรับแต่งข้อเสนอของคุณ",
+        "metered-unit": "โดย",
+        "monthly": "เดือน",
+        "per-seat": "ต่อที่นั่ง",
+        "popular": "เป็นที่นิยม",
+        "recommended": "ที่แนะนำ",
+        "trial": "วันทดลองใช้แล้ว...",
+        "yearly": "ปี"
+      },
+      "PriceCard": {
+        "bottom-sentence": "จ่ายครั้งเดียวหลายโครงการ"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "ซื้อ",
+        "startTrial": "ลองเป็นเวลา {varIntlTrialDays} วัน",
+        "subscribeNow": "ติดตาม"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "ติดต่อเรา"
+      },
+      "SwitchRecurrence": {
+        "monthly": "รายเดือน",
+        "yearly": "ประจำปี"
+      }
+    },
+    "title": "ราคา"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "ยินดีต้อนรับ ! \nกรุณายืนยันความถูกต้องของที่อยู่อีเมลของคุณ"
+      },
+      "form": {
+        "confirm-password": "ยืนยันรหัสผ่าน",
+        "email": "ที่อยู่อีเมล",
+        "email-error": "ที่อยู่อีเมลของคุณไม่ได้อยู่ในรูปแบบที่ถูกต้อง",
+        "password": "รหัสผ่าน",
+        "password-did-not-match": "รหัสผ่านควรจะคล้ายกัน",
+        "password-error": "รหัสผ่านของคุณต้องมีความยาวอย่างน้อย {varIntlMin} อักขระ",
+        "register-with-email": "สร้างบัญชีของฉัน"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "ยอมรับ",
+          "already-accept": "คุณได้ตอบรับคำเชิญแล้ว",
+          "decline": "ปฏิเสธ",
+          "do-you-accept": "คุณตกลงที่จะเข้าร่วมองค์กรนี้หรือไม่?",
+          "invitation-accepted": "ยอมรับคำเชิญแล้ว โปรดสร้างบัญชีแล้วเข้าสู่ระบบเพื่อดำเนินการคำเชิญให้เสร็จสิ้น \nคุณจะถูกนำไปยังหน้าการสร้างบัญชี",
+          "invitation-accepted-2": "คำเชิญได้รับการยอมรับแล้ว โปรดเข้าสู่บัญชีของคุณเพื่อดำเนินการให้เสร็จสิ้น",
+          "invitation-declined": "คำเชิญถูกปฏิเสธ",
+          "invited": "คุณได้รับเชิญให้เข้าร่วมทีม “{varIntlOrganization}”",
+          "join": "เข้าร่วมองค์กร “{varIntlOrganization}”",
+          "logout": "ตัดการเชื่อมต่อ",
+          "organization-not-found": "องค์กรที่ไม่มีอยู่จริง"
+        }
+      },
+      "invitation-not-found": "องค์กรที่ไม่มีอยู่จริง",
+      "invited-with-different-email": "คุณเข้าสู่ระบบด้วยที่อยู่อีเมลอื่นที่ไม่ใช่ที่อยู่อีเมลที่ได้รับคำเชิญ",
+      "logged-in-with-right-email": "คุณเข้าสู่ระบบด้วยที่อยู่อีเมลที่ถูกต้อง แต่คุณต้องออกจากระบบและเข้าสู่ระบบอีกครั้งเพื่อยอมรับคำเชิญ",
+      "please-logout": "กรุณาเข้าสู่ระบบด้วยที่อยู่อีเมลที่เกี่ยวข้องและกลับมาที่หน้านี้ \nหากคุณไม่มีบัญชีที่ใช้ที่อยู่ของแขก ให้ออกจากระบบและกลับมาที่หน้านี้เพื่อสร้างบัญชี"
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "ลงชื่อเข้าใช้บัญชีของคุณ",
+      "request-new-validation": "และขอลิงค์ตรวจสอบใหม่หากคุณยังไม่ได้ตรวจสอบ",
+      "success": "ยืนยันอีเมลแล้ว",
+      "title": "กำลังยืนยันที่อยู่อีเมลของคุณ"
+    },
+    "already-account-sentence": "มีบัญชีอยู่แล้ว?",
+    "button": {
+      "login": "เข้าสู่ระบบ"
+    },
+    "title": "สร้างบัญชี"
+  }
+}

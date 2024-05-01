@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "Link do zresetowania hasła został wysłany na adres {varIntlEmail}. Sprawdź swoją skrzynkę e-mail."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Wystąpił błąd podczas tworzenia tokena weryfikacyjnego. Spróbuj ponownie.",
+        "unknown-error": "Napotkaliśmy nieznany błąd. Spróbuj ponownie lub skontaktuj się z nami.",
+        "user-already-exists": "Ten adres e-mail jest już zarejestrowany. Jeśli jesteś właścicielem, zaloguj się przy użyciu tego adresu lub, jeśli to konieczne, poproś o zresetowanie hasła.",
+        "user-not-created": "Podczas tworzenia konta wystąpił błąd. Spróbuj ponownie."
+      },
+      "success": "Witamy {varIntlName}! Dziękujemy za zaufanie. Otrzymasz wiadomość e-mail z linkiem umożliwiającym potwierdzenie jego ważności.\n\n Możesz teraz zalogować się przy użyciu swoich danych logowania."
+    },
+    "VerifyEmail": {
+      "expired-token": "Token weryfikacyjny został już zweryfikowany, wygasł lub nie został znaleziony.",
+      "success": "Twój adres e-mail został zweryfikowany."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Zostałeś zaproszony do dołączenia do",
+              "subject-end": "i jego zespół",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "Użytkownik jest już członkiem organizacji.",
+              "already-invited": "Użytkownik już zaproszony.",
+              "error-while-creating-invitation": "Wystąpił błąd. Zaproszenie nie zostało wysłane. Spróbuj ponownie.",
+              "no-organization-found": "Nie znaleziono żadnej organizacji. To musi być błąd. Spróbuj ponownie."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Wystąpił problem podczas usuwania konta. Prosimy o kontakt.",
+              "cancel-subscription": "Wystąpił problem podczas anulowania subskrypcji",
+              "delete": "Nie możesz usunąć swojego konta, ponieważ jesteś właścicielem swojej organizacji. Przekaż swoje prawa innemu użytkownikowi, w przeciwnym razie usuń organizację."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Nie możesz zaprosić samego siebie!",
+              "field-invite-new-member": "Zaproś nowego członka",
+              "placeholder-email": "E-mail",
+              "submit": "Zaproszenie"
+            },
+            "note": "Posiadasz aktywną subskrypcję. Dodanie nowego członka do organizacji zostanie zafakturowane proporcjonalnie, jeśli członek przyjmie to zaproszenie.",
+            "toasters": {
+              "invitation-sent": "Zaproszenie wysłane do"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Renomowana organizacja"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Tworzenie organizacji"
+        },
+        "members": "Członkowie",
+        "pending-invitations": "Wstrzymani użytkownicy",
+        "popover": {
+          "delete-member": "ten członek",
+          "delete-organization": "Zamknięcie organizacji",
+          "what-delete-organization": "zlikwidować tę organizację"
+        },
+        "toasters": {
+          "organization-created": "Utworzona organizacja",
+          "organization-deleted": "Organizacja została zlikwidowana. Wszyscy członkowie zostali wykluczeni, a ich prawa utracone.",
+          "organization-left": "Organizacja po lewej",
+          "pendin-user-removed": "Użytkownik oczekujący usunięty"
+        },
+        "tooltip": {
+          "owner": "Właściciel"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Twój adres e-mail",
+          "email-exemple": "przykład",
+          "submit": "Zapisz się do naszego newslettera"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Anuluj",
+        "confirm": "Potwierdzenie",
+        "message": "Czy na pewno chcesz"
+      },
+      "popover-delete": {
+        "cancel": "Anuluj",
+        "confirm": "Potwierdzenie",
+        "message": "Czy na pewno chcesz usunąć"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Konto",
+          "billing": "Subskrypcja",
+          "emails": "E-maile",
+          "organization": "Organizacja",
+          "profile": "Profil",
+          "purchases": "Zakupy",
+          "usage": "Użycie"
+        },
+        "title": "Moje konto"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Nie utworzyłeś hasła, ponieważ jesteś zalogowany na konto {varIntlProvider}. Możesz je utworzyć tutaj.",
+              "form": {
+                "password": "Hasło",
+                "password-confirmation": "Potwierdź hasło",
+                "password-error": "Hasło musi mieć co najmniej {varIntlMin} znaków.",
+                "passwords-not-matching": "Hasła nie są zgodne.",
+                "submit": "Utwórz hasło"
+              },
+              "title": "Utwórz hasło",
+              "toasters": {
+                "succes-password-created": "Hasło zostało utworzone."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Nie ma problemu, możemy wysłać Ci link do zresetowania hasła.",
+              "emailSent": {
+                "subject": "Resetowanie hasła"
+              },
+              "form": {
+                "email": "Twój adres e-mail",
+                "email-error": "To nie jest prawidłowy adres e-mail.",
+                "submit": "Wyślij mi link do odzyskiwania"
+              },
+              "title": "Zapomniałeś hasła?",
+              "toasters": {
+                "send-email-error": "Wystąpił błąd podczas wysyłania wiadomości e-mail. Spróbuj ponownie."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Aktualne hasło",
+                "new-password": "Nowe hasło",
+                "password-confirmation": "Potwierdź hasło",
+                "password-error": "Hasło musi mieć co najmniej {varIntlMin} znaków.",
+                "passwords-not-matching": "Hasła nie są zgodne.",
+                "required-message": "Obowiązkowe",
+                "submit": "Zaktualizuj hasło"
+              },
+              "title": "Zaktualizuj hasło",
+              "toasters": {
+                "password-update-error": "Wystąpił błąd podczas aktualizacji hasła. Spróbuj ponownie.",
+                "password-updated": "Hasło zostało zaktualizowane."
+              }
+            }
+          },
+          "close-account": "Dezaktywuj moje konto...",
+          "close-account-popover-message": "usunąć konto? To działanie jest nieodwracalne. Jeśli wykupiłeś subskrypcję, zostanie ona anulowana.",
+          "connectedWith": "Jesteś zalogowany na swoje konto {varIntlProvider}.",
+          "create-password": "Nie utworzyłeś hasła, ponieważ jesteś automatycznie zalogowany na konto {varIntlProvider}.",
+          "manage-password": "Zarządzanie hasłem",
+          "title": "Konto"
+        },
+        "Billing": {
+          "according-to-use": "w zależności od zastosowania",
+          "billed-each": "rozliczane każdorazowo",
+          "buttons": {
+            "cancel-subscription": "Anuluj subskrypcję",
+            "restart-subscription": "Uruchom ponownie subskrypcję",
+            "update-payment": "Zmiana metody płatności",
+            "update-plan": "Downgrade lub upgrade"
+          },
+          "daily": "dzień",
+          "features-title": "Cechy",
+          "id": "Fakturowanie",
+          "monthly": "miesiąc",
+          "next-invoice-at": "Następna faktura na",
+          "no-plan-subscribed-yet": "Nie wykupiłeś subskrypcji",
+          "per-user": "na użytkownika",
+          "subscribe-now": "Chciałbym zasubskrybować!",
+          "subscription-will-be-canceled-at": "Subskrypcja zostanie ostatecznie anulowana w dniu",
+          "title": "Fakturowanie",
+          "tooltips": {
+            "cancel-subscription": "Subskrypcja zostanie ostatecznie anulowana na koniec okresu rozliczeniowego w dniu {varIntlDate}. Możesz nadal korzystać z funkcji do tej daty. Następnie opłata nie będzie już naliczana.",
+            "restart-subscription": "Subskrypcja zostanie uruchomiona ponownie bez dodatkowych opłat."
+          },
+          "trial-days-remaining": "Pozostało {varIntlDays} dni okresu próbnego",
+          "users": "użytkownicy",
+          "weekly": "tydzień",
+          "yearly": "i",
+          "you-save": "Zapisujesz {varIntlSave} w tej subskrypcji",
+          "your-plan": "Subskrypcja",
+          "your-trial-ends-at": "Okres próbny kończy się w dniu"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Subskrypcja biuletynu",
+            "toasters": {
+              "error-delete-contact": "Błąd usuwania kontaktu z grupy odbiorców newslettera",
+              "error-get-contact": "Wystąpił błąd podczas pobierania kontaktu newslettera. Spróbuj ponownie.",
+              "error-update-newsletter": "Wystąpił błąd podczas aktualizacji preferencji newslettera. Spróbuj ponownie.",
+              "newsletter-disabled": "wyłączony",
+              "newsletter-enabled": "aktywowany"
+            }
+          },
+          "title": "E-maile"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Nie możesz zaprosić samego siebie!",
+                "field-invite-new-member": "Zaproś nowego członka",
+                "placeholder-email": "E-mail",
+                "submit": "Zaproszenie"
+              },
+              "note": "Posiadasz aktywną subskrypcję. Dodanie nowego członka do organizacji zostanie zafakturowane proporcjonalnie, jeśli członek przyjmie to zaproszenie.",
+              "toasters": {
+                "invitation-sent": "Zaproszenie wysłane do"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "promować tego członka jako właściciela? Może być tylko jeden właściciel, w takim przypadku utracisz wszystkie prawa do publikacji dla tej organizacji.",
+                "promote-member-display": "Promuj tego członka",
+                "revoke-member": "usunięcie tego członka z organizacji",
+                "revoke-member-display": "Odwołanie tego użytkownika"
+              },
+              "toasters": {
+                "user-promoted": "Promowany użytkownik. Nie jesteś już właścicielem tej organizacji",
+                "user-removed": "Użytkownik odwołany"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Nazwa musi zawierać co najmniej {varIntlMin} znaków.",
+                "field-organization-name": "Nazwa organizacji",
+                "submit": "Zmiana nazwy"
+              },
+              "organization-renamed": "Renomowana organizacja",
+              "toasters": {
+                "organization-renamed": "Zmiana nazwy organizacji"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Tworzenie organizacji"
+          },
+          "members": "Członkowie",
+          "pending-invitations": "Wstrzymani użytkownicy",
+          "popover": {
+            "delete-member": "ten członek",
+            "delete-organization": "Zamknięcie organizacji...",
+            "what-delete-organization": "zlikwidować tę organizację"
+          },
+          "title": "Organizacja",
+          "toasters": {
+            "organization-created": "Utworzona organizacja",
+            "organization-deleted": "Organizacja została zlikwidowana. Wszyscy członkowie zostali wykluczeni, a ich prawa utracone.",
+            "organization-left": "Organizacja po lewej",
+            "pendin-user-removed": "Użytkownik oczekujący usunięty"
+          },
+          "tooltip": {
+            "owner": "Właściciel"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Zmiana zdjęcia profilowego",
+          "form": {
+            "name": "Wyświetlana nazwa",
+            "submit": "Aktualizacja",
+            "upload": "Pobierz"
+          },
+          "title": "Profil",
+          "toasters": {
+            "file-is-empty": "Plik jest pusty",
+            "file-is-not-an-image": "Plik nie jest obrazem",
+            "file-is-too-large": "Plik jest zbyt duży (maksymalnie 2 MB)",
+            "no-file-provided": "Brak dostarczonych plików",
+            "success": "Zaktualizowany profil",
+            "success-file-uploaded": "Pomyślnie zmodyfikowano zdjęcie profilowe"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Brak historii zakupów",
+          "no-purchase-history-description": "Nie kupiłeś jeszcze żadnych produktów na naszej stronie!",
+          "title": "Zakupy"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Nieznany adres e-mail",
+        "invalid-token": "Nieprawidłowy token",
+        "password-not-updated": "Wystąpił problem podczas zmiany hasła. Spróbuj ponownie.",
+        "token-expired": "Token wygasł.",
+        "token-not-found": "Nie znaleziono tokenu resetowania."
+      }
+    },
+    "button": "Przejdź do pulpitu nawigacyjnego",
+    "description": "Witamy na pulpicie nawigacyjnym!",
+    "title": "Pulpit nawigacyjny"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Resetowanie hasła",
+      "resetPassword": "Resetowanie hasła",
+      "text": "Zostałeś poproszony o zresetowanie hasła. Aby to zrobić, kliknij poniższy przycisk."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Przyjmij zaproszenie",
+      "heading": "Zostałeś zaproszony do drużyny {varIntlTeamName}.",
+      "text": "Aby przyjąć zaproszenie, kliknij poniższy przycisk."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Witamy!",
+      "text": "Aby potwierdzić rejestrację, kliknij poniższy przycisk.",
+      "verifyEmail": "Zatwierdź moje konto"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Nie przegap naszych najnowszych wiadomości! Zapisz się do naszego newslettera",
+      "privacy": "Polityka prywatności",
+      "terms": "Informacje prawne",
+      "title": "Prawne"
+    },
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "title": "Nawigacja"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Potwierdź nowe hasło",
+          "email": "Adres e-mail konta",
+          "email-error": "Nieprawidłowy format adresu e-mail.",
+          "new-password": "Wybierz nowe hasło",
+          "password-error": "Musi zawierać co najmniej {varIntlMin} znaków.",
+          "password-match-error": "Oba hasła muszą być identyczne.",
+          "submit": "Reset",
+          "success": "Hasło zostało pomyślnie zmienione."
+        }
+      }
+    },
+    "invalid-token": "Nieprawidłowy token resetowania. Spróbuj ponownie lub złóż nowe żądanie.",
+    "reset-password": "Resetowanie hasła",
+    "token-expired": "Token resetowania jest nieznany."
+  },
+  "Index": {
+    "first-connexion": "Pierwsze połączenie",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit do szybkiego rozwoju: skup się tylko na podstawowych funkcjach, bądź spokojny dzięki nowoczesnemu frontendowi i skalowalnemu, bezpiecznemu backendowi. Oszczędność wysiłku",
+      "title": "Strona główna"
+    },
+    "title": "Witamy!"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Kontakt",
+          "features": "Cechy",
+          "home": "Strona główna",
+          "howItWorks": "Jak to działa?",
+          "pricing": "Wycena"
+        },
+        "UserProfile": {
+          "login": "Zaloguj się",
+          "logout": "Odłączanie",
+          "my-account": "Moje konto",
+          "refill": "Przeładowanie"
+        },
+        "buy-now": "Kup"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-mail",
+        "login-with-email": "Połącz mnie",
+        "password": "Hasło"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "przykład",
+        "submit": "Wyślij mi link do logowania",
+        "your-email": "Twój adres e-mail"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Łączenie z Githubem"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Kontynuuj z Google"
+      },
+      "buttons": {
+        "continue-with-google": "Połącz się z Google"
+      }
+    },
+    "button": {
+      "no-account": "Nie masz konta?",
+      "register": "Kliknij tutaj, aby się zarejestrować."
+    },
+    "title": "Zaloguj się do swojego konta",
+    "toasters": {
+      "bad-credentials": "Nieprawidłowe identyfikatory"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "miesiąc",
+        "contact-us": "Skontaktuj się z nami, aby spersonalizować swoją ofertę.",
+        "metered-unit": "przez",
+        "monthly": "miesiąc",
+        "per-seat": "za miejsce",
+        "popular": "Popularny",
+        "recommended": "Zalecane",
+        "trial": "dni próbne, a następnie...",
+        "yearly": "i"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Jedna płatność, wiele projektów"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Kup",
+        "startTrial": "Wypróbuj przez {varIntlTrialDays} dni",
+        "subscribeNow": "Subskrybuj"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Skontaktuj się z nami"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Miesięcznie",
+        "yearly": "Roczny"
+      }
+    },
+    "title": "Wycena"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Witamy na naszej stronie! Potwierdź, że Twój adres e-mail jest prawidłowy."
+      },
+      "form": {
+        "confirm-password": "Potwierdź hasło",
+        "email": "Adres e-mail",
+        "email-error": "Twój adres e-mail nie ma poprawnego formatu",
+        "password": "Hasło",
+        "password-did-not-match": "Hasła muszą być podobne",
+        "password-error": "Hasło musi mieć co najmniej {varIntlMin} znaków.",
+        "register-with-email": "Utwórz moje konto"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Akceptuj",
+          "already-accept": "Przyjąłeś już zaproszenie.",
+          "decline": "Odmówić",
+          "do-you-accept": "Czy zgadzasz się dołączyć do tej organizacji?",
+          "invitation-accepted": "Zaproszenie przyjęte, utwórz konto i zaloguj się, aby sfinalizować zaproszenie. Nastąpi przekierowanie do strony tworzenia konta.",
+          "invitation-accepted-2": "Zaproszenie zostało przyjęte, zaloguj się na swoje konto, aby je sfinalizować.",
+          "invitation-declined": "Zaproszenie odrzucone",
+          "invited": "Zostałeś zaproszony do zespołu \"{varIntlOrganization}\".",
+          "join": "Dołącz do organizacji \" {varIntlOrganization} \".",
+          "logout": "Wyloguj się",
+          "organization-not-found": "Brak organizacji."
+        }
+      },
+      "invitation-not-found": "Brak organizacji.",
+      "invited-with-different-email": "Jesteś zalogowany przy użyciu innego adresu e-mail niż ten, który otrzymałeś zaproszenie.",
+      "logged-in-with-right-email": "Jesteś zalogowany przy użyciu prawidłowego adresu e-mail, ale musisz się wylogować, a następnie zalogować ponownie, aby zaakceptować zaproszenie.",
+      "please-logout": "Zaloguj się przy użyciu odpowiedniego adresu e-mail i wróć na tę stronę. Jeśli nie masz konta z zaproszonym adresem, wyloguj się i wróć na tę stronę, aby je utworzyć."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Zaloguj się do swojego konta",
+      "request-new-validation": "i poproś o nowy link walidacyjny, jeśli jeszcze go nie zweryfikowałeś.",
+      "success": "E-mail zweryfikowany.",
+      "title": "Sprawdzanie adresu e-mail"
+    },
+    "already-account-sentence": "Masz już konto?",
+    "button": {
+      "login": "Zaloguj się do"
+    },
+    "title": "Utwórz konto"
+  }
+}

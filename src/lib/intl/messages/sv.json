@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "En länk för att återställa ditt lösenord har skickats till {varIntlEmail}. \nKontrollera ditt e-postkonto."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Ett fel uppstod när verifieringstoken skapades. \nFörsök igen.",
+        "unknown-error": "Vi stötte på ett okänt fel. \nFörsök igen eller kontakta oss.",
+        "user-already-exists": "Den här email adressen är redan registrerad. \nOm du är ägaren, vänligen logga in med den senare eller, vid behov, begär en lösenordsåterställning.",
+        "user-not-created": "Ett fel uppstod när kontot skapades. \nFörsök igen."
+      },
+      "success": "Välkommen {varIntlName}! \nTack för ditt förtroende. \nDu kommer att få ett e-postmeddelande med en länk som låter dig bekräfta dess giltighet.\n\n \nDu kan nu logga in med dina referenser."
+    },
+    "VerifyEmail": {
+      "expired-token": "Verifieringstoken har redan validerats, har löpt ut eller hittades inte.",
+      "success": "Din e-postadress har verifierats."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Du har blivit inbjuden att gå med i organisationen",
+              "subject-end": "och hans team",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "Användaren är redan medlem i en organisation.",
+              "already-invited": "Användaren har redan bjudits in.",
+              "error-while-creating-invitation": "Ett fel har uppstått. \nInbjudan har inte skickats. \nFörsök igen.",
+              "no-organization-found": "Ingen organisation hittades. \nDetta är verkligen ett fel. \nVar god försök igen."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Ett problem uppstod när ditt konto skulle raderas. \nVänligen kontakta oss.",
+              "cancel-subscription": "Ett problem uppstod när prenumerationen avslutades",
+              "delete": "Du kan inte ta bort ditt konto eftersom du är ägaren till din organisation. \nVänligen överför dina rättigheter till en annan användare, annars radera organisationen."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Du kan inte bjuda in dig själv!",
+              "field-invite-new-member": "Bjud in en ny medlem",
+              "placeholder-email": "E-post",
+              "submit": "Bjuda"
+            },
+            "note": "Du har ett aktivt abonnemang. \nAtt lägga till en ny medlem i din organisation kommer att faktureras proportionellt om medlemmen accepterar denna inbjudan",
+            "toasters": {
+              "invitation-sent": "Inbjudan skickas till adressen"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Känd organisation"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Skapa en organisation"
+        },
+        "members": "Medlemmar",
+        "pending-invitations": "Väntande användare",
+        "popover": {
+          "delete-member": "denna medlem",
+          "delete-organization": "Nära organisation",
+          "what-delete-organization": "ta bort den här organisationen"
+        },
+        "toasters": {
+          "organization-created": "Organisation skapad",
+          "organization-deleted": "Organisation raderad. \nAlla medlemmar uteslöts och deras rättigheter gick förlorade.",
+          "organization-left": "Organisation kvar",
+          "pendin-user-removed": "Väntande användare raderad"
+        },
+        "tooltip": {
+          "owner": "Ägare"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "din e-postadress",
+          "email-exemple": "exempel",
+          "submit": "Prenumerera på nyhetsbrevet"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Annullera",
+        "confirm": "Bekräfta",
+        "message": "Är det säkert att du vill"
+      },
+      "popover-delete": {
+        "cancel": "Annullera",
+        "confirm": "Bekräfta",
+        "message": "Är du säker att du vill radera"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "konto",
+          "billing": "Prenumeration",
+          "emails": "E-postmeddelanden",
+          "organization": "Organisation",
+          "profile": "Profil",
+          "purchases": "Inköp",
+          "usage": "Använda sig av"
+        },
+        "title": "Mitt konto"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Du skapade inte ett lösenord eftersom du är inloggad med kontot {varIntlProvider}. \nDu kan skapa en här.",
+              "form": {
+                "password": "Lösenord",
+                "password-confirmation": "Lösenordsbekräftelse",
+                "password-error": "Lösenordet måste vara minst {varIntlMin} tecken långt.",
+                "passwords-not-matching": "Lösenorden matchar inte.",
+                "submit": "Skapa lösenordet"
+              },
+              "title": "Skapa ett lösenord",
+              "toasters": {
+                "succes-password-created": "Ditt lösenord har skapats."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Inga problem, vi kan skicka en länk för att återställa ditt lösenord.",
+              "emailSent": {
+                "subject": "Återställ ditt lösenord"
+              },
+              "form": {
+                "email": "din e-postadress",
+                "email-error": "Detta är inte en giltig e-postadress.",
+                "submit": "Skicka mig återställningslänken"
+              },
+              "title": "Glömt ditt lösenord ?",
+              "toasters": {
+                "send-email-error": "Ett fel uppstod när e-postmeddelandet skickades. \nFörsök igen."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Nuvarande lösenord",
+                "new-password": "nytt lösenord",
+                "password-confirmation": "Lösenordsbekräftelse",
+                "password-error": "Lösenordet måste vara minst {varIntlMin} tecken långt.",
+                "passwords-not-matching": "Lösenorden matchar inte.",
+                "required-message": "Obligatorisk",
+                "submit": "Uppdatera lösenord"
+              },
+              "title": "Uppdatera ditt lösenord",
+              "toasters": {
+                "password-update-error": "Ett fel uppstod när lösenordet skulle uppdateras. \nFörsök igen.",
+                "password-updated": "Lösenord uppdaterat."
+              }
+            }
+          },
+          "close-account": "Avaktivera mitt konto...",
+          "close-account-popover-message": "Radera ditt konto? \nDenna åtgärd är oåterkallelig. \nOm du har köpt ett abonnemang kommer det att sägas upp.",
+          "connectedWith": "Du är inloggad med ditt konto {varIntlProvider}",
+          "create-password": "Du har inte skapat ett lösenord eftersom du är automatiskt inloggad med ett {varIntlProvider}-konto.",
+          "manage-password": "Hantera ditt lösenord",
+          "title": "konto"
+        },
+        "Billing": {
+          "according-to-use": "beroende på användning",
+          "billed-each": "faktureras var och en",
+          "buttons": {
+            "cancel-subscription": "säga upp",
+            "restart-subscription": "Starta om prenumerationen",
+            "update-payment": "Ändra betalningsmetod",
+            "update-plan": "Nedgradera eller uppgradera"
+          },
+          "daily": "dag",
+          "features-title": "Funktioner",
+          "id": "Fakturering",
+          "monthly": "månad",
+          "next-invoice-at": "Nästa faktura på",
+          "no-plan-subscribed-yet": "Du har inte köpt något abonnemang",
+          "per-user": "per användare",
+          "subscribe-now": "Jag skulle vilja prenumerera!",
+          "subscription-will-be-canceled-at": "Ditt abonnemang kommer att avslutas permanent den",
+          "title": "Fakturering",
+          "tooltips": {
+            "cancel-subscription": "Din prenumeration kommer att avslutas permanent i slutet av faktureringsperioden den {varIntlDate}. \nDu kan fortsätta att använda dina funktioner fram till detta datum. \nDu faktureras då inte längre.",
+            "restart-subscription": "Ditt abonnemang kommer att starta om utan ytterligare fakturering."
+          },
+          "trial-days-remaining": "Du har {varIntlDays} provdag(ar) kvar",
+          "users": "användare",
+          "weekly": "vecka",
+          "yearly": "år",
+          "you-save": "Du sparar {varIntlSave} på den här prenumerationen",
+          "your-plan": "Ditt abonnemang",
+          "your-trial-ends-at": "Din provperiod slutar den"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Prenumeration på nyhetsbrev",
+            "toasters": {
+              "error-delete-contact": "Fel vid borttagning av kontakt från nyhetsbrevets publik",
+              "error-get-contact": "Ett fel uppstod när nyhetsbrevskontakten skulle hämtas. \nFörsök igen.",
+              "error-update-newsletter": "Ett fel uppstod när du uppdaterade dina nyhetsbrevsinställning. \nFörsök igen.",
+              "newsletter-disabled": "Inaktiverad",
+              "newsletter-enabled": "aktiveras"
+            }
+          },
+          "title": "E-postmeddelanden"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Du kan inte bjuda in dig själv!",
+                "field-invite-new-member": "Bjud in en ny medlem",
+                "placeholder-email": "E-post",
+                "submit": "Bjuda"
+              },
+              "note": "Du har ett aktivt abonnemang. \nAtt lägga till en ny medlem i din organisation kommer att faktureras proportionellt om medlemmen accepterar denna inbjudan",
+              "toasters": {
+                "invitation-sent": "Inbjudan skickas till adressen"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "marknadsföra denna medlem som ägare? \nDet kan bara finnas en ägare, i så fall förlorar du alla rättigheter att göra inlägg till den organisationen.",
+                "promote-member-display": "Marknadsför denna medlem",
+                "revoke-member": "ta bort denna medlem från organisationen",
+                "revoke-member-display": "Återkalla denna användare"
+              },
+              "toasters": {
+                "user-promoted": "Befordrad användare. \nDu är inte längre ägare till denna organisation",
+                "user-removed": "Användare återkallad"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Namnet måste innehålla minst {varIntlMin} tecken",
+                "field-organization-name": "organisationens namn",
+                "submit": "Döp om"
+              },
+              "organization-renamed": "Känd organisation",
+              "toasters": {
+                "organization-renamed": "Organisationen har bytt namn"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Skapa en organisation"
+          },
+          "members": "Medlemmar",
+          "pending-invitations": "Väntande användare",
+          "popover": {
+            "delete-member": "denna medlem",
+            "delete-organization": "Stäng organisationen...",
+            "what-delete-organization": "ta bort den här organisationen"
+          },
+          "title": "Organisation",
+          "toasters": {
+            "organization-created": "Organisation skapad",
+            "organization-deleted": "Organisation raderad. \nAlla medlemmar uteslöts och deras rättigheter gick förlorade.",
+            "organization-left": "Organisation kvar",
+            "pendin-user-removed": "Väntande användare raderad"
+          },
+          "tooltip": {
+            "owner": "Ägare"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Byt profilbild",
+          "form": {
+            "name": "Visningsnamn",
+            "submit": "Att uppdatera",
+            "upload": "Ladda ner"
+          },
+          "title": "Profil",
+          "toasters": {
+            "file-is-empty": "Filen är tom",
+            "file-is-not-an-image": "Filen är inte en bild",
+            "file-is-too-large": "Filen är för stor (max 2 MB)",
+            "no-file-provided": "Inga filer tillhandahålls",
+            "success": "Profil uppdaterad",
+            "success-file-uploaded": "Profilbilden har ändrats"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Ingen köphistorik",
+          "no-purchase-history-description": "Du har ännu inte köpt några produkter på vår sida!",
+          "title": "Inköp"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Okänd e-postadress",
+        "invalid-token": "Ogiltig token",
+        "password-not-updated": "Ett problem uppstod när ditt lösenord skulle ändras. \nFörsök igen.",
+        "token-expired": "Token har löpt ut.",
+        "token-not-found": "Återställningstoken hittades inte."
+      }
+    },
+    "button": "Gå till instrumentpanelen",
+    "description": "Välkommen till din instrumentpanel!",
+    "title": "instrumentbräda"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Återställ ditt lösenord",
+      "resetPassword": "Återställ lösenord",
+      "text": "Du har begärt att få återställa ditt lösenord. \nFör att göra detta, klicka på knappen nedan."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Acceptera inbjudningen",
+      "heading": "Du har blivit inbjuden att gå med i {varIntlTeamName}-teamet",
+      "text": "För att acceptera inbjudan, klicka på knappen nedan."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Välkommen !",
+      "text": "För att definitivt validera din registrering, klicka på knappen nedan.",
+      "verifyEmail": "Validera mitt konto"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Missa inte våra nyheter! \nPrenumerera på vårt nyhetsbrev",
+      "privacy": "Integritetspolicy",
+      "terms": "Rättsligt meddelande",
+      "title": "Rättslig"
+    },
+    "Navigation": {
+      "blog": "Blogg",
+      "faq": "Vanliga frågor",
+      "title": "Navigering"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Bekräfta det nya lösenordet",
+          "email": "Kontots e-postadress",
+          "email-error": "Felaktigt formaterad e-postadress.",
+          "new-password": "Välj ett nytt lösenord",
+          "password-error": "Måste vara minst {varIntlMin} tecken långt.",
+          "password-match-error": "Båda lösenorden måste vara desamma.",
+          "submit": "Återställa",
+          "success": "Lösenordet har ändrats."
+        }
+      }
+    },
+    "invalid-token": "Ogiltig återställningstoken. \nVänligen börja om eller ansök igen.",
+    "reset-password": "Återställa ditt lösenord",
+    "token-expired": "Återställningstoken är okänd."
+  },
+  "Index": {
+    "first-connexion": "Första anslutningen",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit för snabb utveckling: Fokusera endast på kärnfunktioner, var säker med en modern frontend, skalbar och säker backend. \nSpara ansträngning",
+      "title": "Välkommen"
+    },
+    "title": "Välkommen !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Kontakt",
+          "features": "Funktioner",
+          "home": "Välkommen",
+          "howItWorks": "Hur det fungerar ?",
+          "pricing": "Prissättning"
+        },
+        "UserProfile": {
+          "login": "Att logga in",
+          "logout": "Logga ut",
+          "my-account": "Mitt konto",
+          "refill": "Ladda om"
+        },
+        "buy-now": "köpa"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-post",
+        "login-with-email": "Logga in",
+        "password": "Lösenord"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "exempel",
+        "submit": "Skicka mig en inloggningslänk",
+        "your-email": "din e-postadress"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Logga in med Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Fortsätt med Google"
+      },
+      "buttons": {
+        "continue-with-google": "Logga in med Google"
+      }
+    },
+    "button": {
+      "no-account": "Inget konto?",
+      "register": "Klicka här för att gå med."
+    },
+    "title": "Logga in på ditt konto",
+    "toasters": {
+      "bad-credentials": "Felaktiga identifierare"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "månad",
+        "contact-us": "Kontakta oss för att anpassa ditt erbjudande.",
+        "metered-unit": "förbi",
+        "monthly": "månad",
+        "per-seat": "per sittplats",
+        "popular": "Populär",
+        "recommended": "Rekommenderad",
+        "trial": "provdagar alltså...",
+        "yearly": "år"
+      },
+      "PriceCard": {
+        "bottom-sentence": "En betalning, många projekt"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "köpa",
+        "startTrial": "Försök i {varIntlTrialDays} dagar",
+        "subscribeNow": "Prenumerera"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Kontakta oss"
+      },
+      "SwitchRecurrence": {
+        "monthly": "En gång i månaden",
+        "yearly": "Årlig"
+      }
+    },
+    "title": "Prissättning"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Välkommen ! \nVänligen bekräfta giltigheten av din e-postadress."
+      },
+      "form": {
+        "confirm-password": "Bekräfta lösenord",
+        "email": "E-postadress",
+        "email-error": "Din e-postadress är inte i rätt format",
+        "password": "Lösenord",
+        "password-did-not-match": "Lösenord bör vara liknande",
+        "password-error": "Ditt lösenord måste vara minst {varIntlMin} tecken långt",
+        "register-with-email": "skapa mitt konto"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Acceptera",
+          "already-accept": "Du har redan accepterat inbjudan.",
+          "decline": "Vägra",
+          "do-you-accept": "Godkänner du att gå med i denna organisation?",
+          "invitation-accepted": "Inbjudan accepterad, skapa ett konto och logga in för att slutföra inbjudan. \nDu kommer att omdirigeras till sidan för att skapa konto.",
+          "invitation-accepted-2": "Inbjudan accepterad, vänligen logga in på ditt konto för att slutföra den.",
+          "invitation-declined": "Inbjudan avslogs",
+          "invited": "Du har blivit inbjuden att gå med i \"{varIntlOrganization}\"-teamet",
+          "join": "Gå med i organisationen \"{varIntlOrganization}\"",
+          "logout": "Koppla ifrån",
+          "organization-not-found": "Befintlig organisation."
+        }
+      },
+      "invitation-not-found": "Befintlig organisation.",
+      "invited-with-different-email": "Du är inloggad med en annan e-postadress än den som fick inbjudan.",
+      "logged-in-with-right-email": "Du är inloggad med rätt e-postadress, men du måste logga ut och logga in igen för att acceptera inbjudan.",
+      "please-logout": "Logga in med motsvarande e-postadress och återvänd till denna sida. \nOm du inte har ett konto med gästadressen, logga ut och återvänd till den här sidan för att skapa den."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Logga in på ditt konto",
+      "request-new-validation": "och begär en ny valideringslänk om du inte har validerat den ännu.",
+      "success": "E-post verifierad.",
+      "title": "Verifierar din e-postadress"
+    },
+    "already-account-sentence": "Har du redan ett konto ?",
+    "button": {
+      "login": "Logga in"
+    },
+    "title": "Skapa ett konto"
+  }
+}

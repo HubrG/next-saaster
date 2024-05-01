@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "Liên kết để đặt lại mật khẩu của bạn đã được gửi tới {varIntlEmail}. \nVui lòng kiểm tra tài khoản email của bạn."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Đã xảy ra lỗi khi tạo mã thông báo xác minh. \nThử lại.",
+        "unknown-error": "Chúng tôi đã gặp phải lỗi không xác định. \nVui lòng thử lại hoặc liên hệ với chúng tôi.",
+        "user-already-exists": "Email này đã được đăng kí trước đây. \nNếu bạn là chủ sở hữu, vui lòng đăng nhập bằng tài khoản sau hoặc nếu cần, hãy yêu cầu đặt lại mật khẩu.",
+        "user-not-created": "Đã xảy ra lỗi khi tạo tài khoản. \nThử lại."
+      },
+      "success": "Chào mừng {varIntlName}! \nCảm ơn bạn đã tin tưởng. \nBạn sẽ nhận được một email có liên kết cho phép bạn xác nhận tính hợp lệ của nó.\n\n \nBây giờ bạn có thể đăng nhập bằng thông tin đăng nhập của mình."
+    },
+    "VerifyEmail": {
+      "expired-token": "Mã thông báo xác minh đã được xác thực, hết hạn hoặc không tìm thấy.",
+      "success": "địa chỉ email của bạn đã được xác minh."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Bạn đã được mời tham gia tổ chức",
+              "subject-end": "và đội của anh ấy",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "Người dùng đã là thành viên của một tổ chức.",
+              "already-invited": "Người dùng đã được mời.",
+              "error-while-creating-invitation": "Một lỗi đã xảy ra. \nLời mời chưa được gửi. \nThử lại.",
+              "no-organization-found": "Không tìm thấy tổ chức nào. \nĐây chắc chắn là một lỗi. \nVui lòng thử lại."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Đã xảy ra sự cố khi xóa tài khoản của bạn. \nXin vui lòng liên hệ với chúng tôi.",
+              "cancel-subscription": "Đã xảy ra sự cố khi hủy đăng ký",
+              "delete": "Bạn không thể xóa tài khoản của mình vì bạn là chủ sở hữu tổ chức của mình. \nVui lòng chuyển quyền của bạn cho người dùng khác, nếu không hãy xóa tổ chức."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Bạn không thể mời chính mình!",
+              "field-invite-new-member": "Mời thành viên mới",
+              "placeholder-email": "E-mail",
+              "submit": "Mời"
+            },
+            "note": "Bạn có một thuê bao đang hoạt động. \nViệc thêm thành viên mới vào tổ chức của bạn sẽ được tính phí theo tỷ lệ nếu thành viên đó chấp nhận lời mời này",
+            "toasters": {
+              "invitation-sent": "Lời mời được gửi đến địa chỉ"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Tổ chức nổi tiếng"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Tạo một tổ chức"
+        },
+        "members": "Các thành viên",
+        "pending-invitations": "Người dùng đang chờ xử lý",
+        "popover": {
+          "delete-member": "thành viên này",
+          "delete-organization": "Đóng tổ chức",
+          "what-delete-organization": "xóa tổ chức này"
+        },
+        "toasters": {
+          "organization-created": "Đã tạo tổ chức",
+          "organization-deleted": "Đã xóa tổ chức. \nTất cả các thành viên đều bị loại trừ và quyền lợi của họ bị mất.",
+          "organization-left": "Tổ chức đã rời đi",
+          "pendin-user-removed": "Người dùng đang chờ xử lý đã bị xóa"
+        },
+        "tooltip": {
+          "owner": "Người sở hữu"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "địa chỉ email của bạn",
+          "email-exemple": "ví dụ",
+          "submit": "Đăng ký nhận bản tin"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Hủy bỏ",
+        "confirm": "Xác nhận",
+        "message": "Bạn có chắc chắn muốn"
+      },
+      "popover-delete": {
+        "cancel": "Hủy bỏ",
+        "confirm": "Xác nhận",
+        "message": "Bạn có chắc chắn muốn xóa"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Tài khoản",
+          "billing": "Đăng ký",
+          "emails": "Email",
+          "organization": "Tổ chức",
+          "profile": "Hồ sơ",
+          "purchases": "Mua hàng",
+          "usage": "Sử dụng"
+        },
+        "title": "Tài khoản của tôi"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Bạn chưa tạo mật khẩu vì bạn đã đăng nhập bằng tài khoản {varIntlProvider}. \nBạn có thể tạo một cái ở đây.",
+              "form": {
+                "password": "Mật khẩu",
+                "password-confirmation": "Xác nhận mật khẩu",
+                "password-error": "Mật khẩu phải dài ít nhất {varIntlMin} ký tự.",
+                "passwords-not-matching": "Mất khẩu không hợp lệ.",
+                "submit": "Tạo mật khẩu"
+              },
+              "title": "Tạo một mật khẩu",
+              "toasters": {
+                "succes-password-created": "Mật khẩu của bạn đã được tạo."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Không vấn đề gì, chúng tôi có thể gửi cho bạn một liên kết để đặt lại mật khẩu của bạn.",
+              "emailSent": {
+                "subject": "Đặt lại mật khẩu của bạn"
+              },
+              "form": {
+                "email": "địa chỉ email của bạn",
+                "email-error": "Đây không phải là một địa chỉ email hợp lệ.",
+                "submit": "Gửi cho tôi liên kết khôi phục"
+              },
+              "title": "Quên mật khẩu ?",
+              "toasters": {
+                "send-email-error": "Có lỗi xảy ra trong khi gửi email. \nThử lại."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Mật khẩu hiện tại",
+                "new-password": "mật khẩu mới",
+                "password-confirmation": "Xác nhận mật khẩu",
+                "password-error": "Mật khẩu phải dài ít nhất {varIntlMin} ký tự.",
+                "passwords-not-matching": "Mất khẩu không hợp lệ.",
+                "required-message": "Bắt buộc",
+                "submit": "Cập nhật mật khẩu"
+              },
+              "title": "Cập nhật mật khẩu của bạn",
+              "toasters": {
+                "password-update-error": "Đã xảy ra lỗi khi cập nhật mật khẩu. \nThử lại.",
+                "password-updated": "Mật khẩu được cập nhật."
+              }
+            }
+          },
+          "close-account": "Vô hiệu hóa tài khoản của tôi...",
+          "close-account-popover-message": "Xóa tài khoản của bạn? \nHành động này là không thể đảo ngược. \nNếu bạn đã mua một thuê bao, nó sẽ bị hủy.",
+          "connectedWith": "Bạn đã đăng nhập bằng tài khoản của mình {varIntlProvider}",
+          "create-password": "Bạn chưa tạo mật khẩu vì bạn được đăng nhập tự động bằng tài khoản {varIntlProvider}.",
+          "manage-password": "Quản lý mật khẩu của bạn",
+          "title": "Tài khoản"
+        },
+        "Billing": {
+          "according-to-use": "tùy vào mục đích sử dụng",
+          "billed-each": "thanh toán từng",
+          "buttons": {
+            "cancel-subscription": "hủy đăng ký",
+            "restart-subscription": "Khởi động lại đăng ký",
+            "update-payment": "Thay đổi phương pháp thanh toán",
+            "update-plan": "Hạ cấp hoặc nâng cấp"
+          },
+          "daily": "ngày",
+          "features-title": "Đặc trưng",
+          "id": "Thanh toán",
+          "monthly": "tháng",
+          "next-invoice-at": "Hóa đơn tiếp theo vào",
+          "no-plan-subscribed-yet": "Bạn chưa mua bất kỳ đăng ký nào",
+          "per-user": "Mỗi người dùng",
+          "subscribe-now": "Tôi muốn đăng ký!",
+          "subscription-will-be-canceled-at": "Đăng ký của bạn sẽ bị hủy vĩnh viễn vào",
+          "title": "Thanh toán",
+          "tooltips": {
+            "cancel-subscription": "Đăng ký của bạn sẽ bị hủy vĩnh viễn vào cuối thời hạn thanh toán vào {varIntlDate}. \nBạn có thể tiếp tục sử dụng các tính năng của mình cho đến ngày này. \nSau đó bạn sẽ không còn bị tính phí nữa.",
+            "restart-subscription": "Đăng ký của bạn sẽ khởi động lại mà không cần thanh toán bổ sung."
+          },
+          "trial-days-remaining": "Bạn còn {varIntlDays} ngày dùng thử",
+          "users": "người dùng",
+          "weekly": "tuần",
+          "yearly": "năm",
+          "you-save": "Bạn tiết kiệm được {varIntlSave} cho gói đăng ký này",
+          "your-plan": "Đăng ký của bạn",
+          "your-trial-ends-at": "Thời gian dùng thử của bạn kết thúc vào"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Đăng ký nhận bản tin",
+            "toasters": {
+              "error-delete-contact": "Lỗi khi xóa liên hệ khỏi đối tượng bản tin",
+              "error-get-contact": "Đã xảy ra lỗi khi truy xuất liên hệ bản tin. \nThử lại.",
+              "error-update-newsletter": "Đã xảy ra lỗi khi cập nhật tùy chọn bản tin của bạn. \nThử lại.",
+              "newsletter-disabled": "tàn tật",
+              "newsletter-enabled": "kích hoạt"
+            }
+          },
+          "title": "Email"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Bạn không thể mời chính mình!",
+                "field-invite-new-member": "Mời thành viên mới",
+                "placeholder-email": "E-mail",
+                "submit": "Mời"
+              },
+              "note": "Bạn có một thuê bao đang hoạt động. \nViệc thêm thành viên mới vào tổ chức của bạn sẽ được tính phí theo tỷ lệ nếu thành viên đó chấp nhận lời mời này",
+              "toasters": {
+                "invitation-sent": "Lời mời được gửi đến địa chỉ"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "thăng chức thành viên này làm chủ sở hữu? \nChỉ có thể có một chủ sở hữu, trong trường hợp đó bạn sẽ mất mọi quyền đăng bài lên tổ chức đó.",
+                "promote-member-display": "Quảng bá thành viên này",
+                "revoke-member": "xóa thành viên này khỏi tổ chức",
+                "revoke-member-display": "Thu hồi người dùng này"
+              },
+              "toasters": {
+                "user-promoted": "Người dùng được thăng cấp. \nBạn không còn là chủ sở hữu của tổ chức này",
+                "user-removed": "Người dùng đã bị thu hồi"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Tên phải chứa ít nhất ký tự {varIntlMin}",
+                "field-organization-name": "Tên của tổ chức",
+                "submit": "Đổi tên"
+              },
+              "organization-renamed": "Tổ chức nổi tiếng",
+              "toasters": {
+                "organization-renamed": "Tổ chức được đổi tên"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Tạo một tổ chức"
+          },
+          "members": "Các thành viên",
+          "pending-invitations": "Người dùng đang chờ xử lý",
+          "popover": {
+            "delete-member": "thành viên này",
+            "delete-organization": "Đóng cửa tổ chức...",
+            "what-delete-organization": "xóa tổ chức này"
+          },
+          "title": "Tổ chức",
+          "toasters": {
+            "organization-created": "Đã tạo tổ chức",
+            "organization-deleted": "Đã xóa tổ chức. \nTất cả các thành viên đều bị loại trừ và quyền lợi của họ bị mất.",
+            "organization-left": "Tổ chức đã rời đi",
+            "pendin-user-removed": "Người dùng đang chờ xử lý đã bị xóa"
+          },
+          "tooltip": {
+            "owner": "Người sở hữu"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Thay đổi hình ảnh đại diện",
+          "form": {
+            "name": "Tên hiển thị",
+            "submit": "Cập nhật",
+            "upload": "Tải xuống"
+          },
+          "title": "Hồ sơ",
+          "toasters": {
+            "file-is-empty": "Tập tin trống",
+            "file-is-not-an-image": "Tệp không phải là hình ảnh",
+            "file-is-too-large": "Tệp quá lớn (tối đa 2 MB)",
+            "no-file-provided": "Không có tập tin nào được cung cấp",
+            "success": "Hồ sơ cá nhân đã cập nhật",
+            "success-file-uploaded": "Ảnh hồ sơ đã được thay đổi thành công"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Không có lịch sử mua hàng",
+          "no-purchase-history-description": "Bạn chưa mua bất kỳ sản phẩm nào trên trang web của chúng tôi!",
+          "title": "Mua hàng"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Địa chỉ email không xác định",
+        "invalid-token": "Mã không hợp lệ",
+        "password-not-updated": "Đã xảy ra sự cố khi thay đổi mật khẩu của bạn. \nThử lại.",
+        "token-expired": "Mã thông báo đã hết hạn.",
+        "token-not-found": "Không tìm thấy mã thông báo đặt lại."
+      }
+    },
+    "button": "Đi đến bảng điều khiển",
+    "description": "Chào mừng bạn đến với bảng điều khiển của bạn!",
+    "title": "bảng điều khiển"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Đặt lại mật khẩu của bạn",
+      "resetPassword": "Đặt lại mật khẩu",
+      "text": "Bạn đã yêu cầu đặt lại mật khẩu của mình. \nĐể thực hiện việc này, vui lòng nhấp vào nút bên dưới."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Chấp nhận lời mời",
+      "heading": "Bạn đã được mời tham gia nhóm {varIntlTeamName}",
+      "text": "Để chấp nhận lời mời, vui lòng nhấp vào nút bên dưới."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Chào mừng !",
+      "text": "Để xác thực dứt khoát việc đăng ký của bạn, vui lòng nhấp vào nút bên dưới.",
+      "verifyEmail": "Xác thực tài khoản của tôi"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Đừng bỏ lỡ tin tức của chúng tôi! \nTheo dõi bản tin của chúng tôi",
+      "privacy": "Chính sách bảo mật",
+      "terms": "Thông báo pháp lý",
+      "title": "Hợp pháp"
+    },
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "Câu hỏi thường gặp",
+      "title": "dẫn đường"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Xác nhận mật khẩu mới",
+          "email": "Địa chỉ email tài khoản",
+          "email-error": "Địa chỉ email được định dạng sai.",
+          "new-password": "Chọn một mật khẩu mới",
+          "password-error": "Phải dài ít nhất {varIntlMin} ký tự.",
+          "password-match-error": "Cả hai mật khẩu phải giống nhau.",
+          "submit": "Cài lại",
+          "success": "Mật khẩu đã được thay đổi thành công."
+        }
+      }
+    },
+    "invalid-token": "Mã thông báo đặt lại không hợp lệ. \nVui lòng bắt đầu lại hoặc đăng ký lại.",
+    "reset-password": "Đặt lại mật khẩu của bạn",
+    "token-expired": "Mã thông báo đặt lại không xác định."
+  },
+  "Index": {
+    "first-connexion": "Kết nối đầu tiên",
+    "metadatas": {
+      "description": "Bộ công cụ khởi đầu NextJS SaaS để phát triển nhanh chóng: Chỉ tập trung vào các tính năng cốt lõi, yên tâm với giao diện người dùng hiện đại, phần phụ trợ an toàn và có thể mở rộng. \nTiết kiệm công sức",
+      "title": "Chào mừng"
+    },
+    "title": "Chào mừng !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Liên hệ",
+          "features": "Đặc trưng",
+          "home": "Chào mừng",
+          "howItWorks": "Làm thế nào nó hoạt động ?",
+          "pricing": "Định giá"
+        },
+        "UserProfile": {
+          "login": "Để đăng nhập",
+          "logout": "Đăng xuất",
+          "my-account": "Tài khoản của tôi",
+          "refill": "Tải lại"
+        },
+        "buy-now": "Mua"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-mail",
+        "login-with-email": "Đăng nhập",
+        "password": "Mật khẩu"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "ví dụ",
+        "submit": "Gửi cho tôi liên kết đăng nhập",
+        "your-email": "địa chỉ email của bạn"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Đăng nhập bằng Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Tiếp tục với Google"
+      },
+      "buttons": {
+        "continue-with-google": "Đăng nhập bằng Google"
+      }
+    },
+    "button": {
+      "no-account": "Không tài khoản?",
+      "register": "Nhấn vào đây để tham gia."
+    },
+    "title": "đăng nhập vào tài khoản của bạn",
+    "toasters": {
+      "bad-credentials": "Số nhận dạng không chính xác"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "tháng",
+        "contact-us": "Hãy liên hệ với chúng tôi để cá nhân hóa ưu đãi của bạn.",
+        "metered-unit": "qua",
+        "monthly": "tháng",
+        "per-seat": "mỗi chỗ ngồi",
+        "popular": "Phổ biến",
+        "recommended": "Khuyến khích",
+        "trial": "ngày thử việc thì...",
+        "yearly": "năm"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Một khoản thanh toán, nhiều dự án"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Mua",
+        "startTrial": "Dùng thử trong {varIntlTrialDays} ngày",
+        "subscribeNow": "Đặt mua"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Liên hệ chúng tôi"
+      },
+      "SwitchRecurrence": {
+        "monthly": "hàng tháng",
+        "yearly": "Hàng năm"
+      }
+    },
+    "title": "Định giá"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Chào mừng ! \nVui lòng xác nhận tính hợp lệ của địa chỉ email của bạn."
+      },
+      "form": {
+        "confirm-password": "Xác nhận mật khẩu",
+        "email": "Địa chỉ email",
+        "email-error": "Địa chỉ email của bạn không đúng định dạng",
+        "password": "Mật khẩu",
+        "password-did-not-match": "Mật khẩu phải giống nhau",
+        "password-error": "Mật khẩu của bạn phải dài ít nhất {varIntlMin} ký tự",
+        "register-with-email": "tạo tài khoản của tôi"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Chấp nhận",
+          "already-accept": "Bạn đã chấp nhận lời mời.",
+          "decline": "Từ chối",
+          "do-you-accept": "Bạn có đồng ý tham gia tổ chức này không?",
+          "invitation-accepted": "Lời mời đã được chấp nhận, vui lòng tạo tài khoản sau đó đăng nhập để hoàn tất lời mời. \nBạn sẽ được chuyển hướng đến trang tạo tài khoản.",
+          "invitation-accepted-2": "Lời mời đã được chấp nhận, vui lòng đăng nhập vào tài khoản của bạn để hoàn tất.",
+          "invitation-declined": "Lời mời bị từ chối",
+          "invited": "Bạn đã được mời tham gia nhóm “{varIntlOrganization}”",
+          "join": "Tham gia tổ chức “{varIntlOrganization}”",
+          "logout": "Ngắt kết nối",
+          "organization-not-found": "Tổ chức không tồn tại."
+        }
+      },
+      "invitation-not-found": "Tổ chức không tồn tại.",
+      "invited-with-different-email": "Bạn đã đăng nhập bằng địa chỉ email khác với địa chỉ đã nhận được lời mời.",
+      "logged-in-with-right-email": "Bạn đã đăng nhập bằng địa chỉ email chính xác nhưng bạn phải đăng xuất và đăng nhập lại để chấp nhận lời mời.",
+      "please-logout": "Vui lòng đăng nhập bằng địa chỉ email tương ứng và quay lại trang này. \nNếu bạn chưa có tài khoản với địa chỉ khách, hãy đăng xuất và quay lại trang này để tạo."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Đăng nhập vào tài khoản của bạn",
+      "request-new-validation": "và yêu cầu một liên kết xác thực mới nếu bạn chưa xác thực nó.",
+      "success": "Email đã kích hoạt.",
+      "title": "Xác minh địa chỉ email của bạn"
+    },
+    "already-account-sentence": "Bạn co săn san để tạo một tai khoản ?",
+    "button": {
+      "login": "Đăng nhập"
+    },
+    "title": "Tạo một tài khoản"
+  }
+}

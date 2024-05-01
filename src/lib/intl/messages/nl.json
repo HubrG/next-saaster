@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "Er is een link om uw wachtwoord te resetten verzonden naar {varIntlEmail}. Controleer uw inbox."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Er is een fout opgetreden bij het aanmaken van het verificatietoken. Probeer het opnieuw.",
+        "unknown-error": "Er is een onbekende fout opgetreden. Probeer het opnieuw of neem contact met ons op.",
+        "user-already-exists": "Dit e-mailadres is al geregistreerd. Als u de eigenaar bent, log dan in met dit adres of vraag, indien nodig, om uw wachtwoord opnieuw in te stellen.",
+        "user-not-created": "Er is een fout opgetreden tijdens het aanmaken van de account. Probeer het opnieuw."
+      },
+      "success": "Welkom {varIntlName} ! Bedankt voor uw vertrouwen. U ontvangt een e-mail met een link waarmee u de geldigheid kunt bevestigen.\n\n U kunt nu inloggen met uw inloggegevens."
+    },
+    "VerifyEmail": {
+      "expired-token": "Verificatietoken al gevalideerd, verlopen of niet gevonden.",
+      "success": "Uw e-mailadres is geverifieerd."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "U bent uitgenodigd om deel te nemen aan",
+              "subject-end": "en zijn team",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "De gebruiker is al lid van een organisatie.",
+              "already-invited": "Gebruiker al uitgenodigd.",
+              "error-while-creating-invitation": "Er is een fout opgetreden. De uitnodiging is niet verzonden. Probeer het opnieuw.",
+              "no-organization-found": "Er is geen organisatie gevonden. Dit moet een fout zijn. Probeer het opnieuw."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Er is een probleem opgetreden bij het verwijderen van je account. Neem contact met ons op.",
+              "cancel-subscription": "Er is een probleem opgetreden bij het annuleren van het abonnement",
+              "delete": "Je kunt je account niet verwijderen, want jij bent de eigenaar van je organisatie. Draag je rechten over aan een andere gebruiker of verwijder de organisatie."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Je kunt jezelf niet uitnodigen!",
+              "field-invite-new-member": "Een nieuw lid uitnodigen",
+              "placeholder-email": "E-mail",
+              "submit": "Uitnodigen"
+            },
+            "note": "Je hebt een actief abonnement. De toevoeging van een nieuw lid aan uw organisatie wordt pro rata gefactureerd als het lid op deze uitnodiging ingaat.",
+            "toasters": {
+              "invitation-sent": "Uitnodiging verstuurd naar"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Gerenommeerde organisatie"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Een organisatie creëren"
+        },
+        "members": "Leden",
+        "pending-invitations": "Gebruikers in de wacht",
+        "popover": {
+          "delete-member": "dit lid",
+          "delete-organization": "De organisatie sluiten",
+          "what-delete-organization": "deze organisatie afschaffen"
+        },
+        "toasters": {
+          "organization-created": "Organisatie opgericht",
+          "organization-deleted": "Organisatie afgeschaft. Alle leden werden uitgesloten en hun rechten gingen verloren.",
+          "organization-left": "Organisatie links",
+          "pendin-user-removed": "Wachtende gebruiker verwijderd"
+        },
+        "tooltip": {
+          "owner": "Eigenaar"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Uw e-mailadres",
+          "email-exemple": "voorbeeld",
+          "submit": "Abonneer je op onze nieuwsbrief"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Annuleren",
+        "confirm": "Bevestig",
+        "message": "Weet je zeker dat je"
+      },
+      "popover-delete": {
+        "cancel": "Annuleren",
+        "confirm": "Bevestig",
+        "message": "Weet je zeker dat je het volgende wilt verwijderen"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Account",
+          "billing": "Abonnement",
+          "emails": "E-mails",
+          "organization": "Organisatie",
+          "profile": "Profiel",
+          "purchases": "Inkoop",
+          "usage": "Gebruik"
+        },
+        "title": "Mijn account"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Je hebt geen wachtwoord aangemaakt omdat je bent ingelogd met een {varIntlProvider} account. U kunt er hier een aanmaken.",
+              "form": {
+                "password": "Wachtwoord",
+                "password-confirmation": "Wachtwoord bevestigen",
+                "password-error": "Het wachtwoord moet minstens {varIntlMin} tekens lang zijn.",
+                "passwords-not-matching": "De wachtwoorden komen niet overeen.",
+                "submit": "Wachtwoord aanmaken"
+              },
+              "title": "Een wachtwoord aanmaken",
+              "toasters": {
+                "succes-password-created": "Uw wachtwoord is aangemaakt."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Geen probleem, we kunnen je een link sturen om je wachtwoord opnieuw in te stellen.",
+              "emailSent": {
+                "subject": "Wachtwoord opnieuw instellen"
+              },
+              "form": {
+                "email": "Uw e-mailadres",
+                "email-error": "Dit is geen geldig e-mailadres.",
+                "submit": "Stuur me de herstellink"
+              },
+              "title": "Wachtwoord vergeten?",
+              "toasters": {
+                "send-email-error": "Er is een fout opgetreden tijdens het verzenden van de e-mail. Probeer het opnieuw."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Huidig wachtwoord",
+                "new-password": "Nieuw wachtwoord",
+                "password-confirmation": "Wachtwoord bevestigen",
+                "password-error": "Het wachtwoord moet minstens {varIntlMin} tekens lang zijn.",
+                "passwords-not-matching": "De wachtwoorden komen niet overeen.",
+                "required-message": "Verplicht",
+                "submit": "Wachtwoord bijwerken"
+              },
+              "title": "Je wachtwoord bijwerken",
+              "toasters": {
+                "password-update-error": "Er is een fout opgetreden tijdens het bijwerken van het wachtwoord. Probeer het opnieuw.",
+                "password-updated": "Wachtwoord bijgewerkt."
+              }
+            }
+          },
+          "close-account": "Mijn account deactiveren...",
+          "close-account-popover-message": "uw account verwijderen? Deze actie is onomkeerbaar. Als je een abonnement hebt genomen, wordt dit geannuleerd.",
+          "connectedWith": "U bent ingelogd met uw {varIntlProvider} account.",
+          "create-password": "U hebt geen wachtwoord aangemaakt omdat u automatisch bent aangemeld met een {varIntlProvider} account.",
+          "manage-password": "Je wachtwoord beheren",
+          "title": "Account"
+        },
+        "Billing": {
+          "according-to-use": "afhankelijk van gebruik",
+          "billed-each": "gefactureerd per",
+          "buttons": {
+            "cancel-subscription": "Abonnement annuleren",
+            "restart-subscription": "Abonnement herstarten",
+            "update-payment": "Betaalmethode wijzigen",
+            "update-plan": "Downgraden of upgraden"
+          },
+          "daily": "dag",
+          "features-title": "Kenmerken",
+          "id": "Facturering",
+          "monthly": "maand",
+          "next-invoice-at": "Volgende factuur op",
+          "no-plan-subscribed-yet": "Je hebt geen abonnement afgesloten",
+          "per-user": "per gebruiker",
+          "subscribe-now": "Ik wil me graag abonneren!",
+          "subscription-will-be-canceled-at": "Uw abonnement wordt definitief beëindigd op",
+          "title": "Facturering",
+          "tooltips": {
+            "cancel-subscription": "Uw abonnement wordt definitief geannuleerd aan het einde van de factureringsperiode op {varIntlDate}. U kunt uw functies blijven gebruiken tot die datum. Daarna wordt u niet langer gefactureerd.",
+            "restart-subscription": "Je abonnement wordt opnieuw gestart zonder extra facturering."
+          },
+          "trial-days-remaining": "Je hebt {varIntlDays} testdag(en) over",
+          "users": "gebruikers",
+          "weekly": "week",
+          "yearly": "een",
+          "you-save": "Je bespaart {varIntlSave} op dit abonnement",
+          "your-plan": "Uw abonnement",
+          "your-trial-ends-at": "Je proefperiode eindigt op"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Abonnement op nieuwsbrief",
+            "toasters": {
+              "error-delete-contact": "Fout bij verwijderen contactpersoon uit nieuwsbriefpubliek",
+              "error-get-contact": "Er is een fout opgetreden bij het ophalen van de nieuwsbrief. Probeer het opnieuw.",
+              "error-update-newsletter": "Er is een fout opgetreden tijdens het bijwerken van je nieuwsbriefvoorkeur. Probeer het opnieuw.",
+              "newsletter-disabled": "uitgeschakeld",
+              "newsletter-enabled": "geactiveerd"
+            }
+          },
+          "title": "E-mails"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Je kunt jezelf niet uitnodigen!",
+                "field-invite-new-member": "Een nieuw lid uitnodigen",
+                "placeholder-email": "E-mail",
+                "submit": "Uitnodigen"
+              },
+              "note": "Je hebt een actief abonnement. De toevoeging van een nieuw lid aan uw organisatie wordt pro rata gefactureerd als het lid op deze uitnodiging ingaat.",
+              "toasters": {
+                "invitation-sent": "Uitnodiging verstuurd naar"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "dit lid promoten als eigenaar? Er kan maar één eigenaar zijn. In dat geval verlies je al je publicatierechten voor deze organisatie.",
+                "promote-member-display": "Promoot dit lid",
+                "revoke-member": "dit lid uit de organisatie verwijderen",
+                "revoke-member-display": "Deze gebruiker intrekken"
+              },
+              "toasters": {
+                "user-promoted": "Bevorderde gebruiker. Je bent niet langer de eigenaar van deze organisatie",
+                "user-removed": "Gebruiker ingetrokken"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "De naam moet minstens {varIntlMin} tekens bevatten.",
+                "field-organization-name": "Naam van de organisatie",
+                "submit": "Hernoem"
+              },
+              "organization-renamed": "Gerenommeerde organisatie",
+              "toasters": {
+                "organization-renamed": "Organisatie hernoemd"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Een organisatie creëren"
+          },
+          "members": "Leden",
+          "pending-invitations": "Gebruikers in de wacht",
+          "popover": {
+            "delete-member": "dit lid",
+            "delete-organization": "Sluit de organisatie...",
+            "what-delete-organization": "deze organisatie afschaffen"
+          },
+          "title": "Organisatie",
+          "toasters": {
+            "organization-created": "Organisatie opgericht",
+            "organization-deleted": "Organisatie afgeschaft. Alle leden werden uitgesloten en hun rechten gingen verloren.",
+            "organization-left": "Organisatie links",
+            "pendin-user-removed": "Wachtende gebruiker verwijderd"
+          },
+          "tooltip": {
+            "owner": "Eigenaar"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Profielfoto wijzigen",
+          "form": {
+            "name": "Naam weergeven",
+            "submit": "Update",
+            "upload": "Downloaden"
+          },
+          "title": "Profiel",
+          "toasters": {
+            "file-is-empty": "Het bestand is leeg",
+            "file-is-not-an-image": "Het bestand is geen afbeelding",
+            "file-is-too-large": "Het bestand is te groot (maximaal 2 MB)",
+            "no-file-provided": "Geen bestanden meegeleverd",
+            "success": "Bijgewerkt profiel",
+            "success-file-uploaded": "Profielfoto succesvol aangepast"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Geen aankoopgeschiedenis",
+          "no-purchase-history-description": "Je hebt nog geen producten gekocht op onze site!",
+          "title": "Inkoop"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Onbekend e-mailadres",
+        "invalid-token": "Ongeldig token",
+        "password-not-updated": "Er is een probleem opgetreden bij het wijzigen van je wachtwoord. Probeer het opnieuw.",
+        "token-expired": "Token verlopen.",
+        "token-not-found": "Reset token niet gevonden."
+      }
+    },
+    "button": "Ga naar het dashboard",
+    "description": "Welkom op je dashboard!",
+    "title": "Dashboard"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Wachtwoord opnieuw instellen",
+      "resetPassword": "Wachtwoord opnieuw instellen",
+      "text": "Je hebt gevraagd om je wachtwoord opnieuw in te stellen. Klik hiervoor op de knop hieronder."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Uitnodiging accepteren",
+      "heading": "Je bent uitgenodigd voor het {varIntlTeamName} team.",
+      "text": "Klik op onderstaande knop om de uitnodiging te accepteren."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Welkom!",
+      "text": "Klik op onderstaande knop om je registratie te bevestigen.",
+      "verifyEmail": "Mijn account valideren"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Mis ons laatste nieuws niet! Abonneer je op onze nieuwsbrief",
+      "privacy": "Privacybeleid",
+      "terms": "Juridische informatie",
+      "title": "Wettelijk"
+    },
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "title": "Navigatie"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Bevestig het nieuwe wachtwoord",
+          "email": "E-mailadres account",
+          "email-error": "Verkeerde indeling van het e-mailadres.",
+          "new-password": "Kies een nieuw wachtwoord",
+          "password-error": "Moet minstens {varIntlMin} tekens bevatten.",
+          "password-match-error": "De twee wachtwoorden moeten identiek zijn.",
+          "submit": "Reset",
+          "success": "Wachtwoord succesvol gewijzigd."
+        }
+      }
+    },
+    "invalid-token": "Ongeldig resettoken. Probeer het opnieuw of doe een nieuwe aanvraag.",
+    "reset-password": "Wachtwoord opnieuw instellen",
+    "token-expired": "De reset-token is onbekend."
+  },
+  "Index": {
+    "first-connexion": "Eerste aansluiting",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit voor snelle ontwikkeling: focus alleen op de kernfuncties, wees gerust met een moderne frontend en een schaalbare, veilige backend. Bespaar moeite",
+      "title": "Home"
+    },
+    "title": "Welkom!"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Neem contact op met",
+          "features": "Kenmerken",
+          "home": "Home",
+          "howItWorks": "Hoe werkt het?",
+          "pricing": "Prijzen"
+        },
+        "UserProfile": {
+          "login": "Aanmelden",
+          "logout": "Ontkoppelen",
+          "my-account": "Mijn account",
+          "refill": "Herladen"
+        },
+        "buy-now": "kopen"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-mail",
+        "login-with-email": "Verbind mij",
+        "password": "Wachtwoord"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "voorbeeld",
+        "submit": "Stuur me een aanmeldlink",
+        "your-email": "Uw e-mailadres"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Verbinding maken met Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Doorgaan met Google"
+      },
+      "buttons": {
+        "continue-with-google": "Verbinding maken met Google"
+      }
+    },
+    "button": {
+      "no-account": "Geen account?",
+      "register": "Klik hier om te registreren."
+    },
+    "title": "Inloggen op je account",
+    "toasters": {
+      "bad-credentials": "Onjuiste identificaties"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "maand",
+        "contact-us": "Neem contact met ons op om je aanbod te personaliseren.",
+        "metered-unit": "door",
+        "monthly": "maand",
+        "per-seat": "per stoel",
+        "popular": "Populair",
+        "recommended": "Aanbevolen",
+        "trial": "proefdagen, dan...",
+        "yearly": "een"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Eén betaling, vele projecten"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "kopen",
+        "startTrial": "Probeer voor {varIntlTrialDays} dagen",
+        "subscribeNow": "Aanmelden"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Neem contact met ons op"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Maandelijks",
+        "yearly": "Jaarlijks"
+      }
+    },
+    "title": "Prijzen"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Welkom op onze site! Bevestig dat uw e-mailadres geldig is."
+      },
+      "form": {
+        "confirm-password": "Wachtwoord bevestigen",
+        "email": "E-mailadres",
+        "email-error": "Uw e-mailadres is niet in de juiste indeling",
+        "password": "Wachtwoord",
+        "password-did-not-match": "Wachtwoorden moeten vergelijkbaar zijn",
+        "password-error": "Uw wachtwoord moet minstens {varIntlMin} tekens lang zijn.",
+        "register-with-email": "Mijn account aanmaken"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Accepteer",
+          "already-accept": "Je hebt de uitnodiging al geaccepteerd.",
+          "decline": "Afval",
+          "do-you-accept": "Ga je akkoord om lid te worden van deze organisatie?",
+          "invitation-accepted": "Uitnodiging geaccepteerd, maak een account aan en log in om de uitnodiging af te ronden. Je wordt doorgestuurd naar de pagina voor het aanmaken van een account.",
+          "invitation-accepted-2": "Uitnodiging geaccepteerd, log in op je account om het af te ronden.",
+          "invitation-declined": "Uitnodiging geweigerd",
+          "invited": "Je bent uitgenodigd om lid te worden van het \"{varIntlOrganization}\" team.",
+          "join": "Word lid van de organisatie \" {varIntlOrganization} \".",
+          "logout": "Afmelden",
+          "organization-not-found": "Geen organisatie."
+        }
+      },
+      "invitation-not-found": "Geen organisatie.",
+      "invited-with-different-email": "Je bent aangemeld met een ander e-mailadres dan dat waarmee je de uitnodiging hebt ontvangen.",
+      "logged-in-with-right-email": "Je bent ingelogd met het juiste e-mailadres, maar je moet uitloggen en weer inloggen om de uitnodiging te accepteren.",
+      "please-logout": "Log in met het bijbehorende e-mailadres en keer terug naar deze pagina. Als je geen account hebt met het uitgenodigde adres, log dan uit en ga terug naar deze pagina om er een aan te maken."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Aanmelden bij je account",
+      "request-new-validation": "en vraag een nieuwe validatielink aan als je deze nog niet hebt gevalideerd.",
+      "success": "Gecontroleerde e-mail.",
+      "title": "Je e-mailadres controleren"
+    },
+    "already-account-sentence": "Heb je al een account?",
+    "button": {
+      "login": "Log in op"
+    },
+    "title": "Een account aanmaken"
+  }
+}

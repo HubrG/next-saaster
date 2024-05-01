@@ -1,0 +1,514 @@
+{
+  "API": {
+    "ForgotPassword": {
+      "success": "En lenke for å tilbakestille passordet ditt er sendt til {varIntlEmail}. \nVennligst sjekk e-postkontoen din."
+    },
+    "Register": {
+      "error": {
+        "token-not-created": "Det oppsto en feil under opprettelsen av bekreftelsestokenet. \nPrøv igjen.",
+        "unknown-error": "Vi oppdaget en ukjent feil. \nVennligst prøv igjen eller kontakt oss.",
+        "user-already-exists": "Denne epostadressen er allerede registrert. \nHvis du er eieren, vennligst logg inn med sistnevnte eller be om en tilbakestilling av passord.",
+        "user-not-created": "Det oppsto en feil under opprettelsen av kontoen. \nPrøv igjen."
+      },
+      "success": "Velkommen {varIntlName}! \nTakk for tilliten. \nDu vil motta en e-post med en lenke som lar deg bekrefte gyldigheten.\n\n \nDu kan nå logge på med legitimasjonen din."
+    },
+    "VerifyEmail": {
+      "expired-token": "Bekreftelsestoken er allerede validert, utløpt eller ikke funnet.",
+      "success": "E-postadressen din er bekreftet."
+    }
+  },
+  "Components": {
+    "Helpers": {
+      "DB": {
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "mailing": {
+              "subject": "Du har blitt invitert til å bli med i organisasjonen",
+              "subject-end": "og teamet hans",
+              "subject-middle": "'"
+            },
+            "throws": {
+              "already-in-an-organization": "Brukeren er allerede medlem av en organisasjon.",
+              "already-invited": "Brukeren er allerede invitert.",
+              "error-while-creating-invitation": "Det har oppstått en feil. \nInvitasjonen er ikke sendt. \nPrøv igjen.",
+              "no-organization-found": "Ingen organisasjon funnet. \nDette er absolutt en feil. \nVær så snill, prøv på nytt."
+            }
+          }
+        },
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "cancel": "Det oppsto et problem under sletting av kontoen din. \nVærsåsnill kontakt oss.",
+              "cancel-subscription": "Det oppsto et problem under avslutningen av abonnementet",
+              "delete": "Du kan ikke slette kontoen din, fordi du er eieren av organisasjonen din. \nVennligst overfør rettighetene dine til en annen bruker, ellers slett organisasjonen."
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Du kan ikke invitere deg selv!",
+              "field-invite-new-member": "Inviter et nytt medlem",
+              "placeholder-email": "E-post",
+              "submit": "Invitere"
+            },
+            "note": "Du har et aktivt abonnement. \nÅ legge til et nytt medlem i organisasjonen din vil bli fakturert på en forholdsmessig basis hvis medlemmet godtar denne invitasjonen",
+            "toasters": {
+              "invitation-sent": "Invitasjon sendt til adressen"
+            }
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Anerkjent organisasjon"
+            }
+          }
+        },
+        "buttons": {
+          "create-organization": "Opprett en organisasjon"
+        },
+        "members": "Medlemmer",
+        "pending-invitations": "Ventende brukere",
+        "popover": {
+          "delete-member": "dette medlemmet",
+          "delete-organization": "Tett organisering",
+          "what-delete-organization": "slett denne organisasjonen"
+        },
+        "toasters": {
+          "organization-created": "Organisasjon opprettet",
+          "organization-deleted": "Organisasjonen slettet. \nAlle medlemmer ble ekskludert og deres rettigheter gikk tapt.",
+          "organization-left": "Organisasjonen igjen",
+          "pendin-user-removed": "Ventende bruker slettet"
+        },
+        "tooltip": {
+          "owner": "Eieren"
+        }
+      }
+    },
+    "UI": {
+      "NewsletterForm": {
+        "form": {
+          "email": "Din epostadresse",
+          "email-exemple": "eksempel",
+          "submit": "Abonner på nyhetsbrevet"
+        }
+      },
+      "popover-confirm": {
+        "cancel": "Avbryt",
+        "confirm": "Bekrefte",
+        "message": "Er du sikker på at du vil"
+      },
+      "popover-delete": {
+        "cancel": "Avbryt",
+        "confirm": "Bekrefte",
+        "message": "Er du sikker på at du vil slette"
+      }
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "links": {
+          "account": "Regnskap",
+          "billing": "Abonnement",
+          "emails": "E-poster",
+          "organization": "Organisasjon",
+          "profile": "Profil",
+          "purchases": "Kjøp",
+          "usage": "Bruk"
+        },
+        "title": "Min konto"
+      },
+      "Profile": {
+        "Account": {
+          "Components": {
+            "CreatePassword": {
+              "description": "Du opprettet ikke et passord fordi du er logget på med en konto {varIntlProvider}. \nDu kan lage en her.",
+              "form": {
+                "password": "Passord",
+                "password-confirmation": "Passord bekreftelse",
+                "password-error": "Passordet må være minst {varIntlMin} tegn langt.",
+                "passwords-not-matching": "Passordene er ikke like.",
+                "submit": "Opprett passordet"
+              },
+              "title": "lag et passord",
+              "toasters": {
+                "succes-password-created": "Passordet ditt er opprettet."
+              }
+            },
+            "ForgotPassword": {
+              "description": "Ikke noe problem, vi kan sende deg en lenke for å tilbakestille passordet ditt.",
+              "emailSent": {
+                "subject": "Tilbakestill passordet ditt"
+              },
+              "form": {
+                "email": "Din epostadresse",
+                "email-error": "Dette er ikke en gyldig e-postadresse.",
+                "submit": "Send meg gjenopprettingslenken"
+              },
+              "title": "Glemt passordet ?",
+              "toasters": {
+                "send-email-error": "Det oppsto en feil under sending av e-posten. \nPrøv igjen."
+              }
+            },
+            "UpdatePassword": {
+              "form": {
+                "actual-password": "Nåværende passord",
+                "new-password": "Nytt passord",
+                "password-confirmation": "Passord bekreftelse",
+                "password-error": "Passordet må være minst {varIntlMin} tegn langt.",
+                "passwords-not-matching": "Passordene er ikke like.",
+                "required-message": "Påbudt, bindende",
+                "submit": "Oppdater passord"
+              },
+              "title": "Oppdater passordet ditt",
+              "toasters": {
+                "password-update-error": "Det oppstod en feil under oppdatering av passordet. \nPrøv igjen.",
+                "password-updated": "Passord oppdatert."
+              }
+            }
+          },
+          "close-account": "Deaktiver min brukerkonto...",
+          "close-account-popover-message": "slette kontoen din? \nDenne handlingen er irreversibel. \nHvis du har kjøpt et abonnement, vil det bli kansellert.",
+          "connectedWith": "Du er logget på med kontoen din {varIntlProvider}",
+          "create-password": "Du har ikke opprettet et passord fordi du er automatisk logget på med en {varIntlProvider}-konto.",
+          "manage-password": "Administrer passordet ditt",
+          "title": "Regnskap"
+        },
+        "Billing": {
+          "according-to-use": "avhengig av bruk",
+          "billed-each": "fakturert hver",
+          "buttons": {
+            "cancel-subscription": "Avslutte abonnementet",
+            "restart-subscription": "Start abonnementet på nytt",
+            "update-payment": "Endre betalingsmåte",
+            "update-plan": "Nedgrader eller oppgrader"
+          },
+          "daily": "dag",
+          "features-title": "Egenskaper",
+          "id": "Fakturering",
+          "monthly": "måned",
+          "next-invoice-at": "Neste faktura på",
+          "no-plan-subscribed-yet": "Du har ikke kjøpt noe abonnement",
+          "per-user": "per bruker",
+          "subscribe-now": "Jeg vil gjerne abonnere!",
+          "subscription-will-be-canceled-at": "Abonnementet ditt blir permanent kansellert den",
+          "title": "Fakturering",
+          "tooltips": {
+            "cancel-subscription": "Abonnementet ditt blir permanent kansellert ved slutten av faktureringsperioden på {varIntlDate}. \nDu kan fortsette å bruke funksjonene dine frem til denne datoen. \nDu vil da ikke lenger bli fakturert.",
+            "restart-subscription": "Abonnementet ditt starter på nytt uten ytterligere fakturering."
+          },
+          "trial-days-remaining": "Du har {varIntlDays} prøvedag(er) igjen",
+          "users": "brukere",
+          "weekly": "uke",
+          "yearly": "år",
+          "you-save": "Du sparer {varIntlSave} på dette abonnementet",
+          "your-plan": "Ditt abonnement",
+          "your-trial-ends-at": "Prøveperioden din avsluttes"
+        },
+        "Emails": {
+          "SwitchNewsletter": {
+            "switch-newsletter": "Nyhetsbrev abonnement",
+            "toasters": {
+              "error-delete-contact": "Feil ved sletting av kontakt fra nyhetsbrevpublikummet",
+              "error-get-contact": "Det oppsto en feil under henting av nyhetsbrevkontakten. \nPrøv igjen.",
+              "error-update-newsletter": "Det oppstod en feil under oppdatering av nyhetsbrevpreferansen. \nPrøv igjen.",
+              "newsletter-disabled": "funksjonshemmet",
+              "newsletter-enabled": "aktivert"
+            }
+          },
+          "title": "E-poster"
+        },
+        "Organization": {
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Du kan ikke invitere deg selv!",
+                "field-invite-new-member": "Inviter et nytt medlem",
+                "placeholder-email": "E-post",
+                "submit": "Invitere"
+              },
+              "note": "Du har et aktivt abonnement. \nÅ legge til et nytt medlem i organisasjonen din vil bli fakturert på en forholdsmessig basis hvis medlemmet godtar denne invitasjonen",
+              "toasters": {
+                "invitation-sent": "Invitasjon sendt til adressen"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "popover": {
+                "promote-member": "markedsføre dette medlemmet som eier? \nDet kan bare være én eier, og i så fall mister du alle rettigheter til å legge ut til den organisasjonen.",
+                "promote-member-display": "Markedsfør dette medlemmet",
+                "revoke-member": "fjerne dette medlemmet fra organisasjonen",
+                "revoke-member-display": "Opphev denne brukeren"
+              },
+              "toasters": {
+                "user-promoted": "Forfremmet bruker. \nDu er ikke lenger eieren av denne organisasjonen",
+                "user-removed": "Bruker opphevet"
+              }
+            },
+            "RenameOrganization": {
+              "form": {
+                "error-name-min": "Navnet må inneholde minst {varIntlMin} tegn",
+                "field-organization-name": "navnet på organisasjonen",
+                "submit": "Gi nytt navn"
+              },
+              "organization-renamed": "Anerkjent organisasjon",
+              "toasters": {
+                "organization-renamed": "Organisasjonen har fått nytt navn"
+              }
+            }
+          },
+          "buttons": {
+            "create-organization": "Opprett en organisasjon"
+          },
+          "members": "Medlemmer",
+          "pending-invitations": "Ventende brukere",
+          "popover": {
+            "delete-member": "dette medlemmet",
+            "delete-organization": "Lukk organisasjonen...",
+            "what-delete-organization": "slett denne organisasjonen"
+          },
+          "title": "Organisasjon",
+          "toasters": {
+            "organization-created": "Organisasjon opprettet",
+            "organization-deleted": "Organisasjonen slettet. \nAlle medlemmer ble ekskludert og deres rettigheter gikk tapt.",
+            "organization-left": "Organisasjonen igjen",
+            "pendin-user-removed": "Ventende bruker slettet"
+          },
+          "tooltip": {
+            "owner": "Eieren"
+          }
+        },
+        "Profile": {
+          "change-avatar": "Bytt profilbilde",
+          "form": {
+            "name": "Visningsnavn",
+            "submit": "Å oppdatere",
+            "upload": "nedlasting"
+          },
+          "title": "Profil",
+          "toasters": {
+            "file-is-empty": "Filen er tom",
+            "file-is-not-an-image": "Filen er ikke et bilde",
+            "file-is-too-large": "Filen er for stor (maksimalt 2 MB)",
+            "no-file-provided": "Ingen filer oppgitt",
+            "success": "Profil oppdatert",
+            "success-file-uploaded": "Profilbildet ble endret"
+          }
+        },
+        "Purchases": {
+          "no-purchase-history": "Ingen kjøpshistorikk",
+          "no-purchase-history-description": "Du har ennå ikke kjøpt noen produkter på siden vår!",
+          "title": "Kjøp"
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "email-not-found": "Ukjent e-postadresse",
+        "invalid-token": "Ugyldig token",
+        "password-not-updated": "Det oppstod et problem under endring av passordet ditt. \nPrøv igjen.",
+        "token-expired": "Token utløpt.",
+        "token-not-found": "Finner ikke tilbakestillingstoken."
+      }
+    },
+    "button": "Gå til Dashboard",
+    "description": "Velkommen til dashbordet ditt!",
+    "title": "Dashbord"
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Tilbakestill passordet ditt",
+      "resetPassword": "tilbakestille passord",
+      "text": "Du har bedt om å tilbakestille passordet ditt. \nFor å gjøre dette, vennligst klikk på knappen nedenfor."
+    },
+    "InviteUserTemplate": {
+      "buttonText": "Godta invitasjonen",
+      "heading": "Du har blitt invitert til å bli med i {varIntlTeamName}-teamet",
+      "text": "For å godta invitasjonen, klikk på knappen nedenfor."
+    },
+    "VerifyEmailTemplate": {
+      "heading": "Velkommen !",
+      "text": "For definitivt å validere registreringen din, vennligst klikk på knappen nedenfor.",
+      "verifyEmail": "Bekreft kontoen min"
+    }
+  },
+  "Footer": {
+    "Legal": {
+      "newsletter": "Ikke gå glipp av nyhetene våre! \nAbonner på vårt nyhetsbrev",
+      "privacy": "Personvernerklæring",
+      "terms": "Juridisk varsel",
+      "title": "Lovlig"
+    },
+    "Navigation": {
+      "blog": "Blogg",
+      "faq": "Vanlige spørsmål",
+      "title": "Navigasjon"
+    }
+  },
+  "ForgotPassword": {
+    "Components": {
+      "Index": {
+        "form": {
+          "confirm-password": "Bekreft det nye passordet",
+          "email": "Kontoens e-postadresse",
+          "email-error": "Feil formatert e-postadresse.",
+          "new-password": "Velg et nytt passord",
+          "password-error": "Må bestå av minst {varIntlMin} tegn.",
+          "password-match-error": "Begge passordene må være like.",
+          "submit": "Nullstille",
+          "success": "Passord endret."
+        }
+      }
+    },
+    "invalid-token": "Ugyldig tilbakestillingstoken. \nStart på nytt eller søk på nytt.",
+    "reset-password": "Tilbakestiller passordet ditt",
+    "token-expired": "Tilbakestillingstokenet er ukjent."
+  },
+  "Index": {
+    "first-connexion": "Første tilkobling",
+    "metadatas": {
+      "description": "NextJS SaaS Starter Kit for Rapid Development: Fokuser kun på kjernefunksjoner, vær trygg med en moderne frontend, skalerbar og sikker backend. \nSpar innsats",
+      "title": "Velkommen"
+    },
+    "title": "Velkommen !"
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "MainMenu": {
+          "contact": "Kontakt",
+          "features": "Egenskaper",
+          "home": "Velkommen",
+          "howItWorks": "Hvordan det fungerer ?",
+          "pricing": "Prissetting"
+        },
+        "UserProfile": {
+          "login": "Å logge inn",
+          "logout": "Logg ut",
+          "my-account": "Min konto",
+          "refill": "Last inn på nytt"
+        },
+        "buy-now": "Kjøpe"
+      }
+    }
+  },
+  "Login": {
+    "Credentials": {
+      "form": {
+        "email": "E-post",
+        "login-with-email": "Logg Inn",
+        "password": "Passord"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "placeholder-email": "eksempel",
+        "submit": "Send meg en påloggingslenke",
+        "your-email": "Din epostadresse"
+      }
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Logg på med Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Fortsett med Google"
+      },
+      "buttons": {
+        "continue-with-google": "Logg på med Google"
+      }
+    },
+    "button": {
+      "no-account": "Ingen konto?",
+      "register": "Klikk her for å bli med."
+    },
+    "title": "Logg inn på kontoen din",
+    "toasters": {
+      "bad-credentials": "Feil identifikatorer"
+    }
+  },
+  "Pricing": {
+    "Components": {
+      "CardHeader": {
+        "by-month": "måned",
+        "contact-us": "Kontakt oss for å tilpasse tilbudet ditt.",
+        "metered-unit": "av",
+        "monthly": "måned",
+        "per-seat": "per sete",
+        "popular": "Populær",
+        "recommended": "Anbefalt",
+        "trial": "prøvedager, da...",
+        "yearly": "år"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Én betaling, mange prosjekter"
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Kjøpe",
+        "startTrial": "Prøv i {varIntlTrialDays} dager",
+        "subscribeNow": "Abonnere"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Kontakt oss"
+      },
+      "SwitchRecurrence": {
+        "monthly": "Månedlig",
+        "yearly": "Årlig"
+      }
+    },
+    "title": "Prissetting"
+  },
+  "Register": {
+    "SignUpWithCredentials": {
+      "emailSent": {
+        "subject": "Velkommen ! \nVennligst bekreft gyldigheten av e-postadressen din."
+      },
+      "form": {
+        "confirm-password": "Bekreft passord",
+        "email": "Epostadresse",
+        "email-error": "E-postadressen din er ikke i riktig format",
+        "password": "Passord",
+        "password-did-not-match": "Passord bør være like",
+        "password-error": "Passordet ditt må bestå av minst {varIntlMin} tegn",
+        "register-with-email": "opprette kontoen min"
+      }
+    },
+    "TeamInvitationPage": {
+      "Register": {
+        "TeamInvitationPage": {
+          "accept": "Aksepterer",
+          "already-accept": "Du har allerede godtatt invitasjonen.",
+          "decline": "Nekte",
+          "do-you-accept": "Godtar du å bli med i denne organisasjonen?",
+          "invitation-accepted": "Invitasjonen akseptert, opprett en konto og logg på for å fullføre invitasjonen. \nDu vil bli omdirigert til siden for kontooppretting.",
+          "invitation-accepted-2": "Invitasjonen godtatt, logg inn på kontoen din for å fullføre den.",
+          "invitation-declined": "Invitasjon avslått",
+          "invited": "Du har blitt invitert til å bli med i «{varIntlOrganization}»-teamet",
+          "join": "Bli med i organisasjonen «{varIntlOrganization}»",
+          "logout": "Koble fra",
+          "organization-not-found": "Ikke-eksisterende organisasjon."
+        }
+      },
+      "invitation-not-found": "Ikke-eksisterende organisasjon.",
+      "invited-with-different-email": "Du er logget på med en annen e-postadresse enn den som mottok invitasjonen.",
+      "logged-in-with-right-email": "Du er logget på med riktig e-postadresse, men du må logge ut og logge på igjen for å godta invitasjonen.",
+      "please-logout": "Vennligst logg på med den tilsvarende e-postadressen og gå tilbake til denne siden. \nHvis du ikke har en konto med gjesteadressen, logg ut og kom tilbake til denne siden for å opprette den."
+    },
+    "VerifyEmailPage": {
+      "login-to-you-account": "Logg på kontoen din",
+      "request-new-validation": "og be om en ny valideringslenke hvis du ikke har validert den ennå.",
+      "success": "E-post bekreftet.",
+      "title": "Bekrefter e-postadressen din"
+    },
+    "already-account-sentence": "Har du allerede en konto ?",
+    "button": {
+      "login": "Logg Inn"
+    },
+    "title": "Opprett en konto"
+  }
+}

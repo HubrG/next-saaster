@@ -7,9 +7,9 @@
     "i18n-ally.translate.engines": [
         "google",
     ],
-    "i18n-ally.translate.openai.apiKey": "sk-proj-wjWENkHArytloGXay3tqT3BlbkFJnOUUZcZp5MoN4Qhjxrq7",
-    "i18n-ally.translate.openai.engine": "gpt-4-turbo",
-    "i18n-ally.translate.deepl.apiKey": "d5b3815e-dd26-2b06-b9fa-83983b68e212:fx",
+    // "i18n-ally.translate.openai.apiKey": "sk-proj-wjWENkHArytloGXay3tqT3BlbkFJnOUUZcZp5MoN4Qhjxrq7",
+    // "i18n-ally.translate.openai.engine": "gpt-4-turbo",
+    // "i18n-ally.translate.deepl.apiKey": "d5b3815e-dd26-2b06-b9fa-83983b68e212:fx",
     "i18n-ally.translate.deepl.useFreeApiEntry": true,
     "i18n-ally.keystyle": "nested",
     "i18n-ally.sourceLanguage": "fr"

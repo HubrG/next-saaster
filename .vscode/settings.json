@@ -8,7 +8,6 @@
         "google",
     ],
     "i18n-ally.translate.openai.engine": "gpt-4-turbo",
-    "i18n-ally.translate.deepl.apiKey": "sk-proj-pEKurXuojdIyfC4iOH2YT3BlbkFJUk5yaolluUJum6dicPud",
     "i18n-ally.translate.deepl.useFreeApiEntry": true,
     "i18n-ally.keystyle": "nested",
     "i18n-ally.sourceLanguage": "fr"

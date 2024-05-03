@@ -2,6 +2,7 @@
 
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
+import { sliced } from "@/src/helpers/functions/slice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { PopoverCoupon } from "../../../stripe-coupons/@ui/PopoverCoupon";
@@ -50,9 +51,30 @@ export const PayOnceFields = ({
               type={plan.saasType}
               planId={plan.id}
               recurrence="once"
-            />
+              />
             <p className="col-span-2 text-right">{saasSettings.currency}</p>
           </div>
+              {saasSettings.activeCreditSystem && !planState.isCustom && (
+                <div className="inputs mt-3">
+                  <Label htmlFor={`${plan.id}creditAllouedByMonth`}>
+                    Credit alloued
+                  </Label>
+                  <Input
+                    id={`${plan.id}creditAllouedByMonth`}
+                    type="number"
+                    name="creditAllouedByMonth"
+                    className="!col-span-5"
+                    value={planState.creditAllouedByMonth ?? ""}
+                    onChange={(e) => handleInputChange(e, "creditAllouedByMonth")}
+                  />
+                  <p className="!col-span-1 flex flex-col items-start justify-end">
+                    <span>
+                      {sliced(saasSettings.creditName ?? "credits", 6)}
+                    </span>
+                    <span>{planState.saasType === "PER_SEAT" && <>/user</>}</span>
+                  </p>
+                </div>
+              )}
         </div>
       )}
     </>

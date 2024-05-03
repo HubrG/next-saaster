@@ -77,8 +77,22 @@ export const createOneTimePayment = action(
     )
       throw new ActionError("Unauthorized");
     try {
-       const dataWithCorrectItemsType = {
+      // We search the price by id to get the product and plan
+      const price = await prisma.stripePrice.findUnique({
+        where: { id: data.priceId ?? ""},
+        include: {
+          productRelation: {
+            include: {
+              PlanRelation: true,
+            },
+          },
+        },
+      });
+      // If the price is not found, we change the priceId to undefined
+      if (!price) data.priceId = undefined;
+      const dataWithCorrectItemsType = {
         ...data,
+        priceId: data.priceId ? data.priceId : undefined,
         metadata: data.metadata ? JSON.parse(data.metadata as string) : {},
       };
       const oneTimePayment = await prisma.oneTimePayment.create({

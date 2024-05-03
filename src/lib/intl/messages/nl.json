@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Verificatietoken al gevalideerd, verlopen of niet gevonden.",
       "success": "Uw e-mailadres is geverifieerd."
+    },
+    "Refill": {
+      "name": "Credits herladen"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Geen aankoopgeschiedenis",
           "no-purchase-history-description": "Je hebt nog geen producten gekocht op onze site!",
-          "title": "Inkoop"
+          "title": "Inkoop",
+          "no-name": "Credits herladen"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Jaarlijks"
       }
     },
-    "title": "Prijzen"
+    "title": "Prijzen",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Ga naar mijn account",
+          "success": "Bedankt voor uw vertrouwen! Uw aankoop is bevestigd."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

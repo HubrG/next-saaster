@@ -90,7 +90,7 @@ export const PriceCardBuyButton = ({
       className={className}
       onClick={handleStripe}>
       {saasSettings.saasType === "PAY_ONCE"
-        ? t("subscribeNow")
+        ? t("buyNow")
         : plan.isTrial
         ? t("startTrial", { varIntlTrialDays: plan.trialDays })
         : t("subscribeNow")}

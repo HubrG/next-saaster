@@ -5,8 +5,9 @@ import { updateAppSettings } from "@/app/[locale]/admin/queries/app-saas-setting
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import useSaveAndCancel, {
-    GenericDataObject,
+  GenericDataObject,
 } from "@/src/hooks/useSaveAndCancel";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useEffect, useState } from "react";
@@ -24,7 +25,7 @@ export const SetupDesign = () => {
         theme: appSettings.theme,
       } as GenericDataObject,
       onSave: async (data) => {
-        const updateInfo = await updateAppSettings(appSettings.id, data);
+        const updateInfo = await updateAppSettings(appSettings.id, data, chosenSecret());
         if (updateInfo) {
           setAppSettings({ ...appSettings, ...data });
           toaster({

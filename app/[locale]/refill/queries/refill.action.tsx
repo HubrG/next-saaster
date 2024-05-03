@@ -1,9 +1,22 @@
 "use server";
 import { stripeCustomerIdManager } from "@/src/helpers/functions/stripeCustomerIdManager";
+import { verifySecretRequest } from "@/src/helpers/functions/verifySecretRequest";
+import { getTranslations } from "next-intl/server";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
-
-export const createRefillSession = async () => {
+type RefillSession = {
+  secret: string;
+  numberOfCredits: number;
+};
+export const createRefillSession = async ({
+  secret,
+  numberOfCredits = 5,
+}: RefillSession) => {
+  // Check if the secret is valid
+  if (!verifySecretRequest(secret)) {
+    return null;
+  }
+  const t = await getTranslations();
   const customerId = await stripeCustomerIdManager({});
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -14,7 +27,10 @@ export const createRefillSession = async () => {
           product_data: {
             name: "Refill",
             metadata: {
-              test: "test",
+              name: t("API.Refill.name", {
+                varIntlRefill: numberOfCredits,
+              }),
+              refill: numberOfCredits,
             },
           },
           unit_amount: 5000,
@@ -23,6 +39,12 @@ export const createRefillSession = async () => {
       },
     ],
     customer: customerId,
+    metadata: {
+      name: t("API.Refill.name", {
+        varIntlRefill: numberOfCredits,
+      }),
+      refill: numberOfCredits,
+    },
     mode: "payment",
     success_url: `${process.env.NEXT_URI}/refill/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_URI}/refill`,
@@ -31,7 +53,7 @@ export const createRefillSession = async () => {
 };
 
 export const portailclient = async () => {
-    const customerId = await stripeCustomerIdManager({});
+  const customerId = await stripeCustomerIdManager({});
 
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,

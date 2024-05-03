@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Token weryfikacyjny został już zweryfikowany, wygasł lub nie został znaleziony.",
       "success": "Twój adres e-mail został zweryfikowany."
+    },
+    "Refill": {
+      "name": "Kredyty na przeładowanie"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Brak historii zakupów",
           "no-purchase-history-description": "Nie kupiłeś jeszcze żadnych produktów na naszej stronie!",
-          "title": "Zakupy"
+          "title": "Zakupy",
+          "no-name": "Kredyty na przeładowanie"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Roczny"
       }
     },
-    "title": "Wycena"
+    "title": "Wycena",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Przejdź do mojego konta",
+          "success": "Dziękujemy za zaufanie! Twój zakup został potwierdzony."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Staðfestingarlykill er þegar staðfestur, útrunninn eða fannst ekki.",
       "success": "Netfangið þitt hefur verið staðfest."
+    },
+    "Refill": {
+      "name": "Endurhleðsla inneigna"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Enginn kaupsaga",
           "no-purchase-history-description": "Þú hefur ekki enn keypt neinar vörur á síðunni okkar!",
-          "title": "Innkaup"
+          "title": "Innkaup",
+          "no-name": "Endurhleðsla inneigna"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Árlegt"
       }
     },
-    "title": "Verðlag"
+    "title": "Verðlag",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Farðu á reikninginn minn",
+          "success": "Þakka þér fyrir traustið! \nKaupin þín hafa verið staðfest."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

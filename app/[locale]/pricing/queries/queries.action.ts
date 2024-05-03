@@ -21,7 +21,13 @@ export const createCheckoutSession = async ({
     throw new Error("Plan ID is required");
   }
   const metadata =
-    plan.saasType === "PAY_ONCE" ? { priceId: planPrice } : undefined;
+    plan.saasType === "PAY_ONCE" ? {
+      priceId: planPrice,
+      refill:
+        plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
+          ? plan.creditAllouedByMonth
+          : 0
+    } : undefined;
   let subscriptionData = {};
   if (plan.trialDays && plan.trialDays > 0) {
     subscriptionData = {
@@ -37,9 +43,11 @@ export const createCheckoutSession = async ({
     subscriptionData = {
       metadata: {
         creditByMonth:
-          plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
+          plan.saasType !== "PAY_ONCE" &&
+          plan.creditAllouedByMonth &&
+          plan.creditAllouedByMonth > 0
             ? plan.creditAllouedByMonth
-            : undefined,
+            : undefined
       },
     };
   }
@@ -62,7 +70,6 @@ export const createCheckoutSession = async ({
       ? seatQuantity
       : 1;
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card", "link","paypal"],
     line_items: [
       {
         price: planPrice,
@@ -73,7 +80,8 @@ export const createCheckoutSession = async ({
     mode: mode,
     allow_promotion_codes: coupon ? undefined : true,
     customer: customerId,
-    subscription_data: subscriptionData,
+    metadata:  metadata,
+    subscription_data: plan.saasType !== "PAY_ONCE" ? subscriptionData : undefined,
     discounts: [{ coupon }],
     success_url: `${process.env.NEXT_URI}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_URI}/pricing`,

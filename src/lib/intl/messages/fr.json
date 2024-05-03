@@ -187,7 +187,8 @@
         "Purchases": {
           "title": "Achats",
           "no-purchase-history": "Aucun historique d'achat",
-          "no-purchase-history-description": "Vous n'avez encore acheté aucun produit sur notre site !"
+          "no-purchase-history-description": "Vous n'avez encore acheté aucun produit sur notre site !",
+          "no-name": "Rechargement de crédits"
         },
         "Emails": {
           "title": "E-mails",
@@ -455,6 +456,14 @@
       "PriceCard": {
         "bottom-sentence": "Un seul paiement, de nombreux projets"
       }
+    },
+    "Success": {
+      "Components": {
+        "Index": {
+          "success": "Merci pour votre confiance ! Votre achat a bien été validé.",
+          "go-to": "Aller sur mon compte"
+        }
+      }
     }
   },
   "Emails": {
@@ -490,6 +499,9 @@
     "VerifyEmail": {
       "expired-token": "Jeton de vérification déjà validé, expiré ou introuvable.",
       "success": "Votre adresse e-mail a été vérifiée."
+    },
+    "Refill": {
+      "name": "Rechargement de crédits"
     }
   },
   "ForgotPassword": {

@@ -283,7 +283,8 @@
         "Purchases": {
           "no-purchase-history": "購入履歴なし",
           "no-purchase-history-description": "あなたはまだ当サイトで商品を購入していません！",
-          "title": "購買"
+          "title": "購買",
+          "no-name": "リローディング・クレジット"
         }
       }
     },
@@ -407,7 +408,15 @@
         "yearly": "年間"
       }
     },
-    "title": "価格"
+    "title": "価格",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "マイアカウントへ",
+          "success": "ご安心いただきありがとうございます！あなたの購入は確認されました。"
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {
@@ -473,6 +482,9 @@
     "VerifyEmail": {
       "expired-token": "検証トークンはすでに検証されているか、有効期限が切れているか、または見つかりません。",
       "success": "あなたのメールアドレスが確認されました。"
+    },
+    "Refill": {
+      "name": "リローディング・クレジット"
     }
   },
   "Emails": {

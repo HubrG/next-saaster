@@ -2,6 +2,7 @@
 import { updateSaasSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { SwitchWrapper } from "@/src/components/ui/@fairysaas/user-interface/ui/SwitchWrapper";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -30,7 +31,7 @@ export default function SwitchActiveMonthlyPlan() {
       setSaasSettings({ ...saasSettings, activeRefillCredit: e });
       const dataToSet = await updateSaasSettings(saasSettings.id, {
         activeRefillCredit: e,
-      });
+      }, chosenSecret());
       if (dataToSet) {
         setActiveRefillCredit(e);
         return toaster({

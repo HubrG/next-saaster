@@ -43,7 +43,7 @@ export const createOneTimePaymentSchema = z.object({
     amount: z.number(),
     currency: z.string(),
     metadata: z.any().nullable().optional(),
-    priceId: z.string().optional(),
+    priceId: z.string().nullable().optional(),
     status: z.string(),
   }),
   stripeSignature: z.string().optional(),

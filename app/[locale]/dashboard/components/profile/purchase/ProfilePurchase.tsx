@@ -13,9 +13,9 @@ import { useFormatter, useNow, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PurchaseAction } from "./@ui/Action";
 
-type ProfilePurchaseProps = {};
 
-export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
+
+export const ProfilePurchase = () => {
   const t = useTranslations("Dashboard.Components.Profile.Purchases");
   const formater = useFormatter();
   const now = useNow({
@@ -60,14 +60,18 @@ export const ProfilePurchase = ({}: ProfilePurchaseProps) => {
                   : Date.now();
               return dateB - dateA;
             })
-            .map((payment) => {
+              .map((payment) => {
               return (
                 <div
                   key={payment.id}
                   className="rounded-default flex flex-col border items-center shadow w-full gap-2 p-5 ">
                   <div className="flex flex-row w-full justify-between mb-0">
                     <div>
-                      <h2 className="font-bold text-xl">Refill</h2>
+                      <h2 className="font-bold text-xl">
+                        {payment.metadata && payment.metadata.name 
+                           ? payment.metadata.name
+                          : t("no-name")}
+                      </h2>
                     </div>
                     <div className="flex flew-row items-center gap-x-5">
                       <span>

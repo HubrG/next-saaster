@@ -2,12 +2,13 @@ import { updateSaasSettings } from "@/app/[locale]/admin/queries/app-saas-settin
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasSettings } from "@prisma/client";
 import { Label } from "@radix-ui/react-label";
@@ -33,7 +34,8 @@ export const FeaturesOptions = () => {
     }
     const updateFeature = await updateSaasSettings(
       saasSettings.id,
-      updatedFeatureState
+      updatedFeatureState,
+      chosenSecret()
     );
     if (updateFeature) {
       setFeatureState(updatedFeatureState);

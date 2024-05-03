@@ -283,7 +283,8 @@
         "Purchases": {
           "no-purchase-history": "无购买记录",
           "no-purchase-history-description": "您尚未从我们的网站购买任何产品！",
-          "title": "采购"
+          "title": "采购",
+          "no-name": "重装学分"
         }
       }
     },
@@ -407,7 +408,15 @@
         "yearly": "年度"
       }
     },
-    "title": "定价"
+    "title": "定价",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "转到我的账户",
+          "success": "感谢您的信任！您的购买已被确认。"
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {
@@ -473,6 +482,9 @@
     "VerifyEmail": {
       "expired-token": "验证令牌已验证、已过期或未找到。",
       "success": "您的电子邮件地址已经过验证。"
+    },
+    "Refill": {
+      "name": "重装学分"
     }
   },
   "Emails": {

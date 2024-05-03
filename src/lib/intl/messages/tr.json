@@ -283,7 +283,8 @@
         "Purchases": {
           "no-purchase-history": "Satın alma geçmişi yok",
           "no-purchase-history-description": "Sitemizden henüz herhangi bir ürün satın almadınız!",
-          "title": "Satın Alma"
+          "title": "Satın Alma",
+          "no-name": "Yeniden yükleme kredileri"
         }
       }
     },
@@ -407,7 +408,15 @@
         "yearly": "Yıllık"
       }
     },
-    "title": "Fiyatlandırma"
+    "title": "Fiyatlandırma",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Hesabıma git",
+          "success": "Güveniniz için teşekkür ederiz! Satın alma işleminiz onaylanmıştır."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {
@@ -473,6 +482,9 @@
     "VerifyEmail": {
       "expired-token": "Doğrulama belirteci zaten onaylandı, süresi doldu veya bulunamadı.",
       "success": "E-posta adresiniz doğrulandı."
+    },
+    "Refill": {
+      "name": "Yeniden yükleme kredileri"
     }
   },
   "Emails": {

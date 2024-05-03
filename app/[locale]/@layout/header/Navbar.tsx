@@ -42,7 +42,7 @@ export const Navbar = ({ session, settings }: NavbarProps) => {
             <div className="flex items-center gap-x-2 ">
               <TryUsButton
                 value={t('buy-now')}
-                icon={<ShoppingBagIcon className="icon" />}
+                icon={<ShoppingBagIcon className="icon mx-0 mr-2" />}
               />
               <Button className="hidden"></Button>
               <div className="sm:block hidden">

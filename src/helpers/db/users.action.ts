@@ -52,7 +52,7 @@ export const getUser = action(
       });
       if (!user) throw new ActionError("No user found");
       return handleRes<iUsers>({
-        success: user,
+        success: user as iUsers,
         statusCode: 200,
       });
     } catch (ActionError) {
@@ -80,7 +80,7 @@ export const getUsers = action(
       });
       if (!users) throw new ActionError("No users found");
       return handleRes<iUsers[]>({
-        success: users,
+        success: users as iUsers[],
         statusCode: 200,
       });
     } catch (ActionError) {
@@ -159,7 +159,7 @@ export const updateUser = action(
       });
       if (!user) throw new ActionError("Problem while updating user");
       return handleRes<iUsers>({
-        success: user,
+        success: user as iUsers,
         statusCode: 200,
       });
     } catch (ActionError) {

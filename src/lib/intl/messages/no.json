@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Bekreftelsestoken er allerede validert, utløpt eller ikke funnet.",
       "success": "E-postadressen din er bekreftet."
+    },
+    "Refill": {
+      "name": "Laster inn kreditter på nytt"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Ingen kjøpshistorikk",
           "no-purchase-history-description": "Du har ennå ikke kjøpt noen produkter på siden vår!",
-          "title": "Kjøp"
+          "title": "Kjøp",
+          "no-name": "Laster inn kreditter på nytt"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Årlig"
       }
     },
-    "title": "Prissetting"
+    "title": "Prissetting",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Gå til Min Konto",
+          "success": "Takk for tilliten ! \nKjøpet ditt er validert."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

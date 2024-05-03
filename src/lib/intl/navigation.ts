@@ -20,7 +20,6 @@ export const locales = [
   "it",
   "bn",
   "ko",
-  //
   "el",
   "fi",
   "hu",

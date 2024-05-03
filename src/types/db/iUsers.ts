@@ -52,6 +52,10 @@ interface UserSubscriptionDetail extends Subscription {
 
 interface UserOneTimePayment extends OneTimePayment {
   price: UserSubscriptionPrice | null;
+  metadata: {
+    name?: string;
+    refill?: number;
+  }; 
 }
 interface UserSubscriptionClassic extends UserSubscription {
   subscription: UserSubscriptionDetail | null;
@@ -76,6 +80,9 @@ export interface iUsers extends User {
 
 // SECTION METADATAS OF SUBSCRIPTION
 interface Metadata {
+  [key: string]: any;
+}
+interface MetadataUser {
   [key: string]: any;
 }
 export interface Coupon {

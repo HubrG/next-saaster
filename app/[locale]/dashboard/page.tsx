@@ -15,28 +15,26 @@ export const generateMetadata = async () => {
 };
 
 export default async function Dashboard() {
+  const session = await getServerSession(authOptions);
 
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-      return (
-        <>
-          <DivFullScreenGradient gradient="gradient-to-r" />
-          <div className="w-full  md:h-screen h-auto flex justify-center items-center">
-            <Suspense fallback={<Loader />}>
-              <LoginForm  />
-            </Suspense>
-          </div>
-        </>
-      );
-    }
-
+  if (!session) {
+    return (
+      <>
+        <DivFullScreenGradient gradient="gradient-to-r" />
+        <div className="w-full  md:h-screen h-auto flex justify-center items-center">
+          <Suspense fallback={<Loader />}>
+            <LoginForm />
+          </Suspense>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="dashboard user-interface">
-      <Index />
+        <Index />
       </div>
     </>
   );

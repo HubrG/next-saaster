@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Mã thông báo xác minh đã được xác thực, hết hạn hoặc không tìm thấy.",
       "success": "địa chỉ email của bạn đã được xác minh."
+    },
+    "Refill": {
+      "name": "Đang tải lại tín dụng"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Không có lịch sử mua hàng",
           "no-purchase-history-description": "Bạn chưa mua bất kỳ sản phẩm nào trên trang web của chúng tôi!",
-          "title": "Mua hàng"
+          "title": "Mua hàng",
+          "no-name": "Đang tải lại tín dụng"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Hàng năm"
       }
     },
-    "title": "Định giá"
+    "title": "Định giá",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Chuyển đến tài khoản của tôi",
+          "success": "Cảm ơn bạn đã tin tưởng ! \nGiao dịch mua hàng của bạn đã được xác thực."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

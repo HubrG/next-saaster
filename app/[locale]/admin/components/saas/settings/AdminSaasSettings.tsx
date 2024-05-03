@@ -3,6 +3,7 @@ import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
 import { Button } from "@/src/components/ui/button";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasTypes } from "@prisma/client";
@@ -77,7 +78,7 @@ export const AdminSaasSettings = () => {
       currency: currency,
       saasType: saasType as SaasTypes,
       creditName: creditName,
-    });
+    },chosenSecret());
 
     if (dataToSet) {
       setSaasSettings({

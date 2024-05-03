@@ -2,6 +2,7 @@
 import { updateAppSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { SwitchWrapper } from "@/src/components/ui/@fairysaas/user-interface/ui/SwitchWrapper";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Loader } from "lucide-react";
@@ -20,7 +21,7 @@ export default function SwitchTopLoader() {
   const handleChangeTopLoader = async (e: any) => {
     const dataToSet = await updateAppSettings(appSettings.id, {
       activeTopLoader: e,
-    });
+    }, chosenSecret());
     if (dataToSet) {
       setActiveTopLoader(e);
       setAppSettings({ ...appSettings, activeTopLoader: e });

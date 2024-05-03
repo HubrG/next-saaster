@@ -283,7 +283,8 @@
         "Purchases": {
           "no-purchase-history": "No purchase history",
           "no-purchase-history-description": "You haven't purchased any products on our site yet!",
-          "title": "Purchasing"
+          "title": "Purchasing",
+          "no-name": "Refill credits"
         }
       }
     },
@@ -407,7 +408,15 @@
         "yearly": "Annual"
       }
     },
-    "title": "Pricing"
+    "title": "Pricing",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Go to my account",
+          "success": "Thank you for your confidence! Your purchase has been confirmed."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {
@@ -473,6 +482,9 @@
     "VerifyEmail": {
       "expired-token": "Verification token already validated, expired or not found.",
       "success": "Your e-mail address has been verified."
+    },
+    "Refill": {
+      "name": "Refill credits"
     }
   },
   "Emails": {

@@ -25,16 +25,29 @@ export async function middleware(req: NextRequest) {
   }
   try {
     // Initiazation of the app (first opening of the app, or after a reset of the app)
-    const apiUrl = `${URI}/api/initialization`;
-    const apiResponse = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!apiResponse.ok) {
-      throw new Error(`API request failed with status ${apiResponse.status}`);
+    // Only if home page
+    if (req.url === "/") {
+      const apiUrl = `${URI}/api/initialization`;
+      const apiResponse = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!apiResponse.ok) {
+        throw new Error(`API request failed with status ${apiResponse.status}`);
+      }
     }
+    // const apiUrl = `${URI}/api/initialization`;
+    // const apiResponse = await fetch(apiUrl, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // if (!apiResponse.ok) {
+    //   throw new Error(`API request failed with status ${apiResponse.status}`);
+    // }
   } catch (error) {
     console.error("API request error:", error);
   }

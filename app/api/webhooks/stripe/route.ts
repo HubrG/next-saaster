@@ -34,7 +34,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-  apiVersion: "2023-10-16",
+  apiVersion: "2024-04-10",
   typescript: true,
 });
 
@@ -60,7 +60,8 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     // NOTE : Checkout session completed
     case "checkout.session.completed":
-      todoWhenPaymentSuceeded();
+      // console.log(event.data.object);
+      todoWhenPaymentSuceeded(event.data.object);
       //
       return NextResponse.json({ status: 200 });
     // NOTE : Subscription created
@@ -267,7 +268,7 @@ export async function POST(req: NextRequest) {
         data: {
           stripePaymentIntentId: paymentIntent.id,
           amount: paymentIntent.amount,
-          priceId: paymentIntent.metadata.priceId,
+          priceId: paymentIntent.metadata?.priceId ?? "",
           userId: userId.data?.success?.id as string,
           metadata: JSON.stringify(paymentIntent.metadata),
           currency: paymentIntent.currency,

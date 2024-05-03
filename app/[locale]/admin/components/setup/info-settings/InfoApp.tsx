@@ -4,8 +4,9 @@ import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loa
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import useSaveAndCancel, {
-    GenericDataObject,
+  GenericDataObject,
 } from "@/src/hooks/useSaveAndCancel";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,7 +47,7 @@ export const InfoApp = () => {
       baseline: appSettings.baseline,
     } as GenericDataObject,
     onSave: async (data) => {
-      const updateInfo = await updateAppSettings(appSettings.id, data);
+      const updateInfo = await updateAppSettings(appSettings.id, data, chosenSecret());
       if (updateInfo) {
         setAppSettings({ ...appSettings, ...data });
         toaster({ description: "Informations updated", type: "success" });

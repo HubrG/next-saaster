@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Varmistusmerkki on jo vahvistettu, vanhentunut tai sitä ei löydy.",
       "success": "Sähköpostiosoitteesi on vahvistettu."
+    },
+    "Refill": {
+      "name": "Uudelleenlataushyvitykset"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Ei ostohistoriaa",
           "no-purchase-history-description": "Et ole vielä ostanut yhtään tuotetta sivustoltamme!",
-          "title": "Ostaminen"
+          "title": "Ostaminen",
+          "no-name": "Uudelleenlataushyvitykset"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Vuosittainen"
       }
     },
-    "title": "Hinnoittelu"
+    "title": "Hinnoittelu",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Siirry tililleni",
+          "success": "Kiitos luottamuksesta! Ostoksesi on vahvistettu."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

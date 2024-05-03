@@ -202,7 +202,7 @@ ul.ul {
   /* Icon size will relative to font-size of .text-wrapper */
   width: 1em;
   height: 1em;
-  @apply mx-2 min-w-4;
+  @apply mr-2 min-w-4;
 }
 strong,
 span,
@@ -239,10 +239,7 @@ div.progressToken {
   font-size: inherit !important;
   font-weight: inherit;
 }
-button[data-close-button] {
-  @apply !-right-[0.419rem] !rounded !rounded-tl-none !rounded-br-none !top-[0.429rem] !border-none p-2 cursor-pointer;
-  left:inherit !important;
-}
+
 .theme-card .card-tooltip {
   @apply flex flex-col text-base px-2 py-1 z-50 max-w-xs mt-2 !important;
 }
@@ -421,7 +418,18 @@ form button {
 /* NOTE --> Toaster  */
 
 .toast {
-  @apply my-shadow mt-14;
+  @apply my-shadow mt-14 md:w-[40vh] sm:w-[80vh] py-8 right-0 bottom-0;
+}
+button[data-close-button] {
+  @apply !-right-[0.419rem] !rounded !rounded-tl-none !rounded-br-none !top-[0.429rem] !border-none p-0 !text-2xl cursor-pointer;
+  left:inherit !important;
+}
+/* :where([data-sonner-toast]) :where([data-close-button]) {
+  @apply right-0;
+  left:inherit !important;
+} */
+[data-title] {
+  @apply ml-2;
 }
 .toast-success {
   @apply dark:bg-theming-background-100 bg-theming-background-900  my-shadow font-sans  !text-theming-text-50 dark:text-primary-foreground border-0 !important;
@@ -433,7 +441,7 @@ form button {
   @apply font-sans bg-blue-500 !text-blue-50 border-0 shadow-lg !important;
 }
 .toast-success > button {
-  @apply bg-theming-background-500 my-shadow !text-theming-text-50 dark:!text-theming-text-950  border-primary   !important;
+  @apply bg-theming-background-500 my-shadow !text-theming-text-50 dark:!text-theming-text-950 text-2xl  border-primary   !important;
 }
 
 .switch-info {

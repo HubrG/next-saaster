@@ -68,6 +68,7 @@ model User {
   updatedAt       DateTime?          @updatedAt
   organizationId  String?
   isNewsletterSub Boolean?           @default(true)
+  creditRemaining Int?               @default(0)
   role            UserRole           @default(USER)
   organization    Organization?      @relation("OrganizationMembers", fields: [organizationId], references: [id])
   accounts        Account[]

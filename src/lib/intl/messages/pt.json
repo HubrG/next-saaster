@@ -283,7 +283,8 @@
         "Purchases": {
           "no-purchase-history": "Sem historial de compras",
           "no-purchase-history-description": "Ainda não comprou nenhum produto do nosso site!",
-          "title": "Compras"
+          "title": "Compras",
+          "no-name": "Créditos de recarga"
         }
       }
     },
@@ -407,7 +408,15 @@
         "yearly": "Anual"
       }
     },
-    "title": "Preços"
+    "title": "Preços",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Aceder à minha conta",
+          "success": "Obrigado pela sua confiança! A sua compra foi confirmada."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {
@@ -473,6 +482,9 @@
     "VerifyEmail": {
       "expired-token": "Token de verificação já validado, expirado ou não encontrado.",
       "success": "O seu endereço de correio eletrónico foi verificado."
+    },
+    "Refill": {
+      "name": "Créditos de recarga"
     }
   },
   "Emails": {

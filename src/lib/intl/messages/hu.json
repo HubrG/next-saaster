@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Az ellenőrző token már érvényesített, lejárt vagy nem található.",
       "success": "Az e-mail címét ellenőriztük."
+    },
+    "Refill": {
+      "name": "Újratöltési kreditek"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Nincs vásárlási előzmény",
           "no-purchase-history-description": "Még nem vásároltál terméket az oldalunkon!",
-          "title": "Vásárlás"
+          "title": "Vásárlás",
+          "no-name": "Újratöltési kreditek"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Éves"
       }
     },
-    "title": "Árképzés"
+    "title": "Árképzés",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Menj a fiókomhoz",
+          "success": "Köszönjük a bizalmat! Vásárlását megerősítettük."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

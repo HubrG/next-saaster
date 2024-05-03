@@ -15,6 +15,9 @@
     "VerifyEmail": {
       "expired-token": "Token verifikasi sudah divalidasi, kedaluwarsa atau tidak ditemukan.",
       "success": "Alamat email Anda telah diverifikasi."
+    },
+    "Refill": {
+      "name": "Memuat ulang kredit"
     }
   },
   "Components": {
@@ -301,7 +304,8 @@
         "Purchases": {
           "no-purchase-history": "Tidak ada riwayat pembelian",
           "no-purchase-history-description": "Anda belum membeli produk apa pun dari situs kami!",
-          "title": "Pembelian"
+          "title": "Pembelian",
+          "no-name": "Memuat ulang kredit"
         }
       }
     },
@@ -461,7 +465,15 @@
         "yearly": "Tahunan"
       }
     },
-    "title": "Harga"
+    "title": "Harga",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Buka akun saya",
+          "success": "Terima kasih atas kepercayaan Anda! Pembelian Anda telah dikonfirmasi."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {

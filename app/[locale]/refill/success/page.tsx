@@ -42,7 +42,7 @@ export default async function PricingSuccess({
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className=" items-center justify-center ">
         <div className="lg:w-2/5  sm:3/5 max-sm:w-full px-5 mx-auto self-center ">
-          <Index session={getCheckoutSession} />
+          <Index />
         </div>
       </div>
     </>

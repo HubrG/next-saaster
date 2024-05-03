@@ -283,7 +283,8 @@
         "Purchases": {
           "no-purchase-history": "Nessuna storia di acquisto",
           "no-purchase-history-description": "Non hai ancora acquistato alcun prodotto dal nostro sito!",
-          "title": "Acquisto"
+          "title": "Acquisto",
+          "no-name": "Crediti per la ricarica"
         }
       }
     },
@@ -407,7 +408,15 @@
         "yearly": "Annuale"
       }
     },
-    "title": "Prezzi"
+    "title": "Prezzi",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Vai al mio account",
+          "success": "Grazie per la fiducia! Il vostro acquisto è stato confermato."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {
@@ -473,6 +482,9 @@
     "VerifyEmail": {
       "expired-token": "Token di verifica già convalidato, scaduto o non trovato.",
       "success": "Il vostro indirizzo e-mail è stato verificato."
+    },
+    "Refill": {
+      "name": "Crediti per la ricarica"
     }
   },
   "Emails": {

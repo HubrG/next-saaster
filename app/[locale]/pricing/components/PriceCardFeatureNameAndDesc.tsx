@@ -35,7 +35,6 @@ export const PriceCardFeatureNameAndDesc = ({
   const [hasTranslated, setHasTranslated] = useState(false);
   const key = `${featName}-${locale}`;
   const { featureTranslations, setFeatureTranslations } = useTranslationStore();
-  console.log("featureTranslations", featureTranslations);
   useEffect(() => {
     const translateNameAndDescription = async () => {
       if (

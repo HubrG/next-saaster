@@ -283,7 +283,8 @@
         "Purchases": {
           "no-purchase-history": "Keine Kaufhistorie",
           "no-purchase-history-description": "Sie haben noch kein Produkt auf unserer Seite gekauft!",
-          "title": "Einkaufen"
+          "title": "Einkaufen",
+          "no-name": "Aufladen von Guthaben"
         }
       }
     },
@@ -407,7 +408,15 @@
         "yearly": "Jährlich"
       }
     },
-    "title": "Preisgestaltung"
+    "title": "Preisgestaltung",
+    "Success": {
+      "Components": {
+        "Index": {
+          "go-to": "Zu meinem Konto gehen",
+          "success": "Vielen Dank für Ihr Vertrauen! Ihr Kauf wurde erfolgreich bestätigt."
+        }
+      }
+    }
   },
   "Register": {
     "SignUpWithCredentials": {
@@ -473,6 +482,9 @@
     "VerifyEmail": {
       "expired-token": "Verifizierungs-Token bereits validiert, abgelaufen oder nicht gefunden.",
       "success": "Ihre E-Mail-Adresse wurde verifiziert."
+    },
+    "Refill": {
+      "name": "Aufladen von Guthaben"
     }
   },
   "Emails": {

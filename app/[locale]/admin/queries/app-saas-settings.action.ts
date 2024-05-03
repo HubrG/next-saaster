@@ -1,6 +1,8 @@
 "use server";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
+import { verifySecretRequest } from "@/src/helpers/functions/verifySecretRequest";
 import { prisma } from "@/src/lib/prisma";
+import { ActionError } from "@/src/lib/safe-actions";
 import {
   SaasSettings,
   appSettings
@@ -10,7 +12,10 @@ import {
 // SECTION Add New  Feature
 
 
-export const updateAppSettings = async (settingsId: string, data: any) => {
+export const updateAppSettings = async (settingsId: string, data: any, chosenSecret:string) => {
+   if (!chosenSecret || !verifySecretRequest(chosenSecret)) {
+     throw new ActionError("Unauthorized");
+   }
   const session = await isSuperAdmin();
   if (!session) return false;
 
@@ -31,7 +36,10 @@ export const updateAppSettings = async (settingsId: string, data: any) => {
   return updateSetting;
 };
 
-export const updateSaasSettings = async (settingsId: string, data: any) => {
+export const updateSaasSettings = async (settingsId: string, data: any, chosenSecret: string) => {
+  if (!chosenSecret || !verifySecretRequest(chosenSecret)) {
+    throw new ActionError("Unauthorized");
+  }
   const session = await isSuperAdmin();
   if (!session) return false;
 

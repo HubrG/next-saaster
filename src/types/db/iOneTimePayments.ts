@@ -14,3 +14,8 @@ export interface iOneTimePayment extends OneTimePayment {
   user: User;
   price?: oneTimePrice | null;
 }
+
+export interface iOneTimePaymentMetadata {
+  name: string;
+  refill: number;
+}

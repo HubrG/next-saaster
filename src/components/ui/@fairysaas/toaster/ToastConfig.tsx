@@ -1,9 +1,5 @@
 import { AlertTriangle, CheckCircle2, Info, XCircle } from "lucide-react";
-import {
-  ExternalToast,
-  ToastT,
-  toast,
-} from "sonner";
+import { ExternalToast, ToastT, toast } from "sonner";
 type ToastTypes =
   | "normal"
   | "action"
@@ -105,7 +101,7 @@ export const toaster = ({
 }: ToastProps) => {
   function toastIcon(type: string) {
     if (type === "success") {
-      return <CheckCircle2 className="icon" />;
+      return <CheckCircle2 className="icon !mr-4" />;
     } else if (type === "error") {
       return <XCircle className="icon" />;
     } else if (type === "info") {
@@ -130,11 +126,11 @@ export const toaster = ({
     dismissible: dismissible,
     closeButton: closeButton,
     action: action,
-    cancel: cancel,
     id: id,
     onDismiss: onDismiss,
     onAutoClose: onAutoClose,
     unstyled: unstyled,
+    position: "top-right" as Position,
   };
   if (type === "success") {
     return toast.success(description, toastOptions);

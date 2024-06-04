@@ -12,5 +12,10 @@
     "i18n-ally.translate.deepl.apiKey": "0b26bcac-b6f3-4974-add7-1ef932c3278a:fx",
     "i18n-ally.translate.deepl.useFreeApiEntry": true,
     "i18n-ally.keystyle": "nested",
-    "i18n-ally.sourceLanguage": "fr"
+    "i18n-ally.sourceLanguage": "fr",
+    "CodeGPT.apiKey": "OpenAI",
+    "CodeGPT.Autocomplete.suggestionDelay": 800,
+    "CodeGPT.Autocomplete.maxTokens": 824,
+    "CodeGPT.Autocomplete.enabled": true
+    
 }

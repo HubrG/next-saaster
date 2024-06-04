@@ -45,12 +45,14 @@ type Props = {
     locale: string;
   };
   session: Session;
+  layout: "default" | "auth";
 };
 
 export default async function LocaleLayout(props: Props) {
   const {
     children,
     params: { locale },
+    layout = "default",
   } = props;
   const session = await getServerSession(authOptions);
   const appSettings = await getAppSettings();

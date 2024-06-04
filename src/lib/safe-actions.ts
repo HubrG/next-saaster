@@ -1,6 +1,8 @@
 import { createSafeActionClient, DEFAULT_SERVER_ERROR } from "next-safe-action";
 
-export class ActionError extends Error {}
+export class ActionError extends Error { }
+
+
 
 export const handleReturnedServerError = async (e: Error | ActionError) => {
   // If the error is an instance of `ActionError`, unmask the message.

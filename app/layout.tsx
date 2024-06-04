@@ -1,8 +1,11 @@
 import "@/app/globals.css";
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{ children: React.ReactNode }>) {
-  //
-  return children;
+	// This function returns the children elements passed to it
+	// It is used as the root layout for the application
+	return children;
+	
+
 }

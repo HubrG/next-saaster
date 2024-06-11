@@ -186,7 +186,7 @@ export const pathnames = {
   },
   "/how-it-works": {
     en: "/how-it-works",
-    fr: "/fontionnement",
+    fr: "/fonctionnement",
     es: "/como-funciona",
     hi: "/how-it-works",
     zh: "/how-it-works",

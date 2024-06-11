@@ -1,4 +1,3 @@
-import { Index } from "@/app/[locale]/admin/components/Index";
 import { Index as LoginForm } from "@/app/[locale]/login/components/Index";
 import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
 import { Loader } from "@/src/components/ui/@fairysaas/loader";
@@ -7,8 +6,16 @@ import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { UserRole } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
-
+const AdminIndex: React.ComponentType<any> = dynamic(
+  () =>
+    import("@/app/[locale]/admin/components/Index").then((mod) => mod.Index),
+  {
+    loading: () => <Loader />,
+    ssr: false,
+  }
+);
 export const generateMetadata = async () => {
   return createMetadata({
     // Voir la configuration des métadonnées dans metadatas.ts
@@ -42,7 +49,7 @@ export default async function Admin() {
       <DivFullScreenGradient gradient="gradient-to-bl" />
       <div className="admin user-interface">
         <Suspense fallback={<Loader />}>
-            <Index />
+          <AdminIndex />
         </Suspense>
       </div>
     </>

@@ -79,7 +79,7 @@ header nav {
   @apply md:px-0 px-5 w-full !z-[999999]  max-w-[87rem] mx-auto left-0 backdrop-blur-[12px] border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
-  @apply flex flex-wrap items-center  justify-between mx-auto py-[0.4rem] backdrop-grayscale;
+  @apply flex flex-wrap items-center justify-between mx-0 py-[0.4rem] backdrop-grayscale;
 }
 header nav button {
   @apply no-underline !important;
@@ -121,7 +121,7 @@ a.profile-link {
 }
 /* Main Menu */
 ul.main-menu {
-  @apply flex flex-col p-4 lg:p-0 mt-4 font-medium border border-primary rounded-default  md:flex-row md:space-x-8 md:mt-0 lg:border-0  text-base;
+  @apply flex md:flex-row flex-col p-4 lg:p-0 mt-4 font-medium border border-primary rounded-default   md:space-x-8 md:mt-0 lg:border-0  text-base;
 }
 div.main-menu {
   @apply items-center  justify-between hidden w-full lg:flex md:w-auto md:order-1;
@@ -580,7 +580,7 @@ footer {
 footer nav {
   @apply md:mt-0 mt-10 md:text-center max-md:flex max-md:flex-col max-md:items-center max-md:w-full;
 }
-footer h4 {
+footer h2 {
   @apply text-xl font-bold md:mx-auto ml-0 mb-5 flex flex-row items-center gap-x-2 !important;
 }
 footer a {

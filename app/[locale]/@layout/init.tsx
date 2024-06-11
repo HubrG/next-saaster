@@ -1,5 +1,6 @@
 "use client";
 import { useIsClient } from "@/src/hooks/useIsClient";
+import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
@@ -8,7 +9,6 @@ import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { SaasSettings, appSettings } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 
 type Props = {
@@ -17,7 +17,8 @@ type Props = {
 };
 
 export const Init = ({ appSettings, saasSettings }: Props) => {
-  const { data: session, status } = useSession();
+    const { data: session, isLoading } = useSessionQuery();
+
   const { setAppSettings } = useAppSettingsStore();
   const { setSaasSettings } = useSaasSettingsStore();
   const { fetchSaasStripeCoupons } = useSaasStripeCoupons();
@@ -27,11 +28,10 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { fetchUserStore } = useUserStore();
 
   const isClient = useIsClient();
-  const [isLoading, setIsLoading] = useState(true);
   const [hasLoadedData, setHasLoadedData] = useState(false); // Nouvel état pour suivre si les données ont été chargées
 
   const initialize = useCallback(() => {
-    if (isClient && status !== "loading" && !hasLoadedData) {
+    if (isClient && !isLoading && !hasLoadedData) {
       // Vérifiez si les données ont déjà été chargées
       setAppSettings(appSettings);
       setSaasSettings(saasSettings);
@@ -41,21 +41,17 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
           fetchUserStore(user.email);
         }
         if (user?.role !== "USER") {
-          // fetchSaasStripeProducts();
-          // fetchSaasStripePrices();
           fetchSaasStripeCoupons();
           fetchSaasFeaturesCategories();
           fetchSaasFeatures();
         }
       }
       Promise.all([fetchSaasPlan()]).then(() => {
-        setIsLoading(false);
-        setHasLoadedData(true); // Marquez que les données ont été chargées
+        setHasLoadedData(true); 
       });
     }
   }, [
     isClient,
-    status,
     session,
     setAppSettings,
     appSettings,

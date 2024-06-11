@@ -5,6 +5,7 @@ declare module "node" {
     prisma?: PrismaClient;
   }
 }
+declare module "lucide-react";
 declare module "nodemailer";
 declare module "react-beautiful-dnd";
 declare module "formidable";

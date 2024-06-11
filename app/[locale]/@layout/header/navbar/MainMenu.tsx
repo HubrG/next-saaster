@@ -20,7 +20,7 @@ export default function MainMenu(props: MenuProps) {
 
   const { links } = props;
   return (
-    <>
+    <> 
       {links.map((link, index) => {
         return (
           <li key={index} className={props.className}>

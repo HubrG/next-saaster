@@ -38,7 +38,7 @@ const nextConfig = {
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=86400", // Caching the homepage for 1 hour
+            value: "public, max-age=86400", 
           },
         ],
       },

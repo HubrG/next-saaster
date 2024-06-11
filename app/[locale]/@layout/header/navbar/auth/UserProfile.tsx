@@ -31,8 +31,9 @@ import { DropdownMenuItemLogout } from "./LogoutButton";
 
 type UserProfileProps = {
   className?: string;
+  isLoading?: boolean;
 };
-export const UserProfile = ({ className }: UserProfileProps) => {
+export const UserProfile = ({ className, isLoading }: UserProfileProps) => {
   const { userStore } = useUserStore();
   const [userProfile, setUserProfile] = useState<ReturnUserDependencyProps>();
   const { saasSettings } = useSaasSettingsStore();
@@ -43,7 +44,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
     setUserProfile(getUserInfos({ user: userStore }));
   }, [userStore]);
 
-  if (!userStore.id) {
+  if (!userStore.id || isLoading) {
     return (
       <div className="flex items-center space-x-3 h-11 pr-7 -mt-1 ml-4">
         <Skeleton className="h-10 w-10 rounded-full" />
@@ -72,7 +73,7 @@ export const UserProfile = ({ className }: UserProfileProps) => {
             <Avatar className="!no-underline">
               {userStore?.image && (
                 <AvatarImage
-                  src={userStore.image}
+                  src={userStore.image?.replace("/upload/", "/upload/f_auto/")}
                   className=""
                   alt={userStore.name ?? "User avatar"}
                 />

@@ -1,9 +1,9 @@
 "use client";
 import { useIsClient } from "@/src/hooks/useIsClient";
 import links from "@/src/jsons/main-menu.json";
+import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { appSettings } from "@prisma/client";
 import { ShoppingBagIcon } from "lucide-react";
-import { Session } from "next-auth";
 import { useTranslations } from "next-intl";
 import { Button } from "../../../../src/components/ui/button";
 import BurgerMenu from "./navbar/BurgerMenu";
@@ -14,12 +14,15 @@ import TryUsButton from "./navbar/TryUsButton";
 import { LoginButton } from "./navbar/auth/LoginButton";
 import { UserProfile } from "./navbar/auth/UserProfile";
 type NavbarProps = {
-  session: Session | undefined;
   settings: appSettings;
 };
-export const Navbar = ({ session, settings }: NavbarProps) => {
+
+export const Navbar = ({settings }: NavbarProps) => {
+  const { data: session, isLoading } = useSessionQuery();
+ 
   const t = useTranslations("Layout.Header.Navbar");
   const isClient = useIsClient();
+ 
   if (!isClient) {
     <header className="z-20  ">
       <nav id="navbar">
@@ -37,25 +40,27 @@ export const Navbar = ({ session, settings }: NavbarProps) => {
     <header className="z-20  ">
       <nav id="navbar">
         <div>
-          <Logo settings={settings} />
+          <div className="flex items-center justify-between !ml-5`">
+            <Logo settings={settings} />
+            <div className="main-menu ml-10" id="navbar-sticky">
+              <ul className="main-menu">
+                <MainMenu links={links} />
+              </ul>
+            </div>
+          </div>
           <div className="flex gap-x-2 lg:order-2 items-center lg:text-base">
             <div className="flex items-center gap-x-2 ">
               <TryUsButton
-                value={t('buy-now')}
+                value={t("buy-now")}
                 icon={<ShoppingBagIcon className="icon mx-0 mr-2" />}
               />
               <Button className="hidden"></Button>
               <div className="sm:block hidden">
-                {session ? <UserProfile /> : <LoginButton />}
+                {session || isLoading ? <UserProfile isLoading={isLoading} /> : <LoginButton />}
               </div>
               <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
             </div>
             <BurgerMenu links={links} settings={settings} />
-          </div>
-          <div className="main-menu" id="navbar-sticky">
-            <ul className="main-menu">
-              <MainMenu links={links} />
-            </ul>
           </div>
         </div>
       </nav>

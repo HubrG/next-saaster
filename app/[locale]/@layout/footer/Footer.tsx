@@ -21,7 +21,7 @@ export default async function Footer() {
       <Goodline className="mt-32" />
       <footer>
         <nav className="flex flex-col h-full items-center gap-2 justify-start">
-          <h4 className="!md:text-xl !text-4xl">{settings?.name}</h4>
+          <h2 className="!md:text-xl !text-4xl">{settings?.name}</h2>
           <Link href="/">
             <Avatar className="!no-underline h-14 w-14 mx-auto ">
               {settings?.image && (
@@ -47,18 +47,20 @@ export default async function Footer() {
         </nav>
         <Goodline className="md:hidden block" />
         <nav className="flex flex-col max-md:-mt-10">
-          <h4>{t("Footer.Navigation.title")}</h4>
-          <MainMenu links={links} className="list-none nunderline" />
+          <h2>{t("Footer.Navigation.title")}</h2>
+          <ul>
+            <MainMenu links={links} className="list-none nunderline" />
+          </ul>
           <Link href="/blog">{t("Footer.Navigation.blog")}</Link>
           <Link href="/faq">{t("Footer.Navigation.faq")}</Link>
         </nav>
         <nav className="flex flex-col">
-          <h4>{t("Footer.Legal.title")}</h4>
+          <h2>{t("Footer.Legal.title")}</h2>
           <Link href="/terms">{t("Footer.Legal.terms")}</Link>
           <Link href="/privacy">{t("Footer.Legal.privacy")}</Link>
         </nav>
         <nav className="flex flex-col md:w-2/3 w-full">
-          <h4 className="text-center">{t("Footer.Legal.newsletter")}</h4>
+          <h2 className="text-center">{t("Footer.Legal.newsletter")}</h2>
           <NewsletterForm className="-mt-10" />
         </nav>
       </footer>

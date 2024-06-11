@@ -14,7 +14,10 @@ import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "../prisma";
 import { env } from "../zodEnv";
 const stripeManager = new StripeManager();
-
+ export const fetchSession = async () => {
+   const session = await getServerSession(authOptions);
+   return session;
+ };
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [

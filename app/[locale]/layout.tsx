@@ -12,10 +12,7 @@ import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
 import { getServerSession } from "next-auth/next";
-import {
-  Caveat,
-  Playfair_Display, Rethink_Sans
-} from "next/font/google";
+import { Caveat, Playfair_Display, Rethink_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import { getAppSettings } from "../../src/helpers/db/appSettings.action";
 import Footer from "./@layout/footer/Footer";
@@ -47,21 +44,29 @@ type Props = {
   session: Session;
   layout: "default" | "auth";
 };
-
+const fetchSession = async () => {
+  return await getServerSession(authOptions);
+};
 export default async function LocaleLayout(props: Props) {
   const {
     children,
     params: { locale },
     layout = "default",
   } = props;
-  const session = await getServerSession(authOptions);
-  const appSettings = await getAppSettings();
-  const saasSettings = await getSaasSettings();
+
+
+  // Effectuer les appels en parallèle
+  const [session, appSettings, saasSettings] = await Promise.all([
+    fetchSession(),
+    getAppSettings(),
+    getSaasSettings(),
+  ]);
   if (!appSettings.data || !saasSettings.data) {
     return <Loader />;
   }
+
   return (
-    <SessProvider session={props.session}>
+    <SessProvider session={session as Session}>
       <ReactQueryClientProvider>
         <html
           lang={locale}
@@ -71,6 +76,8 @@ export default async function LocaleLayout(props: Props) {
           } ${sans.variable} ${serif.variable}  ${display.variable} font-sans ${
             appSettings.data.activeDarkMode && "dark"
           }`}>
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}>
             <NextIntlProvider>
@@ -78,7 +85,11 @@ export default async function LocaleLayout(props: Props) {
                 appSettings={appSettings.data}
                 saasSettings={saasSettings.data}
               />
-              <Toaster richColors={true} position="top-right" closeButton={true} />
+              <Toaster
+                richColors={true}
+                position="top-right"
+                closeButton={true}
+              />
               {appSettings.data.activeTopLoader && <TopLoader />}
               <ThemeProvider
                 disableTransitionOnChange={false}
@@ -88,7 +99,6 @@ export default async function LocaleLayout(props: Props) {
                 }
                 enableSystem>
                 <Navbar
-                  session={session ?? undefined}
                   settings={appSettings.data}
                 />
                 <main>{children}</main>

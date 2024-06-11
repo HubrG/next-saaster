@@ -5,6 +5,7 @@ import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { Loader } from "lucide-react";
 import { getServerSession } from "next-auth";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 export const generateMetadata = async () => {
   return createMetadata({
@@ -13,6 +14,15 @@ export const generateMetadata = async () => {
     title: "Dashboard",
   });
 };
+
+const DashboardIndex: React.ComponentType<any> = dynamic(
+  () =>
+    import("@/app/[locale]/dashboard/components/Index").then((mod) => mod.Index),
+  {
+    loading: () => <Loader />,
+    ssr: false,
+  }
+);
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);

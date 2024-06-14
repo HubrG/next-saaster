@@ -99,7 +99,7 @@ function createSitemapEntries(
       changeFrequency: "weekly" as const,
       priority: 0.5,
     },
-    // ...mainMenuLinks,
+    ...mainMenuLinks,
     ...posts,
     ...tags,
     ...categories,

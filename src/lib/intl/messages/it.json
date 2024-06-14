@@ -522,5 +522,14 @@
     "invalid-token": "Token di ripristino non valido. Riprovare o effettuare una nuova richiesta.",
     "reset-password": "Ripristino della password",
     "token-expired": "Il token di ripristino è sconosciuto."
+  },
+  "NotFound": {
+    "back-link": "Ritorna alla home page",
+    "erreur-404": "Errore 404",
+    "page-not-found": "Non riusciamo a trovare la pagina richiesta."
+  },
+  "Blog": {
+    "category": "Categorie",
+    "tags": "Parole chiave"
   }
 }

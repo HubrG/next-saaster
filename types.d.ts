@@ -5,6 +5,7 @@ declare module "node" {
     prisma?: PrismaClient;
   }
 }
+declare module "slugify";
 declare module "lucide-react";
 declare module "nodemailer";
 declare module "react-beautiful-dnd";
@@ -27,7 +28,7 @@ declare module "react-lottie"
 declare module "@/utils/openAIStream";
 declare module "uuid";
 declare module "streamifier";
-
+declare module "showdown";
 declare module "isomorphic-fetch";
 declare module "unified";
 declare module "remark-parse";

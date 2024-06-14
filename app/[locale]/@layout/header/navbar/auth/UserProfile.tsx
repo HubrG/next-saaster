@@ -145,7 +145,7 @@ export const UserProfile = ({ className, isLoading }: UserProfileProps) => {
               <Link href="/refill" className="user-profile-buy-credit">
                 <CreditCard className="icon" />
                 {/* Buy credits */}
-                {t('refill')} {saasSettings.creditName}
+                {t("refill")} {saasSettings.creditName}
               </Link>
             </DropdownMenuItem>
           </>
@@ -156,7 +156,7 @@ export const UserProfile = ({ className, isLoading }: UserProfileProps) => {
             className="nunderline profile-link text-left pr-10  cursor-pointer">
             <User className="mr-2 h-4 w-4" />
             {/* My account */}
-            {t('my-account')}
+            {t("my-account")}
           </Link>
         </DropdownMenuItem>
         {userStore?.role !== ("USER" as UserRole) && (
@@ -170,6 +170,7 @@ export const UserProfile = ({ className, isLoading }: UserProfileProps) => {
                 Admin
               </Link>
             </DropdownMenuItem>
+           
             <Separator className="my-1" />
           </>
         )}

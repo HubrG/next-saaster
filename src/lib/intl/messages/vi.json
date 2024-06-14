@@ -522,5 +522,14 @@
       "login": "Đăng nhập"
     },
     "title": "Tạo một tài khoản"
+  },
+  "NotFound": {
+    "back-link": "Trở về trang chủ",
+    "erreur-404": "Lỗi 404",
+    "page-not-found": "Chúng tôi không thể tìm thấy trang được yêu cầu."
+  },
+  "Blog": {
+    "category": "Thể loại",
+    "tags": "Từ khóa"
   }
 }

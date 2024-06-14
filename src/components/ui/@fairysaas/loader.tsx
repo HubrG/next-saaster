@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { Goodline } from "../@aceternity/good-line";
 import { Card } from "../card";
 import { Skeleton } from "../skeleton";
+import { DivFullScreenGradient } from "./layout-elements/gradient-background";
 
 type LoaderProps = {
   size?: number;
@@ -37,10 +38,17 @@ export const SimpleLoader = ({
   );
 };
 
-export const SkeletonLoader = ({ type, className }: { type?: "card" | "card-page" | "rounded" | "simple-line", className?: string; }) => {
+export const SkeletonLoader = ({
+  type,
+  className,
+}: {
+  type?: "card" | "card-page" | "rounded" | "simple-line" | "page";
+  className?: string;
+}) => {
   if (type === "card") {
     return (
-      <div className="flex items-center space-x-4 mt-16 w-full justify-center mx-auto">
+      <div
+        className={`flex items-center space-x-4 mt-16 w-full justify-center mx-auto ${className}`}>
         <Skeleton className="h-24 w-1/3  rounded-default" />
         <div className="space-y-2 w-2/3">
           <Skeleton className="h-4 w-12/12 rounded-default" />
@@ -52,7 +60,8 @@ export const SkeletonLoader = ({ type, className }: { type?: "card" | "card-page
     );
   } else if (type === "card-page") {
     return (
-      <Card className="flex flex-col items-center space-x-4 mt-16 w-full justify-center mx-auto">
+      <Card
+        className={`flex flex-col items-center space-x-4 mt-16 w-full justify-center mx-auto ${className}`}>
         <div className="flex flex-row w-full items-center justify-between">
           <div className="w-1/2 flex flex-row items-center ">
             <Skeleton className="h-8 w-8  rounded-full" />
@@ -76,15 +85,33 @@ export const SkeletonLoader = ({ type, className }: { type?: "card" | "card-page
     );
   } else if (type === "rounded") {
     return (
-      <div className="flex items-center space-x-4 mt-16 w-full justify-center mx-auto">
+      <div
+        className={`flex items-center space-x-4 mt-16 w-full justify-center mx-auto ${className}`}>
         <Skeleton className={`${className} rounded-full`} />
       </div>
     );
   } else if (type === "simple-line") {
     return (
-      <div className="flex items-center space-x-4 w-full justify-start">
+      <div
+        className={`flex items-center space-x-4 w-full justify-start ${className}`}>
         <Skeleton className="h-4 w-1/3  rounded-default" />
       </div>
+    );
+  } else if (type === "page") {
+    return (
+      <>
+        <DivFullScreenGradient gradient="gradient-to-r" />
+        <div
+          className={`flex items-center space-x-4 mt-16 w-full justify-center mx-auto ${className}`}>
+          <Skeleton className="h-24 w-1/3  rounded-default" />
+          <div className="space-y-2 w-2/3">
+            <Skeleton className="h-4 w-12/12 rounded-default" />
+            <Skeleton className="h-4 w-10/12 rounded-default" />
+            <Skeleton className="h-4 w-11/12 rounded-default" />
+            <Skeleton className="h-4 w-12/12 rounded-default" />
+          </div>
+        </div>
+      </>
     );
   }
   return <Loader noHFull />;

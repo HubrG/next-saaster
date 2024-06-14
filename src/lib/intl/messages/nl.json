@@ -522,5 +522,14 @@
       "login": "Log in op"
     },
     "title": "Een account aanmaken"
+  },
+  "NotFound": {
+    "back-link": "Keer terug naar de start pagina",
+    "erreur-404": "foutmelding 404",
+    "page-not-found": "We kunnen de gevraagde pagina niet vinden."
+  },
+  "Blog": {
+    "category": "Categorieën",
+    "tags": "Trefwoorden"
   }
 }

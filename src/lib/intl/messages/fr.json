@@ -522,5 +522,21 @@
         }
       }
     }
+  },
+  "NotFound": {
+    "erreur-404": "Erreur 404",
+    "page-not-found": "Nous ne trouvons pas la page demandée.",
+    "back-link": "Revenir sur la page d'accueil"
+  },
+  "Blog": {
+    "404": "Aucun article trouvé",
+    "category": "Categories",
+    "tags": "Mots-clés",
+    "no-title": "Article sans titre",
+    "Metadatas": {
+      "no-excerpt": "Aucun extrait",
+      "no-title": "Aucun titre"
+    },
+    "no-author": "Anonyme"
   }
 }

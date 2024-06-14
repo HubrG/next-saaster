@@ -522,5 +522,14 @@
       "login": "Skrá inn"
     },
     "title": "Búðu til reikning"
+  },
+  "NotFound": {
+    "back-link": "Fara aftur á heimasíðuna",
+    "erreur-404": "Villa 404",
+    "page-not-found": "Við finnum ekki umbeðna síðu."
+  },
+  "Blog": {
+    "category": "Flokkar",
+    "tags": "Leitarorð"
   }
 }

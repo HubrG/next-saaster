@@ -522,5 +522,14 @@
     "invalid-token": "無効なリセット トークンです。\nもう一度やり直すか、再申請してください。",
     "reset-password": "パスワードをリセットする",
     "token-expired": "リセットトークンが不明です。"
+  },
+  "NotFound": {
+    "back-link": "ホームページに戻る",
+    "erreur-404": "エラー404",
+    "page-not-found": "要求されたページが見つかりません。"
+  },
+  "Blog": {
+    "category": "カテゴリー",
+    "tags": "キーワード"
   }
 }

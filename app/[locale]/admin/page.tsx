@@ -7,7 +7,7 @@ import { authOptions } from "@/src/lib/next-auth/auth";
 import { UserRole } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import { Suspense, memo } from "react";
 const AdminIndex: React.ComponentType<any> = dynamic(
   () =>
     import("@/app/[locale]/admin/components/Index").then((mod) => mod.Index),
@@ -24,7 +24,7 @@ export const generateMetadata = async () => {
   });
 };
 
-export default async function Admin() {
+async function Admin() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -55,3 +55,5 @@ export default async function Admin() {
     </>
   );
 }
+
+export default memo(Admin)

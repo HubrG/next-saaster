@@ -3,7 +3,6 @@ import { TopLoader } from "@/app/[locale]/@layout/header/TopLoader";
 import { Init } from "@/app/[locale]/@layout/init";
 import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
-import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { cn } from "@/src/lib/utils";
 import { NextIntlProvider } from "@/src/providers/NextIntlProvider";
@@ -29,12 +28,7 @@ const serif = Playfair_Display({
 });
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
-export const generateMetadata = async () => {
-  return createMetadata({
-    // Voir la configuration des métadonnées dans metadatas.ts
-    // @/src/lib/metadatas
-  });
-};
+
 
 type Props = {
   children: React.ReactNode;
@@ -42,7 +36,6 @@ type Props = {
     locale: string;
   };
   session: Session;
-  layout: "default" | "auth";
 };
 const fetchSession = async () => {
   return await getServerSession(authOptions);
@@ -51,7 +44,6 @@ export default async function LocaleLayout(props: Props) {
   const {
     children,
     params: { locale },
-    layout = "default",
   } = props;
 
 

@@ -522,5 +522,14 @@
       "login": "Jelentkezzen be a"
     },
     "title": "Fiók létrehozása"
+  },
+  "NotFound": {
+    "back-link": "Vissza a kezdőlapra",
+    "erreur-404": "404-es hibakód",
+    "page-not-found": "Nem találjuk a keresett oldalt."
+  },
+  "Blog": {
+    "category": "Kategóriák",
+    "tags": "Kulcsszavak"
   }
 }

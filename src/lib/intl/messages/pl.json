@@ -522,5 +522,14 @@
       "login": "Zaloguj się do"
     },
     "title": "Utwórz konto"
+  },
+  "NotFound": {
+    "back-link": "Powrót do strony głównej",
+    "erreur-404": "błąd 404",
+    "page-not-found": "Nie możemy znaleźć żądanej strony."
+  },
+  "Blog": {
+    "category": "Kategorie",
+    "tags": "Słowa kluczowe"
   }
 }

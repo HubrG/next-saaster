@@ -5,6 +5,8 @@ import { UserInterfaceMainWrapper } from "@/src/components/ui/@fairysaas/user-in
 import { UserInterfaceNavWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceNavWrapper";
 import { UserInterfaceWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { useEffect } from "react";
+import { AdminBlog } from "./blog/AdminBlog";
 import { AdminSaas } from "./saas/AdminSaas";
 import { AdminSetup } from "./setup/AdminSetup";
 
@@ -16,6 +18,17 @@ import { AdminSetup } from "./setup/AdminSetup";
 // FIX : Sécurité : toutes les requêtes qui passent par un x.action depuis le client doivent être vérifiées avec un secret (et pas depuis le server)
 export const Index = () => {
   const { isStoreLoading } = useSaasSettingsStore();
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.includes("BlogPosts")) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, []);
 
   return (
     <UserInterfaceWrapper>
@@ -29,6 +42,7 @@ export const Index = () => {
           <>
             <AdminSetup />
             <AdminSaas />
+            <AdminBlog />
           </>
         )}
       </UserInterfaceMainWrapper>

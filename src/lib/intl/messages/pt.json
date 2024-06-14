@@ -522,5 +522,14 @@
     "invalid-token": "Token de reposição inválido. Tente novamente ou efectue um novo pedido.",
     "reset-password": "Redefinir a sua palavra-passe",
     "token-expired": "O token de reposição é desconhecido."
+  },
+  "NotFound": {
+    "back-link": "Retornar a página inicial",
+    "erreur-404": "Erro 404",
+    "page-not-found": "Não conseguimos encontrar a página solicitada."
+  },
+  "Blog": {
+    "category": "Categorias",
+    "tags": "Palavras-chave"
   }
 }

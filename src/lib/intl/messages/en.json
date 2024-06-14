@@ -522,5 +522,14 @@
     "invalid-token": "Invalid reset token. Please try again or make a new request.",
     "reset-password": "Reset your password",
     "token-expired": "The reset token is unknown."
+  },
+  "NotFound": {
+    "back-link": "Return to home page",
+    "erreur-404": "Error 404",
+    "page-not-found": "We cannot find the requested page."
+  },
+  "Blog": {
+    "category": "Categories",
+    "tags": "Keywords"
   }
 }

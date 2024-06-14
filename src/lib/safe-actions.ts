@@ -1,8 +1,6 @@
 import { createSafeActionClient, DEFAULT_SERVER_ERROR } from "next-safe-action";
 
-export class ActionError extends Error { }
-
-
+export class ActionError extends Error {}
 
 export const handleReturnedServerError = async (e: Error | ActionError) => {
   // If the error is an instance of `ActionError`, unmask the message.
@@ -82,6 +80,45 @@ export const adminAction = createSafeActionClient({
   },
   handleReturnedServerError,
 });
+
+export const adminOrEditorAction = createSafeActionClient({
+  async middleware() {
+    const { authOptions } = await import("./next-auth/auth");
+    const { getServerSession } = await import("next-auth/next");
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      throw new ActionError("You must be connected");
+    } else if (
+      session.user.role !== "ADMIN" &&
+      session.user.role !== "EDITOR" &&
+      session.user.role !== "SUPER_ADMIN"
+    ) {
+      throw new ActionError("You must be an admin");
+    } else {
+      const userSession = session.user;
+      return { userSession };
+    }
+  },
+  handleReturnedServerError,
+});
+
+export const upThanUserAction = createSafeActionClient({
+  async middleware() {
+    const { authOptions } = await import("./next-auth/auth");
+    const { getServerSession } = await import("next-auth/next");
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      throw new ActionError("You must be connected");
+    } else if (session.user.role === "USER") {
+      throw new ActionError("You must be an admin");
+    } else {
+      const userSession = session.user;
+      return { userSession };
+    }
+  },
+  handleReturnedServerError,
+});
+
 type MiddlewareData = {
   secret: string;
 };

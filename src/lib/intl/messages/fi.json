@@ -522,5 +522,14 @@
       "login": "Kirjaudu sisään osoitteessa"
     },
     "title": "Luo tili"
+  },
+  "NotFound": {
+    "back-link": "Palaa etusivulle",
+    "erreur-404": "Virhe 404",
+    "page-not-found": "Emme löydä pyydettyä sivua."
+  },
+  "Blog": {
+    "category": "Luokat",
+    "tags": "Avainsanat"
   }
 }

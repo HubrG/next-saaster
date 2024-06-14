@@ -34,6 +34,19 @@ export const isSuperAdmin = async () => {
 };
 //
 
+export const isMoreThanUser = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session) return false;
+  if (session.user.role === ("USER" as UserRole)) return false;
+  return session.user;
+}
+export const isEditor = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session) return false;
+  if (session.user.role !== ("EDITOR" as UserRole)) return false;
+  return true;
+}
+
 export const isConnected = async () => {
   const session = await getServerSession(authOptions);
   if (!session) return false;

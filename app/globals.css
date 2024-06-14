@@ -76,7 +76,7 @@ header {
   @apply sticky top-0 z-10 border-b border-slate-900/10 dark:border-slate-100/5;
 }
 header nav {
-  @apply md:px-0 px-5 w-full !z-[999999]  max-w-[87rem] mx-auto left-0 backdrop-blur-[12px] border-secondary dark:border-secondary/30;
+  @apply md:px-0 px-5 w-full !z-[999999]  max-w-[87rem] mx-auto left-0 backdrop-blur-[12px] backdrop-grayscale dark:backdrop-grayscale-0 border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
   @apply flex flex-wrap items-center justify-between mx-0 py-[0.4rem] backdrop-grayscale;
@@ -131,7 +131,7 @@ ul.main-menu li a {
 }
 /* LOGO */
 .logo {
-  @apply flex font-bold items-center nunderline  gap-x-1 md:mr-2 mr-0;
+  @apply flex font-bold items-center nunderline  gap-x-1 md:mr-2 ml-4;
 }
 .logo span {
   @apply md:text-2xl text-xl flex flex-row items-center;
@@ -251,9 +251,9 @@ div.progressToken {
   @apply w-screen absolute bg-white dark:bg-theming-background-50  z-[9999999999] !important;
 }
 ol {
-  @apply list-decimal pl-4 text-inherit list-outside text-sm w-full;
+  @apply list-decimal pl-4 text-inherit list-outside text-sm;
 }
-ol li {
+ol li:not(.blog-breadcrumb) {
   @apply w-full;
 }
 /* SECTION : ADMIN */
@@ -421,8 +421,8 @@ form button {
   @apply my-shadow mt-14 md:w-[40vh] sm:w-[80vh] py-8 right-0 bottom-0;
 }
 button[data-close-button] {
-  @apply !-right-[0.419rem] !rounded !rounded-tl-none !rounded-br-none !top-[0.429rem] !border-none p-0 !text-2xl cursor-pointer;
-  left:inherit !important;
+  @apply !-right-[0.475rem] !rounded !rounded-tl-none !rounded-br-none !top-[0.429rem] !border-none p-0 !text-2xl cursor-pointer;
+  left: inherit !important;
 }
 /* :where([data-sonner-toast]) :where([data-close-button]) {
   @apply right-0;
@@ -575,7 +575,7 @@ code {
 /* Footer */
 
 footer {
-  @apply !min-h-[30vh] bg-theming-background-200/10 pt-20 grid md:grid-cols-4 max-md:grid-rows-4 md:justify-start justify-center w-full md:items-start items-center text-white p-6 ;
+  @apply !min-h-[30vh] bg-theming-background-200/10 pt-20 grid md:grid-cols-4 max-md:grid-rows-4 md:justify-start justify-center w-full md:items-start items-center text-white p-6;
 }
 footer nav {
   @apply md:mt-0 mt-10 md:text-center max-md:flex max-md:flex-col max-md:items-center max-md:w-full;
@@ -585,7 +585,6 @@ footer h2 {
 }
 footer a {
   @apply text-theming-text-900/80 font-normal !important;
-
 }
 
 /* SECTION  Gradients and UI styles */
@@ -693,10 +692,8 @@ footer a {
     100px 100px 80px rgba(0, 0, 0, 0.06);
 }
 .my-little-shadow {
- box-shadow:
-  7.3px 15.3px 3.9px -36px rgba(0, 0, 0, 0.03),
-  19px 40px 31px -36px rgba(0, 0, 0, 0.06)
-;
+  box-shadow: 7.3px 15.3px 3.9px -36px rgba(0, 0, 0, 0.03),
+    19px 40px 31px -36px rgba(0, 0, 0, 0.06);
 }
 
 .dark .my-card:not(.tooltip) {
@@ -712,4 +709,178 @@ footer a {
 
 table.user-dialog-subscriptions tbody td {
   @apply !text-sm;
+}
+
+/* SECTION : BLOG */
+/* REACT SELECT CONTAINER */
+.react-select-container {
+  @apply shadcn-inputs h-auto flex flex-row items-center rounded-default  !important;
+}
+
+.react-select-container .react-select__control {
+  @apply w-full bg-transparent focus:border-0 file:border-0 border border-input/20 dark:border-input  ring-offset-theming-text-500 focus:ring focus:ring-theming-text-400 cursor-text;
+}
+
+.react-select-container
+  .react-select__control
+  .react-select__control--is-focused {
+  @apply border-0 w-full bg-transparent shadow-none focus:border-0 focus:ring-0 ;
+}
+
+.react-select-container
+  .react-select__control
+  .react-select__control--is-focused
+  .react-select__control--menu-is-open {
+  @apply border-0 w-full bg-transparent focus:border-0 focus:ring-0;
+}
+
+.react-select-container
+  .react-select__control
+  .react-select__control--is-focused
+  .react-select__control--menu-is-open
+  .react-select__value-container {
+  @apply border-0 bg-transparent focus:border-0 focus:ring;
+}
+
+.react-select-container .react-select__menu-list {
+  @apply bg-theming-background-50 dark:bg-theming-background-500 shadow-theming-text-100 rounded-b rounded-t-none !important;
+}
+
+.react-select-container .react-select__menu-list .react-select__option {
+  @apply hover:bg-theming-background-100 dark:bg-theming-text-400 text-theming-text-900 focus:bg-theming-text-100 active:bg-theming-text-100;
+}
+
+.react-select-container
+  .react-select__menu-list
+  .react-select__option--is-focused {
+  @apply bg-theming-text-500 dark:bg-theming-text-500 text-theming-text-100  !important;
+}
+
+.react-select-container .react-select__multi-value__remove {
+  @apply bg-theming-background-300/50 ml-2 hover:bg-theming-background-400/50 rounded-l-none rounded-r-default hover:text-theming-text-50;
+}
+.react-select-container .react-select__multi-value {
+  @apply bg-theming-background-300  text-theming-text-900 dark:text-theming-text-900/80 dark:bg-theming-background-300/80 rounded-default;
+}
+.react-select-container .react-select__multi-value__label {
+  @apply text-theming-text-900 dark:text-theming-text-900/80;
+}
+.react-select-container .react-select__menu-notice--no-options {
+  @apply text-theming-text-400 !important;
+}
+
+.react-select-container .react-select__menu {
+  @apply rounded-b rounded-t-none shadow-theming-text-300 shadow-sm mt-0.5  border-theming-text-500 !important;
+}
+
+.textareaBlogPostEditor {
+  @apply border-[1px] outline-0 border-theming-text-300 max-h-[92vh] shadow-t-lg  md:h-[50vh] h-[30vh] p-5 rounded-t-lg border-l-0 border-r-0 text-base border-t-[5px] border-t-theming-text-500 z-10 dark:bg-white !opacity-100;
+  background-color: hsl(var(--background-100) / 1) !important;
+  /* no outline on focus */
+}
+
+.textarea-container {
+  position: sticky;
+}
+
+.textarea-resizer {
+  @apply rounded-t-xl bg-theming-background-500 cursor-ns-resize;
+  position: absolute;
+  top: 1px;
+  right: 0px;
+  width: 100%;
+  height: 5px;
+}
+
+/* textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  outline: none;
+} */
+
+/* article h1 {
+  @apply text-4xl font-bold mt-8 mb-4;
+}
+article h2 {
+  @apply text-3xl font-bold mt-7 mb-3;
+}
+article h3 {
+  @apply text-2xl font-bold mt-6 mb-3;
+}
+article h4 {
+  @apply text-xl font-bold mt-5 mb-2;
+}
+article h5 {
+  @apply text-lg font-bold mt-4 mb-2;
+}
+article h6 {
+  @apply text-base font-bold mt-3 mb-2;
+}
+*/
+article {
+  @apply  pr-6 pt-14 -mt-20 !important;
+}
+article p {
+  @apply text-lg md:pl-2 mt-4 mb-4 !important;
+}
+article em,
+article i {
+  @apply italic;
+}
+article strong,
+article b {
+  @apply font-bold;
+}
+article del {
+  @apply line-through;
+}
+article blockquote {
+  @apply border-l-4 border-theming-text-300 bg-theming-text-50 rounded py-2 pl-4 italic my-4;
+}
+article ul {
+  @apply list-disc list-inside mt-4 mb-4;
+}
+article ol {
+  @apply list-decimal list-inside mt-4 mb-4;
+}
+
+article a {
+  @apply text-theming-text-700;
+}
+article img {
+  @apply max-w-full h-auto my-4;
+}
+article pre {
+  @apply bg-gray-100 p-4 rounded mt-4 mb-4;
+}
+article code {
+  @apply text-sm bg-gray-100 rounded p-1;
+}
+
+article hr {
+  @apply border-t border-gray-300 my-8;
+}
+article table {
+  @apply w-full border-collapse my-4;
+}
+article th,
+article td {
+  @apply border border-gray-300 px-4 py-2;
+}
+article .task-list-item {
+  @apply list-none list-inside;
+}
+.input-blog-title {
+  @apply md:text-4xl text-3xl  h-auto font-bold !important;
+}
+.input-blog-image {
+  @apply border-none h-auto italic !important;
+}
+
+.blog-sidebar {
+@apply flex flex-col h-[85vh] md:pl-4 ;
+}
+.blog-sidebar h3 {
+  @apply text-lg flex flex-row justify-between items-center !important;
 }

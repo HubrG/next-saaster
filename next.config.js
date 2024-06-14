@@ -6,6 +6,11 @@ const withNextIntl = require("next-intl/plugin")(
 );
 
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
   reactStrictMode: true,
   env: {
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
@@ -30,7 +35,7 @@ const nextConfig = {
       },
     ],
   },
-// 
+  //
   async headers() {
     return [
       {
@@ -38,7 +43,7 @@ const nextConfig = {
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=86400", 
+            value: "public, max-age=86400",
           },
         ],
       },

@@ -9,6 +9,7 @@ export const DivFullScreenGradient = ({
   className,
 }: DivFullScreenGradientProps) => {
   return (
-    <div className={`absolute-fullscreen-div ${gradient} ${className}`}></div>
+    <div
+      className={`absolute-fullscreen-div hidden dark:block ${gradient} ${className}`}></div>
   );
 };

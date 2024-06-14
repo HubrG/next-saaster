@@ -522,5 +522,14 @@
       "login": "Masuk ke"
     },
     "title": "Membuat akun"
+  },
+  "NotFound": {
+    "back-link": "Kembali ke halaman beranda",
+    "erreur-404": "kesalahan 404",
+    "page-not-found": "Kami tidak dapat menemukan halaman yang diminta."
+  },
+  "Blog": {
+    "category": "Kategori",
+    "tags": "Kata kunci"
   }
 }

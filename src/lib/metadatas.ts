@@ -1,33 +1,46 @@
 import { getLocale } from "next-intl/server";
 import { getAppSettings } from "../helpers/db/appSettings.action";
 
-interface MetadataParams {
-  title?: string;
+export interface MetadataParams {
+  title: string;
   description?: string;
+  type?:
+    | "website"
+    | "article"
+    | "book"
+    | "profile"
+    | "video.movie"
+    | "video.episode"
+    | "video.tv_show"
+    | "video.other"
+    | "music.song"
+    | "music.album"
+    | "music.playlist"
+    | "music.radio_station";
   url?: string;
   imgPath?: string;
-  type?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  section?: string;
+  tags?: string[];
+  authors?: string[];
+  twitterCreator?: string;
 }
 
 export const createMetadata = async ({
   title,
   type = "website",
-  description,
-  url,
+  description = "",
+  url = "",
+  tags = [],
+  publishedTime,
+  modifiedTime,
+  section,
+  authors,
+  twitterCreator,
   imgPath = "/img/header-home.webp",
 }: MetadataParams) => {
   const local = await getLocale();
-  const localeMap = {
-    fr: "FR",
-    en: "US",
-    uk: "GB",
-    es: "ES",
-    de: "DE",
-    it: "IT",
-    pt: "PT",
-    zh: "CN",
-    ja: "JP",
-  };
   const settings = (await getAppSettings()).data;
   if (!settings) {
     throw new Error("No settings found");
@@ -48,27 +61,46 @@ export const createMetadata = async ({
   }
 
   return {
-    title: title,
+    title,
     metadataBase: new URL(`${process.env.NEXT_PUBLIC_URI}`),
-    description: description, // 170 caractères maximum
+    description,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: title,
-      type: type,
-      description: description,
-      url: url,
-      siteName: `${process.env.NEXT_PUBLIC_APP_NAME}`,
+      title,
+      type,
+      description,
+      url,
+      publishedTime,
+      modifiedTime,
+      tags,
+      section,
+      siteName: settings?.name ?? "",
       images: [
         {
           url: imgURL,
-          width: 1800,
-          height: 1600,
+          width: 1200,
+          height: 630,
           alt: `${settings?.name ?? title}`,
         },
       ],
-      locale: local + "_" + localeMap[local as keyof typeof localeMap],
+      authors,
+      locale: local + "_" + local.toUpperCase(),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      creator: twitterCreator,
+      images: [
+        {
+          url: imgURL,
+          width: 1200,
+          height: 630,
+          alt: `${settings?.name ?? title}`,
+        },
+      ],
     },
   };
 };

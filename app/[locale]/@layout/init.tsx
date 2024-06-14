@@ -6,6 +6,7 @@ import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
+import useBlogStore from "@/src/stores/blogStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { SaasSettings, appSettings } from "@prisma/client";
@@ -26,6 +27,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { fetchSaasFeatures } = useSaasFeaturesStore();
   const { fetchSaasPlan } = useSaasPlansStore();
   const { fetchUserStore } = useUserStore();
+  const { fetchBlogPosts } = useBlogStore();
 
   const isClient = useIsClient();
   const [hasLoadedData, setHasLoadedData] = useState(false); // Nouvel état pour suivre si les données ont été chargées
@@ -44,6 +46,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
           fetchSaasStripeCoupons();
           fetchSaasFeaturesCategories();
           fetchSaasFeatures();
+          fetchBlogPosts();
         }
       }
       Promise.all([fetchSaasPlan()]).then(() => {

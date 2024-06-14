@@ -522,5 +522,14 @@
     "invalid-token": "Identificador de reinicio no válido. Vuelve a intentarlo o realiza una nueva solicitud.",
     "reset-password": "Restablecer la contraseña",
     "token-expired": "El token de reinicio es desconocido."
+  },
+  "NotFound": {
+    "back-link": "Regresar a la página principal",
+    "erreur-404": "error 404",
+    "page-not-found": "No podemos encontrar la página solicitada."
+  },
+  "Blog": {
+    "category": "Categorías",
+    "tags": "Palabras clave"
   }
 }

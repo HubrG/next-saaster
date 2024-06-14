@@ -522,5 +522,14 @@
     "invalid-token": "Geçersiz sıfırlama belirteci. Lütfen tekrar deneyin veya yeni bir talepte bulunun.",
     "reset-password": "Şifrenizi sıfırlama",
     "token-expired": "Sıfırlama belirteci bilinmiyor."
+  },
+  "NotFound": {
+    "back-link": "Ana sayfaya dön",
+    "erreur-404": "Hata 404",
+    "page-not-found": "İstenilen sayfayı bulamıyoruz."
+  },
+  "Blog": {
+    "category": "Kategoriler",
+    "tags": "Anahtar Kelimeler"
   }
 }

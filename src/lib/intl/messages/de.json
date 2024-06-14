@@ -522,5 +522,14 @@
     "invalid-token": "Ungültiger Jeton zum Zurücksetzen. Bitte beginnen Sie erneut oder stellen Sie einen neuen Antrag.",
     "reset-password": "Ihr Passwort zurücksetzen",
     "token-expired": "Das Token zum Zurücksetzen ist unbekannt."
+  },
+  "NotFound": {
+    "back-link": "Zur Startseite zurückkehren",
+    "erreur-404": "Fehler 404",
+    "page-not-found": "Wir können die angeforderte Seite nicht finden."
+  },
+  "Blog": {
+    "category": "Kategorien",
+    "tags": "Schlüsselwörter"
   }
 }

@@ -13,10 +13,10 @@ import {
   LayoutDashboard,
   Palette,
   Rss,
+  RssIcon,
   Settings2,
   SquarePen,
-  UsersRound,
-  View
+  UsersRound
 } from "lucide-react";
 import { useState } from "react";
 
@@ -180,9 +180,9 @@ export const AdminNavbar = () => {
         <ul>
           <MenuItem
             activeSection={activeSection}
-            sectionObserve="ManageCategories"
-            icon={<SquarePen className="icon" />}
-            text="Create a post"
+            sectionObserve="BlogPosts"
+            icon={<RssIcon className="icon" />}
+            text="Manage posts"
             handleScroll={handleScroll}
           />
           <MenuItem
@@ -190,13 +190,6 @@ export const AdminNavbar = () => {
             sectionObserve="ManageCategories"
             icon={<SquarePen className="icon" />}
             text="Manage categories"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="ManagePosts"
-            icon={<View className="icon" />}
-            text="Manage posts"
             handleScroll={handleScroll}
           />
         </ul>

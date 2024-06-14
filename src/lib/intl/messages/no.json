@@ -522,5 +522,14 @@
       "login": "Logg Inn"
     },
     "title": "Opprett en konto"
+  },
+  "NotFound": {
+    "back-link": "Gå tilbake til hjemmesiden",
+    "erreur-404": "Feil 404",
+    "page-not-found": "Vi kan ikke finne den forespurte siden."
+  },
+  "Blog": {
+    "category": "Kategorier",
+    "tags": "Nøkkelord"
   }
 }

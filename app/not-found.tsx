@@ -33,9 +33,9 @@ export default async function NotFound() {
   return (
     <LocaleLayout params={{ locale }} session={Sess}>
       <div className=" text-center flex items-center justify-center flex-col max-w-lg !-mt-96">
-        <h2>{t("NotFound.erreur-404")}</h2>
-        <p>{t("NotFound.page-not-found")}</p>
-        <Link href="/">{t("NotFound.back-link")}</Link>
+        <h2>Erreur 404</h2>
+        <p>blabla</p>
+        <Link href="/">Blalba</Link>
       </div>
     </LocaleLayout>
   );

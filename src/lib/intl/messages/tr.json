@@ -529,7 +529,14 @@
     "page-not-found": "İstenilen sayfayı bulamıyoruz."
   },
   "Blog": {
+    "404": "hiç bir öğe bulunamadı",
     "category": "Kategoriler",
-    "tags": "Anahtar Kelimeler"
+    "tags": "Anahtar Kelimeler",
+    "Metadatas": {
+      "no-excerpt": "Ekstrakt yok",
+      "no-title": "Başlık yok"
+    },
+    "no-author": "Anonim",
+    "no-title": "Başlıksız makale"
   }
 }

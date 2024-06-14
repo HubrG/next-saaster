@@ -529,7 +529,14 @@
     "page-not-found": "Emme löydä pyydettyä sivua."
   },
   "Blog": {
+    "404": "kohteita ei löytynyt",
     "category": "Luokat",
-    "tags": "Avainsanat"
+    "tags": "Avainsanat",
+    "Metadatas": {
+      "no-excerpt": "Ei ote",
+      "no-title": "Ei otsikkoa"
+    },
+    "no-author": "Nimetön",
+    "no-title": "Nimetön artikkeli"
   }
 }

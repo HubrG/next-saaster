@@ -529,7 +529,14 @@
     "page-not-found": "Nem találjuk a keresett oldalt."
   },
   "Blog": {
+    "404": "Nincs találat",
     "category": "Kategóriák",
-    "tags": "Kulcsszavak"
+    "tags": "Kulcsszavak",
+    "Metadatas": {
+      "no-excerpt": "Nincs kivonat",
+      "no-title": "Nincs cím"
+    },
+    "no-author": "Névtelen",
+    "no-title": "Cím nélküli cikk"
   }
 }

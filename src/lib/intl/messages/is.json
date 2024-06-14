@@ -529,7 +529,14 @@
     "page-not-found": "Við finnum ekki umbeðna síðu."
   },
   "Blog": {
+    "404": "Engir hlutir fundust",
     "category": "Flokkar",
-    "tags": "Leitarorð"
+    "tags": "Leitarorð",
+    "Metadatas": {
+      "no-excerpt": "Ekkert útdráttur",
+      "no-title": "Enginn titill"
+    },
+    "no-author": "Nafnlaus",
+    "no-title": "Ónefnd grein"
   }
 }

@@ -529,7 +529,14 @@
     "page-not-found": "We cannot find the requested page."
   },
   "Blog": {
+    "404": "No items found",
     "category": "Categories",
-    "tags": "Keywords"
+    "tags": "Keywords",
+    "Metadatas": {
+      "no-excerpt": "No extract",
+      "no-title": "No title"
+    },
+    "no-author": "Anonymous",
+    "no-title": "Untitled article"
   }
 }

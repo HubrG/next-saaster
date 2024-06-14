@@ -529,7 +529,14 @@
     "page-not-found": "We kunnen de gevraagde pagina niet vinden."
   },
   "Blog": {
+    "404": "Geen items gevonden",
     "category": "Categorieën",
-    "tags": "Trefwoorden"
+    "tags": "Trefwoorden",
+    "Metadatas": {
+      "no-excerpt": "Geen uittreksel",
+      "no-title": "Geen titel"
+    },
+    "no-author": "Anoniem",
+    "no-title": "Naamloos artikel"
   }
 }

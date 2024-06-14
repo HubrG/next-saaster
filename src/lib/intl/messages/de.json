@@ -529,7 +529,14 @@
     "page-not-found": "Wir können die angeforderte Seite nicht finden."
   },
   "Blog": {
+    "404": "Keine Elemente gefunden",
     "category": "Kategorien",
-    "tags": "Schlüsselwörter"
+    "tags": "Schlüsselwörter",
+    "Metadatas": {
+      "no-excerpt": "Kein Auszug",
+      "no-title": "Kein Titel"
+    },
+    "no-author": "Anonym",
+    "no-title": "Artikel ohne Titel"
   }
 }

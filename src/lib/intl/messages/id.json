@@ -529,7 +529,14 @@
     "page-not-found": "Kami tidak dapat menemukan halaman yang diminta."
   },
   "Blog": {
+    "404": "Tidak ada item yang ditemukan",
     "category": "Kategori",
-    "tags": "Kata kunci"
+    "tags": "Kata kunci",
+    "Metadatas": {
+      "no-excerpt": "Tanpa ekstrak",
+      "no-title": "Tanpa judul"
+    },
+    "no-author": "Anonim",
+    "no-title": "Artikel tanpa judul"
   }
 }

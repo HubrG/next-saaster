@@ -529,7 +529,14 @@
     "page-not-found": "Chúng tôi không thể tìm thấy trang được yêu cầu."
   },
   "Blog": {
+    "404": "không tìm thấy vật nào",
     "category": "Thể loại",
-    "tags": "Từ khóa"
+    "tags": "Từ khóa",
+    "Metadatas": {
+      "no-excerpt": "Không có chiết xuất",
+      "no-title": "Không tiêu đề"
+    },
+    "no-author": "Vô danh",
+    "no-title": "Bài viết không có tiêu đề"
   }
 }

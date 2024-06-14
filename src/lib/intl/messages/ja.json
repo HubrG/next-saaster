@@ -529,7 +529,14 @@
     "page-not-found": "要求されたページが見つかりません。"
   },
   "Blog": {
+    "404": "項目は見つかりませんでした",
     "category": "カテゴリー",
-    "tags": "キーワード"
+    "tags": "キーワード",
+    "Metadatas": {
+      "no-excerpt": "エキスなし",
+      "no-title": "タイトルなし"
+    },
+    "no-author": "匿名",
+    "no-title": "無題の記事"
   }
 }

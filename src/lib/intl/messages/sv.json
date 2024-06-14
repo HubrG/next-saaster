@@ -529,7 +529,14 @@
     "page-not-found": "Vi kan inte hitta den begärda sidan."
   },
   "Blog": {
+    "404": "Inga föremål hittades",
     "category": "Kategorier",
-    "tags": "Nyckelord"
+    "tags": "Nyckelord",
+    "Metadatas": {
+      "no-excerpt": "Inget extrakt",
+      "no-title": "Ingen titel"
+    },
+    "no-author": "Anonym",
+    "no-title": "Artikel utan titel"
   }
 }

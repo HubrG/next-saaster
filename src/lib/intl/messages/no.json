@@ -529,7 +529,14 @@
     "page-not-found": "Vi kan ikke finne den forespurte siden."
   },
   "Blog": {
+    "404": "ingen objekter funnet",
     "category": "Kategorier",
-    "tags": "Nøkkelord"
+    "tags": "Nøkkelord",
+    "Metadatas": {
+      "no-excerpt": "Ingen utdrag",
+      "no-title": "Uten tittel"
+    },
+    "no-author": "Anonym",
+    "no-title": "Artikkel uten tittel"
   }
 }

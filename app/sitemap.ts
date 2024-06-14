@@ -1,7 +1,7 @@
 import {
-    getBlogCategories,
-    getBlogPosts,
-    getBlogTags,
+  getBlogCategories,
+  getBlogPosts,
+  getBlogTags,
 } from "@/src/helpers/db/blog.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import mainMenu from "@/src/jsons/main-menu.json";
@@ -97,7 +97,7 @@ function createSitemapEntries(
       changeFrequency: "weekly" as const,
       priority: 0.5,
     },
-    ...mainMenuLinks,
+    // ...mainMenuLinks,
     ...posts,
     ...tags,
     ...categories,

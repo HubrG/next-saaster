@@ -2,7 +2,7 @@
 // is requested that doesn't match the middleware and
 // therefore doesn't have a locale associated with it.
 
-import { Session } from "next-auth";
+// import { Session } from "next-auth";
 // import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 // export const generateMetadata = async () => {
@@ -12,18 +12,18 @@ import Link from "next/link";
 //     title: "404",
 //   });
 // };
-const Sess: Session = {
-  user: {
-    name: null,
-    email: null,
-    image: null,
-    id: "",
-    role: "USER", // ou un autre rôle approprié
-    userId: "",
-    customerId: "",
-  },
-  expires: "",
-};
+// const Sess: Session = {
+//   user: {
+//     name: null,
+//     email: null,
+//     image: null,
+//     id: "",
+//     role: "USER", // ou un autre rôle approprié
+//     userId: "",
+//     customerId: "",
+//   },
+//   expires: "",
+// };
 
 export default async function NotFound() {
   // const t = await getTranslations();

@@ -2,7 +2,13 @@ import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-ele
 import { ReactNode } from "react";
 import SideBar from "./@components/SideBar";
 
-export default function BlogLayout({ children }: { children: ReactNode }) {
+// Définir le type de LayoutProps pour inclure children et components
+interface LayoutProps {
+  children: ReactNode;
+  components?: ReactNode;
+}
+
+export default function BlogLayout({ children, components }: LayoutProps) {
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />

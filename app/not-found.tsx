@@ -4,9 +4,9 @@
 
 import createMetadata from "@/src/lib/metadatas";
 import { Session } from "next-auth";
-import { getLocale, getTranslations } from "next-intl/server";
+// import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
-import LocaleLayout from "./[locale]/layout";
+// import LocaleLayout from "./[locale]/layout";
 export const generateMetadata = async () => {
   return createMetadata({
     // Voir la configuration des métadonnées dans metadatas.ts
@@ -28,15 +28,15 @@ const Sess: Session = {
 };
 
 export default async function NotFound() {
-  const t = await getTranslations();
-  const locale = await getLocale();
   return (
-    <LocaleLayout params={{ locale }} session={Sess}>
+  
       <div className=" text-center flex items-center justify-center flex-col max-w-lg !-mt-96">
-        <h2>{t("NotFound.erreur-404")}</h2>
-        <p>{t("NotFound.page-not-found")}</p>
-        <Link href="/" locale={locale}>{t("NotFound.back-link")}</Link>
+        <h2>404</h2>
+        <p>Page not found.</p>
+        <Link href="/">
+          Back to home
+        </Link>
       </div>
-    </LocaleLayout>
+  
   );
 }

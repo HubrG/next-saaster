@@ -7,6 +7,8 @@ import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import mainMenu from "@/src/jsons/main-menu.json";
 import { MetadataRoute } from "next";
 
+export const dynamic = "force-dynamic";
+
 interface BlogData {
   blogPosts: Array<{ id: string; canonicalSlug: string; updatedAt: string }>;
   blogTags: Array<{ slug: string }>;

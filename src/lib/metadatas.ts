@@ -1,3 +1,4 @@
+import { getLocale } from "next-intl/server";
 import { getAppSettings } from "../helpers/db/appSettings.action";
 
 export interface MetadataParams {
@@ -39,7 +40,7 @@ export const createMetadata = async ({
   twitterCreator,
   imgPath = "/img/header-home.webp",
 }: MetadataParams) => {
-  
+  const local = await getLocale();
   const settings = (await getAppSettings()).data;
   if (!settings) {
     throw new Error("No settings found");
@@ -56,7 +57,7 @@ export const createMetadata = async ({
     description = `${settings?.description}`;
   }
   if (!url) {
-    url = `${process.env.NEXT_PUBLIC_URI}`;
+    url = `${process.env.NEXT_PUBLIC_URI}/${local}`;
   }
 
   return {
@@ -85,7 +86,7 @@ export const createMetadata = async ({
         },
       ],
       authors,
-      // locale: local + "_" + local.toUpperCase(),
+      locale: local + "_" + local.toUpperCase(),
     },
     twitter: {
       card: "summary_large_image",

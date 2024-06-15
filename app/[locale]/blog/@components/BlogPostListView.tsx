@@ -1,3 +1,4 @@
+import { Card } from "@/src/components/ui/card";
 import { Link } from "@/src/lib/intl/navigation";
 import { BlogPost } from "@prisma/client";
 import Image from "next/image";
@@ -33,16 +34,16 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
         .map((post: CustomBlogPost) => (
           <>
             {post.published && (
-              <div key={v4() + post.id}>
+              <Card key={v4() + post.id}>
                 {/* <MotionShow animation="bounceIn">
                   <MotionHover
                     scale={1.005}
                     shadow={"0 15px 50px -12px var(--color-app3)"}
                     type={"grow"}> */}
-                <div className="flex flex-col gap-5 rounded-lg p-5 items-start border-b-2 border-b-app-200">
+                <div className="flex flex-col gap-5 rounded-lg p-0 items-start border-b-app-200">
                   <div className="flex w-full flex-row items-center mb-1 justify-between">
-                    <p>
-                      <small>
+                    <p className="pt-0">
+                      <small className="text-xs">
                         Le{" "}
                         {post.publishedAt
                           ?.toLocaleString("fr-FR", {
@@ -67,22 +68,28 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                     <div className="w-full relative">
                       <div className="relative w-full h-32 mx-auto rounded-lg overflow-hidden">
                         {post.image ? (
-                          <Image
-                            src={post.image}
-                            alt={post.title ? post.title : "Aucun titre"}
-                            width={900}
-                            height={200}
-                            className="object-cover"
-                            priority={true}
-                          />
+                          <div className="flex justify-center items-center h-full">
+                            <Image
+                              src={post.image}
+                              alt={post.title ? post.title : "Aucun titre"}
+                              width={900}
+                              height={200}
+                              className="object-cover object-center"
+                              lazyBoundary="100px"
+                            />
+                          </div>
                         ) : (
                           ""
                         )}
                       </div>
                     </div>
-                    <h2 className="mt-2">{post.title}</h2>
-                    <p className="-mt-2 font-normal">
-                      {post.excerpt ? post.excerpt : ""}
+                    <h2 className="mt-2 text-left">{post.title}</h2>
+                    <p className=" font-normal text-base mt-5 text-justify">
+                      {post.excerpt
+                        ? post.excerpt.length > 200
+                          ? `${post.excerpt.substring(0, 200)}...`
+                          : post.excerpt
+                        : ""}
                     </p>
                   </Link>
                   <div className="flex flex-row flex-wrap gap-2 text-sm italic opacity-80">
@@ -100,7 +107,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                 </div>
                 {/* </MotionHover>
                 </MotionShow> */}
-              </div>
+              </Card>
             )}
           </>
         ))}

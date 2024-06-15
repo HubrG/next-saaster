@@ -1,6 +1,7 @@
 "use client";
 import { useIsClient } from "@/src/hooks/useIsClient";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
+import { useUserQuery } from "@/src/queries/useUserQuery";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
@@ -9,6 +10,7 @@ import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import useBlogStore from "@/src/stores/blogStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
+import { iUsers } from "@/src/types/db/iUsers";
 import { SaasSettings, appSettings } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
 
@@ -18,56 +20,59 @@ type Props = {
 };
 
 export const Init = ({ appSettings, saasSettings }: Props) => {
-    const { data: session, isLoading } = useSessionQuery();
-
+  const { data: session, isLoading } = useSessionQuery();
+  const { data: user } = useUserQuery(session?.user?.email ?? "");
   const { setAppSettings } = useAppSettingsStore();
   const { setSaasSettings } = useSaasSettingsStore();
   const { fetchSaasStripeCoupons } = useSaasStripeCoupons();
   const { fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
   const { fetchSaasFeatures } = useSaasFeaturesStore();
   const { fetchSaasPlan } = useSaasPlansStore();
-  const { fetchUserStore } = useUserStore();
+  const { fetchUserStore, setUserStore } = useUserStore();
   const { fetchBlogPosts } = useBlogStore();
-
   const isClient = useIsClient();
-  const [hasLoadedData, setHasLoadedData] = useState(false); // Nouvel état pour suivre si les données ont été chargées
+  const [hasLoadedData, setHasLoadedData] = useState(false);
 
-  const initialize = useCallback(() => {
+  useEffect(() => {
+    if (user && session?.user !== undefined) {
+      setUserStore(user as iUsers);
+    }
+  }, [user, session, setUserStore]);
+
+  const initialize = useCallback(async () => {
     if (isClient && !isLoading && !hasLoadedData) {
-      // Vérifiez si les données ont déjà été chargées
       setAppSettings(appSettings);
       setSaasSettings(saasSettings);
-      if (session?.user !== undefined || session !== undefined) {
-        const user = session?.user;
-        if (user?.email) {
-          fetchUserStore(user.email);
-        }
-        if (user?.role !== "USER") {
-          fetchSaasStripeCoupons();
-          fetchSaasFeaturesCategories();
-          fetchSaasFeatures();
-          fetchBlogPosts();
-        }
+
+      if (session?.user && user?.role !== "USER") {
+        await Promise.all([
+          fetchSaasStripeCoupons(),
+          fetchSaasFeaturesCategories(),
+          fetchSaasFeatures(),
+          fetchBlogPosts(),
+          fetchSaasPlan(),
+        ]);
+      } else {
+        await fetchSaasPlan();
       }
-      Promise.all([fetchSaasPlan()]).then(() => {
-        setHasLoadedData(true); 
-      });
+
+      setHasLoadedData(true);
     }
   }, [
     isClient,
-    session,
+    isLoading,
+    hasLoadedData,
     setAppSettings,
     appSettings,
     setSaasSettings,
     saasSettings,
-    fetchUserStore,
-    // fetchSaasStripeProducts,
-    // fetchSaasStripePrices,
+    session,
+    user,
     fetchSaasStripeCoupons,
     fetchSaasFeaturesCategories,
     fetchSaasFeatures,
+    fetchBlogPosts,
     fetchSaasPlan,
-    hasLoadedData, // Ajoutez hasLoadedData comme dépendance
   ]);
 
   useEffect(() => {
@@ -75,8 +80,8 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   }, [initialize]);
 
   if (isLoading) {
-    return <></>;
+    return null;
   }
 
-  return <></>;
+  return null;
 };

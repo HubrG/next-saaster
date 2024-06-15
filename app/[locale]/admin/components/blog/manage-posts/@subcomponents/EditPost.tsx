@@ -26,7 +26,10 @@ import CreatableSelect from "react-select/creatable";
 import slugify from "react-slugify";
 import Showdown from "showdown";
 import validator from "validator";
-import { saveEditPost, saveTagsForPost } from "../../../../queries/blog/blog.action";
+import {
+  saveEditPost,
+  saveTagsForPost,
+} from "../../../../queries/blog/blog.action";
 
 interface EditPostProps {
   post: BlogPost;
@@ -125,7 +128,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       content: formattedMarkdown,
       canonicalSlug: slugify(canonicalSlug),
       excerpt: excerpt,
-      published: pub ? true : false,
+      published: pub !== undefined ? pub : published, // Utiliser la valeur de pub si elle est définie, sinon utiliser l'état published
       category: selectedCategory ? selectedCategory : null,
     });
     saveTagsForPost(post.id, tagIds);
@@ -150,7 +153,15 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       handleSavePost();
     }
   };
-
+  useEffect(() => {
+    if (!excerpt) {
+      const initialExcerpt = formattedMarkdown
+        .split("</p>")[0]
+        .replace("<p>", "");
+      setExcerpt(initialExcerpt);
+    }
+  }, [formattedMarkdown, excerpt]);
+  
   // Si on appuie sur cmd+s n'importe où sur la fenêtre, on sauvegarde
   useEffect(() => {
     const handleSave = (event: KeyboardEvent) => {
@@ -159,9 +170,19 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
         handleSavePost();
       }
     };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey && event.key === "s") {
+        event.preventDefault();
+      }
+    };
+
     window.addEventListener("keydown", handleSave);
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
       window.removeEventListener("keydown", handleSave);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleSavePost]);
 
@@ -217,7 +238,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       {" "}
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="flex flex-col w-9/12 mx-auto gap-y-5 -mt-10">
-        <div className="flex w-full justify-between sticky top-[4.36rem] px-2 shadow-sm z-50 bg-transparent backdrop-blur-md py-2 items-center space-x-2  text-sm gap-y-5">
+        <div className="flex w-full justify-between sticky top-[4.09rem] px-2 shadow-sm z-50 bg-transparent backdrop-blur-md py-2 items-center space-x-2  text-sm gap-y-5">
           <div>
             <Link
               href={"/admin#BlogPosts" as any}
@@ -226,20 +247,20 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
               <span>Back to the blog manager</span>
             </Link>
           </div>
-            <div className="flex flex-row justify-left items-center gap-x-2">
-              <Switch
-                id="published"
-                className="my-0 py-0"
-                checked={published}
-                onCheckedChange={(e) => {
-                  setPublished(e);
-                  handleSavePost(e);
-                }}
-              />
-              <Label htmlFor="published" className=" text-sm mt-1.5">
-                Publish
-              </Label>
-            </div>
+          <div className="flex flex-row justify-left items-center gap-x-2">
+            <Switch
+              id="published"
+              className="my-0 py-0"
+              checked={published}
+              onCheckedChange={(e) => {
+                setPublished(e);
+                handleSavePost(e);
+              }}
+            />
+            <Label htmlFor="published" className=" text-sm mt-1.5">
+              Publish
+            </Label>
+          </div>
           <div className="flex flex-row gap-x-10 items-center">
             <Button
               onClick={() => handleSavePost()}
@@ -336,8 +357,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
                 }}
                 value={
                   !excerpt
-                    ? // récupérer le premier paragraphe de formattedMarkdown
-                      formattedMarkdown.split("</p>")[0].replace("<p>", "")
+                    ? formattedMarkdown.split("</p>")[0].replace("<p>", "")
                     : excerpt
                 }
               />

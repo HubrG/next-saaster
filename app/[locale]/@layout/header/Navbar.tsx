@@ -56,7 +56,7 @@ export const Navbar = ({settings }: NavbarProps) => {
               />
               <Button className="hidden"></Button>
               <div className="sm:block hidden">
-                {session || isLoading ? <UserProfile isLoading={isLoading} /> : <LoginButton />}
+                {session?.user.id || isLoading ? <UserProfile email={session?.user.email ?? ""} isLoading={isLoading} /> : <LoginButton />}
               </div>
               <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
             </div>

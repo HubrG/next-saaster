@@ -19,8 +19,9 @@ import {
 } from "@/src/helpers/dependencies/user";
 import { Link } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
+import { useUserQuery } from "@/src/queries/useUserQuery";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { useUserStore } from "@/src/stores/userStore";
+import { iUsers } from "@/src/types/db/iUsers";
 import { UserRole } from "@prisma/client";
 import { upperCase } from "lodash";
 import { CreditCard, User, Wrench } from "lucide-react";
@@ -32,28 +33,41 @@ import { DropdownMenuItemLogout } from "./LogoutButton";
 type UserProfileProps = {
   className?: string;
   isLoading?: boolean;
+  email: string;
 };
-export const UserProfile = ({ className, isLoading }: UserProfileProps) => {
-  const { userStore } = useUserStore();
+export const UserProfile = ({
+  className,
+  email,
+  isLoading,
+}: UserProfileProps) => {
+  const { data: user } = useUserQuery(email);
+  const [userStore, setUserStore] = useState<iUsers>();
+  useEffect(() => {
+    if (user && user.id) {
+      setUserStore(user as iUsers);
+    }
+  }, [user]);
+  // const userStore = user as iUsers;
   const [userProfile, setUserProfile] = useState<ReturnUserDependencyProps>();
   const { saasSettings } = useSaasSettingsStore();
   const t = useTranslations("Layout.Header.Navbar.UserProfile");
 
   // We get the userProfile
-  useEffect(() => {
-    setUserProfile(getUserInfos({ user: userStore }));
-  }, [userStore]);
+    useEffect(() => {
+      if (!userStore?.id) return;
+      setUserProfile(getUserInfos({ user: userStore }));
+    }, [userStore]);
 
-  if (!userStore.id || isLoading) {
-    return (
-      <div className="flex items-center space-x-3 h-11 pr-7 -mt-1 ml-4">
-        <Skeleton className="h-10 w-10 rounded-full" />
-        <div className="space-y-2">
-          <Skeleton className="py-1 !h-0.5 rounded-full w-14" />
+    if (!userStore?.id || isLoading) {
+      return (
+        <div className="flex items-center space-x-3 h-11 pr-7 -mt-1 ml-4">
+          <Skeleton className="h-10 w-10 rounded-full" />
+          <div className="space-y-2">
+            <Skeleton className="py-1 !h-0.5 rounded-full w-14" />
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
   return (
     <DropdownMenu>
@@ -170,7 +184,7 @@ export const UserProfile = ({ className, isLoading }: UserProfileProps) => {
                 Admin
               </Link>
             </DropdownMenuItem>
-           
+
             <Separator className="my-1" />
           </>
         )}

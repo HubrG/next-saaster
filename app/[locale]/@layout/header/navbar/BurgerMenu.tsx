@@ -60,7 +60,7 @@ export default function BurgerMenu(props: Props) {
                 <li className="sm:hidden flex w-full justify-center">
                   <SheetClose asChild>
                     {user ? (
-                      <UserProfile className="w-full" />
+                      <UserProfile email={user.email ?? ""} className="w-full" />
                     ) : (
                       <LoginButton />
                     )}

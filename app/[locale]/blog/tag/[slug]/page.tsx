@@ -1,4 +1,5 @@
 import { getBlogTag } from "@/src/helpers/db/blog.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import createMetadata from "@/src/lib/metadatas";
 import { Tag } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -21,7 +22,7 @@ export default async function BlogPostsByTag({
 }: {
   params: { method: string; slug: string; id: string };
 }) {
-  const tag = (await getBlogTag({ slug: params.slug })).data?.success || {};
+  const tag = (await getBlogTag({ slug: params.slug, secret: chosenSecret() })).data?.success || {};
 
   return (
    

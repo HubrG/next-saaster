@@ -47,7 +47,7 @@ export const getUser = action(
     // 🔓 Unlocked
     try {
       const user = await prisma.user.findUnique({
-        where: { email: email },
+        where: { email },
         include,
       });
       if (!user) throw new ActionError("No user found");

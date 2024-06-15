@@ -1,29 +1,38 @@
-import { getBlogPosts, getBlogPostsByCategorySlug, getBlogPostsByTagSlug } from "@/src/helpers/db/blog.action";
+"use client";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { useBlogPosts } from "@/src/queries/useBlogQuery";
 import BlogPostListView from "./BlogPostListView";
+
 type Props = {
   tagSlug?: string;
   categorySlug?: string;
 };
-export default async function BlogPostList({ tagSlug, categorySlug }: Props) {
-console.log('tagSlug', tagSlug, 'categorySlug', categorySlug);
+
+export default function BlogPostList({ tagSlug, categorySlug }: Props) {
+  const secret = chosenSecret();
+
+  const { data: blogPostsByTag } = useBlogPosts(
+    secret,
+    tagSlug ? true : undefined
+  );
+  const { data: blogPostsByCategory } = useBlogPosts(
+    secret,
+    categorySlug ? true : undefined
+  );
+  const { data: allBlogPosts } = useBlogPosts(
+    secret,
+    !tagSlug && !categorySlug ? true : undefined
+  );
+
   let blogPosts = [];
   if (tagSlug) {
-    const response = await getBlogPostsByTagSlug({slug: tagSlug, secret: chosenSecret()});
-    blogPosts = response.data?.success || [];
+    blogPosts = blogPostsByTag?.data?.success || [];
   } else if (categorySlug) {
-    const response = await getBlogPostsByCategorySlug({
-      slug: categorySlug,
-      secret: chosenSecret(),
-    });
-    blogPosts = response.data?.success || [];
+    blogPosts = blogPostsByCategory?.data?.success || [];
   } else {
-    const response = await getBlogPosts({
-      publishedOnly: true,
-      secret: chosenSecret(),
-    });
-    blogPosts = response.data?.success || [];
+    blogPosts = allBlogPosts?.data?.success || [];
   }
+
   return (
     <div className="mt-10">
       <BlogPostListView blogPosts={blogPosts} />

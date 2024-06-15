@@ -23,7 +23,7 @@ interface CustomBlogPost extends BlogPost {
 }
 const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
   return (
-    <div className="flex flex-col gap-10 w-full">
+    <div className="flex flex-col gap-10 w-full bg-theming-background-100/50 rounded-default">
       {blogPosts
         .slice()
         .sort(
@@ -56,7 +56,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                     {post.category && (
                       <Link
                         href={`/blog/category/${post.category?.slug}` as any}
-                        className="text-sm">
+                        className="text-sm text-left">
                         {post.category?.name}
                       </Link>
                     )}

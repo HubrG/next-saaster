@@ -25,7 +25,7 @@ console.log('tagSlug', tagSlug, 'categorySlug', categorySlug);
     blogPosts = response.data?.success || [];
   }
   return (
-    <div>
+    <div className="mt-10">
       <BlogPostListView blogPosts={blogPosts} />
     </div>
   );

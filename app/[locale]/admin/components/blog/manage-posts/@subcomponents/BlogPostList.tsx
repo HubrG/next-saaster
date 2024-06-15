@@ -2,7 +2,7 @@
 import useBlogStore from "@/src/stores/blogStore";
 import BlogPostListView from "./BlogPostListView";
 
-export default async function BlogPostList() {
+export default  function BlogPostList() {
   const { blogPosts } = useBlogStore();
   return (
     <div>

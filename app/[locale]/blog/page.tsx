@@ -15,7 +15,7 @@ export const generateMetadata = async () => {
 export default async function BlogPage() {
   return (
     <>
-      <h1>Blog</h1>
+      <h1 className="text-left">Blog</h1>
       <div className="flex md:flex-row flex-col gap-5">
         <div className="w-full">
           <BlogPostList />

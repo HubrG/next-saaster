@@ -1,3 +1,4 @@
+"use client";
 import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Switch } from "@/src/components/ui/switch";

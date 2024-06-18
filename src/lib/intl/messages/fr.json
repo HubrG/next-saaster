@@ -324,7 +324,13 @@
           "features": "Fonctionnalités",
           "home": "Accueil",
           "pricing": "Tarification",
-          "contact": "Contact"
+          "contact": "Contact",
+          "MainMenuLinks": {
+            "features": "fonctionnement",
+            "pricing": "tarifs",
+            "contact": "contact",
+            "how-it-works": "fonctionnement"
+          }
         }
       }
     }

@@ -330,7 +330,13 @@
           "features": "الميزات",
           "home": "الصفحة الرئيسية",
           "howItWorks": "كيف تعمل؟",
-          "pricing": "التسعير"
+          "pricing": "التسعير",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "تسجيل الدخول",

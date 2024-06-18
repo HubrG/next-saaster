@@ -387,7 +387,13 @@
           "features": "Jellemzők",
           "home": "Home",
           "howItWorks": "Hogyan működik?",
-          "pricing": "Árképzés"
+          "pricing": "Árképzés",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Bejelentkezés",

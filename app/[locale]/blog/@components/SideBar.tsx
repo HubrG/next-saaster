@@ -30,7 +30,7 @@ export default async function SideBar() {
           <Bookmark className="icon" />
         </h3>
         <ul>
-          <ScrollArea className="h-full w-full p-3  border-app-200 bg-app-50 rounded-md border">
+          <ScrollArea className="h-full w-full p-3  border-app-200 bg-theming-background-100 rounded-md border">
             {categories.length > 0 ? (
               categories.map((category) => (
                 <li key={v4() + category.id}>
@@ -50,7 +50,7 @@ export default async function SideBar() {
           {t("Blog.tags")} <Tags className="icon" />
         </h3>
         <ul className="flex flex-col h-full gap-y-2 text-base">
-          <ScrollArea className="h-full p-3 w-full border-app-200 bg-app-50 rounded-md border">
+          <ScrollArea className="h-full p-3 w-full border-app-200 bg-app-50 rounded-md bg-theming-background-100  border">
             {tags.length > 0 ? (
               tags.map((tag) => (
                 <li key={v4() + tag.id}>

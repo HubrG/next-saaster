@@ -879,7 +879,7 @@ article .task-list-item {
 }
 
 .blog-sidebar {
-@apply flex flex-col h-[85vh] md:pl-4 ;
+@apply flex flex-col h-[85vh] md:pl-4 -mt-3 ;
 }
 .blog-sidebar h3 {
   @apply text-lg flex flex-row justify-between items-center !important;

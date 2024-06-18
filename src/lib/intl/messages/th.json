@@ -387,7 +387,13 @@
           "features": "คุณสมบัติ",
           "home": "ยินดีต้อนรับ",
           "howItWorks": "มันทำงานอย่างไร ?",
-          "pricing": "ราคา"
+          "pricing": "ราคา",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "เพื่อเข้าสู่ระบบ",

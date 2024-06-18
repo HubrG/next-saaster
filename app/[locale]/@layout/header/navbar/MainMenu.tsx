@@ -20,8 +20,9 @@ export default function MainMenu(props: MenuProps) {
 
   const { links } = props;
   return (
-    <> 
+    <>
       {links.map((link, index) => {
+        console.log(`Layout.Header.Navbar.MainMenu.${link.url}`);
         return (
           <li key={index} className={props.className}>
             <Link
@@ -33,11 +34,19 @@ export default function MainMenu(props: MenuProps) {
               className={cn(
                 {
                   "special-uderline-active":
-                    pathname.includes(link.url) && !props.className,
+                    pathname.includes(
+                      t(
+                        `Layout.Header.Navbar.MainMenu.MainMenuLinks.${link.url}`
+                      )
+                    ) && !props.className,
                 },
                 {
                   "special-uderline":
-                    !pathname.includes(link.url) && !props.className,
+                    !pathname.includes(
+                      t(
+                        `Layout.Header.Navbar.MainMenu.MainMenuLinks.${link.url}`
+                      )
+                    ) && !props.className,
                 },
                 {
                   nunderline: !props.className,

@@ -387,7 +387,13 @@
           "features": "Đặc trưng",
           "home": "Chào mừng",
           "howItWorks": "Làm thế nào nó hoạt động ?",
-          "pricing": "Định giá"
+          "pricing": "Định giá",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Để đăng nhập",

@@ -387,7 +387,13 @@
           "features": "Fitur",
           "home": "Beranda",
           "howItWorks": "Bagaimana cara kerjanya?",
-          "pricing": "Harga"
+          "pricing": "Harga",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Masuk",

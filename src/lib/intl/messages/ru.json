@@ -330,7 +330,13 @@
           "features": "Характеристики",
           "home": "Главная",
           "howItWorks": "Как это работает?",
-          "pricing": "Ценообразование"
+          "pricing": "Ценообразование",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Войти",

@@ -387,7 +387,13 @@
           "features": "বৈশিষ্ট্য",
           "home": "স্বাগত",
           "howItWorks": "কিভাবে এটা কাজ করে ?",
-          "pricing": "মূল্য নির্ধারণ"
+          "pricing": "মূল্য নির্ধারণ",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "লগ - ইন করতে",

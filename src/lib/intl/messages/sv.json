@@ -387,7 +387,13 @@
           "features": "Funktioner",
           "home": "Välkommen",
           "howItWorks": "Hur det fungerar ?",
-          "pricing": "Prissättning"
+          "pricing": "Prissättning",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Att logga in",

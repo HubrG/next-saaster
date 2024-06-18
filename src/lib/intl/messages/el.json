@@ -387,7 +387,13 @@
           "features": "Χαρακτηριστικά",
           "home": "Αρχική σελίδα",
           "howItWorks": "Πώς λειτουργεί;",
-          "pricing": "Τιμολόγηση"
+          "pricing": "Τιμολόγηση",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Συνδεθείτε",

@@ -387,7 +387,13 @@
           "features": "Kenmerken",
           "home": "Home",
           "howItWorks": "Hoe werkt het?",
-          "pricing": "Prijzen"
+          "pricing": "Prijzen",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Aanmelden",

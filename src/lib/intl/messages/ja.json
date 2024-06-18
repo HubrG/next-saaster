@@ -330,7 +330,13 @@
           "features": "特徴",
           "home": "ホーム",
           "howItWorks": "どのように機能するのか？",
-          "pricing": "価格"
+          "pricing": "価格",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "ログイン",

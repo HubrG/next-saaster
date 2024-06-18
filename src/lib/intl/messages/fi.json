@@ -387,7 +387,13 @@
           "features": "Ominaisuudet",
           "home": "Etusivu",
           "howItWorks": "Miten se toimii?",
-          "pricing": "Hinnoittelu"
+          "pricing": "Hinnoittelu",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Kirjaudu sisään",

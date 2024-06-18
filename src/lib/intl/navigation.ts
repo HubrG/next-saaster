@@ -78,16 +78,16 @@ export const pathnames = {
   "/contact": {
     en: "/contact",
     fr: "/contact",
-    es: "/contacto",
+    es: "/contact",
     hi: "/contact",
     zh: "/contact",
     tr: "/contact",
     ja: "/contact",
-    pt: "/contacto",
+    pt: "/contact",
     ar: "/contact",
     ru: "/contact",
-    it: "/contatto",
-    de: "/kontakt",
+    it: "/contact",
+    de: "/contact",
     bn: "/contact",
     ko: "/contact",
     el: "/contact",
@@ -428,7 +428,6 @@ export const pathnames = {
   },
 
   "[...rest]": "[...rest]",
-
 } satisfies Pathnames<typeof locales>;
 
 export const { Link, redirect, usePathname, useRouter, getPathname } =

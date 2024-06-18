@@ -330,7 +330,13 @@
           "features": "Özellikler",
           "home": "Ev",
           "howItWorks": "Nasıl çalışıyor?",
-          "pricing": "Fiyatlandırma"
+          "pricing": "Fiyatlandırma",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Oturum aç",

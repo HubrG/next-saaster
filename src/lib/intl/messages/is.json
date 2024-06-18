@@ -387,7 +387,13 @@
           "features": "Eiginleikar",
           "home": "Velkominn",
           "howItWorks": "Hvernig það virkar ?",
-          "pricing": "Verðlag"
+          "pricing": "Verðlag",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Til að skrá þig inn",

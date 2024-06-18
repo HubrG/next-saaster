@@ -239,7 +239,13 @@
           "features": "विशेषताएँ",
           "home": "स्वागत",
           "howItWorks": "यह काम किस प्रकार करता है ?",
-          "pricing": "मूल्य निर्धारण"
+          "pricing": "मूल्य निर्धारण",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "लॉग इन करने के लिए",
@@ -529,7 +535,14 @@
     "page-not-found": "हमें अनुरोधित पृष्ठ नहीं मिल सका."
   },
   "Blog": {
+    "404": "कोई आइटम नहीं मिला",
     "category": "श्रेणियाँ",
-    "tags": "कीवर्ड"
+    "tags": "कीवर्ड",
+    "Metadatas": {
+      "no-excerpt": "कोई अर्क नहीं",
+      "no-title": "कोई शीर्षक नहीं"
+    },
+    "no-author": "गुमनाम",
+    "no-title": "शीर्षक रहित लेख"
   }
 }

@@ -387,7 +387,13 @@
           "features": "특징",
           "home": "환영",
           "howItWorks": "어떻게 작동하나요?",
-          "pricing": "가격"
+          "pricing": "가격",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "로그인하기",

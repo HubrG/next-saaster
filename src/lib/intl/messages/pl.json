@@ -387,7 +387,13 @@
           "features": "Cechy",
           "home": "Strona główna",
           "howItWorks": "Jak to działa?",
-          "pricing": "Wycena"
+          "pricing": "Wycena",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Zaloguj się",

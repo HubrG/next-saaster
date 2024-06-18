@@ -330,7 +330,13 @@
           "features": "Caratteristiche",
           "home": "Casa",
           "howItWorks": "Come funziona?",
-          "pricing": "Prezzi"
+          "pricing": "Prezzi",
+          "MainMenuLinks": {
+            "contact": "contact",
+            "features": "features",
+            "how-it-works": "how-it-works",
+            "pricing": "pricing"
+          }
         },
         "UserProfile": {
           "login": "Accedi",

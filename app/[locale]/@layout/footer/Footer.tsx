@@ -49,7 +49,7 @@ export default async function Footer() {
         <nav className="flex flex-col max-md:-mt-10">
           <h2>{t("Footer.Navigation.title")}</h2>
           <ul>
-            <MainMenu links={links} className="list-none nunderline" />
+            <MainMenu links={links} className="list-none nunderline text-center" />
           </ul>
           <Link href="/blog">{t("Footer.Navigation.blog")}</Link>
           <Link href="/faq">{t("Footer.Navigation.faq")}</Link>

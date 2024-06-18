@@ -207,7 +207,7 @@ export const PriceCardHeader = ({
           gradient="gradient-to-b-second"
         />
         <h3 className={cn({ "!-mt-24 pt-0": plan.isTrial }, "h-1/2")}>
-          <div className="grid grid-rows-4">
+          <div className="grid ">
             {plan.isTrial ? (
               <>
                 <span className="trial row-span-1 block pt-2">

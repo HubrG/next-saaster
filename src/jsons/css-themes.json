@@ -44,7 +44,6 @@
       "color": "#829CCE"
     }
   },
-
   "florence": {
     "name": "Florence",
     "light": {
@@ -60,7 +59,6 @@
       "background": "#0C0D0C"
     }
   },
-
   "nanny": {
     "name": "Nanny",
     "light": {
@@ -141,6 +139,66 @@
     "light": {
       "primary": "#D2DBFF",
       "secondary": "#B5BEFC",
+      "background": "#EEF6FE",
+      "color": "#0E1729"
+    },
+    "dark": {
+      "color": "#B5BBC5",
+      "primary": "#313F52",
+      "secondary": "#182333",
+      "background": "#010D18"
+    }
+  },
+  "fuchsia": {
+    "name": "Fuchsia",
+    "light": {
+      "primary": "#FFD2E3",
+      "secondary": "#FFB5CB",
+      "background": "#FFEDF5",
+      "color": "#7F1F4F"
+    },
+    "dark": {
+      "color": "#D09FA9",
+      "primary": "#7F1F4F",
+      "secondary": "#5F1C5F",
+      "background": "#190619"
+    }
+  },
+  "teal": {
+    "name": "Teal",
+    "light": {
+      "primary": "#D2FFEB",
+      "secondary": "#B5FFD1",
+      "background": "#EDFFF5",
+      "color": "#1F7F5F"
+    },
+    "dark": {
+      "color": "#9FD0B9",
+      "primary": "#1F7F5F",
+      "secondary": "#1C5F4B",
+      "background": "#061906"
+    }
+  },
+  "blue": {
+    "name": "Blue",
+    "light": {
+      "primary": "#D2F3FF",
+      "secondary": "#B5E6FF",
+      "background": "#EDFDFF",
+      "color": "#1F6F9F"
+    },
+    "dark": {
+      "color": "#9FC0D0",
+      "primary": "#1F6F9F",
+      "secondary": "#1C5F7B",
+      "background": "#061919"
+    }
+  },
+  "violet": {
+    "name": "Violet",
+    "light": {
+      "primary": "#D2DBFF",
+      "secondary": "#B5BEFC",
       "background": "#EDF1FF",
       "color": "#3730A3"
     },
@@ -196,66 +254,6 @@
       "background": "#190619"
     }
   },
-  "teal": {
-    "name": "Teal",
-    "light": {
-      "primary": "#D2FFEB",
-      "secondary": "#B5FFD1",
-      "background": "#EDFFF5",
-      "color": "#1F7F5F"
-    },
-    "dark": {
-      "color": "#9FD0B9",
-      "primary": "#1F7F5F",
-      "secondary": "#1C5F4B",
-      "background": "#061906"
-    }
-  },
-  "sky": {
-    "name": "Sky",
-    "light": {
-      "primary": "#D2F3FF",
-      "secondary": "#B5E6FF",
-      "background": "#EDFDFF",
-      "color": "#1F6F9F"
-    },
-    "dark": {
-      "color": "#9FC0D0",
-      "primary": "#1F6F9F",
-      "secondary": "#1C5F7B",
-      "background": "#061919"
-    }
-  },
-  "purple": {
-    "name": "Purple",
-    "light": {
-      "primary": "#E3D2FF",
-      "secondary": "#CBB5FF",
-      "background": "#F5EDFF",
-      "color": "#4F1F7F"
-    },
-    "dark": {
-      "color": "#A99FD0",
-      "primary": "#4F1F7F",
-      "secondary": "#3C1C5F",
-      "background": "#0F0619"
-    }
-  },
-  "violet": {
-    "name": "Violet",
-    "light": {
-      "primary": "#F3D2FF",
-      "secondary": "#E6B5FF",
-      "background": "#FFEDFF",
-      "color": "#6F1F9F"
-    },
-    "dark": {
-      "color": "#C09FD0",
-      "primary": "#6F1F9F",
-      "secondary": "#5F1C7B",
-      "background": "#190619"
-    }
-  },
   "pink": {
     "name": "Pink",
     "light": {
@@ -299,21 +297,6 @@
       "primary": "#7F7F1F",
       "secondary": "#5F5F1C",
       "background": "#191906"
-    }
-  },
-  "fuchsia": {
-    "name": "Fuchsia",
-    "light": {
-      "primary": "#FFD2E3",
-      "secondary": "#FFB5CB",
-      "background": "#FFEDF5",
-      "color": "#7F1F4F"
-    },
-    "dark": {
-      "color": "#D09FA9",
-      "primary": "#7F1F4F",
-      "secondary": "#5F1C5F",
-      "background": "#190619"
     }
   },
   "rose": {
@@ -361,19 +344,230 @@
       "background": "#061919"
     }
   },
-  "blue": {
-    "name": "Blue",
+
+  "lavender": {
+    "name": "Lavender",
     "light": {
-      "primary": "#D2F3FF",
-      "secondary": "#B5E6FF",
-      "background": "#EDFDFF",
-      "color": "#1F6F9F"
+      "primary": "#E6E6FA",
+      "secondary": "#D8BFD8",
+      "background": "#F8F8FF",
+      "color": "#483D8B"
     },
     "dark": {
-      "color": "#9FC0D0",
-      "primary": "#1F6F9F",
-      "secondary": "#1C5F7B",
-      "background": "#061919"
+      "primary": "#483D8B",
+      "secondary": "#4B0082",
+      "background": "#191970",
+      "color": "#D8BFD8"
+    }
+  },
+  "corail": {
+    "name": "Corail",
+    "light": {
+      "primary": "#FFA07A",
+      "secondary": "#FF6347",
+      "background": "#FFE4E1",
+      "color": "#CD5C5C"
+    },
+    "dark": {
+      "primary": "#CD5C5C",
+      "secondary": "#8B0000",
+      "background": "#2F4F4F",
+      "color": "#FF6347"
+    }
+  },
+  "mint": {
+    "name": "Mint",
+    "light": {
+      "primary": "#98FF98",
+      "secondary": "#BDFCC9",
+      "background": "#F5FFFA",
+      "color": "#3EB489"
+    },
+    "dark": {
+      "primary": "#3EB489",
+      "secondary": "#2E8B57",
+      "background": "#2F4F4F",
+      "color": "#BDFCC9"
+    }
+  },
+  "ocean": {
+    "name": "Ocean",
+    "light": {
+      "primary": "#87CEFA",
+      "secondary": "#1E90FF",
+      "background": "#F0F8FF",
+      "color": "#4682B4"
+    },
+    "dark": {
+      "primary": "#4682B4",
+      "secondary": "#000080",
+      "background": "#191970",
+      "color": "#1E90FF"
+    }
+  },
+  "sunset": {
+    "name": "Sunset",
+    "light": {
+      "primary": "#FF7F50",
+      "secondary": "#FF6347",
+      "background": "#FFE4E1",
+      "color": "#CD5C5C"
+    },
+    "dark": {
+      "primary": "#CD5C5C",
+      "secondary": "#8B0000",
+      "background": "#2F4F4F",
+      "color": "#FF6347"
+    }
+  },
+  "forest": {
+    "name": "Forest",
+    "light": {
+      "primary": "#32CD32",
+      "secondary": "#32CD32",
+      "background": "#F0FFF0",
+      "color": "#006400"
+    },
+    "dark": {
+      "primary": "#006400",
+      "secondary": "#2E8B57",
+      "background": "#2F4F4F",
+      "color": "#32CD32"
+    }
+  },
+  "sunrise": {
+    "name": "Sunrise",
+    "light": {
+      "primary": "#FFDDC1",
+      "secondary": "#FFAB91",
+      "background": "#FFF3E0",
+      "color": "#BF360C"
+    },
+    "dark": {
+      "primary": "#BF360C",
+      "secondary": "#D84315",
+      "background": "#3E2723",
+      "color": "#FFAB91"
+    }
+  },
+  "twilight": {
+    "name": "Twilight",
+    "light": {
+      "primary": "#D1C4E9",
+      "secondary": "#B39DDB",
+      "background": "#EDE7F6",
+      "color": "#311B92"
+    },
+    "dark": {
+      "primary": "#311B92",
+      "secondary": "#512DA8",
+      "background": "#1A237E",
+      "color": "#B39DDB"
+    }
+  },
+  "pastel-dream": {
+    "name": "Pastel",
+    "light": {
+      "primary": "#ADD8E6",
+      "secondary": "#FFB6C1",
+      "background": "#FFF0F5",
+      "color": "#4682B4"
+    },
+    "dark": {
+      "primary": "#4682B4",
+      "secondary": "#FF69B4",
+      "background": "#2F4F4F",
+      "color": "#FFB6C1"
+    }
+  },
+  "tropical-breeze": {
+    "name": "Tropical",
+    "light": {
+      "primary": "#00FA9A",
+      "secondary": "#FFD700",
+      "background": "#F0FFF0",
+      "color": "#006400"
+    },
+    "dark": {
+      "primary": "#006400",
+      "secondary": "#FF8C00",
+      "background": "#2F4F4F",
+      "color": "#FFD700"
+    }
+  },
+  "autumn-glow": {
+    "name": "Autumn Glow",
+    "light": {
+      "primary": "#FF8C00",
+      "secondary": "#8B0000",
+      "background": "#FFF5EE",
+      "color": "#8B4513"
+    },
+    "dark": {
+      "primary": "#8B4513",
+      "secondary": "#FF4500",
+      "background": "#2F4F4F",
+      "color": "#FF8C00"
+    }
+  },
+  "ocean-wave": {
+    "name": "Ocean Wave",
+    "light": {
+      "primary": "#00BFFF",
+      "secondary": "#20B2AA",
+      "background": "#E0FFFF",
+      "color": "#000080"
+    },
+    "dark": {
+      "primary": "#000080",
+      "secondary": "#2E8B57",
+      "background": "#2F4F4F",
+      "color": "#00BFFF"
+    }
+  },
+  "forest-whisper": {
+    "name": "Forest Whisper",
+    "light": {
+      "primary": "#32CD32",
+      "secondary": "#FFD700",
+      "background": "#F0FFF0",
+      "color": "#006400"
+    },
+    "dark": {
+      "primary": "#006400",
+      "secondary": "#8B4513",
+      "background": "#2F4F4F",
+      "color": "#FFD700"
+    }
+  },
+  "midnight-shadow": {
+    "name": "Midnight Shadow",
+    "light": {
+      "primary": "#1C1C1C",
+      "secondary": "#ADD8E6",
+      "background": "#F5F5F5",
+      "color": "#000080"
+    },
+    "dark": {
+      "primary": "#000080",
+      "secondary": "#1C1C1C",
+      "background": "#2F4F4F",
+      "color": "#ADD8E6"
+    }
+  },
+  "charcoal-blush": {
+    "name": "Charcoal Blush",
+    "light": {
+      "primary": "#1C1C1C",
+      "secondary": "#FFB6C1",
+      "background": "#FFF0F5",
+      "color": "#8B0000"
+    },
+    "dark": {
+      "primary": "#8B0000",
+      "secondary": "#1C1C1C",
+      "background": "#2F4F4F",
+      "color": "#FFB6C1"
     }
   }
 }

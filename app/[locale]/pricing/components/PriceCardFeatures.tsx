@@ -35,7 +35,7 @@ export const PriceCardFeatures = ({ plan }: PriceCardFeaturesProps) => {
 
   // reutrn the features
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-2 !bg-transparent">
       {features.map((feature, index) => {
         const creditAlloued =
           feature.creditAllouedByMonth && feature.creditAllouedByMonth > 0

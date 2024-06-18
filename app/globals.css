@@ -655,7 +655,7 @@ footer a {
 }
 /* NOTE Price card */
 .price-card-wrapper {
-  @apply w-full flex flex-col gap-y-2 relative;
+  @apply w-full flex flex-col gap-y-2 relative !mx-0 px-4;
 }
 .price-card-wrapper.card-popular {
   @apply !outline dark:outline-offset-4 outline-offset-2 outline-[3px] dark:outline-theming-background-500-second outline-theming-background-400-second;
@@ -818,11 +818,9 @@ article h6 {
   @apply text-base font-bold mt-3 mb-2;
 }
 */
-article {
-  @apply  pr-6 pt-14 -mt-20 !important;
-}
+
 article p {
-  @apply text-lg md:pl-2 mt-4 mb-4 !important;
+  @apply text-lg text-justify md:pl-2 mt-4 mb-4 !important;
 }
 article em,
 article i {
@@ -883,4 +881,21 @@ article .task-list-item {
 }
 .blog-sidebar h3 {
   @apply text-lg flex flex-row justify-between items-center !important;
+}
+
+/* SECTION : Home sections */
+#home  .hero {
+  background: linear-gradient(to right, #7b4397, #dc2430);
+  color: white;
+  text-align: center;
+  padding: 5rem 0;
+}
+#home .features {
+  text-align: center;
+  padding: 5rem 0;
+}
+#home .testimonials {
+  background-color: white;
+  text-align: center;
+  padding: 5rem 0;
 }

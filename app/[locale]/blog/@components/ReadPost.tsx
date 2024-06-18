@@ -40,7 +40,7 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
                 __html: blogPost.content,
               }}
             />
-           
+
             <div className="flex flex-col gap-5  my-10">
               {blogPost.category && (
                 <div className="inline-flex gap-3 items-center flex-wrap ">

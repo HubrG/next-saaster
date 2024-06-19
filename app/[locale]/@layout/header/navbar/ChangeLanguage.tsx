@@ -7,14 +7,13 @@ import {
 } from "@/src/components/ui/dropdown-menu";
 import languages from "@/src/lib/intl/languages.json"; // Importation du fichier JSON
 import { Link, locales } from "@/src/lib/intl/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { useEffect, useState } from "react";
 import Flag from "react-world-flags";
 
 const ChangeLanguage = () => {
   const [open, setOpen] = useState(false);
   const [localeState, setLocaleState] = useState("EN");
-  const t = useTranslations("Header.Navbar.ChangeLanguage");
   const loc = useLocale();
   const handleLanguageChange = (locale: string) => {
     // useRouter().push("/", { locale });

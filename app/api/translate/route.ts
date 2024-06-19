@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 
   // Entourer les mots à ne pas traduire avec des balises <keep>
   const textWithKeepTags = text.replace(
-    /(NextJS|Boilerplate|Next|Next-Auth|Resend|Stripe|SEO|API)/g,
+    /(NextJS|boilerplate|Next|Pricing|Next-Auth|Resend|Stripe|SEO|API)/g,
     "<keep>$1</keep>"
   );
 

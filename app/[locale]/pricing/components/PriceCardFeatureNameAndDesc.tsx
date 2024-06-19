@@ -95,14 +95,14 @@ export const PriceCardFeatureNameAndDesc = ({
   return (
     <>
       <p
-        className={`flex items-center ${!enabledFeature && "opacity-50"}  !text-sm cursor-default`}
+        className={`flex px-0.5 ${description && "hover:bg-theming-text-50/50"} rounded-default items-center ${!enabledFeature && "opacity-50"}  !text-sm cursor-default`}
         data-tooltip-id={rand + (id ?? "")}>
         {icon}
         {creditAlloued}
         {name}
       </p>
       {featDesc && (
-        <Tooltip place="top" className="tooltip !w-full" id={rand + (id ?? "")} opacity={90}>
+        <Tooltip place="top" delayShow={200} noArrow className="tooltip !w-full " id={rand + (id ?? "")} opacity={90}>
           {description}
         </Tooltip>
       )}

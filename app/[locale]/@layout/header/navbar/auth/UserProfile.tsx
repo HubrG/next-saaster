@@ -9,9 +9,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { Separator } from "@/src/components/ui/separator";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import {
   ReturnUserDependencyProps,
@@ -23,6 +23,7 @@ import { useUserQuery } from "@/src/queries/useUserQuery";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { UserRole } from "@prisma/client";
+import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { upperCase } from "lodash";
 import { CreditCard, User, Wrench } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -53,21 +54,21 @@ export const UserProfile = ({
   const t = useTranslations("Layout.Header.Navbar.UserProfile");
 
   // We get the userProfile
-    useEffect(() => {
-      if (!userStore?.id) return;
-      setUserProfile(getUserInfos({ user: userStore }));
-    }, [userStore]);
+  useEffect(() => {
+    if (!userStore?.id) return;
+    setUserProfile(getUserInfos({ user: userStore }));
+  }, [userStore]);
 
-    if (!userStore?.id || isLoading) {
-      return (
-        <div className="flex items-center space-x-3 h-11 pr-7 -mt-1 ml-4">
-          <Skeleton className="h-10 w-10 rounded-full" />
-          <div className="space-y-2">
+  if (!userStore?.id || isLoading) {
+    return (
+      <div className="flex items-center space-x-3 h-11 pr-7 ml-4">
+        <Skeleton className="h-8 w-8 rounded-full" />
+        {/* <div className="space-y-2">
             <Skeleton className="py-1 !h-0.5 rounded-full w-14" />
-          </div>
-        </div>
-      );
-    }
+          </div> */}
+      </div>
+    );
+  }
 
   return (
     <DropdownMenu>
@@ -78,12 +79,13 @@ export const UserProfile = ({
             {
               "flex flex-row": className
                 ? className
-                : "items-center gap-2 justify-center",
-              "md:w-32 w-full !p-5": saasSettings.activeCreditSystem,
+                : "items-center gap-2  justify-center",
+              "md:w-24 w-full !p-5": saasSettings.activeCreditSystem,
+              "!md:w-16 !w-16 !p-0": !saasSettings.activeCreditSystem,
             },
             "hover:no-underline"
           )}>
-          <div className="w-8  userNavbarDiv">
+          <div className="w-7 h-7  userNavbarDiv">
             <Avatar className="!no-underline">
               {userStore?.image && (
                 <AvatarImage
@@ -149,7 +151,7 @@ export const UserProfile = ({
           ) : null}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="user-profile-dd max-h-90">
+      <DropdownMenuContent align="end" className="user-profile-dd">
         {saasSettings.activeRefillCredit &&
         userProfile?.activeSubscription?.creditAllouedByMonth &&
         (userProfile?.activeSubscription?.creditAllouedByMonth ?? 0) > 0 &&
@@ -185,10 +187,11 @@ export const UserProfile = ({
               </Link>
             </DropdownMenuItem>
 
-            <Separator className="my-1" />
+            <DropdownMenuSeparator />
           </>
         )}
         <DropdownMenuItemLogout />
+        <DropdownMenuArrow className="dropdown-arrow" />
       </DropdownMenuContent>
     </DropdownMenu>
   );

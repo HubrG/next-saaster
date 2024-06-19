@@ -1,4 +1,3 @@
-"use client";
 import { FeaturesSection } from "./@subcomponents/FeaturesSection";
 import { HeroSection } from "./@subcomponents/HeroSection";
 import { TestimonialsSection } from "./@subcomponents/TestimonialsSection";

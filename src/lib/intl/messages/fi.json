@@ -544,5 +544,12 @@
     },
     "no-author": "Nimetön",
     "no-title": "Nimetön artikkeli"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Ei ilmoituksia"
+      }
+    }
   }
 }

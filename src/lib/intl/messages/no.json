@@ -544,5 +544,12 @@
     },
     "no-author": "Anonym",
     "no-title": "Artikkel uten tittel"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Ingen varsler"
+      }
+    }
   }
 }

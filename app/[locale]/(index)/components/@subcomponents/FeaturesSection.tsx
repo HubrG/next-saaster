@@ -1,3 +1,4 @@
+"use client";
 export const FeaturesSection = () => (
   <div className="features py-20 bg-gray-100 text-center">
     <h2 className="text-4xl font-bold mb-10">Pourquoi nous choisir ?</h2>

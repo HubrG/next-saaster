@@ -36,7 +36,6 @@ export default async function Home() {
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="flex min-h-screen flex-col items-center  p-24" id="home">
         <h1 className="font-mono font-bold">{t("Index.title")}</h1>
-
         <HomePage />
       </div>
     </>

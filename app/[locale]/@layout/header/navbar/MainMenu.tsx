@@ -22,7 +22,6 @@ export default function MainMenu(props: MenuProps) {
   return (
     <>
       {links.map((link, index) => {
-        console.log(`Layout.Header.Navbar.MainMenu.${link.url}`);
         return (
           <li key={index} className={props.className}>
             <Link

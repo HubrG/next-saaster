@@ -73,10 +73,10 @@ main > section:not(.first-connection, .absolute-fullscreen-div) {
   @apply max-w-7xl flex z-0 mt-10  min-h-[90vh] !important;
 }
 header {
-  @apply sticky top-0 z-10 border-b border-slate-900/10 dark:border-slate-100/5;
+  @apply sticky top-0 z-10 border-slate-900/10 dark:border-slate-100/5;
 }
 header nav {
-  @apply md:px-0 px-5 w-full !z-[999999]  max-w-[87rem] mx-auto left-0 backdrop-blur-[12px] backdrop-grayscale dark:backdrop-grayscale-0 border-secondary dark:border-secondary/30;
+  @apply md:px-0 px-5 w-full !z-[999999]  max-w-[87rem] mx-auto left-0 backdrop-blur-[12px]  border-secondary dark:border-secondary/30;
 }
 header nav div:first-child:not(.userNavbarDiv > *) {
   @apply flex flex-wrap items-center justify-between mx-0 py-[0.4rem] backdrop-grayscale;
@@ -116,7 +116,7 @@ a.special-uderline-active::after {
 a.special-uderline-active {
   @apply text-primary-foreground dark:text-secondary !important;
 }
-a.profile-link {
+.profile-link {
   @apply dark:text-primary-foreground dark:hover:text-primary-foreground hover:bg-primary/50 !important;
 }
 /* Main Menu */
@@ -164,8 +164,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-  @apply text-theming-text-900 dark:text-theming-text-900/80 !important;
+h6,
+p {
+  @apply text-theming-text-800 dark:text-theming-text-900/80 ;
 }
 h1 {
   @apply text-5xl font-bold;
@@ -226,9 +227,7 @@ div.progressToken {
 .userNavbarDiv {
   @apply p-0 m-0 px-0 py-0 my-0 !important;
 }
-.userNavbarDiv div {
-  @apply p-5;
-}
+
 /* NOTE - Tooltip */
 .tooltip {
   @apply absolute !text-sm my-little-shadow  font-semibold !rounded-lg  max-w-md dark:bg-theming-background-500 bg-theming-background-800 !opacity-100 !important;
@@ -428,8 +427,11 @@ button[data-close-button] {
   @apply right-0;
   left:inherit !important;
 } */
+[data-title], [data-description] {
+  @apply ml-2 !py-0 my-0;
+}
 [data-title] {
-  @apply ml-2;
+  @apply text-lg !py-0 dark:!text-theming-text-900-second text-theming-text-100-second ;
 }
 .toast-success {
   @apply dark:bg-theming-background-100 bg-theming-background-900  my-shadow font-sans  !text-theming-text-50 dark:text-primary-foreground border-0 !important;
@@ -543,12 +545,7 @@ table.admin-features-table thead {
 code {
   @apply bg-primary/40 dark:bg-primary/40 mx-0.5 !text-inherit  p-1 rounded-default !important;
 }
-.user-profile-dd {
-  @apply w-full border-0 shadow-2xl bg-theming-background-50 dark:bg-theming-background-100 bg-blend-luminosity;
-}
-.user-profile-dd a {
-  @apply py-2 !important;
-}
+
 .StyledReceipt {
   width: 22rem;
   padding: 1rem 1rem 2rem;
@@ -898,4 +895,14 @@ article .task-list-item {
   background-color: white;
   text-align: center;
   padding: 5rem 0;
+}
+.user-profile-dd {
+@apply w-full mt-4 rounded-default !max-h-80 border-none border-theming-text-800 dark:border-theming-text-100 bg-transparent backdrop-blur-3xl ring-1 ring-offset-2 ring-offset-transparent ring-theming-text-500/30 !important;
+}
+.user-profile-dd a {
+  @apply py-2 
+  !important;
+}
+.dropdown-arrow polygon {
+  @apply dark:fill-theming-text-500 fill-theming-text-800 shadow-2xl;
 }

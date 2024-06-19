@@ -544,5 +544,12 @@
     },
     "no-author": "Névtelen",
     "no-title": "Cím nélküli cikk"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Nincsenek értesítések"
+      }
+    }
   }
 }

@@ -544,5 +544,12 @@
     },
     "no-author": "匿名",
     "no-title": "無題の記事"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "通知はありません"
+      }
+    }
   }
 }

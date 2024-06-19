@@ -544,5 +544,12 @@
     },
     "no-author": "匿名的",
     "no-title": "无标题文章"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "没有通知"
+      }
+    }
   }
 }

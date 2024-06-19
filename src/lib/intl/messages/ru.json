@@ -544,5 +544,12 @@
     },
     "no-author": "Анонимный",
     "no-title": "Статья без названия"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Нет уведомлений"
+      }
+    }
   }
 }

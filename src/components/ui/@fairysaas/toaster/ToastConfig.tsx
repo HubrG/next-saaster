@@ -1,5 +1,5 @@
 import { AlertTriangle, CheckCircle2, Info, XCircle } from "lucide-react";
-import { ExternalToast, ToastT, toast } from "sonner";
+import { ToastT, toast } from "sonner";
 type ToastTypes =
   | "normal"
   | "action"
@@ -10,20 +10,7 @@ type ToastTypes =
   | "loading"
   | "default";
 type PromiseT<Data = any> = Promise<Data> | (() => Promise<Data>);
-type PromiseExternalToast = Omit<ExternalToast, "description">;
-type PromiseData<ToastData = any> = PromiseExternalToast & {
-  loading?: string | React.ReactNode;
-  success?:
-    | string
-    | React.ReactNode
-    | ((data: ToastData) => React.ReactNode | string);
-  error?: string | React.ReactNode | ((error: any) => React.ReactNode | string);
-  description?:
-    | string
-    | React.ReactNode
-    | ((data: any) => React.ReactNode | string);
-  finally?: () => void | Promise<void>;
-};
+
 type Position =
   | "top-left"
   | "top-right"
@@ -84,8 +71,10 @@ interface ToastClassnames {
   default?: string;
 }
 export const toaster = ({
+  title,
   description,
   type,
+  position = "top-right",
   invert,
   important,
   duration = 2000,
@@ -101,7 +90,7 @@ export const toaster = ({
 }: ToastProps) => {
   function toastIcon(type: string) {
     if (type === "success") {
-      return <CheckCircle2 className="icon !mr-4" />;
+      return icon ? icon : <CheckCircle2 className="icon !mr-4" />;
     } else if (type === "error") {
       return <XCircle className="icon" />;
     } else if (type === "info") {
@@ -127,23 +116,30 @@ export const toaster = ({
     closeButton: closeButton,
     action: action,
     id: id,
+    description: description,
     onDismiss: onDismiss,
     onAutoClose: onAutoClose,
     unstyled: unstyled,
-    position: "top-right" as Position,
+    position: position as Position,
   };
+  const content = (
+    <div>
+      {title && <strong>{title}</strong>}
+      {description && <p>{description}</p>}
+    </div>
+  );
   if (type === "success") {
-    return toast.success(description, toastOptions);
+    return toast.message(title, toastOptions);
   } else if (type === "info") {
-    return toast.info(description, toastOptions);
+    return toast.info(title, toastOptions);
   } else if (type === "warning") {
-    return toast.warning(description, toastOptions);
+    return toast.warning(title, toastOptions);
   } else if (type === "error") {
-    return toast.error(description, toastOptions);
+    return toast.error(title, toastOptions);
   } else if (type === "loading") {
-    return toast.loading(description, toastOptions);
+    return toast.loading(title, toastOptions);
   } else {
-    return toast(description, toastOptions);
+    return toast(title, toastOptions);
   }
 };
 /* 

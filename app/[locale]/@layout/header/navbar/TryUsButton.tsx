@@ -20,7 +20,7 @@ export default function TryUsButton({
       <Button
         id="try-us-for-free-button"
         className={`md:px-4 md:!text-base text-sm font-bold`}
-        variant="ghost"
+        variant="outline"
         size={"lg"}>
         {icon}
         {value}

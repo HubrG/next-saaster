@@ -544,5 +544,12 @@
     },
     "no-author": "Vô danh",
     "no-title": "Bài viết không có tiêu đề"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Không có thông báo"
+      }
+    }
   }
 }

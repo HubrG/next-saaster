@@ -544,5 +544,12 @@
     },
     "no-author": "Nafnlaus",
     "no-title": "Ónefnd grein"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Engar tilkynningar"
+      }
+    }
   }
 }

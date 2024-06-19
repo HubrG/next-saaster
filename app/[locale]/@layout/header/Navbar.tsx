@@ -7,8 +7,10 @@ import { ShoppingBagIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "../../../../src/components/ui/button";
 import BurgerMenu from "./navbar/BurgerMenu";
+import ChangeLanguage from "./navbar/ChangeLanguage";
 import Logo from "./navbar/Logo";
 import MainMenu from "./navbar/MainMenu";
+import Notifications from "./navbar/Notifications";
 import { ThemeToggle } from "./navbar/ThemeToggle";
 import TryUsButton from "./navbar/TryUsButton";
 import { LoginButton } from "./navbar/auth/LoginButton";
@@ -55,8 +57,19 @@ export const Navbar = ({settings }: NavbarProps) => {
                 icon={<ShoppingBagIcon className="icon mx-0 mr-2" />}
               />
               <Button className="hidden"></Button>
-              <div className="sm:block hidden">
-                {session?.user.id || isLoading ? <UserProfile email={session?.user.email ?? ""} isLoading={isLoading} /> : <LoginButton />}
+              <div className="sm:flex hidden  flex-row items-center">
+                {session?.user.id || isLoading ? (
+                  <>
+                    <Notifications />
+                    <UserProfile
+                      email={session?.user.email ?? ""}
+                      isLoading={isLoading}
+                    />
+                    <ChangeLanguage />
+                  </>
+                ) : (
+                  <LoginButton />
+                )}
               </div>
               <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
             </div>
@@ -64,6 +77,7 @@ export const Navbar = ({settings }: NavbarProps) => {
           </div>
         </div>
       </nav>
+      {/* <Goodline className="!-mt-0 !opacity-20" /> */}
     </header>
   );
 };

@@ -56,30 +56,32 @@ enum UserRole {
 }
 
 model User {
-  id              String             @id @default(cuid())
-  name            String?
-  email           String?            @unique
-  emailVerified   DateTime?
-  image           String?
-  password        String?
-  date            DateTime?          @default(now())
-  customerId      String?
-  createdAt       DateTime?          @default(now())
-  updatedAt       DateTime?          @updatedAt
-  organizationId  String?
-  isNewsletterSub Boolean?           @default(true)
-  creditRemaining Int?               @default(0)
-  role            UserRole           @default(USER)
-  organization    Organization?      @relation("OrganizationMembers", fields: [organizationId], references: [id])
-  accounts        Account[]
-  sessions        Session[]
-  oneTimePayments OneTimePayment[]
-  contacts        ResendContact[]
-  usage           UserUsage[]
-  subscriptions   UserSubscription[]
-  Organization    Organization[]
-  posts           BlogPost[]
-  comments        BlogComment[]
+  id                   String                 @id @default(cuid())
+  name                 String?
+  email                String?                @unique
+  emailVerified        DateTime?
+  image                String?
+  password             String?
+  date                 DateTime?              @default(now())
+  customerId           String?
+  createdAt            DateTime?              @default(now())
+  updatedAt            DateTime?              @updatedAt
+  organizationId       String?
+  isNewsletterSub      Boolean?               @default(true)
+  creditRemaining      Int?                   @default(0)
+  role                 UserRole               @default(USER)
+  organization         Organization?          @relation("OrganizationMembers", fields: [organizationId], references: [id])
+  accounts             Account[]
+  sessions             Session[]
+  oneTimePayments      OneTimePayment[]
+  contacts             ResendContact[]
+  usage                UserUsage[]
+  subscriptions        UserSubscription[]
+  Organization         Organization[]
+  posts                BlogPost[]
+  comments             BlogComment[]
+  notifications        Notification[]
+  notificationSettings NotificationSettings[]
 }
 
 model Organization {
@@ -500,4 +502,27 @@ model BlogTagOnPost {
   post   BlogPost @relation(fields: [postId], references: [id])
 
   @@id([tagId, postId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  type      String
+  content   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NotificationSettings {
+  id        String    @id @default(cuid())
+  userId    String
+  email     Boolean   @default(true)
+  sms       Boolean   @default(false)
+  push      Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

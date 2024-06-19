@@ -544,5 +544,12 @@
     },
     "no-author": "বেনামী",
     "no-title": "শিরোনামহীন নিবন্ধ"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "বিজ্ঞপ্তি নেই"
+      }
+    }
   }
 }

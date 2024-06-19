@@ -544,5 +544,12 @@
     },
     "no-author": "Anoniem",
     "no-title": "Naamloos artikel"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Geen notificaties"
+      }
+    }
   }
 }

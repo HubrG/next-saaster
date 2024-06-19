@@ -544,5 +544,12 @@
     },
     "no-author": "익명의",
     "no-title": "제목 없는 기사"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "알림 없음"
+      }
+    }
   }
 }

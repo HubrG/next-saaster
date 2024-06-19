@@ -544,5 +544,12 @@
     },
     "no-author": "Anonym",
     "no-title": "Artikel utan titel"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Inga notifikationer"
+      }
+    }
   }
 }

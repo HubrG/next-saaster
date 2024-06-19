@@ -39,12 +39,12 @@ export const ThemeCard = ({
             : themeVariants.light.secondary,
       }}>
       <p
-        className="font-bold"
+        className="font-semibold"
         style={{
           color:
             theme === "dark"
-              ? themeVariants.dark.color
-              : themeVariants.light.color,
+              ? `${themeVariants.dark.color}`
+              : `${themeVariants.light.color}`
         }}>
         {themeVariants.name}
       </p>

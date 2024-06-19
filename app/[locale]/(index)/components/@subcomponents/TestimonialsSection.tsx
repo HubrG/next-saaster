@@ -1,3 +1,4 @@
+"use client";
 export const TestimonialsSection = () => (
   <div className="testimonials py-20 bg-white text-center">
     <h2 className="text-4xl font-bold mb-10">Ce que disent nos membres</h2>

@@ -25,6 +25,7 @@ export default function SwitchActiveDarkMode() {
         setActiveDarkmode(e);
         setAppSettings({ ...appSettings, activeDarkMode: e });
         return toaster({
+          title: "Success",
           description: `Active darkmode ${e ? "enabled" : "disabled"}`,
           type: "success",
         });

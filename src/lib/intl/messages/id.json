@@ -544,5 +544,12 @@
     },
     "no-author": "Anonim",
     "no-title": "Artikel tanpa judul"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Tidak ada pemberitahuan"
+      }
+    }
   }
 }

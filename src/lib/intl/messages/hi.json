@@ -544,5 +544,12 @@
     },
     "no-author": "गुमनाम",
     "no-title": "शीर्षक रहित लेख"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "कोई सूचनाएं नहीं"
+      }
+    }
   }
 }

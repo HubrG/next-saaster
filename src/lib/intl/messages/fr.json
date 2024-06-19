@@ -544,5 +544,12 @@
       "no-title": "Aucun titre"
     },
     "no-author": "Anonyme"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Aucune notification"
+      }
+    }
   }
 }

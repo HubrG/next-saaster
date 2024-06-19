@@ -544,5 +544,12 @@
     },
     "no-author": "Ανώνυμος",
     "no-title": "άρθρο χωρίς τίτλο"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Δεν υπάρχουν ειδοποιήσεις"
+      }
+    }
   }
 }

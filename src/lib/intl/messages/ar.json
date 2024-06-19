@@ -544,5 +544,12 @@
     },
     "no-author": "مجهول",
     "no-title": "مقالة بلا عنوان"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "لا إشعارات"
+      }
+    }
   }
 }

@@ -544,5 +544,12 @@
     },
     "no-author": "ไม่ระบุชื่อ",
     "no-title": "บทความที่ไม่มีชื่อ"
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "ไม่มีการแจ้งเตือน"
+      }
+    }
   }
 }

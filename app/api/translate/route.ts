@@ -1,10 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { text, targetLang, defaultLocale } = req.body;
+export async function POST(req: NextRequest) {
+  const { text, targetLang, defaultLocale } = await req.json();
   const apiKey = process.env.TRANSLATE_API_KEY || "";
   const url = "https://api-free.deepl.com/v2/translate";
 
@@ -23,9 +20,12 @@ export default async function handler(
     });
 
     const data = await response.json();
-    res.status(200).json(data);
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Error translating with DeepL:", error);
-    res.status(500).json({ error: "Error translating with DeepL" });
+    return NextResponse.json(
+      { error: "Error translating with DeepL" },
+      { status: 500 }
+    );
   }
 }

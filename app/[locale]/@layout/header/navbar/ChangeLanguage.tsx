@@ -6,18 +6,31 @@ import {
     DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import languages from "@/src/lib/intl/languages.json"; // Importation du fichier JSON
-import { Link, locales } from "@/src/lib/intl/navigation";
+import { locales, usePathname, useRouter } from "@/src/lib/intl/navigation";
 import { useLocale } from "next-intl";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Flag from "react-world-flags";
 
 const ChangeLanguage = () => {
+  const pathname = usePathname();
+  const router = useRouter();
+  const params = useParams();
+
   const [open, setOpen] = useState(false);
   const [localeState, setLocaleState] = useState("EN");
   const loc = useLocale();
+
   const handleLanguageChange = (locale: string) => {
-    // useRouter().push("/", { locale });
+    router.replace(
+      // @ts-expect-error -- TypeScript will validate that only known `params`
+      // are used in combination with a given `pathname`. Since the two will
+      // always match for the current route, we can skip runtime checks.
+      { pathname, params },
+      { locale }
+    );
   };
+
   useEffect(() => {
     setLocaleState(loc.toUpperCase());
   }, [loc]);
@@ -32,16 +45,12 @@ const ChangeLanguage = () => {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        {/* <Button
-          className="relative !w-8 !h-8 !rounded-full overflow-hidden"
-          variant={open ? "default" : "ghost"}> */}
-        <div className="w-8 h-8 rounded-full border-theming-text-400/20 cursor-pointer border-4 overflow-hidden">
+        <div className="w-8 h-8 rounded-full push-effect border-theming-text-400/20 cursor-pointer border-4 overflow-hidden">
           <Flag
             code={getFlagCode(localeState)}
-            className="h-full w-full object-cover object-center"
+            className="h-full push-effect  w-full object-cover object-center"
           />
         </div>
-        {/* </Button> */}
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
@@ -51,10 +60,7 @@ const ChangeLanguage = () => {
             key={locale}
             className="p-2 rounded-default profile-link hover:cursor-pointer"
             onClick={() => handleLanguageChange(locale)}>
-            <Link
-              href="/"
-              locale={locale}
-              className="flex flex-row items-center">
+            <div className="flex flex-row items-center">
               <div className="w-8 h-8 rounded-full overflow-hidden">
                 <Flag
                   code={getFlagCode(locale)}
@@ -62,7 +68,7 @@ const ChangeLanguage = () => {
                   className="h-full w-full object-cover"
                 />
               </div>
-            </Link>
+            </div>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

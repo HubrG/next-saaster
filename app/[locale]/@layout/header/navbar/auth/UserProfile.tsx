@@ -83,10 +83,10 @@ export const UserProfile = ({
               "md:w-24 w-full !p-5": saasSettings.activeCreditSystem,
               "!md:w-16 !w-16 !p-0": !saasSettings.activeCreditSystem,
             },
-            "hover:no-underline"
+            "hover:no-underline "
           )}>
-          <div className="w-7 h-7  userNavbarDiv">
-            <Avatar className="!no-underline">
+          <div className="w-7 h-7  userNavbarDiv push-effect">
+            <Avatar className="!no-underline ">
               {userStore?.image && (
                 <AvatarImage
                   src={userStore.image?.replace("/upload/", "/upload/f_auto/")}

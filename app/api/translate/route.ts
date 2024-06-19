@@ -19,7 +19,13 @@ export async function POST(req: NextRequest) {
       }),
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const textResponse = await response.text();
+    const data = textResponse ? JSON.parse(textResponse) : {};
+
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Error translating with DeepL:", error);

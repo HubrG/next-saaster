@@ -19,7 +19,7 @@ export const PriceCardContactUsButton = ({
   return (
     <Button
       variant={"second"}
-      className={`w-full -mt-12 text-sm ${className}`}
+      className={`w-full text-sm ${className}`}
       onClick={handleRedirect}>
       {t("contact-us")}
     </Button>

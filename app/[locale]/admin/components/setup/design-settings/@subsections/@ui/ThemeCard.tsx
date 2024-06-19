@@ -67,7 +67,7 @@ export const ThemeCard = ({
         style={{
           backgroundColor:
             theme === "dark"
-              ? themeVariants.dark.secondary
+              ? themeVariants.dark.background
               : themeVariants.light.primary,
           color:
             theme === "dark"

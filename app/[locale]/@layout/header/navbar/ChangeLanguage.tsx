@@ -35,12 +35,12 @@ const ChangeLanguage = () => {
         {/* <Button
           className="relative !w-8 !h-8 !rounded-full overflow-hidden"
           variant={open ? "default" : "ghost"}> */}
-          <div className="w-8 h-8 rounded-full border-theming-text-400/20 cursor-pointer border-4 overflow-hidden">
-            <Flag
-              code={getFlagCode(localeState)}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
+        <div className="w-8 h-8 rounded-full border-theming-text-400/20 cursor-pointer border-4 overflow-hidden">
+          <Flag
+            code={getFlagCode(localeState)}
+            className="h-full w-full object-cover object-center"
+          />
+        </div>
         {/* </Button> */}
       </DropdownMenuTrigger>
       <DropdownMenuContent

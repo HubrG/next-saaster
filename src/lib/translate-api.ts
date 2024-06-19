@@ -3,21 +3,13 @@ export async function translateTextWithDeepL(
   targetLang: string,
   defaultLocale: string
 ) {
-  const apiKey = process.env.TRANSLATE_API_KEY || "";
-  const url = "https://api-free.deepl.com/v2/translate";
-
   try {
-    const response = await fetch(url, {
+    const response = await fetch("/api/translate", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
-      body: new URLSearchParams({
-        auth_key: apiKey,
-        text: text,
-        target_lang: targetLang,
-        // source_lang: defaultLocale,
-      }),
+      body: JSON.stringify({ text, targetLang, defaultLocale }),
     });
 
     const data = await response.json();

@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         auth_key: apiKey,
         text: text,
         target_lang: targetLang,
-        // source_lang: defaultLocale,
+        source_lang: defaultLocale,
       }),
     });
 

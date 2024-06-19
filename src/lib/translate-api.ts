@@ -13,7 +13,12 @@ export async function translateTextWithDeepL(
     });
 
     const data = await response.json();
-    return data.translations[0].text;
+    if (data.translations && data.translations.length > 0) {
+      console.log(data.translations[0].text);
+      return data.translations[0].text;
+    } else {
+      throw new Error("No translations found");
+    }
   } catch (error) {
     console.error("Error translating with DeepL:", error);
     return text;

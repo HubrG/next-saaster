@@ -102,7 +102,7 @@ export const PriceCardFeatureNameAndDesc = ({
         {name}
       </p>
       {featDesc && (
-        <Tooltip place="left" className="tooltip" id={rand + (id ?? "")} opacity={100}>
+        <Tooltip place="top" className="tooltip !w-full" id={rand + (id ?? "")} opacity={90}>
           {description}
         </Tooltip>
       )}

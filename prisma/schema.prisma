@@ -148,19 +148,22 @@ model UserUsage {
 }
 
 model appSettings {
-  id                String    @id @default(cuid())
-  name              String?   @default("Fairysaas")
-  baseline          String?   @default("Just develop your best feature, the rest is already done and well done.")
-  description       String?   @default("NextJS SaaS starter kit for rapid development: only focus on main features, rest assured with a modern frontend, scalable and secure backend. Save effort & money.")
-  theme             String?   @default("purple")
-  image             String?   @default("")
-  roundedCorner     Float?    @default(10)
-  defaultDarkMode   Boolean?  @default(true)
-  activeTopLoader   Boolean?  @default(true)
-  activeDarkMode    Boolean?  @default(true)
-  activeCtaOnNavbar Boolean?  @default(true)
-  createdAt         DateTime? @default(now())
-  updatedAt         DateTime? @updatedAt
+  id                         String    @id @default(cuid())
+  name                       String?   @default("Fairysaas")
+  baseline                   String?   @default("Just develop your best feature, the rest is already done and well done.")
+  description                String?   @default("NextJS SaaS starter kit for rapid development: only focus on main features, rest assured with a modern frontend, scalable and secure backend. Save effort & money.")
+  theme                      String?   @default("purple")
+  image                      String?   @default("")
+  roundedCorner              Float?    @default(10)
+  defaultLocale              String?   @default("en")
+  activeInternationalization Boolean?  @default(true)
+  activeAutoTranslate        Boolean?  @default(true)
+  defaultDarkMode            Boolean?  @default(true)
+  activeTopLoader            Boolean?  @default(true)
+  activeDarkMode             Boolean?  @default(true)
+  activeCtaOnNavbar          Boolean?  @default(true)
+  createdAt                  DateTime? @default(now())
+  updatedAt                  DateTime? @updatedAt
 }
 
 // SECTION: Pricing
@@ -525,4 +528,19 @@ model NotificationSettings {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model InternationalizationDictionary {
+  // Words that will not be automatically translated by the translation API 
+  id        String   @id @default(cuid())
+  word      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model InternationalizationEnabledList {
+  id        String   @id @default(cuid())
+  code      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

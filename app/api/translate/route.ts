@@ -1,14 +1,35 @@
+import { getInternationalizationDictionaries } from "@/src/helpers/db/internationalization.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { handleError } from "@/src/lib/error-handling/handleError";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { text, targetLang, defaultLocale } = await req.json();
+  const { text, targetLang, defaultl } = await req.json();
   const apiKey = process.env.TRANSLATE_API_KEY || "";
   const url = "https://api-free.deepl.com/v2/translate";
 
   // Entourer les mots à ne pas traduire avec des balises <keep>
+  const glossary = await getInternationalizationDictionaries({
+    secret: chosenSecret(),
+  });
+
+  if (handleError(glossary).error) {
+    return NextResponse.json(
+      { error: "Error getting internationalization dictionaries" },
+      { status: 500 }
+    );
+  }
+
+  // On formate le texte pour ajouter les balises <keep> autour des mots à ne pas traduire
   const textWithKeepTags = text.replace(
-    /(NextJS|boilerplate|Next|pricing|UI|UX|Next-Auth|Resend|Stripe|SEO|API)/g,
-    "<keep>$1</keep>"
+    new RegExp(
+      glossary.data?.success
+        ?.map((dict) => dict.word)
+        .filter((word) => word)
+        .join("|") || "",
+      "gi"
+    ),
+    "<keep>$&</keep>"
   );
 
   try {
@@ -21,9 +42,9 @@ export async function POST(req: NextRequest) {
         auth_key: apiKey,
         text: textWithKeepTags,
         target_lang: targetLang,
-        source_lang: defaultLocale,
-        tag_handling: "xml", // Indiquer que nous utilisons des balises XML
-        ignore_tags: "keep", // Indiquer à l'API de ne pas traduire le contenu des balises <keep>
+        source_lang: defaultl,
+        tag_handling: "xml",
+        ignore_tags: "keep",
       }),
     });
 

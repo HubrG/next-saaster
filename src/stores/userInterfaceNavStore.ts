@@ -3,8 +3,8 @@ import { create } from "zustand";
 interface MenuItem {
   id: string;
   parent?: string;
-  open?: boolean;
-  forceOpen?: boolean;
+  open: boolean;
+  forceOpen: boolean;
 }
 
 type Store = {
@@ -23,7 +23,7 @@ type Store = {
 
 export const useUserInterfaceNavStore = create<Store>((set) => ({
   userInterfaceNav: {},
-  setUserInterfaceNav: (id, parent, open = false, forceOpen = false) =>
+  setUserInterfaceNav: (id, parent, open = true, forceOpen = true) =>
     set((state) => ({
       userInterfaceNav: {
         ...state.userInterfaceNav,

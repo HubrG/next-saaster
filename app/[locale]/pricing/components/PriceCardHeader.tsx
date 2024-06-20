@@ -3,9 +3,9 @@ import { DotBlurredAndGradient } from "@/src/components/ui/@fairysaas/layout-ele
 import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
 import { Input } from "@/src/components/ui/input";
 import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
-import { defaultLocale } from "@/src/lib/intl/navigation";
 import { translateTextWithDeepL } from "@/src/lib/translate-api";
 import { cn } from "@/src/lib/utils";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useTranslationStore } from "@/src/stores/translationStore";
 import { iPlan } from "@/src/types/db/iPlans";
@@ -115,6 +115,8 @@ export const PriceCardHeader = ({
   plan,
   saasSettings,
 }: PriceCardHeaderProps) => {
+  const { appSettings } = useAppSettingsStore();
+
   const t = useTranslations("Pricing.Components.CardHeader");
   const format = useFormatter();
   const locale = useLocale();
@@ -128,19 +130,14 @@ export const PriceCardHeader = ({
       if (
         !hasTranslated &&
         !priceTitleTranslations[key] &&
-        locale !== defaultLocale
+        locale !== appSettings.defaultLocale
       ) {
         setHasTranslated(true);
         if (hasTranslated) return;
-        const name = await translateTextWithDeepL(
-          plan.name ?? "",
-          locale,
-          defaultLocale
-        );
+        const name = await translateTextWithDeepL(plan.name ?? "", locale);
         const description = await translateTextWithDeepL(
           plan.description ?? "",
-          locale,
-          defaultLocale
+          locale
         );
         setPriceTitleTranslations(key, { name, description });
       }

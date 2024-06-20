@@ -8,6 +8,7 @@ import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import useBlogStore from "@/src/stores/blogStore";
+import useInternationalizationStore from "@/src/stores/internationalizationStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
@@ -23,6 +24,8 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { data: session, isLoading } = useSessionQuery();
   const { data: user } = useUserQuery(session?.user?.email ?? "");
   const { setAppSettings } = useAppSettingsStore();
+  const { fetchInternationalizations, fetchDictionaries } =
+    useInternationalizationStore();
   const { setSaasSettings } = useSaasSettingsStore();
   const { fetchSaasStripeCoupons } = useSaasStripeCoupons();
   const { fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
@@ -43,6 +46,10 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     if (isClient && !isLoading && !hasLoadedData) {
       setAppSettings(appSettings);
       setSaasSettings(saasSettings);
+      if (appSettings?.activeInternationalization) {
+        await fetchInternationalizations();
+        await fetchDictionaries();
+      }
 
       if (session?.user && user?.role !== "USER") {
         await Promise.all([
@@ -68,6 +75,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     saasSettings,
     session,
     user,
+    fetchInternationalizations,
     fetchSaasStripeCoupons,
     fetchSaasFeaturesCategories,
     fetchSaasFeatures,

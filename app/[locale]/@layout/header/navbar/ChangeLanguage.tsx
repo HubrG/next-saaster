@@ -1,18 +1,20 @@
 "use client";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import languages from "@/src/lib/intl/languages.json"; // Importation du fichier JSON
-import { locales, usePathname, useRouter } from "@/src/lib/intl/navigation";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
+import { Skeleton } from "@/src/components/ui/skeleton";
+import languages from "@/src/lib/intl/languages.json";
+import { usePathname, useRouter } from "@/src/lib/intl/navigation";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
+import useInternationalizationStore from "@/src/stores/internationalizationStore";
 import { useLocale } from "next-intl";
 import { useParams } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import Flag from "react-world-flags";
 
 const ChangeLanguage = () => {
+  const { appSettings } = useAppSettingsStore();
+  const { internationalizations } = useInternationalizationStore();
+
   const pathname = usePathname();
   const router = useRouter();
   const params = useParams();
@@ -42,10 +44,26 @@ const ChangeLanguage = () => {
     return language ? language.flag : locale;
   };
 
+  const mergedInternationalizations = internationalizations.map((intl) => {
+    const language = languages.find((lang) => lang.code === intl.code);
+    return {
+      ...intl,
+      popularity: language ? language.popularity : 0,
+    };
+  });
+
+  if (!appSettings.id && !appSettings.activeInternationalization)
+    return (
+      <div className="flex items-center space-x-3 h-11">
+        <Skeleton className="h-8 w-8 rounded-full" />
+      </div>
+    );
+  if (!appSettings.activeInternationalization) return null;
+
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger asChild>
-        <div className="w-8 h-8 rounded-full push-effect border-theming-text-400/20 cursor-pointer border-4 overflow-hidden">
+      <DropdownMenuTrigger className="ml-1" asChild>
+        <div className="w-8 h-8 rounded-full push-effect border-theming-text-400/20 dark:border-theming-text-800/20 cursor-pointer border-4 overflow-hidden">
           <Flag
             code={getFlagCode(localeState)}
             className="h-full push-effect  w-full object-cover object-center"
@@ -55,22 +73,24 @@ const ChangeLanguage = () => {
       <DropdownMenuContent
         align="end"
         className="!grid grid-cols-7 user-profile-dd !w-96 overflow-y-auto">
-        {locales.map((locale) => (
-          <DropdownMenuItem
-            key={locale}
-            className="p-2 rounded-default profile-link hover:cursor-pointer"
-            onClick={() => handleLanguageChange(locale)}>
-            <div className="flex flex-row items-center">
-              <div className="w-8 h-8 rounded-full overflow-hidden">
-                <Flag
-                  code={getFlagCode(locale)}
-                  fallback={`${locale}`}
-                  className="h-full w-full object-cover"
-                />
+        {mergedInternationalizations
+          .sort((b, a) => b.popularity - a.popularity) // Trier par popularité
+          .map((locale) => (
+            <DropdownMenuItem
+              key={locale.code}
+              className="p-2 rounded-default profile-link hover:cursor-pointer"
+              onClick={() => handleLanguageChange(locale.code)}>
+              <div className="flex flex-row items-center">
+                <div className="w-8 h-8 rounded-full overflow-hidden">
+                  <Flag
+                    code={getFlagCode(locale.code)}
+                    fallback={`${locale}`}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               </div>
-            </div>
-          </DropdownMenuItem>
-        ))}
+            </DropdownMenuItem>
+          ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

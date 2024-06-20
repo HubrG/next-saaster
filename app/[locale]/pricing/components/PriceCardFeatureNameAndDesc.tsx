@@ -1,6 +1,6 @@
 "use client";
-import { defaultLocale } from "@/src/lib/intl/navigation";
 import { translateTextWithDeepL } from "@/src/lib/translate-api";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useTranslationStore } from "@/src/stores/translationStore";
 import { useLocale } from "next-intl";
 import { useEffect, useState } from "react";
@@ -33,6 +33,7 @@ export const PriceCardFeatureNameAndDesc = ({
   const locale = useLocale();
   // Dynamical translation
   const [hasTranslated, setHasTranslated] = useState(false);
+  const { appSettings } = useAppSettingsStore();
   const key = `${featName}-${locale}`;
   const { featureTranslations, setFeatureTranslations } = useTranslationStore();
   useEffect(() => {
@@ -40,24 +41,18 @@ export const PriceCardFeatureNameAndDesc = ({
       if (
         !hasTranslated &&
         !featureTranslations[key] &&
-        locale !== defaultLocale
+        locale !== appSettings.defaultLocale
       ) {
         setHasTranslated(true);
         if (hasTranslated) return;
-        const name = await translateTextWithDeepL(
-          featName ?? "",
-          locale,
-          defaultLocale
-        );
+        const name = await translateTextWithDeepL(featName ?? "", locale);
         const description = await translateTextWithDeepL(
           featDesc ?? "",
-          locale,
-          defaultLocale
+          locale
         );
         const category = await translateTextWithDeepL(
           featCategory ?? "",
-          locale,
-          defaultLocale
+          locale
         );
         setFeatureTranslations(key, {
           name,

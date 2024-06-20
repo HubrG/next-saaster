@@ -1,19 +1,19 @@
 import {
-  defaultLocale,
-  localePrefix,
   locales,
-  pathnames,
+  pathnames
 } from "@/src/lib/intl/navigation";
-import createMiddleware from "next-intl/middleware";
+import {
+  default as createIntlMiddleware
+} from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-
+type Locale = (typeof locales)[number];
 // Middleware next-intl
-const nextIntlMiddleware = createMiddleware({
-  localePrefix,
-  locales,
-  defaultLocale,
-  pathnames,
-});
+// const nextIntlMiddleware = createMiddleware({
+//   localePrefix,
+//   locales,
+//   defaultLocale,
+//   pathnames,
+// });
 
 // Custom middleware that encapsulates next-intl
 export async function middleware(req: NextRequest) {
@@ -38,25 +38,52 @@ export async function middleware(req: NextRequest) {
         throw new Error(`API request failed with status ${apiResponse.status}`);
       }
     }
-    // const apiUrl = `${URI}/api/initialization`;
-    // const apiResponse = await fetch(apiUrl, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // if (!apiResponse.ok) {
-    //   throw new Error(`API request failed with status ${apiResponse.status}`);
-    // }
   } catch (error) {
     console.error("API request error:", error);
   }
 
-  // Apply the next-intl middleware
-  const response = nextIntlMiddleware(req);
-  if (response) return response;
+  // SECTION : Next-Intl
+
+  let locales: Locale[] = [];
+  let defaultLocale: Locale = "en";
+  let localesFormattedToTable: string[] = [];
   //
-  return NextResponse.next();
+  const apiUrl = `${URI}/api/locales`;
+  const apiResponseDefaultLocal = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ defaultLocale: true }),
+  });
+  if (apiResponseDefaultLocal.ok) {
+    defaultLocale = await apiResponseDefaultLocal.json();
+  }
+  const apiResponseLocales = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ locales: true }),
+  });
+  if (apiResponseLocales.ok) {
+    locales = await apiResponseLocales.json();
+    localesFormattedToTable = locales.map((locale) => {
+      return locale;
+    });
+  }
+  req.headers.set("accept-language", "");
+  const handleI18nRouting = createIntlMiddleware({
+    locales: localesFormattedToTable,
+    defaultLocale,
+    localePrefix: "never",
+    localeDetection: true,
+    pathnames,
+  });
+  const response = handleI18nRouting(req);
+  response.headers.set("x-your-custom-locale", defaultLocale);
+
+  return response;
 }
 
 export const config = {

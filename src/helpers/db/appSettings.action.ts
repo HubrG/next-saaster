@@ -41,6 +41,7 @@ export const updateAppSettings = adminAction(
       description: z.string().optional(),
       baseline: z.string().optional(),
       image: z.string().optional(),
+      defaultLocale: z.string().optional()
     }),
     secret: z.string(),
   }),

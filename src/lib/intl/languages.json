@@ -1,27 +1,177 @@
 [
-  { "code": "en", "flag": "us" },
-  { "code": "fr", "flag": "fr" },
-  { "code": "es", "flag": "es" },
-  { "code": "hi", "flag": "in" },
-  { "code": "zh", "flag": "cn" },
-  { "code": "tr", "flag": "tr" },
-  { "code": "ja", "flag": "jp" },
-  { "code": "pt", "flag": "pt" },
-  { "code": "ar", "flag": "sa" },
-  { "code": "ru", "flag": "ru" },
-  { "code": "de", "flag": "de" },
-  { "code": "it", "flag": "it" },
-  { "code": "bn", "flag": "bd" },
-  { "code": "ko", "flag": "kr" },
-  { "code": "el", "flag": "gr" },
-  { "code": "fi", "flag": "fi" },
-  { "code": "hu", "flag": "hu" },
-  { "code": "id", "flag": "id" },
-  { "code": "is", "flag": "is" },
-  { "code": "nl", "flag": "nl" },
-  { "code": "no", "flag": "no" },
-  { "code": "pl", "flag": "pl" },
-  { "code": "sv", "flag": "se" },
-  { "code": "th", "flag": "th" },
-  { "code": "vi", "flag": "vn" }
+  {
+    "code": "en",
+    "flag": "us",
+    "name_en": "English",
+    "name_native": "English",
+    "popularity": 1
+  },
+  {
+    "code": "fr",
+    "flag": "fr",
+    "name_en": "French",
+    "name_native": "Français",
+    "popularity": 2
+  },
+  {
+    "code": "es",
+    "flag": "es",
+    "name_en": "Spanish",
+    "name_native": "Español",
+    "popularity": 3
+  },
+  {
+    "code": "hi",
+    "flag": "in",
+    "name_en": "Hindi",
+    "name_native": "हिन्दी",
+    "popularity": 4
+  },
+  {
+    "code": "zh",
+    "flag": "cn",
+    "name_en": "Chinese",
+    "name_native": "中文",
+    "popularity": 5
+  },
+  {
+    "code": "tr",
+    "flag": "tr",
+    "name_en": "Turkish",
+    "name_native": "Türkçe",
+    "popularity": 6
+  },
+  {
+    "code": "ja",
+    "flag": "jp",
+    "name_en": "Japanese",
+    "name_native": "日本語",
+    "popularity": 7
+  },
+  {
+    "code": "pt",
+    "flag": "pt",
+    "name_en": "Portuguese",
+    "name_native": "Português",
+    "popularity": 8
+  },
+  {
+    "code": "ar",
+    "flag": "sa",
+    "name_en": "Arabic",
+    "name_native": "العربية",
+    "popularity": 9
+  },
+  {
+    "code": "ru",
+    "flag": "ru",
+    "name_en": "Russian",
+    "name_native": "Русский",
+    "popularity": 10
+  },
+  {
+    "code": "de",
+    "flag": "de",
+    "name_en": "German",
+    "name_native": "Deutsch",
+    "popularity": 11
+  },
+  {
+    "code": "it",
+    "flag": "it",
+    "name_en": "Italian",
+    "name_native": "Italiano",
+    "popularity": 12
+  },
+  {
+    "code": "bn",
+    "flag": "bd",
+    "name_en": "Bengali",
+    "name_native": "বাংলা",
+    "popularity": 13
+  },
+  {
+    "code": "ko",
+    "flag": "kr",
+    "name_en": "Korean",
+    "name_native": "한국어",
+    "popularity": 14
+  },
+  {
+    "code": "el",
+    "flag": "gr",
+    "name_en": "Greek",
+    "name_native": "Ελληνικά",
+    "popularity": 15
+  },
+  {
+    "code": "fi",
+    "flag": "fi",
+    "name_en": "Finnish",
+    "name_native": "Suomi",
+    "popularity": 16
+  },
+  {
+    "code": "hu",
+    "flag": "hu",
+    "name_en": "Hungarian",
+    "name_native": "Magyar",
+    "popularity": 17
+  },
+  {
+    "code": "id",
+    "flag": "id",
+    "name_en": "Indonesian",
+    "name_native": "Bahasa Indonesia",
+    "popularity": 18
+  },
+  {
+    "code": "is",
+    "flag": "is",
+    "name_en": "Icelandic",
+    "name_native": "Íslenska",
+    "popularity": 19
+  },
+  {
+    "code": "nl",
+    "flag": "nl",
+    "name_en": "Dutch",
+    "name_native": "Nederlands",
+    "popularity": 20
+  },
+  {
+    "code": "no",
+    "flag": "no",
+    "name_en": "Norwegian",
+    "name_native": "Norsk",
+    "popularity": 21
+  },
+  {
+    "code": "pl",
+    "flag": "pl",
+    "name_en": "Polish",
+    "name_native": "Polski",
+    "popularity": 22
+  },
+  {
+    "code": "sv",
+    "flag": "se",
+    "name_en": "Swedish",
+    "name_native": "Svenska",
+    "popularity": 23
+  },
+  {
+    "code": "th",
+    "flag": "th",
+    "name_en": "Thai",
+    "name_native": "ไทย",
+    "popularity": 24
+  },
+  {
+    "code": "vi",
+    "flag": "vn",
+    "name_en": "Vietnamese",
+    "name_native": "Tiếng Việt",
+    "popularity": 25
+  }
 ]

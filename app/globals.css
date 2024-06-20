@@ -166,7 +166,7 @@ h4,
 h5,
 h6,
 p {
-  @apply text-theming-text-800 dark:text-theming-text-900/80 ;
+  @apply text-theming-text-900 dark:text-theming-text-900 ;
 }
 h1 {
   @apply text-5xl font-bold;
@@ -230,7 +230,7 @@ div.progressToken {
 
 /* NOTE - Tooltip */
 .tooltip {
-  @apply absolute !text-sm my-little-shadow  font-semibold !rounded-lg  max-w-md dark:bg-theming-background-500 bg-theming-background-800 !opacity-100 !important;
+  @apply absolute !text-sm my-little-shadow  font-semibold !rounded-lg  max-w-md dark:bg-theming-background-400 bg-theming-background-800 !opacity-100 !important;
   z-index: 9999999999;
 }
 .tooltip span {
@@ -431,7 +431,10 @@ button[data-close-button] {
   @apply ml-2 !py-0 my-0;
 }
 [data-title] {
-  @apply text-lg !py-0 dark:!text-theming-text-900-second text-theming-text-100-second ;
+  @apply text-base !py-0 dark:!text-theming-text-900-second text-theming-text-100-second ;
+}
+[data-description] {
+  @apply -mt-2;
 }
 .toast-success {
   @apply dark:bg-theming-background-100 bg-theming-background-900  my-shadow font-sans  !text-theming-text-50 dark:text-primary-foreground border-0 !important;

@@ -28,8 +28,6 @@ const serif = Playfair_Display({
 });
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
-
-
 type Props = {
   children: React.ReactNode;
   params: {
@@ -46,8 +44,6 @@ export default async function LocaleLayout(props: Props) {
     params: { locale },
   } = props;
 
-
-  // Effectuer les appels en parallèle
   const [session, appSettings, saasSettings] = await Promise.all([
     fetchSession(),
     getAppSettings(),
@@ -58,8 +54,8 @@ export default async function LocaleLayout(props: Props) {
   }
 
   return (
-    <SessProvider session={session as Session}>
-      <ReactQueryClientProvider>
+    <ReactQueryClientProvider>
+      <SessProvider session={session as Session}>
         <html
           lang={locale}
           suppressHydrationWarning
@@ -69,7 +65,6 @@ export default async function LocaleLayout(props: Props) {
             appSettings.data.activeDarkMode && "dark"
           }`}>
           <link rel="icon" href="/favicon.ico" sizes="any" />
-
           <body
             className={cn("min-h-screen bg-background font-sans antialiased")}>
             <NextIntlProvider>
@@ -83,23 +78,22 @@ export default async function LocaleLayout(props: Props) {
                 closeButton={true}
               />
               {appSettings.data.activeTopLoader && <TopLoader />}
+
               <ThemeProvider
                 disableTransitionOnChange={false}
                 attribute="class"
                 defaultTheme={
                   appSettings.data.defaultDarkMode ? "dark" : "light"
                 }
-                enableSystem>
-                <Navbar
-                  settings={appSettings.data}
-                />
+                enableSystem={appSettings.data.activeDarkMode ?? false}>
+                <Navbar settings={appSettings.data} />
                 <main>{children}</main>
                 <Footer />
               </ThemeProvider>
             </NextIntlProvider>
           </body>
         </html>
-      </ReactQueryClientProvider>
-    </SessProvider>
+      </SessProvider>
+    </ReactQueryClientProvider>
   );
 }

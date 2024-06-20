@@ -19,12 +19,12 @@ type NavbarProps = {
   settings: appSettings;
 };
 
-export const Navbar = ({settings }: NavbarProps) => {
+export const Navbar = ({ settings }: NavbarProps) => {
   const { data: session, isLoading } = useSessionQuery();
- 
+
   const t = useTranslations("Layout.Header.Navbar");
   const isClient = useIsClient();
- 
+
   if (!isClient) {
     <header className="z-20  ">
       <nav id="navbar">
@@ -68,7 +68,10 @@ export const Navbar = ({settings }: NavbarProps) => {
                     <ChangeLanguage />
                   </>
                 ) : (
-                  <LoginButton />
+                  <>
+                    <LoginButton />
+                    <ChangeLanguage />
+                  </>
                 )}
               </div>
               <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />

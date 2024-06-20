@@ -10,13 +10,14 @@ import {
   Coins,
   Dot,
   Info,
+  Languages,
   LayoutDashboard,
   Palette,
   Rss,
   RssIcon,
   Settings2,
   SquarePen,
-  UsersRound
+  UsersRound,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -59,8 +60,7 @@ export const AdminNavbar = () => {
             icon={<Palette className="icon" />}
             text="Design"
             activeSection={activeSection}
-            sectionObserve="Design"
-            >
+            sectionObserve="Design">
             <MenuSubItem
               parent="Design"
               activeSection={activeSubSection}
@@ -86,13 +86,37 @@ export const AdminNavbar = () => {
             sectionObserve="Layout"
             handleScroll={handleScroll}
           />
-          {/* <MenuItem
+          <MenuItem
             activeSection={activeSection}
             icon={<Languages className="icon" />}
-            text="Languages"
-            sectionObserve="testt"
-            handleScroll={handleScroll}
-          /> */}
+            text="Internationalization"
+            sectionObserve="Internationalization"
+            >
+            <MenuSubItem
+              parent="Internationalization"
+              activeSection={activeSubSection}
+              sectionObserve="sub-active-internationalization"
+              text="Settings"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
+              parent="Internationalization"
+              activeSection={activeSubSection}
+              sectionObserve="sub-saas-set-saas-tax"
+              text="Default locale"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
+              parent="Internationalization"
+              activeSection={activeSubSection}
+              sectionObserve="sub-inter-dictionary"
+              text="Languages"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+          </MenuItem>
           {/* <MenuItem
             activeSection={activeSection}
             icon={<UserCheck className="icon" />}

@@ -1,20 +1,17 @@
-"use client";
-import { AnimatePresence, motion } from "framer-motion";
-
-import useScrollDetect from "@/src/hooks/useScrollDetection";
 import { useUserInterfaceNavStore } from "@/src/stores/userInterfaceNavStore";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useEffect } from "react";
 
-type Props = {
+interface Props {
   children?: React.ReactNode;
-  handleScroll?: (e: any) => void;
+  handleScroll?: (section: string) => void;
   activeSection: string;
   sectionObserve: string;
-  icon?: React.ReactNode; // Prop pour l'icône
-  text: string; // Prop pour le texte
-  setOpen?: React.Dispatch<React.SetStateAction<string[]>>;
-};
+  text: string;
+  icon: React.ReactNode;
+}
+
 export const MenuItem = ({
   children,
   handleScroll,
@@ -23,37 +20,42 @@ export const MenuItem = ({
   text,
   icon,
 }: Props) => {
-  // Gérer le clic pour basculer l'état open
   const {
     userInterfaceNav,
     toggleItemOpen,
     setForceOpen,
     openItem,
     closeItem,
+    setUserInterfaceNav,
   } = useUserInterfaceNavStore();
+
+  useEffect(() => {
+    // Initialiser l'état de la section si elle n'existe pas
+    if (!userInterfaceNav[sectionObserve]) {
+      setUserInterfaceNav(sectionObserve, undefined, true, true);
+    }
+  }, [sectionObserve, setUserInterfaceNav, userInterfaceNav]);
 
   const handleClick = () => {
     toggleItemOpen(sectionObserve);
-    const willBeOpen = !(userInterfaceNav[sectionObserve]?.open ?? false); // État prévu après basculement
-    if (willBeOpen) {
-      setForceOpen(sectionObserve, true);
-    } else {
-      setForceOpen(sectionObserve, false);
-    }
+    const willBeOpen = !(userInterfaceNav[sectionObserve]?.open ?? false);
+    setForceOpen(sectionObserve, willBeOpen);
     handleScroll && handleScroll(sectionObserve);
   };
 
-  const isScrolling = useScrollDetect();
   useEffect(() => {
-    if (sectionObserve === activeSection) {
-      if (!isScrolling) {
-        openItem(sectionObserve);
-      }
-    } else if (!userInterfaceNav[sectionObserve]?.forceOpen) {
+    if (
+      sectionObserve === activeSection &&
+      !userInterfaceNav[sectionObserve]?.open
+    ) {
+      openItem(sectionObserve);
+    } else if (
+      sectionObserve !== activeSection &&
+      userInterfaceNav[sectionObserve]?.open
+    ) {
       closeItem(sectionObserve);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSection, sectionObserve, openItem, closeItem, isScrolling]);
+  }, [activeSection, sectionObserve, openItem, closeItem, userInterfaceNav]);
 
   return (
     <li
@@ -80,13 +82,11 @@ export const MenuItem = ({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, delay:0 }}
-            >
+            transition={{ duration: 0.2, delay: 0 }}>
             {children}
           </motion.ul>
         )}
-      </AnimatePresence>{" "}
+      </AnimatePresence>
     </li>
   );
 };
-

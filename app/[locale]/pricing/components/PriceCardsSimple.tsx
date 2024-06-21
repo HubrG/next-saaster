@@ -28,7 +28,7 @@ export const PriceCardsSimple = () => {
   return (
     <div
       className={cn(
-        " justify-evenly grid mt-10  w-full max-ms:px-5 mx-auto gap-10",
+        " justify-evenly grid mt-10  w-full max-sm:px-5  md:mx-auto max-sm:mx-2 gap-10",
         { "md:grid-cols-1 lg:w-2/6": plansFiltered.length === 1 },
         { "md:grid-cols-2 lg:w-4/6": plansFiltered.length === 2 },
         { "md:grid-cols-3 lg:w-5/6": plansFiltered.length === 3 },

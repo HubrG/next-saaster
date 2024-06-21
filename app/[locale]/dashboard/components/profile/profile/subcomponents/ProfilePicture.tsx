@@ -132,13 +132,19 @@ export const ProfilePicture = () => {
             data-tooltip-id="change-avatar"
             onClick={handleAvatarClick}
             src={userStore.image}
-            className={cn({ "animate-pulse": loading }, ` cursor-pointer`)}
+            className={cn(
+              { "animate-pulse": loading },
+              ` shadow-inner cursor-pointer`
+            )}
             alt={userStore.name ?? "User avatar"}
           />
         )}
         <AvatarFallback
           onClick={handleAvatarClick}
-          className={cn({ "animate-pulse": loading }, "cursor-pointer")}
+          className={cn(
+            { "animate-pulse": loading },
+            "cursor-pointer shadow-inner"
+          )}
           data-tooltip-id="change-avatar"
           style={{ textDecoration: "transparent" }}>
           <span className="!no-underline text-5xl">
@@ -154,7 +160,7 @@ export const ProfilePicture = () => {
       </Avatar>
 
       <Tooltip id="change-avatar" className="tooltip" place="top">
-        {t('change-avatar')}
+        {t("change-avatar")}
       </Tooltip>
       <Form {...form}>
         <form

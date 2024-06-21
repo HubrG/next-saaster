@@ -53,7 +53,11 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
     return signOut();
   };
 
-  const provider = userStore?.accounts && userStore.accounts[0].provider;
+  console.log(userStore.accounts);
+   const provider =
+     userStore?.accounts && userStore.accounts.length > 0
+       ? userStore.accounts[0]?.provider
+       : null;
 
   if (!userProfile || userProfile?.isLoading) {
     return <SkeletonLoader type="card" />;

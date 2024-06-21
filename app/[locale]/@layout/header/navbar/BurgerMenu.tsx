@@ -1,8 +1,7 @@
 "use client";
 import { Link } from "@/src/lib/intl/navigation";
-import { Menu, ShoppingBagIcon } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useSession } from "next-auth/react";
-import TryUsButton from "./TryUsButton";
 import { LoginButton } from "./auth/LoginButton";
 import { UserProfile } from "./auth/UserProfile";
 //
@@ -16,7 +15,9 @@ import {
   SheetTrigger,
 } from "@/src/components/ui/sheet";
 import { appSettings } from "@prisma/client";
+import ChangeLanguage from "./ChangeLanguage";
 import MainMenu from "./MainMenu";
+import Notifications from "./Notifications";
 import { ThemeToggle } from "./ThemeToggle";
 //
 interface Link {
@@ -46,7 +47,9 @@ export default function BurgerMenu(props: Props) {
                 <SheetClose asChild>
                   <MainMenu links={links} />
                 </SheetClose>
-                <li className="md:hidden flex w-full justify-center ">
+              </ul>
+              <ul className="flex flex-row gap-2 mt-10">
+                {/* <li className="md:hidden flex w-full justify-center ">
                   {props.settings.activeCtaOnNavbar && (
                     <SheetClose asChild>
                       <TryUsButton
@@ -56,15 +59,26 @@ export default function BurgerMenu(props: Props) {
                       />
                     </SheetClose>
                   )}
-                </li>
+                </li> */}
                 <li className="sm:hidden flex w-full justify-center">
                   <SheetClose asChild>
                     {user ? (
-                      <UserProfile email={user.email ?? ""} className="w-full" />
+                      <UserProfile
+                        email={user.email ?? ""}
+                        className="w-full"
+                      />
                     ) : (
                       <LoginButton />
                     )}
                   </SheetClose>
+                </li>
+                <li className="sm:hidden flex w-full justify-center">
+                  <Notifications
+                    active={props.settings.activeNotification ?? false}
+                  />
+                </li>
+                <li className="sm:hidden flex w-full justify-center">
+                  <ChangeLanguage />
                 </li>
               </ul>
             </SheetDescription>

@@ -71,6 +71,7 @@ export const UserProfile = ({
   }
 
   return (
+    
     <DropdownMenu>
       <DropdownMenuTrigger asChild className={`flex flex-row w-full`}>
         <Button

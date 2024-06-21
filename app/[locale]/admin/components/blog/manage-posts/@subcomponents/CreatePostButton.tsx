@@ -6,7 +6,7 @@ import { createNewPost } from "../../../../queries/blog/blog.action";
 import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import useBlogStore from "@/src/stores/blogStore";
-import { Plus } from "lucide-react";
+import { FilePlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const CreatePost = () => {
@@ -38,17 +38,18 @@ export const CreatePost = () => {
     }
   };
 
+
   return (
     <>
       <Button
-        
+        variant={"outline"}
         disabled={isCreating}
-        className="flex flex-col shadow gap-y-2 h-auto py-2"
+        className="flex shadow gap-2 h-auto py-2"
         onClick={handleClick}>
         {isCreating ? (
           <SimpleLoader className="mr-2 h-4 w-4" />
         ) : (
-          <Plus />
+          <FilePlus className="icon" />
         )}
         Create a new post
       </Button>

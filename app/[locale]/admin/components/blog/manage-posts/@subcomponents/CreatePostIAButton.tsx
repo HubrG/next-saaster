@@ -5,8 +5,8 @@ import { useRef, useState, useTransition } from "react";
 
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Input } from "@/src/components/ui/input";
+import { useRouter } from "@/src/lib/intl/navigation";
 import { Computer, Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 export const CreatePostIA = ({ userId }: { userId: string }) => {
   const router = useRouter();

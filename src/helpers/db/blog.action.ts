@@ -4,12 +4,9 @@ import {
   handleRes,
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
-import {
-  ActionError,
-  action,
-  upThanUserAction
-} from "@/src/lib/safe-actions";
+import { ActionError, action, upThanUserAction } from "@/src/lib/safe-actions";
 import { iBlog } from "@/src/types/db/iBlog";
+import { BlogCategory } from "@prisma/client";
 import { z } from "zod";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
 
@@ -420,7 +417,98 @@ export const getBlogTags = action(
     }
   }
 );
+export const addCategory = upThanUserAction(
+  z.object({
+    name: z.string(),
+    slug: z.string(),
+    secret: z.string().optional(),
+  }),
+  async ({
+    name,
+    slug,
+    secret,
+  }): Promise<HandleResponseProps<BlogCategory>> => {
+    // 🔐 Security
+    if (!secret || (secret && !verifySecretRequest(secret)))
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const category = await prisma.blogCategory.create({
+        data: { name, slug },
+      });
+      return handleRes<BlogCategory>({
+        success: category,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<BlogCategory>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
 
+export const updateCategory = upThanUserAction(
+  z.object({
+    id: z.string(),
+    data: z.object({
+      name: z.string().optional(),
+      slug: z.string().optional(),
+    }),
+    secret: z.string().optional(),
+  }),
+  async ({ id, data, secret }): Promise<HandleResponseProps<BlogCategory>> => {
+    // 🔐 Security
+    if (!secret || (secret && !verifySecretRequest(secret)))
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const category = await prisma.blogCategory.update({
+        where: { id },
+        data,
+      });
+      return handleRes<BlogCategory>({
+        success: category,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<BlogCategory>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
+export const deleteCategory = upThanUserAction(
+  z.object({
+    id: z.string(),
+    secret: z.string().optional(),
+  }),
+  async ({ id, secret }): Promise<HandleResponseProps<BlogCategory>> => {
+    // 🔐 Security
+    if (!secret || (secret && !verifySecretRequest(secret)))
+      throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const category = await prisma.blogCategory.delete({
+        where: { id },
+      });
+      return handleRes<BlogCategory>({
+        success: category,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<BlogCategory>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
 const include = {
   author: true,
   comments: true,

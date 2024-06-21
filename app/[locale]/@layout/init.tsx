@@ -32,7 +32,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { fetchSaasFeatures } = useSaasFeaturesStore();
   const { fetchSaasPlan } = useSaasPlansStore();
   const { fetchUserStore, setUserStore } = useUserStore();
-  const { fetchBlogPosts } = useBlogStore();
+  const { fetchBlogPosts, fetchBlogCategories } = useBlogStore();
   const isClient = useIsClient();
   const [hasLoadedData, setHasLoadedData] = useState(false);
 
@@ -57,6 +57,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
           fetchSaasFeaturesCategories(),
           fetchSaasFeatures(),
           fetchBlogPosts(),
+          fetchBlogCategories(),
           fetchSaasPlan(),
         ]);
       } else {

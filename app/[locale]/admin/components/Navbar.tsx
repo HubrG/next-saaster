@@ -6,18 +6,17 @@ import useScrollToSection from "@/src/hooks/useScrollToSection";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
   BadgeDollarSign,
+  Building2,
   Cog,
   Coins,
   Dot,
-  Info,
   Languages,
   LayoutDashboard,
   Palette,
   Rss,
   RssIcon,
   Settings2,
-  SquarePen,
-  UsersRound,
+  UsersRound
 } from "lucide-react";
 import { useState } from "react";
 
@@ -51,9 +50,9 @@ export const AdminNavbar = () => {
         <ul>
           <MenuItem
             activeSection={activeSection}
-            icon={<Info className="icon" />}
-            text="Infos"
-            sectionObserve="InfosApp"
+            icon={<Building2 className="icon" />}
+            text="Company"
+            sectionObserve="AppCompany"
             handleScroll={handleScroll}
           />
           <MenuItem
@@ -90,8 +89,7 @@ export const AdminNavbar = () => {
             activeSection={activeSection}
             icon={<Languages className="icon" />}
             text="Internationalization"
-            sectionObserve="Internationalization"
-            >
+            sectionObserve="Internationalization">
             <MenuSubItem
               parent="Internationalization"
               activeSection={activeSubSection}
@@ -207,13 +205,6 @@ export const AdminNavbar = () => {
             sectionObserve="BlogPosts"
             icon={<RssIcon className="icon" />}
             text="Manage posts"
-            handleScroll={handleScroll}
-          />
-          <MenuItem
-            activeSection={activeSection}
-            sectionObserve="ManageCategories"
-            icon={<SquarePen className="icon" />}
-            text="Manage categories"
             handleScroll={handleScroll}
           />
         </ul>

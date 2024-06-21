@@ -4,25 +4,25 @@ import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { SwitchWrapper } from "@/src/components/ui/@fairysaas/user-interface/ui/SwitchWrapper";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
-import { MoonStar } from "lucide-react";
+import { Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function SwitchDefaultDarkMode() {
+export default function SwitchDefaultLightMode() {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
 
   useEffect(() => {
-    setDefaultDarkmode(data.defaultDarkMode ?? false);
+    setDefaultDarkmode(data.defaultLightMode ?? false);
   }, [data]);
 
-  const handleChangeDefaultDarkmode = async (e: any) => {
+  const handleChangeDefaultLightmode = async (e: any) => {
     if (data.id) {
       const dataToSet = await updateAppSettings(
         appSettings.id,
         {
-          defaultDarkMode: e,
-          defaultLightMode: e ? false : data.defaultLightMode, // Ne pas forcer le mode clair
+          defaultLightMode: e,
+          defaultDarkMode: e ? false : data.defaultDarkMode, // Ne pas forcer le mode sombre
         },
         chosenSecret()
       );
@@ -30,17 +30,17 @@ export default function SwitchDefaultDarkMode() {
         setDefaultDarkmode(e);
         setAppSettings({
           ...appSettings,
-          defaultDarkMode: e,
-          defaultLightMode: e ? false : data.defaultLightMode,
+          defaultLightMode: e,
+          defaultDarkMode: e ? false : data.defaultDarkMode,
         });
         return toaster({
-          description: `Default darkmode ${e ? "enabled" : "disabled"}`,
+          description: `Default lightmode ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
         return toaster({
           type: "error",
-          description: "Default darkmode not changed, please try again",
+          description: "Default lightmode not changed, please try again",
         });
       }
     }
@@ -48,11 +48,11 @@ export default function SwitchDefaultDarkMode() {
 
   return (
     <SwitchWrapper
-      handleChange={handleChangeDefaultDarkmode}
+      handleChange={handleChangeDefaultLightmode}
       checked={defaultDarkmode}
-      icon={<MoonStar className="icon" />}
-      id="switch-default-dark-mode">
-      Activate <strong>dark mode by default</strong> on a first visit.
+      icon={<Sun className="icon" />}
+      id="switch-default-light-mode">
+      Activate <strong>light mode by default</strong> on a first visit.
     </SwitchWrapper>
   );
 }

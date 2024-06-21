@@ -3,11 +3,11 @@ import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-ele
 import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { getUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth";
 import { getTranslations } from "next-intl/server";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { PriceCardsFeaturesByCategories } from "./components/PriceCardFeaturesByCategories";
 import { PriceCardsSimple } from "./components/PriceCardsSimple";

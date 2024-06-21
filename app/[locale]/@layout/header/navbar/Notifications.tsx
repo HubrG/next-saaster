@@ -2,15 +2,16 @@
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import { useNotifications } from "@/src/hooks/useNotification";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Notification } from "@prisma/client";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { now } from "lodash";
@@ -19,11 +20,19 @@ import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { mutate } from "swr";
 
-const Notifications = () => {
+const Notifications = ({ active }: { active: boolean }) => {
+  console.log(active);
+  if (!active) {
+    return null;
+  }
+
+  const { appSettings } = useAppSettingsStore();
+
   const { data: session } = useSessionQuery();
   const { notifications, isLoading, isError } = useNotifications(
     session?.user.userId || "",
-    session?.user.email || ""
+    session?.user.email || "",
+    appSettings.activeNotification ?? false
   );
   const [open, setOpen] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
@@ -95,13 +104,6 @@ const Notifications = () => {
         <Skeleton className="h-8 w-8 rounded-full" />
       </div>
     );
-  }
-
-  if (isError) {
-    return toaster({
-      description: "An error occurred while fetching notifications",
-      type: "error",
-    });
   }
 
   return (

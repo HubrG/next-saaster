@@ -51,7 +51,6 @@ export async function middleware(req: NextRequest) {
   }
 
   // SECTION : Next-Intl
-
   if (!cachedLocales || !cachedDefaultLocale) {
     const response = await fetch(URI + "/api/locales", {
       method: "POST",
@@ -94,5 +93,6 @@ export const config = {
     "/((?!api|_next|_vercel|.*\\..*).*)",
     // However, match all pathnames within `/users`, optionally with a locale prefix
     "/([\\w-]+)?/users/(.+)",
+    
   ],
 };

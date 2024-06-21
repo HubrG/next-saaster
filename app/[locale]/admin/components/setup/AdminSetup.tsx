@@ -2,7 +2,7 @@
 import { SetupDesign } from "@/app/[locale]/admin/components/setup/design-settings/SetupDesign";
 import { InfoApp } from "@/app/[locale]/admin/components/setup/info-settings/InfoApp";
 import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
-import { Info, Languages, LayoutDashboard, Palette } from "lucide-react";
+import { Building2, Languages, LayoutDashboard, Palette } from "lucide-react";
 import Internationalization from "./internationalization/Internationalization";
 import { Layout } from "./layout-settings/Layout";
 
@@ -10,10 +10,10 @@ export const AdminSetup = () => {
   return (
     <>
       <SectionWrapper
-        id="InfosApp"
-        sectionName="Info"
+        id="AppCompany"
+        sectionName="Company"
         mainSectionName="Setup"
-        icon={<Info className="icon" />}>
+        icon={<Building2 className="icon" />}>
         <InfoApp />
       </SectionWrapper>
       <SectionWrapper
@@ -35,8 +35,7 @@ export const AdminSetup = () => {
         icon={<Languages className="icon" />}
         id="Internationalization"
         sectionName="Internationalization"
-        mainSectionName="Setup"
-    >
+        mainSectionName="Setup">
         <Internationalization />
       </SectionWrapper>
     </>

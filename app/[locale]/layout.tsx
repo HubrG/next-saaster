@@ -83,7 +83,11 @@ export default async function LocaleLayout(props: Props) {
                 disableTransitionOnChange={false}
                 attribute="class"
                 defaultTheme={
-                  appSettings.data.defaultDarkMode ? "dark" : "light"
+                  appSettings.data.defaultDarkMode
+                    ? "dark"
+                    : appSettings.data.defaultLightMode
+                    ? "light"
+                    : "system"
                 }
                 enableSystem={appSettings.data.activeDarkMode ?? false}>
                 <Navbar settings={appSettings.data} />

@@ -2,6 +2,7 @@
 import { useIsClient } from "@/src/hooks/useIsClient";
 import links from "@/src/jsons/main-menu.json";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { appSettings } from "@prisma/client";
 import { ShoppingBagIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -21,6 +22,7 @@ type NavbarProps = {
 
 export const Navbar = ({ settings }: NavbarProps) => {
   const { data: session, isLoading } = useSessionQuery();
+  const { appSettings } = useAppSettingsStore();
 
   const t = useTranslations("Layout.Header.Navbar");
   const isClient = useIsClient();
@@ -60,7 +62,7 @@ export const Navbar = ({ settings }: NavbarProps) => {
               <div className="sm:flex hidden  flex-row items-center">
                 {session?.user.id || isLoading ? (
                   <>
-                    <Notifications />
+                    <Notifications active={!!appSettings.activeNotification} />
                     <UserProfile
                       email={session?.user.email ?? ""}
                       isLoading={isLoading}

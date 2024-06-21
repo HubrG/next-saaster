@@ -320,7 +320,10 @@
     },
     "button": "ไปที่แผงควบคุม",
     "description": "ยินดีต้อนรับสู่แดชบอร์ดของคุณ!",
-    "title": "แผงควบคุม"
+    "title": "แผงควบคุม",
+    "metadatas": {
+      "title": "บัญชีของฉัน"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "โทเค็นการรีเซ็ตไม่ถูกต้อง \nกรุณาเริ่มต้นใหม่อีกครั้งหรือสมัครใหม่",
     "reset-password": "การรีเซ็ตรหัสผ่านของคุณ",
-    "token-expired": "ไม่รู้จักโทเค็นการรีเซ็ต"
+    "token-expired": "ไม่รู้จักโทเค็นการรีเซ็ต",
+    "metadatas": {
+      "title": "ลืมรหัสผ่านหรือไม่"
+    }
   },
   "Index": {
     "first-connexion": "การเชื่อมต่อครั้งแรก",
@@ -440,6 +446,9 @@
     "title": "ลงชื่อเข้าใช้บัญชีของคุณ",
     "toasters": {
       "bad-credentials": "ตัวระบุไม่ถูกต้อง"
+    },
+    "metadatas": {
+      "title": "การเชื่อมต่อ"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "ขอขอบคุณสำหรับความไว้วางใจของคุณ ! \nการซื้อของคุณได้รับการตรวจสอบแล้ว"
         }
       }
+    },
+    "metadatas": {
+      "title": "ราคา"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "เข้าสู่ระบบ"
     },
-    "title": "สร้างบัญชี"
+    "title": "สร้างบัญชี",
+    "metadatas": {
+      "title": "การลงทะเบียน"
+    }
   },
   "NotFound": {
     "back-link": "กลับไปที่หน้าแรก",
@@ -543,13 +558,46 @@
       "no-title": "ไม่มีชื่อเรื่อง"
     },
     "no-author": "ไม่ระบุชื่อ",
-    "no-title": "บทความที่ไม่มีชื่อ"
+    "no-title": "บทความที่ไม่มีชื่อ",
+    "metadatas": {
+      "title": "บล็อก"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "ไม่มีการแจ้งเตือน"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "ติดต่อ"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "คำถามที่พบบ่อย"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "มันทำงานอย่างไร ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "การรักษาความลับ"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "กำลังโหลดเครดิตซ้ำ"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "ประกาศทางกฎหมาย"
     }
   }
 }

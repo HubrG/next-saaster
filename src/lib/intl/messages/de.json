@@ -299,6 +299,9 @@
         "token-expired": "Jeton abgelaufen.",
         "token-not-found": "Reset-Token nicht gefunden."
       }
+    },
+    "metadatas": {
+      "title": "Mein Konto"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "Anmelden bei Ihrem Konto",
     "toasters": {
       "bad-credentials": "Falsche Identifikatoren"
+    },
+    "metadatas": {
+      "title": "Verbindung"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "Vielen Dank für Ihr Vertrauen! Ihr Kauf wurde erfolgreich bestätigt."
         }
       }
+    },
+    "metadatas": {
+      "title": "Preisgestaltung"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "und fordern Sie einen neuen Validierungslink an, wenn Sie ihn noch nicht validiert haben.",
       "success": "Verifizierte E-Mail.",
       "title": "Überprüfung Ihrer E-Mail-Adresse"
+    },
+    "metadatas": {
+      "title": "Anmeldung"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "Ungültiger Jeton zum Zurücksetzen. Bitte beginnen Sie erneut oder stellen Sie einen neuen Antrag.",
     "reset-password": "Ihr Passwort zurücksetzen",
-    "token-expired": "Das Token zum Zurücksetzen ist unbekannt."
+    "token-expired": "Das Token zum Zurücksetzen ist unbekannt.",
+    "metadatas": {
+      "title": "Haben Sie Ihr Passwort vergessen"
+    }
   },
   "NotFound": {
     "back-link": "Zur Startseite zurückkehren",
@@ -543,13 +558,46 @@
       "no-title": "Kein Titel"
     },
     "no-author": "Anonym",
-    "no-title": "Artikel ohne Titel"
+    "no-title": "Artikel ohne Titel",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Keine Benachrichtigungen"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Kontakt"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "FAQs"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Wie es funktioniert ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Vertraulichkeit"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Guthaben aufladen"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Impressum"
     }
   }
 }

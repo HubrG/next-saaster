@@ -320,7 +320,10 @@
     },
     "button": "Menjen a műszerfalhoz",
     "description": "Üdvözöljük a műszerfalon!",
-    "title": "Műszerfal"
+    "title": "Műszerfal",
+    "metadatas": {
+      "title": "A fiókom"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Érvénytelen reset token. Kérjük, próbálja meg újra, vagy tegyen új kérelmet.",
     "reset-password": "Jelszó visszaállítása",
-    "token-expired": "A reset token ismeretlen."
+    "token-expired": "A reset token ismeretlen.",
+    "metadatas": {
+      "title": "Elfelejtette a jelszavát"
+    }
   },
   "Index": {
     "first-connexion": "Első kapcsolat",
@@ -440,6 +446,9 @@
     "title": "Bejelentkezés a fiókjába",
     "toasters": {
       "bad-credentials": "Hibás azonosítók"
+    },
+    "metadatas": {
+      "title": "Kapcsolat"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Köszönjük a bizalmat! Vásárlását megerősítettük."
         }
       }
+    },
+    "metadatas": {
+      "title": "Árazás"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Jelentkezzen be a"
     },
-    "title": "Fiók létrehozása"
+    "title": "Fiók létrehozása",
+    "metadatas": {
+      "title": "Bejegyzés"
+    }
   },
   "NotFound": {
     "back-link": "Vissza a kezdőlapra",
@@ -543,13 +558,46 @@
       "no-title": "Nincs cím"
     },
     "no-author": "Névtelen",
-    "no-title": "Cím nélküli cikk"
+    "no-title": "Cím nélküli cikk",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Nincsenek értesítések"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Kapcsolatba lépni"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "GYIK"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Hogyan működik ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Titoktartás"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Kredit újratöltése"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Jogi nyilatkozat"
     }
   }
 }

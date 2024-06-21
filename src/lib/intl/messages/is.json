@@ -320,7 +320,10 @@
     },
     "button": "Farðu á mælaborðið",
     "description": "Velkomin á mælaborðið þitt!",
-    "title": "Mælaborð"
+    "title": "Mælaborð",
+    "metadatas": {
+      "title": "Minn reikningur"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Ógildur endurstillingarlykill. \nVinsamlegast byrjaðu aftur eða sóttu aftur um.",
     "reset-password": "Endurstillir lykilorðið þitt",
-    "token-expired": "Endurstillingartáknið er óþekkt."
+    "token-expired": "Endurstillingartáknið er óþekkt.",
+    "metadatas": {
+      "title": "Gleymdi lykilorðinu þínu"
+    }
   },
   "Index": {
     "first-connexion": "Fyrsta tenging",
@@ -440,6 +446,9 @@
     "title": "Skráðu þig inn á reikninginn þinn",
     "toasters": {
       "bad-credentials": "Rangt auðkenni"
+    },
+    "metadatas": {
+      "title": "Tenging"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Þakka þér fyrir traustið! \nKaupin þín hafa verið staðfest."
         }
       }
+    },
+    "metadatas": {
+      "title": "Verðlag"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Skrá inn"
     },
-    "title": "Búðu til reikning"
+    "title": "Búðu til reikning",
+    "metadatas": {
+      "title": "Skráning"
+    }
   },
   "NotFound": {
     "back-link": "Fara aftur á heimasíðuna",
@@ -543,13 +558,46 @@
       "no-title": "Enginn titill"
     },
     "no-author": "Nafnlaus",
-    "no-title": "Ónefnd grein"
+    "no-title": "Ónefnd grein",
+    "metadatas": {
+      "title": "Blogg"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Engar tilkynningar"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Hafðu samband"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Algengar spurningar"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Hvernig það virkar ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Trúnaður"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Endurhleðsla eininga"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Lagatilkynning"
     }
   }
 }

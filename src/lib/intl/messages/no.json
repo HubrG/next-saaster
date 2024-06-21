@@ -320,7 +320,10 @@
     },
     "button": "Gå til Dashboard",
     "description": "Velkommen til dashbordet ditt!",
-    "title": "Dashbord"
+    "title": "Dashbord",
+    "metadatas": {
+      "title": "Min konto"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Ugyldig tilbakestillingstoken. \nStart på nytt eller søk på nytt.",
     "reset-password": "Tilbakestiller passordet ditt",
-    "token-expired": "Tilbakestillingstokenet er ukjent."
+    "token-expired": "Tilbakestillingstokenet er ukjent.",
+    "metadatas": {
+      "title": "Glemt passordet"
+    }
   },
   "Index": {
     "first-connexion": "Første tilkobling",
@@ -440,6 +446,9 @@
     "title": "Logg inn på kontoen din",
     "toasters": {
       "bad-credentials": "Feil identifikatorer"
+    },
+    "metadatas": {
+      "title": "Forbindelse"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Takk for tilliten ! \nKjøpet ditt er validert."
         }
       }
+    },
+    "metadatas": {
+      "title": "Prissetting"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Logg Inn"
     },
-    "title": "Opprett en konto"
+    "title": "Opprett en konto",
+    "metadatas": {
+      "title": "Registrering"
+    }
   },
   "NotFound": {
     "back-link": "Gå tilbake til hjemmesiden",
@@ -543,13 +558,46 @@
       "no-title": "Uten tittel"
     },
     "no-author": "Anonym",
-    "no-title": "Artikkel uten tittel"
+    "no-title": "Artikkel uten tittel",
+    "metadatas": {
+      "title": "Blogg"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Ingen varsler"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Kontakt"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Vanlige spørsmål"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Hvordan det fungerer ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "konfidensialitet"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Laster inn kreditter på nytt"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Juridisk varsel"
     }
   }
 }

@@ -208,6 +208,9 @@
         "token-expired": "टोकन समाप्त हो गया.",
         "token-not-found": "रीसेट टोकन नहीं मिला."
       }
+    },
+    "metadatas": {
+      "title": "मेरा खाता"
     }
   },
   "Footer": {
@@ -292,6 +295,9 @@
     "title": "अपने अकाउंट में लॉग इन करें",
     "toasters": {
       "bad-credentials": "ग़लत पहचानकर्ता"
+    },
+    "metadatas": {
+      "title": "संबंध"
     }
   },
   "Pricing": {
@@ -331,6 +337,9 @@
           "success": "आपके विश्वास के लिए धन्यवाद ! \nआपकी खरीदारी मान्य कर दी गई है."
         }
       }
+    },
+    "metadatas": {
+      "title": "मूल्य निर्धारण"
     }
   },
   "Register": {
@@ -379,6 +388,9 @@
       "request-new-validation": "और यदि आपने इसे अभी तक सत्यापित नहीं किया है तो एक नए सत्यापन लिंक का अनुरोध करें।",
       "success": "ईमेल सत्यापित हुआ।",
       "title": "आपका ईमेल पता सत्यापित किया जा रहा है"
+    },
+    "metadatas": {
+      "title": "पंजीकरण"
     }
   },
   "Components": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "अमान्य रीसेट टोकन. \nकृपया पुनः प्रारंभ करें या पुनः आवेदन करें।",
     "reset-password": "अपना पासवर्ड रीसेट करना",
-    "token-expired": "रीसेट टोकन अज्ञात है."
+    "token-expired": "रीसेट टोकन अज्ञात है.",
+    "metadatas": {
+      "title": "अपना कूट शब्द भूल गए"
+    }
   },
   "NotFound": {
     "back-link": "होमपेज पर वापस आएं",
@@ -543,13 +558,46 @@
       "no-title": "कोई शीर्षक नहीं"
     },
     "no-author": "गुमनाम",
-    "no-title": "शीर्षक रहित लेख"
+    "no-title": "शीर्षक रहित लेख",
+    "metadatas": {
+      "title": "ब्लॉग"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "कोई सूचनाएं नहीं"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "संपर्क"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "पूछे जाने वाले प्रश्न"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "यह काम किस प्रकार करता है ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "गोपनीयता"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "क्रेडिट पुनः लोड हो रहा है"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "कानूनी नोटिस"
     }
   }
 }

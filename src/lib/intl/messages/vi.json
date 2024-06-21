@@ -320,7 +320,10 @@
     },
     "button": "Đi đến bảng điều khiển",
     "description": "Chào mừng bạn đến với bảng điều khiển của bạn!",
-    "title": "bảng điều khiển"
+    "title": "bảng điều khiển",
+    "metadatas": {
+      "title": "Tài khoản của tôi"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Mã thông báo đặt lại không hợp lệ. \nVui lòng bắt đầu lại hoặc đăng ký lại.",
     "reset-password": "Đặt lại mật khẩu của bạn",
-    "token-expired": "Mã thông báo đặt lại không xác định."
+    "token-expired": "Mã thông báo đặt lại không xác định.",
+    "metadatas": {
+      "title": "Quên mật khẩu"
+    }
   },
   "Index": {
     "first-connexion": "Kết nối đầu tiên",
@@ -440,6 +446,9 @@
     "title": "đăng nhập vào tài khoản của bạn",
     "toasters": {
       "bad-credentials": "Số nhận dạng không chính xác"
+    },
+    "metadatas": {
+      "title": "Sự liên quan"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Cảm ơn bạn đã tin tưởng ! \nGiao dịch mua hàng của bạn đã được xác thực."
         }
       }
+    },
+    "metadatas": {
+      "title": "Định giá"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Đăng nhập"
     },
-    "title": "Tạo một tài khoản"
+    "title": "Tạo một tài khoản",
+    "metadatas": {
+      "title": "Sự đăng ký"
+    }
   },
   "NotFound": {
     "back-link": "Trở về trang chủ",
@@ -543,13 +558,46 @@
       "no-title": "Không tiêu đề"
     },
     "no-author": "Vô danh",
-    "no-title": "Bài viết không có tiêu đề"
+    "no-title": "Bài viết không có tiêu đề",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Không có thông báo"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Liên hệ"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Câu hỏi thường gặp"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Làm thế nào nó hoạt động ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Bảo mật"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Đang tải lại tín dụng"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Thông báo pháp lý"
     }
   }
 }

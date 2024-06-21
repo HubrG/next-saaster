@@ -320,7 +320,10 @@
     },
     "button": "Przejdź do pulpitu nawigacyjnego",
     "description": "Witamy na pulpicie nawigacyjnym!",
-    "title": "Pulpit nawigacyjny"
+    "title": "Pulpit nawigacyjny",
+    "metadatas": {
+      "title": "Moje konto"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Nieprawidłowy token resetowania. Spróbuj ponownie lub złóż nowe żądanie.",
     "reset-password": "Resetowanie hasła",
-    "token-expired": "Token resetowania jest nieznany."
+    "token-expired": "Token resetowania jest nieznany.",
+    "metadatas": {
+      "title": "Zapomniałeś hasła"
+    }
   },
   "Index": {
     "first-connexion": "Pierwsze połączenie",
@@ -440,6 +446,9 @@
     "title": "Zaloguj się do swojego konta",
     "toasters": {
       "bad-credentials": "Nieprawidłowe identyfikatory"
+    },
+    "metadatas": {
+      "title": "Połączenie"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Dziękujemy za zaufanie! Twój zakup został potwierdzony."
         }
       }
+    },
+    "metadatas": {
+      "title": "cennik"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Zaloguj się do"
     },
-    "title": "Utwórz konto"
+    "title": "Utwórz konto",
+    "metadatas": {
+      "title": "Rejestracja"
+    }
   },
   "NotFound": {
     "back-link": "Powrót do strony głównej",
@@ -543,13 +558,46 @@
       "no-title": "Bez tytułu"
     },
     "no-author": "Anonimowy",
-    "no-title": "Artykuł bez tytułu"
+    "no-title": "Artykuł bez tytułu",
+    "metadatas": {
+      "title": "Bloga"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Brak powiadomień"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Kontakt"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Często zadawane pytania"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Jak to działa ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Poufność"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Ponowne ładowanie kredytów"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Nota prawna"
     }
   }
 }

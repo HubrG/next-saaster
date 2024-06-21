@@ -320,7 +320,10 @@
     },
     "button": "Siirry kojelautaan",
     "description": "Tervetuloa kojelautaan!",
-    "title": "Kojelauta"
+    "title": "Kojelauta",
+    "metadatas": {
+      "title": "Tilini"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Virheellinen nollausmerkki. Yritä uudelleen tai tee uusi pyyntö.",
     "reset-password": "Salasanan palauttaminen",
-    "token-expired": "Nollausmerkki on tuntematon."
+    "token-expired": "Nollausmerkki on tuntematon.",
+    "metadatas": {
+      "title": "Unohditko salasanasi"
+    }
   },
   "Index": {
     "first-connexion": "Ensimmäinen yhteys",
@@ -440,6 +446,9 @@
     "title": "Kirjaudu tilillesi",
     "toasters": {
       "bad-credentials": "Virheelliset tunnisteet"
+    },
+    "metadatas": {
+      "title": "Yhteys"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Kiitos luottamuksesta! Ostoksesi on vahvistettu."
         }
       }
+    },
+    "metadatas": {
+      "title": "Hinnoittelu"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Kirjaudu sisään osoitteessa"
     },
-    "title": "Luo tili"
+    "title": "Luo tili",
+    "metadatas": {
+      "title": "Rekisteröinti"
+    }
   },
   "NotFound": {
     "back-link": "Palaa etusivulle",
@@ -543,13 +558,46 @@
       "no-title": "Ei otsikkoa"
     },
     "no-author": "Nimetön",
-    "no-title": "Nimetön artikkeli"
+    "no-title": "Nimetön artikkeli",
+    "metadatas": {
+      "title": "Blogi"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Ei ilmoituksia"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Ottaa yhteyttä"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "UKK"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Kuinka se toimii ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Luottamuksellisuus"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Ladataan krediittejä uudelleen"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Oikeudellinen huomautus"
     }
   }
 }

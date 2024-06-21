@@ -299,6 +299,9 @@
         "token-expired": "Gettone scaduto.",
         "token-not-found": "Token di reset non trovato."
       }
+    },
+    "metadatas": {
+      "title": "Il mio conto"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "Accedere al proprio account",
     "toasters": {
       "bad-credentials": "Identificatori errati"
+    },
+    "metadatas": {
+      "title": "Connessione"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "Grazie per la fiducia! Il vostro acquisto è stato confermato."
         }
       }
+    },
+    "metadatas": {
+      "title": "Prezzi"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "e richiedere un nuovo link di convalida se non è ancora stato convalidato.",
       "success": "E-mail verificata.",
       "title": "Controllo dell'indirizzo e-mail"
+    },
+    "metadatas": {
+      "title": "iscrizione"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "Token di ripristino non valido. Riprovare o effettuare una nuova richiesta.",
     "reset-password": "Ripristino della password",
-    "token-expired": "Il token di ripristino è sconosciuto."
+    "token-expired": "Il token di ripristino è sconosciuto.",
+    "metadatas": {
+      "title": "Hai dimenticato la password"
+    }
   },
   "NotFound": {
     "back-link": "Ritorna alla home page",
@@ -543,13 +558,46 @@
       "no-title": "Senza titolo"
     },
     "no-author": "Anonimo",
-    "no-title": "Articolo senza titolo"
+    "no-title": "Articolo senza titolo",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Nessuna notifica"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Contatto"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Domande frequenti"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Come funziona ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Riservatezza"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Ricarica crediti"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Avviso legale"
     }
   }
 }

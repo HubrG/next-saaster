@@ -320,7 +320,10 @@
     },
     "button": "ড্যাশবোর্ড এ যান",
     "description": "আপনার ড্যাশবোর্ডে স্বাগতম!",
-    "title": "ড্যাশবোর্ড"
+    "title": "ড্যাশবোর্ড",
+    "metadatas": {
+      "title": "আমার অ্যাকাউন্ট"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "অবৈধ রিসেট টোকেন। \nঅনুগ্রহ করে আবার শুরু করুন বা পুনরায় আবেদন করুন।",
     "reset-password": "আপনার পাসওয়ার্ড রিসেট করা হচ্ছে",
-    "token-expired": "রিসেট টোকেন অজানা."
+    "token-expired": "রিসেট টোকেন অজানা.",
+    "metadatas": {
+      "title": "আপনি কি পাসওয়ার্ড ভুলে গেছেন"
+    }
   },
   "Index": {
     "first-connexion": "প্রথম সংযোগ",
@@ -440,6 +446,9 @@
     "title": "আপনার অ্যাকাউন্টে লগ ইন করুন",
     "toasters": {
       "bad-credentials": "ভুল শনাক্তকারী"
+    },
+    "metadatas": {
+      "title": "সংযোগ"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "তোমার বিশ্বাসের জন্য ধন্যবাদ ! \nআপনার ক্রয় যাচাই করা হয়েছে."
         }
       }
+    },
+    "metadatas": {
+      "title": "মূল্য নির্ধারণ"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "প্রবেশ করুন"
     },
-    "title": "একটি অ্যাকাউন্ট তৈরি করুন"
+    "title": "একটি অ্যাকাউন্ট তৈরি করুন",
+    "metadatas": {
+      "title": "নিবন্ধন"
+    }
   },
   "NotFound": {
     "back-link": "হোমপেজে ফিরে যান",
@@ -543,13 +558,46 @@
       "no-title": "কোনো শিরোনাম নেই"
     },
     "no-author": "বেনামী",
-    "no-title": "শিরোনামহীন নিবন্ধ"
+    "no-title": "শিরোনামহীন নিবন্ধ",
+    "metadatas": {
+      "title": "ব্লগ"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "বিজ্ঞপ্তি নেই"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "যোগাযোগ"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "FAQs"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "কিভাবে এটা কাজ করে ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "গোপনীয়তা"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "ক্রেডিট পুনরায় লোড করা হচ্ছে"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "আইনি নোটিশ"
     }
   }
 }

@@ -299,6 +299,9 @@
         "token-expired": "Token expired.",
         "token-not-found": "Reset token not found."
       }
+    },
+    "metadatas": {
+      "title": "My account"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "Login to your account",
     "toasters": {
       "bad-credentials": "Incorrect identifiers"
+    },
+    "metadatas": {
+      "title": "Connection"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "Thank you for your confidence! Your purchase has been confirmed."
         }
       }
+    },
+    "metadatas": {
+      "title": "Pricing"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "and request a new validation link if you have not yet validated it.",
       "success": "E-mail verified.",
       "title": "Check your e-mail address"
+    },
+    "metadatas": {
+      "title": "Registration"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "Invalid reset token. Please try again or make a new request.",
     "reset-password": "Reset your password",
-    "token-expired": "The reset token is unknown."
+    "token-expired": "The reset token is unknown.",
+    "metadatas": {
+      "title": "Forgot your password"
+    }
   },
   "NotFound": {
     "back-link": "Return to home page",
@@ -543,13 +558,46 @@
       "no-title": "No title"
     },
     "no-author": "Anonymous",
-    "no-title": "Untitled article"
+    "no-title": "Untitled article",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "No notifications"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Contact"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "FAQs"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "How it works ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Confidentiality"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Reloading credits"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Legal Notice"
     }
   }
 }

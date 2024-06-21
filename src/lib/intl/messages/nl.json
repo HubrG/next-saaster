@@ -320,7 +320,10 @@
     },
     "button": "Ga naar het dashboard",
     "description": "Welkom op je dashboard!",
-    "title": "Dashboard"
+    "title": "Dashboard",
+    "metadatas": {
+      "title": "mijn account"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Ongeldig resettoken. Probeer het opnieuw of doe een nieuwe aanvraag.",
     "reset-password": "Wachtwoord opnieuw instellen",
-    "token-expired": "De reset-token is onbekend."
+    "token-expired": "De reset-token is onbekend.",
+    "metadatas": {
+      "title": "Je wachtwoord vergeten"
+    }
   },
   "Index": {
     "first-connexion": "Eerste aansluiting",
@@ -440,6 +446,9 @@
     "title": "Inloggen op je account",
     "toasters": {
       "bad-credentials": "Onjuiste identificaties"
+    },
+    "metadatas": {
+      "title": "Verbinding"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Bedankt voor uw vertrouwen! Uw aankoop is bevestigd."
         }
       }
+    },
+    "metadatas": {
+      "title": "Prijzen"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Log in op"
     },
-    "title": "Een account aanmaken"
+    "title": "Een account aanmaken",
+    "metadatas": {
+      "title": "inschrijving"
+    }
   },
   "NotFound": {
     "back-link": "Keer terug naar de start pagina",
@@ -543,13 +558,46 @@
       "no-title": "Geen titel"
     },
     "no-author": "Anoniem",
-    "no-title": "Naamloos artikel"
+    "no-title": "Naamloos artikel",
+    "metadatas": {
+      "title": "Bloggen"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Geen notificaties"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Contact"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Veelgestelde vragen"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Hoe het werkt ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Vertrouwelijkheid"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Tegoeden herladen"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Juridische kennisgeving"
     }
   }
 }

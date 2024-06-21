@@ -299,6 +299,9 @@
         "token-expired": "Ficha caducada.",
         "token-not-found": "No se ha encontrado el token de reinicio."
       }
+    },
+    "metadatas": {
+      "title": "Mi cuenta"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "Acceda a su cuenta",
     "toasters": {
       "bad-credentials": "Identificadores incorrectos"
+    },
+    "metadatas": {
+      "title": "Conexión"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "Gracias por su confianza. Su compra ha sido confirmada."
         }
       }
+    },
+    "metadatas": {
+      "title": "Precios"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "y solicite un nuevo enlace de validación si aún no lo ha validado.",
       "success": "Correo electrónico verificado.",
       "title": "Comprobar su dirección de correo electrónico"
+    },
+    "metadatas": {
+      "title": "Registro"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "Identificador de reinicio no válido. Vuelve a intentarlo o realiza una nueva solicitud.",
     "reset-password": "Restablecer la contraseña",
-    "token-expired": "El token de reinicio es desconocido."
+    "token-expired": "El token de reinicio es desconocido.",
+    "metadatas": {
+      "title": "contraseña olvidada"
+    }
   },
   "NotFound": {
     "back-link": "Regresar a la página principal",
@@ -543,13 +558,46 @@
       "no-title": "Sin título"
     },
     "no-author": "Anónimo",
-    "no-title": "Artículo sin título"
+    "no-title": "Artículo sin título",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "No Notificaciones"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Contactar"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Preguntas frecuentes"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Cómo funciona ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Confidencialidad"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Recarga de créditos"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Notas legales"
     }
   }
 }

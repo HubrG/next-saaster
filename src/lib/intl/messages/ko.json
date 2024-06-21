@@ -320,7 +320,10 @@
     },
     "button": "대시 보드로 이동",
     "description": "대시보드에 오신 것을 환영합니다!",
-    "title": "계기반"
+    "title": "계기반",
+    "metadatas": {
+      "title": "내 계정"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "재설정 토큰이 잘못되었습니다. \n다시 시작하거나 다시 신청하세요.",
     "reset-password": "비밀번호 재설정",
-    "token-expired": "재설정 토큰을 알 수 없습니다."
+    "token-expired": "재설정 토큰을 알 수 없습니다.",
+    "metadatas": {
+      "title": "비밀번호를 잊어 버렸습니까"
+    }
   },
   "Index": {
     "first-connexion": "첫 번째 연결",
@@ -440,6 +446,9 @@
     "title": "귀하의 계정에 로그인하십시오",
     "toasters": {
       "bad-credentials": "잘못된 식별자"
+    },
+    "metadatas": {
+      "title": "연결"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "신뢰해 주셔서 감사합니다! 구매가 확정되었습니다."
         }
       }
+    },
+    "metadatas": {
+      "title": "가격"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "로그인"
     },
-    "title": "계정 만들기"
+    "title": "계정 만들기",
+    "metadatas": {
+      "title": "등록"
+    }
   },
   "NotFound": {
     "back-link": "홈페이지로 돌아가기",
@@ -543,13 +558,46 @@
       "no-title": "제목 없음"
     },
     "no-author": "익명의",
-    "no-title": "제목 없는 기사"
+    "no-title": "제목 없는 기사",
+    "metadatas": {
+      "title": "블로그"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "알림 없음"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "연락하다"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "자주 묻는 질문"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "어떻게 작동하나요?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "기밀성"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "크레딧 다시 로드 중"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "법적 고지"
     }
   }
 }

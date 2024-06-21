@@ -320,7 +320,10 @@
     },
     "button": "Gå till instrumentpanelen",
     "description": "Välkommen till din instrumentpanel!",
-    "title": "instrumentbräda"
+    "title": "instrumentbräda",
+    "metadatas": {
+      "title": "Mitt konto"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Ogiltig återställningstoken. \nVänligen börja om eller ansök igen.",
     "reset-password": "Återställa ditt lösenord",
-    "token-expired": "Återställningstoken är okänd."
+    "token-expired": "Återställningstoken är okänd.",
+    "metadatas": {
+      "title": "Glömt ditt lösenord"
+    }
   },
   "Index": {
     "first-connexion": "Första anslutningen",
@@ -440,6 +446,9 @@
     "title": "Logga in på ditt konto",
     "toasters": {
       "bad-credentials": "Felaktiga identifierare"
+    },
+    "metadatas": {
+      "title": "Förbindelse"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Tack för ditt förtroende! Ditt köp har bekräftats."
         }
       }
+    },
+    "metadatas": {
+      "title": "Prissättning"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Logga in"
     },
-    "title": "Skapa ett konto"
+    "title": "Skapa ett konto",
+    "metadatas": {
+      "title": "Registrering"
+    }
   },
   "NotFound": {
     "back-link": "Återgå till startsidan",
@@ -543,13 +558,46 @@
       "no-title": "Ingen titel"
     },
     "no-author": "Anonym",
-    "no-title": "Artikel utan titel"
+    "no-title": "Artikel utan titel",
+    "metadatas": {
+      "title": "Blogg"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Inga notifikationer"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Kontakt"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Vanliga frågor"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Hur det fungerar ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Sekretess"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Laddar om krediter"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Rättsligt meddelande"
     }
   }
 }

@@ -299,6 +299,9 @@
         "token-expired": "令牌已过期。",
         "token-not-found": "未找到重置令牌。"
       }
+    },
+    "metadatas": {
+      "title": "我的账户"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "登录您的账户",
     "toasters": {
       "bad-credentials": "不正确的标识符"
+    },
+    "metadatas": {
+      "title": "联系"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "感谢您的信任！您的购买已被确认。"
         }
       }
+    },
+    "metadatas": {
+      "title": "价钱"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "如果您尚未验证，则请求新的验证链接。",
       "success": "电子邮件已验证。",
       "title": "验证您的电子邮件地址"
+    },
+    "metadatas": {
+      "title": "登记"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "重置令牌无效。\n请重新开始或重新申请。",
     "reset-password": "重置您的密码",
-    "token-expired": "重置令牌未知。"
+    "token-expired": "重置令牌未知。",
+    "metadatas": {
+      "title": "忘记密码了吗"
+    }
   },
   "NotFound": {
     "back-link": "返回首页",
@@ -543,13 +558,46 @@
       "no-title": "无题"
     },
     "no-author": "匿名的",
-    "no-title": "无标题文章"
+    "no-title": "无标题文章",
+    "metadatas": {
+      "title": "博客"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "没有通知"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "接触"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "常见问题解答"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "怎么运行的 ？"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "保密"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "重新加载积分"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "法律声明"
     }
   }
 }

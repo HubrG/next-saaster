@@ -320,7 +320,10 @@
     },
     "button": "Buka dasbor",
     "description": "Selamat datang di dasbor Anda!",
-    "title": "Dasbor"
+    "title": "Dasbor",
+    "metadatas": {
+      "title": "Akun saya"
+    }
   },
   "Emails": {
     "ForgotPasswordTemplate": {
@@ -369,7 +372,10 @@
     },
     "invalid-token": "Token reset tidak valid. Silakan coba lagi atau buat permintaan baru.",
     "reset-password": "Mengatur ulang kata sandi Anda",
-    "token-expired": "Token reset tidak diketahui."
+    "token-expired": "Token reset tidak diketahui.",
+    "metadatas": {
+      "title": "Lupa kata sandi Anda"
+    }
   },
   "Index": {
     "first-connexion": "Koneksi pertama",
@@ -440,6 +446,9 @@
     "title": "Masuk ke akun Anda",
     "toasters": {
       "bad-credentials": "Pengidentifikasi yang salah"
+    },
+    "metadatas": {
+      "title": "Koneksi"
     }
   },
   "Pricing": {
@@ -479,6 +488,9 @@
           "success": "Terima kasih atas kepercayaan Anda! Pembelian Anda telah dikonfirmasi."
         }
       }
+    },
+    "metadatas": {
+      "title": "Harga"
     }
   },
   "Register": {
@@ -527,7 +539,10 @@
     "button": {
       "login": "Masuk ke"
     },
-    "title": "Membuat akun"
+    "title": "Membuat akun",
+    "metadatas": {
+      "title": "Registrasi"
+    }
   },
   "NotFound": {
     "back-link": "Kembali ke halaman beranda",
@@ -543,13 +558,46 @@
       "no-title": "Tanpa judul"
     },
     "no-author": "Anonim",
-    "no-title": "Artikel tanpa judul"
+    "no-title": "Artikel tanpa judul",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Tidak ada pemberitahuan"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Kontak"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "FAQ"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Bagaimana itu bekerja ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Kerahasiaan"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Memuat ulang kredit"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Pemberitahuan Hukum"
     }
   }
 }

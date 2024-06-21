@@ -299,6 +299,9 @@
         "token-expired": "Jeton süresi doldu.",
         "token-not-found": "Sıfırlama belirteci bulunamadı."
       }
+    },
+    "metadatas": {
+      "title": "Hesabım"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "Hesabınıza giriş yapın",
     "toasters": {
       "bad-credentials": "Yanlış tanımlayıcılar"
+    },
+    "metadatas": {
+      "title": "Bağlantı"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "Güveniniz için teşekkür ederiz! Satın alma işleminiz onaylanmıştır."
         }
       }
+    },
+    "metadatas": {
+      "title": "Fiyatlandırma"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "ve henüz doğrulamadıysanız yeni bir doğrulama bağlantısı talep edin.",
       "success": "E-posta doğrulandı.",
       "title": "E-posta adresinizi kontrol etme"
+    },
+    "metadatas": {
+      "title": "Kayıt"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "Geçersiz sıfırlama belirteci. Lütfen tekrar deneyin veya yeni bir talepte bulunun.",
     "reset-password": "Şifrenizi sıfırlama",
-    "token-expired": "Sıfırlama belirteci bilinmiyor."
+    "token-expired": "Sıfırlama belirteci bilinmiyor.",
+    "metadatas": {
+      "title": "Parolanızı mı unuttunuz"
+    }
   },
   "NotFound": {
     "back-link": "Ana sayfaya dön",
@@ -543,13 +558,46 @@
       "no-title": "Başlık yok"
     },
     "no-author": "Anonim",
-    "no-title": "Başlıksız makale"
+    "no-title": "Başlıksız makale",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Bildirim yok"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Temas etmek"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "SSS"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Nasıl çalışır ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Gizlilik"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Krediler yeniden yükleniyor"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Yasal Uyarı"
     }
   }
 }

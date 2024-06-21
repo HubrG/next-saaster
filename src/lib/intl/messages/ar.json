@@ -299,6 +299,9 @@
         "token-expired": "انتهت صلاحية الرمز المميز.",
         "token-not-found": "لم يتم العثور على رمز إعادة التعيين."
       }
+    },
+    "metadatas": {
+      "title": "حسابي"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "تسجيل الدخول إلى حسابك",
     "toasters": {
       "bad-credentials": "معرّفات غير صحيحة"
+    },
+    "metadatas": {
+      "title": "اتصال"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "شكرًا لك على ثقتك! لقد تم تأكيد شرائك."
         }
       }
+    },
+    "metadatas": {
+      "title": "التسعير"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "واطلب رابط التحقق الجديد إذا لم تقم بالتحقق من صحته بعد.",
       "success": "تم التحقق من البريد الإلكتروني.",
       "title": "التحقق من عنوان بريدك الإلكتروني"
+    },
+    "metadatas": {
+      "title": "تسجيل"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "رمز إعادة التعيين غير صالح. \nيرجى البدء مرة أخرى أو إعادة تقديم الطلب.",
     "reset-password": "إعادة تعيين كلمة المرور الخاصة بك",
-    "token-expired": "رمز إعادة التعيين غير معروف."
+    "token-expired": "رمز إعادة التعيين غير معروف.",
+    "metadatas": {
+      "title": "نسيت كلمة السر"
+    }
   },
   "NotFound": {
     "back-link": "العوده للصفحة الرئيسية",
@@ -543,13 +558,46 @@
       "no-title": "بلا عنوان"
     },
     "no-author": "مجهول",
-    "no-title": "مقالة بلا عنوان"
+    "no-title": "مقالة بلا عنوان",
+    "metadatas": {
+      "title": "المدونة"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "لا إشعارات"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "اتصال"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "الأسئلة الشائعة"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "كيف تعمل ؟"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "سرية"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "إعادة تحميل الاعتمادات"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "إشعار قانوني"
     }
   }
 }

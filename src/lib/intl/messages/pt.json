@@ -299,6 +299,9 @@
         "token-expired": "Token expirado.",
         "token-not-found": "Token de reposição não encontrado."
       }
+    },
+    "metadatas": {
+      "title": "Minha conta"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "Aceder à sua conta",
     "toasters": {
       "bad-credentials": "Identificadores incorrectos"
+    },
+    "metadatas": {
+      "title": "Conexão"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "Obrigado pela sua confiança! A sua compra foi confirmada."
         }
       }
+    },
+    "metadatas": {
+      "title": "Preços"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "e solicitar uma nova ligação de validação se ainda não a tiver validado.",
       "success": "Correio eletrónico verificado.",
       "title": "Verificar o seu endereço de correio eletrónico"
+    },
+    "metadatas": {
+      "title": "Cadastro"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "Token de reposição inválido. Tente novamente ou efectue um novo pedido.",
     "reset-password": "Redefinir a sua palavra-passe",
-    "token-expired": "O token de reposição é desconhecido."
+    "token-expired": "O token de reposição é desconhecido.",
+    "metadatas": {
+      "title": "Esqueceu sua senha"
+    }
   },
   "NotFound": {
     "back-link": "Retornar a página inicial",
@@ -543,13 +558,46 @@
       "no-title": "Sem título"
     },
     "no-author": "Anônimo",
-    "no-title": "Artigo sem título"
+    "no-title": "Artigo sem título",
+    "metadatas": {
+      "title": "Blogue"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Nenhuma notificação"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Contato"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "Perguntas frequentes"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Como funciona ?"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Confidencialidade"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Recarregando créditos"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Notícia legal"
     }
   }
 }

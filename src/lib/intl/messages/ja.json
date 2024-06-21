@@ -299,6 +299,9 @@
         "token-expired": "トークンの有効期限が切れました。",
         "token-not-found": "リセットトークンが見つかりません。"
       }
+    },
+    "metadatas": {
+      "title": "私のアカウント"
     }
   },
   "Footer": {
@@ -383,6 +386,9 @@
     "title": "アカウントにログイン",
     "toasters": {
       "bad-credentials": "誤った識別子"
+    },
+    "metadatas": {
+      "title": "繋がり"
     }
   },
   "Pricing": {
@@ -422,6 +428,9 @@
           "success": "ご安心いただきありがとうございます！あなたの購入は確認されました。"
         }
       }
+    },
+    "metadatas": {
+      "title": "価格設定"
     }
   },
   "Register": {
@@ -470,6 +479,9 @@
       "request-new-validation": "まだ検証していない場合は、新しい検証リンクをリクエストします。",
       "success": "メールアドレスが確認されました。",
       "title": "メールアドレスの認証"
+    },
+    "metadatas": {
+      "title": "登録"
     }
   },
   "API": {
@@ -527,7 +539,10 @@
     },
     "invalid-token": "無効なリセット トークンです。\nもう一度やり直すか、再申請してください。",
     "reset-password": "パスワードをリセットする",
-    "token-expired": "リセットトークンが不明です。"
+    "token-expired": "リセットトークンが不明です。",
+    "metadatas": {
+      "title": "パスワードをお忘れですか"
+    }
   },
   "NotFound": {
     "back-link": "ホームページに戻る",
@@ -543,13 +558,46 @@
       "no-title": "タイトルなし"
     },
     "no-author": "匿名",
-    "no-title": "無題の記事"
+    "no-title": "無題の記事",
+    "metadatas": {
+      "title": "ブログ"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "通知はありません"
       }
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "接触"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "よくある質問"
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "使い方 ？"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "機密保持"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "クレジットのリロード"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "法的通知"
     }
   }
 }

@@ -5,9 +5,10 @@ const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   try {
-    const { defaultLocale, locales } = await req.json();
+    const { defaultLocale, locales, defaultLocaleAndLocales } =
+      await req.json();
 
-    if (!defaultLocale && !locales) {
+    if (!defaultLocale && !locales && !defaultLocaleAndLocales) {
       throw new Error(
         "Les paramètres 'defaultLocale' et 'locales' sont manquants"
       );
@@ -22,6 +23,24 @@ export async function POST(req: NextRequest) {
       const loc = await prisma.internationalizationEnabledList.findMany();
       const localeCodes = loc.map((locale) => locale.code);
       return NextResponse.json(localeCodes);
+    }
+    if (defaultLocaleAndLocales) {
+      const loc = await prisma.appSettings.findFirst({
+        select: {
+          defaultLocale: true,
+        },
+      });
+      const locs = await prisma.internationalizationEnabledList.findMany({
+        select: {
+          code: true,
+        },
+      });
+      const localeCodes = locs.map((locale) => locale.code);
+
+      return NextResponse.json({
+        defaultLocale: loc?.defaultLocale,
+        locales: localeCodes,
+      });
     }
   } catch (error) {
     console.error(error);

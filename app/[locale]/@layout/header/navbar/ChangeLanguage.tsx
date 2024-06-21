@@ -72,7 +72,7 @@ const ChangeLanguage = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="!grid grid-cols-7 user-profile-dd !w-96 overflow-y-auto">
+        className={`!grid  ${mergedInternationalizations.length > 7 ? "grid-cols-7" : "grid-flow-col"} !max-w-96 user-profile-dd   overflow-y-auto`}>
         {mergedInternationalizations
           .sort((b, a) => b.popularity - a.popularity) // Trier par popularité
           .map((locale) => (

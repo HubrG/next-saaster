@@ -17,7 +17,7 @@ export default getRequestConfig(async ({ locale }) => {
     throw new Error(`API request failed with status ${apiResponseLocales.status}`);
   }
   const defaultLocal = await apiResponseLocales.json();
-  console.log(defaultLocal);
+
   return {
     messages: await(
       locale === defaultLocal

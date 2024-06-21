@@ -7,9 +7,7 @@ export const generateMetadata = async () => {
   return createMetadata({
     // Voir la configuration des métadonnées dans metadatas.ts
     // @/src/lib/metadatas
-    title: t("Index.metadatas.title"),
-    description: t("Index.metadatas.description"),
-    url: "https://www.example.com",
+    title: t("Blog.metadatas.title"),
   });
 };
 export default async function BlogPage() {

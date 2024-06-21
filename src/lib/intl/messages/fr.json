@@ -216,7 +216,10 @@
     },
     "title": "Tableau de bord",
     "description": "Bienvenue sur votre tableau de bord !",
-    "button": "Aller au tableau de bord"
+    "button": "Aller au tableau de bord",
+    "metadatas": {
+      "title": "Mon compte"
+    }
   },
   "Components": {
     "UI": {
@@ -370,6 +373,9 @@
         "submit": "M'envoyer un lien de connexion",
         "placeholder-email": "exemple"
       }
+    },
+    "metadatas": {
+      "title": "Connexion"
     }
   },
   "Register": {
@@ -418,6 +424,9 @@
       "title": "Vérification de votre adresse e-mail",
       "login-to-you-account": "Connectez-vous à votre compte",
       "request-new-validation": "et demandez un nouveau lien de validation si vous ne l'avez pas encore validé."
+    },
+    "metadatas": {
+      "title": "Inscription"
     }
   },
   "Footer": {
@@ -470,6 +479,9 @@
           "go-to": "Aller sur mon compte"
         }
       }
+    },
+    "metadatas": {
+      "title": "Tarification"
     }
   },
   "Emails": {
@@ -527,6 +539,9 @@
           "success": "Mot de passe changé avec succès."
         }
       }
+    },
+    "metadatas": {
+      "title": "Mot de passe oublié"
     }
   },
   "NotFound": {
@@ -543,13 +558,46 @@
       "no-excerpt": "Aucun extrait",
       "no-title": "Aucun titre"
     },
-    "no-author": "Anonyme"
+    "no-author": "Anonyme",
+    "metadatas": {
+      "title": "Blog"
+    }
   },
   "Header": {
     "Navbar": {
       "Notifications": {
         "noNotifications": "Aucune notification"
       }
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Comment ça fonctionne ?"
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Contact"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "FAQ"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Confidentialité"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Rechargement de crédits"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Mentions légales"
     }
   }
 }

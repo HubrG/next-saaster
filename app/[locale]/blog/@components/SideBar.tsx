@@ -25,12 +25,12 @@ export default async function SideBar() {
   return (
     <div className="blog-sidebar">
       <div className=" max-h-[28vh]">
-        <h3 className="mb-2">
+        <h2 className="mb-2 text-lg flex flex-row items-center justify-between">
           {t("Blog.category")}
           <Bookmark className="icon" />
-        </h3>
-        <ul>
-          <ScrollArea className="h-full w-full p-3  border-app-200 bg-theming-background-100 rounded-md border">
+        </h2>
+        <ScrollArea className="h-full w-full p-3 border-app-200 bg-theming-background-100 rounded-md border">
+          <ul>
             {categories.length > 0 ? (
               categories.map((category) => (
                 <li key={v4() + category.id}>
@@ -42,15 +42,16 @@ export default async function SideBar() {
             ) : (
               <li>Aucune catégorie</li>
             )}
-          </ScrollArea>
-        </ul>
+          </ul>
+        </ScrollArea>
       </div>
       <div className="max-h-[51vh]">
-        <h3 className="mb-2 mt-10">
-          {t("Blog.tags")} <Tags className="icon" />
-        </h3>
-        <ul className="flex flex-col h-full gap-y-2 text-base">
-          <ScrollArea className="h-full p-3 w-full border-app-200 bg-app-50 rounded-md bg-theming-background-100  border">
+        <h2 className="mb-2 text-lg flex flex-row items-center justify-between mt-14">
+          {t("Blog.tags")}
+          <Tags className="icon" />
+        </h2>
+        <ScrollArea className="h-full p-3 w-full border-app-200 bg-app-50 rounded-md bg-theming-background-100 border">
+          <ul className="flex flex-col h-full gap-y-2 text-base">
             {tags.length > 0 ? (
               tags.map((tag) => (
                 <li key={v4() + tag.id}>
@@ -65,8 +66,8 @@ export default async function SideBar() {
             ) : (
               <li>Aucun tag</li>
             )}
-          </ScrollArea>
-        </ul>
+          </ul>
+        </ScrollArea>
       </div>
     </div>
   );

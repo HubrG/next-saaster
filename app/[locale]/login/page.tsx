@@ -3,12 +3,15 @@ import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-ele
 import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { getSession } from "next-auth/react";
+import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 export const generateMetadata = async () => {
+  const t = await getTranslations();
+
   return createMetadata({
     // Voir la configuration des métadonnées dans metadatas.ts
     // @/src/lib/metadatas
-    title: "Login",
+    title: t("Login.metadatas.title"),
   });
 };
 

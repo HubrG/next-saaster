@@ -1,9 +1,14 @@
-"use client";
+import createMetadata from "@/src/lib/metadatas";
+import { getTranslations } from "next-intl/server";
+export const generateMetadata = async () => {
+  const t = await getTranslations();
 
-import { useSessionQuery } from "@/src/queries/useSessionQuery";
-
-export default  function HowItWorksPage() {
-  const session = useSessionQuery().data?.user;
-  
-  return <div>{session?.name}</div>;
+  return createMetadata({
+    // Voir la configuration des métadonnées dans metadatas.ts
+    // @/src/lib/metadatas
+    title: t("HowItWorks.metadatas.title"),
+  });
+};
+export default function HowItWorksPage() {
+  return <div>TEst</div>;
 }

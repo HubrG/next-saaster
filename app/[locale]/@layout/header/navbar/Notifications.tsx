@@ -21,7 +21,6 @@ import { useEffect, useRef, useState } from "react";
 import { mutate } from "swr";
 
 const Notifications = ({ active }: { active: boolean }) => {
-  console.log(active);
   if (!active) {
     return null;
   }

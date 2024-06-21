@@ -28,6 +28,8 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
                   src={blogPost.image}
                   alt={blogPost.title ?? "Aucun"}
                   fill
+                  placeholder="blur"
+                  priority
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 576px"
                   className="rounded-lg object-cover"

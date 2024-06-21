@@ -13,10 +13,12 @@ import { PriceCardsFeaturesByCategories } from "./components/PriceCardFeaturesBy
 import { PriceCardsSimple } from "./components/PriceCardsSimple";
 
 export const generateMetadata = async () => {
+  const t = await getTranslations();
+
   return createMetadata({
     // Voir la configuration des métadonnées dans metadatas.ts
     // @/src/lib/metadatas
-    title: "Pricing",
+    title: t("Pricing.metadatas.title"),
   });
 };
 

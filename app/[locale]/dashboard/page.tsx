@@ -5,13 +5,16 @@ import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { Loader } from "lucide-react";
 import { getServerSession } from "next-auth";
+import { getTranslations } from "next-intl/server";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 export const generateMetadata = async () => {
+  const t = await getTranslations();
+
   return createMetadata({
     // Voir la configuration des métadonnées dans metadatas.ts
     // @/src/lib/metadatas
-    title: "Dashboard",
+    title: t("Dashboard.metadatas.title"),
   });
 };
 

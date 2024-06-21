@@ -68,7 +68,7 @@ export default async function ReadBlogPost({
   const blogPost = (
     await getBlogPost({ id: params.slug, secret: chosenSecret() })
   ).data?.success as iBlog;
-  console.log("blogPost", blogPost);
+
   if (!blogPost || !blogPost.published) {
     return <>{t("Blog.404")}</>;
   }

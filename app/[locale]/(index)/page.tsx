@@ -17,7 +17,6 @@ export const generateMetadata = async () => {
     description: t("Index.metadatas.description"),
   });
 };
-// Utiliser la fonction loadAndCreateMetadata pour obtenir les métadonnées
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

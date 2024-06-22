@@ -13,8 +13,6 @@ import { useFormatter, useNow, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PurchaseAction } from "./@ui/Action";
 
-
-
 export const ProfilePurchase = () => {
   const t = useTranslations("Dashboard.Components.Profile.Purchases");
   const formater = useFormatter();
@@ -33,14 +31,16 @@ export const ProfilePurchase = () => {
       setRefresh(false);
     }
   }, [userStore, refresh, isLoading, isUserStoreLoading]);
+
   if (!userProfile || userProfile?.isLoading) {
     return <SkeletonLoader type="card" />;
   }
 
+  const noOneTimePayments = (userProfile.oneTimePayments?.length ?? 0) === 0;
+
   return (
     <div className="flex flex-col gap-5 mt-14">
-      {(userProfile.oneTimePayments?.filter((e) => !e.priceId).length ?? 0) ===
-      0 ? (
+      {noOneTimePayments ? (
         <div className="flex flex-col items-center justify-center gap-5">
           <h2 className="text-xl">{t("no-purchase-history")}</h2>
           <p className="text-center">{t("no-purchase-history-description")}</p>
@@ -60,7 +60,7 @@ export const ProfilePurchase = () => {
                   : Date.now();
               return dateB - dateA;
             })
-              .map((payment) => {
+            .map((payment) => {
               return (
                 <div
                   key={payment.id}
@@ -68,8 +68,8 @@ export const ProfilePurchase = () => {
                   <div className="flex flex-row w-full justify-between mb-0">
                     <div>
                       <h2 className="font-bold text-xl">
-                        {payment.metadata && payment.metadata.name 
-                           ? payment.metadata.name
+                        {payment.metadata && payment.metadata.name
+                          ? payment.metadata.name
                           : t("no-name")}
                       </h2>
                     </div>

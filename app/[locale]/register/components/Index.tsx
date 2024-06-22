@@ -13,7 +13,7 @@ export const Index = () => {
   return (
     <Card className="my-card">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 className="md:text-4xl sm:text-2xl text-xl">{t("title")}</h1>
+        <h1 className="text-4xl ">{t("title")}</h1>
         <div className="mt-7 flex flex-col gap-2">
           <Goodline />
           <Suspense>

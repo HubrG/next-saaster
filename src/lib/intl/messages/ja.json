@@ -284,7 +284,8 @@
           "no-purchase-history": "購入履歴なし",
           "no-purchase-history-description": "あなたはまだ当サイトで商品を購入していません！",
           "title": "購買",
-          "no-name": "リローディング・クレジット"
+          "no-name": "リローディング・クレジット",
+          "features": "特徴"
         }
       }
     },

@@ -11,12 +11,14 @@ export default function SwitchDefaultLightMode() {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setDefaultDarkmode(data.defaultLightMode ?? false);
   }, [data]);
 
   const handleChangeDefaultLightmode = async (e: any) => {
+    setLoading(true);
     if (data.id) {
       const dataToSet = await updateAppSettings(
         appSettings.id,
@@ -33,11 +35,13 @@ export default function SwitchDefaultLightMode() {
           defaultLightMode: e,
           defaultDarkMode: e ? false : data.defaultDarkMode,
         });
+        setLoading(false);
         return toaster({
           description: `Default lightmode ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
+        setLoading(false);
         return toaster({
           type: "error",
           description: "Default lightmode not changed, please try again",
@@ -51,6 +55,7 @@ export default function SwitchDefaultLightMode() {
       handleChange={handleChangeDefaultLightmode}
       checked={defaultDarkmode}
       icon={<Sun className="icon" />}
+      loading={loading}
       id="switch-default-light-mode">
       Activate <strong>light mode by default</strong> on a first visit.
     </SwitchWrapper>

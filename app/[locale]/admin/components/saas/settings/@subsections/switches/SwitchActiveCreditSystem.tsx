@@ -11,15 +11,15 @@ import { Tooltip } from "react-tooltip";
 export default function SwitchActiveMonthlyPlan() {
   const [activeCreditSystem, setActiveCreditSystem] = useState<boolean>(true);
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
-
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     setActiveCreditSystem(saasSettings.activeCreditSystem ?? false);
   }, [saasSettings]);
 
   const handleChangeActiveCreditSystem = async (e: any) => {
+    setLoading(true);
     if (saasSettings.id) {
       setSaasSettings({ ...saasSettings, activeCreditSystem: e });
-
       const dataToSet = await updateSaasSettings(saasSettings.id, {
         activeCreditSystem: e,
         activeRefillCredit: !e && false,
@@ -40,11 +40,13 @@ export default function SwitchActiveMonthlyPlan() {
           activeCreditSystem: e,
           activeRefillCredit: false,
         });
+        setLoading(false);
         return toaster({
           description: `Credit system ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
+        setLoading(false);
         setSaasSettings({ ...saasSettings, activeCreditSystem: !e });
         return toaster({
           type: "error",
@@ -52,12 +54,14 @@ export default function SwitchActiveMonthlyPlan() {
         });
       }
     }
+   
   };
 
   return (
     <SwitchWrapper
       handleChange={handleChangeActiveCreditSystem}
       checked={activeCreditSystem}
+      loading={loading}
       icon={<Wallet className="icon" />}
       id="switch-active-credit-system">
       Active the <strong>credit system</strong> for your SaaS

@@ -12,12 +12,14 @@ export default function SwitchActiveAutoTranslate() {
     useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveAutoTranslate(data.activeAutoTranslate ?? false);
   }, [data]);
 
   const handleChangeActiveAutoTranslate = async (e: any) => {
+    setLoading(true);
     if (data.id) {
       const dataToSet = await updateAppSettings(
         appSettings.id,
@@ -29,6 +31,7 @@ export default function SwitchActiveAutoTranslate() {
       if (dataToSet) {
         setActiveAutoTranslate(e);
         setAppSettings({ ...appSettings, activeAutoTranslate: e });
+        setLoading(false);
         return toaster({
           title: "AutoTranslate",
           description: `AutoTranslate ${e ? "enabled" : "disabled"}`,
@@ -36,6 +39,7 @@ export default function SwitchActiveAutoTranslate() {
           type: "success",
         });
       } else {
+        setLoading(false);
         return toaster({
           type: "error",
           description: "Failed to update AutoTranslate",
@@ -47,6 +51,7 @@ export default function SwitchActiveAutoTranslate() {
     <SwitchWrapper
       handleChange={handleChangeActiveAutoTranslate}
       checked={activeAutoTranslate}
+      loading={loading}
       icon={<Languages className="icon" />}
       id="switch-active-AutoTranslate">
       Active auto translate with API (features, pricing, pages, etc.)

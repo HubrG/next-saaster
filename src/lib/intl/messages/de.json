@@ -284,7 +284,8 @@
           "no-purchase-history": "Keine Kaufhistorie",
           "no-purchase-history-description": "Sie haben noch kein Produkt auf unserer Seite gekauft!",
           "title": "Einkaufen",
-          "no-name": "Aufladen von Guthaben"
+          "no-name": "Aufladen von Guthaben",
+          "features": "Merkmale"
         }
       }
     },

@@ -305,7 +305,8 @@
           "no-purchase-history": "Không có lịch sử mua hàng",
           "no-purchase-history-description": "Bạn chưa mua bất kỳ sản phẩm nào trên trang web của chúng tôi!",
           "title": "Mua hàng",
-          "no-name": "Đang tải lại tín dụng"
+          "no-name": "Đang tải lại tín dụng",
+          "features": "Đặc trưng"
         }
       }
     },

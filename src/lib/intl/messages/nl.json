@@ -305,7 +305,8 @@
           "no-purchase-history": "Geen aankoopgeschiedenis",
           "no-purchase-history-description": "Je hebt nog geen producten gekocht op onze site!",
           "title": "Inkoop",
-          "no-name": "Credits herladen"
+          "no-name": "Credits herladen",
+          "features": "Functies"
         }
       }
     },

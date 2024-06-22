@@ -305,7 +305,8 @@
           "no-purchase-history": "Nincs vásárlási előzmény",
           "no-purchase-history-description": "Még nem vásároltál terméket az oldalunkon!",
           "title": "Vásárlás",
-          "no-name": "Újratöltési kreditek"
+          "no-name": "Újratöltési kreditek",
+          "features": "Jellemzők"
         }
       }
     },

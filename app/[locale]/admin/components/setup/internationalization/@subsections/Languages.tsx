@@ -14,6 +14,7 @@ export default function Languages() {
     addLanguageToStore,
     fetchInternationalizations,
   } = useInternationalizationStore();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     fetchInternationalizations();
@@ -24,6 +25,7 @@ export default function Languages() {
   }, [internationalizations]);
 
   const handleLanguageToggle = async (code: string, enabled: boolean) => {
+    setLoading(true);
     if (enabled) {
       await addLanguageToStore(code);
     } else {
@@ -32,7 +34,7 @@ export default function Languages() {
 
     const language = languages.find((lang) => lang.code === code);
     const flag = language ? language.flag : "";
-
+    setLoading(false);
     toaster({
       title: "Language",
       description: `${
@@ -52,6 +54,7 @@ export default function Languages() {
           key={code}
           handleChange={(e) => handleLanguageToggle(code, e)}
           checked={enabledLanguages.includes(code)}
+          loading={loading}
           icon={<Flag code={flag} className="icon" />}
           id={`switch-language-${code}`}>
           <small>{name_en.charAt(0).toUpperCase() + name_en.slice(1)}</small>

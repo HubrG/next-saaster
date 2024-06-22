@@ -284,7 +284,8 @@
           "no-purchase-history": "无购买记录",
           "no-purchase-history-description": "您尚未从我们的网站购买任何产品！",
           "title": "采购",
-          "no-name": "重装学分"
+          "no-name": "重装学分",
+          "features": "特征"
         }
       }
     },

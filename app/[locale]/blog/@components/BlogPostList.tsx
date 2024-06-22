@@ -1,6 +1,8 @@
 "use client";
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useBlogPosts } from "@/src/queries/useBlogQuery";
+import { Suspense } from "react";
 import BlogPostListView from "./BlogPostListView";
 
 type Props = {
@@ -34,8 +36,10 @@ export default function BlogPostList({ tagSlug, categorySlug }: Props) {
   }
 
   return (
-    <div className="mt-10">
-      <BlogPostListView blogPosts={blogPosts} />
-    </div>
+    <Suspense fallback={<SkeletonLoader type="page" />}>
+      <div className="mt-10">
+        <BlogPostListView blogPosts={blogPosts} />
+      </div>
+    </Suspense>
   );
 }

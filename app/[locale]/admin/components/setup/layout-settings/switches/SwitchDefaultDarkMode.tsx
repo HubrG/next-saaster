@@ -11,12 +11,14 @@ export default function SwitchDefaultDarkMode() {
   const [defaultDarkmode, setDefaultDarkmode] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setDefaultDarkmode(data.defaultDarkMode ?? false);
   }, [data]);
 
   const handleChangeDefaultDarkmode = async (e: any) => {
+    setLoading(true);
     if (data.id) {
       const dataToSet = await updateAppSettings(
         appSettings.id,
@@ -33,11 +35,13 @@ export default function SwitchDefaultDarkMode() {
           defaultDarkMode: e,
           defaultLightMode: e ? false : data.defaultLightMode,
         });
+        setLoading(false);
         return toaster({
           description: `Default darkmode ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
+        setLoading(false);
         return toaster({
           type: "error",
           description: "Default darkmode not changed, please try again",
@@ -51,6 +55,7 @@ export default function SwitchDefaultDarkMode() {
       handleChange={handleChangeDefaultDarkmode}
       checked={defaultDarkmode}
       icon={<MoonStar className="icon" />}
+      loading={loading}
       id="switch-default-dark-mode">
       Activate <strong>dark mode by default</strong> on a first visit.
     </SwitchWrapper>

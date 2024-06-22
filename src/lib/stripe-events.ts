@@ -5,6 +5,7 @@ export const stripeEvents = [
   "product.deleted",
   "price.created",
   "price.updated",
+  "price.deleted",
   "checkout.session.completed",
   "customer.subscription.created",
   "customer.subscription.updated",
@@ -19,4 +20,9 @@ export const stripeEvents = [
   "payment_intent.payment_failed",
   "payment_method.attached",
   "payment_method.detached",
+  "coupon.created",
+  "coupon.updated",
+  "coupon.deleted",
+  "invoice.paid",
+  "invoice.upcoming",
 ];

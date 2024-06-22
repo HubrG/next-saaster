@@ -11,12 +11,14 @@ export default function SwitchActiveInternationalization() {
   const [activeInternationalization, setActiveInternationalization] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveInternationalization(data.activeInternationalization ?? false);
   }, [data]);
 
   const handleChangeActiveInternationalization = async (e: any) => {
+    setLoading(true);
     if (data.id) {
       const dataToSet = await updateAppSettings(
         appSettings.id,
@@ -28,6 +30,7 @@ export default function SwitchActiveInternationalization() {
       if (dataToSet) {
         setActiveInternationalization(e);
         setAppSettings({ ...appSettings, activeInternationalization: e });
+        setLoading(false);
         return toaster({
           title: "Internationalization",
           description: `Internationalization ${e ? "enabled" : "disabled"}`,
@@ -35,6 +38,7 @@ export default function SwitchActiveInternationalization() {
           type: "success",
         });
       } else {
+        setLoading(false);
         return toaster({
           type: "error",
           description: "Failed to update Internationalization",
@@ -46,6 +50,7 @@ export default function SwitchActiveInternationalization() {
     <SwitchWrapper
       handleChange={handleChangeActiveInternationalization}
       checked={activeInternationalization}
+      loading={loading}
       icon={<Languages className="icon" />}
       id="switch-active-internationalization">
       Active Internationalization

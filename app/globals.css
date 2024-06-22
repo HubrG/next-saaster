@@ -884,12 +884,7 @@ article .task-list-item {
 }
 
 /* SECTION : Home sections */
-#home  .hero {
-  background: linear-gradient(to right, #7b4397, #dc2430);
-  color: white;
-  text-align: center;
-  padding: 5rem 0;
-}
+
 #home .features {
   text-align: center;
   padding: 5rem 0;
@@ -908,4 +903,10 @@ article .task-list-item {
 }
 .dropdown-arrow polygon {
   @apply dark:fill-theming-text-500 fill-theming-text-800 shadow-2xl;
+}
+
+/* SECTION : My Tailwind classes */
+
+.flex-row-center {
+  @apply flex flex-row items-center 
 }

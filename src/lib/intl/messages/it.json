@@ -284,7 +284,8 @@
           "no-purchase-history": "Nessuna storia di acquisto",
           "no-purchase-history-description": "Non hai ancora acquistato alcun prodotto dal nostro sito!",
           "title": "Acquisto",
-          "no-name": "Crediti per la ricarica"
+          "no-name": "Crediti per la ricarica",
+          "features": "Caratteristiche"
         }
       }
     },

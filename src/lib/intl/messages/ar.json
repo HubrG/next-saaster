@@ -284,7 +284,8 @@
           "no-purchase-history": "لا يوجد تاريخ شراء",
           "no-purchase-history-description": "لم تشتري أي منتجات من موقعنا بعد!",
           "title": "الشراء",
-          "no-name": "إعادة تعبئة الاعتمادات"
+          "no-name": "إعادة تعبئة الاعتمادات",
+          "features": "سمات"
         }
       }
     },

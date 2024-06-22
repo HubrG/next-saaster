@@ -11,6 +11,7 @@ import { Tooltip } from "react-tooltip";
 export default function SwitchActiveMonthlyPlan() {
   const [activeRefillCredit, setActiveRefillCredit] = useState<boolean>(true);
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveRefillCredit(saasSettings.activeRefillCredit ?? false);
@@ -19,8 +20,10 @@ export default function SwitchActiveMonthlyPlan() {
   const isActiveCreditSystem = saasSettings.activeCreditSystem === false;
 
   const handleChangeActiveRefillCredit = async (e: any) => {
+    setLoading(true);
     if (saasSettings.id) {
       if (saasSettings.activeCreditSystem === false) {
+        setLoading(false);
         return toaster({
           type: "error",
           duration: 8000,
@@ -34,12 +37,14 @@ export default function SwitchActiveMonthlyPlan() {
       }, chosenSecret());
       if (dataToSet) {
         setActiveRefillCredit(e);
+        setLoading(false);
         return toaster({
           description: `Refill credit ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
         setSaasSettings({ ...saasSettings, activeRefillCredit: !e });
+        setLoading(false);
         return toaster({
           type: "error",
           description: "Refill credit option not changed, please try again",
@@ -57,6 +62,7 @@ export default function SwitchActiveMonthlyPlan() {
         <SwitchWrapper
           handleChange={handleChangeActiveRefillCredit}
           checked={activeRefillCredit}
+          loading={loading}
           icon={<CreditCard className="icon" />}
           disabled={isActiveCreditSystem}
           id="switch-active-refill-credit">

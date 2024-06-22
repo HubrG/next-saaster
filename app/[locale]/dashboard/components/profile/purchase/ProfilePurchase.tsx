@@ -8,7 +8,7 @@ import {
 } from "@/src/helpers/dependencies/user";
 import { useUserStore } from "@/src/stores/userStore";
 import { iPlan } from "@/src/types/db/iPlans";
-import { CheckCircle } from "lucide-react";
+import { Box, CheckCircle } from "lucide-react";
 import { useFormatter, useNow, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PurchaseAction } from "./@ui/Action";
@@ -37,117 +37,75 @@ export const ProfilePurchase = () => {
   }
 
   const noOneTimePayments = (userProfile.oneTimePayments?.length ?? 0) === 0;
-
+  const sortedPayments = userProfile.oneTimePayments?.sort((a, b) => {
+    const dateA =
+      a.createdAt != null ? new Date(a.createdAt).getTime() : Date.now();
+    const dateB =
+      b.createdAt != null ? new Date(b.createdAt).getTime() : Date.now();
+    return dateB - dateA;
+  });
   return (
     <div className="flex flex-col gap-5 mt-14">
-      {noOneTimePayments ? (
+      {sortedPayments?.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-5">
           <h2 className="text-xl">{t("no-purchase-history")}</h2>
           <p className="text-center">{t("no-purchase-history-description")}</p>
         </div>
       ) : (
         <div className="flex flex-col gap-5">
-          {userProfile.oneTimePayments
-            ?.filter((e) => !e.priceId)
-            .sort((a, b) => {
-              const dateA =
-                a.createdAt != null
-                  ? new Date(a.createdAt).getTime()
-                  : Date.now();
-              const dateB =
-                b.createdAt != null
-                  ? new Date(b.createdAt).getTime()
-                  : Date.now();
-              return dateB - dateA;
-            })
-            .map((payment) => {
-              return (
-                <div
-                  key={payment.id}
-                  className="rounded-default flex flex-col border items-center shadow w-full gap-2 p-5 ">
-                  <div className="flex flex-row w-full justify-between mb-0">
-                    <div>
-                      <h2 className="font-bold text-xl">
-                        {payment.metadata && payment.metadata.name
-                          ? payment.metadata.name
-                          : t("no-name")}
-                      </h2>
-                    </div>
-                    <div className="flex flew-row items-center gap-x-5">
-                      <span>
-                        {formater.number(payment.amount / 100, {
-                          style: "currency",
-                          currency: payment.currency,
-                        })}
-                      </span>
-                      <span className="flex flex-row items-center gap-1">
-                        <CheckCircle className="icon text-green-500 self-center mt-0.5" />
-                        {formater.relativeTime(
-                          payment.createdAt ?? Date.now(),
-                          now
-                        )}
-                      </span>
-                    </div>
+          {sortedPayments?.map((payment) => {
+            return (
+              <div
+                key={payment.id}
+                className="rounded-default flex flex-col border items-center shadow w-full gap-2 p-5 ">
+                <div className="flex md:flex-row items-center flex-col w-full justify-between mb-0">
+                  <div>
+                    <h2 className="font-bold text-xl">
+                      {payment.metadata && payment.metadata.name
+                        ? payment.metadata.name
+                        : payment.price?.productRelation?.PlanRelation?.name
+                        ? payment.price.productRelation.PlanRelation.name
+                        : t("no-name")}
+                    </h2>
+                  </div>
+                  <div className="flex flex-col justify-end items-center gap-x-5">
+                    <span className="flex flex-row gap-2 items-center justify-end w-full">
+                      {formater.number(payment.amount / 100, {
+                        style: "currency",
+                        currency: payment.currency,
+                      })}
+                      <CheckCircle className="icon text-green-500 !mr-0" />
+                    </span>
+                    <span className="flex flex-row text-xs items-center gap-1">
+                      {formater.relativeTime(
+                        payment.createdAt ?? Date.now(),
+                        now
+                      )}
+                    </span>
                   </div>
                 </div>
-              );
-            })}
+                {payment.price?.productRelation?.PlanRelation && (
+                  <div className="w-full border-t pt-5 border-dashed flex flex-row justify-evenly text-left  ">
+                    <div className=" w-1/2 border-r flex flex-col text-left ">
+                      <h2 className="text-lg mb-2 flex-row-center">
+                        <Box className="icon" /> {t("features")}
+                      </h2>
+                      <PriceCardFeatures
+                        plan={
+                          payment.price?.productRelation?.PlanRelation as iPlan
+                        }
+                      />
+                    </div>
+                    <div className="w-1/2 p-5">
+                      <PurchaseAction />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
-      {userProfile.oneTimePayments
-        ?.filter((e) => e.priceId)
-        .sort((a, b) => {
-          const dateA =
-            a.createdAt != null ? new Date(a.createdAt).getTime() : Date.now();
-          const dateB =
-            b.createdAt != null ? new Date(b.createdAt).getTime() : Date.now();
-          return dateB - dateA;
-        })
-        .map((payment) => {
-          return (
-            <div
-              key={payment.id}
-              className="rounded-default flex flex-col border items-center shadow w-full gap-2  p-5 ">
-              <div className="flex flex-row w-full justify-between mb-3">
-                <div>
-                  <h2 className="font-bold text-xl">
-                    {payment.price?.productRelation?.PlanRelation?.name}
-                  </h2>
-                </div>
-                <div className="flex flew-row items-center gap-x-5">
-                  <span>
-                    {formater.number(payment.amount / 100, {
-                      style: "currency",
-                      currency: payment.currency,
-                    })}
-                  </span>
-                  <span className="flex flex-row items-center gap-1">
-                    <CheckCircle className="icon text-green-500 self-center mt-0.5" />
-                    {formater.relativeTime(
-                      payment.createdAt ?? Date.now(),
-                      now
-                    )}
-                  </span>
-                </div>
-              </div>
-              <div className="w-full border-t pt-5 border-dashed flex flex-row justify-evenly text-left  pl-5">
-                <div className=" w-1/2 border-r flex flex-col justify-evenly text-left  pl-5">
-                  <h2 className="text-base mb-2">Features</h2>
-                  {payment.price?.productRelation?.PlanRelation && (
-                    <PriceCardFeatures
-                      plan={
-                        payment.price?.productRelation?.PlanRelation as iPlan
-                      }
-                    />
-                  )}
-                </div>
-                <div className="w-1/2 p-5">
-                  <PurchaseAction />
-                </div>
-              </div>
-            </div>
-          );
-        })}
     </div>
   );
 };

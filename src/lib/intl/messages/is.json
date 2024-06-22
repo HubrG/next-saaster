@@ -305,7 +305,8 @@
           "no-purchase-history": "Enginn kaupsaga",
           "no-purchase-history-description": "Þú hefur ekki enn keypt neinar vörur á síðunni okkar!",
           "title": "Innkaup",
-          "no-name": "Endurhleðsla inneigna"
+          "no-name": "Endurhleðsla inneigna",
+          "features": "Eiginleikar"
         }
       }
     },

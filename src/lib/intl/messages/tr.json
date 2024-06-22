@@ -284,7 +284,8 @@
           "no-purchase-history": "Satın alma geçmişi yok",
           "no-purchase-history-description": "Sitemizden henüz herhangi bir ürün satın almadınız!",
           "title": "Satın Alma",
-          "no-name": "Yeniden yükleme kredileri"
+          "no-name": "Yeniden yükleme kredileri",
+          "features": "Özellikler"
         }
       }
     },

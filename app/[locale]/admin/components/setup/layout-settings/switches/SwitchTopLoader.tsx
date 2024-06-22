@@ -13,19 +13,21 @@ export default function SwitchTopLoader() {
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveTopLoader(data.activeTopLoader ?? false);
   }, [data]);
 
   const handleChangeTopLoader = async (e: any) => {
+    setLoading(true);
     const dataToSet = await updateAppSettings(appSettings.id, {
       activeTopLoader: e,
     }, chosenSecret());
     if (dataToSet) {
       setActiveTopLoader(e);
       setAppSettings({ ...appSettings, activeTopLoader: e });
-
+      setLoading(false);
       return toaster({
         description: `Top loader ${e ? "enabled" : "disabled"}`,
         type: "success",
@@ -33,6 +35,7 @@ export default function SwitchTopLoader() {
         onAutoClose: () => router.refresh(),
       });
     } else {
+      setLoading(false);
       return toaster({
         type: "error",
         description: "Top loader not changed, please try again",
@@ -45,6 +48,7 @@ export default function SwitchTopLoader() {
       handleChange={handleChangeTopLoader}
       checked={activeTopLoader}
       icon={<Loader className="icon" />}
+      loading={loading}
       id="switch-top-loader">
       Display the <strong>top loader during page loading</strong>
     </SwitchWrapper>

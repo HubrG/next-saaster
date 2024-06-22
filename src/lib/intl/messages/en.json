@@ -284,7 +284,8 @@
           "no-purchase-history": "No purchase history",
           "no-purchase-history-description": "You haven't purchased any products on our site yet!",
           "title": "Purchasing",
-          "no-name": "Refill credits"
+          "no-name": "Refill credits",
+          "features": "Features"
         }
       }
     },

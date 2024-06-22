@@ -305,7 +305,8 @@
           "no-purchase-history": "Ei ostohistoriaa",
           "no-purchase-history-description": "Et ole vielä ostanut yhtään tuotetta sivustoltamme!",
           "title": "Ostaminen",
-          "no-name": "Uudelleenlataushyvitykset"
+          "no-name": "Uudelleenlataushyvitykset",
+          "features": "ominaisuudet"
         }
       }
     },

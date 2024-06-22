@@ -46,6 +46,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
   const format = useFormatter();
   const isMobile = useIsMobile();
 
+
   return (
     <div className="flex flex-col gap-10 w-full ">
       {blogPosts
@@ -108,6 +109,8 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                                   alt={post.title ? post.title : "Aucun titre"}
                                   width={900}
                                   height={200}
+                                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA..."
+                                  priority
                                   className="object-cover object-center"
                                   lazyBoundary="100px"
                                 />

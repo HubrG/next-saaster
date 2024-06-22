@@ -188,7 +188,8 @@
           "title": "Achats",
           "no-purchase-history": "Aucun historique d'achat",
           "no-purchase-history-description": "Vous n'avez encore acheté aucun produit sur notre site !",
-          "no-name": "Rechargement de crédits"
+          "no-name": "Rechargement de crédits",
+          "features": "Fonctionnalités"
         },
         "Emails": {
           "title": "E-mails",

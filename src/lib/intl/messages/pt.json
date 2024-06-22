@@ -284,7 +284,8 @@
           "no-purchase-history": "Sem historial de compras",
           "no-purchase-history-description": "Ainda não comprou nenhum produto do nosso site!",
           "title": "Compras",
-          "no-name": "Créditos de recarga"
+          "no-name": "Créditos de recarga",
+          "features": "Características"
         }
       }
     },

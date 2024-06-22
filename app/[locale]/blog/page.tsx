@@ -16,7 +16,9 @@ export default async function BlogPage() {
       <h1 className="text-left">Blog</h1>
       <div className="flex md:flex-row flex-col gap-5">
         <div className="w-full">
-          <BlogPostList />
+         
+            <BlogPostList />
+         
         </div>
       </div>
     </>

@@ -20,6 +20,7 @@ export const createCheckoutSession = async ({
   if (!planPrice || !plan) {
     throw new Error("Plan ID is required");
   }
+  console.log(planPrice)
   const metadata =
     plan.saasType === "PAY_ONCE" ? {
       priceId: planPrice,

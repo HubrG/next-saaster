@@ -305,7 +305,8 @@
           "no-purchase-history": "구매 내역이 없습니다",
           "no-purchase-history-description": "귀하는 아직 당사 사이트에서 제품을 구매하지 않았습니다!",
           "title": "구매",
-          "no-name": "크레딧 로딩"
+          "no-name": "크레딧 로딩",
+          "features": "특징"
         }
       }
     },

@@ -305,7 +305,8 @@
           "no-purchase-history": "Tidak ada riwayat pembelian",
           "no-purchase-history-description": "Anda belum membeli produk apa pun dari situs kami!",
           "title": "Pembelian",
-          "no-name": "Memuat ulang kredit"
+          "no-name": "Memuat ulang kredit",
+          "features": "Fitur"
         }
       }
     },

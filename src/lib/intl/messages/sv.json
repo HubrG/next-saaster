@@ -305,7 +305,8 @@
           "no-purchase-history": "Ingen köphistorik",
           "no-purchase-history-description": "Du har ännu inte köpt några produkter på vår sida!",
           "title": "Inköp",
-          "no-name": "Omladdningskrediter"
+          "no-name": "Omladdningskrediter",
+          "features": "Funktioner"
         }
       }
     },

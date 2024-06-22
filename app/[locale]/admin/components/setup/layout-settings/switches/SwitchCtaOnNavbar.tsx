@@ -11,12 +11,14 @@ export default function SwitchCtaOnNavbar() {
   const [activeCtaOnNavbar, setActiveCtaOnNavbar] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveCtaOnNavbar(data.activeCtaOnNavbar ?? false);
   }, [data]);
 
   const handleChangeCtaOnNavbar = async (e: any) => {
+    setLoading(true);
     if (data.id) {
       const dataToSet = await updateAppSettings(appSettings.id, {
         activeCtaOnNavbar: e,
@@ -26,11 +28,13 @@ export default function SwitchCtaOnNavbar() {
         useAppSettingsStore
           .getState()
           .setAppSettings({ ...appSettings, activeCtaOnNavbar: e });
+        setLoading(false);
         return toaster({
           description: `Active CTA on navbar ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
+        setLoading(false);
         return toaster({
           type: "error",
           description: "CTA on navbar not changed, please try again",
@@ -45,6 +49,7 @@ export default function SwitchCtaOnNavbar() {
         handleChange={handleChangeCtaOnNavbar}
         checked={activeCtaOnNavbar}
         icon={<Box className="icon" />}
+        loading={loading}
         id="switch-active-cta-on-navbar">
         Display the <strong>navbar&apos;s CTA</strong>
       </SwitchWrapper>

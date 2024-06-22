@@ -305,7 +305,8 @@
           "no-purchase-history": "Ingen kjøpshistorikk",
           "no-purchase-history-description": "Du har ennå ikke kjøpt noen produkter på siden vår!",
           "title": "Kjøp",
-          "no-name": "Laster inn kreditter på nytt"
+          "no-name": "Laster inn kreditter på nytt",
+          "features": "Egenskaper"
         }
       }
     },

@@ -10,14 +10,17 @@ import { useEffect, useState } from "react";
 export default function SwitchActiveMonthlyPlan() {
   const [activeMonthlyPlans, setActiveMonthlyPlans] = useState<boolean>(true);
   const { saasSettings, setSaasSettings } = useSaasSettingsStore();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveMonthlyPlans(saasSettings.activeMonthlyPlans ?? false);
   }, [saasSettings]);
 
   const handleChangeActiveMonthlyPlans = async (e: any) => {
+    setLoading(true);
     if (saasSettings.id) {
       if (saasSettings.activeYearlyPlans === false && e === false) {
+        setLoading(false);
         return toaster({
           type: "error",
           duration: 8000,
@@ -30,12 +33,14 @@ export default function SwitchActiveMonthlyPlan() {
       }, chosenSecret());
       if (dataToSet) {
         setActiveMonthlyPlans(e);
+        setLoading(false);
         return toaster({
           description: `Monthly plans ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
         setSaasSettings({ ...saasSettings, activeMonthlyPlans: !e });
+        setLoading(false);
         return toaster({
           type: "error",
           description: "Monthly plans option not changed, please try again",
@@ -48,6 +53,7 @@ export default function SwitchActiveMonthlyPlan() {
     <SwitchWrapper
       handleChange={handleChangeActiveMonthlyPlans}
       checked={activeMonthlyPlans}
+      loading={loading}
       icon={<CalendarDays className="icon" />}
       id="switch-active-monthly-plans">
       Active the <strong>monthly plans</strong> for your SaaS

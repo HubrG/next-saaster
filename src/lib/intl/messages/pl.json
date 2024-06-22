@@ -305,7 +305,8 @@
           "no-purchase-history": "Brak historii zakupów",
           "no-purchase-history-description": "Nie kupiłeś jeszcze żadnych produktów na naszej stronie!",
           "title": "Zakupy",
-          "no-name": "Kredyty na przeładowanie"
+          "no-name": "Kredyty na przeładowanie",
+          "features": "Cechy"
         }
       }
     },

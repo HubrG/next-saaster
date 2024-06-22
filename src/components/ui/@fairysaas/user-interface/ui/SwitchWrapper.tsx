@@ -1,7 +1,9 @@
 "use client";
 import { Label } from "@/src/components/ui/label";
 import { Switch } from "@/src/components/ui/switch";
+import { cn } from "@/src/lib/utils";
 import { Card } from "../../../card";
+import { SimpleLoader } from "../../loader";
 
 type Props = {
   children: React.ReactNode;
@@ -10,6 +12,7 @@ type Props = {
   id: string;
   icon?: React.ReactNode;
   disabled?: boolean;
+  loading?: boolean;
 };
 
 export const SwitchWrapper = ({
@@ -18,6 +21,7 @@ export const SwitchWrapper = ({
   icon,
   checked,
   handleChange,
+  loading,
   disabled = false,
 }: Props) => {
   const handleClick = (e: any) => {
@@ -26,9 +30,17 @@ export const SwitchWrapper = ({
     }
     document.getElementById(id)?.click();
   };
+
+  const handleSwitchChange = async (e: any) => {
+    if (handleChange) {
+      handleChange(e);
+    }
+  };
+
   return (
     <Card
-      className="switch-wrapper "
+      aria-disabled={disabled || loading}
+      className={cn("switch-wrapper")}
       data-tooltip-id={`tooltip-${id}`}
       onClick={(e) => handleClick(e)}>
       {/* <div className="row-span-1">{icon}</div> */}
@@ -38,12 +50,16 @@ export const SwitchWrapper = ({
         <span>{children}</span>
       </div>
       {/* <Goodline className="row-span-1" /> */}
-      <Switch
-        onCheckedChange={handleChange}
-        disabled={disabled}
-        id={id}
-        checked={checked}
-      />
+      {loading ? (
+        <SimpleLoader className="!ml-4" />
+      ) : (
+        <Switch
+          onCheckedChange={handleSwitchChange}
+          disabled={disabled || loading}
+          id={id}
+          checked={checked}
+        />
+      )}
     </Card>
   );
 };

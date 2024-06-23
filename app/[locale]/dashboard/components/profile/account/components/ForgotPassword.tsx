@@ -2,6 +2,7 @@
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -106,8 +107,8 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
 
   return (
     <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <div className={`${className}`}>{t("titleForgot")}</div>
+      <DialogTrigger className={`${className}`} asChild>
+        <Button variant={"outline"} className={`${className}`}>{t("titleForgot")}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-y-6">

@@ -49,20 +49,23 @@ export default function Credentials() {
           placeholder={t("form.email")}
           form={form}
         />
-        <Field
-          type="password"
-          label={t("form.password")}
-          name="password"
-          placeholder={t("form.password")}
-          form={form}>
-          <ForgotPassword className="button-in-input" />
-        </Field>
+        <div className="flex flex-row  gap-2">
+          <Field
+            type="password"
+            label={t("form.password")}
+            className="w-full"
+            name="password"
+            placeholder={t("form.password")}
+            form={form}
+          />
+          <ForgotPassword className=" self-end mb-1 !-mt-6" />
+        </div>
         <ButtonWithLoader
           loading={isLoading}
           disabled={isLoading}
           type="submit"
           className="w-full">
-         {t('form.login-with-email')}
+          {t("form.login-with-email")}
         </ButtonWithLoader>
       </form>
     </Form>

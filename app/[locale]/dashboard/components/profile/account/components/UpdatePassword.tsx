@@ -30,7 +30,9 @@ type UpdatePasswordProps = {
 };
 
 export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
-  const t = useTranslations("Dashboard.Components.Profile.Account.Components.UpdatePassword");
+  const t = useTranslations(
+    "Dashboard.Components.Profile.Account.Components.UpdatePassword"
+  );
   const [isLoading, setIsLoading] = useState(false);
   const { setUserStore } = useUserStore();
   const [open, setOpen] = useState(false);
@@ -115,13 +117,16 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className={cn("relative")}>
                 <div className={cn("space-y-3 -mt-10 ")}>
-                  <Field
-                    type="password"
-                    label={t("form.actual-password")}
-                    name="oldPassword"
-                    form={form}>
-                    <ForgotPassword className="button-in-input" user={user} />
-                  </Field>
+                  <div className="flex flex-row  gap-2">
+                    <Field
+                      type="password"
+                      className="w-full"
+                      label={t("form.actual-password")}
+                      name="oldPassword"
+                      form={form}
+                    />
+                    <ForgotPassword  user={user} className="mb-1" />
+                  </div>
                   <Field
                     type="password"
                     label={t("form.new-password")}

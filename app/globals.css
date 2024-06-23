@@ -704,7 +704,7 @@ footer a {
 }
 
 .button-in-input {
-  @apply -mt-[2.76rem] z-50 mr-1 p-1.5 px-2 items-center justify-center whitespace-nowrap push-effect rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-theming-text-200 dark:text-theming-text-700 dark:bg-theming-text-200/50 bg-theming-text-500 hover:bg-theming-text-500/90 text-sm;
+  @apply  z-50  p-2  items-center  whitespace-nowrap push-effect rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-theming-text-200 dark:text-theming-text-700 dark:bg-theming-text-200 bg-theming-text-500 dark:hover:bg-theming-text-500/20 hover:bg-theming-text-500/90 text-sm;
 }
 
 table.user-dialog-subscriptions tbody td {

@@ -11,20 +11,12 @@ export const generateMetadata = async () => {
     title: t("Blog.metadatas.title"),
   });
 };
-export default function BlogPage({
-  tagSlug,
-  categorySlug,
-}: {
-  tagSlug: string;
-  categorySlug: string;
-}) {
+export default function BlogPage() {
   const secret = chosenSecret();
 
   return (
     <div>
       <ServerBlogPostList
-        tagSlug={tagSlug}
-        categorySlug={categorySlug}
         secret={secret}
       />
     </div>

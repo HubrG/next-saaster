@@ -1,0 +1,605 @@
+{
+  "Index": {
+    "title": "Bienvenue !",
+    "first-connexion": "Première connexion",
+    "metadatas": {
+      "title": "Accueil",
+      "description": "Kit de démarrage NextJS SaaS pour un développement rapide : concentrez-vous uniquement sur les fonctionnalités principales, soyez assuré avec un frontend moderne, un backend évolutif et sécurisé. Économisez des efforts"
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "title": "Mon compte",
+        "links": {
+          "profile": "Profil",
+          "account": "Compte",
+          "organization": "Organisation",
+          "billing": "Abonnement",
+          "usage": "Utilisation",
+          "purchases": "Achats",
+          "emails": "E-mails"
+        }
+      },
+      "Profile": {
+        "Account": {
+          "title": "Compte",
+          "connectedWith": "Vous êtes connecté avec votre compte {varIntlProvider}",
+          "manage-password": "Gérer votre mot de passe",
+          "create-password": "Vous n'avez pas créé de mot de passe car vous êtes automatiquement connecté avec un compte {varIntlProvider}.",
+          "close-account": "Désactiver mon compte...",
+          "close-account-popover-message": "supprimer votre compte ? Cette action est irréversible. Si vous avez souscrit un abonnement, il sera annulé.",
+          "Components": {
+            "UpdatePassword": {
+              "title": "Mettre à jour votre mot de passe",
+              "form": {
+                "actual-password": "Mot de passe actuel",
+                "new-password": "Nouveau mot de passe",
+                "password-confirmation": "Confirmation du mot de passe",
+                "submit": "Mettre à jour le mot de passe",
+                "password-error": "Le mot de passe doit comporter au moins {varIntlMin} caractères.",
+                "passwords-not-matching": "Les mots de passe ne correspondent pas.",
+                "required-message": "Obligatoire"
+              },
+              "toasters": {
+                "password-updated": "Mot de passe mis à jour.",
+                "password-update-error": "Une erreur s'est produite lors de la mise à jour du mot de passe. Veuillez réessayer."
+              }
+            },
+            "ForgotPassword": {
+              "title": "Oublié ?",
+              "description": "Pas de problème, nous pouvons vous envoyer un lien pour réinitialiser votre mot de passe.",
+              "form": {
+                "email": "Votre adresse email",
+                "email-error": "Ce n'est pas une adresse email valide.",
+                "submit": "M'envoyer le lien de récupération"
+              },
+              "emailSent": {
+                "subject": "Réinitialiser votre mot de passe"
+              },
+              "toasters": {
+                "send-email-error": "Une erreur s'est produite lors de l'envoi de l'email. Veuillez réessayer."
+              },
+              "titleForgot": "Oublié ?"
+            },
+            "CreatePassword": {
+              "title": "Créer un mot de passe",
+              "description": "Vous n'avez pas créé de mot de passe car vous êtes connecté avec un compte {varIntlProvider}. Vous pouvez en créer un ici.",
+              "form": {
+                "password": "Mot de passe",
+                "password-confirmation": "Confirmation du mot de passe",
+                "submit": "Créer le mot de passe",
+                "password-error": "Le mot de passe doit comporter au moins {varIntlMin} caractères.",
+                "passwords-not-matching": "Les mots de passe ne correspondent pas."
+              },
+              "toasters": {
+                "succes-password-created": "Votre mot de passe a été créé."
+              }
+            }
+          }
+        },
+        "Profile": {
+          "change-avatar": "Modifier la photo de profil",
+          "form": {
+            "submit": "Mettre à jour",
+            "name": "Nom d'affichage",
+            "upload": "Télécharger"
+          },
+          "title": "Profil",
+          "toasters": {
+            "success": "Profil mis à jour",
+            "no-file-provided": "Aucun fichier fourni",
+            "file-is-empty": "Le fichier est vide",
+            "file-is-too-large": "Le fichier est trop volumineux (2 Mo maximum)",
+            "file-is-not-an-image": "Le fichier n'est pas une image",
+            "success-file-uploaded": "Photo de profil modifiée avec succès"
+          }
+        },
+        "Organization": {
+          "title": "Organisation",
+          "toasters": {
+            "organization-created": "Organisation créée",
+            "pendin-user-removed": "Utilisateur en attente supprimé",
+            "organization-left": "Organisation quittée",
+            "organization-deleted": "Organisation supprimée. Tous les membres en ont été exclus et leurs droits ont été perdus."
+          },
+          "members": "Membres",
+          "buttons": {
+            "create-organization": "Créer une organisation"
+          },
+          "popover": {
+            "delete-organization": "Fermer l'organisation...",
+            "what-delete-organization": "supprimer cette organisation",
+            "delete-member": "ce membre"
+          },
+          "tooltip": {
+            "owner": "Propriétaire"
+          },
+          "pending-invitations": "Utilisateurs en attente",
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "Vous ne pouvez pas vous inviter vous-même !",
+                "field-invite-new-member": "Inviter un nouveau membre",
+                "placeholder-email": "E-mail",
+                "submit": "Inviter"
+              },
+              "toasters": {
+                "invitation-sent": "Invitation envoyée à l'adresse"
+              },
+              "note": "Vous avez un abonnement actif. L'ajout d'un nouveau membre à votre organisation sera facturé au pro-rata si le membre accepte cette invitation"
+            },
+            "RenameOrganization": {
+              "toasters": {
+                "organization-renamed": "Organization renamed"
+              },
+              "organization-renamed": "Organisation renomée",
+              "form": {
+                "field-organization-name": "Nom de l'organisation",
+                "error-name-min": "Le nom doit contenir au moins {varIntlMin} caractère",
+                "submit": "Renommer"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "toasters": {
+                "user-removed": "Utilisateur révoqué",
+                "user-promoted": "Utilisateur promu. Vous n'êtes plus le propriétaire de cette organisation"
+              },
+              "popover": {
+                "promote-member": "promouvoir ce membre en tant que propriétaire ? Il ne peut y avoir qu'un seul propriétaire, auquel cas vous perdrez tous vos droits de publication sur cette organisation.",
+                "promote-member-display": "Promouvoir ce membre",
+                "revoke-member": "révoquer ce membre de l'organisation",
+                "revoke-member-display": "Révoquer cet utilisateur"
+              }
+            }
+          }
+        },
+        "Billing": {
+          "id": "Facturation",
+          "title": "Facturation",
+          "your-plan": "Votre abonnement",
+          "users": "utilisateurs",
+          "daily": "jour",
+          "weekly": "semaine",
+          "yearly": "an",
+          "monthly": "mois",
+          "trial-days-remaining": "Il vous reste {varIntlDays} jour(s) d'essai",
+          "billed-each": "facturé chaque",
+          "according-to-use": "selon l'utilisation",
+          "per-user": "par utilisateur",
+          "you-save": "Vous économisez {varIntlSave} sur cet abonnement",
+          "your-trial-ends-at": "Votre période d'essai se termine le",
+          "subscription-will-be-canceled-at": "Votre abonnement sera définitivement annulé le",
+          "next-invoice-at": "Prochaine facture le",
+          "features-title": "Fonctionnalités",
+          "buttons": {
+            "update-plan": "Rétrograder ou mettre à niveau",
+            "update-payment": "Modifier le moyen de paiement",
+            "cancel-subscription": "Annuler l'abonnement",
+            "restart-subscription": "Redémarrer l'abonnement"
+          },
+          "tooltips": {
+            "cancel-subscription": "Votre abonnement sera définitivement annulé à la fin de la période de facturation, le {varIntlDate}. Vous pouvez continuer d'utiliser vos fonctionnalités jusqu'à cette date. Vous ne serez ensuite plus facturé(e).",
+            "restart-subscription": "Votre abonnement redémarrera sans facturation supplémentaire."
+          },
+          "no-plan-subscribed-yet": "Vous n'avez souscrit aucun abonnement",
+          "subscribe-now": "Je souhaite m'abonner !"
+        },
+        "Purchases": {
+          "title": "Achats",
+          "no-purchase-history": "Aucun historique d'achat",
+          "no-purchase-history-description": "Vous n'avez encore acheté aucun produit sur notre site !",
+          "no-name": "Rechargement de crédits",
+          "features": "Fonctionnalités"
+        },
+        "Emails": {
+          "title": "E-mails",
+          "SwitchNewsletter": {
+            "switch-newsletter": "Abonnement à la newsletter",
+            "toasters": {
+              "error-delete-contact": "Erreur durant la suppresion du contact de l'audience de newsletter",
+              "newsletter-enabled": "activée",
+              "newsletter-disabled": "désactivée",
+              "error-update-newsletter": "Une erreur s'est produite durant la mise à jour de votre préférence de newsletter. Veuillez réessayer.",
+              "error-get-contact": "Une erreur s'est produite lors de la récupération du contact de la newsletter. Veuillez réessayer."
+            }
+          }
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "token-expired": "Jeton expiré.",
+        "invalid-token": "Jeton invalide",
+        "password-not-updated": "Un problème est survenu durant la modification de votre mot de passe. Veuillez réessayer.",
+        "token-not-found": "Jeton de réinitialisation non trouvé.",
+        "email-not-found": "Adresse e-mail inconnue"
+      }
+    },
+    "title": "Tableau de bord",
+    "description": "Bienvenue sur votre tableau de bord !",
+    "button": "Aller au tableau de bord",
+    "metadatas": {
+      "title": "Mon compte"
+    }
+  },
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "message": "Êtes-vous sûr(e) de vouloir",
+        "confirm": "Confirmer",
+        "cancel": "Annuler"
+      },
+      "popover-delete": {
+        "message": "Êtes-vous sûr(e) de vouloir supprimer",
+        "confirm": "Confirmer",
+        "cancel": "Annuler"
+      },
+      "NewsletterForm": {
+        "form": {
+          "email": "Votre adresse e-mail",
+          "email-exemple": "exemple",
+          "submit": "M'inscrire à la newsletter"
+        }
+      }
+    },
+    "Helpers": {
+      "DB": {
+        "Users": {
+          "deleteUser": {
+            "throws": {
+              "delete": "Vous ne pouvez pas supprimer votre compte, parce que vous êtes le propriétaire de votre organisation. Veuillez transférer vos droit à un autre utilisateur, sinon, supprimer l'organisation.",
+              "cancel": "Un problème est survenue durant la suppression de votre compte. Veuillez nous contacter.",
+              "cancel-subscription": "Un problème est survenue durant l'annulation de l'abonnement"
+            }
+          }
+        },
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "throws": {
+              "already-invited": "Utilisateur déjà invité.",
+              "already-in-an-organization": "L'utilisateur est déjà membre d'une organisation.",
+              "error-while-creating-invitation": "Une erreur est survenue. L'invitation n'a pas été envoyée. Veuillez réessayer.",
+              "no-organization-found": "Aucune organisation n'a été trouvée. Il s'agit certainement d'une erreur. Veuillez réssayer."
+            },
+            "mailing": {
+              "subject": "Vous avez été invité à rejoindre l'organisation ",
+              "subject-end": "et son équipe",
+              "subject-middle": "'"
+            }
+          }
+        }
+      }
+    },
+    "Profile": {
+      "Organization": {
+        "toasters": {
+          "organization-created": "Organisation créée",
+          "pendin-user-removed": "Utilisateur en attente supprimé",
+          "organization-left": "Organisation quittée",
+          "organization-deleted": "Organisation supprimée. Tous les membres en ont été exclus et leurs droits ont été perdus."
+        },
+        "members": "Membres",
+        "buttons": {
+          "create-organization": "Créer une organisation"
+        },
+        "popover": {
+          "delete-organization": "Fermer l'organisation",
+          "what-delete-organization": "supprimer cette organisation",
+          "delete-member": "ce membre"
+        },
+        "tooltip": {
+          "owner": "Propriétaire"
+        },
+        "pending-invitations": "Utilisateurs en attente",
+        "UI": {
+          "InviteMember": {
+            "form": {
+              "error-you-cant-invite-yourself": "Vous ne pouvez pas vous inviter vous-même !",
+              "field-invite-new-member": "Inviter un nouveau membre",
+              "placeholder-email": "E-mail",
+              "submit": "Inviter"
+            },
+            "toasters": {
+              "invitation-sent": "Invitation envoyée à l'adresse"
+            },
+            "note": "Vous avez un abonnement actif. L'ajout d'un nouveau membre à votre organisation sera facturé au pro-rata si le membre accepte cette invitation"
+          },
+          "RenameOrganization": {
+            "toasters": {
+              "organization-renamed": "Organization renomée"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Layout": {
+    "Header": {
+      "Navbar": {
+        "buy-now": "Acheter",
+        "UserProfile": {
+          "refill": "Recharger",
+          "my-account": "Mon compte",
+          "login": "Se connecter",
+          "logout": "Se déconnecter"
+        },
+        "MainMenu": {
+          "howItWorks": "Comment ça fonctionne ?",
+          "features": "Fonctionnalités",
+          "home": "Accueil",
+          "pricing": "Tarification",
+          "contact": "Contact",
+          "MainMenuLinks": {
+            "features": "fonctionnement",
+            "pricing": "tarifs",
+            "contact": "contact",
+            "how-it-works": "fonctionnement"
+          }
+        }
+      }
+    }
+  },
+  "Login": {
+    "toasters": {
+      "bad-credentials": "Identifiants incorrects"
+    },
+    "title": "Connexion à votre compte",
+    "button": {
+      "no-account": "Pas de compte ?",
+      "register": "Cliquez ici pour vous inscrire."
+    },
+    "WithGitbub": {
+      "button": {
+        "login-with-github": "Se connecter avec Github"
+      }
+    },
+    "WithGoogle": {
+      "button": {
+        "continue-with-google": "Continue with Google"
+      },
+      "buttons": {
+        "continue-with-google": "Connexion avec Google"
+      }
+    },
+    "Credentials": {
+      "form": {
+        "email": "Email",
+        "password": "Mot de passe",
+        "login-with-email": "Me connecter"
+      }
+    },
+    "MagicLink": {
+      "form": {
+        "your-email": "Votre adresse e-mail",
+        "submit": "M'envoyer un lien de connexion",
+        "placeholder-email": "exemple"
+      }
+    },
+    "metadatas": {
+      "title": "Connexion"
+    }
+  },
+  "Register": {
+    "title": "Créer un compte",
+    "SignUpWithCredentials": {
+      "form": {
+        "password-error": "Votre mot de passe doit comporter au moins {varIntlMin} caractères",
+        "email-error": "Votre adresse e-mail n'est pas au bon format",
+        "password-did-not-match": "Les mots de passe doivent être similaires",
+        "email": "Adresse e-mail",
+        "password": "Mot de passe",
+        "confirm-password": "Confirmer le mot de passe",
+        "register-with-email": "Créer mon compte"
+      },
+      "emailSent": {
+        "subject": "Bienvenue ! Veuillez confirmer la validité de votre adresse e-mail."
+      }
+    },
+    "already-account-sentence": "Vous avez déjà un compte ?",
+    "button": {
+      "login": "Connectez-vous"
+    },
+    "TeamInvitationPage": {
+      "invited-with-different-email": "Vous êtes connecté(e) avec une adresse e-mail différente de celle qui a reçu l'invitation.",
+      "please-logout": "Veuillez vous connecter avec l'adresse e-mail correspondante et revenir sur cette page. Si vous n'avez pas de compte avec l'adresse invitée, déconnectez-vous et revenez sur cette page pour le créer.",
+      "invitation-not-found": "Organisation inexistante.",
+      "logged-in-with-right-email": "Vous êtes connecté(e) avec la bonne adresse e-mail, mais vous devez successivement vous déconnecter puis vous reconnecter pour accepter l'invitation.",
+      "Register": {
+        "TeamInvitationPage": {
+          "logout": "Me déconnecter",
+          "organization-not-found": "Organisation inexistante.",
+          "invitation-accepted": "Invitation acceptée, veuillez créer un compte puis vous connecter pour finaliser l'invitation. Vous allez être redirigé(e) vers la page de création de compte.",
+          "invitation-accepted-2": "Invitation acceptée, veuillez vous connecter à votre compte pour la finaliser.",
+          "invitation-declined": "Invitation refusée",
+          "join": "Rejoindre l'organisation « {varIntlOrganization} »",
+          "already-accept": "Vous avez déjà accepté l'invitation.",
+          "invited": "Vous avez été invité à rejoindre l'équipe de « {varIntlOrganization} »",
+          "do-you-accept": "Acceptez-vous de rejoindre cette organisation ?",
+          "accept": "Accepter",
+          "decline": "Refuser"
+        }
+      }
+    },
+    "VerifyEmailPage": {
+      "success": "E-mail vérifié.",
+      "title": "Vérification de votre adresse e-mail",
+      "login-to-you-account": "Connectez-vous à votre compte",
+      "request-new-validation": "et demandez un nouveau lien de validation si vous ne l'avez pas encore validé."
+    },
+    "metadatas": {
+      "title": "Inscription"
+    }
+  },
+  "Footer": {
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "title": "Navigation"
+    },
+    "Legal": {
+      "title": "Légal",
+      "terms": "Mentions légales",
+      "privacy": "Politique de confidentialité",
+      "newsletter": "Ne manquez pas notre actualité ! Inscrivez-vous à notre newsletter"
+    }
+  },
+  "Pricing": {
+    "title": "Tarification",
+    "Components": {
+      "SwitchRecurrence": {
+        "monthly": "Mensuelle",
+        "yearly": "Annuelle"
+      },
+      "CardHeader": {
+        "yearly": "an",
+        "monthly": "mois",
+        "metered-unit": "par",
+        "per-seat": "par siège",
+        "popular": "Populaire",
+        "recommended": "Recommandé",
+        "trial": "jours d'essai, puis...",
+        "by-month": "mois",
+        "contact-us": "Contactez-nous pour personnaliser votre offre."
+      },
+      "PriceCardBuyButton": {
+        "buyNow": "Acheter",
+        "startTrial": "Essayer pendant {varIntlTrialDays} jours",
+        "subscribeNow": "S'abonner"
+      },
+      "PriceCardContactUsButton": {
+        "contact-us": "Contactez-nous"
+      },
+      "PriceCard": {
+        "bottom-sentence": "Un seul paiement, de nombreux projets"
+      }
+    },
+    "Success": {
+      "Components": {
+        "Index": {
+          "success": "Merci pour votre confiance ! Votre achat a bien été validé.",
+          "go-to": "Aller sur mon compte"
+        }
+      }
+    },
+    "metadatas": {
+      "title": "Tarification"
+    }
+  },
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Réinitialiser votre mot de passe",
+      "text": "Vous avez demandé à réinitialiser votre mot de passe. Pour cela, veuillez cliquer sur le bouton ci-dessous.",
+      "resetPassword": "Réinitialiser le mot de passe"
+    },
+    "InviteUserTemplate": {
+      "heading": "Vous avez été invité à rejoindre l'équipe de {varIntlTeamName}",
+      "text": "Pour accepter l'invitation, veuillez cliquer sur le bouton ci-dessous.",
+      "buttonText": "Accepter l'invitation"
+    },
+    "VerifyEmailTemplate": {
+      "verifyEmail": "Valider mon compte",
+      "text": "Pour valider définitivement votre inscription, veuillez cliquer sur le bouton ci-dessous.",
+      "heading": "Bienvenue !"
+    }
+  },
+  "API": {
+    "ForgotPassword": {
+      "success": "Un lien pour réinitialiser votre mot de passe a été envoyé à l'adresse {varIntlEmail}. Veuillez vérifier votre messagerie d'emails."
+    },
+    "Register": {
+      "error": {
+        "user-already-exists": "Cette adresse e-mail est déjà enregistrée. Si vous en êtes le propriétaires veuillez vous connecter avec cette dernière ou, le cas échéant, demander une réinitialisation de votre mot de passe.",
+        "user-not-created": "Une erreur est survenue lors de la création du compte. Veuillez réessayer.",
+        "token-not-created": "Une erreur s'est produite lors de la création du jeton de vérification. Veuillez réessayer.",
+        "unknown-error": "Nous avons rencontré une erreur inconnue. Veuillez réessayer ou prendre contact avec nous."
+      },
+      "success": "Bienvenue {varIntlName} ! Merci pour votre confiance. Vous allez recevoir un e-mail avec un lien vous permettant de confirmer sa validité.\n\n Vous pouvez d'ores et déjà vous connecter avec vos identifiants."
+    },
+    "VerifyEmail": {
+      "expired-token": "Jeton de vérification déjà validé, expiré ou introuvable.",
+      "success": "Votre adresse e-mail a été vérifiée."
+    },
+    "Refill": {
+      "name": "Rechargement de crédits"
+    }
+  },
+  "ForgotPassword": {
+    "token-expired": "Le jeton de réinitialisation est inconnu.",
+    "reset-password": "Réinitialisation de votre mot de passe",
+    "invalid-token": "Jeton de réinitialisation invalide. Veuillez recommencer ou faire une nouvelle demande.",
+    "Components": {
+      "Index": {
+        "form": {
+          "email": "Adresse e-mail du compte",
+          "new-password": "Choisissez un nouveau mot de passe",
+          "confirm-password": "Confirmez le nouveau mot de passe",
+          "submit": "Réinitialiser",
+          "email-error": "Adresse e-mail au mauvais format.",
+          "password-error": "Doit comporter au moins {varIntlMin} caractères.",
+          "password-match-error": "Les deux mots de passe doivent être identiques.",
+          "success": "Mot de passe changé avec succès."
+        }
+      }
+    },
+    "metadatas": {
+      "title": "Mot de passe oublié"
+    }
+  },
+  "NotFound": {
+    "erreur-404": "Erreur 404",
+    "page-not-found": "Nous ne trouvons pas la page demandée.",
+    "back-link": "Revenir sur la page d'accueil"
+  },
+  "Blog": {
+    "404": "Aucun article trouvé",
+    "category": "Categories",
+    "tags": "Mots-clés",
+    "no-title": "Article sans titre",
+    "Metadatas": {
+      "no-excerpt": "Aucun extrait",
+      "no-title": "Aucun titre"
+    },
+    "no-author": "Anonyme",
+    "metadatas": {
+      "title": "Blog"
+    }
+  },
+  "Header": {
+    "Navbar": {
+      "Notifications": {
+        "noNotifications": "Aucune notification"
+      }
+    }
+  },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "Comment ça fonctionne ?"
+    }
+  },
+  "Contact": {
+    "metadatas": {
+      "title": "Contact"
+    }
+  },
+  "FAQ": {
+    "metadatas": {
+      "title": "FAQ"
+    }
+  },
+  "Privacy": {
+    "metadatas": {
+      "title": "Confidentialité"
+    }
+  },
+  "Refill": {
+    "metadatas": {
+      "title": "Rechargement de crédits"
+    }
+  },
+  "Terms": {
+    "metadatas": {
+      "title": "Mentions légales"
+    }
+  }
+}

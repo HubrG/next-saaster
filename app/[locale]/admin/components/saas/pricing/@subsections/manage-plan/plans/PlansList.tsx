@@ -12,7 +12,6 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { AnimatePresence, motion } from "framer-motion";
 import { toLower } from "lodash";
-import { useEffect } from "react";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { DeteledPlanDialog } from "./@ui/DeletedPlanDialog";
 
@@ -31,23 +30,23 @@ export const PlansList = () => {
 
   const saasPlans = useSaasPlansStore((state) => state.saasPlans);
 
- useEffect(() => {
-   if (isPlanStoreLoading) {
-     const timeoutId = setTimeout(() => {
-       fetchSaasPlan();
-       fetchSaasPlanToFeature();
-       setPlanStoreLoading(false);
-     }, 2000);
+//  useEffect(() => {
+//    if (isPlanStoreLoading) {
+//      const timeoutId = setTimeout(() => {
+//        fetchSaasPlan();
+//        fetchSaasPlanToFeature();
+//        setPlanStoreLoading(false);
+//      }, 2000);
 
-     return () => clearTimeout(timeoutId);
-   }
- }, [
-   isPlanStoreLoading,
-   fetchSaasPlan,
-   fetchSaasPlanToFeature,
-   setPlanStoreLoading,
-   router,
- ]);
+//      return () => clearTimeout(timeoutId);
+//    }
+//  }, [
+//    isPlanStoreLoading,
+//    fetchSaasPlan,
+//    fetchSaasPlanToFeature,
+//    setPlanStoreLoading,
+//    router,
+//  ]);
 
   const onSortEnd = async (oldIndex: number, newIndex: number) => {
     const newSaasPlans = (await sortAdminPlans({

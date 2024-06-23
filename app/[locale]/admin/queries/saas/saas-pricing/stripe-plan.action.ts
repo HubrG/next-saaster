@@ -173,6 +173,24 @@ export const updatePlan = adminAction(
           });
         }
       }
+      // NOTE : Custom plan
+      else if (data.saasType === "CUSTOM") {
+        const validUpdate = await upPlan({
+          data: { ...data, active: data.active ?? false },
+        });
+        if (handleError(validUpdate).error)
+          throw new ActionError(handleError(validUpdate).message);
+        const updatedProduct = await updateProduct(
+          data,
+          product.data?.success ?? {},
+          data.saasType ?? "CUSTOM"
+        );
+        if (updatedProduct.error) throw new ActionError(updatedProduct.error);
+        return handleRes<iPlan>({
+          success: validUpdate.data?.success,
+          statusCode: 200,
+        });
+      }
       // NOTE : MRR_SIMPLE | METERED_USAGE | PER_SEAT
       else if (
         data.saasType === "MRR_SIMPLE" ||
@@ -366,7 +384,6 @@ export const deleteNewPlan = async (
   data?: any;
   error?: string;
 }> => {
-  
   try {
     const session = await isSuperAdmin();
     if (!session) throw new Error("You are not authorized");

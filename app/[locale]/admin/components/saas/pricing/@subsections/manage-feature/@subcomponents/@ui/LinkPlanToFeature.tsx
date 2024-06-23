@@ -5,9 +5,9 @@ import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
@@ -197,7 +197,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
         <LinkPlanToFeatureOptions feature={feature} />
         {Object.keys(linksState).length === 0 && (
           <div className="flex flex-col items-center justify-center gap-y-2 mt-3">
-            <span className="text-center">No plan have been created yet</span>
+            <span className="text-center">No plan has been created yet</span>
           </div>
         )}
         {Object.keys(linksState).map((linkId) => {

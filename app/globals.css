@@ -230,7 +230,7 @@ div.progressToken {
 
 /* NOTE - Tooltip */
 .tooltip {
-  @apply absolute !text-sm my-little-shadow  font-semibold !rounded-lg  max-w-md dark:bg-theming-background-400 bg-theming-background-800 !opacity-100 !important;
+  @apply absolute !text-sm my-little-shadow  font-semibold !rounded-default  max-w-md dark:bg-theming-background-400 bg-theming-background-900 !opacity-100 !important;
   z-index: 9999999999;
 }
 .tooltip span {
@@ -461,6 +461,12 @@ button[data-close-button] {
 }
 .admin-plan-card .plan-card-active-badge {
   @apply absolute  !font-semibold !rounded-bl-none !rounded-tr-none !rounded-default -mt-[1.85rem] -left-[0.07rem] !shadow-none  bg-theming-background-200-second dark:bg-theming-background-200-second dark:text-text-900 text-text-950 !important;
+}
+.admin-plan-card .plan-card-test-mode-badge {
+  @apply bg-transparent border border-theming-text-300 opacity-50 !text-theming-text-800 dark:text-theming-text-800 !important;
+}
+.admin-plan-card .plan-card-live-mode-badge {
+  @apply  bg-transparent border border-theming-text-500 !important;
 }
 .admin-plan-card > input {
   @apply text-4xl;
@@ -909,4 +915,17 @@ article .task-list-item {
 
 .flex-row-center {
   @apply flex flex-row items-center 
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: blink 1s infinite;
 }

@@ -23,12 +23,19 @@ import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
 import { iPlan } from "@/src/types/db/iPlans";
-import { Plan } from "@prisma/client";
 import { motion } from "framer-motion";
 import isEqual from "lodash/isEqual";
-import { ChevronsUpDown, Eye, EyeOff, Grip } from "lucide-react";
+import {
+  BugPlay,
+  ChevronsUpDown,
+  Eye,
+  EyeOff,
+  Grip,
+  Radio,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { SortableKnob } from "react-easy-sort";
+import { Tooltip } from "react-tooltip";
 import { PlanCardButtons } from "./PlanCardButtons";
 import { PlanCardSwitch } from "./PlanCardSwitch";
 import {
@@ -39,13 +46,13 @@ import { PayOnceFields } from "./plan-card-fields-by-saas-type/PayOnceFields";
 import { UsageInputFields } from "./plan-card-fields-by-saas-type/UsageFields";
 
 type Props = {
-  plan: Plan;
+  plan: iPlan;
   className?: string;
   draggableId?: string;
 };
 export const PlanCard = ({ plan, className }: Props) => {
   const [loading, setLoading] = useState(false);
-  const [planState, setPlanState] = useState(plan);
+  const [planState, setPlanState] = useState<iPlan>(plan);
   const [isOpen, setIsOpen] = useState(false);
   const [initialPlanState, setInitialPlanState] = useState({ ...plan });
   const [cancel, setCancel] = useState(false);
@@ -102,12 +109,12 @@ export const PlanCard = ({ plan, className }: Props) => {
         value
       );
     }
-    setPlanState((prevState) => {
+    setPlanState((prevState: iPlan) => {
       const newData = { ...prevState, [name]: value };
-      return manageClashes(newData, name);
+      return manageClashes(newData, name) as iPlan;
     });
   };
-
+  const rand = Math.floor(Math.random() * 1000);
   // Handle save plan
   const handleSave = async () => {
     setLoading(true);
@@ -218,6 +225,25 @@ export const PlanCard = ({ plan, className }: Props) => {
         {planState.active && (
           <Badge className="plan-card-active-badge">Active</Badge>
         )}
+        {!planState.StripeProduct.find(
+          (product) => product.PlanId === planState.id
+        )?.livemode ? (
+          <Badge
+            className="plan-card-test-mode-badge flex-row-center"
+            data-tooltip-id={`stripe-test-mode-tooltip-${rand}`}>
+            <BugPlay className="icon test-xs" /> Stripe test mode
+          </Badge>
+        ) : (
+          <Badge className="plan-card-live-mode-badge">
+            <Radio className="icon" /> Stripe live mode
+          </Badge>
+        )}
+        <Tooltip id={`stripe-test-mode-tooltip-${rand}`} className="tooltip">
+          This product is in "test" mode on Stripe and cannot be actually
+          purchased by the user. To switch to "live" mode, you need to change
+          the Stripe API key and recreate all theses products and prices on
+          here.
+        </Tooltip>
         <SortableKnob>
           <Grip
             className="dd-icon absolute top-0 right-0.5 w-5"

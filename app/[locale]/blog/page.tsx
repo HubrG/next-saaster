@@ -1,6 +1,7 @@
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import createMetadata from "@/src/lib/metadatas";
 import { getTranslations } from "next-intl/server";
-import BlogPostList from "./@components/BlogPostList";
+import ServerBlogPostList from "./@components/BlogPostServer";
 export const generateMetadata = async () => {
   const t = await getTranslations();
 
@@ -10,17 +11,22 @@ export const generateMetadata = async () => {
     title: t("Blog.metadatas.title"),
   });
 };
-export default async function BlogPage() {
+export default function BlogPage({
+  tagSlug,
+  categorySlug,
+}: {
+  tagSlug: string;
+  categorySlug: string;
+}) {
+  const secret = chosenSecret();
+
   return (
-    <>
-      <h1 className="text-left">Blog</h1>
-      <div className="flex md:flex-row flex-col gap-5">
-        <div className="w-full">
-         
-            <BlogPostList />
-         
-        </div>
-      </div>
-    </>
+    <div>
+      <ServerBlogPostList
+        tagSlug={tagSlug}
+        categorySlug={categorySlug}
+        secret={secret}
+      />
+    </div>
   );
 }

@@ -1,11 +1,13 @@
 "use client";
 
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
 import { cn } from "@/src/lib/utils";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { PriceCard } from "./PriceCard";
+
+const MemoizedPriceCard = memo(PriceCard);
 
 export const PriceCardsSimple = () => {
   const { saasSettings } = useSaasSettingsStore();
@@ -15,14 +17,22 @@ export const PriceCardsSimple = () => {
     (plan) =>
       plan.active && !plan.deleted && plan.saasType === saasSettings.saasType
   );
+
   useEffect(() => {
     if (!isPlanStoreLoading) {
       setIsLoading(false);
     }
   }, [isPlanStoreLoading]);
+
   if (saasSettings.displayFeaturesByCategory) return;
   if (isLoading) {
-    return <Loader noHFull />;
+    return (
+      <div className="grid grid-cols-3  items-center gap-10">
+        <SkeletonLoader type="card" />
+        <SkeletonLoader type="card" />
+        <SkeletonLoader type="card" />
+      </div>
+    );
   }
 
   return (
@@ -38,7 +48,7 @@ export const PriceCardsSimple = () => {
       )}>
       {plansFiltered.map((plan) => (
         <div key={plan.id} className="w-full">
-          <PriceCard plan={plan} />
+          <MemoizedPriceCard plan={plan} />
         </div>
       ))}
     </div>

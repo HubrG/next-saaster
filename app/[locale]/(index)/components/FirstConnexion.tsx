@@ -4,15 +4,17 @@ import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { Button } from "@/src/components/ui/button";
 import { Card } from "@/src/components/ui/card";
+import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { HandMetal } from "lucide-react";
 import { signIn } from "next-auth/react";
-import React from "react";
+import { useState } from "react";
 
 export const FirstConnexion = () => {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const { data: session, isLoading } = useSessionQuery();
+  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
 
   const onGithubSignIn = async () => {
-    setIsLoading(true);
+    setIsButtonLoading(true);
     await signIn("github", { callbackUrl: `/en/admin` });
   };
 

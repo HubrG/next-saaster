@@ -1,3 +1,4 @@
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
 import { ScrollArea } from "@/src/components/ui/scroll-area";
 import {
   getCategoriesForPublishedPosts,
@@ -7,6 +8,7 @@ import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { Link } from "@/src/lib/intl/navigation";
 import { Bookmark, Tags } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
 
 import { v4 } from "uuid";
 
@@ -23,6 +25,8 @@ export default async function SideBar() {
   const tags = tagsResponse.data?.success || [];
 
   return (
+    <Suspense fallback={<SkeletonLoader />}  >
+
     <div className="blog-sidebar">
       <div className=" max-h-[28vh]">
         <h2 className="mb-2 text-lg flex flex-row items-center justify-between">
@@ -69,6 +73,7 @@ export default async function SideBar() {
           </ul>
         </ScrollArea>
       </div>
-    </div>
+      </div>
+       </Suspense>
   );
 }

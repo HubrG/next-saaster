@@ -1,8 +1,7 @@
 import { Index } from "@/app/[locale]/login/components/Index";
 import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { redirect } from "@/src/lib/intl/navigation";
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
 import createMetadata from "@/src/lib/metadatas";
-import { getServerSession } from "next-auth";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 export const generateMetadata = async () => {
@@ -19,19 +18,13 @@ export default async function LoginPage({
   searchParams,
 }: {
   searchParams: { error: boolean };
-  }) {
-
-  const session = await getServerSession();
-  if (session) {
-    redirect("/");
-  }
-
+}) {
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className=" items-center justify-center ">
         <div className="lg:w-2/5  sm:3/5 max-sm:w-full px-5 mx-auto self-center ">
-          <Suspense>
+          <Suspense fallback={<SkeletonLoader type="page" />}>
             <Index error={searchParams.error} />
           </Suspense>
         </div>

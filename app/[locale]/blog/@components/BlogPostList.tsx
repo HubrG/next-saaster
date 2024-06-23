@@ -6,6 +6,7 @@ import BlogPostListView from "./BlogPostListView";
 
 type Props = {
   blogPosts: any[];
+  
 };
 
 export default function BlogPostList({ blogPosts }: Props) {

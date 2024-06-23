@@ -4,15 +4,30 @@ import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { Button } from "@/src/components/ui/button";
 import { Card } from "@/src/components/ui/card";
+import { isEmptyUser } from "@/src/helpers/db/emptyUser.action";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { HandMetal } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const FirstConnexion = () => {
   const { data: session, isLoading } = useSessionQuery();
   const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+  const [emptyUser, setEmptyUser] = useState<boolean | null>(null);
 
+  useEffect(() => {
+    const checkEmptyUser = async () => {
+      if (!session) {
+        const result = await isEmptyUser();
+        setEmptyUser(result);
+      }
+    };
+    checkEmptyUser();
+  }, [session]);
+
+  if (emptyUser) {
+    return <FirstConnexion />;
+  }
   const onGithubSignIn = async () => {
     setIsButtonLoading(true);
     await signIn("github", { callbackUrl: `/en/admin` });

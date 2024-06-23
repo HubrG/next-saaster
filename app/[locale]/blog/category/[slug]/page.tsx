@@ -7,7 +7,7 @@ import { Bookmark } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import BlogPostList from "../../@components/BlogPostList";
+import ServerBlogPostList from "../../@components/BlogPostServer";
 
 export const generateMetadata = async ({
   params,
@@ -36,6 +36,7 @@ export default async function BlogPostsByCategory({
   if (handleError(cat).error) {
     return handleError(cat).error;
   }
+  const secret = chosenSecret();
 
   const category = cat.data?.success as BlogCategory;
 
@@ -53,7 +54,9 @@ export default async function BlogPostsByCategory({
       </h1>
       <div className="flex md:flex-row flex-col gap-5">
         <div className="w-full">
-          {category?.slug && <BlogPostList categorySlug={category?.slug} />}
+          {category?.slug && (
+            <ServerBlogPostList tagSlug={params.slug} secret={secret} />
+          )}
         </div>
       </div>
     </>

@@ -151,7 +151,8 @@
               "title": "अपना कूट शब्द भूल गए ?",
               "toasters": {
                 "send-email-error": "ईमेल भेजते समय एक त्रुटि हुई। \nपुनः प्रयास करें।"
-              }
+              },
+              "titleForgot": "भूल जाओ ?"
             },
             "UpdatePassword": {
               "form": {

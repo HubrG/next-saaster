@@ -134,7 +134,8 @@
               "title": "Esqueceu-se da sua palavra-passe?",
               "toasters": {
                 "send-email-error": "Ocorreu um erro ao enviar a mensagem de correio eletrónico. Por favor, tente novamente."
-              }
+              },
+              "titleForgot": "Esquecer ?"
             },
             "UpdatePassword": {
               "form": {

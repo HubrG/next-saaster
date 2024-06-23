@@ -155,7 +155,8 @@
               "title": "Lupa kata sandi Anda?",
               "toasters": {
                 "send-email-error": "Terjadi kesalahan saat mengirim email. Silakan coba lagi."
-              }
+              },
+              "titleForgot": "Lupa ?"
             },
             "UpdatePassword": {
               "form": {

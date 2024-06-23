@@ -134,7 +134,8 @@
               "title": "Forgot your password?",
               "toasters": {
                 "send-email-error": "An error occurred while sending the email. Please try again."
-              }
+              },
+              "titleForgot": "Forget ?"
             },
             "UpdatePassword": {
               "form": {

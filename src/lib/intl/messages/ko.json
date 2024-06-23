@@ -155,7 +155,8 @@
               "title": "비밀번호를 잊어 버렸습니까 ?",
               "toasters": {
                 "send-email-error": "이메일을 보내는 동안 오류가 발생했습니다. \n다시 시도하십시오."
-              }
+              },
+              "titleForgot": "잊다 ?"
             },
             "UpdatePassword": {
               "form": {

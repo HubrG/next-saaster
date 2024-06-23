@@ -134,7 +134,8 @@
               "title": "¿Ha olvidado su contraseña?",
               "toasters": {
                 "send-email-error": "Se ha producido un error al enviar el correo electrónico. Por favor, inténtelo de nuevo."
-              }
+              },
+              "titleForgot": "Olvidar ?"
             },
             "UpdatePassword": {
               "form": {

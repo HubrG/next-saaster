@@ -155,7 +155,8 @@
               "title": "Zapomniałeś hasła?",
               "toasters": {
                 "send-email-error": "Wystąpił błąd podczas wysyłania wiadomości e-mail. Spróbuj ponownie."
-              }
+              },
+              "titleForgot": "Zapominać ?"
             },
             "UpdatePassword": {
               "form": {

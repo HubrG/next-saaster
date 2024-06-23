@@ -155,7 +155,8 @@
               "title": "Ξεχάσατε τον κωδικό πρόσβασής σας;",
               "toasters": {
                 "send-email-error": "Προέκυψε σφάλμα κατά την αποστολή του email. Προσπαθήστε ξανά."
-              }
+              },
+              "titleForgot": "Ξεχνάμε ;"
             },
             "UpdatePassword": {
               "form": {

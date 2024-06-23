@@ -155,7 +155,8 @@
               "title": "Wachtwoord vergeten?",
               "toasters": {
                 "send-email-error": "Er is een fout opgetreden tijdens het verzenden van de e-mail. Probeer het opnieuw."
-              }
+              },
+              "titleForgot": "Vergeten ?"
             },
             "UpdatePassword": {
               "form": {

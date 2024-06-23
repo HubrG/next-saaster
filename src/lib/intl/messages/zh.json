@@ -134,7 +134,8 @@
               "title": "忘记密码？",
               "toasters": {
                 "send-email-error": "发送电子邮件时发生错误。请重试。"
-              }
+              },
+              "titleForgot": "忘记 ？"
             },
             "UpdatePassword": {
               "form": {

@@ -155,7 +155,8 @@
               "title": "Glömt ditt lösenord ?",
               "toasters": {
                 "send-email-error": "Ett fel uppstod när e-postmeddelandet skickades. \nFörsök igen."
-              }
+              },
+              "titleForgot": "Glömma ?"
             },
             "UpdatePassword": {
               "form": {

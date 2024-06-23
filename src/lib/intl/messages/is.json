@@ -155,7 +155,8 @@
               "title": "Gleymt lykilorðinu þínu?",
               "toasters": {
                 "send-email-error": "Villa kom upp við að senda tölvupóstinn. \nReyndu aftur."
-              }
+              },
+              "titleForgot": "Gleyma?"
             },
             "UpdatePassword": {
               "form": {

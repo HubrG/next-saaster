@@ -155,7 +155,8 @@
               "title": "Unohditko salasanasi?",
               "toasters": {
                 "send-email-error": "Sähköpostin lähettämisessä tapahtui virhe. Yritä uudelleen."
-              }
+              },
+              "titleForgot": "Unohda?"
             },
             "UpdatePassword": {
               "form": {

@@ -155,7 +155,8 @@
               "title": "Quên mật khẩu ?",
               "toasters": {
                 "send-email-error": "Có lỗi xảy ra trong khi gửi email. \nThử lại."
-              }
+              },
+              "titleForgot": "Quên ?"
             },
             "UpdatePassword": {
               "form": {

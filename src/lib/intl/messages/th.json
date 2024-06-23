@@ -155,7 +155,8 @@
               "title": "ลืมรหัสผ่านหรือไม่ ?",
               "toasters": {
                 "send-email-error": "เกิดข้อผิดพลาดขณะส่งอีเมล \nลองอีกครั้ง."
-              }
+              },
+              "titleForgot": "ลืม ?"
             },
             "UpdatePassword": {
               "form": {

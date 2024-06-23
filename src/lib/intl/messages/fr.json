@@ -47,7 +47,7 @@
               }
             },
             "ForgotPassword": {
-              "title": "Mot de passe oublié ?",
+              "title": "Oublié ?",
               "description": "Pas de problème, nous pouvons vous envoyer un lien pour réinitialiser votre mot de passe.",
               "form": {
                 "email": "Votre adresse email",
@@ -59,7 +59,8 @@
               },
               "toasters": {
                 "send-email-error": "Une erreur s'est produite lors de l'envoi de l'email. Veuillez réessayer."
-              }
+              },
+              "titleForgot": "Oublié ?"
             },
             "CreatePassword": {
               "title": "Créer un mot de passe",

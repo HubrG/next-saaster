@@ -134,7 +134,8 @@
               "title": "Avete dimenticato la password?",
               "toasters": {
                 "send-email-error": "Si è verificato un errore durante l'invio dell'e-mail. Si prega di riprovare."
-              }
+              },
+              "titleForgot": "Dimenticare ?"
             },
             "UpdatePassword": {
               "form": {

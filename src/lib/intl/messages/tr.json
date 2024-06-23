@@ -134,7 +134,8 @@
               "title": "Şifrenizi mi unuttunuz?",
               "toasters": {
                 "send-email-error": "E-posta gönderilirken bir hata oluştu. Lütfen tekrar deneyin."
-              }
+              },
+              "titleForgot": "Unutmak ?"
             },
             "UpdatePassword": {
               "form": {

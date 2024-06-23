@@ -107,11 +107,11 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
   return (
     <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className={`${className}`}>{t("title")}</div>
+        <div className={`${className}`}>{t("titleForgot")}</div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-y-6">
-          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogTitle>{t("titleForgot")}</DialogTitle>
           <Goodline />
           <DialogDescription>
             <p className="mb-5">{t("description")}</p>

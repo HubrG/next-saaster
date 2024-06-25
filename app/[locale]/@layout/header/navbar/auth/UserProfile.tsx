@@ -27,7 +27,7 @@ import { UserRole } from "@prisma/client";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { upperCase } from "lodash";
 import { AtSign, CreditCard, Crown, User } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { DropdownMenuItemLogout } from "./LogoutButton";
@@ -42,6 +42,7 @@ export const UserProfile = ({
   email,
   isLoading,
 }: UserProfileProps) => {
+  const format = useFormatter();
   const { data: user } = useUserQuery(email);
   const [userStore, setUserStore] = useState<iUsers>();
   useEffect(() => {
@@ -154,9 +155,13 @@ export const UserProfile = ({
                     {saasSettings.creditName} :{" "}
                     {userProfile?.activeSubscription.creditPercentage}%
                   </span>
-                  {userProfile?.activeSubscription.creditRemaining}{" "}
+                  {format.number(
+                    userProfile?.activeSubscription.creditRemaining
+                  )}
                   &nbsp;/&nbsp;
-                  {userProfile?.activeSubscription.creditAllouedByMonth}
+                  {format.number(
+                    userProfile?.activeSubscription.creditAllouedByMonth
+                  )}
                 </Tooltip>
               </>
             )}
@@ -169,8 +174,8 @@ export const UserProfile = ({
                   <div
                     className="relative w-full"
                     data-tooltip-id="remainingTooltip">
-                    <p className="text-center !text-xs pb-1">
-                      {userProfile?.info.creditRemaining}
+                    <p className="text-center !text-xs font-bold">
+                      {format.number(userProfile?.info.creditRemaining ?? 0)}
                     </p>
                   </div>
                 </div>
@@ -179,7 +184,8 @@ export const UserProfile = ({
                   opacity={1}
                   place="bottom"
                   className="tooltip flex flex-col">
-                  {userProfile?.info.creditRemaining} {saasSettings.creditName}s
+                  {format.number(userProfile?.info.creditRemaining ?? 0)}{" "}
+                  {saasSettings.creditName}s
                 </Tooltip>
               </>
             )}
@@ -210,19 +216,19 @@ export const UserProfile = ({
             {/* My account */}
             {t("my-account")}
           </Link>
-        </DropdownMenuItem> 
+        </DropdownMenuItem>
         {/* NOTE:  Refill */}
         {saasSettings.activeRefillCredit && (
-            <>
-              <DropdownMenuItem className="w-full mt-1" asChild>
-                <Link href="/refill" className="user-profile-buy-credit">
-                  <CreditCard className="icon" />
-                  {/* Buy credits */}
-                  {t("refill")} {saasSettings.creditName?.toLowerCase()}s
-                </Link>
-              </DropdownMenuItem>
-            </>
-          )}
+          <>
+            <DropdownMenuItem className="w-full mt-1" asChild>
+              <Link href="/refill" className="user-profile-buy-credit">
+                <CreditCard className="icon" />
+                {/* Buy credits */}
+                {t("refill")} {saasSettings.creditName?.toLowerCase()}s
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
 
         {userStore?.role !== ("USER" as UserRole) && (
           <>

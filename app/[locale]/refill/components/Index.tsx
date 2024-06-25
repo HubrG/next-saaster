@@ -132,7 +132,13 @@ export const Index = ({
                   left: `${discountPosition}%`,
                   transform: "translateX(-50%)",
                 }}>
-                {t("discount-off")} {saasSettings?.discountForRefillCredit}%
+                {t("discount-off")}{" "}
+                {format.number(
+                  (saasSettings?.discountForRefillCredit ?? 0) / 100,
+                  {
+                    style: "percent",
+                  }
+                )}{" "}
               </Badge>
             )}
           </div>
@@ -148,7 +154,10 @@ export const Index = ({
               className="my-4 mb-10"
             />
             <p className="text-center">
-              {credits} {saasSettings.creditName?.toLowerCase()}
+              {format.number(credits, {
+                style: "decimal",
+              })}{" "}
+              {saasSettings.creditName?.toLowerCase()}
             </p>
             <p className="text-center text-xl font-bold">
               {format.number(price, {

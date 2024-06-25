@@ -2,7 +2,7 @@
 import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Rss } from "lucide-react";
-import { Categories } from "./manage-categories/Categories";
+import { ManageBlogCategories } from "./manage-categories/Categories";
 import BlogPostList from "./manage-posts/@subcomponents/BlogPostList";
 import { CreatePost } from "./manage-posts/@subcomponents/CreatePostButton";
 
@@ -16,7 +16,7 @@ export const AdminBlog = () => {
         icon={<Rss className="icon" />}>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-3">
           <CreatePost />
-          <Categories />
+          <ManageBlogCategories />
           {/* {session.user.id ? <CreatePostIA userId={session.user.id} /> : null} */}
         </div>
         <Separator className="mt-5 mb-0" />

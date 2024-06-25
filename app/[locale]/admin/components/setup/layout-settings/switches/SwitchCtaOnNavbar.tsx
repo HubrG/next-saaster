@@ -30,7 +30,7 @@ export default function SwitchCtaOnNavbar() {
           .setAppSettings({ ...appSettings, activeCtaOnNavbar: e });
         setLoading(false);
         return toaster({
-          description: `Active CTA on navbar ${e ? "enabled" : "disabled"}`,
+          description: `CTA on navbar ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {

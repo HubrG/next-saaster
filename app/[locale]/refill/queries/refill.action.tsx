@@ -7,9 +7,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 type RefillSession = {
   secret: string;
   numberOfCredits: number;
+  price: number;
+  creditName: string;
 };
 export const createRefillSession = async ({
   secret,
+  price,
+  creditName,
   numberOfCredits = 5,
 }: RefillSession) => {
   // Check if the secret is valid
@@ -26,14 +30,19 @@ export const createRefillSession = async ({
           currency: "eur",
           product_data: {
             name: "Refill",
+            description: t("API.Refill.name", {
+              varIntlRefill: numberOfCredits,
+              varIntlCreditName: creditName.toLowerCase(),
+            }),
             metadata: {
               name: t("API.Refill.name", {
                 varIntlRefill: numberOfCredits,
+                varIntlCreditName: creditName.toLowerCase(),
               }),
               refill: numberOfCredits,
             },
           },
-          unit_amount: 5000,
+          unit_amount: price * 100,
         },
         quantity: 1,
       },
@@ -42,6 +51,7 @@ export const createRefillSession = async ({
     metadata: {
       name: t("API.Refill.name", {
         varIntlRefill: numberOfCredits,
+        varIntlCreditName: creditName.toLowerCase(),
       }),
       refill: numberOfCredits,
     },
@@ -57,7 +67,7 @@ export const portailclient = async () => {
 
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,
-    return_url: "https://example.com/account",
+    return_url: `${process.env.NEXT_URI}/dashboard`,
   });
   return session.url;
 };

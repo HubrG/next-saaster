@@ -17,7 +17,7 @@
       "success": "địa chỉ email của bạn đã được xác minh."
     },
     "Refill": {
-      "name": "Đang tải lại tín dụng"
+      "name": "Đang tải lại {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "hủy đăng ký",
             "restart-subscription": "Khởi động lại đăng ký",
             "update-payment": "Thay đổi phương pháp thanh toán",
-            "update-plan": "Hạ cấp hoặc nâng cấp"
+            "update-plan": "Hạ cấp hoặc nâng cấp",
+            "cancel-subscription-popover": "hủy đăng ký của bạn?",
+            "update-from-portail": "Quản lý đăng ký của tôi"
           },
           "daily": "ngày",
           "features-title": "Đặc trưng",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Đang tải lại tín dụng"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Tải lại"
+        },
+        "choose-credits-number": "Chọn số tín chỉ",
+        "discount-applied": "Áp dụng giảm giá",
+        "discount-off": "Sự thích hợp"
+      }
     }
   },
   "Terms": {

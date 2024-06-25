@@ -54,7 +54,7 @@ export default function SwitchActiveAutoTranslate() {
       loading={loading}
       icon={<Languages className="icon" />}
       id="switch-active-AutoTranslate">
-      Active auto translate with API (features, pricing, pages, etc.)
+      Enable auto translate with API (features, pricing, pages, etc.)
     </SwitchWrapper>
   );
 }

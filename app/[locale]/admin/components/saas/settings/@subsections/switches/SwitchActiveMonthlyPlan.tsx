@@ -56,7 +56,7 @@ export default function SwitchActiveMonthlyPlan() {
       loading={loading}
       icon={<CalendarDays className="icon" />}
       id="switch-active-monthly-plans">
-      Active the <strong>monthly plans</strong> for your SaaS
+      Enable the <strong>monthly plans</strong> for your SaaS
     </SwitchWrapper>
   );
 }

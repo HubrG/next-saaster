@@ -14,6 +14,7 @@ type Props = {
   icon?: React.ReactNode;
   display?: string;
   className?: string;
+  children?: React.ReactNode;
   variant?:
     | "link"
     | "destructive"
@@ -38,6 +39,7 @@ export const PopoverConfirm = ({
   className,
   what,
   icon,
+  children,
   display,
 }: Props) => {
   const t = useTranslations("Components.UI.popover-confirm");

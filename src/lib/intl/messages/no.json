@@ -17,7 +17,7 @@
       "success": "E-postadressen din er bekreftet."
     },
     "Refill": {
-      "name": "Laster inn kreditter på nytt"
+      "name": "Laster inn {varIntlRefill} {varIntlCreditName} på nytt"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "Avslutte abonnementet",
             "restart-subscription": "Start abonnementet på nytt",
             "update-payment": "Endre betalingsmåte",
-            "update-plan": "Nedgrader eller oppgrader"
+            "update-plan": "Nedgrader eller oppgrader",
+            "cancel-subscription-popover": "kansellere abonnementet?",
+            "update-from-portail": "Administrer abonnementet mitt"
           },
           "daily": "dag",
           "features-title": "Egenskaper",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Laster inn kreditter på nytt"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Last inn på nytt"
+        },
+        "choose-credits-number": "Velg antall studiepoeng",
+        "discount-applied": "Rabatt brukt",
+        "discount-off": "Fitness"
+      }
     }
   },
   "Terms": {

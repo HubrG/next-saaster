@@ -17,7 +17,7 @@
       "success": "Η διεύθυνση ηλεκτρονικού ταχυδρομείου σας έχει επαληθευτεί."
     },
     "Refill": {
-      "name": "Πιστώσεις επαναγέμισης"
+      "name": "Επαναφόρτωση {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "Ακύρωση συνδρομής",
             "restart-subscription": "Επανεκκίνηση συνδρομής",
             "update-payment": "Αλλαγή μεθόδου πληρωμής",
-            "update-plan": "Υποβάθμιση ή αναβάθμιση"
+            "update-plan": "Υποβάθμιση ή αναβάθμιση",
+            "cancel-subscription-popover": "ακύρωση της συνδρομής σας;",
+            "update-from-portail": "Διαχείριση της συνδρομής μου"
           },
           "daily": "ημέρα",
           "features-title": "Χαρακτηριστικά",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Επαναφόρτωση πιστώσεων"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Γεμίζω πάλι"
+        },
+        "choose-credits-number": "Επιλέξτε τον αριθμό των μονάδων",
+        "discount-applied": "Εφαρμόστηκε έκπτωση",
+        "discount-off": "Καταλληλότητα"
+      }
     }
   },
   "Terms": {

@@ -66,10 +66,10 @@ export const InfoApp = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => handleSave(data);
 
   return (
-    <div className="grid grid-cols-2 items-center justify-center">
+    <div className="md:grid md:grid-cols-2 flex flex-col gap-y-10 max-sm:mt-24 items-center justify-center">
       <Form {...form}>
-        <form
-          className="flex flex-col space-y-6"
+        <form 
+          className="flex flex-col space-y-6 max-sm:order-2"
           onSubmit={form.handleSubmit(onSubmit)}
           onChange={() => {
             handleChange(form.getValues());

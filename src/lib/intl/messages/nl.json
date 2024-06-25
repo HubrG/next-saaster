@@ -17,7 +17,7 @@
       "success": "Uw e-mailadres is geverifieerd."
     },
     "Refill": {
-      "name": "Credits herladen"
+      "name": "Opnieuw laden van {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "Abonnement annuleren",
             "restart-subscription": "Abonnement herstarten",
             "update-payment": "Betaalmethode wijzigen",
-            "update-plan": "Downgraden of upgraden"
+            "update-plan": "Downgraden of upgraden",
+            "cancel-subscription-popover": "je abonnement opzeggen?",
+            "update-from-portail": "Beheer mijn abonnement"
           },
           "daily": "dag",
           "features-title": "Kenmerken",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Tegoeden herladen"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Herladen"
+        },
+        "choose-credits-number": "Kies het aantal studiepunten",
+        "discount-applied": "Korting toegepast",
+        "discount-off": "Geschiktheid"
+      }
     }
   },
   "Terms": {

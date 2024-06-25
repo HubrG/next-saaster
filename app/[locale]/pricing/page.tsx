@@ -14,32 +14,20 @@ export const generateMetadata = async () => {
     // Voir la configuration des métadonnées dans metadatas.ts
     // @/src/lib/metadatas
     title: t("Pricing.metadatas.title"),
+    type: "website",
+    url: process.env.NEXT_PUBLIC_URI + "/pricing",
   });
 };
 
-export default async function Pricing({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) {
+export default async function Pricing() {
   const t = await getTranslations();
 
-  // const session = await getServerSession(authOptions);
-  // if (session) {
-  //   const email = session?.user?.email;
-  //   if (email) {
-  //     const user = await getUser({ email: email, secret: chosenSecret() });
-  //     if (user.data?.success?.subscriptions?.find((sub) => sub.isActive)) {
-  //       redirect("/dashboard#Billing");
-  //     }
-  //   }
-  // }
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="flex flex-col gap-y-8 ">
         <h1 className="!bg-gradient2">{t("Pricing.title")}</h1>
-        <Suspense fallback={<SkeletonLoader type="card-page" className="mx-auto" />}>
+        <Suspense fallback={<SkeletonLoader type="page" className="mx-auto w-1/2" />}>
           {/* Display recurrence if not "Pay once" or "Metered" business model */}
           <SwitchRecurrence
           // yearlypercent_off={20}

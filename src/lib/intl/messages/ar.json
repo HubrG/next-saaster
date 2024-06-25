@@ -168,7 +168,9 @@
             "cancel-subscription": "إلغاء الاشتراك",
             "restart-subscription": "إعادة تشغيل الاشتراك",
             "update-payment": "تغيير طريقة الدفع",
-            "update-plan": "التخفيض أو الترقية"
+            "update-plan": "التخفيض أو الترقية",
+            "cancel-subscription-popover": "إلغاء اشتراكك؟",
+            "update-from-portail": "إدارة اشتراكي"
           },
           "daily": "اليوم",
           "features-title": "الميزات",
@@ -504,7 +506,7 @@
       "success": "تم التحقق من عنوان البريد الإلكتروني الخاص بك."
     },
     "Refill": {
-      "name": "إعادة تعبئة الاعتمادات"
+      "name": "إعادة تحميل {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Emails": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "إعادة تحميل الاعتمادات"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "إعادة تحميل"
+        },
+        "choose-credits-number": "اختر عدد الاعتمادات",
+        "discount-applied": "الخصم قد تم",
+        "discount-off": "لياقة بدنية"
+      }
     }
   },
   "Terms": {

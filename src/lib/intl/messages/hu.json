@@ -17,7 +17,7 @@
       "success": "Az e-mail címét ellenőriztük."
     },
     "Refill": {
-      "name": "Újratöltési kreditek"
+      "name": "{varIntlRefill} {varIntlCreditName} újratöltése"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "Előfizetés törlése",
             "restart-subscription": "Előfizetés újraindítása",
             "update-payment": "Fizetési mód módosítása",
-            "update-plan": "Visszaminősítés vagy frissítés"
+            "update-plan": "Visszaminősítés vagy frissítés",
+            "cancel-subscription-popover": "lemondja az előfizetést?",
+            "update-from-portail": "Az előfizetésem kezelése"
           },
           "daily": "nap",
           "features-title": "Jellemzők",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Kredit újratöltése"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Újratöltés"
+        },
+        "choose-credits-number": "Válassza ki a kreditek számát",
+        "discount-applied": "Kedvezmény érvényes",
+        "discount-off": "Fitness"
+      }
     }
   },
   "Terms": {

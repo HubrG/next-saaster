@@ -17,7 +17,7 @@
       "success": "Din e-postadress har verifierats."
     },
     "Refill": {
-      "name": "Omladdningskrediter"
+      "name": "Laddar om {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "säga upp",
             "restart-subscription": "Starta om prenumerationen",
             "update-payment": "Ändra betalningsmetod",
-            "update-plan": "Nedgradera eller uppgradera"
+            "update-plan": "Nedgradera eller uppgradera",
+            "cancel-subscription-popover": "avsluta din prenumeration?",
+            "update-from-portail": "Hantera mitt abonnemang"
           },
           "daily": "dag",
           "features-title": "Funktioner",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Laddar om krediter"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Ladda om"
+        },
+        "choose-credits-number": "Välj antal poäng",
+        "discount-applied": "Rabatt tillämpas",
+        "discount-off": "Kondition"
+      }
     }
   },
   "Terms": {

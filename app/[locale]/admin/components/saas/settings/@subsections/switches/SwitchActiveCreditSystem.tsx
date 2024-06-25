@@ -64,7 +64,7 @@ export default function SwitchActiveMonthlyPlan() {
       loading={loading}
       icon={<Wallet className="icon" />}
       id="switch-active-credit-system">
-      Active the <strong>credit system</strong> for your SaaS
+      Enable the <strong>credit system</strong> for your SaaS
       <Tooltip
         id="tooltip-switch-active-credit-system"
         opacity={1}

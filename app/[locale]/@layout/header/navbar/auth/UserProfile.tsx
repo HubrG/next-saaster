@@ -17,6 +17,7 @@ import {
   ReturnUserDependencyProps,
   getUserInfos,
 } from "@/src/helpers/dependencies/user";
+import { sliced } from "@/src/helpers/functions/slice";
 import { Link } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useUserQuery } from "@/src/queries/useUserQuery";
@@ -25,7 +26,7 @@ import { iUsers } from "@/src/types/db/iUsers";
 import { UserRole } from "@prisma/client";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { upperCase } from "lodash";
-import { CreditCard, User, Wrench } from "lucide-react";
+import { AtSign, CreditCard, Crown, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
@@ -71,20 +72,19 @@ export const UserProfile = ({
   }
 
   return (
-    
     <DropdownMenu>
       <DropdownMenuTrigger asChild className={`flex flex-row w-full`}>
         <Button
           variant="link"
           className={cn(
             {
-              "flex flex-row": className
+              "flex flex-row gap-2 mr-2": className
                 ? className
                 : "items-center gap-2  justify-center",
-              "md:w-24 w-full !p-5": saasSettings.activeCreditSystem,
+              "md:w-20 w-full !p-0": saasSettings.activeCreditSystem,
               "!md:w-16 !w-16 !p-0": !saasSettings.activeCreditSystem,
             },
-            "hover:no-underline "
+            "hover:no-underline"
           )}>
           <div className="w-7 h-7  userNavbarDiv push-effect">
             <Avatar className="!no-underline ">
@@ -119,6 +119,10 @@ export const UserProfile = ({
                 <div
                   className="relative w-full"
                   data-tooltip-id="remainingTooltip">
+                  <p className="text-center !text-xs -mt-1 pb-1">
+                    {userProfile?.activeSubscription.creditRemaining}
+                  </p>
+
                   <div
                     className={`${
                       userProfile?.activeSubscription.creditPercentage <= 0
@@ -128,7 +132,11 @@ export const UserProfile = ({
                         : "progressToken"
                     }`}
                     style={{
-                      width: `${userProfile?.activeSubscription.creditPercentage}%`,
+                      width: `${
+                        userProfile?.activeSubscription.creditPercentage <= 100
+                          ? userProfile?.activeSubscription.creditPercentage
+                          : 100
+                      }%`,
                     }}>
                     &nbsp;
                   </div>
@@ -144,21 +152,46 @@ export const UserProfile = ({
                   {saasSettings.creditName} :{" "}
                   {userProfile?.activeSubscription.creditPercentage}%
                 </span>
-                {userProfile?.activeSubscription.creditRemaining} &nbsp;/&nbsp;{" "}
+                {userProfile?.activeSubscription.creditRemaining} &nbsp;/&nbsp;
                 {userProfile?.activeSubscription.creditAllouedByMonth}
               </Tooltip>
-              {className && <div className="ml-5">2%</div>}
             </>
           ) : null}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="user-profile-dd">
+        {/*  NOTE:  My account */}
+        {userStore?.name && (
+          <DropdownMenuItem className="w-full" asChild>
+            <Link
+              href="/dashboard"
+              className="nunderline profile-link text-left pr-10 cursor-pointer">
+              <User className="icon" />
+              <span className="flex flex-col  justify-start gap-0">
+                <span>{userStore.name}</span>
+                <span className="text-xs -mt-0.5 font-medium">
+                  {sliced(userStore.email, 21)}
+                </span>
+              </span>
+            </Link>
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuItem className="w-full px-2 mt-1" asChild>
+          <Link
+            href="/dashboard"
+            className="nunderline profile-link text-left pr-10  cursor-pointer">
+            <AtSign className="mr-2 h-4 w-4" />
+            {/* My account */}
+            {t("my-account")}
+          </Link>
+        </DropdownMenuItem>
+        {/* NOTE:  Refill */}
         {saasSettings.activeRefillCredit &&
         userProfile?.activeSubscription?.creditAllouedByMonth &&
         (userProfile?.activeSubscription?.creditAllouedByMonth ?? 0) > 0 &&
         userProfile?.activeSubscription ? (
           <>
-            <DropdownMenuItem className="w-full" asChild>
+            <DropdownMenuItem className="w-full mt-1" asChild>
               <Link href="/refill" className="user-profile-buy-credit">
                 <CreditCard className="icon" />
                 {/* Buy credits */}
@@ -167,27 +200,18 @@ export const UserProfile = ({
             </DropdownMenuItem>
           </>
         ) : null}
-        <DropdownMenuItem className="w-full px-2 mt-1" asChild>
-          <Link
-            href="/dashboard"
-            className="nunderline profile-link text-left pr-10  cursor-pointer">
-            <User className="mr-2 h-4 w-4" />
-            {/* My account */}
-            {t("my-account")}
-          </Link>
-        </DropdownMenuItem>
+
         {userStore?.role !== ("USER" as UserRole) && (
           <>
             <DropdownMenuItem className="w-full" asChild>
               <Link
                 prefetch={false}
                 href="/admin"
-                className="nunderline profile-link  pr-10 text-left cursor-pointer">
-                <Wrench className="mr-2 h-4 w-4" />
+                className="user-profile-admin">
+                <Crown className="mr-2 icon" />
                 Admin
               </Link>
             </DropdownMenuItem>
-
             <DropdownMenuSeparator />
           </>
         )}

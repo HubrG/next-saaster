@@ -168,7 +168,9 @@
             "cancel-subscription": "Aboneliği iptal et",
             "restart-subscription": "Aboneliği yeniden başlat",
             "update-payment": "Ödeme yöntemini değiştir",
-            "update-plan": "Sürüm düşürme veya yükseltme"
+            "update-plan": "Sürüm düşürme veya yükseltme",
+            "cancel-subscription-popover": "aboneliğiniz iptal edilsin mi?",
+            "update-from-portail": "Aboneliğimi yönet"
           },
           "daily": "gün",
           "features-title": "Özellikler",
@@ -504,7 +506,7 @@
       "success": "E-posta adresiniz doğrulandı."
     },
     "Refill": {
-      "name": "Yeniden yükleme kredileri"
+      "name": "{varIntlRefill} {varIntlCreditName} yeniden yükleniyor"
     }
   },
   "Emails": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Krediler yeniden yükleniyor"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Tekrar yükle"
+        },
+        "choose-credits-number": "Kredi sayısını seçin",
+        "discount-applied": "İndirim uygulandı",
+        "discount-off": "Fitness"
+      }
     }
   },
   "Terms": {

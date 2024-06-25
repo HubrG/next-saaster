@@ -17,7 +17,7 @@
       "success": "Alamat email Anda telah diverifikasi."
     },
     "Refill": {
-      "name": "Memuat ulang kredit"
+      "name": "Memuat ulang {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "Membatalkan langganan",
             "restart-subscription": "Mulai ulang langganan",
             "update-payment": "Ubah metode pembayaran",
-            "update-plan": "Turunkan atau tingkatkan"
+            "update-plan": "Turunkan atau tingkatkan",
+            "cancel-subscription-popover": "membatalkan langganan Anda?",
+            "update-from-portail": "Kelola langganan saya"
           },
           "daily": "hari",
           "features-title": "Fitur",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Memuat ulang kredit"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Muat ulang"
+        },
+        "choose-credits-number": "Pilih jumlah kredit",
+        "discount-applied": "Diskon diterapkan",
+        "discount-off": "kebugaran"
+      }
     }
   },
   "Terms": {

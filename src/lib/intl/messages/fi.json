@@ -17,7 +17,7 @@
       "success": "Sähköpostiosoitteesi on vahvistettu."
     },
     "Refill": {
-      "name": "Uudelleenlataushyvitykset"
+      "name": "Ladataan uudelleen {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "Peruuta tilaus",
             "restart-subscription": "Käynnistä tilaus uudelleen",
             "update-payment": "Vaihda maksutapaa",
-            "update-plan": "Downgrade tai päivitys"
+            "update-plan": "Downgrade tai päivitys",
+            "cancel-subscription-popover": "peruuttaa tilauksesi?",
+            "update-from-portail": "Hallinnoi tilaustani"
           },
           "daily": "päivä",
           "features-title": "Ominaisuudet",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Ladataan krediittejä uudelleen"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Lataa uudelleen"
+        },
+        "choose-credits-number": "Valitse opintopisteiden määrä",
+        "discount-applied": "Alennus voimassa",
+        "discount-off": "Fitness"
+      }
     }
   },
   "Terms": {

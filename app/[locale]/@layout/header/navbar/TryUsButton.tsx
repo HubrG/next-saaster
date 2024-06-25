@@ -19,9 +19,9 @@ export default function TryUsButton({
     <Link href="/pricing" className={className}>
       <Button
         id="try-us-for-free-button"
-        className={`md:px-4 md:!text-base text-sm font-bold`}
+        className={`md:px-3 md:!text-base text-sm font-bold`}
         variant="outline"
-        size={"lg"}>
+        size={"default"}>
         {icon}
         {value}
       </Button>

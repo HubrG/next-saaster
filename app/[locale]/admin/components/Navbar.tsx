@@ -16,7 +16,7 @@ import {
   Rss,
   RssIcon,
   Settings2,
-  UsersRound
+  UsersRound,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -150,17 +150,22 @@ export const AdminNavbar = () => {
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
             />
-            {(saasSettings.saasType === "MRR_SIMPLE" ||
-              saasSettings.saasType === "PER_SEAT") && (
-              <MenuSubItem
-                parent="SaasSettings"
-                activeSection={activeSubSection}
-                sectionObserve="sub-saas-set-saas-settings"
-                text="More settings"
-                icon={<Dot className="icon" />}
-                handleScroll={handleScroll}
-              />
-            )}
+            <MenuSubItem
+              parent="SaasSettings"
+              activeSection={activeSubSection}
+              sectionObserve="sub-saas-set-saas-settings"
+              text="More settings"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
+              parent="SaasSettings"
+              activeSection={activeSubSection}
+              sectionObserve="sub-saas-set-saas-refill-settings"
+              text="Refill credits settings"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
           </MenuItem>
           {/* SECTION PRICING */}
           <MenuItem

@@ -17,7 +17,7 @@
       "success": "Netfangið þitt hefur verið staðfest."
     },
     "Refill": {
-      "name": "Endurhleðsla inneigna"
+      "name": "Endurhleður {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "segja upp áskrift",
             "restart-subscription": "Endurræstu áskrift",
             "update-payment": "Breyta greiðslumáta",
-            "update-plan": "Niðurfærsla eða uppfærsla"
+            "update-plan": "Niðurfærsla eða uppfærsla",
+            "cancel-subscription-popover": "segja upp áskriftinni?",
+            "update-from-portail": "Stjórna áskriftinni minni"
           },
           "daily": "dagur",
           "features-title": "Eiginleikar",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Endurhleðsla eininga"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Endurhlaða"
+        },
+        "choose-credits-number": "Veldu fjölda eininga",
+        "discount-applied": "Afsláttur sóttur",
+        "discount-off": "Líkamsrækt"
+      }
     }
   },
   "Terms": {

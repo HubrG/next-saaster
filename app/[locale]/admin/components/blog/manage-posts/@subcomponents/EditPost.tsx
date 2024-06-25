@@ -19,6 +19,7 @@ import { BlogCategory, BlogPost, BlogTag, BlogTagOnPost } from "@prisma/client";
 import { Rss, Save, Trash } from "lucide-react";
 import Image from "next/image";
 
+import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Link } from "@/src/lib/intl/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -30,6 +31,7 @@ import {
   saveEditPost,
   saveTagsForPost,
 } from "../../../../queries/blog/blog.action";
+import { ManageBlogCategories } from "../../manage-categories/Categories";
 
 interface EditPostProps {
   post: BlogPost;
@@ -58,7 +60,7 @@ Showdown.extension("tasklists", function () {
 });
 const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
   //
-  const { fetchBlogPosts } = useBlogStore();
+  const { fetchBlogPosts, blogCategories } = useBlogStore();
   const converter = new Showdown.Converter({
     extensions: ["tasklists"],
     tables: true,
@@ -161,7 +163,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       setExcerpt(initialExcerpt);
     }
   }, [formattedMarkdown, excerpt]);
-  
+
   // Si on appuie sur cmd+s n'importe où sur la fenêtre, on sauvegarde
   useEffect(() => {
     const handleSave = (event: KeyboardEvent) => {
@@ -238,37 +240,41 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       {" "}
       <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className="flex flex-col w-9/12 mx-auto gap-y-5 -mt-10">
-        <div className="flex w-full justify-between sticky top-[4.09rem] px-2 shadow-sm z-50 bg-transparent backdrop-blur-md py-2 items-center space-x-2  text-sm gap-y-5">
-          <div>
-            <Link
-              href={"/admin#BlogPosts" as any}
-              className="flex flex-row gap-x-2 items-center">
-              <Rss className="icon" />
-              <span>Back to the blog manager</span>
-            </Link>
+        <div className="w-full sticky top-[4.09rem] px-2 shadow-sm z-50 bg-transparent backdrop-blur-md pt-2 items-center space-x-2  text-sm gap-y-5">
+          <Goodline className="!py-0 !my-0 !-mt-2 !mb-4" />
+          <div className="flex justify-between  flex-row gap-x-2 items-center">
+            <div>
+              <Link
+                href={"/admin#BlogPosts" as any}
+                className="flex flex-row gap-x-2 items-center">
+                <Rss className="icon" />
+                <span>Back to the blog manager</span>
+              </Link>
+            </div>
+            <div className="flex flex-row justify-left items-center gap-x-2">
+              <Switch
+                id="published"
+                className="my-0 py-0"
+                checked={published}
+                onCheckedChange={(e) => {
+                  setPublished(e);
+                  handleSavePost(e);
+                }}
+              />
+              <Label htmlFor="published" className=" text-sm mt-1.5">
+                Publish
+              </Label>
+            </div>
+            <div className="flex flex-row gap-x-10 items-center">
+              <Button
+                onClick={() => handleSavePost()}
+                className="flex flex-row gap-x-2">
+                <span>Save</span>
+                <Save className="icon" />
+              </Button>
+            </div>
           </div>
-          <div className="flex flex-row justify-left items-center gap-x-2">
-            <Switch
-              id="published"
-              className="my-0 py-0"
-              checked={published}
-              onCheckedChange={(e) => {
-                setPublished(e);
-                handleSavePost(e);
-              }}
-            />
-            <Label htmlFor="published" className=" text-sm mt-1.5">
-              Publish
-            </Label>
-          </div>
-          <div className="flex flex-row gap-x-10 items-center">
-            <Button
-              onClick={() => handleSavePost()}
-              className="flex flex-row gap-x-2">
-              <span>Save</span>
-              <Save className="icon" />
-            </Button>
-          </div>
+          <Goodline className="!py-0 !mb-0 mt-2" />
         </div>
         <div className="flex flex-col gap-10 gap-y-10 relative justify-center mt-10 w-full mx-auto">
           <Input
@@ -362,32 +368,36 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
                 }
               />
             </div>
-            <div className=" w-full  items-center gap-1.5">
+            <div className=" w-full  items-center  gap-1.5">
               <Label htmlFor="category">Category</Label>
-              <Select
-                value={selectedCategory ? selectedCategory : "no"}
-                onValueChange={(e) => {
-                  setSelectedCategory(e);
-                }}>
-                <SelectTrigger>
-                  <SelectValue>
-                    {selectedCategory
-                      ? categories?.find((cat) => cat.id === selectedCategory)
-                          ?.name
-                      : "No category"}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="no">No category</SelectItem>
-                    {categories?.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <div className="flex-row-center gap-2">
+                <Select
+                  value={selectedCategory ? selectedCategory : "no"}
+                  onValueChange={(e) => {
+                    setSelectedCategory(e);
+                  }}>
+                  <SelectTrigger>
+                    <SelectValue>
+                      {selectedCategory
+                        ? blogCategories?.find(
+                            (cat) => cat.id === selectedCategory
+                          )?.name
+                        : "No category"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="no">No category</SelectItem>
+                      {blogCategories?.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <ManageBlogCategories />
+              </div>
             </div>
             <div className="grid w-full  items-center gap-1.5">
               <Label htmlFor="tags">Tags</Label>

@@ -66,7 +66,7 @@ export default function SwitchActiveMonthlyPlan() {
           icon={<CreditCard className="icon" />}
           disabled={isActiveCreditSystem}
           id="switch-active-refill-credit">
-          Active the <strong>refill credit</strong> for your SaaS
+          Enable the <strong>refill credit</strong> for your SaaS
         </SwitchWrapper>
       </div>
       {isActiveCreditSystem ? (

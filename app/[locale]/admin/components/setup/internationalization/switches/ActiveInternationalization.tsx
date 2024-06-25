@@ -53,7 +53,7 @@ export default function SwitchActiveInternationalization() {
       loading={loading}
       icon={<Languages className="icon" />}
       id="switch-active-internationalization">
-      Active Internationalization
+      Enable internationalization
     </SwitchWrapper>
   );
 }

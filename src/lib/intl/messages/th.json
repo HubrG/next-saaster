@@ -17,7 +17,7 @@
       "success": "ที่อยู่อีเมลของคุณได้รับการยืนยันแล้ว"
     },
     "Refill": {
-      "name": "กำลังโหลดเครดิตใหม่"
+      "name": "กำลังโหลด {varIntlRefill} {varIntlCreditName} อีกครั้ง"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "ยกเลิกการสมัคร",
             "restart-subscription": "เริ่มการสมัครสมาชิกใหม่",
             "update-payment": "เปลี่ยนวิธีการชำระเงิน",
-            "update-plan": "ดาวน์เกรดหรืออัปเกรด"
+            "update-plan": "ดาวน์เกรดหรืออัปเกรด",
+            "cancel-subscription-popover": "ยกเลิกการสมัครสมาชิกของคุณ?",
+            "update-from-portail": "จัดการการสมัครของฉัน"
           },
           "daily": "วัน",
           "features-title": "คุณสมบัติ",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "กำลังโหลดเครดิตซ้ำ"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "โหลดซ้ำ"
+        },
+        "choose-credits-number": "เลือกจำนวนหน่วยกิต",
+        "discount-applied": "ใช้ส่วนลดแล้ว",
+        "discount-off": "ฟิตเนส"
+      }
     }
   },
   "Terms": {

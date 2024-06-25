@@ -17,7 +17,7 @@
       "success": "귀하의 이메일 주소가 확인되었습니다."
     },
     "Refill": {
-      "name": "크레딧 로딩"
+      "name": "{varIntlRefill} {varIntlCreditName} 다시 로드 중"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "구독 취소",
             "restart-subscription": "구독 다시 시작",
             "update-payment": "결제 수단 변경",
-            "update-plan": "다운그레이드 또는 업그레이드"
+            "update-plan": "다운그레이드 또는 업그레이드",
+            "cancel-subscription-popover": "구독을 취소하시겠습니까?",
+            "update-from-portail": "내 구독 관리"
           },
           "daily": "낮",
           "features-title": "특징",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "크레딧 다시 로드 중"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "새로고침"
+        },
+        "choose-credits-number": "크레딧 수를 선택하세요",
+        "discount-applied": "할인이 적용되었습니다",
+        "discount-off": "적합"
+      }
     }
   },
   "Terms": {

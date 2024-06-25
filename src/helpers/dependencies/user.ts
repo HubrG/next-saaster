@@ -152,10 +152,13 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
                   activeSubscription?.subscription?.price?.unit_amount / 100) ??
                 0) ?? null,
           creditPercentage:
-            ((activeSubscription?.creditRemaining ?? 0) /
-              (activeSubscription?.subscription?.price?.productRelation
-                ?.PlanRelation?.creditAllouedByMonth ?? 0)) *
-            100, // Credit remaining in percentage
+            Math.round(
+              ((activeSubscription?.creditRemaining ?? 0) /
+                (activeSubscription?.subscription?.price?.productRelation
+                  ?.PlanRelation?.creditAllouedByMonth ?? 0)) *
+                100 *
+                100
+            ) / 100, // Credit remaining in percentage
           isTrial: activeSubscription?.subscription?.status === "trialing",
           trialDateEnd: activeSubscriptionData?.trial_end ?? null,
           trialDaysRemaining:
@@ -181,7 +184,7 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
               sub.subscription.SubscriptionPayments.reduce(
                 (accPayment, payment) => {
                   if (payment.status === "paid") {
-                    return accPayment + (payment.amount ?? 0); 
+                    return accPayment + (payment.amount ?? 0);
                   }
                   return accPayment;
                 },

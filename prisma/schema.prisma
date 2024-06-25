@@ -201,20 +201,29 @@ model OneTimePayment {
 // SECTION END: Pricing
 
 model SaasSettings {
-  id                              String    @id @default(cuid())
-  saasType                        SaasTypes @default(MRR_SIMPLE)
-  activeYearlyPlans               Boolean?  @default(true)
-  activeMonthlyPlans              Boolean?  @default(true)
-  activeCreditSystem              Boolean?  @default(true)
-  activeRefillCredit              Boolean?  @default(true)
-  displayFeaturesByCategory       Boolean?  @default(false)
-  activeFeatureComparison         Boolean?  @default(true)
-  activeFeatureAdvancedComparison Boolean?  @default(false)
-  currency                        String?   @default("usd")
-  tax                             Float?    @default(0)
-  creditName                      String?   @default("Credit")
-  createdAt                       DateTime? @default(now())
-  updatedAt                       DateTime? @updatedAt
+  id                               String    @id @default(cuid())
+  saasType                         SaasTypes @default(MRR_SIMPLE)
+  activeYearlyPlans                Boolean?  @default(true)
+  activeMonthlyPlans               Boolean?  @default(true)
+  // Credit system
+  activeCreditSystem               Boolean?  @default(true)
+  activeRefillCredit               Boolean?  @default(true)
+  // Refill credit system
+  activeDiscountRefillCredit       Boolean?  @default(false)
+  discountForRefillCredit          Float?    @default(0)
+  applyDiscountByXRefillCreditStep Int?      @default(0)
+  priceForOneRefillCredit          Float?    @default(1)
+  maxRefillCredit                  Int?      @default(100)
+  refillCreditStep                 Int?      @default(10)
+  // 
+  displayFeaturesByCategory        Boolean?  @default(false)
+  activeFeatureComparison          Boolean?  @default(true)
+  activeFeatureAdvancedComparison  Boolean?  @default(false)
+  currency                         String?   @default("usd")
+  tax                              Float?    @default(0)
+  creditName                       String?   @default("Credit")
+  createdAt                        DateTime? @default(now())
+  updatedAt                        DateTime? @updatedAt
 }
 
 model Plan {

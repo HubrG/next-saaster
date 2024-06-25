@@ -168,7 +168,9 @@
             "cancel-subscription": "Отменить подписку",
             "restart-subscription": "Перезапуск подписки",
             "update-payment": "Изменить способ оплаты",
-            "update-plan": "Понижение или повышение"
+            "update-plan": "Понижение или повышение",
+            "cancel-subscription-popover": "отменить подписку?",
+            "update-from-portail": "Управлять моей подпиской"
           },
           "daily": "день",
           "features-title": "Характеристики",
@@ -504,7 +506,7 @@
       "success": "Ваш адрес электронной почты был проверен."
     },
     "Refill": {
-      "name": "Кредиты на перезарядку"
+      "name": "Перезагрузка {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Emails": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Перезагрузка кредитов"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Перезагрузить"
+        },
+        "choose-credits-number": "Выберите количество кредитов",
+        "discount-applied": "Скидка применена",
+        "discount-off": "Фитнес"
+      }
     }
   },
   "Terms": {

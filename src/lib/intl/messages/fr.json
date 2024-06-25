@@ -176,10 +176,12 @@
             "update-plan": "Rétrograder ou mettre à niveau",
             "update-payment": "Modifier le moyen de paiement",
             "cancel-subscription": "Annuler l'abonnement",
-            "restart-subscription": "Redémarrer l'abonnement"
+            "restart-subscription": "Redémarrer l'abonnement",
+            "update-from-portail": "Gérer mon abonnement",
+            "cancel-subscription-popover": "annuler votre souscription ?"
           },
           "tooltips": {
-            "cancel-subscription": "Votre abonnement sera définitivement annulé à la fin de la période de facturation, le {varIntlDate}. Vous pouvez continuer d'utiliser vos fonctionnalités jusqu'à cette date. Vous ne serez ensuite plus facturé(e).",
+            "cancel-subscription": "Votre abonnement sera définitivement annulé à la fin de la période de facturation, le {varIntlDate}. Vous pouvez continuer d'utiliser vos fonctionnalités jusqu'à cette date. Du reste, vous pourrez toujours réactiver votre abonnement dans l'intervalle, et cela sans aucun coût supplémentaire.",
             "restart-subscription": "Votre abonnement redémarrera sans facturation supplémentaire."
           },
           "no-plan-subscribed-yet": "Vous n'avez souscrit aucun abonnement",
@@ -521,7 +523,7 @@
       "success": "Votre adresse e-mail a été vérifiée."
     },
     "Refill": {
-      "name": "Rechargement de crédits"
+      "name": "Rechargement de {varIntlRefill} {varIntlCreditName}"
     }
   },
   "ForgotPassword": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Rechargement de crédits"
+    },
+    "Components": {
+      "Index": {
+        "choose-credits-number": "Choisissez le nombre de crédits",
+        "button": {
+          "refill-credits": "Recharger"
+        },
+        "discount-applied": "Remise appliquée",
+        "discount-off": "Remise de"
+      }
     }
   },
   "Terms": {

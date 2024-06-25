@@ -1,28 +1,273 @@
 {
-  "Components": {
-    "Helpers": {
-      "DB": {
-        "Organization": {
-          "inviteMemberToOrganization": {
-            "mailing": {
-              "subject": "You've been invited to join",
-              "subject-end": "and his team",
-              "subject-middle": " "
+  "Index": {
+    "title": "Welcome!",
+    "first-connexion": "First connection",
+    "metadatas": {
+      "title": "Home",
+      "description": "NextJS SaaS starter kit for rapid development: focus only on the main features, be reassured with a modern frontend, scalable and secure backend. Save effort"
+    }
+  },
+  "Dashboard": {
+    "Components": {
+      "Navbar": {
+        "title": "My account",
+        "links": {
+          "profile": "Profile",
+          "account": "Account",
+          "organization": "Organization",
+          "billing": "Subscription",
+          "usage": "Usage",
+          "purchases": "Purchases",
+          "emails": "Emails"
+        }
+      },
+      "Profile": {
+        "Account": {
+          "title": "Account",
+          "connectedWith": "You are connected with your {varIntlProvider} account",
+          "manage-password": "Manage your password",
+          "create-password": "You haven't created a password because you are automatically connected with a {varIntlProvider} account.",
+          "close-account": "Deactivate my account...",
+          "close-account-popover-message": "delete your account? This action is irreversible. If you have subscribed to a plan, it will be canceled.",
+          "Components": {
+            "UpdatePassword": {
+              "title": "Update your password",
+              "form": {
+                "actual-password": "Current password",
+                "new-password": "New password",
+                "password-confirmation": "Password confirmation",
+                "submit": "Update password",
+                "password-error": "Password must be at least {varIntlMin} characters long.",
+                "passwords-not-matching": "Passwords do not match.",
+                "required-message": "Required"
+              },
+              "toasters": {
+                "password-updated": "Password updated.",
+                "password-update-error": "An error occurred while updating the password. Please try again."
+              }
             },
-            "throws": {
-              "already-in-an-organization": "The user is already a member of an organization.",
-              "already-invited": "User already invited.",
-              "error-while-creating-invitation": "An error has occurred. The invitation has not been sent. Please try again.",
-              "no-organization-found": "No organization has been found. This must be an error. Please try again."
+            "ForgotPassword": {
+              "title": "Forgot?",
+              "description": "No problem, we can send you a link to reset your password.",
+              "form": {
+                "email": "Your email address",
+                "email-error": "This is not a valid email address.",
+                "submit": "Send me the recovery link"
+              },
+              "emailSent": {
+                "subject": "Reset your password"
+              },
+              "toasters": {
+                "send-email-error": "An error occurred while sending the email. Please try again."
+              },
+              "titleForgot": "Forgot?"
+            },
+            "CreatePassword": {
+              "title": "Create a password",
+              "description": "You haven't created a password because you are connected with a {varIntlProvider} account. You can create one here.",
+              "form": {
+                "password": "Password",
+                "password-confirmation": "Password confirmation",
+                "submit": "Create password",
+                "password-error": "Password must be at least {varIntlMin} characters long.",
+                "passwords-not-matching": "Passwords do not match."
+              },
+              "toasters": {
+                "succes-password-created": "Your password has been created."
+              }
             }
           }
         },
+        "Profile": {
+          "change-avatar": "Change profile picture",
+          "form": {
+            "submit": "Update",
+            "name": "Display name",
+            "upload": "Upload"
+          },
+          "title": "Profile",
+          "toasters": {
+            "success": "Profile updated",
+            "no-file-provided": "No file provided",
+            "file-is-empty": "File is empty",
+            "file-is-too-large": "File is too large (max 2MB)",
+            "file-is-not-an-image": "File is not an image",
+            "success-file-uploaded": "Profile picture successfully changed"
+          }
+        },
+        "Organization": {
+          "title": "Organization",
+          "toasters": {
+            "organization-created": "Organization created",
+            "pendin-user-removed": "Pending user removed",
+            "organization-left": "Organization left",
+            "organization-deleted": "Organization deleted. All members have been removed and their rights revoked."
+          },
+          "members": "Members",
+          "buttons": {
+            "create-organization": "Create an organization"
+          },
+          "popover": {
+            "delete-organization": "Close the organization...",
+            "what-delete-organization": "delete this organization",
+            "delete-member": "this member"
+          },
+          "tooltip": {
+            "owner": "Owner"
+          },
+          "pending-invitations": "Pending users",
+          "UI": {
+            "InviteMember": {
+              "form": {
+                "error-you-cant-invite-yourself": "You can't invite yourself!",
+                "field-invite-new-member": "Invite a new member",
+                "placeholder-email": "Email",
+                "submit": "Invite"
+              },
+              "toasters": {
+                "invitation-sent": "Invitation sent to"
+              },
+              "note": "You have an active subscription. Adding a new member to your organization will be billed pro-rata if the member accepts this invitation."
+            },
+            "RenameOrganization": {
+              "toasters": {
+                "organization-renamed": "Organization renamed"
+              },
+              "organization-renamed": "Organization renamed",
+              "form": {
+                "field-organization-name": "Organization name",
+                "error-name-min": "The name must be at least {varIntlMin} character long",
+                "submit": "Rename"
+              }
+            },
+            "PopoverOrganizationMember": {
+              "toasters": {
+                "user-removed": "User revoked",
+                "user-promoted": "User promoted. You are no longer the owner of this organization"
+              },
+              "popover": {
+                "promote-member": "promote this member to owner? There can only be one owner, in which case you will lose all publishing rights for this organization.",
+                "promote-member-display": "Promote this member",
+                "revoke-member": "revoke this member from the organization",
+                "revoke-member-display": "Revoke this user"
+              }
+            }
+          }
+        },
+        "Billing": {
+          "id": "Billing",
+          "title": "Billing",
+          "your-plan": "Your subscription",
+          "users": "users",
+          "daily": "day",
+          "weekly": "week",
+          "yearly": "year",
+          "monthly": "month",
+          "trial-days-remaining": "You have {varIntlDays} trial day(s) left",
+          "billed-each": "billed each",
+          "according-to-use": "according to use",
+          "per-user": "per user",
+          "you-save": "You save {varIntlSave} on this subscription",
+          "your-trial-ends-at": "Your trial period ends on",
+          "subscription-will-be-canceled-at": "Your subscription will be permanently canceled on",
+          "next-invoice-at": "Next invoice on",
+          "features-title": "Features",
+          "buttons": {
+            "update-plan": "Downgrade or upgrade",
+            "update-payment": "Update payment method",
+            "cancel-subscription": "Cancel subscription",
+            "restart-subscription": "Restart subscription",
+            "update-from-portail": "Manage my subscription",
+            "cancel-subscription-popover": "cancel your subscription?"
+          },
+          "tooltips": {
+            "cancel-subscription": "Your subscription will be permanently canceled at the end of the billing period on {varIntlDate}. You can continue using your features until this date. Besides, you can always reactivate your subscription in the meantime, without any additional cost.",
+            "restart-subscription": "Your subscription will restart without additional billing."
+          },
+          "no-plan-subscribed-yet": "You haven't subscribed to any plan",
+          "subscribe-now": "I want to subscribe!"
+        },
+        "Purchases": {
+          "title": "Purchases",
+          "no-purchase-history": "No purchase history",
+          "no-purchase-history-description": "You haven't purchased any products on our site yet!",
+          "no-name": "Credit refill",
+          "features": "Features"
+        },
+        "Emails": {
+          "title": "Emails",
+          "SwitchNewsletter": {
+            "switch-newsletter": "Newsletter subscription",
+            "toasters": {
+              "error-delete-contact": "Error deleting the contact from the newsletter audience",
+              "newsletter-enabled": "enabled",
+              "newsletter-disabled": "disabled",
+              "error-update-newsletter": "An error occurred while updating your newsletter preference. Please try again.",
+              "error-get-contact": "An error occurred while retrieving the newsletter contact. Please try again."
+            }
+          }
+        }
+      }
+    },
+    "Queries": {
+      "Profile": {
+        "token-expired": "Token expired.",
+        "invalid-token": "Invalid token",
+        "password-not-updated": "A problem occurred while updating your password. Please try again.",
+        "token-not-found": "Reset token not found.",
+        "email-not-found": "Email address not found"
+      }
+    },
+    "title": "Dashboard",
+    "description": "Welcome to your dashboard!",
+    "button": "Go to dashboard",
+    "metadatas": {
+      "title": "My account"
+    }
+  },
+  "Components": {
+    "UI": {
+      "popover-confirm": {
+        "message": "Are you sure you want to",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      },
+      "popover-delete": {
+        "message": "Are you sure you want to delete",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      },
+      "NewsletterForm": {
+        "form": {
+          "email": "Your email address",
+          "email-exemple": "example",
+          "submit": "Subscribe to the newsletter"
+        }
+      }
+    },
+    "Helpers": {
+      "DB": {
         "Users": {
           "deleteUser": {
             "throws": {
+              "delete": "You cannot delete your account because you are the owner of your organization. Please transfer your rights to another user, otherwise, delete the organization.",
               "cancel": "A problem occurred while deleting your account. Please contact us.",
-              "cancel-subscription": "A problem occurred while cancelling the subscription",
-              "delete": "You cannot delete your account, because you are the owner of your organization. Please transfer your rights to another user, otherwise delete the organization."
+              "cancel-subscription": "A problem occurred while canceling the subscription"
+            }
+          }
+        },
+        "Organization": {
+          "inviteMemberToOrganization": {
+            "throws": {
+              "already-invited": "User already invited.",
+              "already-in-an-organization": "The user is already a member of an organization.",
+              "error-while-creating-invitation": "An error occurred. The invitation was not sent. Please try again.",
+              "no-organization-found": "No organization found. This is likely an error. Please try again."
+            },
+            "mailing": {
+              "subject": "You have been invited to join the organization ",
+              "subject-end": "and its team",
+              "subject-middle": "'"
             }
           }
         }
@@ -30,347 +275,85 @@
     },
     "Profile": {
       "Organization": {
+        "toasters": {
+          "organization-created": "Organization created",
+          "pendin-user-removed": "Pending user removed",
+          "organization-left": "Organization left",
+          "organization-deleted": "Organization deleted. All members have been removed and their rights revoked."
+        },
+        "members": "Members",
+        "buttons": {
+          "create-organization": "Create an organization"
+        },
+        "popover": {
+          "delete-organization": "Close the organization",
+          "what-delete-organization": "delete this organization",
+          "delete-member": "this member"
+        },
+        "tooltip": {
+          "owner": "Owner"
+        },
+        "pending-invitations": "Pending users",
         "UI": {
           "InviteMember": {
             "form": {
               "error-you-cant-invite-yourself": "You can't invite yourself!",
               "field-invite-new-member": "Invite a new member",
-              "placeholder-email": "E-mail",
+              "placeholder-email": "Email",
               "submit": "Invite"
             },
-            "note": "You have an active membership. The addition of a new member to your organization will be billed on a pro-rata basis if the member accepts this invitation.",
             "toasters": {
               "invitation-sent": "Invitation sent to"
-            }
+            },
+            "note": "You have an active subscription. Adding a new member to your organization will be billed pro-rata if the member accepts this invitation."
           },
           "RenameOrganization": {
             "toasters": {
-              "organization-renamed": "Renowned organization"
+              "organization-renamed": "Organization renamed"
             }
           }
-        },
-        "buttons": {
-          "create-organization": "Create an organization"
-        },
-        "members": "Members",
-        "pending-invitations": "Users on hold",
-        "popover": {
-          "delete-member": "this member",
-          "delete-organization": "Close organization",
-          "what-delete-organization": "do away with this organization"
-        },
-        "toasters": {
-          "organization-created": "Organization created",
-          "organization-deleted": "Organization abolished. All members were excluded and their rights lost.",
-          "organization-left": "Organization left",
-          "pendin-user-removed": "Waiting user deleted"
-        },
-        "tooltip": {
-          "owner": "Owner"
         }
       }
-    },
-    "UI": {
-      "NewsletterForm": {
-        "form": {
-          "email": "Your e-mail address",
-          "email-exemple": "example",
-          "submit": "Subscribe to our newsletter"
-        }
-      },
-      "popover-confirm": {
-        "cancel": "Cancel",
-        "confirm": "Confirm",
-        "message": "Are you sure you want to"
-      },
-      "popover-delete": {
-        "cancel": "Cancel",
-        "confirm": "Confirm",
-        "message": "Are you sure you want to delete"
-      }
     }
-  },
-  "Dashboard": {
-    "Components": {
-      "Navbar": {
-        "links": {
-          "account": "Account",
-          "billing": "Subscription",
-          "emails": "E-mails",
-          "organization": "Organization",
-          "profile": "Profile",
-          "purchases": "Purchasing",
-          "usage": "Use"
-        },
-        "title": "My account"
-      },
-      "Profile": {
-        "Account": {
-          "Components": {
-            "CreatePassword": {
-              "description": "You have not created a password because you are logged in with a {varIntlProvider} account. You can create one here.",
-              "form": {
-                "password": "Password",
-                "password-confirmation": "Password confirmation",
-                "password-error": "The password must be at least {varIntlMin} characters long.",
-                "passwords-not-matching": "The passwords do not match.",
-                "submit": "Create password"
-              },
-              "title": "Create a password",
-              "toasters": {
-                "succes-password-created": "Your password has been created."
-              }
-            },
-            "ForgotPassword": {
-              "description": "No problem, we can send you a link to reset your password.",
-              "emailSent": {
-                "subject": "Reset your password"
-              },
-              "form": {
-                "email": "Your email address",
-                "email-error": "This is not a valid email address.",
-                "submit": "Send me the recovery link"
-              },
-              "title": "Forgot your password?",
-              "toasters": {
-                "send-email-error": "An error occurred while sending the email. Please try again."
-              },
-              "titleForgot": "Forget ?"
-            },
-            "UpdatePassword": {
-              "form": {
-                "actual-password": "Current password",
-                "new-password": "New password",
-                "password-confirmation": "Password confirmation",
-                "password-error": "The password must be at least {varIntlMin} characters long.",
-                "passwords-not-matching": "The passwords do not match.",
-                "submit": "Update password",
-                "required-message": "Mandatory"
-              },
-              "title": "Update your password",
-              "toasters": {
-                "password-update-error": "An error occurred while updating the password. Please try again.",
-                "password-updated": "Password updated."
-              }
-            }
-          },
-          "close-account": "Deactivate my account...",
-          "close-account-popover-message": "delete your account? This action is irreversible. If you have taken out a subscription, it will be cancelled.",
-          "connectedWith": "You are logged in with your {varIntlProvider} account.",
-          "create-password": "You have not created a password because you are automatically logged in with a {varIntlProvider} account.",
-          "manage-password": "Manage your password",
-          "title": "Account"
-        },
-        "Billing": {
-          "according-to-use": "depending on use",
-          "billed-each": "invoiced each",
-          "buttons": {
-            "cancel-subscription": "Cancel subscription",
-            "restart-subscription": "Restart subscription",
-            "update-payment": "Change payment method",
-            "update-plan": "Downgrade or upgrade"
-          },
-          "daily": "day",
-          "features-title": "Features",
-          "id": "Billing",
-          "monthly": "month",
-          "next-invoice-at": "Next invoice on",
-          "no-plan-subscribed-yet": "You have not taken out a subscription",
-          "per-user": "per user",
-          "subscribe-now": "I'd like to subscribe!",
-          "subscription-will-be-canceled-at": "Your subscription will be definitively cancelled on",
-          "title": "Billing",
-          "tooltips": {
-            "cancel-subscription": "Your subscription will be definitively cancelled at the end of the billing period on {varIntlDate}. You can continue to use your features until this date. You will then no longer be billed.",
-            "restart-subscription": "Your subscription will restart without any additional billing."
-          },
-          "trial-days-remaining": "You have {varIntlDays} trial day(s) left",
-          "users": "users",
-          "weekly": "week",
-          "yearly": "an",
-          "you-save": "You save {varIntlSave} on this subscription",
-          "your-plan": "Your subscription",
-          "your-trial-ends-at": "Your trial period ends on"
-        },
-        "Emails": {
-          "SwitchNewsletter": {
-            "switch-newsletter": "Newsletter subscription",
-            "toasters": {
-              "error-delete-contact": "Error deleting contact from newsletter audience",
-              "error-get-contact": "An error occurred while retrieving the newsletter contact. Please try again.",
-              "error-update-newsletter": "An error occurred while updating your newsletter preference. Please try again.",
-              "newsletter-disabled": "disabled",
-              "newsletter-enabled": "activated"
-            }
-          },
-          "title": "E-mails"
-        },
-        "Organization": {
-          "UI": {
-            "InviteMember": {
-              "form": {
-                "error-you-cant-invite-yourself": "You can't invite yourself!",
-                "field-invite-new-member": "Invite a new member",
-                "placeholder-email": "E-mail",
-                "submit": "Invite"
-              },
-              "note": "You have an active membership. The addition of a new member to your organization will be billed on a pro-rata basis if the member accepts this invitation.",
-              "toasters": {
-                "invitation-sent": "Invitation sent to"
-              }
-            },
-            "PopoverOrganizationMember": {
-              "popover": {
-                "promote-member": "promote this member as an owner? There can only be one owner, in which case you will lose all publication rights to this organization.",
-                "promote-member-display": "Promote this member",
-                "revoke-member": "remove this member from the organization",
-                "revoke-member-display": "Revoke this user"
-              },
-              "toasters": {
-                "user-promoted": "Promoted user. You are no longer the owner of this organization",
-                "user-removed": "User revoked"
-              }
-            },
-            "RenameOrganization": {
-              "form": {
-                "error-name-min": "Name must contain at least {varIntlMin} characters",
-                "field-organization-name": "Organization name",
-                "submit": "Rename"
-              },
-              "organization-renamed": "Renowned organization",
-              "toasters": {
-                "organization-renamed": "Organization renamed"
-              }
-            }
-          },
-          "buttons": {
-            "create-organization": "Create an organization"
-          },
-          "members": "Members",
-          "pending-invitations": "Users on hold",
-          "popover": {
-            "delete-member": "this member",
-            "delete-organization": "Close the organization...",
-            "what-delete-organization": "do away with this organization"
-          },
-          "title": "Organization",
-          "toasters": {
-            "organization-created": "Organization created",
-            "organization-deleted": "Organization abolished. All members were excluded and their rights lost.",
-            "organization-left": "Organization left",
-            "pendin-user-removed": "Waiting user deleted"
-          },
-          "tooltip": {
-            "owner": "Owner"
-          }
-        },
-        "Profile": {
-          "change-avatar": "Edit profile photo",
-          "form": {
-            "name": "Display name",
-            "submit": "Update",
-            "upload": "Download"
-          },
-          "title": "Profile",
-          "toasters": {
-            "file-is-empty": "The file is empty",
-            "file-is-not-an-image": "The file is not an image",
-            "file-is-too-large": "The file is too large (2 MB maximum)",
-            "no-file-provided": "No files supplied",
-            "success": "Updated profile",
-            "success-file-uploaded": "Profile picture successfully modified"
-          }
-        },
-        "Purchases": {
-          "no-purchase-history": "No purchase history",
-          "no-purchase-history-description": "You haven't purchased any products on our site yet!",
-          "title": "Purchasing",
-          "no-name": "Refill credits",
-          "features": "Features"
-        }
-      }
-    },
-    "button": "Go to dashboard",
-    "description": "Welcome to your dashboard!",
-    "title": "Dashboard",
-    "Queries": {
-      "Profile": {
-        "email-not-found": "Unknown e-mail address",
-        "invalid-token": "Invalid token",
-        "password-not-updated": "A problem occurred while changing your password. Please try again.",
-        "token-expired": "Token expired.",
-        "token-not-found": "Reset token not found."
-      }
-    },
-    "metadatas": {
-      "title": "My account"
-    }
-  },
-  "Footer": {
-    "Legal": {
-      "newsletter": "Don't miss our latest news! Subscribe to our newsletter",
-      "privacy": "Privacy policy",
-      "terms": "Terms of use",
-      "title": "Legal"
-    },
-    "Navigation": {
-      "blog": "Blog",
-      "faq": "FAQ",
-      "title": "Navigation"
-    }
-  },
-  "Index": {
-    "first-connexion": "First connection",
-    "metadatas": {
-      "description": "NextJS SaaS Starter Kit for rapid development: focus on core functionality only, rest assured with a modern frontend and a scalable, secure backend. Save effort",
-      "title": "Home"
-    },
-    "title": "Welcome!"
   },
   "Layout": {
     "Header": {
       "Navbar": {
+        "buy-now": "Buy now",
+        "UserProfile": {
+          "refill": "Refill",
+          "my-account": "My account",
+          "login": "Login",
+          "logout": "Logout"
+        },
         "MainMenu": {
-          "contact": "Contact",
+          "howItWorks": "How it works?",
           "features": "Features",
           "home": "Home",
-          "howItWorks": "How does it work?",
           "pricing": "Pricing",
+          "contact": "Contact",
           "MainMenuLinks": {
-            "contact": "contact",
             "features": "features",
-            "how-it-works": "how-it-works",
-            "pricing": "pricing"
+            "pricing": "pricing",
+            "contact": "contact",
+            "how-it-works": "how it works"
           }
-        },
-        "UserProfile": {
-          "login": "Login",
-          "logout": "Disconnect",
-          "my-account": "My account",
-          "refill": "Reload"
-        },
-        "buy-now": "Buy"
+        }
       }
     }
   },
   "Login": {
-    "Credentials": {
-      "form": {
-        "email": "Email",
-        "login-with-email": "Login",
-        "password": "Password"
-      }
+    "toasters": {
+      "bad-credentials": "Incorrect credentials"
     },
-    "MagicLink": {
-      "form": {
-        "placeholder-email": "example",
-        "submit": "Send me a login link",
-        "your-email": "Your e-mail address"
-      }
+    "title": "Login to your account",
+    "button": {
+      "no-account": "No account?",
+      "register": "Click here to sign up."
     },
     "WithGitbub": {
       "button": {
-        "login-with-github": "Connect with Github"
+        "login-with-github": "Login with Github"
       }
     },
     "WithGoogle": {
@@ -378,56 +361,126 @@
         "continue-with-google": "Continue with Google"
       },
       "buttons": {
-        "continue-with-google": "Connection with Google"
+        "continue-with-google": "Login with Google"
       }
     },
-    "button": {
-      "no-account": "No account?",
-      "register": "Click here to register."
+    "Credentials": {
+      "form": {
+        "email": "Email",
+        "password": "Password",
+        "login-with-email": "Log in"
+      }
     },
-    "title": "Login to your account",
-    "toasters": {
-      "bad-credentials": "Incorrect identifiers"
+    "MagicLink": {
+      "form": {
+        "your-email": "Your email address",
+        "submit": "Send me a login link",
+        "placeholder-email": "example"
+      }
     },
     "metadatas": {
-      "title": "Connection"
+      "title": "Login"
+    }
+  },
+  "Register": {
+    "title": "Create an account",
+    "SignUpWithCredentials": {
+      "form": {
+        "password-error": "Your password must be at least {varIntlMin} characters long",
+        "email-error": "Your email address is not in the correct format",
+        "password-did-not-match": "Passwords must match",
+        "email": "Email address",
+        "password": "Password",
+        "confirm-password": "Confirm password",
+        "register-with-email": "Create my account"
+      },
+      "emailSent": {
+        "subject": "Welcome! Please confirm the validity of your email address."
+      }
+    },
+    "already-account-sentence": "Already have an account?",
+    "button": {
+      "login": "Login"
+    },
+    "TeamInvitationPage": {
+      "invited-with-different-email": "You are logged in with a different email address than the one that received the invitation.",
+      "please-logout": "Please log in with the corresponding email address and return to this page. If you don't have an account with the invited address, log out and return to this page to create one.",
+      "invitation-not-found": "Organization not found.",
+      "logged-in-with-right-email": "You are logged in with the correct email address, but you need to log out and log back in to accept the invitation.",
+      "Register": {
+        "TeamInvitationPage": {
+          "logout": "Log out",
+          "organization-not-found": "Organization not found.",
+          "invitation-accepted": "Invitation accepted, please create an account and log in to finalize the invitation. You will be redirected to the account creation page.",
+          "invitation-accepted-2": "Invitation accepted, please log in to your account to finalize it.",
+          "invitation-declined": "Invitation declined",
+          "join": "Join the organization \"{varIntlOrganization}\"",
+          "already-accept": "You have already accepted the invitation.",
+          "invited": "You have been invited to join the team of \"{varIntlOrganization}\"",
+          "do-you-accept": "Do you accept to join this organization?",
+          "accept": "Accept",
+          "decline": "Decline"
+        }
+      }
+    },
+    "VerifyEmailPage": {
+      "success": "Email verified.",
+      "title": "Verify your email address",
+      "login-to-you-account": "Log in to your account",
+      "request-new-validation": "and request a new validation link if you haven't validated it yet."
+    },
+    "metadatas": {
+      "title": "Sign up"
+    }
+  },
+  "Footer": {
+    "Navigation": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "title": "Navigation"
+    },
+    "Legal": {
+      "title": "Legal",
+      "terms": "Legal notices",
+      "privacy": "Privacy policy",
+      "newsletter": "Don't miss our news! Subscribe to our newsletter"
     }
   },
   "Pricing": {
+    "title": "Pricing",
     "Components": {
+      "SwitchRecurrence": {
+        "monthly": "Monthly",
+        "yearly": "Yearly"
+      },
       "CardHeader": {
-        "by-month": "month",
-        "contact-us": "Contact us to customize your offer.",
-        "metered-unit": "by",
+        "yearly": "year",
         "monthly": "month",
+        "metered-unit": "per",
         "per-seat": "per seat",
         "popular": "Popular",
         "recommended": "Recommended",
-        "trial": "trial days, then...",
-        "yearly": "an"
-      },
-      "PriceCard": {
-        "bottom-sentence": "One payment, many projects"
+        "trial": "days trial, then...",
+        "by-month": "month",
+        "contact-us": "Contact us to customize your offer."
       },
       "PriceCardBuyButton": {
-        "buyNow": "Buy",
+        "buyNow": "Buy now",
         "startTrial": "Try for {varIntlTrialDays} days",
         "subscribeNow": "Subscribe"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Contact us"
       },
-      "SwitchRecurrence": {
-        "monthly": "Monthly",
-        "yearly": "Annual"
+      "PriceCard": {
+        "bottom-sentence": "One payment, many projects"
       }
     },
-    "title": "Pricing",
     "Success": {
       "Components": {
         "Index": {
-          "go-to": "Go to my account",
-          "success": "Thank you for your confidence! Your purchase has been confirmed."
+          "success": "Thank you for your trust! Your purchase has been validated.",
+          "go-to": "Go to my account"
         }
       }
     },
@@ -435,132 +488,81 @@
       "title": "Pricing"
     }
   },
-  "Register": {
-    "SignUpWithCredentials": {
-      "form": {
-        "confirm-password": "Confirm password",
-        "email": "E-mail address",
-        "email-error": "Your e-mail address is in the wrong format",
-        "password": "Password",
-        "password-did-not-match": "Passwords must be similar",
-        "password-error": "Your password must be at least {varIntlMin} characters long.",
-        "register-with-email": "Create my account"
-      },
-      "emailSent": {
-        "subject": "Welcome to our website! Please confirm the validity of your e-mail address."
-      }
+  "Emails": {
+    "ForgotPasswordTemplate": {
+      "heading": "Reset your password",
+      "text": "You have requested to reset your password. To do so, please click the button below.",
+      "resetPassword": "Reset password"
     },
-    "already-account-sentence": "Already have an account?",
-    "button": {
-      "login": "Log on to"
+    "InviteUserTemplate": {
+      "heading": "You have been invited to join the team of {varIntlTeamName}",
+      "text": "To accept the invitation, please click the button below.",
+      "buttonText": "Accept invitation"
     },
-    "title": "Create an account",
-    "TeamInvitationPage": {
-      "Register": {
-        "TeamInvitationPage": {
-          "accept": "Accept",
-          "already-accept": "You've already accepted the invitation.",
-          "decline": "Refuse",
-          "do-you-accept": "Will you join this organization?",
-          "invitation-accepted": "Invitation accepted, please create an account and log in to finalize the invitation. You will be redirected to the account creation page.",
-          "invitation-accepted-2": "Invitation accepted, please log in to your account to finalize.",
-          "invitation-declined": "Invitation declined",
-          "invited": "You have been invited to join the \"{varIntlOrganization}\" team",
-          "join": "Join the \"{varIntlOrganization}\" organization",
-          "logout": "Log off",
-          "organization-not-found": "Non-existent organization."
-        }
-      },
-      "invitation-not-found": "Non-existent organization.",
-      "invited-with-different-email": "You are logged in with a different e-mail address from the one that received the invitation.",
-      "logged-in-with-right-email": "You are logged in with the correct e-mail address, but you must log out and then log back in to accept the invitation.",
-      "please-logout": "Please log in with the corresponding e-mail address and return to this page. If you do not have an account with the invited address, please log out and return to this page to create one."
-    },
-    "VerifyEmailPage": {
-      "login-to-you-account": "Log in to your account",
-      "request-new-validation": "and request a new validation link if you have not yet validated it.",
-      "success": "E-mail verified.",
-      "title": "Check your e-mail address"
-    },
-    "metadatas": {
-      "title": "Registration"
+    "VerifyEmailTemplate": {
+      "verifyEmail": "Verify my account",
+      "text": "To finalize your registration, please click the button below.",
+      "heading": "Welcome!"
     }
   },
   "API": {
     "ForgotPassword": {
-      "success": "A link to reset your password has been sent to {varIntlEmail}. Please check your mailbox."
+      "success": "A link to reset your password has been sent to {varIntlEmail}. Please check your email."
     },
     "Register": {
       "error": {
+        "user-already-exists": "This email address is already registered. If you are the owner, please log in or request a password reset.",
+        "user-not-created": "An error occurred while creating the account. Please try again.",
         "token-not-created": "An error occurred while creating the verification token. Please try again.",
-        "unknown-error": "We have encountered an unknown error. Please try again or contact us.",
-        "user-already-exists": "This e-mail address is already registered. If you are the owner, please log in with this address or, if necessary, request a password reset.",
-        "user-not-created": "An error occurred during account creation. Please try again."
+        "unknown-error": "We encountered an unknown error. Please try again or contact us."
       },
-      "success": "Welcome {varIntlName} ! Thank you for your trust. You will receive an e-mail with a link to confirm its validity.\n\n You can now log in with your username and password."
+      "success": "Welcome {varIntlName}! Thank you for your trust. You will receive an email with a link to confirm its validity.\n\n You can already log in with your credentials."
     },
     "VerifyEmail": {
-      "expired-token": "Verification token already validated, expired or not found.",
-      "success": "Your e-mail address has been verified."
+      "expired-token": "Verification token already validated, expired, or not found.",
+      "success": "Your email address has been verified."
     },
     "Refill": {
-      "name": "Refill credits"
-    }
-  },
-  "Emails": {
-    "ForgotPasswordTemplate": {
-      "heading": "Reset your password",
-      "resetPassword": "Reset password",
-      "text": "You have requested to reset your password. To do so, please click on the button below."
-    },
-    "InviteUserTemplate": {
-      "buttonText": "Accept invitation",
-      "heading": "You have been invited to join the {varIntlTeamName} team.",
-      "text": "To accept the invitation, please click on the button below."
-    },
-    "VerifyEmailTemplate": {
-      "heading": "Welcome!",
-      "text": "To confirm your registration, please click on the button below.",
-      "verifyEmail": "Validate my account"
+      "name": "Reloading {varIntlRefill} {varIntlCreditName}"
     }
   },
   "ForgotPassword": {
+    "token-expired": "Reset token unknown.",
+    "reset-password": "Reset your password",
+    "invalid-token": "Invalid reset token. Please try again or request a new one.",
     "Components": {
       "Index": {
         "form": {
-          "confirm-password": "Confirm new password",
-          "email": "Account e-mail address",
-          "email-error": "Wrong e-mail format.",
+          "email": "Account email address",
           "new-password": "Choose a new password",
-          "password-error": "Must contain at least {varIntlMin} characters.",
-          "password-match-error": "Both passwords must be identical.",
+          "confirm-password": "Confirm new password",
           "submit": "Reset",
-          "success": "Password changed successfully."
+          "email-error": "Email address is in the wrong format.",
+          "password-error": "Must be at least {varIntlMin} characters long.",
+          "password-match-error": "Passwords must match.",
+          "success": "Password successfully changed."
         }
       }
     },
-    "invalid-token": "Invalid reset token. Please try again or make a new request.",
-    "reset-password": "Reset your password",
-    "token-expired": "The reset token is unknown.",
     "metadatas": {
-      "title": "Forgot your password"
+      "title": "Forgot password"
     }
   },
   "NotFound": {
-    "back-link": "Return to home page",
-    "erreur-404": "Error 404",
-    "page-not-found": "We cannot find the requested page."
+    "erreur-404": "404 Error",
+    "page-not-found": "We cannot find the requested page.",
+    "back-link": "Return to home page"
   },
   "Blog": {
-    "404": "No items found",
+    "404": "No article found",
     "category": "Categories",
-    "tags": "Keywords",
+    "tags": "Tags",
+    "no-title": "Untitled article",
     "Metadatas": {
-      "no-excerpt": "No extract",
+      "no-excerpt": "No excerpt",
       "no-title": "No title"
     },
     "no-author": "Anonymous",
-    "no-title": "Untitled article",
     "metadatas": {
       "title": "Blog"
     }
@@ -572,6 +574,11 @@
       }
     }
   },
+  "HowItWorks": {
+    "metadatas": {
+      "title": "How it works?"
+    }
+  },
   "Contact": {
     "metadatas": {
       "title": "Contact"
@@ -579,27 +586,32 @@
   },
   "FAQ": {
     "metadatas": {
-      "title": "FAQs"
-    }
-  },
-  "HowItWorks": {
-    "metadatas": {
-      "title": "How it works ?"
+      "title": "FAQ"
     }
   },
   "Privacy": {
     "metadatas": {
-      "title": "Confidentiality"
+      "title": "Privacy"
     }
   },
   "Refill": {
     "metadatas": {
-      "title": "Reloading credits"
+      "title": "Credit refill"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Reload"
+        },
+        "choose-credits-number": "Choose the number of credits",
+        "discount-applied": "Discount applied",
+        "discount-off": "Discount"
+      }
     }
   },
   "Terms": {
     "metadatas": {
-      "title": "Legal Notice"
+      "title": "Legal notices"
     }
   }
 }

@@ -20,7 +20,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-text-800 font-semibold underline-offset-4 underline decoration-solid hover:decoration-dashed",
+        link: "text-text-800 font-normal underline-offset-4 underline decoration-theming-text-200 decoration-dashed",
         tooltip: "!px-0 !mx-0",
         second:
           "bg-theming-background-500-second dark:!text-theming-text-900-second font-bold !text-theming-text-50",

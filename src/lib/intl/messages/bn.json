@@ -17,7 +17,7 @@
       "success": "আপনার ইমেল ঠিকানা যাচাই করা হয়েছে."
     },
     "Refill": {
-      "name": "ক্রেডিট পুনরায় লোড করা হচ্ছে"
+      "name": "রিলোড হচ্ছে {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "সদস্যতা ত্যাগ করুন",
             "restart-subscription": "সদস্যতা পুনরায় চালু করুন",
             "update-payment": "টাকা পরিশোধের পদ্ধতি পরিবর্তন করুন",
-            "update-plan": "ডাউনগ্রেড বা আপগ্রেড করুন"
+            "update-plan": "ডাউনগ্রেড বা আপগ্রেড করুন",
+            "cancel-subscription-popover": "আপনার সাবস্ক্রিপশন বাতিল করবেন?",
+            "update-from-portail": "আমার সদস্যতা পরিচালনা করুন"
           },
           "daily": "দিন",
           "features-title": "বৈশিষ্ট্য",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "ক্রেডিট পুনরায় লোড করা হচ্ছে"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "পুনরায় লোড করুন"
+        },
+        "choose-credits-number": "ক্রেডিট সংখ্যা চয়ন করুন",
+        "discount-applied": "ডিসকাউন্ট প্রয়োগ",
+        "discount-off": "ফিটনেস"
+      }
     }
   },
   "Terms": {

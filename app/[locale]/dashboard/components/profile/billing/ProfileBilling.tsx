@@ -1,12 +1,14 @@
 "use client";
 
 import { PriceCardFeatures } from "@/app/[locale]/pricing/components/PriceCardFeatures";
+import { portailclient } from "@/app/[locale]/refill/queries/refill.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import {
   SimpleLoader,
   SkeletonLoader,
 } from "@/src/components/ui/@fairysaas/loader";
+import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import {
@@ -18,13 +20,17 @@ import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { toLower } from "lodash";
-import { Check, CreditCard, RotateCcw, XCircle } from "lucide-react";
+import {
+  Check,
+  CreditCard,
+  ReceiptText,
+  RotateCcw,
+  XCircle,
+} from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
-import {
-  convertUnixToDate
-} from "../../../../../../src/helpers/functions/convertDate";
+import { convertUnixToDate } from "../../../../../../src/helpers/functions/convertDate";
 import {
   cancelSubscription,
   changePaymentMethod,
@@ -50,6 +56,12 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     }
   }, [userStore, refresh, isLoading, isUserStoreLoading]);
 
+  // Customer actions
+  const handleCustomerPortail = async () => {
+    const refill = await portailclient();
+    if (!refill) return;
+    return router.push(refill as any);
+  };
   // Dans votre composant ProfileBilling.tsx
   const handleCancelOrRestartSubscription = async (
     action: "cancel" | "restart",
@@ -332,23 +344,55 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
               {t("buttons.update-plan")}
             </Button>
             <div className="md:w-1/4 w-full">&nbsp;</div>
-            <div className="md:w-2/3 w-full flex flex-row justify-end items-end">
+            <div className="md:w-2/3 w-full flex flex-col justify-end items-end">
               <ButtonWithLoader
                 onClick={changePayMethod}
                 type="button"
                 disabled={buttonLoading}
                 loading={buttonLoading}
-                className="w-full !px-0 !pr-0"
+                className="!px-0 !pr-0"
                 variant="link">
                 <CreditCard className="icon mt-1" />{" "}
                 {t("buttons.update-payment")}
               </ButtonWithLoader>
+              <ButtonWithLoader
+                onClick={handleCustomerPortail}
+                type="button"
+                disabled={buttonLoading}
+                loading={buttonLoading}
+                className="!px-0 !pr-0"
+                variant="link">
+                <ReceiptText className="icon mt-1" />{" "}
+                {t("buttons.update-from-portail")}
+              </ButtonWithLoader>
               {!userProfile.activeSubscription.isCanceling ? (
                 <>
-                  <Button
+                  <PopoverConfirm
+                    handleFunction={() => {
+                      handleCancelOrRestartSubscription(
+                        "cancel",
+                        userProfile.activeSubscription.subscription?.id ?? "",
+                        userStore.email ?? ""
+                      );
+                    }}
+                    className="!px-0 !pr-0"
+                    icon={<XCircle className="icon text-red-500 mt-1" />}
+                    display={t("buttons.cancel-subscription") + "..."}
+                    what={`${t("buttons.cancel-subscription-popover")} ${t("tooltips.cancel-subscription", {
+                      varIntlDate: format.dateTime(
+                        convertUnixToDate(
+                          userProfile.activeSubscription.canceledActiveUntil ??
+                            0
+                        )
+                      ),
+                    })}`}>
+                    {" "}
+                    <XCircle className="icon text-red-500 mt-1" />{" "}
+                  </PopoverConfirm>
+                  {/* <Button
                     data-tooltip-id="cancel-subscription"
                     disabled={isLoading}
-                    className="w-full !px-0 !pr-0"
+                    className="!px-0 !pr-0"
                     variant={"link"}
                     onClick={() =>
                       handleCancelOrRestartSubscription(
@@ -359,13 +403,13 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     }>
                     <XCircle className="icon text-red-500 mt-1" />{" "}
                     {t("buttons.cancel-subscription")}
-                  </Button>
+                  </Button> */}
                 </>
               ) : (
                 <Button
                   data-tooltip-id="restart-subscription"
                   disabled={isLoading}
-                  className="w-full"
+                  className="!px-0 !pr-0"
                   variant={"link"}
                   onClick={() =>
                     handleCancelOrRestartSubscription(

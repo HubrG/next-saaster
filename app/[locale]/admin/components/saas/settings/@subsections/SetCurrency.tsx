@@ -4,9 +4,9 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandList,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/src/components/ui/command";
 import {
   Popover,
@@ -50,22 +50,27 @@ export const SetCurrency = ({ set }: Props) => {
         <Command>
           <CommandInput placeholder="Search currencie..." />
           <CommandList>
-          <CommandEmpty>No currencie found.</CommandEmpty>
-          <CommandGroup>
-            {Object.entries(currencies).map(([currencyKey, name]) => (
-              <CommandItem
-                key={currencyKey}
-                value={currencyKey}
-                onSelect={(currentValue) => {
-                  set(currentValue);
-                  setComboCurrency(currencyKey);
-                  setOpen(false);
-                }}>
-                <Check className={cn("mr-2 h-4 w-4")} />
-                {name.name} ({name.sigle})
-              </CommandItem>
-            ))}
-          </CommandGroup>
+            <CommandEmpty>No currencie found.</CommandEmpty>
+            <CommandGroup>
+              {Object.entries(currencies).map(([currencyKey, name]) => (
+                <CommandItem
+                  key={currencyKey}
+                  value={currencyKey}
+                  onSelect={(currentValue) => {
+                    set(currentValue);
+                    setComboCurrency(currencyKey);
+                    setOpen(false);
+                  }}>
+                  <Check
+                    className={cn({
+                      "mr-2 h-4 w-4": saasSettings.currency === currencyKey,
+                      "hidden": saasSettings.currency !== currencyKey,
+                    })}
+                  />
+                  {name.name} ({name.sigle})
+                </CommandItem>
+              ))}
+            </CommandGroup>
           </CommandList>
         </Command>
       </PopoverContent>

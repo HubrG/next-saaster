@@ -5,9 +5,9 @@ import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { useBlogStore } from "@/src/stores/blogStore";
 import { BlogCategory } from "@prisma/client";
@@ -16,7 +16,7 @@ import { Check, LayoutList } from "lucide-react";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
 
-export const Categories = () => {
+export const ManageBlogCategories = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { blogCategories, setBlogCategories, addBlogCategoryToStore } =
     useBlogStore();
@@ -44,10 +44,10 @@ export const Categories = () => {
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            className=" !py-0 w-full h-full"
+            className=" w-full !h-full"
             data-tooltip-id="manage-categories-tt">
-            <LayoutList className="cursor-pointer icon !mr-2" /> Manage
-            categories of the blog
+            <LayoutList className="cursor-pointer icon !mr-2" /> Manage blog
+            categories
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-96 max-h-[50vh] overflow-auto">
@@ -69,7 +69,7 @@ export const Categories = () => {
         id="manage-categories-tt"
         className="tooltip"
         place="top">
-        Gérer les catégories
+        Manage categories
       </Tooltip>
     </>
   );
@@ -92,11 +92,11 @@ export const CategoryCard = ({ category }: Props) => {
 
   const handleDelete = async () => {
     setLoading(true);
-    await deleteBlogCategoryFromStore(category.id);
+    deleteBlogCategoryFromStore(category.id);
     setLoading(false);
     setBlogCategories(blogCategories.filter((cat) => cat.id !== category.id));
     return toaster({
-      description: `« ${category.name} » supprimée avec succès.`,
+      description: `« ${category.name} » successfully deleted.`,
       type: "success",
       duration: 8000,
     });
@@ -106,7 +106,7 @@ export const CategoryCard = ({ category }: Props) => {
     if (data === "") {
       return toaster({
         type: "error",
-        description: `Veuillez entrer un nom de catégorie`,
+        description: `Please enter a category name`,
       });
     }
     setLoading(true);
@@ -119,7 +119,7 @@ export const CategoryCard = ({ category }: Props) => {
     );
     return toaster({
       type: "success",
-      description: `Catégorie « ${initialCategoryState.name} » mise à jour avec succès`,
+      description: `Category « ${initialCategoryState.name} » successfully updated`,
     });
   };
 

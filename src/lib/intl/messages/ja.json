@@ -168,7 +168,9 @@
             "cancel-subscription": "購読のキャンセル",
             "restart-subscription": "サブスクリプションの再開",
             "update-payment": "支払い方法の変更",
-            "update-plan": "ダウングレードまたはアップグレード"
+            "update-plan": "ダウングレードまたはアップグレード",
+            "cancel-subscription-popover": "サブスクリプションをキャンセルしますか?",
+            "update-from-portail": "サブスクリプションを管理する"
           },
           "daily": "日",
           "features-title": "特徴",
@@ -504,7 +506,7 @@
       "success": "あなたのメールアドレスが確認されました。"
     },
     "Refill": {
-      "name": "リローディング・クレジット"
+      "name": "{varIntlRefill} {varIntlCreditName} をリロードしています"
     }
   },
   "Emails": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "クレジットのリロード"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "リロード"
+        },
+        "choose-credits-number": "クレジット数を選択してください",
+        "discount-applied": "割引適用",
+        "discount-off": "フィットネス"
+      }
     }
   },
   "Terms": {

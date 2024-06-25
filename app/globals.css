@@ -117,7 +117,7 @@ a.special-uderline-active {
   @apply text-primary-foreground dark:text-secondary !important;
 }
 .profile-link {
-  @apply dark:text-primary-foreground dark:hover:text-primary-foreground hover:bg-primary/50 !important;
+  @apply dark:text-theming-text-700 dark:hover:text-primary-foreground hover:bg-theming-background-200/50 !important;
 }
 /* Main Menu */
 ul.main-menu {
@@ -166,7 +166,7 @@ h4,
 h5,
 h6,
 p {
-  @apply text-theming-text-900 dark:text-theming-text-900 ;
+  @apply text-theming-text-900 dark:text-theming-text-900;
 }
 h1 {
   @apply text-5xl font-bold;
@@ -244,7 +244,11 @@ div.progressToken {
 }
 /* NOTE - Button */
 .user-profile-buy-credit {
-  @apply hover:no-underline bg-primary-foreground hover:bg-primary-foreground/80 hover:text-white dark:hover:text-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
+  @apply hover:no-underline bg-primary-foreground dark:bg-theming-background-200-second dark:text-theming-text-800 hover:bg-primary-foreground/80 hover:text-white dark:hover:bg-theming-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
+}
+.user-profile-admin {
+  @apply hover:no-underline bg-yellow-600 dark:bg-yellow-200 text-yellow-50 dark:text-yellow-800 hover:text-yellow-100 hover:bg-yellow-700 dark:hover:bg-yellow-500 text-left pr-10  cursor-pointer mb-1 !important;
+
 }
 .first-connection {
   @apply w-screen absolute bg-white dark:bg-theming-background-50  z-[9999999999] !important;
@@ -417,7 +421,7 @@ form button {
 /* NOTE --> Toaster  */
 
 .toast {
-  @apply my-shadow mt-14 md:w-[40vh] sm:w-[80vh] py-8 right-0 bottom-0;
+  @apply my-shadow mt-14 md:w-[40vh] sm:w-[80vh] py-8 h-auto right-0 bottom-0;
 }
 button[data-close-button] {
   @apply !-right-[0.475rem] !rounded !rounded-tl-none !rounded-br-none !top-[0.429rem] !border-none p-0 !text-2xl cursor-pointer;
@@ -427,11 +431,12 @@ button[data-close-button] {
   @apply right-0;
   left:inherit !important;
 } */
-[data-title], [data-description] {
+[data-title],
+[data-description] {
   @apply ml-2 !py-0 my-0;
 }
 [data-title] {
-  @apply text-base !py-0 dark:!text-theming-text-900-second text-theming-text-100-second ;
+  @apply text-base !py-0 dark:!text-theming-text-900-second text-theming-text-100-second;
 }
 [data-description] {
   @apply -mt-2;
@@ -466,7 +471,7 @@ button[data-close-button] {
   @apply bg-transparent border border-theming-text-300 opacity-50 !text-theming-text-800 dark:text-theming-text-800 !important;
 }
 .admin-plan-card .plan-card-live-mode-badge {
-  @apply  bg-transparent border border-theming-text-500 !important;
+  @apply bg-transparent border border-theming-text-500 !important;
 }
 .admin-plan-card > input {
   @apply text-4xl;
@@ -710,7 +715,7 @@ footer a {
 }
 
 .button-in-input {
-  @apply  z-50  p-2  items-center  whitespace-nowrap push-effect rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-theming-text-200 dark:text-theming-text-700 dark:bg-theming-text-200 bg-theming-text-500 dark:hover:bg-theming-text-500/20 hover:bg-theming-text-500/90 text-sm;
+  @apply z-50  p-2  items-center  whitespace-nowrap push-effect rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-theming-text-200 dark:text-theming-text-700 dark:bg-theming-text-200 bg-theming-text-500 dark:hover:bg-theming-text-500/20 hover:bg-theming-text-500/90 text-sm;
 }
 
 table.user-dialog-subscriptions tbody td {
@@ -730,7 +735,7 @@ table.user-dialog-subscriptions tbody td {
 .react-select-container
   .react-select__control
   .react-select__control--is-focused {
-  @apply border-0 w-full bg-transparent shadow-none focus:border-0 focus:ring-0 ;
+  @apply border-0 w-full bg-transparent shadow-none focus:border-0 focus:ring-0;
 }
 
 .react-select-container
@@ -883,7 +888,7 @@ article .task-list-item {
 }
 
 .blog-sidebar {
-@apply flex flex-col h-[85vh] md:pl-4 -mt-3 ;
+  @apply flex flex-col h-[85vh] md:pl-4 -mt-3;
 }
 .blog-sidebar h3 {
   @apply text-lg flex flex-row justify-between items-center !important;
@@ -901,7 +906,7 @@ article .task-list-item {
   padding: 5rem 0;
 }
 .user-profile-dd {
-@apply w-full mt-4 rounded-default !max-h-80 border-none border-theming-text-800 dark:border-theming-text-100 bg-transparent backdrop-blur-3xl ring-1 ring-offset-2 ring-offset-transparent ring-theming-text-500/30 !important;
+  @apply w-full mt-4 rounded-default !max-h-80 border-none border-theming-text-800 dark:border-theming-text-100 bg-transparent backdrop-blur-3xl ring-1 ring-offset-2 ring-offset-transparent ring-theming-text-500/30 !important;
 }
 .user-profile-dd a {
   @apply py-2 
@@ -914,11 +919,18 @@ article .task-list-item {
 /* SECTION : My Tailwind classes */
 
 .flex-row-center {
-  @apply flex flex-row items-center 
+  @apply flex flex-row items-center;
+}
+.flex-col-center {
+  @apply flex flex-col items-center;
+}
+.my-disabled {
+  @apply opacity-50 pointer-events-none !important;
 }
 
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -929,3 +941,16 @@ article .task-list-item {
 .blink {
   animation: blink 1s infinite;
 }
+
+.custom-badge::after {
+  @apply border-t-4 border-theming-text-300-second;
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  position: absolute;
+  bottom: -4px; 
+}
+

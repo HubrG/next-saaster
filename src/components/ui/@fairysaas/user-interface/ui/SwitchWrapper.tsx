@@ -13,12 +13,14 @@ type Props = {
   icon?: React.ReactNode;
   disabled?: boolean;
   loading?: boolean;
+  className?: string;
 };
 
 export const SwitchWrapper = ({
   children,
   id,
   icon,
+  className,
   checked,
   handleChange,
   loading,
@@ -40,7 +42,7 @@ export const SwitchWrapper = ({
   return (
     <Card
       aria-disabled={disabled || loading}
-      className={cn("switch-wrapper")}
+      className={cn(`switch-wrapper ${className}`)}
       data-tooltip-id={`tooltip-${id}`}
       onClick={(e) => handleClick(e)}>
       {/* <div className="row-span-1">{icon}</div> */}

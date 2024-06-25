@@ -29,14 +29,14 @@ export default function SwitchActiveDarkMode() {
         setLoading(false);
         return toaster({
           title: "Success",
-          description: `Active darkmode ${e ? "enabled" : "disabled"}`,
+          description: `Darkmode ${e ? "enabled" : "disabled"}`,
           type: "success",
         });
       } else {
         setLoading(false);
         return toaster({
           type: "error",
-          description: "Active darkmode not changed, please try again",
+          description: "Darkmode not changed, please try again",
         });
       }
     }

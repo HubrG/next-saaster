@@ -168,7 +168,9 @@
             "cancel-subscription": "Annullamento dell'abbonamento",
             "restart-subscription": "Riavviare l'abbonamento",
             "update-payment": "Modifica del metodo di pagamento",
-            "update-plan": "Declassamento o aggiornamento"
+            "update-plan": "Declassamento o aggiornamento",
+            "cancel-subscription-popover": "annullare l'abbonamento?",
+            "update-from-portail": "Gestisci il mio abbonamento"
           },
           "daily": "giorno",
           "features-title": "Caratteristiche",
@@ -504,7 +506,7 @@
       "success": "Il vostro indirizzo e-mail è stato verificato."
     },
     "Refill": {
-      "name": "Crediti per la ricarica"
+      "name": "Ricaricamento in corso {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Emails": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Ricarica crediti"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Ricaricare"
+        },
+        "choose-credits-number": "Scegli il numero di crediti",
+        "discount-applied": "Sconto applicato",
+        "discount-off": "Fitness"
+      }
     }
   },
   "Terms": {

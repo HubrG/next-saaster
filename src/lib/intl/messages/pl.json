@@ -17,7 +17,7 @@
       "success": "Twój adres e-mail został zweryfikowany."
     },
     "Refill": {
-      "name": "Kredyty na przeładowanie"
+      "name": "Ponowne ładowanie {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Components": {
@@ -189,7 +189,9 @@
             "cancel-subscription": "Anuluj subskrypcję",
             "restart-subscription": "Uruchom ponownie subskrypcję",
             "update-payment": "Zmiana metody płatności",
-            "update-plan": "Downgrade lub upgrade"
+            "update-plan": "Downgrade lub upgrade",
+            "cancel-subscription-popover": "anulować subskrypcję?",
+            "update-from-portail": "Zarządzaj moją subskrypcją"
           },
           "daily": "dzień",
           "features-title": "Cechy",
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Ponowne ładowanie kredytów"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Przeładować"
+        },
+        "choose-credits-number": "Wybierz liczbę kredytów",
+        "discount-applied": "Zastosowano rabat",
+        "discount-off": "Zdatność"
+      }
     }
   },
   "Terms": {

@@ -168,7 +168,9 @@
             "cancel-subscription": "取消订阅",
             "restart-subscription": "重新启动订阅",
             "update-payment": "更改付款方式",
-            "update-plan": "降级或升级"
+            "update-plan": "降级或升级",
+            "cancel-subscription-popover": "取消您的订阅吗？",
+            "update-from-portail": "管理我的订阅"
           },
           "daily": "天",
           "features-title": "特点",
@@ -504,7 +506,7 @@
       "success": "您的电子邮件地址已经过验证。"
     },
     "Refill": {
-      "name": "重装学分"
+      "name": "正在重新加载 {varIntlRefill} {varIntlCreditName}"
     }
   },
   "Emails": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "重新加载积分"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "重新加载"
+        },
+        "choose-credits-number": "选择学分数量",
+        "discount-applied": "适用折扣",
+        "discount-off": "健康"
+      }
     }
   },
   "Terms": {

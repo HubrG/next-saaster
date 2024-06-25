@@ -40,49 +40,48 @@ export const Navbar = ({ settings }: NavbarProps) => {
      NOTE --> Create your new pages on the app router for each new link, except for "Pricing" and "Contact" which are special pages
      NOTE --> example : {url: "your-new-page", name: t(`MainMenu`),}
      NOTE -->  You may change the name of the links in the translation file (messages/en.json), dont forget to add the translation in the other languages */
-  return (
-    <header className="z-20  ">
-      <nav id="navbar">
-        <div>
-          <div className="flex items-center justify-between !ml-5`">
-            <Logo settings={settings} />
-            <div className="main-menu ml-10" id="navbar-sticky">
-              <ul className="main-menu">
-                <MainMenu links={links} />
-              </ul>
-            </div>
-          </div>
-          <div className="flex gap-x-2 lg:order-2 items-center lg:text-base">
-            <div className="flex items-center gap-x-2 ">
-              <TryUsButton
-                value={t("buy-now")}
-                icon={<ShoppingBagIcon className="icon mx-0 mr-2" />}
-              />
-              <Button className="hidden"></Button>
-              <div className="sm:flex hidden  flex-row items-center">
-                {session?.user.id || isLoading ? (
-                  <>
-                    <Notifications active={!!appSettings.activeNotification} />
-                    <UserProfile
-                      email={session?.user.email ?? ""}
-                      isLoading={isLoading}
-                    />
-                    <ChangeLanguage />
-                  </>
-                ) : (
-                  <>
-                    <LoginButton />
-                    <ChangeLanguage />
-                  </>
-                )}
-              </div>
-              <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
-            </div>
-            <BurgerMenu links={links} settings={settings} />
-          </div>
-        </div>
-      </nav>
-      {/* <Goodline className="!-mt-0 !opacity-20" /> */}
-    </header>
-  );
+ return (
+   <header className="z-20">
+     <nav id="navbar">
+       <div>
+         <div className="flex items-center justify-between !ml-5">
+           <Logo settings={settings} />
+           <div className="main-menu ml-10" id="navbar-sticky">
+             <ul className="main-menu">
+               <MainMenu links={links} />
+             </ul>
+           </div>
+         </div>
+         <div className="flex gap-x-4 lg:order-2 items-center lg:text-base">
+           <div className="flex items-center gap-x-2">
+             <TryUsButton
+               value={t("buy-now")}
+               icon={<ShoppingBagIcon className="icon mx-0 mr-2" />}
+             />
+             <Button className="hidden"></Button>
+             <div className="sm:flex hidden flex-row items-center gap-x-4">
+               {session?.user.id || isLoading ? (
+                 <>
+                   <Notifications active={!!appSettings.activeNotification} />
+                   <UserProfile
+                     email={session?.user.email ?? ""}
+                     isLoading={isLoading}
+                   />
+                   <ChangeLanguage />
+                 </>
+               ) : (
+                 <>
+                   <LoginButton />
+                   <ChangeLanguage />
+                 </>
+               )}
+             </div>
+             <ThemeToggle className="sm:block hidden" classNameMoon="-mt-6" />
+           </div>
+           <BurgerMenu links={links} settings={settings} />
+         </div>
+       </div>
+     </nav>
+   </header>
+ );
 };

@@ -168,7 +168,9 @@
             "cancel-subscription": "Abonnement kündigen",
             "restart-subscription": "Das Abonnement neu starten",
             "update-payment": "Zahlungsmittel ändern",
-            "update-plan": "Herunterstufen oder Upgraden"
+            "update-plan": "Herunterstufen oder Upgraden",
+            "cancel-subscription-popover": "Ihr Abonnement kündigen?",
+            "update-from-portail": "Mein Abonnement verwalten"
           },
           "daily": "Tag",
           "features-title": "Funktionen",
@@ -504,7 +506,7 @@
       "success": "Ihre E-Mail-Adresse wurde verifiziert."
     },
     "Refill": {
-      "name": "Aufladen von Guthaben"
+      "name": "{varIntlRefill} {varIntlCreditName} wird neu geladen"
     }
   },
   "Emails": {
@@ -595,6 +597,16 @@
   "Refill": {
     "metadatas": {
       "title": "Guthaben aufladen"
+    },
+    "Components": {
+      "Index": {
+        "button": {
+          "refill-credits": "Neu laden"
+        },
+        "choose-credits-number": "Wählen Sie die Anzahl der Credits",
+        "discount-applied": "Rabatt angewendet",
+        "discount-off": "Fitness"
+      }
     }
   },
   "Terms": {

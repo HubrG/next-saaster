@@ -57,7 +57,7 @@ export default function SwitchActiveYearlyPlan() {
       loading={loading}
       icon={<Calendar className="icon" />}
       id="switch-active-yearly-plans">
-      Active the <strong>yearly plans</strong> for your SaaS
+      Enable the <strong>yearly plans</strong> for your SaaS
     </SwitchWrapper>
   );
 }

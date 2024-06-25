@@ -58,7 +58,7 @@ export default async function LocaleLayout(props: Props) {
       <SessProvider session={session as Session}>
         <html
           lang={locale}
-          suppressHydrationWarning
+          suppressHydrationWarning={true}
           className={`${appSettings.data.theme} radius-${
             appSettings.data.roundedCorner
           } ${sans.variable} ${serif.variable}  ${display.variable} font-sans ${

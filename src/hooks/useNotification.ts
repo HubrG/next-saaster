@@ -8,10 +8,16 @@ const fetcher = async (url: string) => {
   return response.json();
 };
 
-export const useNotifications = (userId: string, email: string, active: boolean) => {
-  
+export const useNotifications = (
+  userId: string,
+  email: string,
+  active: boolean
+) => {
+  // Vérifiez que userId, email et active sont valides avant d'appeler useSWR
+  const shouldFetch = userId && email && active;
+
   const { data, error } = useSWR(
-    userId ? `/api/notifications?userId=${userId}&email=${email}` : null,
+    shouldFetch ? `/api/notifications?userId=${userId}&email=${email}` : null,
     fetcher,
     {
       refreshInterval: 5000,

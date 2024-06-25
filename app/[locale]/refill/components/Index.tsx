@@ -17,6 +17,8 @@ import { Coins } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
+import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { toUpper } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import Confetti from "react-confetti";
 import { createRefillSession } from "../queries/refill.action";
@@ -31,8 +33,9 @@ export const Index = ({
 }: CreditSelectorProps) => {
   const format = useFormatter();
   const [showConfetti, setShowConfetti] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { saasSettings } = useSaasSettingsStore();
+  const { saasSettings, isStoreLoading } = useSaasSettingsStore();
   const t = useTranslations("Refill.Components.Index");
   const router = useRouter();
   const [credits, setCredits] = useState(initialCredits);
@@ -51,6 +54,14 @@ export const Index = ({
       onCreditsChange(value[0]);
     }
   };
+
+  useEffect(() => {
+    if (isStoreLoading) {
+      setIsLoaded(false);
+    } else {
+      setIsLoaded(true);
+    }
+  }, [saasSettings]);
 
   useEffect(() => {
     if (discount > 0) {
@@ -108,56 +119,64 @@ export const Index = ({
                 initialVelocityY={-5}
               />
             )}
-            <Badge
-              variant="default"
-              className={cn(
-                {
-                  "opacity-50": discount === 0,
-                },
-                `absolute -top-10 !font-bold flex flex-col items-center custom-badge`
-              )}
-              style={{
-                left: `${discountPosition}%`,
-                transform: "translateX(-50%)",
-              }}>
-              {t("discount-off")} {saasSettings?.discountForRefillCredit}%
-            </Badge>
+            {isLoaded && (
+              <Badge
+                variant="default"
+                className={cn(
+                  {
+                    "opacity-50": discount === 0,
+                  },
+                  `absolute -top-10 !font-bold flex flex-col items-center custom-badge`
+                )}
+                style={{
+                  left: `${discountPosition}%`,
+                  transform: "translateX(-50%)",
+                }}>
+                {t("discount-off")} {saasSettings?.discountForRefillCredit}%
+              </Badge>
+            )}
           </div>
         )}
-        <Slider
-          value={[credits]}
-          onValueChange={handleSliderChange}
-          min={saasSettings.refillCreditStep || 10}
-          max={saasSettings.maxRefillCredit || 300}
-          step={saasSettings.refillCreditStep || 10}
-          className="my-4 mb-10"
-        />
-        <p className="text-center">
-          {credits} {saasSettings.creditName?.toLowerCase()}
-        </p>
-        <p className="text-center text-xl font-bold">
-          {format.number(price, {
-            style: "currency",
-            currency: saasSettings.currency ?? undefined,
-          })}
-        </p>
-        <Badge
-          variant={"outline"}
-          className={cn(
-            { "opacity-0": discount === 0 },
-            `text-center !text-theming-text-500`
-          )}>
-          {t("discount-applied", {
-            discount: saasSettings.discountForRefillCredit,
-          })}
-        </Badge>
+        {isLoaded ? (
+          <>
+            <Slider
+              value={[credits]}
+              onValueChange={handleSliderChange}
+              min={saasSettings.refillCreditStep || 10}
+              max={saasSettings.maxRefillCredit || 300}
+              step={saasSettings.refillCreditStep || 10}
+              className="my-4 mb-10"
+            />
+            <p className="text-center">
+              {credits} {saasSettings.creditName?.toLowerCase()}
+            </p>
+            <p className="text-center text-xl font-bold">
+              {format.number(price, {
+                style: "currency",
+                currency: toUpper(saasSettings.currency ?? "USD") ?? undefined,
+              })}
+            </p>
+            <Badge
+              variant={"outline"}
+              className={cn(
+                { "opacity-0": discount === 0 },
+                `text-center !text-theming-text-500`
+              )}>
+              {t("discount-applied", {
+                discount: saasSettings.discountForRefillCredit,
+              })}
+            </Badge>
+          </>
+        ) : (
+          <Loader noHFull className="  mx-auto" />
+        )}
         <Goodline className="mt-10" />
       </CardContent>
       <CardFooter>
         <ButtonWithLoader
           onClick={handleStripeRefill}
           loading={loading}
-          disabled={loading}
+          disabled={loading || !isLoaded}
           className="w-full"
           type="button"
           variant="default">

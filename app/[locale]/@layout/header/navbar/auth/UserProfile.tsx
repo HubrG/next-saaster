@@ -111,52 +111,78 @@ export const UserProfile = ({
             </Avatar>
           </div>
           {saasSettings.activeCreditSystem &&
-          userProfile?.activeSubscription?.creditAllouedByMonth &&
-          userProfile?.activeSubscription?.creditAllouedByMonth > 0 &&
-          userProfile?.activeSubscription ? (
-            <>
-              <div className="w-full userNavbarDiv">
-                <div
-                  className="relative w-full"
-                  data-tooltip-id="remainingTooltip">
-                  <p className="text-center !text-xs -mt-1 pb-1">
-                    {userProfile?.activeSubscription.creditRemaining}
-                  </p>
-
+            userProfile?.activeSubscription?.creditAllouedByMonth &&
+            userProfile?.activeSubscription?.creditAllouedByMonth > 0 &&
+            userProfile?.activeSubscription && (
+              <>
+                <div className="w-full userNavbarDiv">
                   <div
-                    className={`${
-                      userProfile?.activeSubscription.creditPercentage <= 0
-                        ? "progressTokenVoid"
-                        : userProfile?.activeSubscription.creditPercentage < 10
-                        ? "progressToken bg-red-500"
-                        : "progressToken"
-                    }`}
-                    style={{
-                      width: `${
-                        userProfile?.activeSubscription.creditPercentage <= 100
-                          ? userProfile?.activeSubscription.creditPercentage
-                          : 100
-                      }%`,
-                    }}>
-                    &nbsp;
+                    className="relative w-full"
+                    data-tooltip-id="remainingTooltip">
+                    <p className="text-center !text-xs -mt-1 pb-1">
+                      {userProfile?.activeSubscription.creditRemaining}
+                    </p>
+
+                    <div
+                      className={`${
+                        userProfile?.activeSubscription.creditPercentage <= 0
+                          ? "progressTokenVoid"
+                          : userProfile?.activeSubscription.creditPercentage <
+                            10
+                          ? "progressToken bg-red-500"
+                          : "progressToken"
+                      }`}
+                      style={{
+                        width: `${
+                          userProfile?.activeSubscription.creditPercentage <=
+                          100
+                            ? userProfile?.activeSubscription.creditPercentage
+                            : 100
+                        }%`,
+                      }}>
+                      &nbsp;
+                    </div>
+                    <div className="progressTokenVoid"></div>
                   </div>
-                  <div className="progressTokenVoid"></div>
                 </div>
-              </div>
-              <Tooltip
-                id="remainingTooltip"
-                opacity={1}
-                place="bottom"
-                className="tooltip flex flex-col">
-                <span>
-                  {saasSettings.creditName} :{" "}
-                  {userProfile?.activeSubscription.creditPercentage}%
-                </span>
-                {userProfile?.activeSubscription.creditRemaining} &nbsp;/&nbsp;
-                {userProfile?.activeSubscription.creditAllouedByMonth}
-              </Tooltip>
-            </>
-          ) : null}
+                <Tooltip
+                  id="remainingTooltip"
+                  opacity={1}
+                  place="bottom"
+                  className="tooltip flex flex-col">
+                  <span>
+                    {saasSettings.creditName} :{" "}
+                    {userProfile?.activeSubscription.creditPercentage}%
+                  </span>
+                  {userProfile?.activeSubscription.creditRemaining}{" "}
+                  &nbsp;/&nbsp;
+                  {userProfile?.activeSubscription.creditAllouedByMonth}
+                </Tooltip>
+              </>
+            )}
+          {saasSettings.activeCreditSystem &&
+            (saasSettings.saasType === "PAY_ONCE" ||
+              saasSettings.saasType === "CUSTOM") &&
+            !userProfile?.activeSubscription && (
+              <>
+                <div className="w-full userNavbarDiv">
+                  <div
+                    className="relative w-full"
+                    data-tooltip-id="remainingTooltip">
+                    <p className="text-center !text-xs pb-1">
+                      {userProfile?.info.creditRemaining}
+                    </p>
+                  </div>
+                </div>
+                <Tooltip
+                  id="remainingTooltip"
+                  opacity={1}
+                  place="bottom"
+                  className="tooltip flex flex-col">
+                  {userProfile?.info.creditRemaining} {saasSettings.creditName}s
+                </Tooltip>
+              </>
+            )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="user-profile-dd">
@@ -184,26 +210,23 @@ export const UserProfile = ({
             {/* My account */}
             {t("my-account")}
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> 
         {/* NOTE:  Refill */}
-        {saasSettings.activeRefillCredit &&
-        userProfile?.activeSubscription?.creditAllouedByMonth &&
-        (userProfile?.activeSubscription?.creditAllouedByMonth ?? 0) > 0 &&
-        userProfile?.activeSubscription ? (
-          <>
-            <DropdownMenuItem className="w-full mt-1" asChild>
-              <Link href="/refill" className="user-profile-buy-credit">
-                <CreditCard className="icon" />
-                {/* Buy credits */}
-                {t("refill")} {saasSettings.creditName}
-              </Link>
-            </DropdownMenuItem>
-          </>
-        ) : null}
+        {saasSettings.activeRefillCredit && (
+            <>
+              <DropdownMenuItem className="w-full mt-1" asChild>
+                <Link href="/refill" className="user-profile-buy-credit">
+                  <CreditCard className="icon" />
+                  {/* Buy credits */}
+                  {t("refill")} {saasSettings.creditName?.toLowerCase()}s
+                </Link>
+              </DropdownMenuItem>
+            </>
+          )}
 
         {userStore?.role !== ("USER" as UserRole) && (
           <>
-            <DropdownMenuItem className="w-full" asChild>
+            <DropdownMenuItem className="w-full mt-1" asChild>
               <Link
                 prefetch={false}
                 href="/admin"

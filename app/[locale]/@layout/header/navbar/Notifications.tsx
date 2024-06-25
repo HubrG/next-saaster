@@ -17,7 +17,7 @@ import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { now } from "lodash";
 import { BellIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { mutate } from "swr";
 
 const Notifications = ({ active }: { active: boolean }) => {
@@ -26,13 +26,13 @@ const Notifications = ({ active }: { active: boolean }) => {
   }
 
   const { appSettings } = useAppSettingsStore();
-
   const { data: session } = useSessionQuery();
   const { notifications, isLoading, isError } = useNotifications(
     session?.user.userId || "",
     session?.user.email || "",
     appSettings.activeNotification ?? false
   );
+
   const [open, setOpen] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
   const format = useFormatter();
@@ -44,7 +44,7 @@ const Notifications = ({ active }: { active: boolean }) => {
       markAsRead(session?.user.userId ?? "");
       setNotificationCount(0);
     }
-  }, [open]);
+  }, [open, session?.user.userId]);
 
   useEffect(() => {
     if (notifications) {
@@ -53,7 +53,6 @@ const Notifications = ({ active }: { active: boolean }) => {
           .length
       );
 
-      // Check for new notifications
       if (prevNotificationsRef.current.length > 0) {
         const newNotifications = notifications.filter(
           (notification: Notification) =>
@@ -76,7 +75,6 @@ const Notifications = ({ active }: { active: boolean }) => {
         }
       }
 
-      // Update the previous notifications reference
       prevNotificationsRef.current = notifications;
     }
   }, [notifications]);
@@ -122,9 +120,8 @@ const Notifications = ({ active }: { active: boolean }) => {
         className="user-profile-dd !w-96 overflow-y-auto ">
         {notifications?.length > 0 ? (
           notifications.map((notification: Notification, index: number) => (
-            <>
+            <Fragment key={notification.id}>
               <DropdownMenuItem
-                key={notification.id}
                 className={`p-2 rounded-default profile-link hover:cursor-pointer`}>
                 <div className="flex flex-col w-full">
                   <div className="w-full items-center flex flex-row justify-between">
@@ -144,7 +141,7 @@ const Notifications = ({ active }: { active: boolean }) => {
                   index === notifications.length - 1 && "!hidden"
                 } `}
               />
-            </>
+            </Fragment>
           ))
         ) : (
           <DropdownMenuItem className="p-2 w-full bg-theming-background-200">

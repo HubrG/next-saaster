@@ -1,9 +1,9 @@
 "use client";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import languages from "@/src/lib/intl/languages.json";

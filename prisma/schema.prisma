@@ -159,6 +159,7 @@ model appSettings {
   activeInternationalization Boolean?  @default(true)
   activeAutoTranslate        Boolean?  @default(true)
   activeNotification         Boolean?  @default(true)
+  enableNewsletter           Boolean?  @default(true)
   defaultDarkMode            Boolean?  @default(true)
   defaultLightMode           Boolean?  @default(true)
   activeTopLoader            Boolean?  @default(true)

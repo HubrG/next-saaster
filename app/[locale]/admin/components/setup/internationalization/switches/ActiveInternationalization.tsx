@@ -7,17 +7,17 @@ import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Languages } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function SwitchActiveInternationalization() {
-  const [activeInternationalization, setActiveInternationalization] = useState<boolean>(true);
+export default function SwitchactiveInternationalization() {
+  const [activeInternationalization, setactiveInternationalization] = useState<boolean>(true);
   const { appSettings, setAppSettings } = useAppSettingsStore();
   const data = appSettings;
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    setActiveInternationalization(data.activeInternationalization ?? false);
+    setactiveInternationalization(data.activeInternationalization ?? false);
   }, [data]);
 
-  const handleChangeActiveInternationalization = async (e: any) => {
+  const handleChangeactiveInternationalization = async (e: any) => {
     setLoading(true);
     if (data.id) {
       const dataToSet = await updateAppSettings(
@@ -28,7 +28,7 @@ export default function SwitchActiveInternationalization() {
         chosenSecret()
       );
       if (dataToSet) {
-        setActiveInternationalization(e);
+        setactiveInternationalization(e);
         setAppSettings({ ...appSettings, activeInternationalization: e });
         setLoading(false);
         return toaster({
@@ -48,7 +48,7 @@ export default function SwitchActiveInternationalization() {
   };
   return (
     <SwitchWrapper
-      handleChange={handleChangeActiveInternationalization}
+      handleChange={handleChangeactiveInternationalization}
       checked={activeInternationalization}
       loading={loading}
       icon={<Languages className="icon" />}

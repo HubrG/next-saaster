@@ -39,10 +39,11 @@ export const Glossary = () => {
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            className=" !py-0 w-full !mt-5"
+            className="!py-0 w-full !mt-5 "
             data-tooltip-id="manage-glossary-tt">
-            <ShieldOff className="cursor-pointer icon !mr-2" /> Prevent certain
-            words from being translated by the Deepl automatic translator
+            <ShieldOff className="cursor-pointer icon !mr-2" />
+            Prevent certain words from being translated by the Deepl automatic
+            translator
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-96 max-h-[50vh] overflow-auto">

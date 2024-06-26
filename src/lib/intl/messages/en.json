@@ -523,7 +523,7 @@
       "success": "Your email address has been verified."
     },
     "Refill": {
-      "name": "Reloading {varIntlRefill} {varIntlCreditName}"
+      "name": "Top up {varIntlRefill} {varIntlCreditName}"
     }
   },
   "ForgotPassword": {
@@ -601,7 +601,7 @@
     "Components": {
       "Index": {
         "button": {
-          "refill-credits": "Reload"
+          "refill-credits": "Top up"
         },
         "choose-credits-number": "Choose the number of credits",
         "discount-applied": "Discount applied",

@@ -101,7 +101,7 @@ export const AdminNavbar = () => {
             <MenuSubItem
               parent="Internationalization"
               activeSection={activeSubSection}
-              sectionObserve="sub-saas-set-saas-tax"
+              sectionObserve="sub-default-locale"
               text="Default locale"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}
@@ -145,7 +145,7 @@ export const AdminNavbar = () => {
             <MenuSubItem
               parent="SaasSettings"
               activeSection={activeSubSection}
-              sectionObserve="sub-saas-set-saas-tax"
+              sectionObserve="sub-saas-set-currency"
               text="Currency"
               icon={<Dot className="icon" />}
               handleScroll={handleScroll}

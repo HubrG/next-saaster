@@ -18,6 +18,7 @@ import { useState } from "react";
 export const DashboardNavbar = () => {
   const t = useTranslations("Dashboard.Components.Navbar");
   //
+  
   const { saasSettings } = useSaasSettingsStore();
   const [activeSection, setActiveSection] = useState("");
   const [activeSubSection, setActiveSubSection] = useState("");

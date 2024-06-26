@@ -2,15 +2,8 @@
 import { updatePassword } from "@/app/[locale]/dashboard/queries/profile.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { Credenza, CredenzaContent, CredenzaDescription, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "@/src/components/ui/@fairysaas/credenza";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { handleError } from "@/src/lib/error-handling/handleError";
@@ -101,17 +94,17 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
   });
 
   return (
-    <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
-      <DialogTrigger>
+    <Credenza open={open}  onOpenChange={setOpen}>
+      <CredenzaTrigger>
         <span className={`${className} flex flex-row mt-5`}>
           <LockKeyhole className="icon mt-1" /> {t("title")}
         </span>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader className="flex flex-col gap-y-6">
-          <DialogTitle>{t("title")}</DialogTitle>
+      </CredenzaTrigger>
+      <CredenzaContent>
+        <CredenzaHeader className="flex flex-col gap-y-6">
+          <CredenzaTitle>{t("title")}</CredenzaTitle>
           <Goodline />
-          <DialogDescription>
+          <CredenzaDescription>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -153,9 +146,9 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
                 </div>
               </form>
             </Form>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+          </CredenzaDescription>
+        </CredenzaHeader>
+      </CredenzaContent>
+    </Credenza>
   );
 };

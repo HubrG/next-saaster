@@ -24,7 +24,7 @@ export default function Internationalization() {
       <SubSectionWrapper
         sectionName="Default Locale"
         className="col-span-12"
-        id="sub-saas-set-saas-tax"
+        id="sub-default-locale"
         info="Set the default locale for your app. It's the language that will be used by default.">
         <DefaultLocale />
       </SubSectionWrapper>

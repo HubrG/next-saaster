@@ -30,7 +30,7 @@ export const Glossary = () => {
     setLoading(false);
     return toaster({
       type: "success",
-      description: `Mot « ${newWord} » créé avec succès`,
+      description: `« ${newWord} » word added successfully.`,
     });
   };
 
@@ -54,7 +54,7 @@ export const Glossary = () => {
             ))}
 
             <Button onClick={handleAddWord}>
-              {loading && <SimpleLoader />} Ajouter un nouveau mot
+              {loading && <SimpleLoader />} Add a blacklist word
             </Button>
           </div>
         </PopoverContent>

@@ -74,7 +74,7 @@ export const toaster = ({
   title,
   description,
   type,
-  position = "top-right",
+  position,
   invert,
   important,
   duration = 2000,

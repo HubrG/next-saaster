@@ -1,16 +1,9 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { Credenza, CredenzaContent, CredenzaDescription, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "@/src/components/ui/@fairysaas/credenza";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { sendEmail } from "@/src/helpers/emails/sendEmail";
@@ -106,15 +99,15 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
   });
 
   return (
-    <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
-      <DialogTrigger className={`${className}`} asChild>
+    <Credenza open={open} onOpenChange={setOpen}>
+      <CredenzaTrigger className={`${className}`} asChild>
         <Button variant={"outline"} className={`${className}`}>{t("titleForgot")}</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader className="flex flex-col gap-y-6">
-          <DialogTitle>{t("titleForgot")}</DialogTitle>
+      </CredenzaTrigger>
+      <CredenzaContent>
+        <CredenzaHeader className="flex flex-col gap-y-6">
+          <CredenzaTitle>{t("titleForgot")}</CredenzaTitle>
           <Goodline />
-          <DialogDescription>
+          <CredenzaDescription>
             <p className="mb-5">{t("description")}</p>
             <Form {...form}>
               <form
@@ -138,9 +131,9 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
                 </div>
               </form>
             </Form>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+          </CredenzaDescription>
+        </CredenzaHeader>
+      </CredenzaContent>
+    </Credenza>
   );
 };

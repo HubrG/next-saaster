@@ -248,7 +248,6 @@ div.progressToken {
 }
 .user-profile-admin {
   @apply hover:no-underline bg-yellow-600 dark:bg-yellow-200 text-yellow-50 dark:text-yellow-800 hover:text-yellow-100 hover:bg-yellow-700 dark:hover:bg-yellow-500 text-left pr-10  cursor-pointer mb-1 !important;
-
 }
 .first-connection {
   @apply w-screen absolute bg-white dark:bg-theming-background-50  z-[9999999999] !important;
@@ -272,7 +271,7 @@ ol li:not(.blog-breadcrumb) {
 }
 /*  User Interface */
 .user-interface {
-  @apply grid grid-cols-12 w-full md:gap-0 gap-0;
+  @apply grid md:grid-cols-12 grid-cols-1 md:w-full w-auto md:gap-0 gap-0;
 }
 .user-interface div.user-inteface-main {
   @apply md:col-span-9 col-span-full max-md:relative text-center flex flex-col gap-y-5  -mt-16;
@@ -280,6 +279,7 @@ ol li:not(.blog-breadcrumb) {
 .user-interface aside.user-inteface-aside {
   @apply col-span-3 md:block hidden text-left rounded-default rounded-r-none p-5  relative;
 }
+
 .admin {
   @apply min-w-fit;
 }
@@ -407,13 +407,14 @@ form {
   @apply flex flex-col py-10 rounded-default !important;
 }
 form label {
-  @apply text-left md:justify-between font-bold flex md:flex-row justify-start flex-col !text-base md:items-center !important;
+  @apply text-left md:justify-between font-bold flex flex-col !text-base !important;
 }
 form p {
   @apply text-left  font-medium text-theming-text-800 dark:text-theming-text-800 justify-start flex mt-1 opacity-50 !important;
 }
 form p.error {
   @apply font-bold not-italic !important;
+  transition: all 0.3s ease-in-out; 
 }
 form button {
   @apply self-end float-right text-center !important;
@@ -951,6 +952,10 @@ article .task-list-item {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   position: absolute;
-  bottom: -4px; 
+  bottom: -4px;
 }
 
+
+.my-card h1 {
+  @apply md:text-4xl text-2xl !important;
+}

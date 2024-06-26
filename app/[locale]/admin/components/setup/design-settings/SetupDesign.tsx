@@ -60,7 +60,7 @@ export const SetupDesign = () => {
       <SubSectionWrapper
         sectionName="Theme color"
         id="sub-theme-color"
-        info="Lorem ipsum dolor concecterut ipsum dolor concecterut ipsum dolor concecterut ">
+        info="Set the theme color for the application.">
         <ThemeColorChange
           set={setCssTheme}
           reseted={reseted ?? false}

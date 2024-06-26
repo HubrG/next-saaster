@@ -1,6 +1,6 @@
-import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
+import * as React from "react"
 import {
   Controller,
   ControllerProps,
@@ -10,8 +10,8 @@ import {
   useFormContext,
 } from "react-hook-form"
 
-import { cn } from "@/src/lib/utils"
 import { Label } from "@/src/components/ui/label"
+import { cn } from "@/src/lib/utils"
 import { Info } from "lucide-react"
 
 const Form = FormProvider
@@ -100,30 +100,7 @@ const FormLabel = React.forwardRef<
     />
   )
 })
-FormLabel.displayName = "FormLabel"
-const FormMessage = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message) : children
 
-  if (!body) {
-    return null
-  }
-
-  return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-[0.8rem] flex flex-row items-center font-medium error", className)}
-      {...props}
-    >
-      <Info className="icon text-destructive/70" /> {body}
-    </p>
-  )
-})
-FormMessage.displayName = "FormMessage"
 const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
@@ -162,16 +139,37 @@ const FormDescription = React.forwardRef<
   )
 })
 FormDescription.displayName = "FormDescription"
+FormLabel.displayName = "FormLabel";
+const FormMessage = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, children, ...props }, ref) => {
+  const { error, formMessageId } = useFormField();
+  const body = error ? String(error?.message) : children;
 
+  if (!body) {
+    return null;
+  }
+
+  return (
+    <p
+      ref={ref}
+      id={formMessageId}
+      className={cn(
+        "text-[0.8rem] flex flex-row items-center font-medium error",
+        className
+      )}
+      {...props}>
+      <Info className="icon text-destructive/70" /> {body}
+    </p>
+  );
+});
+FormMessage.displayName = "FormMessage";
 
 
 export {
-  useFormField,
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
+  Form, FormControl,
+  FormDescription, FormField, FormItem,
+  FormLabel, FormMessage, useFormField
 }
+

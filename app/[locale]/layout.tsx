@@ -74,7 +74,7 @@ export default async function LocaleLayout(props: Props) {
               />
               <Toaster
                 richColors={true}
-                position="top-right"
+                position="bottom-right"
                 closeButton={true}
               />
               {appSettings.data.activeTopLoader && <TopLoader />}

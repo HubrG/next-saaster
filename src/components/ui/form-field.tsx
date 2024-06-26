@@ -53,7 +53,7 @@ export const Field = ({
         <>
           <FormItem className={className}>
             <FormLabel className={cn({ "!hidden": !displayLabel })}>
-              {label} <FormMessage />
+              {label}
             </FormLabel>
             <FormControl>
               {type === "textarea" ? (
@@ -97,6 +97,7 @@ export const Field = ({
             </FormControl>
             {children}
             <FormDescription>{description}</FormDescription>
+            <FormMessage />
           </FormItem>
         </>
       )}

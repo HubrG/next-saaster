@@ -195,7 +195,7 @@ export const AdminSaasSettings = () => {
       <SubSectionWrapper
         sectionName="Currency"
         className="col-span-12"
-        id="sub-saas-set-saas-tax"
+        id="sub-saas-set-currency"
         info="Set the currency for your SaaS business model and define the credit name.">
         <div className="grid grid-cols-12">
           {/* <div className="col-span-5">

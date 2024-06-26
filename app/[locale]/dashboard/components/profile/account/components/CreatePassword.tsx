@@ -2,16 +2,15 @@
 import { createPassword } from "@/app/[locale]/dashboard/queries/profile.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import {
+  Credenza,
+  CredenzaContent,
+  CredenzaHeader,
+  CredenzaTitle,
+  CredenzaTrigger,
+} from "@/src/components/ui/@fairysaas/credenza";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
 import { handleError } from "@/src/lib/error-handling/handleError";
@@ -29,7 +28,9 @@ type CreatePasswordProps = {
   user: iUsers;
 };
 export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
-  const t = useTranslations("Dashboard.Components.Profile.Account.Components.CreatePassword");
+  const t = useTranslations(
+    "Dashboard.Components.Profile.Account.Components.CreatePassword"
+  );
   const [isLoading, setIsLoading] = useState(false);
   const { setUserStore } = useUserStore();
   const [open, setOpen] = useState(false);
@@ -87,15 +88,15 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
   });
 
   return (
-    <Dialog open={open} defaultOpen={false} onOpenChange={setOpen}>
-      <DialogTrigger className="w-full">
+    <Credenza open={open} onOpenChange={setOpen}>
+      <CredenzaTrigger className="w-full">
         <Button className={className}>{t("title")}</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader className="flex flex-col gap-y-6">
-          <DialogTitle>{t("title")}</DialogTitle>
+      </CredenzaTrigger>
+      <CredenzaContent>
+        <CredenzaHeader className="flex flex-col gap-y-6">
+          <CredenzaTitle>{t("title")}</CredenzaTitle>
           <Goodline />
-          <DialogDescription>
+          <CredenzaContent>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -124,9 +125,9 @@ export const CreatePassword = ({ className, user }: CreatePasswordProps) => {
                 </div>
               </form>
             </Form>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+          </CredenzaContent>
+        </CredenzaHeader>
+      </CredenzaContent>
+    </Credenza>
   );
 };

@@ -4,13 +4,16 @@ type Props = {
   text: string;
   icon?: React.ReactNode;
 };
-export const UserInterfaceMainWrapper = ({ children,icon, text }: Props) => {
+
+export const UserInterfaceMainWrapper = ({ children, icon, text }: Props) => {
   return (
-    <div className="user-inteface-main">
-      <div id="headerAdminNavbar">
-        {/* <h1 className="text-4xl flex flex-row gap-x-5 items-center justify-end">{text}{icon}  </h1> */}
+    <>
+      <div className="user-inteface-main">
+        <div id="headerAdminNavbar"></div>
+        <div className="user-inteface-main-content pt-10 !w-full">
+          {children}
+        </div>
       </div>
-      <div className="user-inteface-main-content pt-10 !w-full">{children}</div>
-    </div>
+    </>
   );
 };

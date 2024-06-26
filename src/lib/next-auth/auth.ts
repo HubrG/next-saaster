@@ -41,6 +41,11 @@ export const authOptions: AuthOptions = {
           image: profile.picture,
         };
       },
+      authorization: {
+        params: {
+          prompt: "select_account", 
+        },
+      },
     }),
     Email({
       server: {

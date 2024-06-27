@@ -65,7 +65,7 @@ export function Index({ withGithub, error }: Props): JSX.Element {
     return (
       <Card className="my-card">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-4xl">{t("title")}</h1>
+          <SkeletonLoader type="card" />
         </div>
       </Card>
     );

@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "@/src/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex md:items-center justify-center whitespace-nowrap push-effect rounded-md md:text-base text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:opacity-90 disabled:opacity-50 disabled !break-words  whitespace-normal !h-auto",
+  "inline-flex md:items-center justify-center whitespace-nowrap push-effect rounded-md md:text-base text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:opacity-90 disabled:opacity-50 disabled !break-words  whitespace-normal",
   {
     variants: {
       variant: {
@@ -23,13 +23,13 @@ const buttonVariants = cva(
         link: "text-text-800 font-normal underline-offset-4 underline decoration-theming-text-200 decoration-dashed",
         tooltip: "!px-0 !mx-0",
         second:
-          "bg-theming-background-500-second dark:!text-theming-text-900-second font-bold !text-theming-text-50",
+          "bg-theming-background-500-second dark:!text-theming-text-900-second font-bold !text-theming-text-50-second",
       },
       size: {
         default: "md:h-10 h-auto px-4 py-2",
-        sm: "md:h-9  h-auto rounded-md px-3",
-        lg: "md:h-11  h-auto rounded-md px-8",
-        icon: "md:h-10  h-auto w-10",
+        sm: "md:h-9   rounded-md px-4 py-1",
+        lg: "md:h-11   rounded-md px-8",
+        icon: "md:h-10  w-10",
       },
     },
     defaultVariants: {

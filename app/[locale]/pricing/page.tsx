@@ -25,9 +25,10 @@ export default async function Pricing() {
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
-      <div className="flex flex-col gap-y-8 ">
+      <div className="flex flex-col min-h-screen justify-center gap-y-8 mx-auto self-center ">
         <h1 className="!bg-gradient2">{t("Pricing.title")}</h1>
-        <Suspense fallback={<SkeletonLoader type="page" className="mx-auto w-1/2" />}>
+        <Suspense
+          fallback={<SkeletonLoader type="page" className="mx-auto w-1/2" />}>
           {/* Display recurrence if not "Pay once" or "Metered" business model */}
           <SwitchRecurrence
           // yearlypercent_off={20}

@@ -32,7 +32,7 @@ export const UserInterfaceNavWrapper = ({ children }: Props) => {
             <Button
               variant="default"
               className="!fixed !right-0 top-[50%] w-8 !h-10 z-50  !rounded-r-none">
-              <Menu className="icon !-mr-1" />
+              <Menu className="icon !-mr-1 mt-0.5" />
             </Button>
           </SheetTrigger>
           <SheetContent className="user-interface">

@@ -244,10 +244,10 @@ div.progressToken {
 }
 /* NOTE - Button */
 .user-profile-buy-credit {
-  @apply hover:no-underline bg-primary-foreground dark:bg-theming-background-200-second dark:text-theming-text-800 hover:bg-primary-foreground/80 hover:text-white dark:hover:bg-theming-text-400 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
+  @apply hover:no-underline bg-primary-foreground dark:bg-theming-background-200 dark:text-theming-text-800 hover:bg-primary-foreground/80 hover:text-white dark:hover:bg-theming-text-400 dark:hover:text-theming-text-900 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }
 .user-profile-admin {
-  @apply hover:no-underline bg-yellow-600 dark:bg-yellow-200 text-yellow-50 dark:text-yellow-800 hover:text-yellow-100 hover:bg-yellow-700 dark:hover:bg-yellow-500 text-left pr-10  cursor-pointer mb-1 !important;
+  @apply user-profile-buy-credit !important;
 }
 .first-connection {
   @apply w-screen absolute bg-white dark:bg-theming-background-50  z-[9999999999] !important;

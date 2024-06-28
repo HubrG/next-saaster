@@ -48,12 +48,16 @@ export const PriceCardsFeaturesByCategories = () => {
       className={cn(
         { "w-4/5": plansFiltered.length <= 2 },
         { "w-full": plansFiltered.length > 2 },
-        "mx-auto"
+        "mx-auto overflow-x-auto" // Ajout de overflow-x-auto pour permettre le défilement horizontal
       )}>
-      <div className="w-full">
-        <Table className="w-full rounded-default" style={{tableLayout:"fixed"}}>
-          <TableHeader >
-            <TableRow className="!border-0" >
+      <div className="w-full min-w-[600px]">
+        {" "}
+        {/* Ajout de min-width pour forcer le défilement */}
+        <Table
+          className="w-full rounded-default"
+          style={{ tableLayout: "fixed" }}>
+          <TableHeader>
+            <TableRow className="!border-0">
               <TableHead></TableHead>
               {plansFiltered.map((plan) => (
                 <TableHead key={plan.id} className="pb-5">
@@ -69,7 +73,7 @@ export const PriceCardsFeaturesByCategories = () => {
                       <PriceCardContactUsButton className="mt-7 w-full z-[99999999]" />
                     ) : (
                       <PriceCardBuyButton
-                        className="mt-7 w-full z-[99999999]"
+                        className="mt-7 w-full z-[999]"
                         plan={plan}
                       />
                     )}

@@ -87,5 +87,5 @@ export const createCheckoutSession = async ({
     success_url: `${process.env.NEXT_URI}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_URI}/pricing`,
   });
-  return session.url;
+  return session.url ?? undefined;
 };

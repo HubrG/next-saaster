@@ -103,11 +103,11 @@ export const SkeletonLoader = ({
         <DivFullScreenGradient gradient="gradient-to-r" />
         <div
           className={`flex items-center space-x-4 mt-16 w-full justify-center mx-auto ${className}`}>
-          <Skeleton className="h-24 w-1/3  rounded-default" />
-          <div className="space-y-2 w-2/3">
-            <Skeleton className="h-4 w-12/12 rounded-default" />
-            <Skeleton className="h-4 w-10/12 rounded-default" />
-            <Skeleton className="h-4 w-11/12 rounded-default" />
+          <Skeleton className="h-24 !w-1/3  rounded-default" />
+          <div className="space-y-2 !w-2/3">
+            <Skeleton className="h-4 !w-12/12 rounded-default" />
+            <Skeleton className="h-4 !w-10/12 rounded-default" />
+            <Skeleton className="h-4 !w-11/12 rounded-default" />
             <Skeleton className="h-4 w-12/12 rounded-default" />
           </div>
         </div>

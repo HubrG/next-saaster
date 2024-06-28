@@ -56,8 +56,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
       setAppSettings(memoizedSettings.appSettings);
       setSaasSettings(memoizedSettings.saasSettings);
       if (memoizedSettings.appSettings?.activeInternationalization) {
-        await fetchInternationalizations();
-        await fetchDictionaries();
+        await Promise.all([fetchInternationalizations(), fetchDictionaries()]);
       }
 
       if (session?.user && user?.role !== "USER") {
@@ -85,11 +84,14 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     session,
     user,
     fetchInternationalizations,
+    fetchDictionaries,
     fetchSaasStripeCoupons,
     fetchSaasFeaturesCategories,
     fetchSaasFeatures,
     fetchBlogPosts,
+    fetchBlogCategories,
     fetchSaasPlan,
+    fetchSaasPlanToFeature,
   ]);
 
   useEffect(() => {

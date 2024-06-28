@@ -2,7 +2,7 @@
 import { Button } from "@/src/components/ui/button";
 
 export const HeroSection = () => (
-  <div className="hero  text-white text-center py-20">
+  <div className="hero   text-center py-20">
     <h1 className="text-5xl font-bold mb-4">
       Accélérez votre développement avec notre SaaS Boilerplate
     </h1>

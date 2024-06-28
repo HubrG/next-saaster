@@ -53,6 +53,10 @@ export const PriceCardBuyButton = ({
         isYearly,
         seatQuantity,
       });
+      if (stripeCheckout === undefined) {
+        setIsLoading(false);
+        return;
+      }
     }
     setIsLoading(false);
     if (!stripeCheckout) return;

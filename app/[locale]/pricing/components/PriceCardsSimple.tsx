@@ -4,9 +4,11 @@ import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
 import { cn } from "@/src/lib/utils";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { memo, useEffect, useState } from "react";
-import { PriceCard } from "./PriceCard";
+import { Suspense, lazy, memo, useEffect, useState } from "react";
 
+const PriceCard = lazy(() =>
+  import("./PriceCard").then((module) => ({ default: module.PriceCard }))
+);
 const MemoizedPriceCard = memo(PriceCard);
 
 export const PriceCardsSimple = () => {
@@ -36,21 +38,24 @@ export const PriceCardsSimple = () => {
   }
 
   return (
-    <div
-      className={cn(
-        " justify-evenly grid mt-10  w-full max-sm:px-5  md:mx-auto max-sm:mx-2 gap-10",
-        { "md:grid-cols-1 lg:w-2/6": plansFiltered.length === 1 },
-        { "md:grid-cols-2 lg:w-4/6": plansFiltered.length === 2 },
-        { "md:grid-cols-3 lg:w-5/6": plansFiltered.length === 3 },
-        {
-          "xl:grid-cols-4 md:grid-cols-2 lg:w-4/4": plansFiltered.length === 4,
-        }
-      )}>
-      {plansFiltered.map((plan) => (
-        <div key={plan.id} className="w-full">
-          <MemoizedPriceCard plan={plan} />
-        </div>
-      ))}
-    </div>
+    <Suspense fallback={<SkeletonLoader type="card" />}>
+      <div
+        className={cn(
+          " justify-evenly grid mt-10  w-full max-sm:px-5  md:mx-auto max-sm:mx-2 gap-10",
+          { "md:grid-cols-1 lg:w-2/6": plansFiltered.length === 1 },
+          { "md:grid-cols-2 lg:w-4/6": plansFiltered.length === 2 },
+          { "md:grid-cols-3 lg:w-5/6": plansFiltered.length === 3 },
+          {
+            "xl:grid-cols-4 md:grid-cols-2 lg:w-4/4":
+              plansFiltered.length === 4,
+          }
+        )}>
+        {plansFiltered.map((plan) => (
+          <div key={plan.id} className="w-full">
+            <MemoizedPriceCard plan={plan} />
+          </div>
+        ))}
+      </div>
+    </Suspense>
   );
 };

@@ -39,27 +39,27 @@ export const AddCoupon = () => {
   const [percentOrFixed, setPercentOrFixed] = useState<"percent" | "fixed">(
     "percent"
   );
- const handleInputChange = (
-   e: React.ChangeEvent<HTMLInputElement>,
-   key: string
- ) => {
-   const value = e.target.value;
-   let newValue;
-   if (
-     [
-       "amount_off",
-       "percent_off",
-       "duration_in_months",
-       "max_redemptions",
-     ].includes(key)
-   ) {
-     newValue = !isNaN(parseInt(value, 10)) ? parseInt(value, 10) : null;
-   } else {
-     newValue = value;
-   }
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) => {
+    const value = e.target.value;
+    let newValue;
+    if (
+      [
+        "amount_off",
+        "percent_off",
+        "duration_in_months",
+        "max_redemptions",
+      ].includes(key)
+    ) {
+      newValue = !isNaN(parseInt(value, 10)) ? parseInt(value, 10) : null;
+    } else {
+      newValue = value;
+    }
 
-   setCouponState({ ...couponState, [key]: newValue });
- };
+    setCouponState({ ...couponState, [key]: newValue });
+  };
   const handleSelectChange = (value: string, key: string) => {
     if (value !== "repeating") {
       setCouponState({ ...couponState, [key]: value, duration_in_months: 0 });
@@ -125,8 +125,11 @@ export const AddCoupon = () => {
 
   return (
     <>
-      <div className="grid grid-cols-13 w-full gap-5 p-2 mt-5">
-        <div className="col-span-2">
+      <h2 className="text-base font-semibold mt-5 text-left opacity-90">
+        Add a coupon
+      </h2>
+      <div className="md:grid md:grid-cols-13 grid grid-cols-2 w-full gap-5 p-2 mt-5">
+        <div className="md:col-span-2 col-span-1">
           <div className="inputs">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -137,7 +140,7 @@ export const AddCoupon = () => {
             />
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="md:col-span-3 col-span-1">
           <div className="inputs">
             <div className="flex flex-row justify-evenly">
               <Label
@@ -188,7 +191,7 @@ export const AddCoupon = () => {
             )}
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="md:col-span-3 col-span-1">
           <div className="inputs">
             <Label htmlFor="duration">Duration</Label>
             <Select
@@ -214,7 +217,7 @@ export const AddCoupon = () => {
             {
               "opacity-50": couponState.duration !== "repeating",
             },
-            "col-span-2"
+            "md:col-span-2 col-span-1"
           )}>
           <div className="inputs">
             <Label htmlFor="duration_in_months">...in months</Label>
@@ -227,9 +230,12 @@ export const AddCoupon = () => {
             />
           </div>
         </div>
-        <div className={cn("col-span-2")}>
-          <div className="inputs">
-            <Label htmlFor="max_redemptions">Maximum usage</Label>
+        <div
+          className={cn(
+            "md:col-span-2 col-span-1 !items-center !justify-center"
+          )}>
+          <div className="inputs w-full">
+            <Label htmlFor="max_redemptions ">Max usage</Label>
             <Input
               type="number"
               name="max_redemptions"
@@ -252,7 +258,10 @@ export const AddCoupon = () => {
               {loading ? (
                 <SimpleLoader />
               ) : (
-                <PlusCircle className="text-2xl" size={24} />
+                <>
+                  <PlusCircle className="md:block hidden text-2xl" size={24} />
+                  <span className="md:hidden block">Add</span>
+                </>
               )}
             </Button>
           </AddButtonWrapper>

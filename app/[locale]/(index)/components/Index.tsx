@@ -8,10 +8,14 @@ export default async function HomePage() {
     <>
       {/* <HeroParallax products={[]} />
       <BackgroundBeamsDemo /> */}
-      <HeroSection />
+      <div>
+        <HeroSection />
+      </div>
       <FeaturesSection />
-      <ContainerScroll users={[]} titleComponent={<h2>Nos Membres</h2>} />
+        <ContainerScroll users={[]} titleComponent={<h2>Nos Membres</h2>} />
+      <div className="full-div">
       <TestimonialsSection />
+      </div>
     </>
   );
 }

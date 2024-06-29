@@ -2,15 +2,15 @@
 import { MenuItem } from "@/src/components/ui/@fairysaas/user-interface/MenuItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
-  BarChart2,
-  Building2,
+  BarChart2, Bell, Building2,
   CircleUser,
   Cog,
   CreditCard,
   Mail,
-  UserRoundCog,
+  UserRoundCog
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -18,8 +18,9 @@ import { useState } from "react";
 export const DashboardNavbar = () => {
   const t = useTranslations("Dashboard.Components.Navbar");
   //
-  
+
   const { saasSettings } = useSaasSettingsStore();
+  const { appSettings } = useAppSettingsStore();
   const [activeSection, setActiveSection] = useState("");
   const [activeSubSection, setActiveSubSection] = useState("");
   const updateActiveItem = (id: string, isSubSection = false) => {
@@ -99,6 +100,15 @@ export const DashboardNavbar = () => {
             sectionObserve="Emails"
             handleScroll={handleScroll}
           />
+          {appSettings.activeNotification && (
+            <MenuItem
+              activeSection={activeSection}
+              icon={<Bell className="icon" />}
+              text={t("links.notification")}
+              sectionObserve="Notifications"
+              handleScroll={handleScroll}
+            />
+          )}
         </ul>
       </div>
     </>

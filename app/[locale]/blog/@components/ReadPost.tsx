@@ -13,11 +13,12 @@ interface BlogPostProps {
 }
 
 export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
+
   return (
     <>
       {blogPost.content && blogPost.title ? (
         <>
-          <Suspense fallback={<p className="text-center">...</p>}>
+          <Suspense>
             <BlogBreadCrumb post={blogPost} />
           </Suspense>
           <Suspense fallback={<SkeletonLoader type="card" />}>
@@ -77,4 +78,6 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
       )}
     </>
   );
+
+
 };

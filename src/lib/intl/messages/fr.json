@@ -18,7 +18,8 @@
           "billing": "Abonnement",
           "usage": "Utilisation",
           "purchases": "Achats",
-          "emails": "E-mails"
+          "emails": "E-mails",
+          "notification": "Notifications"
         }
       },
       "Profile": {

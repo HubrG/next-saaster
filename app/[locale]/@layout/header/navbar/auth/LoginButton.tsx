@@ -15,11 +15,11 @@ export const LoginButton = () => {
   };
 
   return (
-    <Button variant="ghost" onClick={(e) => startTransition(handleLogin)}>
+    <Button variant="ghost" className="flex-row-center gap-2" onClick={(e) => startTransition(handleLogin)}>
       {isPending ? (
         <SimpleLoader className="" />
       ) : (
-        <LogIn className="mr-2 h-4 w-4" />
+        <LogIn className="h-4 w-4" />
       )}
       <span className="lg:block md:hidden block font-bold">{t("login")}</span>
     </Button>

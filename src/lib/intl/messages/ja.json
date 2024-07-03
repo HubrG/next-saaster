@@ -193,7 +193,14 @@
           "yearly": "アン",
           "you-save": "このサブスクリプションで {varIntlSave} を保存します。",
           "your-plan": "サブスクリプション",
-          "your-trial-ends-at": "試用期間の終了日"
+          "your-trial-ends-at": "試用期間の終了日",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "ダウングレードまたはアップグレード"
+            },
+            "monthly": "毎月",
+            "yearly": "年間"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -415,7 +422,10 @@
       "PriceCardBuyButton": {
         "buyNow": "購入",
         "startTrial": "{varIntlTrialDays}日間試してみる。",
-        "subscribeNow": "サブスクライブ"
+        "subscribeNow": "サブスクライブ",
+        "currentPlan": "現在の計画",
+        "updateSuccess": "サブスクリプションが正常に更新されました。",
+        "upgrade": "選択する"
       },
       "PriceCardContactUsButton": {
         "contact-us": "お問い合わせ"

@@ -193,7 +193,14 @@
           "yearly": "сайт",
           "you-save": "Вы экономите {varIntlSave} на этой подписке",
           "your-plan": "Ваша подписка",
-          "your-trial-ends-at": "Ваш пробный период заканчивается"
+          "your-trial-ends-at": "Ваш пробный период заканчивается",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Понизить или обновить"
+            },
+            "monthly": "Ежемесячно",
+            "yearly": "Ежегодный"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -415,7 +422,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Купить",
         "startTrial": "Попробуйте в течение {varIntlTrialDays} дней",
-        "subscribeNow": "Подписаться"
+        "subscribeNow": "Подписаться",
+        "currentPlan": "Текущий план",
+        "updateSuccess": "Ваша подписка успешно обновлена!",
+        "upgrade": "Выбирать"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Свяжитесь с нами"

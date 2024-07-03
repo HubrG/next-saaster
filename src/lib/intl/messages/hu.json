@@ -214,7 +214,14 @@
           "yearly": "egy",
           "you-save": "Mentés {varIntlSave} ezen az előfizetésen",
           "your-plan": "Az Ön előfizetése",
-          "your-trial-ends-at": "A próbaidőszak a következő időpontban ér véget"
+          "your-trial-ends-at": "A próbaidőszak a következő időpontban ér véget",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Váltson vissza vagy frissítsen"
+            },
+            "monthly": "Havi",
+            "yearly": "Évi"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Vásároljon",
         "startTrial": "Próbálkozzon {varIntlTrialDays} napokig",
-        "subscribeNow": "Feliratkozás"
+        "subscribeNow": "Feliratkozás",
+        "currentPlan": "Aktuális terv",
+        "updateSuccess": "Az előfizetésed sikeresen frissítve!",
+        "upgrade": "Válassza ki"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Kapcsolatfelvétel"

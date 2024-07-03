@@ -214,7 +214,14 @@
           "yearly": "년도",
           "you-save": "이 구독에 대해 {varIntlSave} 비용이 절약됩니다.",
           "your-plan": "귀하의 구독",
-          "your-trial-ends-at": "평가판 기간은 다음 날짜에 종료됩니다."
+          "your-trial-ends-at": "평가판 기간은 다음 날짜에 종료됩니다.",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "다운그레이드 또는 업그레이드"
+            },
+            "monthly": "월간 간행물",
+            "yearly": "연간"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "구입하다",
         "startTrial": "{varIntlTrialDays}일 동안 시도해 보세요.",
-        "subscribeNow": "구독하다"
+        "subscribeNow": "구독하다",
+        "currentPlan": "현재 계획",
+        "updateSuccess": "구독이 성공적으로 업데이트되었습니다!",
+        "upgrade": "선택하다"
       },
       "PriceCardContactUsButton": {
         "contact-us": "문의하기"

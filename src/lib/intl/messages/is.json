@@ -214,7 +214,14 @@
           "yearly": "ári",
           "you-save": "Þú sparar {varIntlSave} í þessari áskrift",
           "your-plan": "Áskriftin þín",
-          "your-trial-ends-at": "Reynslutímabilinu lýkur kl"
+          "your-trial-ends-at": "Reynslutímabilinu lýkur kl",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Niðurfærsla eða uppfærsla"
+            },
+            "monthly": "Mánaðarlega",
+            "yearly": "Árlegt"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Kaupa",
         "startTrial": "Reyndu í {varIntlTrialDays} daga",
-        "subscribeNow": "Gerast áskrifandi"
+        "subscribeNow": "Gerast áskrifandi",
+        "currentPlan": "Núverandi áætlun",
+        "updateSuccess": "Áskriftin þín hefur verið uppfærð!",
+        "upgrade": "Veldu"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Hafðu samband við okkur"

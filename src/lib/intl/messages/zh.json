@@ -193,7 +193,14 @@
           "yearly": "一个",
           "you-save": "您为该订阅保存了 {varIntlSave} 数据",
           "your-plan": "您的订阅",
-          "your-trial-ends-at": "试用期于"
+          "your-trial-ends-at": "试用期于",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "降级或升级"
+            },
+            "monthly": "每月",
+            "yearly": "年度的"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -415,7 +422,10 @@
       "PriceCardBuyButton": {
         "buyNow": "购买",
         "startTrial": "试用{varIntlTrialDays}天数",
-        "subscribeNow": "订阅"
+        "subscribeNow": "订阅",
+        "currentPlan": "目前计划",
+        "updateSuccess": "您的订阅已成功更新！",
+        "upgrade": "选择"
       },
       "PriceCardContactUsButton": {
         "contact-us": "联系我们"

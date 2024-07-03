@@ -214,7 +214,14 @@
           "yearly": "sebuah",
           "you-save": "Anda menyimpan {varIntlSave} pada langganan ini",
           "your-plan": "Langganan Anda",
-          "your-trial-ends-at": "Masa uji coba Anda berakhir pada"
+          "your-trial-ends-at": "Masa uji coba Anda berakhir pada",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Turunkan atau tingkatkan"
+            },
+            "monthly": "Bulanan",
+            "yearly": "Tahunan"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Beli",
         "startTrial": "Coba untuk {varIntlTrialDays} hari",
-        "subscribeNow": "Berlangganan"
+        "subscribeNow": "Berlangganan",
+        "currentPlan": "Rencana saat ini",
+        "updateSuccess": "Langganan Anda telah berhasil diperbarui!",
+        "upgrade": "Pilih"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Hubungi kami"

@@ -193,7 +193,14 @@
           "yearly": "um",
           "you-save": "Poupa {varIntlSave} nesta subscrição",
           "your-plan": "A sua subscrição",
-          "your-trial-ends-at": "O período experimental termina em"
+          "your-trial-ends-at": "O período experimental termina em",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Downgrade ou atualização"
+            },
+            "monthly": "Por mês",
+            "yearly": "Anual"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -415,7 +422,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Comprar",
         "startTrial": "Tentar durante {varIntlTrialDays} dias",
-        "subscribeNow": "Subscrever"
+        "subscribeNow": "Subscrever",
+        "currentPlan": "Plano atual",
+        "updateSuccess": "Sua assinatura foi atualizada com sucesso!",
+        "upgrade": "Selecione"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Contactar-nos"

@@ -186,7 +186,14 @@
             "restart-subscription": "Your subscription will restart without additional billing."
           },
           "no-plan-subscribed-yet": "You haven't subscribed to any plan",
-          "subscribe-now": "I want to subscribe!"
+          "subscribe-now": "I want to subscribe!",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Downgrade or upgrade"
+            },
+            "monthly": "Monthly",
+            "yearly": "Annual"
+          }
         },
         "Purchases": {
           "title": "Purchases",
@@ -468,7 +475,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Buy now",
         "startTrial": "Try for {varIntlTrialDays} days",
-        "subscribeNow": "Subscribe"
+        "subscribeNow": "Subscribe",
+        "currentPlan": "Current plan",
+        "updateSuccess": "Your subscription has been successfully updated!",
+        "upgrade": "Select"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Contact us"

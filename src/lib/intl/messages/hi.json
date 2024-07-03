@@ -33,7 +33,14 @@
           "your-plan": "आपकी सदस्यता",
           "your-trial-ends-at": "आपकी परीक्षण अवधि समाप्त हो रही है",
           "according-to-use": "उपयोग पर निर्भर करता है",
-          "billed-each": "प्रत्येक को बिल दिया गया"
+          "billed-each": "प्रत्येक को बिल दिया गया",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "डाउनग्रेड या अपग्रेड करें"
+            },
+            "monthly": "महीने के",
+            "yearly": "वार्षिक"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -324,7 +331,10 @@
       "PriceCardBuyButton": {
         "buyNow": "खरीदना",
         "startTrial": "{varIntlTrialDays} दिनों के लिए प्रयास करें",
-        "subscribeNow": "सदस्यता लें"
+        "subscribeNow": "सदस्यता लें",
+        "currentPlan": "वर्तमान योजना",
+        "updateSuccess": "आपकी सदस्यता सफलतापूर्वक अपडेट कर दी गई है!",
+        "upgrade": "चुनना"
       },
       "PriceCardContactUsButton": {
         "contact-us": "संपर्क करें"

@@ -214,7 +214,14 @@
           "yearly": "বছর",
           "you-save": "আপনি এই সাবস্ক্রিপশনে {varIntlSave} সংরক্ষণ করুন",
           "your-plan": "আপনার সদস্যতা",
-          "your-trial-ends-at": "আপনার ট্রায়াল সময় শেষ হয়"
+          "your-trial-ends-at": "আপনার ট্রায়াল সময় শেষ হয়",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "ডাউনগ্রেড বা আপগ্রেড করুন"
+            },
+            "monthly": "মাসিক",
+            "yearly": "বার্ষিক"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "কেনা",
         "startTrial": "{varIntlTrialDays} দিনের জন্য চেষ্টা করুন",
-        "subscribeNow": "সাবস্ক্রাইব"
+        "subscribeNow": "সাবস্ক্রাইব",
+        "currentPlan": "বর্তমান পরিকল্পনা",
+        "updateSuccess": "আপনার সদস্যতা সফলভাবে আপডেট করা হয়েছে!",
+        "upgrade": "নির্বাচন করুন"
       },
       "PriceCardContactUsButton": {
         "contact-us": "যোগাযোগ করুন"

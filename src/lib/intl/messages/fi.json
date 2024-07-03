@@ -214,7 +214,14 @@
           "yearly": "osoitteessa",
           "you-save": "Tallennat {varIntlSave} tämän tilauksen yhteydessä.",
           "your-plan": "Tilauksesi",
-          "your-trial-ends-at": "Kokeilujaksosi päättyy"
+          "your-trial-ends-at": "Kokeilujaksosi päättyy",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Päivitä tai päivitä"
+            },
+            "monthly": "Kuukausittain",
+            "yearly": "Vuosittainen"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Osta",
         "startTrial": "Kokeile {varIntlTrialDays} päivää",
-        "subscribeNow": "Tilaa"
+        "subscribeNow": "Tilaa",
+        "currentPlan": "Nykyinen suunnitelma",
+        "updateSuccess": "Tilauksesi on päivitetty onnistuneesti!",
+        "upgrade": "Valitse"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Ota yhteyttä"

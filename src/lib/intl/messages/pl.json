@@ -214,7 +214,14 @@
           "yearly": "i",
           "you-save": "Zapisujesz {varIntlSave} w tej subskrypcji",
           "your-plan": "Subskrypcja",
-          "your-trial-ends-at": "Okres próbny kończy się w dniu"
+          "your-trial-ends-at": "Okres próbny kończy się w dniu",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Zmień lub uaktualnij"
+            },
+            "monthly": "Miesięczny",
+            "yearly": "Coroczny"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Kup",
         "startTrial": "Wypróbuj przez {varIntlTrialDays} dni",
-        "subscribeNow": "Subskrybuj"
+        "subscribeNow": "Subskrybuj",
+        "currentPlan": "Obecny plan",
+        "updateSuccess": "Twoja subskrypcja została pomyślnie zaktualizowana!",
+        "upgrade": "Wybierać"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Skontaktuj się z nami"

@@ -193,7 +193,14 @@
           "yearly": "bir",
           "you-save": "Bu abonelikte {varIntlSave} kaydedersiniz",
           "your-plan": "Aboneliğiniz",
-          "your-trial-ends-at": "Deneme süreniz şu tarihte sona erer"
+          "your-trial-ends-at": "Deneme süreniz şu tarihte sona erer",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Sürüm düşürme veya yükseltme"
+            },
+            "monthly": "Aylık",
+            "yearly": "Yıllık"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -415,7 +422,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Satın Al",
         "startTrial": "{varIntlTrialDays} gün boyunca deneyin",
-        "subscribeNow": "Abone Olun"
+        "subscribeNow": "Abone Olun",
+        "currentPlan": "Mevcut plan",
+        "updateSuccess": "Aboneliğiniz başarıyla güncellendi!",
+        "upgrade": "Seçme"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Bize ulaşın"

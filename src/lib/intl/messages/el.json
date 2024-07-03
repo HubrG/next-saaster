@@ -214,7 +214,14 @@
           "yearly": "ένα",
           "you-save": "Αποθηκεύετε {varIntlSave} σε αυτή τη συνδρομή",
           "your-plan": "Η συνδρομή σας",
-          "your-trial-ends-at": "Η δοκιμαστική σας περίοδος λήγει στις"
+          "your-trial-ends-at": "Η δοκιμαστική σας περίοδος λήγει στις",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Υποβάθμιση ή αναβάθμιση"
+            },
+            "monthly": "Μηνιαίο",
+            "yearly": "Ετήσιο"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Αγοράστε",
         "startTrial": "Δοκιμάστε για {varIntlTrialDays} ημέρες",
-        "subscribeNow": "Εγγραφείτε στο"
+        "subscribeNow": "Εγγραφείτε στο",
+        "currentPlan": "Τρέχον σχέδιο",
+        "updateSuccess": "Η συνδρομή σας ενημερώθηκε με επιτυχία!",
+        "upgrade": "Επιλέγω"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Επικοινωνήστε μαζί μας"

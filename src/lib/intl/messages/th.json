@@ -214,7 +214,14 @@
           "yearly": "ปี",
           "you-save": "คุณประหยัด {varIntlSave} ในการสมัครรับข้อมูลนี้",
           "your-plan": "การสมัครของคุณ",
-          "your-trial-ends-at": "ระยะเวลาทดลองใช้ของคุณสิ้นสุดในวันที่"
+          "your-trial-ends-at": "ระยะเวลาทดลองใช้ของคุณสิ้นสุดในวันที่",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "ดาวน์เกรดหรืออัปเกรด"
+            },
+            "monthly": "รายเดือน",
+            "yearly": "ประจำปี"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "ซื้อ",
         "startTrial": "ลองเป็นเวลา {varIntlTrialDays} วัน",
-        "subscribeNow": "ติดตาม"
+        "subscribeNow": "ติดตาม",
+        "currentPlan": "แผนปัจจุบัน",
+        "updateSuccess": "การสมัครของคุณได้รับการอัปเดตเรียบร้อยแล้ว!",
+        "upgrade": "เลือก"
       },
       "PriceCardContactUsButton": {
         "contact-us": "ติดต่อเรา"

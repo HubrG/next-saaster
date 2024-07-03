@@ -214,7 +214,14 @@
           "yearly": "år",
           "you-save": "Du sparer {varIntlSave} på dette abonnementet",
           "your-plan": "Ditt abonnement",
-          "your-trial-ends-at": "Prøveperioden din avsluttes"
+          "your-trial-ends-at": "Prøveperioden din avsluttes",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Nedgrader eller oppgrader"
+            },
+            "monthly": "Månedlig",
+            "yearly": "Årlig"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Kjøpe",
         "startTrial": "Prøv i {varIntlTrialDays} dager",
-        "subscribeNow": "Abonnere"
+        "subscribeNow": "Abonnere",
+        "currentPlan": "Gjeldende plan",
+        "updateSuccess": "Abonnementet ditt har blitt oppdatert!",
+        "upgrade": "Plukke ut"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Kontakt oss"

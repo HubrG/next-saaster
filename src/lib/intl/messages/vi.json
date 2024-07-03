@@ -214,7 +214,14 @@
           "yearly": "năm",
           "you-save": "Bạn tiết kiệm được {varIntlSave} cho gói đăng ký này",
           "your-plan": "Đăng ký của bạn",
-          "your-trial-ends-at": "Thời gian dùng thử của bạn kết thúc vào"
+          "your-trial-ends-at": "Thời gian dùng thử của bạn kết thúc vào",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Hạ cấp hoặc nâng cấp"
+            },
+            "monthly": "hàng tháng",
+            "yearly": "Hàng năm"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -475,7 +482,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Mua",
         "startTrial": "Dùng thử trong {varIntlTrialDays} ngày",
-        "subscribeNow": "Đặt mua"
+        "subscribeNow": "Đặt mua",
+        "currentPlan": "Kế hoạch hiện tại",
+        "updateSuccess": "Đăng ký của bạn đã được cập nhật thành công!",
+        "upgrade": "Lựa chọn"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Liên hệ chúng tôi"

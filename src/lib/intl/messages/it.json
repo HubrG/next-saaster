@@ -193,7 +193,14 @@
           "yearly": "un",
           "you-save": "Si risparmia {varIntlSave} su questo abbonamento",
           "your-plan": "Il vostro abbonamento",
-          "your-trial-ends-at": "Il periodo di prova termina il"
+          "your-trial-ends-at": "Il periodo di prova termina il",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Downgrade o aggiornamento"
+            },
+            "monthly": "Mensile",
+            "yearly": "Annuale"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -415,7 +422,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Acquista",
         "startTrial": "Prova per {varIntlTrialDays} giorni",
-        "subscribeNow": "Abbonarsi"
+        "subscribeNow": "Abbonarsi",
+        "currentPlan": "Piano attuale",
+        "updateSuccess": "Il tuo abbonamento è stato aggiornato con successo!",
+        "upgrade": "Selezionare"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Contattateci"

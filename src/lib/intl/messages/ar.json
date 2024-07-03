@@ -193,7 +193,14 @@
           "yearly": "أن",
           "you-save": "يمكنك حفظ {varIntlSave} في هذا الاشتراك",
           "your-plan": "اشتراكك",
-          "your-trial-ends-at": "تنتهي الفترة التجريبية في"
+          "your-trial-ends-at": "تنتهي الفترة التجريبية في",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "الرجوع إلى إصدار أقدم أو الترقية"
+            },
+            "monthly": "شهريا",
+            "yearly": "سنوي"
+          }
         },
         "Emails": {
           "SwitchNewsletter": {
@@ -415,7 +422,10 @@
       "PriceCardBuyButton": {
         "buyNow": "اشترِ",
         "startTrial": "جرب أيام {varIntlTrialDays} الأيام",
-        "subscribeNow": "اشتراك"
+        "subscribeNow": "اشتراك",
+        "currentPlan": "الخطة الحالية",
+        "updateSuccess": "لقد تم تحديث اشتراكك بنجاح!",
+        "upgrade": "يختار"
       },
       "PriceCardContactUsButton": {
         "contact-us": "اتصل بنا"

@@ -428,7 +428,7 @@ export const pathnames = {
     vi: "/admin/blog/edit/[id]/[slug]",
   },
 
-  "[...rest]": "[...rest]",
+  "[[...rest]]": "[[...rest]]",
 } satisfies Pathnames<typeof locales>;
 
 export const { Link, redirect, usePathname, useRouter, getPathname } =

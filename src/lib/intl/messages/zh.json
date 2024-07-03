@@ -100,7 +100,8 @@
           "organization": "组织结构",
           "profile": "简介",
           "purchases": "采购",
-          "usage": "使用"
+          "usage": "使用",
+          "notification": "通知"
         },
         "title": "我的账户"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "选择学分数量",
         "discount-applied": "适用折扣",
-        "discount-off": "健康"
+        "discount-off": "减少"
       }
     }
   },

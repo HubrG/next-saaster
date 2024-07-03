@@ -100,7 +100,8 @@
           "organization": "Organisation",
           "profile": "Profil",
           "purchases": "Einkaufen",
-          "usage": "Verwendung"
+          "usage": "Verwendung",
+          "notification": "Benachrichtigungen"
         },
         "title": "Mein Konto"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Wählen Sie die Anzahl der Credits",
         "discount-applied": "Rabatt angewendet",
-        "discount-off": "Fitness"
+        "discount-off": "Reduzierung von"
       }
     }
   },

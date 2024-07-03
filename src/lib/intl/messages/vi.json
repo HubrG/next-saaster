@@ -121,7 +121,8 @@
           "organization": "Tổ chức",
           "profile": "Hồ sơ",
           "purchases": "Mua hàng",
-          "usage": "Sử dụng"
+          "usage": "Sử dụng",
+          "notification": "Thông báo"
         },
         "title": "Tài khoản của tôi"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Chọn số tín chỉ",
         "discount-applied": "Áp dụng giảm giá",
-        "discount-off": "Sự thích hợp"
+        "discount-off": "Giảm bớt"
       }
     }
   },

@@ -2,7 +2,14 @@
 import { updatePassword } from "@/app/[locale]/dashboard/queries/profile.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { Credenza, CredenzaContent, CredenzaDescription, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "@/src/components/ui/@fairysaas/credenza";
+import {
+  Credenza,
+  CredenzaContent,
+  CredenzaDescription,
+  CredenzaHeader,
+  CredenzaTitle,
+  CredenzaTrigger,
+} from "@/src/components/ui/@fairysaas/credenza";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
@@ -94,7 +101,7 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
   });
 
   return (
-    <Credenza open={open}  onOpenChange={setOpen}>
+    <Credenza open={open} onOpenChange={setOpen}>
       <CredenzaTrigger>
         <span className={`${className} flex flex-row mt-5`}>
           <LockKeyhole className="icon mt-1" /> {t("title")}
@@ -118,7 +125,7 @@ export const UpdatePassword = ({ className, user }: UpdatePasswordProps) => {
                       name="oldPassword"
                       form={form}
                     />
-                    <ForgotPassword  user={user} className="mb-1" />
+                    <ForgotPassword user={user} className="mb-1" />
                   </div>
                   <Field
                     type="password"

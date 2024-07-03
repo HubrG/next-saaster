@@ -156,6 +156,28 @@ export async function POST(req: NextRequest) {
           { error: handleError(upSub).message },
           { status: 500 }
         );
+      let userIi = await getUserByCustomerId({
+        customerId: upsubscription.customer as string,
+        stripeSignature: secret,
+      });
+      const uapUserSub = await updateUserSubscription({
+        stripeSignature: secret ?? "",
+        data: {
+          isActive: undefined,
+          creditRemaining: parseInt(
+            upSub.data?.success?.price?.productRelation?.PlanRelation?.creditAllouedByMonth?.toString() ??
+              "0"
+          ) as number,
+          userId: userIi.data?.success?.id as string,
+          subscriptionId: upsubscription.id as string,
+        },
+      });
+      if (handleError(uapUserSub).error)
+        return NextResponse.json(
+          { error: handleError(uapUserSub).message },
+          { status: 500 }
+        );
+      
       return NextResponse.json({ status: 200 });
     // NOTE : Subscription deleted
     case "customer.subscription.deleted":
@@ -256,7 +278,7 @@ export async function POST(req: NextRequest) {
 
       const userId = await getUserByCustomerId({
         customerId: paymentIntent.customer as string,
-        stripeSignature: secret ?? ""
+        stripeSignature: secret ?? "",
       });
       if (handleError(userId).error)
         return NextResponse.json(
@@ -277,7 +299,10 @@ export async function POST(req: NextRequest) {
         },
       });
       if (handleError(createPaymentIntent).error) {
-        console.error("Error payment intent succeeded :", handleError(createPaymentIntent).message);
+        console.error(
+          "Error payment intent succeeded :",
+          handleError(createPaymentIntent).message
+        );
         return NextResponse.json(
           { error: handleError(createPaymentIntent).message },
           { status: 500 }

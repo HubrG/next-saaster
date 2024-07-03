@@ -11,7 +11,10 @@ const PriceCard = lazy(() =>
 );
 const MemoizedPriceCard = memo(PriceCard);
 
-export const PriceCardsSimple = () => {
+type PriceCardsSimpleProps = {
+  className?: string;
+};
+export const PriceCardsSimple = ({className} : PriceCardsSimpleProps) => {
   const { saasSettings } = useSaasSettingsStore();
   const { saasPlans, isPlanStoreLoading } = useSaasPlansStore();
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +51,8 @@ export const PriceCardsSimple = () => {
           {
             "xl:grid-cols-4 md:grid-cols-2 lg:w-4/4":
               plansFiltered.length === 4,
-          }
+          },
+          className
         )}>
         {plansFiltered.map((plan) => (
           <div key={plan.id} className="w-full">

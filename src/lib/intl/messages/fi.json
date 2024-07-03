@@ -121,7 +121,8 @@
           "organization": "Organisaatio",
           "profile": "Profiili",
           "purchases": "Ostaminen",
-          "usage": "Käytä"
+          "usage": "Käytä",
+          "notification": "Ilmoitukset"
         },
         "title": "Tilini"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Valitse opintopisteiden määrä",
         "discount-applied": "Alennus voimassa",
-        "discount-off": "Fitness"
+        "discount-off": "Vähentäminen"
       }
     }
   },

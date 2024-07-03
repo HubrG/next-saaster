@@ -25,14 +25,14 @@ export default async function Pricing() {
   return (
     <>
       <DivFullScreenGradient gradient="gradient-to-tl" />
-      <div className="flex flex-col min-h-screen justify-center gap-y-8 mx-auto self-center ">
+      <div className="flex flex-col  gap-y-8 mx-auto self-center ">
         <h1 className="!bg-gradient2">{t("Pricing.title")}</h1>
         <Suspense
           fallback={
             <div className="grid grid-cols-3  items-center gap-10">
               <SkeletonLoader type="card" className="!h-60" />
-              <SkeletonLoader type="card" className="!h-60"  />
-              <SkeletonLoader type="card" className="!h-60"  />
+              <SkeletonLoader type="card" className="!h-60" />
+              <SkeletonLoader type="card" className="!h-60" />
             </div>
           }>
           {/* Display recurrence if not "Pay once" or "Metered" business model */}

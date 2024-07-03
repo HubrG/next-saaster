@@ -100,7 +100,8 @@
           "organization": "Организация",
           "profile": "Профиль",
           "purchases": "Закупки",
-          "usage": "Используйте"
+          "usage": "Используйте",
+          "notification": "Уведомления"
         },
         "title": "Мой счет"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Выберите количество кредитов",
         "discount-applied": "Скидка применена",
-        "discount-off": "Фитнес"
+        "discount-off": "Сокращение"
       }
     }
   },

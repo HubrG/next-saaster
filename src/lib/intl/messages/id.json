@@ -121,7 +121,8 @@
           "organization": "Organisasi",
           "profile": "Profil",
           "purchases": "Pembelian",
-          "usage": "Gunakan"
+          "usage": "Gunakan",
+          "notification": "Pemberitahuan"
         },
         "title": "Akun saya"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Pilih jumlah kredit",
         "discount-applied": "Diskon diterapkan",
-        "discount-off": "kebugaran"
+        "discount-off": "Pengurangan"
       }
     }
   },

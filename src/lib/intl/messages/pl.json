@@ -121,7 +121,8 @@
           "organization": "Organizacja",
           "profile": "Profil",
           "purchases": "Zakupy",
-          "usage": "Użycie"
+          "usage": "Użycie",
+          "notification": "Powiadomienia"
         },
         "title": "Moje konto"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Wybierz liczbę kredytów",
         "discount-applied": "Zastosowano rabat",
-        "discount-off": "Zdatność"
+        "discount-off": "Redukcja"
       }
     }
   },

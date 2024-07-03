@@ -18,7 +18,8 @@
           "billing": "Subscription",
           "usage": "Usage",
           "purchases": "Purchases",
-          "emails": "Emails"
+          "emails": "Emails",
+          "notification": "Notifications"
         }
       },
       "Profile": {
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Choose the number of credits",
         "discount-applied": "Discount applied",
-        "discount-off": "Discount"
+        "discount-off": "Reduction of"
       }
     }
   },

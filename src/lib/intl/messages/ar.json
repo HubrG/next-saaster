@@ -100,7 +100,8 @@
           "organization": "المنظمة",
           "profile": "الملف الشخصي",
           "purchases": "الشراء",
-          "usage": "الاستخدام"
+          "usage": "الاستخدام",
+          "notification": "إشعارات"
         },
         "title": "حسابي"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "اختر عدد الاعتمادات",
         "discount-applied": "الخصم قد تم",
-        "discount-off": "لياقة بدنية"
+        "discount-off": "انقاص من"
       }
     }
   },

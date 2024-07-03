@@ -121,7 +121,8 @@
           "organization": "Skipulag",
           "profile": "Prófíll",
           "purchases": "Innkaup",
-          "usage": "Notaðu"
+          "usage": "Notaðu",
+          "notification": "Tilkynningar"
         },
         "title": "Minn reikningur"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Veldu fjölda eininga",
         "discount-applied": "Afsláttur sóttur",
-        "discount-off": "Líkamsrækt"
+        "discount-off": "Lækkun á"
       }
     }
   },

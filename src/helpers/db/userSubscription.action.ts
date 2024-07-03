@@ -76,6 +76,7 @@ export const updateUserSubscription = action(
             },
           },
           data: {
+            creditRemaining: data.creditRemaining,
             isActive: data.isActive,
           },
           include,

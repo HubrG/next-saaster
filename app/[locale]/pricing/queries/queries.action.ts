@@ -8,6 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
 type CreateCheckoutSessionProps = {
   planPrice: string;
   plan: iPlan;
+  si?: string | undefined;
   isYearly?: boolean | undefined;
   seatQuantity?: number | undefined;
 };
@@ -20,15 +21,17 @@ export const createCheckoutSession = async ({
   if (!planPrice || !plan) {
     throw new Error("Plan ID is required");
   }
-  console.log(planPrice)
+  console.log(planPrice);
   const metadata =
-    plan.saasType === "PAY_ONCE" ? {
-      priceId: planPrice,
-      refill:
-        plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
-          ? plan.creditAllouedByMonth
-          : 0
-    } : undefined;
+    plan.saasType === "PAY_ONCE"
+      ? {
+          priceId: planPrice,
+          refill:
+            plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
+              ? plan.creditAllouedByMonth
+              : 0,
+        }
+      : undefined;
   let subscriptionData = {};
   if (plan.trialDays && plan.trialDays > 0) {
     subscriptionData = {
@@ -48,7 +51,7 @@ export const createCheckoutSession = async ({
           plan.creditAllouedByMonth &&
           plan.creditAllouedByMonth > 0
             ? plan.creditAllouedByMonth
-            : undefined
+            : undefined,
       },
     };
   }
@@ -81,11 +84,97 @@ export const createCheckoutSession = async ({
     mode: mode,
     allow_promotion_codes: coupon ? undefined : true,
     customer: customerId,
-    metadata:  metadata,
-    subscription_data: plan.saasType !== "PAY_ONCE" ? subscriptionData : undefined,
+    metadata: metadata,
+    subscription_data:
+      plan.saasType !== "PAY_ONCE" ? subscriptionData : undefined,
     discounts: [{ coupon }],
     success_url: `${process.env.NEXT_URI}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_URI}/pricing`,
   });
   return session.url ?? undefined;
+};
+
+export const createCheckoutUpdateSession = async ({
+  planPrice,
+  plan,
+  si,
+  isYearly,
+  seatQuantity,
+  subscriptionId,
+}: CreateCheckoutSessionProps & { subscriptionId: string }) => {
+  if (!planPrice || !plan) {
+    throw new Error("Plan ID is required");
+  }
+
+  const metadata =
+    plan.saasType === "PAY_ONCE"
+      ? {
+          priceId: planPrice,
+          refill:
+            plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
+              ? plan.creditAllouedByMonth
+              : 0,
+        }
+      : undefined;
+
+  let subscriptionData = {};
+  if (plan.trialDays && plan.trialDays > 0) {
+    subscriptionData = {
+      trial_period_days: plan.trialDays,
+      metadata: {
+        creditByMonth:
+          plan.creditAllouedByMonth && plan.creditAllouedByMonth > 0
+            ? plan.creditAllouedByMonth
+            : undefined,
+      },
+    };
+  } else {
+    subscriptionData = {
+      metadata: {
+        creditByMonth:
+          plan.saasType !== "PAY_ONCE" &&
+          plan.creditAllouedByMonth &&
+          plan.creditAllouedByMonth > 0
+            ? plan.creditAllouedByMonth
+            : undefined,
+      },
+    };
+  }
+
+  const mode = plan.saasType === "PAY_ONCE" ? "payment" : "subscription";
+  let coupon;
+  if (isYearly === undefined && plan.coupons.length > 0) {
+    coupon = plan.coupons[0].couponId;
+  } else if (isYearly && plan.coupons.length > 0) {
+    coupon = plan.coupons.find((c) => c.recurrence === "yearly")?.couponId;
+  } else if (!isYearly && plan.coupons.length > 0) {
+    coupon = plan.coupons.find((c) => c.recurrence === "monthly")?.couponId;
+  } else {
+    coupon = undefined;
+  }
+
+  // const customerId = await stripeCustomerIdManager({});
+  const quantity =
+    plan.saasType === "METERED_USAGE" && !plan.isFree
+      ? undefined
+      : plan.saasType === "PER_SEAT"
+      ? seatQuantity
+      : 1;
+
+  const updatedSubscription = await stripe.subscriptions.update(
+    subscriptionId,
+    {
+      items: [
+        {
+          id: si,
+          price: planPrice,
+          quantity: quantity,
+        },
+      ],
+      metadata: metadata,
+      coupon: coupon,
+    }
+  );
+  if (!updatedSubscription) return false;
+  return true;
 };

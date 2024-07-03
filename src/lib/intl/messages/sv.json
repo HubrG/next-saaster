@@ -121,7 +121,8 @@
           "organization": "Organisation",
           "profile": "Profil",
           "purchases": "Inköp",
-          "usage": "Använda sig av"
+          "usage": "Använda sig av",
+          "notification": "Aviseringar"
         },
         "title": "Mitt konto"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Välj antal poäng",
         "discount-applied": "Rabatt tillämpas",
-        "discount-off": "Kondition"
+        "discount-off": "Reducering av"
       }
     }
   },

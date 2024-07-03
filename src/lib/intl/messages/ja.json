@@ -100,7 +100,8 @@
           "organization": "組織",
           "profile": "プロフィール",
           "purchases": "購買",
-          "usage": "用途"
+          "usage": "用途",
+          "notification": "通知"
         },
         "title": "マイアカウント"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "クレジット数を選択してください",
         "discount-applied": "割引適用",
-        "discount-off": "フィットネス"
+        "discount-off": "の削減"
       }
     }
   },

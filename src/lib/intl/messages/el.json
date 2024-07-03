@@ -121,7 +121,8 @@
           "organization": "Οργάνωση",
           "profile": "Προφίλ",
           "purchases": "Αγορές",
-          "usage": "Χρήση"
+          "usage": "Χρήση",
+          "notification": "Ειδοποιήσεις"
         },
         "title": "Ο λογαριασμός μου"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Επιλέξτε τον αριθμό των μονάδων",
         "discount-applied": "Εφαρμόστηκε έκπτωση",
-        "discount-off": "Καταλληλότητα"
+        "discount-off": "Μείωση των"
       }
     }
   },

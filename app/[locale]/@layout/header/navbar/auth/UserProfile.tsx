@@ -26,11 +26,11 @@ import { iUsers } from "@/src/types/db/iUsers";
 import { UserRole } from "@prisma/client";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { upperCase } from "lodash";
-import { AtSign, CreditCard, Crown, User } from "lucide-react";
+import { CreditCard, Crown, User } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { Tooltip } from "react-tooltip";
 import { DropdownMenuItemLogout } from "./LogoutButton";
+import { CreditLine } from "./components/CreditLine";
 
 type UserProfileProps = {
   className?: string;
@@ -111,84 +111,7 @@ export const UserProfile = ({
               </AvatarFallback>
             </Avatar>
           </div>
-          {saasSettings.activeCreditSystem &&
-            userProfile?.activeSubscription?.creditAllouedByMonth &&
-            userProfile?.activeSubscription?.creditAllouedByMonth > 0 &&
-            userProfile?.activeSubscription && (
-              <>
-                <div className="w-full userNavbarDiv">
-                  <div
-                    className="relative w-full"
-                    data-tooltip-id="remainingTooltip">
-                    <p className="text-center !text-xs -mt-1 pb-1">
-                      {userProfile?.activeSubscription.creditRemaining}
-                    </p>
-
-                    <div
-                      className={`${
-                        userProfile?.activeSubscription.creditPercentage <= 0
-                          ? "progressTokenVoid"
-                          : userProfile?.activeSubscription.creditPercentage <
-                            10
-                          ? "progressToken bg-red-500"
-                          : "progressToken"
-                      }`}
-                      style={{
-                        width: `${
-                          userProfile?.activeSubscription.creditPercentage <=
-                          100
-                            ? userProfile?.activeSubscription.creditPercentage
-                            : 100
-                        }%`,
-                      }}>
-                      &nbsp;
-                    </div>
-                    <div className="progressTokenVoid"></div>
-                  </div>
-                </div>
-                <Tooltip
-                  id="remainingTooltip"
-                  opacity={1}
-                  place="bottom"
-                  className="tooltip flex flex-col">
-                  <span>
-                    {saasSettings.creditName} :{" "}
-                    {userProfile?.activeSubscription.creditPercentage}%
-                  </span>
-                  {format.number(
-                    userProfile?.activeSubscription.creditRemaining
-                  )}
-                  &nbsp;/&nbsp;
-                  {format.number(
-                    userProfile?.activeSubscription.creditAllouedByMonth
-                  )}
-                </Tooltip>
-              </>
-            )}
-          {saasSettings.activeCreditSystem &&
-            (saasSettings.saasType === "PAY_ONCE" ||
-              saasSettings.saasType === "CUSTOM") &&
-            !userProfile?.activeSubscription && (
-              <>
-                <div className="w-full userNavbarDiv">
-                  <div
-                    className="relative w-full"
-                    data-tooltip-id="remainingTooltip">
-                    <p className="text-center !text-xs font-bold">
-                      {format.number(userProfile?.info.creditRemaining ?? 0)}
-                    </p>
-                  </div>
-                </div>
-                <Tooltip
-                  id="remainingTooltip"
-                  opacity={1}
-                  place="bottom"
-                  className="tooltip flex flex-col">
-                  {format.number(userProfile?.info.creditRemaining ?? 0)}{" "}
-                  {saasSettings.creditName}s
-                </Tooltip>
-              </>
-            )}
+          <CreditLine userProfile={userProfile} saasSettings={saasSettings} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="user-profile-dd">
@@ -198,25 +121,25 @@ export const UserProfile = ({
             <Link
               href="/dashboard"
               className="nunderline profile-link text-left pr-10 cursor-pointer">
-              <User className="icon" />
+              <User className="icon self-start mt-1" />
               <span className="flex flex-col  justify-start gap-0">
                 <span>{userStore.name}</span>
-                <span className="text-xs -mt-0.5 font-medium">
+                <span className="text-xs -mt-1 font-medium">
                   {sliced(userStore.email, 21)}
                 </span>
               </span>
             </Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem className="w-full px-2 mt-1" asChild>
+        {/* <DropdownMenuItem className="w-full px-2 mt-1" asChild>
           <Link
             href="/dashboard"
             className="nunderline profile-link text-left pr-10  cursor-pointer">
             <AtSign className="mr-2 h-4 w-4" />
             {/* My account */}
-            {t("my-account")}
-          </Link>
-        </DropdownMenuItem>
+        {/* {t("my-account")} */}
+        {/* </Link> */}
+        {/* </DropdownMenuItem> */}
         {/* NOTE:  Refill */}
         {saasSettings.activeRefillCredit && (
           <>
@@ -232,16 +155,18 @@ export const UserProfile = ({
 
         {userStore?.role !== ("USER" as UserRole) && (
           <>
+            <DropdownMenuSeparator className="my-2" />
+
             <DropdownMenuItem className="w-full mt-1" asChild>
               <Link
                 prefetch={false}
                 href="/admin"
-                className="user-profile-admin">
+                className="nunderline profile-link text-left pr-10 cursor-pointer">
                 <Crown className="mr-2 icon" />
                 Admin
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="my-2" />
           </>
         )}
         <DropdownMenuItemLogout />

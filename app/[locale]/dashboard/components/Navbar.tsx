@@ -1,22 +1,28 @@
 "use client";
 import { MenuItem } from "@/src/components/ui/@fairysaas/user-interface/MenuItem";
+import { Badge } from "@/src/components/ui/badge";
+import { Separator } from "@/src/components/ui/separator";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
+import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
-  BarChart2, Bell, Building2,
+  BarChart2,
+  Bell,
+  Building2,
   CircleUser,
   Cog,
   CreditCard,
   Mail,
-  UserRoundCog
+  UserRoundCog,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export const DashboardNavbar = () => {
   const t = useTranslations("Dashboard.Components.Navbar");
+  const { data: session, isLoading } = useSessionQuery();
   //
 
   const { saasSettings } = useSaasSettingsStore();
@@ -42,10 +48,12 @@ export const DashboardNavbar = () => {
   return (
     <>
       <div>
-        <h3>
+        <h3 className="!max-sm:self-center">
           {t("title")}
-          <Cog className="icon" />
+          <Cog className="icon max-sm:hidden" />
         </h3>
+        <Badge>{session?.user?.email}</Badge>
+        <Separator className="my-5" />
         <ul>
           <MenuItem
             activeSection={activeSection}

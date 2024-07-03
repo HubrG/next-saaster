@@ -196,7 +196,8 @@
           "organization": "संगठन",
           "profile": "प्रोफ़ाइल",
           "purchases": "खरीद",
-          "usage": "उपयोग"
+          "usage": "उपयोग",
+          "notification": "सूचनाएं"
         },
         "title": "मेरा खाता"
       }
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "क्रेडिट की संख्या चुनें",
         "discount-applied": "छूट लागू",
-        "discount-off": "स्वास्थ्य"
+        "discount-off": "की कमी"
       }
     }
   },

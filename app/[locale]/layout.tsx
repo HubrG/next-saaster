@@ -20,6 +20,7 @@ const sans = Rethink_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+  adjustFontFallback: false,
 });
 const serif = Playfair_Display({
   subsets: ["latin"],

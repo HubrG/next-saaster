@@ -121,7 +121,8 @@
           "organization": "조직",
           "profile": "프로필",
           "purchases": "구매",
-          "usage": "사용"
+          "usage": "사용",
+          "notification": "알림"
         },
         "title": "내 계정"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "크레딧 수를 선택하세요",
         "discount-applied": "할인이 적용되었습니다",
-        "discount-off": "적합"
+        "discount-off": "감소"
       }
     }
   },

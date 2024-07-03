@@ -121,7 +121,8 @@
           "organization": "Organisasjon",
           "profile": "Profil",
           "purchases": "Kjøp",
-          "usage": "Bruk"
+          "usage": "Bruk",
+          "notification": "Varsler"
         },
         "title": "Min konto"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Velg antall studiepoeng",
         "discount-applied": "Rabatt brukt",
-        "discount-off": "Fitness"
+        "discount-off": "Reduksjon av"
       }
     }
   },

@@ -27,13 +27,13 @@ export const PriceCard = ({ plan }: PriceCardProps) => {
           {
             "card-popular": plan.isPopular || plan.isRecommended,
           },
-          `price-card-wrapper flex flex-col justify-between z-10`
+          `price-card-wrapper flex flex-col justify-between z-0`
         )}>
         <PriceCardHeader plan={plan} saasSettings={saasSettings} />
         {plan.isCustom ? (
-          <PriceCardContactUsButton />
+          <PriceCardContactUsButton className="!z-[99]" />
         ) : (
-          <PriceCardBuyButton className="w-full z-[99999999]" plan={plan} />
+          <PriceCardBuyButton className="w-full !z-[99]" plan={plan} />
         )}
         <Goodline className={cn({ hidden: plan.isCustom })} />
         <div className="features">

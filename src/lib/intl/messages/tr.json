@@ -100,7 +100,8 @@
           "organization": "Organizasyon",
           "profile": "Profil",
           "purchases": "Satın Alma",
-          "usage": "Kullanım"
+          "usage": "Kullanım",
+          "notification": "Bildirimler"
         },
         "title": "Benim hesabım"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Kredi sayısını seçin",
         "discount-applied": "İndirim uygulandı",
-        "discount-off": "Fitness"
+        "discount-off": "Azaltılması"
       }
     }
   },

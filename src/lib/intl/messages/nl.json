@@ -121,7 +121,8 @@
           "organization": "Organisatie",
           "profile": "Profiel",
           "purchases": "Inkoop",
-          "usage": "Gebruik"
+          "usage": "Gebruik",
+          "notification": "Meldingen"
         },
         "title": "Mijn account"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Kies het aantal studiepunten",
         "discount-applied": "Korting toegepast",
-        "discount-off": "Geschiktheid"
+        "discount-off": "Vermindering van"
       }
     }
   },

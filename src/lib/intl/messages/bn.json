@@ -121,7 +121,8 @@
           "organization": "সংগঠন",
           "profile": "প্রোফাইল",
           "purchases": "ক্রয়",
-          "usage": "ব্যবহার করুন"
+          "usage": "ব্যবহার করুন",
+          "notification": "বিজ্ঞপ্তি"
         },
         "title": "আমার অ্যাকাউন্ট"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "ক্রেডিট সংখ্যা চয়ন করুন",
         "discount-applied": "ডিসকাউন্ট প্রয়োগ",
-        "discount-off": "ফিটনেস"
+        "discount-off": "এর হ্রাস"
       }
     }
   },

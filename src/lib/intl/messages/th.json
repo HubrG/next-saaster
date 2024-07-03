@@ -121,7 +121,8 @@
           "organization": "องค์กร",
           "profile": "ประวัติโดยย่อ",
           "purchases": "การซื้อ",
-          "usage": "ใช้"
+          "usage": "ใช้",
+          "notification": "การแจ้งเตือน"
         },
         "title": "บัญชีของฉัน"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "เลือกจำนวนหน่วยกิต",
         "discount-applied": "ใช้ส่วนลดแล้ว",
-        "discount-off": "ฟิตเนส"
+        "discount-off": "ลดของ"
       }
     }
   },

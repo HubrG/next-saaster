@@ -186,7 +186,14 @@
             "restart-subscription": "Votre abonnement redémarrera sans facturation supplémentaire."
           },
           "no-plan-subscribed-yet": "Vous n'avez souscrit aucun abonnement",
-          "subscribe-now": "Je souhaite m'abonner !"
+          "subscribe-now": "Je souhaite m'abonner !",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Rétrograder ou mettre à niveau"
+            },
+            "monthly": "Mensuel",
+            "yearly": "Annuel"
+          }
         },
         "Purchases": {
           "title": "Achats",
@@ -468,7 +475,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Acheter",
         "startTrial": "Essayer pendant {varIntlTrialDays} jours",
-        "subscribeNow": "S'abonner"
+        "subscribeNow": "S'abonner",
+        "upgrade": "Sélectionner",
+        "currentPlan": "Plan actuel",
+        "updateSuccess": "Votre abonnement a bien été mis à jour !"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Contactez-nous"
@@ -606,7 +616,7 @@
           "refill-credits": "Recharger"
         },
         "discount-applied": "Remise appliquée",
-        "discount-off": "Remise de"
+        "discount-off": "Réduction de"
       }
     }
   },

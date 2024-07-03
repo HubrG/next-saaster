@@ -32,7 +32,7 @@ export default async function page() {
 
   return (
     <>
-      <DivFullScreenGradient gradient="gradient-to-bl" />
+      <DivFullScreenGradient gradient="gradient-to-tl" />
       <div className=" items-center justify-center w-1/2 ">
         <Index />
       </div>

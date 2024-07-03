@@ -252,7 +252,7 @@ export const userSubscriptionSchema = z.object({
     userId: z.string(),
     creditRemaining: z.number().optional(),
     subscriptionId: z.string(),
-    isActive: z.boolean(),
+    isActive: z.boolean().optional(),
   }),
   stripeSignature: z.string(),
 });

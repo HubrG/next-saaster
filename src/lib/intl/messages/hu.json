@@ -121,7 +121,8 @@
           "organization": "Szervezet",
           "profile": "Profil",
           "purchases": "Vásárlás",
-          "usage": "Használja a  címet."
+          "usage": "Használja a  címet.",
+          "notification": "Értesítések"
         },
         "title": "Az én számlám"
       },
@@ -605,7 +606,7 @@
         },
         "choose-credits-number": "Válassza ki a kreditek számát",
         "discount-applied": "Kedvezmény érvényes",
-        "discount-off": "Fitness"
+        "discount-off": "Csökkentése"
       }
     }
   },

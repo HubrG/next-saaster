@@ -1,7 +1,8 @@
 import { iPlan } from "@/src/types/db/iPlans";
 import { iStripePrice } from "@/src/types/db/iStripePrices";
+import { iStripeProduct } from "@/src/types/db/iStripeProducts";
 import { Coupon, iUsers } from "@/src/types/db/iUsers";
-import { Subscription, SubscriptionStatus } from "@prisma/client";
+import { StripeProduct, Subscription, SubscriptionStatus } from "@prisma/client";
 import Stripe from "stripe";
 
 export type ReturnUserDependencyProps = {
@@ -16,7 +17,7 @@ export type ReturnUserDependencyProps = {
     meteredUnit: number | null;
     creditAllouedByMonth: number;
     priceObject: iStripePrice;
-    productObject: any;
+    productObject: iStripeProduct | null;
     planObject: iPlan;
     quantity: number;
     currency: string;
@@ -48,7 +49,7 @@ export type ReturnUserDependencyProps = {
  * @param user - The user object
  * @returns The user dependency
  */
-export const getUserInfos = ({ user }: { user: iUsers }) => {
+export const getUserInfos = ({ user, email }: { user: iUsers, email?:string }) => {
   // We get the user's subscription
   const subscription = user.subscriptions?.find(
     (sub) => sub.isActive
@@ -134,7 +135,7 @@ export const getUserInfos = ({ user }: { user: iUsers }) => {
           creditRemaining: activeSubscription?.creditRemaining ?? 0, // Credit remaining for the current month
           priceObject: activeSubscription?.subscription?.price ?? null,
           productObject:
-            activeSubscription?.subscription?.price?.productRelation ?? null,
+            activeSubscription?.subscription?.price?.productRelation as StripeProduct ?? null,
           planObject:
             activeSubscription?.subscription?.price?.productRelation
               ?.PlanRelation ?? null,

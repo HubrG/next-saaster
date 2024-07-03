@@ -56,7 +56,7 @@
   }
 }
 * {
-  @apply border-border text-base selection:bg-theming-background-500-second selection:text-theming-text-100 dark:selection:text-theming-text-900;
+  @apply border-border text-base selection:rounded-default selection:bg-theming-background-500 selection:text-theming-text-100-second dark:selection:text-theming-text-900;
 }
 
 body {
@@ -170,7 +170,7 @@ h4,
 h5,
 h6,
 p {
-  @apply text-theming-text-900 dark:text-theming-text-900;
+  @apply text-theming-text-950 dark:text-theming-text-950;
 }
 h1 {
   @apply text-5xl font-bold;
@@ -250,9 +250,9 @@ div.progressToken {
 .user-profile-buy-credit {
   @apply hover:no-underline bg-primary-foreground dark:bg-theming-background-200 dark:text-theming-text-800 hover:bg-primary-foreground/80 hover:text-white dark:hover:bg-theming-text-400 dark:hover:text-theming-text-900 text-secondary-foreground text-left pr-10  cursor-pointer mb-1 !important;
 }
-.user-profile-admin {
+/* .user-profile-admin {
   @apply user-profile-buy-credit !important;
-}
+} */
 .first-connection {
   @apply w-screen absolute bg-white dark:bg-theming-background-50  z-[9999999999] !important;
 }
@@ -947,19 +947,23 @@ article .task-list-item {
   animation: blink 1s infinite;
 }
 
-.custom-badge::after {
-  @apply border-t-4 border-theming-text-300-second;
-  content: "";
-  display: block;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  position: absolute;
-  bottom: -4px;
+/* NOTE : Switch recurrence */
+.switch-recurrence-container {
+  @apply flex justify-center items-center my-5 w-full select-none;
 }
 
+.switch-recurrence {
+  @apply relative w-1/2 max-w-md h-8 bg-theming-text-300/20 rounded-default z-10 flex items-center;
+}
 
-.my-card h1 {
-  @apply md:text-4xl text-2xl !important;
+.switch-recurrence-slider {
+  @apply absolute w-1/2 h-full bg-theming-text-900-second rounded-default transition-transform ease-in-out;
+}
+
+.switch-recurrence-option {
+  @apply flex-1 text-center z-50 text-sm font-bold leading-10 cursor-pointer;
+}
+
+.switch-recurrence-option.inactive {
+  @apply  text-theming-text-100;
 }

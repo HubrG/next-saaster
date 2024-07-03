@@ -36,6 +36,7 @@ import {
   changePaymentMethod,
   reportUsage,
 } from "../../../queries/queries";
+import { UpOrDowngradePlan } from "./components/UpOrDowngradePlan";
 
 type ProfileBillingProps = {};
 
@@ -295,8 +296,8 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       <Check className="icon text-theming-text-500-second mt-1" />
                     </span>
                     <span className="flex flex-col col-span-11">
-                      <span>{t("subscription-will-be-canceled-at")} :</span>
-                      <span className="dark:text-theming-text-500-second !text-sm text-theming-text-500-second">
+                      <span>
+                        {t("subscription-will-be-canceled-at")}{" "}
                         {format.dateTime(
                           convertUnixToDate(
                             userProfile.activeSubscription
@@ -304,6 +305,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                           )
                         )}
                       </span>
+                     
                     </span>
                   </li>
                 ) : (
@@ -340,9 +342,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
           </div>
           <Goodline />
           <div className="col-span-full  gap-2 flex md:flex-row flex-col justify-between w-full">
-            <Button className="md:w-2/5 w-full" variant={"default"}>
-              {t("buttons.update-plan")}
-            </Button>
+            <UpOrDowngradePlan userProfile={userProfile} />
             <div className="md:w-1/4 w-full">&nbsp;</div>
             <div className="md:w-2/3 w-full flex flex-col justify-end items-end">
               <ButtonWithLoader
@@ -378,32 +378,21 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     className="!px-0 !pr-0"
                     icon={<XCircle className="icon text-red-500 mt-1" />}
                     display={t("buttons.cancel-subscription") + "..."}
-                    what={`${t("buttons.cancel-subscription-popover")} ${t("tooltips.cancel-subscription", {
-                      varIntlDate: format.dateTime(
-                        convertUnixToDate(
-                          userProfile.activeSubscription.canceledActiveUntil ??
-                            0
-                        )
-                      ),
-                    })}`}>
+                    what={`${t("buttons.cancel-subscription-popover")} ${t(
+                      "tooltips.cancel-subscription",
+                      {
+                        varIntlDate: format.dateTime(
+                          convertUnixToDate(
+                            userProfile.activeSubscription
+                              .canceledActiveUntil ?? 0
+                          )
+                        ),
+                      }
+                    )}`}>
                     {" "}
                     <XCircle className="icon text-red-500 mt-1" />{" "}
                   </PopoverConfirm>
-                  {/* <Button
-                    data-tooltip-id="cancel-subscription"
-                    disabled={isLoading}
-                    className="!px-0 !pr-0"
-                    variant={"link"}
-                    onClick={() =>
-                      handleCancelOrRestartSubscription(
-                        "cancel",
-                        userProfile.activeSubscription.subscription?.id ?? "",
-                        userStore.email ?? ""
-                      )
-                    }>
-                    <XCircle className="icon text-red-500 mt-1" />{" "}
-                    {t("buttons.cancel-subscription")}
-                  </Button> */}
+                  
                 </>
               ) : (
                 <Button

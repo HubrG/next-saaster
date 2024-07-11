@@ -1,3 +1,4 @@
+"use server"
 import {
   HandleResponseProps,
   handleRes,
@@ -55,7 +56,7 @@ export const updateUserSubscription = action(
     data,
   }): Promise<HandleResponseProps<iUserSubscription[]>> => {
     // 🔐 Security
-    if (!verifyStripeRequest(stripeSignature))
+    if (stripeSignature && !verifyStripeRequest(stripeSignature))
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
     try {
@@ -172,6 +173,58 @@ export const createUserSubscription = action(
     }
   }
 );
+
+export const updateActiveSubscriptionCreditRemaining = action(
+  z.object({
+    data: z.object({
+      subscriptionId: z.string(),
+      userId: z.string(),
+      creditRemaining: z.number(),
+    }),
+    secret: z.string(),
+  }),
+  async ({ data, secret }): Promise<HandleResponseProps<iUserSubscription>> => {
+    // 🔐 Security
+    if (!verifyStripeRequest(secret)) throw new ActionError("Unauthorized");
+    // 🔓 Unlocked
+    try {
+      const userSubscription = await prisma.userSubscription.findFirst({
+        where: {
+          subscriptionId: data.subscriptionId,
+          userId: data.userId,
+          isActive: true,
+        },
+      });
+      if (!userSubscription)
+        throw new ActionError("Problem while updating subscription");
+      const updatedSubscription = await prisma.userSubscription.update({
+        where: {
+          userId_subscriptionId: {
+            userId: userSubscription.userId,
+            subscriptionId: userSubscription.subscriptionId,
+          },
+        },
+        data: {
+          creditRemaining: data.creditRemaining,
+        },
+        include,
+      });
+      if (!updatedSubscription)
+        throw new ActionError("Problem while updating subscription");
+      return handleRes<iUserSubscription>({
+        success: updatedSubscription,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iUserSubscription>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
+  }
+);
+
 
 const include = {
   user: true,

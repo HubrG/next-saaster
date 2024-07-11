@@ -32,7 +32,7 @@ export const usePublicSaasPricingStore = create<Store>((set) => ({
     set(() => ({
       isYearly: value,
     })),
-  customIs1: false,
+  customIs1: true,
   setCustomIs1: (value: boolean) =>
     set(() => ({
       customIs1: value,

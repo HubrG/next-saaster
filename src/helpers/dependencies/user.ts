@@ -8,6 +8,7 @@ import Stripe from "stripe";
 export type ReturnUserDependencyProps = {
   isLoading: boolean;
   oneTimePayments: iUsers["oneTimePayments"];
+  setProperty: (prop: keyof ReturnUserDependencyProps, value: any) => void;
   //
   activeSubscription: {
     subscription: (Subscription & { allDatas?: Stripe.Subscription }) | null;
@@ -108,6 +109,9 @@ export const getUserInfos = ({ user, email }: { user: iUsers, email?:string }) =
   };
 
   const userInfo = {
+    setProperty: (prop: keyof ReturnUserDependencyProps, value: any) => {
+      userInfo[prop] = value;
+    },
     isLoading: user.role ? false : true,
     // Active subscription
     activeSubscription: activeSubscription?.subscription
@@ -135,7 +139,8 @@ export const getUserInfos = ({ user, email }: { user: iUsers, email?:string }) =
           creditRemaining: activeSubscription?.creditRemaining ?? 0, // Credit remaining for the current month
           priceObject: activeSubscription?.subscription?.price ?? null,
           productObject:
-            activeSubscription?.subscription?.price?.productRelation as StripeProduct ?? null,
+            (activeSubscription?.subscription?.price
+              ?.productRelation as StripeProduct) ?? null,
           planObject:
             activeSubscription?.subscription?.price?.productRelation
               ?.PlanRelation ?? null,

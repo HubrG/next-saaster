@@ -271,6 +271,7 @@ export const updateUserSchema = z.object({
     customerId: z.string().nullable().optional(),
     planId: z.string().nullable().optional(),
     organizationId: z.string().nullable().optional(),
+    creditRemaining: z.number().nullable().optional(),
     role: z.nativeEnum(UserRole).optional(),
   }),
   stripeSignature: z.string().optional(),

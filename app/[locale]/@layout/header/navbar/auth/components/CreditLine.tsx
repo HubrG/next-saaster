@@ -1,37 +1,38 @@
 "use client";
 import {
   ReturnUserDependencyProps,
-  getUserInfos,
+  getUserInfos
 } from "@/src/helpers/dependencies/user";
-import { useUserStore } from "@/src/stores/userStore";
+import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { SaasSettings } from "@prisma/client";
 import { useFormatter } from "next-intl";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
 type CreditLineProps = {
-  userProfile?: ReturnUserDependencyProps;
   saasSettings: SaasSettings;
 };
 
-export const CreditLine = ({ userProfile, saasSettings }: CreditLineProps) => {
-  const { userStore } = useUserStore();
+export const CreditLine = ({saasSettings }: CreditLineProps) => {
+  const { userInfoStore: userStore } = useUserInfoStore();
   const [getUserProfile, setGetUserProfile] =
     useState<ReturnUserDependencyProps>();
   const format = useFormatter();
 
+
   useEffect(() => {
-    if (userStore?.id) {
+    if (userStore?.info.id) {
       setGetUserProfile(
-        getUserInfos({ user: userStore, email: userStore.email ?? "" })
+        getUserInfos({ user: userStore.info, email: userStore.info.email ?? "" })
       );
     }
   }, [userStore]);
+ 
 
   const renderCreditInfo = () => {
     if (!saasSettings.activeCreditSystem) return null;
 
-    const { activeSubscription } = getUserProfile || {};
+    const { activeSubscription } = userStore || {};
     const creditRemaining = activeSubscription?.creditRemaining ?? 0;
     const creditPercentage = activeSubscription?.creditPercentage ?? 0;
     const creditAllouedByMonth = activeSubscription?.creditAllouedByMonth ?? 0;

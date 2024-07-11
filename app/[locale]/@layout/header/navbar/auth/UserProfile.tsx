@@ -14,21 +14,20 @@ import {
 } from "@/src/components/ui/dropdown-menu";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import {
-  ReturnUserDependencyProps,
-  getUserInfos,
+  ReturnUserDependencyProps
 } from "@/src/helpers/dependencies/user";
 import { sliced } from "@/src/helpers/functions/slice";
 import { Link } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useUserQuery } from "@/src/queries/useUserQuery";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { iUsers } from "@/src/types/db/iUsers";
+import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { UserRole } from "@prisma/client";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { upperCase } from "lodash";
 import { CreditCard, Crown, User } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DropdownMenuItemLogout } from "./LogoutButton";
 import { CreditLine } from "./components/CreditLine";
 
@@ -44,24 +43,16 @@ export const UserProfile = ({
 }: UserProfileProps) => {
   const format = useFormatter();
   const { data: user } = useUserQuery(email);
-  const [userStore, setUserStore] = useState<iUsers>();
-  useEffect(() => {
-    if (user && user.id) {
-      setUserStore(user as iUsers);
-    }
-  }, [user]);
-  // const userStore = user as iUsers;
+  const { userInfoStore: userStore } = useUserInfoStore();
+
+  
   const [userProfile, setUserProfile] = useState<ReturnUserDependencyProps>();
   const { saasSettings } = useSaasSettingsStore();
   const t = useTranslations("Layout.Header.Navbar.UserProfile");
 
-  // We get the userProfile
-  useEffect(() => {
-    if (!userStore?.id) return;
-    setUserProfile(getUserInfos({ user: userStore }));
-  }, [userStore]);
+ 
 
-  if (!userStore?.id || isLoading) {
+  if (!userStore?.info?.id || isLoading) {
     return (
       <div className="flex items-center space-x-3 h-11 pr-7 ml-4">
         <Skeleton className="h-8 w-8 rounded-full" />
@@ -89,11 +80,11 @@ export const UserProfile = ({
           )}>
           <div className="w-7 h-7  userNavbarDiv push-effect">
             <Avatar className="!no-underline ">
-              {userStore?.image && (
+              {userStore?.info?.image && (
                 <AvatarImage
-                  src={userStore.image?.replace("/upload/", "/upload/f_auto/")}
+                  src={userStore.info?.image?.replace("/upload/", "/upload/f_auto/")}
                   className=""
-                  alt={userStore.name ?? "User avatar"}
+                  alt={userStore.info?.name ?? "User avatar"}
                 />
               )}
               <AvatarFallback
@@ -101,7 +92,7 @@ export const UserProfile = ({
                 style={{ textDecoration: "transparent" }}>
                 <span className="!no-underline">
                   {upperCase(
-                    userStore?.name
+                    userStore?.info?.name
                       ?.toString()
                       .split(" ")
                       .map((n) => n[0])
@@ -111,21 +102,21 @@ export const UserProfile = ({
               </AvatarFallback>
             </Avatar>
           </div>
-          <CreditLine userProfile={userProfile} saasSettings={saasSettings} />
+          <CreditLine  saasSettings={saasSettings} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="user-profile-dd">
         {/*  NOTE:  My account */}
-        {userStore?.name && (
+        {userStore?.info?.name && (
           <DropdownMenuItem className="w-full" asChild>
             <Link
               href="/dashboard"
               className="nunderline profile-link text-left pr-10 cursor-pointer">
               <User className="icon self-start mt-1" />
               <span className="flex flex-col  justify-start gap-0">
-                <span>{userStore.name}</span>
+                <span>{userStore.info?.name}</span>
                 <span className="text-xs -mt-1 font-medium">
-                  {sliced(userStore.email, 21)}
+                  {sliced(userStore.info?.email, 21)}
                 </span>
               </span>
             </Link>
@@ -153,7 +144,7 @@ export const UserProfile = ({
           </>
         )}
 
-        {userStore?.role !== ("USER" as UserRole) && (
+        {userStore?.info?.role !== ("USER" as UserRole) && (
           <>
             <DropdownMenuSeparator className="my-2" />
 

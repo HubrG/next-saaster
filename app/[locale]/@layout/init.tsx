@@ -11,6 +11,7 @@ import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import useBlogStore from "@/src/stores/blogStore";
 import useInternationalizationStore from "@/src/stores/internationalizationStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
+import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { SaasSettings, appSettings } from "@prisma/client";
@@ -29,6 +30,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const { fetchInternationalizations, fetchDictionaries } =
     useInternationalizationStore();
   const { setSaasSettings } = useSaasSettingsStore();
+  const { fetchUserInfoStore } = useUserInfoStore();
   const { fetchSaasStripeCoupons } = useSaasStripeCoupons();
   const { fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
   const { fetchSaasFeatures } = useSaasFeaturesStore();
@@ -38,11 +40,12 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   const isClient = useIsClient();
   const [hasLoadedData, setHasLoadedData] = useState(false);
 
-  useEffect(() => {
-    if (user && session?.user !== undefined) {
-      setUserStore(user as iUsers);
-    }
-  }, [user, session, setUserStore]);
+ useEffect(() => {
+   if (user && session?.user !== undefined) {
+     setUserStore(user as iUsers);
+    
+   }
+ }, [user, session, setUserStore]);
 
   const memoizedSettings = useMemo(() => {
     return {
@@ -58,6 +61,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
       if (memoizedSettings.appSettings?.activeInternationalization) {
         await Promise.all([fetchInternationalizations(), fetchDictionaries()]);
       }
+      fetchUserInfoStore(session?.user?.email ?? "");
 
       if (session?.user && user?.role !== "USER") {
         await Promise.all([

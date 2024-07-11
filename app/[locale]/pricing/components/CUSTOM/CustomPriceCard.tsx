@@ -14,7 +14,7 @@ import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { iPlan } from "@/src/types/db/iPlans";
-import { useFormatter, useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PriceCardBadge } from "../PriceCardBadge";
 import { PriceCardBuyButton } from "../PriceCardBuyButton";
@@ -39,6 +39,7 @@ type PriceCardProps = {
   smallPriceDescription?: string;
   customMode: "subscription" | "payment";
   enableQuantity?: boolean;
+  displayOnRecurrence?: "custom1" | "custom2" | "custom3" | "custom4";
 };
 export const CustomPriceCard = ({
   customQuantity,
@@ -53,6 +54,7 @@ export const CustomPriceCard = ({
   customPrice,
   trialDays,
   creditByMonth,
+  displayOnRecurrence,
   children,
 }: PriceCardProps) => {
   const { saasPlans } = useSaasPlansStore();
@@ -66,12 +68,12 @@ export const CustomPriceCard = ({
     fetchSaasStripePrices();
     fetchSaasStripeCoupons();
   }, []);
-  const format = useFormatter();
+  const { customIs1, customIs2, customIs3, customIs4 } =
+    usePublicSaasPricingStore();
   const stripePrice = saasStripePrices.find((price) => price.id === priceId);
   const discount = saasStripeCoupons.find((coupon) => coupon.id === discountId);
   const [plan, setPlan] = useState<iPlan>();
   const { data: session } = useSessionQuery();
-  const locale = useLocale();
   const [userInfo, setUserInfo] = useState<
     ReturnUserDependencyProps | undefined
   >(undefined);
@@ -142,7 +144,10 @@ export const CustomPriceCard = ({
     }
   }, [stripePrice, saasPlans]);
 
-  if (!plan) {
+  if (
+    !plan ||
+    !eval(`${displayOnRecurrence?.replace(/custom(\d)/, "customIs$1")}`)
+  ) {
     return null;
   }
   const handleUpdateSeat = (e: string) => {

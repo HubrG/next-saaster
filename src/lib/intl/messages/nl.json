@@ -474,7 +474,15 @@
         "popular": "Populair",
         "recommended": "Aanbevolen",
         "trial": "proefdagen, dan...",
-        "yearly": "een"
+        "yearly": "een",
+        "billed": "elk in rekening gebracht",
+        "daily": "dag",
+        "depending-on-usage": "afhankelijk van gebruik",
+        "each": "elk",
+        "earned": "{varIntlEarned} {varIntlCreditName} heeft elke {varIntlEach} ontvangen",
+        "readLess": "Verminderen",
+        "readMore": "Lezen",
+        "weekly": "week"
       },
       "PriceCard": {
         "bottom-sentence": "Eén betaling, vele projecten"

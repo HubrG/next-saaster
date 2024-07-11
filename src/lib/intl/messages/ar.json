@@ -414,7 +414,15 @@
         "popular": "مشهور",
         "recommended": "موصى به",
         "trial": "أيام المحاكمة، ثم...",
-        "yearly": "أن"
+        "yearly": "أن",
+        "billed": "فاتورة كل منهما",
+        "daily": "يوم",
+        "depending-on-usage": "اعتمادا على الاستخدام",
+        "each": "كل",
+        "earned": "تلقى {varIntlEarned} {varIntlCreditName} كل {varIntlEach}",
+        "readLess": "تقليص",
+        "readMore": "يقرأ",
+        "weekly": "أسبوع"
       },
       "PriceCard": {
         "bottom-sentence": "دفعة واحدة، العديد من المشاريع"

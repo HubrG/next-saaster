@@ -474,7 +474,15 @@
         "popular": "Vinsælt",
         "recommended": "Mælt er með",
         "trial": "prufudagar þá...",
-        "yearly": "ári"
+        "yearly": "ári",
+        "billed": "innheimt hver",
+        "daily": "dagur",
+        "depending-on-usage": "eftir notkun",
+        "each": "hver",
+        "earned": "{varIntlEarned} {varIntlCreditName} fékk á hverjum {varIntlEach}",
+        "readLess": "Minnka",
+        "readMore": "Lestu",
+        "weekly": "vika"
       },
       "PriceCard": {
         "bottom-sentence": "Ein greiðsla, mörg verkefni"

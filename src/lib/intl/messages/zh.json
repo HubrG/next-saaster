@@ -414,7 +414,15 @@
         "popular": "热门",
         "recommended": "推荐",
         "trial": "审判日，然后...",
-        "yearly": "一个"
+        "yearly": "一个",
+        "billed": "分别计费",
+        "daily": "天",
+        "depending-on-usage": "取决于用途",
+        "each": "每个",
+        "earned": "{varIntlEarned} {varIntlCreditName} 收到每个 {varIntlEach}",
+        "readLess": "减少",
+        "readMore": "读",
+        "weekly": "星期"
       },
       "PriceCard": {
         "bottom-sentence": "一次付款，多个项目"

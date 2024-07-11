@@ -474,7 +474,15 @@
         "popular": "Populær",
         "recommended": "Anbefalt",
         "trial": "prøvedager, da...",
-        "yearly": "år"
+        "yearly": "år",
+        "billed": "fakturert hver",
+        "daily": "dag",
+        "depending-on-usage": "avhengig av bruk",
+        "each": "Hver",
+        "earned": "{varIntlEarned} {varIntlCreditName} mottok hver {varIntlEach}",
+        "readLess": "Redusere",
+        "readMore": "Lese",
+        "weekly": "uke"
       },
       "PriceCard": {
         "bottom-sentence": "Én betaling, mange prosjekter"

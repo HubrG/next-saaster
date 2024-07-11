@@ -474,7 +474,15 @@
         "popular": "Phổ biến",
         "recommended": "Khuyến khích",
         "trial": "ngày thử việc thì...",
-        "yearly": "năm"
+        "yearly": "năm",
+        "billed": "thanh toán từng",
+        "daily": "ngày",
+        "depending-on-usage": "tùy vào mục đích sử dụng",
+        "each": "mỗi",
+        "earned": "{varIntlEarned} {varIntlCreditName} đã nhận được mỗi {varIntlEach}",
+        "readLess": "Giảm bớt",
+        "readMore": "Đọc",
+        "weekly": "tuần"
       },
       "PriceCard": {
         "bottom-sentence": "Một khoản thanh toán, nhiều dự án"

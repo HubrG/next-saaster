@@ -474,7 +474,15 @@
         "popular": "Populer",
         "recommended": "Direkomendasikan",
         "trial": "hari uji coba, lalu...",
-        "yearly": "sebuah"
+        "yearly": "sebuah",
+        "billed": "ditagih masing-masing",
+        "daily": "hari",
+        "depending-on-usage": "tergantung penggunaan",
+        "each": "setiap",
+        "earned": "{varIntlEarned} {varIntlCreditName} menerima setiap {varIntlEach}",
+        "readLess": "Mengurangi",
+        "readMore": "Membaca",
+        "weekly": "pekan"
       },
       "PriceCard": {
         "bottom-sentence": "Satu pembayaran, banyak proyek"

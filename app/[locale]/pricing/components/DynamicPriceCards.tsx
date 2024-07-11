@@ -2,7 +2,7 @@ import { PriceCardsFeaturesByCategories } from "./PriceCardFeaturesByCategories"
 import { PriceCardsSimple } from "./PriceCardsSimple";
 import { SwitchRecurrence } from "./SwitchRecurrence";
 
-export const AutomaticPriceCard = () => {
+export const DynamicPriceCards = () => {
   return (
     <>
       {/* Display recurrence if not "Pay once" or "Metered" business model */}

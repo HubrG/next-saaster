@@ -323,7 +323,15 @@
         "popular": "लोकप्रिय",
         "recommended": "अनुशंसित",
         "trial": "परीक्षण के दिन, फिर...",
-        "yearly": "वर्ष"
+        "yearly": "वर्ष",
+        "billed": "प्रत्येक को बिल दिया गया",
+        "daily": "दिन",
+        "depending-on-usage": "उपयोग पर निर्भर करता है",
+        "each": "प्रत्येक",
+        "earned": "{varIntlEarned} {varIntlCreditName} को प्रत्येक {varIntlEach} प्राप्त हुआ",
+        "readLess": "कम करना",
+        "readMore": "पढ़ना",
+        "weekly": "सप्ताह"
       },
       "PriceCard": {
         "bottom-sentence": "एक भुगतान, अनेक परियोजनाएँ"

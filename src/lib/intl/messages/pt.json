@@ -414,7 +414,15 @@
         "popular": "Popular",
         "recommended": "Recomendado",
         "trial": "dias de julgamento, então...",
-        "yearly": "um"
+        "yearly": "um",
+        "billed": "faturado cada",
+        "daily": "dia",
+        "depending-on-usage": "dependendo do uso",
+        "each": "cada",
+        "earned": "{varIntlEarned} {varIntlCreditName} recebeu cada {varIntlEach}",
+        "readLess": "Reduzir",
+        "readMore": "Ler",
+        "weekly": "semana"
       },
       "PriceCard": {
         "bottom-sentence": "Um pagamento, muitos projectos"

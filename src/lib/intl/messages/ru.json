@@ -414,7 +414,15 @@
         "popular": "Популярные",
         "recommended": "Рекомендуем",
         "trial": "пробные дни, потом...",
-        "yearly": "сайт"
+        "yearly": "сайт",
+        "billed": "выставлен счет за каждый",
+        "daily": "день",
+        "depending-on-usage": "в зависимости от использования",
+        "each": "каждый",
+        "earned": "{varIntlEarned} {varIntlCreditName} получил каждый {varIntlEach}",
+        "readLess": "Уменьшать",
+        "readMore": "Читать",
+        "weekly": "неделя"
       },
       "PriceCard": {
         "bottom-sentence": "Один платеж, много проектов"

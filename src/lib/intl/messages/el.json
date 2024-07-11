@@ -474,7 +474,15 @@
         "popular": "Δημοφιλές",
         "recommended": "Συνιστώμενη",
         "trial": "δοκιμαστικές ημέρες, τότε...",
-        "yearly": "ένα"
+        "yearly": "ένα",
+        "billed": "τιμολογήθηκε το καθένα",
+        "daily": "ημέρα",
+        "depending-on-usage": "ανάλογα με τη χρήση",
+        "each": "καθε",
+        "earned": "Το {varIntlEarned} {varIntlCreditName} λάμβανε κάθε {varIntlEach}",
+        "readLess": "Περιορίζω",
+        "readMore": "Ανάγνωση",
+        "weekly": "εβδομάδα"
       },
       "PriceCard": {
         "bottom-sentence": "Μία πληρωμή, πολλά έργα"

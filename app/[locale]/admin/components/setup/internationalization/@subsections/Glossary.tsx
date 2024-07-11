@@ -48,8 +48,8 @@ export const Glossary = () => {
         </PopoverTrigger>
         <PopoverContent className="w-96 max-h-[50vh] overflow-auto">
           <div className="grid">
-            {dictionaries.slice().map((dictionary) => (
-              <div className="mb-2 py-1">
+            {dictionaries.slice().map((dictionary, index) => (
+              <div className="mb-2 py-1" key={index}>
                 <GlossaryCard dictionary={dictionary} />
               </div>
             ))}

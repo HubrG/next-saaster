@@ -474,7 +474,15 @@
         "popular": "Népszerű",
         "recommended": "Ajánlott",
         "trial": "próbaidőszak, majd...",
-        "yearly": "egy"
+        "yearly": "egy",
+        "billed": "mindegyiket kiszámlázzák",
+        "daily": "nap",
+        "depending-on-usage": "használattól függően",
+        "each": "minden egyes",
+        "earned": "{varIntlEarned} {varIntlCreditName} kapott minden {varIntlEach}",
+        "readLess": "Csökkentse",
+        "readMore": "Olvas",
+        "weekly": "hét"
       },
       "PriceCard": {
         "bottom-sentence": "Egy kifizetés, sok projekt"

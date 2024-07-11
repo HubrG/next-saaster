@@ -474,7 +474,15 @@
         "popular": "인기 있는",
         "recommended": "추천",
         "trial": "그럼 재판일은...",
-        "yearly": "년도"
+        "yearly": "년도",
+        "billed": "각각 청구됨",
+        "daily": "낮",
+        "depending-on-usage": "용도에 따라",
+        "each": "각",
+        "earned": "{varIntlEarned} {varIntlCreditName}이(가) {varIntlEach}마다 수신됨",
+        "readLess": "줄이다",
+        "readMore": "읽다",
+        "weekly": "주"
       },
       "PriceCard": {
         "bottom-sentence": "한 번의 결제, 다양한 프로젝트"

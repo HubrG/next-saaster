@@ -474,7 +474,15 @@
         "popular": "เป็นที่นิยม",
         "recommended": "ที่แนะนำ",
         "trial": "วันทดลองใช้แล้ว...",
-        "yearly": "ปี"
+        "yearly": "ปี",
+        "billed": "เรียกเก็บเงินแต่ละรายการ",
+        "daily": "วัน",
+        "depending-on-usage": "ขึ้นอยู่กับการใช้งาน",
+        "each": "แต่ละ",
+        "earned": "{varIntlEarned} {varIntlCreditName} ได้รับทุกๆ {varIntlEach}",
+        "readLess": "ลด",
+        "readMore": "อ่าน",
+        "weekly": "สัปดาห์"
       },
       "PriceCard": {
         "bottom-sentence": "จ่ายครั้งเดียวหลายโครงการ"

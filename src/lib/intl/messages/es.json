@@ -470,7 +470,15 @@
         "recommended": "Recomendado",
         "trial": "días de prueba, entonces...",
         "by-month": "mes",
-        "contact-us": "Contáctenos para personalizar su oferta."
+        "contact-us": "Contáctenos para personalizar su oferta.",
+        "billed": "facturado cada uno",
+        "daily": "día",
+        "depending-on-usage": "dependiendo del uso",
+        "each": "cada",
+        "earned": "{varIntlEarned} {varIntlCreditName} recibió cada {varIntlEach}",
+        "readLess": "Reducir",
+        "readMore": "Leer",
+        "weekly": "semana"
       },
       "PriceCardBuyButton": {
         "buyNow": "Comprar",

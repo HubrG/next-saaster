@@ -414,7 +414,15 @@
         "popular": "Popüler",
         "recommended": "Tavsiye edilir",
         "trial": "deneme günleri, sonra...",
-        "yearly": "bir"
+        "yearly": "bir",
+        "billed": "her biri faturalandırıldı",
+        "daily": "gün",
+        "depending-on-usage": "kullanıma bağlı",
+        "each": "her biri",
+        "earned": "{varIntlEarned} {varIntlCreditName} her {varIntlEach} aldı",
+        "readLess": "Azaltmak",
+        "readMore": "Okumak",
+        "weekly": "hafta"
       },
       "PriceCard": {
         "bottom-sentence": "Tek ödeme, birçok proje"

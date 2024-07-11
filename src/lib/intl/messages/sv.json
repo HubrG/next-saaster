@@ -474,7 +474,15 @@
         "popular": "Populär",
         "recommended": "Rekommenderad",
         "trial": "provdagar alltså...",
-        "yearly": "år"
+        "yearly": "år",
+        "billed": "faktureras var och en",
+        "daily": "dag",
+        "depending-on-usage": "beroende på användning",
+        "each": "varje",
+        "earned": "{varIntlEarned} {varIntlCreditName} fick varje {varIntlEach}",
+        "readLess": "Minska",
+        "readMore": "Läsa",
+        "weekly": "vecka"
       },
       "PriceCard": {
         "bottom-sentence": "En betalning, många projekt"

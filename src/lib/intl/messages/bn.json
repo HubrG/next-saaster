@@ -474,7 +474,15 @@
         "popular": "জনপ্রিয়",
         "recommended": "প্রস্তাবিত",
         "trial": "পরীক্ষার দিন, তারপর...",
-        "yearly": "বছর"
+        "yearly": "বছর",
+        "billed": "প্রতিটি বিল",
+        "daily": "দিন",
+        "depending-on-usage": "ব্যবহারের উপর নির্ভর করে",
+        "each": "প্রতিটি",
+        "earned": "{varIntlEarned} {varIntlCreditName} প্রতি {varIntlEach} পেয়েছে",
+        "readLess": "কমিয়ে দিন",
+        "readMore": "পড়ুন",
+        "weekly": "সপ্তাহ"
       },
       "PriceCard": {
         "bottom-sentence": "একটি অর্থপ্রদান, অনেক প্রকল্প"

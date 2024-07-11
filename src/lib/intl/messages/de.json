@@ -414,7 +414,15 @@
         "popular": "Beliebt",
         "recommended": "Empfohlen",
         "trial": "Testtage, dann",
-        "yearly": "an"
+        "yearly": "an",
+        "billed": "jeweils in Rechnung gestellt",
+        "daily": "Tag",
+        "depending-on-usage": "je nach Nutzung",
+        "each": "jede",
+        "earned": "{varIntlEarned} {varIntlCreditName} hat alle {varIntlEach} erhalten",
+        "readLess": "Reduzieren",
+        "readMore": "Lesen",
+        "weekly": "Woche"
       },
       "PriceCard": {
         "bottom-sentence": "Eine Zahlung, viele Projekte"

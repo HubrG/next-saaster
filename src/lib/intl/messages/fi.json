@@ -474,7 +474,15 @@
         "popular": "Suosittu",
         "recommended": "Suositeltu",
         "trial": "koepäiviä, sitten...",
-        "yearly": "osoitteessa"
+        "yearly": "osoitteessa",
+        "billed": "laskutetaan jokaisesta",
+        "daily": "päivä",
+        "depending-on-usage": "käytöstä riippuen",
+        "each": "jokainen",
+        "earned": "{varIntlEarned} {varIntlCreditName} sai joka {varIntlEach}",
+        "readLess": "Vähentää",
+        "readMore": "Lukea",
+        "weekly": "viikko"
       },
       "PriceCard": {
         "bottom-sentence": "Yksi maksu, monta hanketta"

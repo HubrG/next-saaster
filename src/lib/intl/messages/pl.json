@@ -474,7 +474,15 @@
         "popular": "Popularny",
         "recommended": "Zalecane",
         "trial": "dni próbne, a następnie...",
-        "yearly": "i"
+        "yearly": "i",
+        "billed": "rozliczane każdy",
+        "daily": "dzień",
+        "depending-on-usage": "w zależności od zastosowania",
+        "each": "każdy",
+        "earned": "{varIntlEarned} {varIntlCreditName} otrzymane co {varIntlEach}",
+        "readLess": "Zmniejszyć",
+        "readMore": "Czytać",
+        "weekly": "tydzień"
       },
       "PriceCard": {
         "bottom-sentence": "Jedna płatność, wiele projektów"

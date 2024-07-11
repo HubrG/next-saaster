@@ -414,7 +414,15 @@
         "popular": "ポピュラー",
         "recommended": "おすすめ",
         "trial": "試用期間、その後...",
-        "yearly": "アン"
+        "yearly": "アン",
+        "billed": "それぞれ請求される",
+        "daily": "日",
+        "depending-on-usage": "用途に応じて",
+        "each": "それぞれ",
+        "earned": "{varIntlEarned} {varIntlCreditName} が {varIntlEach} ごとに受信しました",
+        "readLess": "減らす",
+        "readMore": "読む",
+        "weekly": "週"
       },
       "PriceCard": {
         "bottom-sentence": "一度の支払いで多くのプロジェクトを"

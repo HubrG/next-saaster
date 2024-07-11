@@ -243,8 +243,8 @@ dependencies:
     specifier: ^15.3.0
     version: 15.3.0(i18next@23.10.0)(next@14.2.4)(react-i18next@14.1.2)(react@18.3.1)
   next-intl:
-    specifier: ^3.15.2
-    version: 3.15.2(next@14.2.4)(react@18.3.1)
+    specifier: ^3.15.3
+    version: 3.15.3(next@14.2.4)(react@18.3.1)
   next-safe-action:
     specifier: ^6.2.0
     version: 6.2.0(next@14.2.4)(react@18.3.1)
@@ -302,6 +302,9 @@ dependencies:
   react-tooltip:
     specifier: ^5.27.0
     version: 5.27.0(react-dom@18.3.1)(react@18.3.1)
+  react-transition-group:
+    specifier: ^4.4.5
+    version: 4.4.5(react-dom@18.3.1)(react@18.3.1)
   react-use:
     specifier: ^17.5.0
     version: 17.5.0(react-dom@18.3.1)(react@18.3.1)
@@ -394,6 +397,9 @@ devDependencies:
   '@types/react-lottie':
     specifier: ^1.2.10
     version: 1.2.10
+  '@types/react-transition-group':
+    specifier: ^4.4.10
+    version: 4.4.10
   '@types/react-world-flags':
     specifier: ^1.4.5
     version: 1.4.5
@@ -717,13 +723,6 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.24.7
-    dev: false
-
-  /@babel/runtime@7.23.9:
-    resolution: {integrity: sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: 0.14.1
     dev: false
 
   /@babel/runtime@7.24.0:
@@ -2479,7 +2478,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.9
+      '@babel/runtime': 7.24.5
       '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.3.3)(react@18.3.1)
       '@types/react': 18.3.3
       react: 18.3.1
@@ -3540,7 +3539,6 @@ packages:
     resolution: {integrity: sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==}
     dependencies:
       '@types/react': 18.3.3
-    dev: false
 
   /@types/react-world-flags@1.4.5:
     resolution: {integrity: sha512-BW10gS64/FXRizBxuHeGEEl2KgljdYAe+tF4Mq3jpoWeuhZNXJOSuVrEvFY0+jrpoMOK3ER28OMgLR0oPgY2og==}
@@ -6787,8 +6785,8 @@ packages:
       react-i18next: 14.1.2(i18next@23.10.0)(react-dom@18.3.1)(react@18.3.1)
     dev: false
 
-  /next-intl@3.15.2(next@14.2.4)(react@18.3.1):
-    resolution: {integrity: sha512-OkKHvsnLiX3brG78I+DYHn9mz3Ui+fsXS8iHi8ulxr89wBrVu78CSVin7sMe+snGZuh4wg+aedbOUPwPr2OKVg==}
+  /next-intl@3.15.3(next@14.2.4)(react@18.3.1):
+    resolution: {integrity: sha512-jNc2xYzwv0Q4EQKvuHye9dXaDaneiP/ZCQC+AccyOQD6N9d/FZiSWT4wfVVD4B0IXC1Hhzj1QussUu+k3ynnTg==}
     peerDependencies:
       next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -6797,7 +6795,7 @@ packages:
       negotiator: 0.6.3
       next: 14.2.4(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
-      use-intl: 3.15.2(react@18.3.1)
+      use-intl: 3.15.3(react@18.3.1)
     dev: false
 
   /next-safe-action@6.2.0(next@14.2.4)(react@18.3.1):
@@ -8772,8 +8770,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /use-intl@3.15.2(react@18.3.1):
-    resolution: {integrity: sha512-dYq8bMjFXwtsZti2j6Z8KeIKV0XeNXmUX9M6/8wShOk9iYd2+0rMyAgJ4hbu/vDKDoOpAWAXcRKhqGz6kpnzOQ==}
+  /use-intl@3.15.3(react@18.3.1):
+    resolution: {integrity: sha512-cHSeFy2cy4u6tT8A7KAcDbs+Hz6lytXClVSsOI1leD6OOrpakNxsmyLa8SMrttOAUQto5kV1f4LVhiX/lpkO3g==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:

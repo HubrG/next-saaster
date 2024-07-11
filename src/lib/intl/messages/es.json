@@ -186,7 +186,14 @@
             "restart-subscription": " Su suscripción se reiniciará sin facturación adicional."
           },
           "no-plan-subscribed-yet": " Usted no ha comprado ninguna suscripción ",
-          "subscribe-now": "Me gustaría suscribirme!"
+          "subscribe-now": "Me gustaría suscribirme!",
+          "UpOrDowngradePlan": {
+            "buttons": {
+              "update-plan": "Bajar de categoría o actualizar"
+            },
+            "monthly": "Mensual",
+            "yearly": "Anual"
+          }
         },
         "Purchases": {
           "title": "Compras",
@@ -468,7 +475,10 @@
       "PriceCardBuyButton": {
         "buyNow": "Comprar",
         "startTrial": "Pruebe durante {varIntlTrialDays} días",
-        "subscribeNow": "Suscribirse"
+        "subscribeNow": "Suscribirse",
+        "currentPlan": "Plan actual",
+        "updateSuccess": "¡Su suscripción se ha actualizado correctamente!",
+        "upgrade": "Seleccionar"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Contáctenos"
@@ -487,7 +497,8 @@
     },
     "metadatas": {
       "title": "Precios"
-    }
+    },
+    "update": "Cambiar mi suscripción"
   },
   "Emails": {
     "ForgotPasswordTemplate": {

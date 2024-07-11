@@ -97,7 +97,7 @@ export const PriceCardFeatureNameAndDesc = ({
         {name}
       </p>
       {featDesc && (
-        <Tooltip place="top" delayShow={200} noArrow className="tooltip !w-full " id={rand + (id ?? "")} opacity={90}>
+        <Tooltip place="top" delayShow={200} noArrow className="tooltip !w-3/4 " id={rand + (id ?? "")} opacity={90}>
           {description}
         </Tooltip>
       )}

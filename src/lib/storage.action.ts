@@ -10,11 +10,12 @@ import {
   handleRes,
 } from "./error-handling/handleResponse";
 import { ActionError, authAction } from "./safe-actions";
+import { env } from "./zodEnv";
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: env.CLOUDINARY_CLOUD_NAME,
+  api_key: env.CLOUDINARY_API_KEY,
+  api_secret: env.CLOUDINARY_API_SECRET,
 });
 
 export const UploadFile = authAction(
@@ -33,15 +34,15 @@ export const UploadFile = authAction(
       // NOTE: Google Cloud Storage
       if (provider === "GCS") {
         const storage = new Storage({
-          projectId: process.env.GCS_CLIENT_ID,
+          projectId: env.GCS_CLIENT_ID,
         });
         await storage
-          .bucket(process.env.GCS_BUCKET_NAME ?? "")
+          .bucket(env.GCS_BUCKET_NAME ?? "")
           .file(file.name)
           .save(Buffer.from(bytes));
 
         const metadata = await storage
-          .bucket(process.env.GCS_BUCKET_NAME ?? "")
+          .bucket(env.GCS_BUCKET_NAME ?? "")
           .file(file.name)
           .getMetadata();
 

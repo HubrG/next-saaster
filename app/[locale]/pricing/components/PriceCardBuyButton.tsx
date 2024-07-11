@@ -16,18 +16,33 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import {
+  createCheckoutCustomSession,
   createCheckoutSession,
   createCheckoutUpdateSession,
 } from "../queries/queries.action";
 
 type PriceCardBuyButtonProps = {
   plan: iPlan;
-  className: string;
+  planPrice?: string;
+  className?: string;
+  customDiscountId?: string;
+  customQte?: number;
+  creditByMonth?: number;
+  customTrialDays?: number;
+  customMode?: "subscription" | "payment" | undefined;
+  isMeteredUsage?: boolean;
 };
 
 export const PriceCardBuyButton = ({
   plan,
   className,
+  customMode,
+  customTrialDays,
+  customQte,
+  customDiscountId,
+  planPrice,
+  isMeteredUsage,
+  creditByMonth,
 }: PriceCardBuyButtonProps) => {
   const t = useTranslations("Pricing.Components.PriceCardBuyButton");
   const { userStore, fetchUserStore } = useUserStore();
@@ -36,7 +51,6 @@ export const PriceCardBuyButton = ({
   const [isCurrentPlan, setIsCurrentPlan] = useState(false);
   const { saasSettings } = useSaasSettingsStore();
   const router = useRouter();
-  const [isPageDisabled, setIsPageDisabled] = useState(false);
   const { data: session } = useSessionQuery();
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState<
@@ -47,7 +61,8 @@ export const PriceCardBuyButton = ({
     if (userInfo?.activeSubscription) {
       const isCurrent =
         userInfo.activeSubscription.priceObject.id ===
-        stripePrice(plan, isYearly);
+          stripePrice(plan, isYearly) ||
+        userInfo.activeSubscription.priceObject.id === planPrice;
       setIsCurrentPlan(isCurrent);
     }
   }, [userInfo, plan, isYearly]);
@@ -77,20 +92,23 @@ export const PriceCardBuyButton = ({
   const handleUpdatePlan = async () => {
     setIsLoading(true);
     const stripeCheckout = await createCheckoutUpdateSession({
-      planPrice: stripePrice(plan, isYearly) ?? "",
+      planPrice: planPrice ?? stripePrice(plan, isYearly) ?? "",
       plan,
       si: userInfo?.activeSubscription.subscriptionItemId ?? "",
       isYearly,
       seatQuantity,
+      isMeteredUsage,
+      customQte,
+      customMode,
+      creditByMonth,
+      customDiscountId,
       subscriptionId: userInfo?.activeSubscription?.subscription?.id ?? "",
     });
     if (!stripeCheckout) {
       setIsLoading(false);
       return;
     }
-
     if (stripeCheckout === true) {
-      setIsPageDisabled(true);
       await new Promise((resolve) => setTimeout(resolve, 5000));
       setShowConfetti(true);
       fetchUserStore(session?.user?.email ?? "");
@@ -105,7 +123,6 @@ export const PriceCardBuyButton = ({
         type: "success",
         description: t("updateSuccess"),
       });
-      setIsPageDisabled(false);
       return setTimeout(() => {
         router.push("/dashboard#Billing");
       }, 3000);
@@ -116,10 +133,28 @@ export const PriceCardBuyButton = ({
     setIsLoading(true);
     const price = stripePrice(plan, isYearly);
     const stripeCheckout = await createCheckoutSession({
-      planPrice: price ?? "0",
+      planPrice: planPrice ?? price ?? "0",
       plan,
       isYearly,
+      creditByMonth,
+      customMode,
       seatQuantity,
+    });
+    setIsLoading(false);
+    if (!stripeCheckout) return;
+    return router.push(stripeCheckout as any);
+  };
+
+  const handleStripeCustom = async () => {
+    setIsLoading(true);
+    const stripeCheckout = await createCheckoutCustomSession({
+      priceId: planPrice ?? stripePrice(plan, isYearly) ?? "",
+      creditByMonth,
+      customQte,
+      isMeteredUsage,
+      customMode,
+      customDiscountId,
+      customTrialDays,
     });
     setIsLoading(false);
     if (!stripeCheckout) return;
@@ -161,6 +196,8 @@ export const PriceCardBuyButton = ({
             ? handleSignin()
             : userInfo?.activeSubscription
             ? handleUpdatePlan()
+            : customMode
+            ? handleStripeCustom()
             : handleStripe();
         }}>
         {userInfo?.activeSubscription ? (
@@ -171,7 +208,7 @@ export const PriceCardBuyButton = ({
           )
         ) : (
           <>
-            {saasSettings.saasType === "PAY_ONCE"
+            {saasSettings.saasType === "PAY_ONCE" || customMode === "payment"
               ? t("buyNow")
               : plan.isTrial
               ? t("startTrial", { varIntlTrialDays: plan.trialDays })

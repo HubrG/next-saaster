@@ -10,6 +10,7 @@ import {
   HandleResponseProps,
   handleRes,
 } from "@/src/lib/error-handling/handleResponse";
+import { env } from "@/src/lib/zodEnv"; // Importer les variables d'environnement validées
 
 import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
@@ -51,7 +52,7 @@ export class StripeManager {
   private secret: string;
   constructor() {
     this.secret = chosenSecret();
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    this.stripe = new Stripe(env.STRIPE_SECRET_KEY!, {
       apiVersion: "2024-06-20",
       typescript: true,
     });
@@ -483,8 +484,8 @@ export class StripeManager {
   }> {
     try {
       let url;
-      if (process.env.ENV !== "dev" && process.env.ENV !== "development") {
-        url = process.env.NEXT_URI + "/api/webhooks/stripe";
+      if (env.ENV !== "dev" && env.ENV !== "development") {
+        url = env.NEXT_URI + "/api/webhooks/stripe";
       }
       return { success: true, data: url };
     } catch (error) {

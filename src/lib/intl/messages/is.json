@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "Verðlag"
-    }
+    },
+    "update": "Breyta áskriftinni minni"
   },
   "Register": {
     "SignUpWithCredentials": {

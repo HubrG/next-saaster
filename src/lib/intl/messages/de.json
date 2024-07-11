@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "Preisgestaltung"
-    }
+    },
+    "update": "Mein Abonnement ändern"
   },
   "Register": {
     "SignUpWithCredentials": {

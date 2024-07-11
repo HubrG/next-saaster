@@ -470,7 +470,15 @@
         "recommended": "Recommandé",
         "trial": "jours d'essai, puis...",
         "by-month": "mois",
-        "contact-us": "Contactez-nous pour personnaliser votre offre."
+        "contact-us": "Contactez-nous pour personnaliser votre offre.",
+        "weekly": "semaine",
+        "daily": "jour",
+        "billed": "facturé chaque",
+        "depending-on-usage": "en fonction de l'usage",
+        "earned": "{varIntlEarned} {varIntlCreditName} reçus tous les {varIntlEach}",
+        "each": "chaque",
+        "readLess": "Réduire",
+        "readMore": "Lire"
       },
       "PriceCardBuyButton": {
         "buyNow": "Acheter",
@@ -497,7 +505,8 @@
     },
     "metadatas": {
       "title": "Tarification"
-    }
+    },
+    "update": "Modifier mon abonnement"
   },
   "Emails": {
     "ForgotPasswordTemplate": {

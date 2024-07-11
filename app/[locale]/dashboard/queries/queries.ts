@@ -2,14 +2,15 @@
 
 import { isMe } from "@/src/helpers/functions/isUserRole";
 import { handleResponse } from "@/src/lib/error-handling/handleResponse";
+import { env } from "@/src/lib/zodEnv";
 import { revalidatePath } from "next/cache";
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
+const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "");
 
 export const billingPortail = async (customerId: string) => {
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,
-    return_url: "https://votreSiteWeb.com/profile", // URL où les clients seront redirigés après avoir quitté le portail client
+    return_url: env.NEXT_URI + "/dashboard",
   });
   return session;
 };
@@ -54,8 +55,8 @@ export async function reportUsage(subscriptionItemId:string, quantity:number) {
       subscriptionItemId,
       {
         quantity: quantity,
-        timestamp: Math.floor(Date.now() / 1000), // Timestamp actuel en secondes
-        action: 'increment', // 'increment' pour ajouter à l'utilisation actuelle, 'set' pour définir une valeur spécifique
+        timestamp: Math.floor(Date.now() / 1000), 
+        action: 'increment', 
       }
     );
     console.log('Usage reported:', usageRecord);
@@ -75,8 +76,8 @@ export async function changePaymentMethod(
       mode: "setup",
       customer: customerId,
       payment_method_types: ["card", "link", "paypal"],
-      success_url: `${process.env.NEXT_URI}/dashboard`,
-      cancel_url: `${process.env.NEXT_URI}/dashboard`,
+      success_url: `${env.NEXT_URI}/dashboard`,
+      cancel_url: `${env.NEXT_URI}/dashboard`,
     });
   return session.url;
   } catch (error) {

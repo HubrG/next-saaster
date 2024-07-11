@@ -5,6 +5,7 @@ import {
 } from "@/src/helpers/db/blog.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import mainMenu from "@/src/jsons/main-menu.json";
+import { env } from "@/src/lib/zodEnv"; // Importer les variables d'environnement validées
 import { MetadataRoute } from "next";
 
 export const dynamic = "force-dynamic";
@@ -48,21 +49,21 @@ function createSitemapEntries(
   const { blogPosts, blogTags, blogCategories } = blogData;
 
   const posts = blogPosts.map((post) => ({
-    url: `${process.env.NEXT_PUBLIC_URI}/blog/read/${post.id}/${post.canonicalSlug}`,
+    url: `${env.NEXT_PUBLIC_URI}/blog/read/${post.id}/${post.canonicalSlug}`,
     lastModified: new Date(post.updatedAt),
     changeFrequency: "weekly" as const,
     priority: 0.5,
   }));
 
   const tags = blogTags.map((tag) => ({
-    url: `${process.env.NEXT_PUBLIC_URI}/blog/tag/${tag.slug}`,
+    url: `${env.NEXT_PUBLIC_URI}/blog/tag/${tag.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
 
   const categories = blogCategories.map((category) => ({
-    url: `${process.env.NEXT_PUBLIC_URI}/blog/category/${category.slug}`,
+    url: `${env.NEXT_PUBLIC_URI}/blog/category/${category.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
@@ -70,31 +71,31 @@ function createSitemapEntries(
 
   return [
     {
-      url: process.env.NEXT_PUBLIC_URI ?? "",
+      url: env.NEXT_PUBLIC_URI ?? "",
       lastModified: new Date(),
       changeFrequency: "yearly" as const,
       priority: 1,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URI}/blog`,
+      url: `${env.NEXT_PUBLIC_URI}/blog`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URI}/faq`,
+      url: `${env.NEXT_PUBLIC_URI}/faq`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.5,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URI}/terms`,
+      url: `${env.NEXT_PUBLIC_URI}/terms`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.5,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URI}/privacy`,
+      url: `${env.NEXT_PUBLIC_URI}/privacy`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.5,
@@ -110,7 +111,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogData = await fetchBlogData();
 
   const mainMenuLinks = mainMenu.map((item) => ({
-    url: `${process.env.NEXT_PUBLIC_URI}/${item.url}`,
+    url: `${env.NEXT_PUBLIC_URI}/${item.url}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,

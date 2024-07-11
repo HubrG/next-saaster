@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "Fiyatlandırma"
-    }
+    },
+    "update": "Aboneliğimi değiştir"
   },
   "Register": {
     "SignUpWithCredentials": {

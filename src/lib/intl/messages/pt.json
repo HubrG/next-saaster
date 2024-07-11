@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "Preços"
-    }
+    },
+    "update": "Alterar minha assinatura"
   },
   "Register": {
     "SignUpWithCredentials": {

@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "التسعير"
-    }
+    },
+    "update": "تغيير اشتراكي"
   },
   "Register": {
     "SignUpWithCredentials": {

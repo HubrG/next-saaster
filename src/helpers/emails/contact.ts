@@ -1,10 +1,12 @@
 "use server";
 import { prisma } from "@/src/lib/prisma";
+import { env } from "@/src/lib/zodEnv";
 import { ResendContact } from "@prisma/client";
 import { Resend } from "resend";
 import { getErrorMessage } from "../../lib/error-handling/getErrorMessage";
 import { getAudience } from "./audience";
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+const resend = new Resend(env.RESEND_API_KEY);
 interface ContactData {
   id: string;
 }

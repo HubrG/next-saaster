@@ -1,9 +1,9 @@
 "use client";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import languages from "@/src/lib/intl/languages.json";
@@ -13,13 +13,13 @@ import useInternationalizationStore from "@/src/stores/internationalizationStore
 import { useLocale } from "next-intl";
 import { useParams } from "next/navigation";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 import Flag from "react-world-flags";
 
 const ChangeLanguage = () => {
   const { appSettings } = useAppSettingsStore();
   const { internationalizations } = useInternationalizationStore();
-
   const pathname = usePathname();
   const router = useRouter();
   const params = useParams();
@@ -88,26 +88,41 @@ const ChangeLanguage = () => {
         } !max-w-96 user-profile-dd   overflow-y-auto`}>
         {mergedInternationalizations
           .sort((b, a) => b.popularity - a.popularity) // Trier par popularité
-          .map((locale) => (
-            <DropdownMenuItem
-              key={locale.code}
-              className="p-2 rounded-default profile-link hover:cursor-pointer"
-              onClick={() => handleLanguageChange(locale.code)}>
-              <div className="flex flex-row items-center">
-                <div
-                  role="img"
-                  aria-label={`${locale.code} flag`}
-                  className="w-8 h-8 rounded-full overflow-hidden">
-                  <Flag
-                    alt={`${locale.code} flag`}
-                    code={getFlagCode(locale.code)}
-                    fallback={`${locale}`}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-            </DropdownMenuItem>
-          ))}
+          .map((locale) => {
+            const language = languages.find(
+              (lang) => lang.code === locale.code
+            );
+
+            return (
+              <Fragment key={locale.code}>
+                <DropdownMenuItem
+                  data-tooltip-id={locale.code}
+                  className="p-2 rounded-default profile-link hover:cursor-pointer"
+                  onClick={() => handleLanguageChange(locale.code)}>
+                  <div className="flex flex-row items-center">
+                    <div
+                      role="img"
+                      aria-label={`${locale.code} flag`}
+                      className="w-8 h-8 rounded-full overflow-hidden">
+                      <Flag
+                        alt={`${locale.code} flag`}
+                        code={getFlagCode(locale.code)}
+                        fallback={`${locale}`}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+                <Tooltip
+                  id={locale.code}
+                  className="tooltip z-50"
+                  opacity={100}
+                  place="bottom">
+                  {language?.name_native || language?.name_en}
+                </Tooltip>
+              </Fragment>
+            );
+          })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

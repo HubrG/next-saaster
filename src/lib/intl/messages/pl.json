@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "cennik"
-    }
+    },
+    "update": "Zmień moją subskrypcję"
   },
   "Register": {
     "SignUpWithCredentials": {

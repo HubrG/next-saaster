@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "Prezzi"
-    }
+    },
+    "update": "Modifica il mio abbonamento"
   },
   "Register": {
     "SignUpWithCredentials": {

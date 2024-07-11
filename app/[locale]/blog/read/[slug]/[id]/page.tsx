@@ -2,6 +2,7 @@ import { getBlogPost } from "@/src/helpers/db/blog.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import createMetadata, { MetadataParams } from "@/src/lib/metadatas";
+import { env } from "@/src/lib/zodEnv"; // Importer les variables d'environnement validées
 import { iBlog } from "@/src/types/db/iBlog";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -44,7 +45,7 @@ export const generateMetadata = async ({
     type: "article",
     imgPath: blogPost?.image ? blogPost?.image : "",
     url:
-      process.env.NEXT_PUBLIC_URI +
+      env.NEXT_PUBLIC_URI +
       "/blog/read/" +
       blogPost?.id +
       "/" +
@@ -80,21 +81,21 @@ export default async function ReadBlogPost({
     image: blogPost.image,
     author: {
       "@type": "Organization",
-      name: process.env.NEXT_PUBLIC_APP_NAME,
-      url: process.env.NEXT_PUBLIC_RELATIVE_URI,
+      name: env.NEXT_PUBLIC_APP_NAME,
+      url: env.NEXT_PUBLIC_URI,
     },
     url:
-      process.env.NEXT_PUBLIC_RELATIVE_URI +
+      env.NEXT_PUBLIC_URI +
       "/blog/lecture/" +
       blogPost.canonicalSlug +
       "/" +
       blogPost.id,
     publisher: {
       "@type": "Organization",
-      name: process.env.NEXT_PUBLIC_APP_NAME,
+      name: env.NEXT_PUBLIC_APP_NAME,
       logo: {
         "@type": "ImageObject",
-        url: process.env.NEXT_PUBLIC_RELATIVE_URI + "/img/logo.png",
+        url: env.NEXT_PUBLIC_URI + "/img/logo.png",
       },
     },
     datePublished: blogPost.publishedAt,

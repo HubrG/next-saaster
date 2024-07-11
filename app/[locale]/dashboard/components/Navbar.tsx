@@ -82,7 +82,7 @@ export const DashboardNavbar = () => {
                 activeSection={activeSection}
                 text={t("links.billing")}
                 icon={<CreditCard className="icon" />}
-                sectionObserve={t("links.billing")}
+                sectionObserve="Billing"
                 handleScroll={handleScroll}
               />
               <MenuItem

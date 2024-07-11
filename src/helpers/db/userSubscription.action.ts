@@ -50,6 +50,7 @@ export const getUserSubscription = action(
 export const updateUserSubscription = action(
   userSubscriptionSchema,
   async ({
+    addCredit,
     stripeSignature,
     data,
   }): Promise<HandleResponseProps<iUserSubscription[]>> => {
@@ -76,7 +77,9 @@ export const updateUserSubscription = action(
             },
           },
           data: {
-            creditRemaining: data.creditRemaining,
+            creditRemaining:
+              addCredit ? (data.creditRemaining ?? 0) +
+              (userSub.creditRemaining ?? 0) : data.creditRemaining,
             isActive: data.isActive,
           },
           include,

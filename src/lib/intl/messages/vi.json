@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "Định giá"
-    }
+    },
+    "update": "Thay đổi đăng ký của tôi"
   },
   "Register": {
     "SignUpWithCredentials": {

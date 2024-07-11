@@ -252,7 +252,6 @@ export const AdminSaasSettings = () => {
           </Suspense>
         </div>
       </SubSectionWrapper>
-
       <SubSectionWrapper
         className={cn({ "my-disabled": !saasSettings.activeRefillCredit })}
         sectionName="Refill credits settings"
@@ -264,23 +263,26 @@ export const AdminSaasSettings = () => {
         }`}>
         <div className="flex-col-center gap-5 mt-14">
           <Suspense fallback={<Loader noHFull />}>
-            <SetMaxRefillCredit
-              disabled={!saasSettings.activeRefillCredit}
-              set={setMaxRefillCredit}
-            />
-          </Suspense>
-          <Suspense fallback={<Loader noHFull />}>
-            <SetRefillCreditStep
-              disabled={!saasSettings.activeRefillCredit}
-              set={setRefillCreditStep}
-            />
-          </Suspense>
-          <Suspense fallback={<Loader noHFull />}>
             <SetPriceForOneRefillCredit
               disabled={!saasSettings.activeRefillCredit}
               set={setPriceForOneRefillCredit}
             />
           </Suspense>
+          <div className="flex flex-row items-start gap-2 w-full">
+            <Suspense fallback={<Loader noHFull />}>
+              <SetMaxRefillCredit
+                disabled={!saasSettings.activeRefillCredit}
+                set={setMaxRefillCredit}
+              />
+            </Suspense>
+            <Suspense fallback={<Loader noHFull />}>
+              <SetRefillCreditStep
+                disabled={!saasSettings.activeRefillCredit}
+                set={setRefillCreditStep}
+              />
+            </Suspense>
+          </div>
+
           <SwitchActiveRefillDiscount />
           <div
             className={cn(

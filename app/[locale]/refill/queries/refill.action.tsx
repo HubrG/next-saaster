@@ -1,9 +1,10 @@
 "use server";
 import { stripeCustomerIdManager } from "@/src/helpers/functions/stripeCustomerIdManager";
 import { verifySecretRequest } from "@/src/helpers/functions/verifySecretRequest";
+import { env } from "@/src/lib/zodEnv";
 import { getTranslations } from "next-intl/server";
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
+const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "");
 type RefillSession = {
   secret: string;
   numberOfCredits: number;
@@ -56,8 +57,8 @@ export const createRefillSession = async ({
       refill: numberOfCredits,
     },
     mode: "payment",
-    success_url: `${process.env.NEXT_URI}/refill/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_URI}/refill`,
+    success_url: `${env.NEXT_URI}/refill/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${env.NEXT_URI}/refill`,
   });
   return session.url;
 };
@@ -67,7 +68,7 @@ export const portailclient = async () => {
 
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,
-    return_url: `${process.env.NEXT_URI}/dashboard`,
+    return_url: `${env.NEXT_URI}/dashboard`,
   });
   return session.url;
 };

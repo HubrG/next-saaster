@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "Τιμολόγηση"
-    }
+    },
+    "update": "Να αλλάξω τη συνδρομή μου"
   },
   "Register": {
     "SignUpWithCredentials": {

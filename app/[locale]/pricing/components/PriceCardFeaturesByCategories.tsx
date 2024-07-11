@@ -23,7 +23,13 @@ import { PriceCardContactUsButton } from "./PriceCardContactUsButton";
 import { PriceCardFeatureNameAndDesc } from "./PriceCardFeatureNameAndDesc";
 import { PriceCardHeader } from "./PriceCardHeader";
 
-export const PriceCardsFeaturesByCategories = () => {
+export const PriceCardsFeaturesByCategories = ({
+  customMode,
+  children,
+}: {
+    customMode?: boolean;
+    children?: React.ReactNode;
+}) => {
   const { saasPlans } = useSaasPlansStore();
   const { saasFeaturesCategories } = useSaasFeaturesCategoriesStore();
   useEffect(() => {
@@ -59,27 +65,33 @@ export const PriceCardsFeaturesByCategories = () => {
           <TableHeader>
             <TableRow className="!border-0">
               <TableHead></TableHead>
-              {plansFiltered.map((plan) => (
-                <TableHead key={plan.id} className="pb-5">
-                  <Card
-                    className={cn(
-                      {
-                        "card-popular": plan.isPopular || plan.isRecommended,
-                      },
-                      `price-card-wrapper  w-full  h-[90.3%] grid place-content-end justify-between items-start`
-                    )}>
-                    <PriceCardHeader plan={plan} saasSettings={saasSettings} />
-                    {plan.isCustom ? (
-                      <PriceCardContactUsButton className="mt-7 w-full z-[99999999]" />
-                    ) : (
-                      <PriceCardBuyButton
-                        className="mt-7 w-full z-[999]"
+
+              {!customMode &&
+                plansFiltered.map((plan) => (
+                  <TableHead key={plan.id} className="pb-5">
+                    <Card
+                      className={cn(
+                        {
+                          "card-popular": plan.isPopular || plan.isRecommended,
+                        },
+                        `price-card-wrapper  w-full  h-[90.3%] grid place-content-end justify-between items-start`
+                      )}>
+                      <PriceCardHeader
                         plan={plan}
+                        saasSettings={saasSettings}
                       />
-                    )}
-                  </Card>
-                </TableHead>
-              ))}
+                      {plan.isCustom ? (
+                        <PriceCardContactUsButton className="mt-7 w-full z-[99999999]" />
+                      ) : (
+                        <PriceCardBuyButton
+                          className="mt-7 w-full z-[999]"
+                          plan={plan}
+                        />
+                      )}
+                    </Card>
+                  </TableHead>
+                ))}
+              {customMode && <>{children}</>}
             </TableRow>
           </TableHeader>
           <TableBody>

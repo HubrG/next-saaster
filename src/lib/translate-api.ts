@@ -1,6 +1,9 @@
 import { getAppSettings } from "../helpers/db/appSettings.action";
 
-export async function translateTextWithDeepL(text: string, targetLang: string) {
+export async function translateTextWithDeepL(text: string | null, targetLang: string) {
+  if (text === null) {
+    return text;
+  }
   try {
     const appSettings = (await getAppSettings()).data;
     if (!appSettings) {

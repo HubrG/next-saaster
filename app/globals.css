@@ -60,7 +60,7 @@
 }
 
 body {
-  @apply text-lg w-full !text-theming-text-950 font-sans bg-background;
+  @apply text-lg w-full !text-theming-text-950 font-sans bg-background  border-grain;
 }
 main:not(.full-div) {
   @apply min-h-screen min-w-full w-full z-10 mx-auto gap-4 text-center !important;
@@ -170,7 +170,7 @@ h4,
 h5,
 h6,
 p {
-  @apply text-theming-text-950 dark:text-theming-text-950;
+  @apply text-theming-text-950 dark:!text-theming-text-950;
 }
 h1 {
   @apply text-5xl font-bold;
@@ -418,7 +418,7 @@ form p {
 }
 form p.error {
   @apply font-bold not-italic !important;
-  transition: all 0.3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
 }
 form button {
   @apply self-end float-right text-center !important;
@@ -677,10 +677,10 @@ footer a {
   @apply !outline dark:outline-offset-4 outline-offset-2 outline-[3px] dark:outline-theming-background-500-second outline-theming-background-400-second;
 }
 .price-card-wrapper h1 {
-  @apply text-left text-theming-text-600-second !important;
+  @apply text-left text-theming-text-800-second !important;
 }
 .price-card-wrapper p.description {
-  @apply text-sm text-theming-text-900/70;
+  @apply text-sm !text-theming-text-600/70;
 }
 
 .price-card-wrapper h2 {
@@ -690,14 +690,14 @@ footer a {
   @apply text-5xl my-5 text-left relative font-bold text-theming-text-700-second  !important;
 }
 .price-card-wrapper h3 span.price-stroke {
-  @apply opacity-50 text-lg line-through   !important;
+  @apply opacity-80 text-lg line-through   !important;
 }
 .price-card-wrapper h3 span.recurrence {
   @apply text-lg opacity-50   !important;
 }
 
 .price-card-wrapper h3 span.trial {
-  @apply text-sm  font-normal inline-block !important;
+  @apply text-sm  font-normal inline-block  !important;
 }
 
 .my-shadow {
@@ -716,9 +716,14 @@ footer a {
   @apply rounded-default my-shadow bg-theming-background-200/20  !important;
 }
 .my-card {
-  @apply rounded-default bg-white   !important;
+  @apply rounded-default border-b-2 dark:border-b dark:border-r border-r-2  border-theming-text-600/20 bg-white !important;
 }
-
+.border-grain {
+  @apply opacity-100 bg-background !important;
+  /* border: 1px solid transparent;
+  background-image: url("data:image/png;base64,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");
+  background-clip: border-box; */
+}
 .button-in-input {
   @apply z-50  p-2  items-center  whitespace-nowrap push-effect rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-theming-text-200 dark:text-theming-text-700 dark:bg-theming-text-200 bg-theming-text-500 dark:hover:bg-theming-text-500/20 hover:bg-theming-text-500/90 text-sm;
 }
@@ -946,7 +951,9 @@ article .task-list-item {
 .blink {
   animation: blink 1s infinite;
 }
-
+.recurrence {
+  @apply !text-xs !important;
+}
 /* NOTE : Switch recurrence */
 .switch-recurrence-container {
   @apply flex justify-center items-center my-5 w-full select-none;
@@ -965,5 +972,45 @@ article .task-list-item {
 }
 
 .switch-recurrence-option.inactive {
-  @apply  text-theming-text-100;
+  @apply text-theming-text-100;
+}
+
+.custom-badge::after {
+  content: "";
+  @apply border-theming-text-400-second;
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-top-color: var(--background-50);
+  border-bottom: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  width: 0;
+  height: 0;
+}
+.price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.price-stroke {
+  height: 24px; 
+}
+
+.price-placeholder {
+  height: 24px; 
+}
+
+.credit-info {
+  height: 24px; 
+  display: flex;
+  align-items: center; 
+}
+
+.credit-info-placeholder {
+  height: 24px; 
 }

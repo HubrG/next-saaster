@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "가격"
-    }
+    },
+    "update": "내 구독 변경"
   },
   "Register": {
     "SignUpWithCredentials": {

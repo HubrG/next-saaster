@@ -139,6 +139,12 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     }
     return;
   };
+  const hasCoupon =
+    userProfile.activeSubscription &&
+    userProfile.activeSubscription.coupon &&
+    (userProfile.activeSubscription.coupon.percent_off ||
+      userProfile.activeSubscription.coupon.amount_off);
+
 
   return (
     <div className="rounded-default relative flex flex-col w-full gap-2 items-start p-5 ">
@@ -189,7 +195,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                         </span>
                         <span className="text-sm">
                           /
-                          {recurringTranslation(
+                          { userProfile.activeSubscription.subscription?.allDatas.items.data[0].price.recurring?.interval_count + " " ?? ""}{recurringTranslation(
                             userProfile.activeSubscription.recurring ?? ""
                           ) ?? ""}
                           {userProfile.activeSubscription.quantity > 1 &&
@@ -246,32 +252,31 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                 </h3>
               </div>
               <ul className="mt-3">
-                {userProfile.activeSubscription.coupon?.percent_off ||
-                  (userProfile.activeSubscription.coupon?.amount_off && (
-                    <li className="mt-2 text-theming-text-900  grid grid-cols-12">
-                      <span className="col-span-1">
-                        <Check className="icon text-theming-text-500-second mt-1" />
-                      </span>
-                      <span className=" col-span-11">
-                        {t("you-save", {
-                          varIntlSave: userProfile.activeSubscription.coupon
-                            ?.percent_off
-                            ? userProfile.activeSubscription.coupon
-                                ?.percent_off + "%"
-                            : format.number(
-                                (userProfile.activeSubscription.coupon
-                                  ?.amount_off ?? 0) / 100,
-                                {
-                                  style: "currency",
-                                  currency:
-                                    userProfile.activeSubscription.coupon
-                                      ?.currency ?? undefined,
-                                }
-                              ),
-                        })}{" "}
-                      </span>
-                    </li>
-                  ))}
+                {userProfile.activeSubscription && hasCoupon && (
+                  <li className="mt-2 text-theming-text-900  grid grid-cols-12">
+                    <span className="col-span-1">
+                      <Check className="icon text-theming-text-500-second mt-1" />
+                    </span>
+                    <span className=" col-span-11">
+                      {t("you-save", {
+                        varIntlSave: userProfile.activeSubscription.coupon
+                          ?.percent_off
+                          ? userProfile.activeSubscription.coupon?.percent_off +
+                            "%"
+                          : format.number(
+                              (userProfile.activeSubscription.coupon
+                                ?.amount_off ?? 0) / 100,
+                              {
+                                style: "currency",
+                                currency:
+                                  userProfile.activeSubscription.coupon
+                                    ?.currency ?? undefined,
+                              }
+                            ),
+                      })}{" "}
+                    </span>
+                  </li>
+                )}
 
                 {userProfile.activeSubscription.isTrial && (
                   <li className="mt-2 text-theming-text-900 grid grid-cols-12">
@@ -305,7 +310,6 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                           )
                         )}
                       </span>
-                     
                     </span>
                   </li>
                 ) : (
@@ -314,8 +318,8 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       <Check className="icon text-theming-text-500-second mt-1" />
                     </span>
                     <span className="flex flex-col col-span-11">
-                      <span>{t("next-invoice-at")} :</span>
-                      <span className="dark:text-theming-text-500-second !text-sm text-theming-text-500-second">
+                      <span>
+                        {t("next-invoice-at")}{" "}
                         {format.dateTime(
                           convertUnixToDate(
                             userProfile.activeSubscription
@@ -392,7 +396,6 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     {" "}
                     <XCircle className="icon text-red-500 mt-1" />{" "}
                   </PopoverConfirm>
-                  
                 </>
               ) : (
                 <Button
@@ -433,7 +436,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
           </div>
         </>
       ) : (
-        <div className="flex flex-col w-full items-start justify-center">
+        <div className="flex flex-col w-full items-center mt-10 justify-center">
           <h2 className="text-2xl mb-2"> {t("no-plan-subscribed-yet")}</h2>
           <Button onClick={handleGoToPricingPage}> {t("subscribe-now")}</Button>
         </div>

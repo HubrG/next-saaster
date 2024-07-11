@@ -1,7 +1,9 @@
 "use server";
 import { getAudienceByName } from "@/src/helpers/emails/audience";
+import { env } from "@/src/lib/zodEnv";
 import { Resend } from "resend";
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+const resend = new Resend(env.RESEND_API_KEY);
 
 export const addNewsletterEmail = async (email: string) => {
   // Get "Newsletter" audience

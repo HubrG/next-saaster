@@ -1,5 +1,6 @@
 import { getLocale } from "next-intl/server";
 import { getAppSettings } from "../helpers/db/appSettings.action";
+import { env } from "./zodEnv";
 
 export interface MetadataParams {
   title: string;
@@ -45,7 +46,7 @@ export const createMetadata = async ({
   if (!settings) {
     throw new Error("No settings found");
   }
-  const imgURL = `${process.env.NEXT_PUBLIC_URI}${imgPath}`;
+  const imgURL = `${env.NEXT_PUBLIC_URI}${imgPath}`;
   //
   if (!title) {
     title = `${settings?.name} | ${settings?.baseline}`;
@@ -57,12 +58,12 @@ export const createMetadata = async ({
     description = `${settings?.description}`;
   }
   if (!url) {
-    url = `${process.env.NEXT_PUBLIC_URI}/${local}`;
+    url = `${env.NEXT_PUBLIC_URI}/${local}`;
   }
 
   return {
     title,
-    metadataBase: new URL(`${process.env.NEXT_PUBLIC_URI}`),
+    metadataBase: new URL(`${env.NEXT_PUBLIC_URI}`),
     description,
     alternates: {
       canonical: url,

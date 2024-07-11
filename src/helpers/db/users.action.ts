@@ -6,6 +6,7 @@ import {
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action, authAction } from "@/src/lib/safe-actions";
+import { env } from "@/src/lib/zodEnv";
 import { iUsers } from "@/src/types/db/iUsers";
 import { updateUserSchema } from "@/src/types/schemas/dbSchema";
 import { User } from "@prisma/client";
@@ -15,7 +16,7 @@ import { z } from "zod";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 import { removeUserFromOrganization } from "./organization.action";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
+const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "");
 
 /**
  *  Get user by email

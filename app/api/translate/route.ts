@@ -1,11 +1,11 @@
 import { getInternationalizationDictionaries } from "@/src/helpers/db/internationalization.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
+import { env } from "@/src/lib/zodEnv";
 import { NextRequest, NextResponse } from "next/server";
-
 export async function POST(req: NextRequest) {
   const { text, targetLang, defaultl } = await req.json();
-  const apiKey = process.env.TRANSLATE_API_KEY || "";
+  const apiKey = env.TRANSLATE_API_KEY || "";
   const url = "https://api-free.deepl.com/v2/translate";
 
   // Entourer les mots à ne pas traduire avec des balises <keep>

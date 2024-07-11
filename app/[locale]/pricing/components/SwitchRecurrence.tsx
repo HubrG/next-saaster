@@ -42,6 +42,7 @@ export const SwitchRecurrence = ({
     return null;
   }
 
+
   return (
     <div className="switch-recurrence-container">
       <div className="switch-recurrence">

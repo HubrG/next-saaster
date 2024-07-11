@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "价钱"
-    }
+    },
+    "update": "更改我的订阅"
   },
   "Register": {
     "SignUpWithCredentials": {

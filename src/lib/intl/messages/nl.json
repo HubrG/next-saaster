@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "Prijzen"
-    }
+    },
+    "update": "Wijzig mijn abonnement"
   },
   "Register": {
     "SignUpWithCredentials": {

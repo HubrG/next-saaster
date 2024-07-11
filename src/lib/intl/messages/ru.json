@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "Цены"
-    }
+    },
+    "update": "Изменить мою подписку"
   },
   "Register": {
     "SignUpWithCredentials": {

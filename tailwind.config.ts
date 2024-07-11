@@ -49,6 +49,7 @@ module.exports = {
         "t-2xl": "0 -25px 50px -12px rgba(0, 0, 0, 0.25)",
         "t-3xl": "0 -35px 60px -15px rgba(0, 0, 0, 0.3)",
         right: "inset -8px 0 8px -10px rgba(128, 108, 156, 0.55)",
+        "inner-bottom": "inset 0 -4px 6px rgba(0, 0, 0, 0.1)",
       },
       colors: {
         border: "hsl(var(--border))",

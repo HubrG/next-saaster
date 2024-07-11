@@ -470,7 +470,15 @@
         "recommended": "Recommended",
         "trial": "days trial, then...",
         "by-month": "month",
-        "contact-us": "Contact us to customize your offer."
+        "contact-us": "Contact us to customize your offer.",
+        "billed": "billed each",
+        "daily": "day",
+        "depending-on-usage": "depending on use",
+        "each": "each",
+        "earned": "{varIntlEarned} {varIntlCreditName} received every {varIntlEach}",
+        "readLess": "Collapse description",
+        "readMore": "Read the description",
+        "weekly": "week"
       },
       "PriceCardBuyButton": {
         "buyNow": "Buy now",
@@ -497,7 +505,8 @@
     },
     "metadatas": {
       "title": "Pricing"
-    }
+    },
+    "update": "Change my subscription"
   },
   "Emails": {
     "ForgotPasswordTemplate": {

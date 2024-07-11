@@ -1,10 +1,11 @@
 "use server";
+import { env } from "@/src/lib/zodEnv";
 import { EmailsInterface } from "@/src/types/EmailsInterface";
 import React from "react";
 import { Resend } from "resend";
 import EmailWrapperTemplate from "../../emails/@ui/EmailWrapperTemplate";
 import { getErrorMessage } from "../../lib/error-handling/getErrorMessage";
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(env.RESEND_API_KEY);
 /**
  * This function sends an email using the Resend API.
  * @types
@@ -32,8 +33,8 @@ type SendEmailProps = {
   preview?: string;
 };
 export const sendEmail = async ({
-  from = process.env.RESEND_FROM ?? "onboarding@resend.dev",
-  reply_to = process.env.RESEND_REPLY_TO ?? "",
+  from = env.RESEND_FROM ?? "onboarding@resend.dev",
+  reply_to = env.RESEND_REPLY_TO ?? "",
   to,
   preview,
   subject,

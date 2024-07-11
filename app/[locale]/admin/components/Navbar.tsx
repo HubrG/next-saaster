@@ -3,7 +3,6 @@ import { MenuItem } from "@/src/components/ui/@fairysaas/user-interface/MenuItem
 import { MenuSubItem } from "@/src/components/ui/@fairysaas/user-interface/MenuSubItem";
 import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
-import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
   BadgeDollarSign,
   Building2,
@@ -21,7 +20,6 @@ import {
 import { useState } from "react";
 
 export const AdminNavbar = () => {
-  const { saasSettings } = useSaasSettingsStore();
   const [activeSection, setActiveSection] = useState("");
   const [activeSubSection, setActiveSubSection] = useState("");
   const updateActiveItem = (id: string, isSubSection = false) => {
@@ -115,13 +113,6 @@ export const AdminNavbar = () => {
               handleScroll={handleScroll}
             />
           </MenuItem>
-          {/* <MenuItem
-            activeSection={activeSection}
-            icon={<UserCheck className="icon" />}
-            text="Administrators"
-            sectionObserve="Administrators"
-            handleScroll={handleScroll}
-          /> */}
         </ul>
       </div>
       <div>

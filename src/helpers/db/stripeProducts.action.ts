@@ -6,13 +6,13 @@ import {
 } from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
 import { ActionError, action } from "@/src/lib/safe-actions";
+import { env } from "@/src/lib/zodEnv";
 import { iStripeProduct } from "@/src/types/db/iStripeProducts";
 import { stripeProductSchema } from "@/src/types/schemas/dbSchema";
 import { JsonValue } from "@prisma/client/runtime/library";
 import { z } from "zod";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
-
 /**
  * Get all stripe products
  * @param {string} secret - The secret (optional)
@@ -251,14 +251,14 @@ export const createOrUpdateProductStripeToBdd = action(
       if (type === "create") {
         product = await createStripeProduct({
           data: reformatData,
-          secret: process.env.NEXTAUTH_SECRET,
+          secret: env.NEXTAUTH_SECRET,
         });
       }
       // NOTE : Update
       else if (type === "update") {
         product = await updateStripeProduct({
           data: reformatData,
-          secret: process.env.NEXTAUTH_SECRET,
+          secret: env.NEXTAUTH_SECRET,
         });
       } else {
         throw new ActionError("Invalid type");

@@ -286,6 +286,7 @@ export const createOrUpdatePriceStripeToBdd = action(
     // 🔓 Unlocked
     try {
       let price;
+      console.log(data)
       const reformatData = {
         ...data,
         transform_quantity_round: data.transform_quantity?.round ?? undefined,

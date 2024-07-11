@@ -10,7 +10,7 @@ export type ReturnUserDependencyProps = {
   oneTimePayments: iUsers["oneTimePayments"];
   //
   activeSubscription: {
-    subscription: Subscription | null;
+    subscription: (Subscription & { allDatas?: Stripe.Subscription }) | null;
     usageType: "metered" | "licensed" | null;
     recurring: "day" | "week" | "month" | "year" | null;
     creditRemaining: number;

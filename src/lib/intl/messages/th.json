@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "ราคา"
-    }
+    },
+    "update": "เปลี่ยนการสมัครของฉัน"
   },
   "Register": {
     "SignUpWithCredentials": {

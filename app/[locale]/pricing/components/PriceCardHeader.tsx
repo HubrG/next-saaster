@@ -271,7 +271,7 @@ export const PriceCardHeader = ({
                     {saasSettings.creditName &&
                       plan.creditAllouedByMonth > 1 &&
                       "s"}{" "}
-                    / {t("by-month")}
+                    {saasSettings.saasType !== "PAY_ONCE" && `/ ${t("by-month")}`}
                   </span>
                 ) : null}
               </>

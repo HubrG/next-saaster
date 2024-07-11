@@ -5,6 +5,7 @@ declare module "node" {
     prisma?: PrismaClient;
   }
 }
+declare module "react-transition-group";
 declare module "slugify";
 declare module "lucide-react";
 declare module "nodemailer";

@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "Harga"
-    }
+    },
+    "update": "Ubah langganan saya"
   },
   "Register": {
     "SignUpWithCredentials": {

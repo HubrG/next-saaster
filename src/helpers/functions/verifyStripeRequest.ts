@@ -1,3 +1,5 @@
+import { env } from "@/src/lib/zodEnv";
+
 export function verifyStripeRequest(stripeSignature: string) {
-  return stripeSignature === process.env.STRIPE_WEBHOOK_SECRET;
+  return stripeSignature === env.STRIPE_WEBHOOK_SECRET;
 }

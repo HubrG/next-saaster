@@ -285,13 +285,14 @@ export const PlanCard = ({ plan, className }: Props) => {
           </div>
           <CollapsibleContent className="space-y-2">
             <Separator className="border-b bg-transparent mt-4" />
-            {saasSettings.saasType !== "PAY_ONCE" && (
-              <RecurringSwitchFields
-                planState={planState}
-                plan={plan}
-                handleInputChange={handleInputChange}
-              />
-            )}
+            {saasSettings.saasType !== "PAY_ONCE" &&
+              saasSettings.saasType !== "CUSTOM" && (
+                <RecurringSwitchFields
+                  planState={planState}
+                  plan={plan}
+                  handleInputChange={handleInputChange}
+                />
+              )}
             <PlanCardSwitch
               plan={plan as iPlan}
               label="Custom plan"

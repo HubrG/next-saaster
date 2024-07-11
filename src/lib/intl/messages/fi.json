@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "Hinnoittelu"
-    }
+    },
+    "update": "Vaihda tilaustani"
   },
   "Register": {
     "SignUpWithCredentials": {

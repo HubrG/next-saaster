@@ -28,18 +28,19 @@ import {
 import { getUserByCustomerId } from "@/src/helpers/db/users.action";
 import { todoWhenPaymentSuceeded } from "@/src/helpers/functions/todoWhenPaymentSuceeded";
 import { handleError } from "@/src/lib/error-handling/handleError";
+import { env } from "@/src/lib/zodEnv";
 import { iStripeProduct } from "@/src/types/db/iStripeProducts";
 import { SubscriptionStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
+const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "", {
   apiVersion: "2024-06-20",
   typescript: true,
 });
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.STRIPE_WEBHOOK_SECRET || "";
+  const secret = env.STRIPE_WEBHOOK_SECRET || "";
   const payload = await req.text();
   const signature = req.headers.get("stripe-signature");
 
@@ -102,9 +103,9 @@ export async function POST(req: NextRequest) {
             stripeSignature: secret ?? "",
             data: {
               isActive: false,
-              creditRemaining: parseInt(
-                event.data.object.metadata.creditByMonth ?? 0
-              ) as number,
+              // creditRemaining: parseInt(
+              //   event.data.object.metadata.creditByMonth ?? 0
+              // ) as number,
               userId: user.data?.success?.id as string,
               subscriptionId: subscription.id as string,
             },
@@ -164,10 +165,10 @@ export async function POST(req: NextRequest) {
         stripeSignature: secret ?? "",
         data: {
           isActive: undefined,
-          creditRemaining: parseInt(
-            upSub.data?.success?.price?.productRelation?.PlanRelation?.creditAllouedByMonth?.toString() ??
-              "0"
-          ) as number,
+          // creditRemaining: parseInt(
+          //   upSub.data?.success?.price?.productRelation?.PlanRelation?.creditAllouedByMonth?.toString() ??
+          //     "0"
+          // ) as number,
           userId: userIi.data?.success?.id as string,
           subscriptionId: upsubscription.id as string,
         },
@@ -238,6 +239,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 200 });
     // NOTE : Invoice payment succeeded
     case "invoice.payment_succeeded":
+      // We add tokens to the user
+      const invoiceSucceeded = event.data.object as Stripe.Invoice;
+      const updateSub = await updateUserSubscription({
+        stripeSignature: secret ?? "",
+        addCredit: true,
+        data: {
+          creditRemaining: parseInt(
+            invoiceSucceeded.lines.data[0].metadata.creditByMonth ?? 0
+          ) as number,
+          userId: invoiceSucceeded.customer as string,
+          subscriptionId: invoiceSucceeded.subscription as string,
+        },
+      });
+      if (handleError(updateSub).error)
+        return NextResponse.json(
+          { error: handleError(updateSub).message },
+          { status: 500 }
+        );
       return NextResponse.json({ status: 200 });
     // NOTE : Invoice payment failed
     case "invoice.payment_failed":
@@ -426,6 +445,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 200 });
     // NOTE : Price created
     case "price.created":
+      console.log("Price created", event.data.object);
       const isPriceExist = await getStripePrice({
         id: event.data.object.id,
         stripeSignature: secret ?? "",

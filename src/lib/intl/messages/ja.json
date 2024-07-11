@@ -446,7 +446,8 @@
     },
     "metadatas": {
       "title": "価格設定"
-    }
+    },
+    "update": "サブスクリプションを変更する"
   },
   "Register": {
     "SignUpWithCredentials": {

@@ -1,5 +1,6 @@
 import { Heading, Hr, Section, Text } from "@react-email/components";
 import { getTranslations } from "next-intl/server";
+import { env } from "../lib/zodEnv";
 import ButtonTemplate from "./@ui/ButtonTemplate";
 
 export type verificationEmailTemplateProps = {
@@ -10,7 +11,7 @@ export type verificationEmailTemplateProps = {
 export default async function VerifyEmailTemplate({
   vars,
 }: verificationEmailTemplateProps) {
-  const uri = process.env.NEXT_PUBLIC_URI;
+  const uri = env.NEXT_PUBLIC_URI;
   const t = await getTranslations();
 
   return (

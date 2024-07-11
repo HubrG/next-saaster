@@ -506,7 +506,8 @@
     },
     "metadatas": {
       "title": "Prissättning"
-    }
+    },
+    "update": "Ändra mitt abonnemang"
   },
   "Register": {
     "SignUpWithCredentials": {

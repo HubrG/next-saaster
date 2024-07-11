@@ -2,6 +2,7 @@ import { getBlogCategory } from "@/src/helpers/db/blog.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import createMetadata, { MetadataParams } from "@/src/lib/metadatas";
+import { env } from "@/src/lib/zodEnv"; // Importer les variables d'environnement validées
 import { BlogCategory } from "@prisma/client";
 import { Bookmark } from "lucide-react";
 import { Metadata } from "next";
@@ -21,7 +22,7 @@ export const generateMetadata = async ({
     description: `Blog posts by category ${params.slug}`,
     type: "website",
     // imgPath: blogPost?.image ? blogPost?.image : "",
-    url: process.env.NEXT_PUBLIC_URI + "/blog/category/" + params.slug,
+    url: env.NEXT_PUBLIC_URI + "/blog/category/" + params.slug,
   } as MetadataParams);
 };
 export default async function BlogPostsByCategory({

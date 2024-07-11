@@ -1,7 +1,6 @@
-import {
-  Pathnames,
-  createLocalizedPathnamesNavigation,
-} from "next-intl/navigation";
+import { createLocalizedPathnamesNavigation } from "next-intl/navigation";
+
+import { Pathnames } from "next-intl/routing";
 
 export type Locale = (typeof locales)[number];
 
@@ -49,9 +48,37 @@ export const pathnames = {
 
   // If locales use different paths, you can
   // specify each external path per locale.
+  "/pricing/success": {
+    en: "/pricing/success",
+    fr: "/tarifs/succes",
+    es: "/precios/exito",
+    hi: "/pricing/success",
+    zh: "/pricing/success",
+    tr: "/pricing/success",
+    ja: "/pricing/success",
+    pt: "/precos/sucesso",
+    ar: "/pricing/success",
+    ru: "/pricing/success",
+    it: "/prezzi/successo",
+    de: "/preisgestaltung/erfolg",
+    bn: "/pricing/success",
+    ko: "/pricing/success",
+    el: "/pricing/success",
+    fi: "/pricing/success",
+    hu: "/pricing/success",
+    id: "/pricing/success",
+    is: "/pricing/success",
+    nl: "/pricing/success",
+    no: "/pricing/success",
+    pl: "/pricing/success",
+    sv: "/pricing/success",
+    th: "/pricing/success",
+    vi: "/pricing/success",
+  },
+
   "/dashboard#Billing": {
     en: "/dashboard#Billing",
-    fr: "/tableau-de-bord#Facturation",
+    fr: "/tableau-de-bord#Billing",
     es: "/tablero#Billing",
     hi: "/dashboard#Billing",
     zh: "/dashboard#Billing",
@@ -292,6 +319,34 @@ export const pathnames = {
     th: "/refill",
     vi: "/refill",
   },
+  "/refill/success": {
+    en: "/refill/success",
+    fr: "/recharger/succes",
+    es: "/recargar/exito",
+    hi: "/refill/success",
+    zh: "/refill/success",
+    tr: "/refill/success",
+    ja: "/refill/success",
+    pt: "/recarregar/sucesso",
+    ar: "/refill/success",
+    ru: "/refill/success",
+    it: "/ricaricare/successo",
+    de: "/nachfullen/erfolg",
+    bn: "/refill/success",
+    ko: "/refill/success",
+    el: "/refill/success",
+    fi: "/refill/success",
+    hu: "/refill/success",
+    id: "/refill/success",
+    is: "/refill/success",
+    nl: "/refill/success",
+    no: "/refill/success",
+    pl: "/refill/success",
+    sv: "/refill/success",
+    th: "/refill/success",
+    vi: "/refill/success",
+  },
+
   "/register": {
     en: "/register",
     fr: "/inscription",

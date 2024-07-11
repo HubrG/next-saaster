@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/src/components/ui/button";
+import { Separator } from "@/src/components/ui/separator";
 import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { useTranslations } from "next-intl";
@@ -13,8 +14,11 @@ export const UpOrDowngradePlan = ({ userProfile }: UpOrDowngradePlanProps) => {
 
   
   return (
-    <Button onClick={() => router.push("/pricing")}>
-      {t("buttons.update-plan")}
-    </Button>
+    <>
+      <Button className="w-full" onClick={() => router.push("/pricing")}>
+        {t("buttons.update-plan")}
+      </Button>
+      <Separator className="md:hidden mt-5 mb-5" />
+    </>
   );
 };

@@ -1,8 +1,10 @@
 "use server";
 import { prisma } from "@/src/lib/prisma";
+import { env } from "@/src/lib/zodEnv";
 import { Resend } from "resend";
 import { getErrorMessage } from "../../lib/error-handling/getErrorMessage";
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+const resend = new Resend(env.RESEND_API_KEY);
 interface AudienceData {
   id: string;
 }

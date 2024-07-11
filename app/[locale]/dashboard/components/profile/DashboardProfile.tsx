@@ -19,7 +19,7 @@ import { ProfilePurchase } from "./purchase/ProfilePurchase";
 
 type DashboardProfileProps = {};
 
-export const DashboardProfile = ({ }: DashboardProfileProps) => {
+export const DashboardProfile = ({}: DashboardProfileProps) => {
   const t = useTranslations("Dashboard.Components.Profile");
   const { saasSettings } = useSaasSettingsStore();
 
@@ -52,8 +52,8 @@ export const DashboardProfile = ({ }: DashboardProfileProps) => {
             <ProfileOrganization />
           </SectionWrapper>
           <SectionWrapper
-            id={t('Billing.id')}
-            sectionName={t('Billing.title')}
+            id="Billing"
+            sectionName={t("Billing.title")}
             // mainSectionName="Billing"
             icon={<CreditCard className="icon" />}>
             <ProfileBilling />
@@ -62,14 +62,14 @@ export const DashboardProfile = ({ }: DashboardProfileProps) => {
       )}
       <SectionWrapper
         id="Purchase"
-        sectionName={t('Purchases.title')}
+        sectionName={t("Purchases.title")}
         // mainSectionName="Purchase"
         icon={<CreditCard className="icon" />}>
         <ProfilePurchase />
       </SectionWrapper>
       <SectionWrapper
         id="Emails"
-        sectionName={t('Emails.title')}
+        sectionName={t("Emails.title")}
         // mainSectionName="Emails"
         icon={<Mail className="icon" />}>
         <ProfileEmail />

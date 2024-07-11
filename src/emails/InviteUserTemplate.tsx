@@ -1,7 +1,7 @@
 import { Heading, Hr, Section, Text } from "@react-email/components";
 import { getTranslations } from "next-intl/server";
+import { env } from "../lib/zodEnv";
 import ButtonTemplate from "./@ui/ButtonTemplate";
-
 export type InviteUserTemplateProps = {
   vars: {
     organizationId: string;
@@ -12,7 +12,7 @@ export type InviteUserTemplateProps = {
 export default async function InviteUserTemplate({
   vars,
 }: InviteUserTemplateProps) {
-  const uri = process.env.NEXT_PUBLIC_URI;
+  const uri = env.NEXT_PUBLIC_URI;
   const t = await getTranslations();
 
   return (

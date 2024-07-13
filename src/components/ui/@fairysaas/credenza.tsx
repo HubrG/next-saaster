@@ -3,24 +3,24 @@
 import * as React from "react";
 
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/src/components/ui/dialog";
 import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
 } from "@/src/components/ui/drawer";
 import { useMediaQuery } from "@/src/hooks/vaul-use-media-query";
 import { cn } from "@/src/lib/utils";
@@ -75,7 +75,7 @@ const CredenzaContent = ({ className, children, ...props }: CredenzaProps) => {
   const CredenzaContent = isDesktop ? DialogContent : DrawerContent;
 
   return (
-    <CredenzaContent className={className} {...props}>
+    <CredenzaContent className={className + " px-5"} {...props}>
       {children}
     </CredenzaContent>
   );
@@ -138,9 +138,9 @@ const CredenzaFooter = ({ className, children, ...props }: CredenzaProps) => {
 };
 
 export {
-    Credenza, CredenzaBody, CredenzaClose,
-    CredenzaContent,
-    CredenzaDescription, CredenzaFooter, CredenzaHeader,
-    CredenzaTitle, CredenzaTrigger
+  Credenza, CredenzaBody, CredenzaClose,
+  CredenzaContent,
+  CredenzaDescription, CredenzaFooter, CredenzaHeader,
+  CredenzaTitle, CredenzaTrigger
 };
 

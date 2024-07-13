@@ -75,14 +75,36 @@ export const AdminNavbar = () => {
               handleScroll={handleScroll}
             />
           </MenuItem>
-          {/*  */}
           <MenuItem
             activeSection={activeSection}
             text="Layout"
             icon={<LayoutDashboard className="icon" />}
-            sectionObserve="Layout"
-            handleScroll={handleScroll}
-          />
+            sectionObserve="Layout">
+            <MenuSubItem
+              parent="Layout"
+              activeSection={activeSubSection}
+              sectionObserve="dark-light-mode"
+              text="Dark/Light Mode"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
+              parent="Layout"
+              activeSection={activeSubSection}
+              sectionObserve="ui-settings"
+              text="UI Settings"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+            <MenuSubItem
+              parent="Layout"
+              activeSection={activeSubSection}
+              sectionObserve="newsletter-settings"
+              text="Newsletter"
+              icon={<Dot className="icon" />}
+              handleScroll={handleScroll}
+            />
+          </MenuItem>
           <MenuItem
             activeSection={activeSection}
             icon={<Languages className="icon" />}

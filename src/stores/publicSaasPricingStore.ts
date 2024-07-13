@@ -15,6 +15,10 @@ type Store = {
   setCustomIs3: (value: boolean) => void;
   customIs4: boolean;
   setCustomIs4: (value: boolean) => void;
+  displayOnRecurrence: "custom1" | "custom2" | "custom3" | "custom4";
+  setDisplayOnRecurrence: (
+    value: "custom1" | "custom2" | "custom3" | "custom4"
+  ) => void;
 };
 
 export const usePublicSaasPricingStore = create<Store>((set) => ({
@@ -52,4 +56,21 @@ export const usePublicSaasPricingStore = create<Store>((set) => ({
     set(() => ({
       customIs4: value,
     })),
+  displayOnRecurrence: "custom1",
+  setDisplayOnRecurrence: (
+    value: "custom1" | "custom2" | "custom3" | "custom4"
+  ) =>
+    set((state) => {
+      if (state.displayOnRecurrence !== value) {
+        const newState = {
+          displayOnRecurrence: value,
+          customIs1: value === "custom1",
+          customIs2: value === "custom2",
+          customIs3: value === "custom3",
+          customIs4: value === "custom4",
+        };
+        return newState;
+      }
+      return { displayOnRecurrence: value };
+    }),
 }));

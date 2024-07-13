@@ -207,6 +207,7 @@ ul.ul {
   /* Icon size will relative to font-size of .text-wrapper */
   width: 1em;
   height: 1em;
+  stroke-width: 1.5px;
   @apply mr-2 min-w-4;
 }
 strong,
@@ -310,7 +311,7 @@ ol li:not(.blog-breadcrumb) {
   @apply self-center mx-auto sm:col-span-2  max-sm:row-span-1 max-sm:col-span-12;
 }
 .user-interface aside.user-inteface-aside nav {
-  @apply flex flex-col gap-y-5 sticky top-24 pr-5 -mt-24 overflow-y-auto max-h-[90vh];
+  @apply flex flex-col gap-y-5 sticky top-24 pr-5 -mt-24 overflow-y-auto max-h-[85vh];
 }
 .user-interface aside.user-inteface-aside nav ul {
   @apply text-left flex flex-col gap-y-0.5 mt-1;
@@ -728,7 +729,7 @@ footer a {
   @apply z-50  p-2  items-center  whitespace-nowrap push-effect rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-theming-text-200 dark:text-theming-text-700 dark:bg-theming-text-200 bg-theming-text-500 dark:hover:bg-theming-text-500/20 hover:bg-theming-text-500/90 text-sm;
 }
 
-table.user-dialog-subscriptions tbody td {
+table.user-dialog-subscriptions > tbody td {
   @apply !text-sm;
 }
 
@@ -1013,4 +1014,10 @@ article .task-list-item {
 
 .credit-info-placeholder {
   height: 24px; 
+}
+
+
+.user-dialog-info-tab td {
+  @apply !text-sm;
+
 }

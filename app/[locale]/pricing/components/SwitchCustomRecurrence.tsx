@@ -45,8 +45,13 @@ export const SwitchCustomRecurrence = ({
     setCustomIs4,
     togglePricingPlan,
   } = usePublicSaasPricingStore();
+  
   const { saasSettings } = useSaasSettingsStore();
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    setCustomIs1(true);
+  }, []);
 
   const notDisplay =
     saasSettings.saasType === "PAY_ONCE" ||
@@ -102,9 +107,9 @@ export const SwitchCustomRecurrence = ({
   useEffect(() => {
     if (notDisplay) {
       if (custom1 !== undefined) setCustomIs1(custom1 ? true : false);
-      if (custom2 !== undefined) setCustomIs2(custom2 ? true : false);
-      if (custom3 !== undefined) setCustomIs3(custom3 ? true : false);
-      if (custom4 !== undefined) setCustomIs4(custom4 ? true : false);
+      // if (custom2 !== undefined) setCustomIs2(custom2 ? true : false);
+      // if (custom3 !== undefined) setCustomIs3(custom3 ? true : false);
+      // if (custom4 !== undefined) setCustomIs4(custom4 ? true : false);
     }
   }, [saasSettings, notDisplay, custom1, custom2, custom3, custom4]);
 

@@ -30,6 +30,9 @@ type Props = {
  * @param what - (optional)  The message that will be displayed in the popover.
  * @param icon - (optional) - The icon that will be displayed in the button.
  * @param display - (optional) The text that will be displayed in the button « are you sure you want... [your display]
+ * @param className - (optional) The class that will be applied to the button.
+ * @param children - (optional) The children that will be displayed in the button.
+ * @param variant - (optional) The variant of the button, can be "link", "destructive", "ghost", "ghostDestructive", "outline" or "default".
  *
  */
 export const PopoverConfirm = ({
@@ -59,11 +62,11 @@ export const PopoverConfirm = ({
           </Button>
         )}
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="w-80 !shadow-theming-text-500/50">
         <div className="grid gap-4">
-          <p className="text-center font-bold flex flex-col gap-2 justify-center">
+          <p className="text-center !font-semibold flex flex-col gap-2 justify-center">
             <MessageCircleWarningIcon className="mx-auto" />
-            <span>
+            <span className="!font-light dark:!text-theming-text-700 text-theming-text-500">
               {t("message")} {what}
             </span>
           </p>

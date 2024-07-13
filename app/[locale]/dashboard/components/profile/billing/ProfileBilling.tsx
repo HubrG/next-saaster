@@ -11,14 +11,11 @@ import {
 import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import {
-  ReturnUserDependencyProps,
-  getUserInfos,
-} from "@/src/helpers/dependencies/user";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { useUserStore } from "@/src/stores/userStore";
+import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { toLower } from "lodash";
 import {
   Check,
@@ -34,7 +31,6 @@ import { convertUnixToDate } from "../../../../../../src/helpers/functions/conve
 import {
   cancelSubscription,
   changePaymentMethod,
-  reportUsage,
 } from "../../../queries/queries";
 import { UpOrDowngradePlan } from "./components/UpOrDowngradePlan";
 
@@ -46,17 +42,19 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
   const router = useRouter();
   const { saasSettings } = useSaasSettingsStore();
   const [userProfile, setUserProfile] = useState<ReturnUserDependencyProps>();
-  const { userStore, isUserStoreLoading, fetchUserStore } = useUserStore();
+  const { userInfoStore, fetchUserInfoStore } = useUserInfoStore();
   const [isLoading, setIsLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    setUserProfile(getUserInfos({ user: userStore }));
-    if (!isUserStoreLoading) {
-      setRefresh(false);
-    }
-  }, [userStore, refresh, isLoading, isUserStoreLoading]);
 
+  useEffect(() => {
+    if (!userInfoStore?.info?.email) return;
+    // fetchUserInfoStore(userInfoStore?.info?.email ?? "");
+    setUserProfile(userInfoStore);
+  }, [userInfoStore, refresh]);
+  if (!userProfile || userProfile?.isLoading) {
+    return <SkeletonLoader type="card" />;
+  }
   // Customer actions
   const handleCustomerPortail = async () => {
     const refill = await portailclient();
@@ -85,7 +83,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     }
     setTimeout(async () => {
       setIsLoading(false);
-      await fetchUserStore(userEmail ?? "");
+      await fetchUserInfoStore(userEmail ?? "");
       setRefresh(!refresh);
       toaster({
         type: "success",
@@ -99,18 +97,6 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
 
   const handleGoToPricingPage = () => {
     router.push("/pricing");
-  };
-
-  const handlAddItem = async (subItem: string) => {
-    const addItem = await reportUsage(subItem, 100000);
-    if (addItem) {
-      toaster({
-        type: "success",
-        description: "Item added",
-      });
-      fetchUserStore(userStore.email ?? "");
-      setRefresh(true);
-    }
   };
 
   const changePayMethod = async () => {
@@ -144,7 +130,6 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
     userProfile.activeSubscription.coupon &&
     (userProfile.activeSubscription.coupon.percent_off ||
       userProfile.activeSubscription.coupon.amount_off);
-
 
   return (
     <div className="rounded-default relative flex flex-col w-full gap-2 items-start p-5 ">
@@ -195,9 +180,15 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                         </span>
                         <span className="text-sm">
                           /
-                          { userProfile.activeSubscription.subscription?.allDatas.items.data[0].price.recurring?.interval_count + " " ?? ""}{recurringTranslation(
+                          {userProfile.activeSubscription.subscription?.allDatas
+                            .items.data[0].price.recurring?.interval_count !==
+                            1 &&
+                            userProfile.activeSubscription.subscription
+                              ?.allDatas.items.data[0].price.recurring
+                              ?.interval_count + " "}
+                          {recurringTranslation(
                             userProfile.activeSubscription.recurring ?? ""
-                          ) ?? ""}
+                          )}
                           {userProfile.activeSubscription.quantity > 1 &&
                             "/" +
                               userProfile.activeSubscription.quantity +
@@ -376,7 +367,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                       handleCancelOrRestartSubscription(
                         "cancel",
                         userProfile.activeSubscription.subscription?.id ?? "",
-                        userStore.email ?? ""
+                        userInfoStore.info.email ?? ""
                       );
                     }}
                     className="!px-0 !pr-0"
@@ -407,7 +398,7 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
                     handleCancelOrRestartSubscription(
                       "restart",
                       userProfile.activeSubscription.subscription?.id ?? "",
-                      userStore.email ?? ""
+                      userInfoStore.info.email ?? ""
                     )
                   }>
                   <RotateCcw className="icon text-green-500" />{" "}

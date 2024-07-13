@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function SwitchCtaOnNavbar() {
   const [activeCtaOnNavbar, setActiveCtaOnNavbar] = useState<boolean>(true);
-  const { appSettings, setAppSettings } = useAppSettingsStore();
+  const { appSettings } = useAppSettingsStore();
   const data = appSettings;
   const [loading, setLoading] = useState<boolean>(false);
 

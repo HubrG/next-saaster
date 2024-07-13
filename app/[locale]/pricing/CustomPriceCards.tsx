@@ -7,7 +7,7 @@ import { SwitchCustomRecurrence } from "./components/SwitchCustomRecurrence";
 export const CustomPriceCards = () => {
   const { customIs1, customIs2, customIs3, customIs4 } =
     usePublicSaasPricingStore();
-
+  console.log(customIs1, customIs2, customIs3, customIs4);
   return (
     <>
       <SwitchCustomRecurrence
@@ -15,7 +15,10 @@ export const CustomPriceCards = () => {
         custom1="Monthly"
         custom1PercentOff={10}
         custom2="Yearly"
+        custom3="Custom 3"
+        custom3PercentOff={3}
       />
+
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 justify-center items-start mx-5 gap-10">
         <CustomPriceCard
           displayOnRecurrence={"custom1"}

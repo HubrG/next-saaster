@@ -43,7 +43,6 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
  useEffect(() => {
    if (user && session?.user !== undefined) {
      setUserStore(user as iUsers);
-    
    }
  }, [user, session, setUserStore]);
 
@@ -61,7 +60,9 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
       if (memoizedSettings.appSettings?.activeInternationalization) {
         await Promise.all([fetchInternationalizations(), fetchDictionaries()]);
       }
-      fetchUserInfoStore(session?.user?.email ?? "");
+      if (session?.user !== undefined) {
+        fetchUserInfoStore(session?.user?.email ?? "");
+      }
 
       if (session?.user && user?.role !== "USER") {
         await Promise.all([

@@ -26,7 +26,7 @@ export const PopoverArchive = ({ handleDelete, size, what }: Props) => {
         </PopoverTrigger>
         <PopoverContent className="w-80">
           <div className="grid gap-4">
-            <p className="text-center font-bold flex flex-col gap-2 justify-center">
+            <p className="text-center !font-semibold flex flex-col gap-2 justify-center">
               <MessageCircleWarningIcon className="mx-auto" />
               <span>Are you sure you want to archive {what} ?</span>
             </p>

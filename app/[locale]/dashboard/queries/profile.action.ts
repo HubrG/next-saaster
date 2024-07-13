@@ -46,9 +46,9 @@ export const createPassword = authAction(
 
 export const updatePassword = authAction(
   z.object({
-    oldPassword: z.string(),
+    oldPassword: z.string().optional(),
     password: z.string(),
-    oldPasswordCrypted: z.string(),
+    oldPasswordCrypted: z.string().optional(),
     email: z.string().email(),
   }),
   async ({
@@ -58,8 +58,12 @@ export const updatePassword = authAction(
     oldPasswordCrypted,
   }): Promise<HandleResponseProps<iUsers>> => {
     const hashedPassword = await hash(password, 10);
-    const comparePassword = await compare(oldPassword, oldPasswordCrypted);
-    if (!comparePassword) throw new ActionError("Old password is incorrect");
+    // Only if user is not an admin
+    let comparePassword;
+    if (oldPasswordCrypted && oldPassword) {
+      comparePassword = await compare(oldPassword, oldPasswordCrypted);
+      if (!comparePassword) throw new ActionError("Old password is incorrect");
+    }
     try {
       const upUserPassword = await updateUser({
         data: {
@@ -93,51 +97,53 @@ export const resetPassword = action(
   async ({ password, token, email }): Promise<HandleResponseProps<iUsers>> => {
     const t = await getTranslations();
     const hashedPassword = await hash(password, 10);
-      const isEmailExist = await prisma.user.findUnique({
+    const isEmailExist = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!isEmailExist)
+      throw new ActionError(t("Dashboard.Queries.Profile.email-not-found"));
+    const isTokenExist = await prisma.verificationToken.findFirst({
+      where: {
+        token: token,
+      },
+    });
+    if (!isTokenExist)
+      throw new ActionError(t("Dashboard.Queries.Profile.token-not-found"));
+    if (isTokenExist.expires < new Date())
+      throw new ActionError(t("Dashboard.Queries.Profile.token-expired"));
+    if (isTokenExist.identifier !== email)
+      throw new ActionError(t("Dashboard.Queries.Profile.invalid-token"));
+    try {
+      const upUserPassword = await prisma.user.update({
         where: {
           email,
         },
-      });
-      if (!isEmailExist) throw new ActionError(t("Dashboard.Queries.Profile.email-not-found"));
-      const isTokenExist = await prisma.verificationToken.findFirst({
-        where: {
-          token: token,
+        data: {
+          password: hashedPassword,
         },
       });
-      if (!isTokenExist) throw new ActionError(t("Dashboard.Queries.Profile.token-not-found"));
-      if (isTokenExist.expires < new Date())
-        throw new ActionError(t("Dashboard.Queries.Profile.token-expired"));
-      if (isTokenExist.identifier !== email)
-        throw new ActionError(t("Dashboard.Queries.Profile.invalid-token"));
-        try {
-          const upUserPassword = await prisma.user.update({
-            where: {
-              email,
-            },
-            data: {
-              password: hashedPassword,
-            },
-          });
-          if (!upUserPassword)
-            throw new ActionError(
-              t("Dashboard.Queries.Profile.password-not-updated")
-            );
-          // We delete the token
-          await prisma.verificationToken.delete({
-            where: {
-              token,
-            },
-          });
-          return handleRes<iUsers>({
-            success: upUserPassword,
-            statusCode: 200,
-          });
-        } catch (ActionError) {
-          console.error(ActionError);
-          return handleRes<iUsers>({
-            error: ActionError,
-            statusCode: 500,
-          });
-        }
+      if (!upUserPassword)
+        throw new ActionError(
+          t("Dashboard.Queries.Profile.password-not-updated")
+        );
+      // We delete the token
+      await prisma.verificationToken.delete({
+        where: {
+          token,
+        },
+      });
+      return handleRes<iUsers>({
+        success: upUserPassword,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      console.error(ActionError);
+      return handleRes<iUsers>({
+        error: ActionError,
+        statusCode: 500,
+      });
+    }
   }
 );

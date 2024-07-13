@@ -95,14 +95,14 @@ export const getUserInfos = ({ user, email }: { user: iUsers, email?:string }) =
   const trialDaysRemaining = () => {
     if (subscription?.status === "trialing") {
       const createdAt = new Date(subscription?.createdAt as Date);
+      // Convertir trial_end (timestamp Unix) en objet Date
       const trialEnd = new Date(
-        createdAt.setDate(
-          createdAt.getDate() +
-            (subscription?.price?.productRelation?.PlanRelation?.trialDays ?? 0)
-        )
-      ).getTime();
-      const today = new Date().getTime();
-      const remaining = trialEnd - today;
+        activeSubscriptionData?.trial_end
+          ? activeSubscriptionData.trial_end * 1000
+          : 0
+      );
+      const today = new Date();
+      const remaining = trialEnd.getTime() - today.getTime();
       const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
       return days;
     }

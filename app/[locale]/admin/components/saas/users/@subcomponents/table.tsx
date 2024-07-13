@@ -54,9 +54,10 @@ import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { UserRole } from "@prisma/client";
-import { upperCase } from "lodash";
+import { round, upperCase } from "lodash";
 import { Tooltip } from "react-tooltip";
 import { UserDialog } from "./UserDialog";
+
 export const CurrencyComponentStore = () => {
   const currency = useSaasSettingsStore((state) => state.saasSettings.currency);
   return convertCurrencyName(currency ?? "", "sigle");
@@ -166,8 +167,8 @@ export const columns: ColumnDef<iUsers>[] = [
       return (
         <>
           {userInfo.activeSubscription ? (
-            <div className="flex flex-col">
-              <div className="text-center font-medium flex text-sm flex-row items-center gap-2">
+            <div className="flex flex-col justify-center">
+              <div className="text-center font-medium flex text-sm flex-row !items-center !justify-center gap-2">
                 {userInfo.activeSubscription.isTrial ? (
                   <Hourglass
                     className="text-green-500 icon"
@@ -222,7 +223,7 @@ export const columns: ColumnDef<iUsers>[] = [
         <>
           <div className="text-sm">
             <CurrencyComponentStore />
-            {total}
+            {round(total, 3)}
           </div>
         </>
       );

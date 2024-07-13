@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import {
   HandleResponseProps,
   handleRes,
@@ -8,6 +8,7 @@ import { ActionError, action } from "@/src/lib/safe-actions";
 import { iUserSubscription } from "@/src/types/db/iUserSubscription";
 import { userSubscriptionSchema } from "@/src/types/schemas/dbSchema";
 import { z } from "zod";
+import { verifySecretRequest } from "../functions/verifySecretRequest";
 import { verifyStripeRequest } from "../functions/verifyStripeRequest";
 
 export const getUserSubscription = action(
@@ -53,10 +54,14 @@ export const updateUserSubscription = action(
   async ({
     addCredit,
     stripeSignature,
+    secret,
     data,
   }): Promise<HandleResponseProps<iUserSubscription[]>> => {
     // 🔐 Security
-    if (stripeSignature && !verifyStripeRequest(stripeSignature))
+    if (
+      (stripeSignature && !verifyStripeRequest(stripeSignature)) ||
+      (secret && !verifySecretRequest(secret))
+    )
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
     try {
@@ -78,9 +83,9 @@ export const updateUserSubscription = action(
             },
           },
           data: {
-            creditRemaining:
-              addCredit ? (data.creditRemaining ?? 0) +
-              (userSub.creditRemaining ?? 0) : data.creditRemaining,
+            creditRemaining: addCredit
+              ? (data.creditRemaining ?? 0) + (userSub.creditRemaining ?? 0)
+              : data.creditRemaining,
             isActive: data.isActive,
           },
           include,
@@ -108,10 +113,14 @@ export const createUserSubscription = action(
   userSubscriptionSchema,
   async ({
     stripeSignature,
+    secret,
     data,
   }): Promise<HandleResponseProps<iUserSubscription[] | iUserSubscription>> => {
     // 🔐 Security
-    if (!verifyStripeRequest(stripeSignature))
+    if (
+      (stripeSignature && !verifyStripeRequest(stripeSignature)) ||
+      (secret && !verifySecretRequest(secret))
+    )
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
     try {
@@ -224,7 +233,6 @@ export const updateActiveSubscriptionCreditRemaining = action(
     }
   }
 );
-
 
 const include = {
   user: true,

@@ -9,6 +9,7 @@ import {
 import { Separator } from "@/src/components/ui/separator";
 import { Switch } from "@/src/components/ui/switch";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { SaasSettings } from "@prisma/client";
 import { Label } from "@radix-ui/react-label";
@@ -60,7 +61,6 @@ export const FeaturesOptions = () => {
         </PopoverTrigger>
         <PopoverContent className="w-96">
           <div className="grid gap-4">
-            
             <div className="space-y-2 space-x-2 flex flex-row justify-between">
               <strong className="flex flex-row items-center justify-end gap-x-1">
                 <Info
@@ -88,14 +88,26 @@ export const FeaturesOptions = () => {
               />
             </div>
             <Separator />
-            <div className="space-y-2 space-x-2 flex flex-row justify-between">
+            <div
+              className={cn(
+                {
+                  "pointer-events-none opacity-50":
+                    saasSettings.saasType === "CUSTOM",
+                },
+                "space-y-2 space-x-2 flex flex-row justify-between"
+              )}>
               <strong className="flex flex-row items-center justify-end gap-x-1">
                 <Info
                   className="icon"
                   data-tooltip-id="saas-features-option-button"
                 />
                 <Label className="label" htmlFor="displayFeaturesByCategory">
-                  Display features comparison by categories on the pricing page
+                  Display features comparison by categories on the pricing page{" "}
+                  {saasSettings.saasType === "CUSTOM" && (
+                    <span className="block !text-xs mt-2">
+                       Not available in <strong>Custom</strong> business model
+                    </span>
+                  )}
                 </Label>
                 <Tooltip
                   className="tooltip"

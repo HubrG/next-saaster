@@ -2,7 +2,8 @@ import { Index } from "@/app/[locale]/register/components/Index";
 import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
 import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
-import { getSession } from "next-auth/react";
+import { authOptions } from "@/src/lib/next-auth/auth";
+import { getServerSession } from "next-auth";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 export const generateMetadata = async () => {
@@ -15,7 +16,7 @@ export const generateMetadata = async () => {
   });
 };
 export default async function RegisterPage() {
-    const session = await getSession();
+    const session = await getServerSession(authOptions);
 
   if (session) {
     redirect("/");

@@ -544,6 +544,15 @@
     },
     "Refill": {
       "name": "Rechargement de {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "token-not-created": "Jeton non créé",
+        "unknown-error": "Erreur inconnue. Veuillez consulter la console.",
+        "email-already-verified": "Email déjà vérifié",
+        "user-not-found": "Utilisateur inexistant"
+      },
+      "success": "Email envoyé"
     }
   },
   "ForgotPassword": {
@@ -632,6 +641,11 @@
   "Terms": {
     "metadatas": {
       "title": "Mentions légales"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Vérification de votre adresse email"
     }
   }
 }

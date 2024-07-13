@@ -196,11 +196,35 @@ export const deleteUser = authAction(
         user.data?.success?.organizationId &&
         user.data?.success?.organization?.ownerId === user.data?.success?.id
       ) {
-        throw new ActionError(
-          t(
-            "Components.Helpers.DB.Users.deleteUser.throws.delete"
-          )
-        );
+        // If user is owner of an organization and if he is the only member, we delete the organization
+        if ((user.data?.success?.organization?.members?.length ?? 0) === 1) {
+          const deleteOrganization = await prisma.organization.delete({
+            where: { id: user.data?.success?.organizationId },
+          });
+          if (!deleteOrganization)
+            throw new ActionError("Problem while deleting organization");
+        } else {
+          // If user is owner of an organization and if he is not the only member, we pass the ownership to another member
+          if (userSession.user.role !== "USER") {
+            if ((user.data?.success?.organization?.members?.length ?? 0) > 1) {
+              const newOwner = user.data?.success?.organization?.members?.find(
+                (member) => member.id !== user.data?.success?.id
+              );
+              if (!newOwner)
+                throw new ActionError("Problem while finding new owner");
+              const updateOrganization = await prisma.organization.update({
+                where: { id: user.data?.success?.organizationId },
+                data: { ownerId: newOwner?.id },
+              });
+              if (!updateOrganization)
+                throw new ActionError("Problem while updating organization");
+            }
+          } else {
+            throw new ActionError(
+              t("Components.Helpers.DB.Users.deleteUser.throws.delete")
+            );
+          }
+        }
       }
       // If  user has an active aubscription and is not member of an organization, we cancel the subscription
       const subscription = user.data?.success?.subscriptions?.find(
@@ -217,7 +241,9 @@ export const deleteUser = authAction(
         );
         if (!cancelSubscriptions)
           throw new ActionError(
-            t("Components.Helpers.DB.Users.deleteUser.throws.cancel-subscription")
+            t(
+              "Components.Helpers.DB.Users.deleteUser.throws.cancel-subscription"
+            )
           );
       }
       // We get organization if user is member, we remove user from organization
@@ -237,7 +263,9 @@ export const deleteUser = authAction(
         where: { email },
       });
       if (!deleteDefinitely)
-        throw new ActionError(t("Components.Helpers.DB.Users.deleteUser.throws.cancel"));
+        throw new ActionError(
+          t("Components.Helpers.DB.Users.deleteUser.throws.cancel")
+        );
       return handleRes<User>({
         success: deleteDefinitely,
         statusCode: 200,

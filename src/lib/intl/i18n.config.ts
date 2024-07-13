@@ -1,11 +1,10 @@
 import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { env } from "../zodEnv";
 import { locales } from "./navigation";
 
 export default getRequestConfig(async ({ locale }) => {
   if (!locales.includes(locale as any)) notFound();
-  const URI = env.NEXT_URI;
+  const URI = process.env.NEXT_URI;
   const apiUrl = `${URI}/api/locales`;
   const apiResponseLocales = await fetch(apiUrl, {
     method: "POST",

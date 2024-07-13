@@ -34,7 +34,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_URI: z.string().min(1),
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
-    NEXT_PUBLIC_APP_NAME: z.string().min(1)
+    NEXT_PUBLIC_APP_NAME: z.string().min(1),
   },
   runtimeEnv: {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,

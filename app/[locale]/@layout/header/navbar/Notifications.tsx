@@ -117,7 +117,7 @@ const Notifications = ({ active }: { active: boolean }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="user-profile-dd !w-96 overflow-y-auto ">
+        className="user-profile-dd !w-96 !max-w-96 overflow-y-auto ">
         {notifications?.length > 0 ? (
           notifications.map((notification: Notification, index: number) => (
             <Fragment key={notification.id}>

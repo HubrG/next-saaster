@@ -28,7 +28,7 @@ export const AdminSetup = () => {
         id="Layout"
         sectionName="Layout"
         mainSectionName="Setup"
-        className="multiple-components ">
+        className="">
         <Layout />
       </SectionWrapper>
       <SectionWrapper

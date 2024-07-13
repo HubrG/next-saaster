@@ -28,7 +28,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
           <TableHead></TableHead>
           <TableHead className="w-[100px] text-app-500 text-xs "></TableHead>
           <TableHead className="text-left text-app-500 text-xs ">Title</TableHead>
-          <TableHead className="text-center text-app-500 text-xs ">Status</TableHead>
+          <TableHead className="text-center text-app-500 text-xs ">Published</TableHead>
           <TableHead className="text-center text-app-500 text-xs ">Category</TableHead>
           <TableHead className="text-center text-app-500 text-xs ">Created at</TableHead>
           <TableHead className="text-center text-app-500 text-xs ">Published at</TableHead>

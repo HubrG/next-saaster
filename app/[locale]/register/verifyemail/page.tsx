@@ -3,7 +3,7 @@ import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-ele
 import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
-import { Link, redirect } from "@/src/lib/intl/navigation";
+import { Link, useRouter } from "@/src/lib/intl/navigation";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -12,11 +12,24 @@ export default function VerifyEmailPage() {
   const t = useTranslations("Register.VerifyEmailPage");
   const locale = useLocale();
   const { data: session } = useSession();
+  const router = useRouter();
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState("");
+  const [isVerifying, setIsVerifying] = useState(false); // Nouvel état pour éviter les doubles appels
 
-  const verifyUserEmail = async () => {
+  const handleVerification = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (token && !isVerifying) {
+      // Vérifier si un token existe et que la vérification n'est pas en cours
+      setToken(token);
+      setIsVerifying(true); // Marquer la vérification comme en cours
+      verifyUserEmail(token);
+    }
+  };
+
+  const verifyUserEmail = async (token: string) => {
     try {
       const res = await fetch("/api/register/verifyemail", {
         method: "POST",
@@ -33,35 +46,28 @@ export default function VerifyEmailPage() {
       }
     } catch (error: any) {
       setError(error.message);
+    } finally {
+      setIsVerifying(false); // Marquer la vérification comme terminée
     }
   };
 
   useEffect(() => {
-    if (verified) {
-      toaster({ type: "success", description: t("success") });
-      redirect("/login");
-    }
-  }, [verified, t]);
-  useEffect(() => {
-    if (error.length > 0) {
-      toaster({ type: "error", description: error });
-    }
-  }, [error]);
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
-    if (token) {
-      setToken(token);
-    }
+    handleVerification();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (token.length > 0) {
-      verifyUserEmail();
+    if (verified) {
+      toaster({ type: "success", description: t("success") });
+      return router.push("/login");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [verified]);
+
+  useEffect(() => {
+    if (error.length > 0 && !verified) {
+      toaster({ type: "error", description: error });
+    }
+  }, [error]);
 
   return (
     <>
@@ -73,7 +79,7 @@ export default function VerifyEmailPage() {
             <p className="text-center py-5 flex flex-col justify-center">
               {!verified && !error && <SimpleLoader className="self-center" />}
               {verified && t("success")}
-              {error.length > 0 && error && (
+              {!verified && error.length > 0 && error && (
                 <>
                   {error}
                   {!session?.user.email && (

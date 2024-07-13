@@ -70,6 +70,7 @@ export const CustomPriceCard = ({
   }, []);
   const { customIs1, customIs2, customIs3, customIs4 } =
     usePublicSaasPricingStore();
+
   const stripePrice = saasStripePrices.find((price) => price.id === priceId);
   const discount = saasStripeCoupons.find((coupon) => coupon.id === discountId);
   const [plan, setPlan] = useState<iPlan>();
@@ -144,16 +145,30 @@ export const CustomPriceCard = ({
     }
   }, [stripePrice, saasPlans]);
 
-  if (
-    !plan ||
-    !eval(`${displayOnRecurrence?.replace(/custom(\d)/, "customIs$1")}`)
-  ) {
-    return null;
+  if (!plan) {
+    return <></>;
   }
-  const handleUpdateSeat = (e: string) => {
-    const seatQuantity = parseInt(e);
-    setSeatQuantity(seatQuantity);
-  };
+
+
+  // Vérifier si displayOnRecurrence est défini
+  if (displayOnRecurrence) {
+    // Vérifier la valeur de customIs1, customIs2, customIs3 ou customIs4 en fonction de displayOnRecurrence
+    const isDisplayed =
+      (displayOnRecurrence === "custom1" && customIs1) ||
+      (displayOnRecurrence === "custom2" && customIs2) ||
+      (displayOnRecurrence === "custom3" && customIs3) ||
+      (displayOnRecurrence === "custom4" && customIs4);
+    if (!isDisplayed) {
+      return <></>;
+    }
+  } else {
+    // Si displayOnRecurrence n'est pas défini, afficher uniquement customIs1
+    if (!customIs1) {
+      return <></>;
+    }
+  }
+
+
   return (
     <Card
       className={cn(

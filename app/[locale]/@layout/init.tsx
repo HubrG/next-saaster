@@ -1,6 +1,9 @@
 "use client";
 import { useIsClient } from "@/src/hooks/useIsClient";
+import { useBlogPostsQuery } from "@/src/queries/useBlogPostsQuery";
+import { useSaasPlanQuery } from "@/src/queries/useSaasPlanQuery";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
+import { useUserInfoQuery } from "@/src/queries/useUserInfoQuery";
 import { useUserQuery } from "@/src/queries/useUserQuery";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
@@ -15,79 +18,82 @@ import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { SaasSettings, appSettings } from "@prisma/client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 type Props = {
   appSettings: appSettings;
   saasSettings: SaasSettings;
 };
 
-export const Init = ({ appSettings, saasSettings }: Props) => {
-  const { data: session, isLoading } = useSessionQuery();
-  const { data: user } = useUserQuery(session?.user?.email ?? "");
+const DataInitializer = ({
+  session,
+  user,
+  appSettingsProp,
+  saasSettingsProp,
+}: {
+  session: any;
+  user?: iUsers;
+  appSettingsProp: appSettings;
+  saasSettingsProp: SaasSettings;
+}) => {
   const { setAppSettings } = useAppSettingsStore();
   const { fetchSaasPlanToFeature } = useSaasPlanToFeatureStore();
   const { fetchInternationalizations, fetchDictionaries } =
     useInternationalizationStore();
   const { setSaasSettings } = useSaasSettingsStore();
-  const { fetchUserInfoStore } = useUserInfoStore();
+  const { setUserInfoStore } = useUserInfoStore();
   const { fetchSaasStripeCoupons } = useSaasStripeCoupons();
   const { fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
   const { fetchSaasFeatures } = useSaasFeaturesStore();
-  const { fetchSaasPlan } = useSaasPlansStore();
-  const { fetchUserStore, setUserStore } = useUserStore();
-  const { fetchBlogPosts, fetchBlogCategories } = useBlogStore();
-  const isClient = useIsClient();
-  const [hasLoadedData, setHasLoadedData] = useState(false);
+  const { fetchSaasPlan, setSaasPlans } = useSaasPlansStore();
+  const { fetchBlogPosts, fetchBlogCategories, setBlogPosts } = useBlogStore();
+  const { data: userInfo } = useUserInfoQuery(session?.user?.email ?? "");
+  const { data: saasPlan } = useSaasPlanQuery();
+  const { data: blogPosts } = useBlogPostsQuery();
 
- useEffect(() => {
-   if (user && session?.user !== undefined) {
-     setUserStore(user as iUsers);
-   }
- }, [user, session, setUserStore]);
-
-  const memoizedSettings = useMemo(() => {
-    return {
-      appSettings,
-      saasSettings,
-    };
-  }, [appSettings, saasSettings]);
+  useEffect(() => {
+    if (userInfo) {
+      setUserInfoStore(userInfo);
+    }
+  }, [userInfo, setUserInfoStore]);
 
   const initialize = useCallback(async () => {
-    if (isClient && !isLoading && !hasLoadedData) {
-      setAppSettings(memoizedSettings.appSettings);
-      setSaasSettings(memoizedSettings.saasSettings);
-      if (memoizedSettings.appSettings?.activeInternationalization) {
-        await Promise.all([fetchInternationalizations(), fetchDictionaries()]);
-      }
-      if (session?.user !== undefined) {
-        fetchUserInfoStore(session?.user?.email ?? "");
-      }
+    console.log("appSettingsProp", appSettingsProp);
+    console.log("saasSettingsProp", saasSettingsProp);
 
-      if (session?.user && user?.role !== "USER") {
-        await Promise.all([
-          fetchSaasStripeCoupons(),
-          fetchSaasFeaturesCategories(),
-          fetchSaasFeatures(),
-          fetchBlogPosts(),
-          fetchBlogCategories(),
-          fetchSaasPlan(),
-          fetchSaasPlanToFeature(),
-        ]);
-      } else {
-        await fetchSaasPlan();
-      }
+    if (appSettingsProp?.activeInternationalization) {
+      await Promise.all([fetchInternationalizations(), fetchDictionaries()]);
+    }
 
-      setHasLoadedData(true);
+    if (session?.user && user?.role !== "USER") {
+      await Promise.all([
+        fetchSaasStripeCoupons(),
+        fetchSaasFeaturesCategories(),
+        fetchSaasFeatures(),
+        fetchBlogCategories(),
+        fetchSaasPlanToFeature(),
+      ]);
+      if (blogPosts) {
+        setBlogPosts(blogPosts);
+      }
+      if (saasPlan) {
+        setSaasPlans(saasPlan);
+      }
+    } else {
+      if (saasPlan) {
+        setSaasPlans(saasPlan);
+      }
+       if (blogPosts) {
+         setBlogPosts(blogPosts);
+       }
     }
   }, [
-    isClient,
-    isLoading,
-    hasLoadedData,
-    setAppSettings,
-    memoizedSettings,
+    appSettingsProp,
+    saasSettingsProp,
     session,
     user,
+    blogPosts,
+    saasPlan,
     fetchInternationalizations,
     fetchDictionaries,
     fetchSaasStripeCoupons,
@@ -97,15 +103,60 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     fetchBlogCategories,
     fetchSaasPlan,
     fetchSaasPlanToFeature,
+    setAppSettings,
+    setSaasSettings,
   ]);
 
   useEffect(() => {
     initialize();
-  }, [initialize]);
-
-  if (isLoading) {
-    return null;
-  }
+  }, [initialize, session, user, saasPlan, appSettingsProp, saasSettingsProp]);
 
   return null;
+};
+
+export const Init = ({ appSettings, saasSettings }: Props) => {
+  const { data: session, isLoading: isSessionLoading } = useSessionQuery();
+  const { data: user, isLoading: isUserLoading } = useUserQuery(
+    session?.user?.email ?? ""
+  );
+  const { setAppSettings } = useAppSettingsStore();
+  const { setSaasSettings } = useSaasSettingsStore();
+  const { setUserStore } = useUserStore();
+
+  useEffect(() => {
+    if (user && session?.user) {
+      setUserStore(user as iUsers);
+    }
+    setAppSettings(appSettings);
+    setSaasSettings(saasSettings);
+  }, [
+    user,
+    session,
+    setUserStore,
+    appSettings,
+    saasSettings,
+    setAppSettings,
+    setSaasSettings,
+  ]);
+
+  const isClient = useIsClient();
+  if (isSessionLoading || isUserLoading || !isClient) {
+    return null;
+  }
+  if (user) {
+    return (
+      <DataInitializer
+        session={session}
+        user={user}
+        appSettingsProp={appSettings}
+        saasSettingsProp={saasSettings}
+      />
+    );
+  } else {
+    <DataInitializer
+      session={session}
+      appSettingsProp={appSettings}
+      saasSettingsProp={saasSettings}
+    />;
+  }
 };

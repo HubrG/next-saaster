@@ -2,15 +2,14 @@ import { create } from "zustand";
 import { updateUserSubscription } from "../helpers/db/userSubscription.action";
 import { getUser, updateUser } from "../helpers/db/users.action";
 import {
-    ReturnUserDependencyProps,
-    getUserInfos,
+  ReturnUserDependencyProps,
+  getUserInfos,
 } from "../helpers/dependencies/user";
 import { chosenSecret } from "../helpers/functions/verifySecretRequest";
-import { iUsers } from "../types/db/iUsers";
 
 type Store = {
   userInfoStore: ReturnUserDependencyProps;
-  setUserInfoStore: (user: iUsers) => void;
+  setUserInfoStore: (user: ReturnUserDependencyProps) => void;
   isUserInfoStoreLoading: boolean;
   fetchUserInfoStore: (email: string) => Promise<void>;
   setProperty: <T extends keyof ReturnUserDependencyProps>(
@@ -34,10 +33,10 @@ export const useUserInfoStore = create<Store>()((set, get) => ({
     const userInfos = getUserInfos({ user: user.data.success });
     set({ userInfoStore: userInfos, isUserInfoStoreLoading: false });
   },
-  setUserInfoStore: (user: iUsers) => {
+  setUserInfoStore: (user: ReturnUserDependencyProps) => {
     set({ isUserInfoStoreLoading: true });
-    const userInfos = getUserInfos({ user });
-    set({ userInfoStore: userInfos, isUserInfoStoreLoading: false });
+    // const userInfos = getUserInfos({ user });
+    set({ userInfoStore: user, isUserInfoStoreLoading: false });
   },
   setProperty: (path, value) => {
     const currentStore = { ...get().userInfoStore };

@@ -43,6 +43,7 @@ interface ToastProps {
   };
   onDismiss?: (toast: ToastT) => void;
   onAutoClose?: (toast: ToastT) => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
   promise?: PromiseT;
   cancelButtonStyle?: React.CSSProperties;
   actionButtonStyle?: React.CSSProperties;
@@ -85,6 +86,7 @@ export const toaster = ({
   id,
   onDismiss,
   onAutoClose,
+  onClick,
   closeButton = true,
   unstyled,
 }: ToastProps) => {
@@ -119,6 +121,7 @@ export const toaster = ({
     description: description,
     onDismiss: onDismiss,
     onAutoClose: onAutoClose,
+    onClick: onClick,
     unstyled: unstyled,
     position: position as Position,
   };
@@ -138,6 +141,11 @@ export const toaster = ({
     return toast.error(title, toastOptions);
   } else if (type === "loading") {
     return toast.loading(title, toastOptions);
+  } else if (type === "action") {
+    return toast(title, {
+      ...toastOptions,
+      action
+    });
   } else {
     return toast(title, toastOptions);
   }

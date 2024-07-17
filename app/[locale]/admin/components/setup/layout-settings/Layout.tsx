@@ -1,6 +1,5 @@
 import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
 import SwitchActiveDarkMode from "./switches/SwitchActiveDarkMode";
-import SwitchNotifications from "./switches/SwitchActiveNotification";
 import SwitchCtaOnNavbar from "./switches/SwitchCtaOnNavbar";
 import SwitchDefaultDarkMode from "./switches/SwitchDefaultDarkMode";
 import SwitchDefaultLightMode from "./switches/SwitchDefaultLightMode";
@@ -27,7 +26,6 @@ export const Layout = () => {
         <div className="grid grid-cols-2 gap-5 w-full">
           <SwitchTopLoader />
           <SwitchCtaOnNavbar />
-          <SwitchNotifications />
         </div>
       </SubSectionWrapper>
       <SubSectionWrapper

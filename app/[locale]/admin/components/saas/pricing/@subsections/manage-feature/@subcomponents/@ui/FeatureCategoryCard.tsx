@@ -97,7 +97,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-12 place-items-center gap-2">
+      <div className="grid grid-cols-12 items-center gap-2">
         <div className="col-span-2">
           <SortableKnob>
             <Grip
@@ -121,7 +121,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
         </div>
         <div className="col-span-2">
           <Button
-            size={"icon"}
+           
             onClick={handleSave}
             data-tooltip-id={`${category.id}tt-save-button`}>
             {loading ? (

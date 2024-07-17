@@ -2,9 +2,10 @@
 import { SetupDesign } from "@/app/[locale]/admin/components/setup/design-settings/SetupDesign";
 import { InfoApp } from "@/app/[locale]/admin/components/setup/info-settings/InfoApp";
 import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
-import { Building2, Languages, LayoutDashboard, Palette } from "lucide-react";
+import { BellDot, Building2, Languages, LayoutDashboard, Palette } from "lucide-react";
 import Internationalization from "./internationalization/Internationalization";
 import { Layout } from "./layout-settings/Layout";
+import { Notifications } from "./notifications-settings/Notifications";
 
 export const AdminSetup = () => {
   return (
@@ -30,6 +31,13 @@ export const AdminSetup = () => {
         mainSectionName="Setup"
         className="">
         <Layout />
+      </SectionWrapper>
+      <SectionWrapper
+        icon={<BellDot className="icon" />}
+        id="Notifications"
+        sectionName="Notifications"
+        mainSectionName="Setup">
+        <Notifications />
       </SectionWrapper>
       <SectionWrapper
         icon={<Languages className="icon" />}

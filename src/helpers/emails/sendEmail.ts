@@ -29,7 +29,7 @@ type SendEmailProps = {
   text?: string;
   reply_to?: string;
   tag_name?: "category" | undefined;
-  tag_value?: "invite_member_to_organisation" | "confirm_email" | "forgot_password" | undefined;
+  tag_value?: "invite_member_to_organisation" | "confirm_email" | "forgot_password" | "notification" | undefined;
   preview?: string;
 };
 export const sendEmail = async ({

@@ -5,6 +5,7 @@ import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
 import useScrollToSection from "@/src/hooks/useScrollToSection";
 import {
   BadgeDollarSign,
+  BellDot,
   Building2,
   Cog,
   Coins,
@@ -105,6 +106,12 @@ export const AdminNavbar = () => {
               handleScroll={handleScroll}
             />
           </MenuItem>
+          <MenuItem
+            activeSection={activeSection}
+            text="Notifications"
+            icon={<BellDot className="icon" />}
+            sectionObserve="Notifications"
+            handleScroll={handleScroll}></MenuItem>
           <MenuItem
             activeSection={activeSection}
             icon={<Languages className="icon" />}

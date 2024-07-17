@@ -26,7 +26,7 @@ export const DashboardNavbar = () => {
   //
 
   const { saasSettings } = useSaasSettingsStore();
-  const { appSettings } = useAppSettingsStore();
+  const { appSettings, isStoreLoading } = useAppSettingsStore();
   const [activeSection, setActiveSection] = useState("");
   const [activeSubSection, setActiveSubSection] = useState("");
   const updateActiveItem = (id: string, isSubSection = false) => {
@@ -108,7 +108,7 @@ export const DashboardNavbar = () => {
             sectionObserve="Emails"
             handleScroll={handleScroll}
           />
-          {appSettings.activeNotification && (
+          {!isStoreLoading && appSettings.activeNotification && (
             <MenuItem
               activeSection={activeSection}
               icon={<Bell className="icon" />}

@@ -53,7 +53,6 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
     return signOut();
   };
 
-  console.log(userStore.accounts);
    const provider =
      userStore?.accounts && userStore.accounts.length > 0
        ? userStore.accounts[0]?.provider

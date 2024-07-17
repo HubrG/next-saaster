@@ -62,7 +62,11 @@ export const Navbar = ({ settings }: NavbarProps) => {
              <div className="sm:flex hidden flex-row items-center gap-x-4">
                {session?.user.id || isLoading ? (
                  <>
-                   <Notifications active={!!appSettings.activeNotification} />
+                   {appSettings.activeNotification ? (
+                     <Notifications active={!!appSettings.activeNotification} />
+                   ) : (
+                       <>&nbsp;</>
+                   )}
                    <UserProfile
                      email={session?.user.email ?? ""}
                      isLoading={isLoading}

@@ -34,7 +34,13 @@ export const SimpleLoader = ({
   className?: string;
 }) => {
   return (
-    <Loader2 className={clsx("animate-spin icon", className)} size={size} />
+    <Loader2
+      className={clsx(
+        "animate-spin icon flex justify-center items-center w-full",
+        className
+      )}
+      size={size}
+    />
   );
 };
 

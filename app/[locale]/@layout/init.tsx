@@ -5,6 +5,7 @@ import { useSaasPlanQuery } from "@/src/queries/useSaasPlanQuery";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useUserInfoQuery } from "@/src/queries/useUserInfoQuery";
 import { useUserQuery } from "@/src/queries/useUserQuery";
+import { useNotificationSettingsStore } from "@/src/stores/admin/notificationSettingsStore";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
@@ -18,6 +19,7 @@ import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { SaasSettings, appSettings } from "@prisma/client";
+import { Session } from "next-auth";
 import { useCallback, useEffect } from "react";
 
 type Props = {
@@ -31,7 +33,7 @@ const DataInitializer = ({
   appSettingsProp,
   saasSettingsProp,
 }: {
-  session: any;
+  session: Session;
   user?: iUsers;
   appSettingsProp: appSettings;
   saasSettingsProp: SaasSettings;
@@ -43,6 +45,8 @@ const DataInitializer = ({
   const { setSaasSettings } = useSaasSettingsStore();
   const { setUserInfoStore } = useUserInfoStore();
   const { fetchSaasStripeCoupons } = useSaasStripeCoupons();
+  const { fetchNotificationTypesStore, fetchNotificationSettingsStore } =
+    useNotificationSettingsStore();
   const { fetchSaasFeaturesCategories } = useSaasFeaturesCategoriesStore();
   const { fetchSaasFeatures } = useSaasFeaturesStore();
   const { fetchSaasPlan, setSaasPlans } = useSaasPlansStore();
@@ -58,9 +62,6 @@ const DataInitializer = ({
   }, [userInfo, setUserInfoStore]);
 
   const initialize = useCallback(async () => {
-    console.log("appSettingsProp", appSettingsProp);
-    console.log("saasSettingsProp", saasSettingsProp);
-
     if (appSettingsProp?.activeInternationalization) {
       await Promise.all([fetchInternationalizations(), fetchDictionaries()]);
     }
@@ -73,19 +74,28 @@ const DataInitializer = ({
         fetchBlogCategories(),
         fetchSaasPlanToFeature(),
       ]);
+      if (appSettingsProp?.activeNotification) {
+        fetchNotificationTypesStore();
+        fetchNotificationSettingsStore(session?.user?.userId ?? "");
+      }
       if (blogPosts) {
         setBlogPosts(blogPosts);
       }
       if (saasPlan) {
         setSaasPlans(saasPlan);
       }
+    } else if (session?.user && user?.role === "USER") {
+      if (appSettingsProp?.activeNotification) {
+        fetchNotificationTypesStore();
+        fetchNotificationSettingsStore(session?.user?.userId ?? "");
+      }
     } else {
       if (saasPlan) {
         setSaasPlans(saasPlan);
       }
-       if (blogPosts) {
-         setBlogPosts(blogPosts);
-       }
+      if (blogPosts) {
+        setBlogPosts(blogPosts);
+      }
     }
   }, [
     appSettingsProp,
@@ -146,7 +156,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
   if (user) {
     return (
       <DataInitializer
-        session={session}
+        session={session!}
         user={user}
         appSettingsProp={appSettings}
         saasSettingsProp={saasSettings}
@@ -154,7 +164,7 @@ export const Init = ({ appSettings, saasSettings }: Props) => {
     );
   } else {
     <DataInitializer
-      session={session}
+      session={session!}
       appSettingsProp={appSettings}
       saasSettingsProp={saasSettings}
     />;

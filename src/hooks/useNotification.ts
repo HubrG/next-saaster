@@ -1,4 +1,7 @@
+"use client";
 import useSWR from "swr";
+import { useNotificationSettingsStore } from "../stores/admin/notificationSettingsStore";
+import { iNotification } from "../types/db/iNotifications";
 
 const fetcher = async (url: string) => {
   const response = await fetch(url);
@@ -13,7 +16,8 @@ export const useNotifications = (
   email: string,
   active: boolean
 ) => {
-  // Vérifiez que userId, email et active sont valides avant d'appeler useSWR
+  const { notificationSettingsStore } = useNotificationSettingsStore();
+  // Check that userId, email, and active are valid before calling useSWR
   const shouldFetch = userId && email && active;
 
   const { data, error } = useSWR(
@@ -24,8 +28,23 @@ export const useNotifications = (
     }
   );
 
+  
+
+  // We remove the notification if the user has disabled it
+  if (data && notificationSettingsStore) {
+    return {
+      notifications: data.filter((notification: iNotification) =>
+        notificationSettingsStore.find(
+          (setting) => setting.typeId === notification.typeId && setting.push
+        )
+      ),
+      isLoading: !error && !data,
+      isError: error,
+    };
+  }
+
   return {
-    notifications: data,
+    notifications: data as iNotification[],
     isLoading: !error && !data,
     isError: error,
   };

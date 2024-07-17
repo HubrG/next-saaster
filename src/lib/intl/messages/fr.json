@@ -157,7 +157,7 @@
         },
         "Billing": {
           "id": "Facturation",
-          "title": "Facturation",
+          "title": "Abonnement",
           "your-plan": "Votre abonnement",
           "users": "utilisateurs",
           "daily": "jour",
@@ -214,6 +214,9 @@
               "error-get-contact": "Une erreur s'est produite lors de la récupération du contact de la newsletter. Veuillez réessayer."
             }
           }
+        },
+        "Notifications": {
+          "title": "Notifications"
         }
       }
     },
@@ -523,6 +526,9 @@
       "verifyEmail": "Valider mon compte",
       "text": "Pour valider définitivement votre inscription, veuillez cliquer sur le bouton ci-dessous.",
       "heading": "Bienvenue !"
+    },
+    "NotificationTemplate": {
+      "heading": "Nouvelle notification"
     }
   },
   "API": {
@@ -599,7 +605,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Aucune notification"
+        "noNotifications": "Aucune notification",
+        "view": "voir"
       }
     }
   },

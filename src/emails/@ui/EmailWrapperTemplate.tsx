@@ -11,6 +11,7 @@ import {
   Text,
 } from "@react-email/components";
 import ForgotPasswordTemplate from "../ForgotPasswordTemplate";
+import NotificationTemplate from "../NotificationTemplate";
 import VerifyEmailTemplate from "../VerifyEmailTemplate";
 import EmailFooterTemplate from "./EmailFooterTemplate";
 
@@ -45,6 +46,9 @@ export default function EmailWrapperTemplate({
             {type === "forgotPassword" && vars && "forgotPassword" in vars && (
               <ForgotPasswordTemplate vars={vars.forgotPassword} />
             )}
+            {type === "notification" && vars && "notification" in vars && (
+              <NotificationTemplate vars={vars.notification} />
+            )}
             {!type && text && (
               <>
                 {subject && (
@@ -56,6 +60,7 @@ export default function EmailWrapperTemplate({
                 <Text>{text}</Text>
               </>
             )}
+
           </Container>
           <EmailFooterTemplate />
         </Body>

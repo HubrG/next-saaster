@@ -72,6 +72,7 @@ export const adminAction = createSafeActionClient({
       session.user.role !== "ADMIN" &&
       session.user.role !== "SUPER_ADMIN"
     ) {
+      console.error("You must be an admin");
       throw new ActionError("You must be an admin");
     } else {
       const userSession = session.user;

@@ -1,4 +1,5 @@
 "use client";
+import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { Loader } from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
@@ -282,7 +283,7 @@ export const AdminSaasSettings = () => {
               />
             </Suspense>
           </div>
-
+          <Goodline />
           <SwitchActiveRefillDiscount />
           <div
             className={cn(

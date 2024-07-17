@@ -23,12 +23,11 @@ import { useEffect, useRef, useState } from "react";
 import Confetti from "react-confetti";
 import { createRefillSession } from "../queries/refill.action";
 type CreditSelectorProps = {
-  initialCredits?: number;
+ 
   onCreditsChange?: (credits: number) => void;
 };
 
 export const Index = ({
-  initialCredits = 150,
   onCreditsChange,
 }: CreditSelectorProps) => {
   const format = useFormatter();
@@ -38,7 +37,7 @@ export const Index = ({
   const { saasSettings, isStoreLoading } = useSaasSettingsStore();
   const t = useTranslations("Refill.Components.Index");
   const router = useRouter();
-  const [credits, setCredits] = useState(initialCredits);
+  const [credits, setCredits] = useState(0);
   const pricePerCredit = saasSettings.priceForOneRefillCredit || 1;
   const discount =
     saasSettings.activeDiscountRefillCredit &&
@@ -61,6 +60,7 @@ export const Index = ({
     } else {
       setIsLoaded(true);
     }
+    setCredits(saasSettings.applyDiscountByXRefillCreditStep || 0);
   }, [saasSettings]);
 
   useEffect(() => {

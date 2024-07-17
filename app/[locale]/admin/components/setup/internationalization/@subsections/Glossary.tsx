@@ -121,7 +121,7 @@ export const GlossaryCard = ({ dictionary }: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-12 place-items-center gap-2 gap-y-0 !mb-0">
+      <div className="grid grid-cols-12 gap-2 gap-y-0 !mb-0">
         <div className="col-span-8">
           <Input
             onChange={(e) => {

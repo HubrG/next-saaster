@@ -1,4 +1,3 @@
-import { sendNotification } from "@/app/[locale]/admin/queries/user-info";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
 import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
 import {
@@ -12,14 +11,19 @@ import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
 import { Form } from "@/src/components/ui/form";
 import { Field } from "@/src/components/ui/form-field";
+import { sendNotification } from "@/src/helpers/db/notifications.action";
 import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
+import { useNotificationSettingsStore } from "@/src/stores/admin/notificationSettingsStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Bell } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { ManageNotificationType } from "../../../setup/notifications-settings/subcomponents/ManageNotificationType";
 
 export const UserDialogSendNotification = ({
   user,
@@ -29,7 +33,7 @@ export const UserDialogSendNotification = ({
   const t = useTranslations("Admin.Components.UserDialogSendNotification");
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const { notificationTypesStore } = useNotificationSettingsStore();
   const formSchema = z.object({
     notificationText: z.string().min(1, {
       message: "You must provide a notification text",
@@ -38,26 +42,27 @@ export const UserDialogSendNotification = ({
     title: z.string().min(1, {
       message: "You must provide a title",
     }),
-    type: z.string().min(1, {
-      message: "You must provide a type (Info, Warning, Error, Success...)",
-    }),
+    type: z.string().cuid(),
+    link: z.string().url().optional(),
     // {{ edit_1 }}
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    const { notificationText, title, type } = values;
+    const { notificationText, title, type, link } = values;
     const send = await sendNotification({
       userId: user.info.id,
       content: notificationText,
       title,
+      link: link || "",
       type,
-      id: "",
       read: false,
       createdAt: new Date(),
       updatedAt: new Date(),
+      secret: chosenSecret(),
     });
-    if (!send) {
+
+    if (handleError(send).error) {
       toaster({
         type: "error",
         description: "Error while sending notification",
@@ -97,7 +102,7 @@ export const UserDialogSendNotification = ({
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className={cn("relative")}>
-                <div className={cn("space-y-3 -mt-10 ")}>
+                <div className={cn("space-y-3 -mt-10 gap-10")}>
                   {/* {{ edit_2 }} */}
                   <Field
                     type="text"
@@ -105,12 +110,21 @@ export const UserDialogSendNotification = ({
                     name="title"
                     form={form}
                   />
-                  <Field
-                    type="text"
-                    label="Notification category"
-                    name="type"
-                    form={form}
-                  />
+                  <div className="grid grid-cols-2 items-center gap-5">
+                    <Field
+                      type="select"
+                      className=""
+                      label="Notification type"
+                      name="type"
+                      form={form}
+                      selectOptions={notificationTypesStore.map((type) => ({
+                        label: type.name,
+                        value: type.id,
+                      }))}
+                    />
+                    <ManageNotificationType  />
+                  </div>
+                  <Field type="text" label="Link to" name="link" form={form} />
                   {/* {{ edit_2 }} */}
                   <Field
                     type="textarea"

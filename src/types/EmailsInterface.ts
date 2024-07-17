@@ -1,5 +1,10 @@
 export interface EmailsInterface {
-  type: "inviteUserInOrganization" | "verifyEmail" | "forgotPassword" | "default";
+  type:
+    | "inviteUserInOrganization"
+    | "verifyEmail"
+    | "forgotPassword"
+    | "default"
+    | "notification";
   vars:
     | {
         inviteUserInOrganization: {
@@ -16,6 +21,14 @@ export interface EmailsInterface {
     | {
         forgotPassword: {
           verificationToken: string;
+        };
+      }
+    | {
+    notification: {
+          content: string;
+          title: string;
+          actionUrl?: string;
+          actionText?: string;
         };
       };
 }

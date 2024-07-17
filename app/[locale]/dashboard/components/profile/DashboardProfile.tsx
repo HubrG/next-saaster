@@ -1,8 +1,12 @@
 "use client";
 
+import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
 import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
+import { useNotificationSettingsStore } from "@/src/stores/admin/notificationSettingsStore";
+import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
+  Bell,
   Building2,
   CircleUser,
   CreditCard,
@@ -13,6 +17,7 @@ import { useTranslations } from "next-intl";
 import { ProfileAccount } from "./account/ProfileAccount";
 import { ProfileBilling } from "./billing/ProfileBilling";
 import { ProfileEmail } from "./emails/ProfileEmail";
+import { ProfileNotifications } from "./notifications/Notifications";
 import { ProfileOrganization } from "./organization/ProfileOrganization";
 import { ProfileSetup } from "./profile/ProfileSetup";
 import { ProfilePurchase } from "./purchase/ProfilePurchase";
@@ -22,6 +27,8 @@ type DashboardProfileProps = {};
 export const DashboardProfile = ({}: DashboardProfileProps) => {
   const t = useTranslations("Dashboard.Components.Profile");
   const { saasSettings } = useSaasSettingsStore();
+  const { appSettings, isStoreLoading } = useAppSettingsStore();
+  const { isNotificationStoreLoading } = useNotificationSettingsStore();
 
   return (
     <>
@@ -74,6 +81,21 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
         icon={<Mail className="icon" />}>
         <ProfileEmail />
       </SectionWrapper>
+      {!isStoreLoading && appSettings.activeNotification && (
+        <>
+          {isNotificationStoreLoading ? (
+            <SkeletonLoader type="card-page" />
+          ) : (
+            <SectionWrapper
+              id="Notifications"
+              sectionName={t("Notifications.title")}
+              // mainSectionName="Emails"
+              icon={<Bell className="icon" />}>
+              <ProfileNotifications />
+            </SectionWrapper>
+          )}
+        </>
+      )}
     </>
   );
 };

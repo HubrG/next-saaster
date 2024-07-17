@@ -1,5 +1,6 @@
 import { isMe } from "@/src/helpers/functions/isUserRole";
 import { prisma } from "@/src/lib/prisma";
+import { iNotification } from "@/src/types/db/iNotifications";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -20,7 +21,8 @@ export async function GET(req: NextRequest) {
   const notifications = await prisma.notification.findMany({
     where: { userId: String(userId) },
     orderBy: { createdAt: "desc" },
-  });
+    include: { user: true, type: true },
+  }) as iNotification[];
 
-  return NextResponse.json(notifications, { status: 200 });
+  return NextResponse.json(notifications as iNotification[], { status: 200 });
 }

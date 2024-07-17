@@ -1,18 +1,13 @@
 "use client";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import { useNotifications } from "@/src/hooks/useNotification";
+import { useRouter } from "@/src/lib/intl/navigation";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
-import { Notification } from "@prisma/client";
+import { iNotification } from "@/src/types/db/iNotifications";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import { now } from "lodash";
 import { BellIcon } from "lucide-react";
@@ -24,6 +19,7 @@ const Notifications = ({ active }: { active: boolean }) => {
   if (!active) {
     return null;
   }
+  const router = useRouter();
 
   const { appSettings } = useAppSettingsStore();
   const { data: session } = useSessionQuery();
@@ -37,7 +33,7 @@ const Notifications = ({ active }: { active: boolean }) => {
   const [notificationCount, setNotificationCount] = useState(0);
   const format = useFormatter();
   const t = useTranslations("Header.Navbar.Notifications");
-  const prevNotificationsRef = useRef<Notification[]>([]);
+  const prevNotificationsRef = useRef<iNotification[]>([]);
 
   useEffect(() => {
     if (open) {
@@ -49,25 +45,26 @@ const Notifications = ({ active }: { active: boolean }) => {
   useEffect(() => {
     if (notifications) {
       setNotificationCount(
-        notifications.filter((notification: Notification) => !notification.read)
-          .length
+        notifications.filter(
+          (notification: iNotification) => !notification.read
+        ).length
       );
 
       if (prevNotificationsRef.current.length > 0) {
         const newNotifications = notifications.filter(
-          (notification: Notification) =>
+          (notification: iNotification) =>
             !prevNotificationsRef.current.some(
               (prevNotification) => prevNotification.id === notification.id
             )
         );
 
         if (newNotifications.length > 0) {
-          newNotifications.forEach((notification: Notification) => {
+          newNotifications.forEach((notification: iNotification) => {
             toaster({
-              title: "New Notification",
-              description: `${notification.title} \n\n ${notification.content}`,
+              description: `${notification.title} / ${notification.content}`,
               duration: 5000,
               type: "success",
+              
               icon: <BellIcon />,
               position: "bottom-center",
             });
@@ -117,18 +114,24 @@ const Notifications = ({ active }: { active: boolean }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="user-profile-dd !w-96 !max-w-96 overflow-y-auto ">
+        className="user-profile-dd !min-w-96 !max-w-96 overflow-y-auto ">
         {notifications?.length > 0 ? (
-          notifications.map((notification: Notification, index: number) => (
+          notifications.map((notification: iNotification, index: number) => (
             <Fragment key={notification.id}>
               <DropdownMenuItem
+                onClick={() => {
+                  notification.link && router.push(notification.link as any);
+                }
+                }
                 className={`p-2 rounded-default profile-link hover:cursor-pointer`}>
                 <div className="flex flex-col w-full">
                   <div className="w-full items-center flex flex-row justify-between">
                     <h4 className="font-bold text-base !text-theming-text-600-second">
                       {notification.title}
                     </h4>
-                    <p className="text-xs text-gray-500">{notification.type}</p>
+                    <p className="text-xs text-gray-500">
+                      {notification.type.name}
+                    </p>
                   </div>
                   <p className="text-sm">{notification.content}</p>
                   <p className="text-xs text-gray-400">

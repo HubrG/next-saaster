@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "UserUsage" ADD COLUMN     "input" INTEGER DEFAULT 0,
+ADD COLUMN     "output" INTEGER DEFAULT 0;

@@ -168,7 +168,9 @@ h2,
 h3,
 h4,
 h5,
-h6,
+h6 {
+  @apply font-sans dark:text-theming-text-950;
+}
 p {
   @apply text-theming-text-950 dark:!text-theming-text-950;
 }
@@ -999,25 +1001,23 @@ article .task-list-item {
 }
 
 .price-stroke {
-  height: 24px; 
+  height: 24px;
 }
 
 .price-placeholder {
-  height: 24px; 
+  height: 24px;
 }
 
 .credit-info {
-  height: 24px; 
+  height: 24px;
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .credit-info-placeholder {
-  height: 24px; 
+  height: 24px;
 }
-
 
 .user-dialog-info-tab td {
   @apply !text-sm;
-
 }

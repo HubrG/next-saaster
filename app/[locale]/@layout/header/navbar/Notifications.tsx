@@ -1,10 +1,17 @@
 "use client";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/src/components/ui/dropdown-menu";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import { useNotifications } from "@/src/hooks/useNotification";
 import { useRouter } from "@/src/lib/intl/navigation";
+import { cn } from "@/src/lib/utils";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { iNotification } from "@/src/types/db/iNotifications";
@@ -37,7 +44,9 @@ const Notifications = ({ active }: { active: boolean }) => {
 
   useEffect(() => {
     if (open) {
-      markAsRead(session?.user.userId ?? "");
+      setTimeout(() => {
+        markAsRead(session?.user.userId ?? "");
+      }, 5000);
       setNotificationCount(0);
     }
   }, [open, session?.user.userId]);
@@ -64,7 +73,7 @@ const Notifications = ({ active }: { active: boolean }) => {
               description: `${notification.title} / ${notification.content}`,
               duration: 5000,
               type: "success",
-              
+
               icon: <BellIcon />,
               position: "bottom-center",
             });
@@ -121,9 +130,11 @@ const Notifications = ({ active }: { active: boolean }) => {
               <DropdownMenuItem
                 onClick={() => {
                   notification.link && router.push(notification.link as any);
-                }
-                }
-                className={`p-2 rounded-default profile-link hover:cursor-pointer`}>
+                }}
+                className={cn(
+                  `p-2 rounded-default profile-link hover:cursor-pointer`,
+                  { "!bg-theming-text-500/20": !notification.read }
+                )}>
                 <div className="flex flex-col w-full">
                   <div className="w-full items-center flex flex-row justify-between">
                     <h4 className="font-bold text-base !text-theming-text-600-second">

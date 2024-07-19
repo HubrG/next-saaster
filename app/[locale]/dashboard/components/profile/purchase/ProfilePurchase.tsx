@@ -2,13 +2,14 @@
 
 import { PriceCardFeatures } from "@/app/[locale]/pricing/components/PriceCardFeatures";
 import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { Button } from "@/src/components/ui/button";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
 } from "@/src/helpers/dependencies/user";
 import { useUserStore } from "@/src/stores/userStore";
 import { iPlan } from "@/src/types/db/iPlans";
-import { Box, CheckCircle } from "lucide-react";
+import { Box, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { useFormatter, useNow, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PurchaseAction } from "./@ui/Action";
@@ -19,6 +20,8 @@ export const ProfilePurchase = () => {
   const now = useNow({
     updateInterval: 1000 * 10,
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const { userStore, isUserStoreLoading } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +47,19 @@ export const ProfilePurchase = () => {
       b.createdAt != null ? new Date(b.createdAt).getTime() : Date.now();
     return dateB - dateA;
   });
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const paginatedPayments = sortedPayments?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <div className="flex flex-col gap-5 mt-14">
       {sortedPayments?.length === 0 ? (
@@ -53,7 +69,30 @@ export const ProfilePurchase = () => {
         </div>
       ) : (
         <div className="flex flex-col gap-5">
-          {sortedPayments?.map((payment) => {
+          <div className="grid grid-cols-12  justify-between items-center mt-5">
+            <Button
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+              className="flex items-center gap-2 md:col-span-2 col-span-4 pointer-events-none">
+              <ChevronLeft className="icon" />
+              {t("previous")}
+            </Button>
+            <span className="md:col-span-8 col-span-4">
+              {currentPage}/
+              {Math.ceil((sortedPayments?.length ?? 0) / itemsPerPage)}
+            </span>
+            <Button
+              onClick={handleNextPage}
+              disabled={
+                currentPage * itemsPerPage >= (sortedPayments?.length ?? 0)
+              }
+              className="flex items-center justify-between gap-2 md:col-span-2 col-span-4  pointer-events-none">
+              {t("next")}
+              <ChevronRight className="icon" />
+            </Button>
+          </div>
+
+          {paginatedPayments?.map((payment) => {
             return (
               <div
                 key={payment.id}

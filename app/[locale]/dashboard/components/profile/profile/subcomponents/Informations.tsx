@@ -8,7 +8,7 @@ import { Field } from "@/src/components/ui/form-field";
 import { updateUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
-import { useUserStore } from "@/src/stores/userStore";
+import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -23,7 +23,7 @@ type InformationProps = {
 export const ProfileInformation = ({ user }: InformationProps) => {
     const t = useTranslations("Dashboard.Components.Profile.Profile");
   const [loading, setLoading] = useState(false);
-  const { setUserStore } = useUserStore();
+  const { userInfoStore, setUserInfoStore } = useUserInfoStore();
   const formSchema = z.object({
     name: z.string(),
   });
@@ -51,7 +51,13 @@ export const ProfileInformation = ({ user }: InformationProps) => {
       setLoading(false);
       return;
     }
-    setUserStore({ ...user, name: form.getValues("name") });
+   setUserInfoStore({
+     ...userInfoStore,
+     info: {
+       ...userInfoStore.info,
+       name: form.getValues("name"),
+     },
+   });
     toaster({ type: "success", description: t('toasters.success') });
   };
 

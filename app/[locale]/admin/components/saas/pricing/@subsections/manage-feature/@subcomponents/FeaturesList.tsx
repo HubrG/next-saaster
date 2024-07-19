@@ -39,7 +39,7 @@ export const FeaturesList = () => {
       }, 5000);
 
       return () => clearTimeout(timeoutId);
-    }
+    } 
   }, [
     isStoreLoading,
     fetchSaasPlan,
@@ -121,8 +121,8 @@ export const FeaturesList = () => {
               <th>Description</th>
               <th>Alias</th>
               <th>Link to plan</th>
-              <th className="!text-center">ID</th>
               <th></th>
+              <th className="min-w-[10rem] text-center">ID</th>
             </tr>
           </thead>
           <tbody>

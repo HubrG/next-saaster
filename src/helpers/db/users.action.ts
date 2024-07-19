@@ -322,6 +322,7 @@ const include = {
   usage: {
     include: {
       feature: true,
+      planToFeature: true,
     },
   },
   oneTimePayments: {

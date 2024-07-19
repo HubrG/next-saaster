@@ -10,7 +10,7 @@ type ProfileSetupProps = {};
 export const ProfileSetup = ({}: ProfileSetupProps) => {
   const { userStore, isUserStoreLoading } = useUserStore();
  
-   if (!userStore) {
+   if (!userStore.name) {
      return <SkeletonLoader type="card" />;
    }
   return (

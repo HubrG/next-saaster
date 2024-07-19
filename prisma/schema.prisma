@@ -127,6 +127,7 @@ model UserSubscription {
   creditRemaining Int?         @default(0)
   isActive        Boolean      @default(false)
   createdAt       DateTime?    @default(now())
+  updatedAt       DateTime?    @updatedAt
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   subscription    Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 
@@ -135,16 +136,20 @@ model UserSubscription {
 
 // This model is used to track the usage of the user for each action or feature used in the app.
 model UserUsage {
-  id                          String    @id @default(cuid())
+  id                          String         @id @default(cuid())
   userId                      String
   featureId                   String?
-  quantityForFeature          Int?      @default(0) // Quantity for feature (about limit by feature/month)
-  ConsumeCreditAllouedByMonth Int?      @default(0) // Consume credit alloued by month (about credit alloued by month)
-  ConsumeCredit               Int?      @default(0) // Consume credit (metered usage)
-  createdAt                   DateTime? @default(now())
-  updatedAt                   DateTime? @updatedAt
-  user                        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feature                     Feature?  @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  planToFeatureId             String?
+  quantityForFeature          Int?           @default(0) // Quantity for feature (about limit by feature/month)
+  ConsumeCreditAllouedByMonth Int?           @default(0) // Consume credit alloued by month (about credit alloued by month)
+  ConsumeCredit               Int?           @default(0) // Consume credit (metered usage)
+  output                      Int?           @default(0) // Output (IA)
+  input                       Int?           @default(0) // Input (IA)
+  createdAt                   DateTime?      @default(now())
+  updatedAt                   DateTime?      @updatedAt
+  user                        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature                     Feature?       @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  planToFeature               PlanToFeature? @relation(fields: [planToFeatureId], references: [id], onDelete: Cascade)
 }
 
 model appSettings {
@@ -281,14 +286,15 @@ model Feature {
 }
 
 model PlanToFeature {
-  id                   String   @id @default(cuid())
-  creditCost           Int?     @default(0)
-  creditAllouedByMonth Int?     @default(0)
-  active               Boolean? @default(false)
+  id                   String      @id @default(cuid())
+  creditCost           Int?        @default(0)
+  creditAllouedByMonth Int?        @default(0)
+  active               Boolean?    @default(false)
   planId               String
   featureId            String
-  plan                 Plan     @relation(fields: [planId], references: [id], onDelete: Cascade)
-  feature              Feature  @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  plan                 Plan        @relation(fields: [planId], references: [id], onDelete: Cascade)
+  feature              Feature     @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  planToFeatureUsage   UserUsage[]
 
   @@unique([planId, featureId])
 }

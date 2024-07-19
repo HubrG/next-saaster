@@ -378,6 +378,7 @@ export const updateNotificationSettings = authAction(
     sms: z.boolean(),
     push: z.boolean(),
     typeId: z.string().cuid(),
+    secret: z.string(),
   }),
   async ({
     id,
@@ -385,9 +386,12 @@ export const updateNotificationSettings = authAction(
     email,
     sms,
     push,
+    secret,
     typeId,
   }): Promise<HandleResponseProps<iNotificationSettings>> => {
     try {
+      if (secret && !verifySecretRequest(secret))
+        throw new ActionError("Unauthorized");
       // We check if the user already has notification settings for this type
       const notificationSettings = await prisma.notificationSettings.findFirst({
         where: { userId: userId, typeId: typeId },
@@ -407,13 +411,11 @@ export const updateNotificationSettings = authAction(
         if (!notificationSettingsCreate) {
           throw new ActionError("Error creating notification settings");
         }
-
         return handleRes<iNotificationSettings>({
           success: notificationSettings as unknown as iNotificationSettings,
           statusCode: 200,
         });
       } else {
-        console.log(notificationSettings);
         // If the user already has notification settings for this type, we update them
         const notificationSettingsUpdate =
           await prisma.notificationSettings.update({
@@ -470,6 +472,13 @@ export const sendNotification = action(
     if (!verifySecretRequest(secret)) throw new ActionError("Unauthorized");
     // 🔓
     try {
+      // If the user has disabled notifications for this type, we mark the notification as read
+      const notificationSettingsVerify = await prisma.notificationSettings.findFirst({
+        where: { userId: userId, typeId: type },
+      });
+      if (!notificationSettingsVerify?.push) {
+        read = true;
+      }
       const notification = await prisma.notification.create({
         data: {
           userId,
@@ -477,10 +486,12 @@ export const sendNotification = action(
           title,
           link,
           typeId: type,
+          read,
           createdAt,
           updatedAt,
         },
       });
+     
       if (!notification) {
         throw new ActionError("Error creating notification");
       }
@@ -491,16 +502,13 @@ export const sendNotification = action(
       if (!user) {
         throw new ActionError("Error fetching user");
       }
-      const notificationSettings =
-        await prisma.notificationSettings.findFirst({
-          where: { userId: userId, typeId: type },
-        });
-      console.log("ff");
+      const notificationSettings = await prisma.notificationSettings.findFirst({
+        where: { userId: userId, typeId: type },
+      });
       if (!notificationSettings) {
         throw new ActionError("Error fetching notification settings");
       }
       if (notificationSettings.email) {
-        console.log("Sending email notification");
         sendEmail({
           to: user.email ?? "",
           subject: title,

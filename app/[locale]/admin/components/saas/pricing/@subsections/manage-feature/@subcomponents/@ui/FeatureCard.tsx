@@ -145,21 +145,20 @@ export const FeatureCard = ({ feature }: Props) => {
       <td className="flex justify-center">
         <LinkPlanToFeature feature={feature} />
       </td>
-
-      <td>
-        <CopySomething
-          what="Feature ID"
-          copyText={feature.id}
-          id={"full-id" + feature.id}>
-          {sliced(feature.id, 10)}
-        </CopySomething>
-      </td>
       <td>
         <PopoverArchive
           what="this feature"
           size="icon"
           handleDelete={handleDelete}
         />
+      </td>
+      <td className="w-32 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap px-4">
+        <CopySomething
+          what="Feature ID"
+          copyText={feature.id}
+          id={"full-id" + feature.id}>
+          {sliced(feature.id, 10)}
+        </CopySomething>
       </td>
     </>
   );

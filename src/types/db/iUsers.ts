@@ -13,9 +13,9 @@ import {
   Subscription,
   SubscriptionPayment,
   User,
-  UserSubscription,
-  UserUsage
+  UserSubscription
 } from "@prisma/client";
+import { iUserUsage } from "./iUserUsage";
 
 
 interface PlanFeature extends PlanToFeature {
@@ -64,9 +64,7 @@ interface UserOrganization extends Organization {
   members?: User[] | null;
   owner?: User | null;
 }
-interface UserUserUsage extends UserUsage {
-  feature?: Feature | null;
-}
+
 export interface iUsers extends User {
   subscriptions?: UserSubscriptionClassic[] | null;
   oneTimePayments?: UserOneTimePayment[] | null;
@@ -74,7 +72,7 @@ export interface iUsers extends User {
   stripePrice?: UserStripePrice | null;
   organization?: UserOrganization | null;
   accounts?: Account[] | null;
-  usage?: UserUserUsage[] | null;
+  usage?: iUserUsage[] | null;
 }
 
 

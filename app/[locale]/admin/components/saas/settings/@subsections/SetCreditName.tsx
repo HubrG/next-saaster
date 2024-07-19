@@ -2,7 +2,6 @@
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { HelpCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 type Props = {
   set: (value: string) => void;
@@ -39,9 +38,8 @@ export const SetCreditName = ({ set, disabled }: Props) => {
           }}
           className="w-full"
         />{" "}
-        <span className="font-bold">
-          <HelpCircle />
-        </span>
+      
+        
       </div>
     </div>
   );

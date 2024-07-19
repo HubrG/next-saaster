@@ -7,9 +7,9 @@ import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Card } from "@/src/components/ui/card";
 import { deleteUser } from "@/src/helpers/db/users.action";
 import {
-  ReturnUserDependencyProps,
-  getUserInfos,
+  ReturnUserDependencyProps
 } from "@/src/helpers/dependencies/user";
+import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { capitalize } from "lodash";
 import { signOut } from "next-auth/react";
@@ -23,6 +23,7 @@ type ProfileAccountProps = {};
 export const ProfileAccount = ({}: ProfileAccountProps) => {
   const t = useTranslations("Dashboard.Components.Profile.Account");
   const { userStore, isUserStoreLoading } = useUserStore();
+  const { userInfoStore, setUserInfoStore } = useUserInfoStore();
   const [userProfile, setUserProfile] =
     useState<ReturnUserDependencyProps | null>();
   const [refresh, setRefresh] = useState(false);
@@ -31,7 +32,7 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
 
   useEffect(() => {
     if (!isUserStoreLoading) {
-      setUserProfile(getUserInfos({ user: userStore }));
+      setUserProfile(userInfoStore);
       setRefresh(false);
     }
   }, [userStore, refresh, isLoading, isUserStoreLoading]);
@@ -61,6 +62,8 @@ export const ProfileAccount = ({}: ProfileAccountProps) => {
   if (!userProfile || userProfile?.isLoading) {
     return <SkeletonLoader type="card" />;
   }
+
+  // userInfoStore.info.usage[0].
 
   return (
     <>

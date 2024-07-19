@@ -28,13 +28,16 @@ export const Loader = ({ size, className, noHFull }: LoaderProps) => {
 
 export const SimpleLoader = ({
   size,
+  style,
   className,
 }: {
   size?: number;
+  style?: React.CSSProperties;
   className?: string;
 }) => {
   return (
     <Loader2
+      style={style}
       className={clsx(
         "animate-spin icon flex justify-center items-center w-full",
         className

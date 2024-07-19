@@ -3,6 +3,7 @@ import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
 import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Switch } from "@/src/components/ui/switch";
 import { updateNotificationSettings } from "@/src/helpers/db/notifications.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { useNotificationSettingsStore } from "@/src/stores/admin/notificationSettingsStore";
 import { useUserInfoStore } from "@/src/stores/userInfoStore";
@@ -34,6 +35,7 @@ export const ProfileNotifications = () => {
       email: method === "email" ? !currentValue : settings?.email || false,
       push: method === "push" ? !currentValue : settings?.push || false,
       sms: settings?.sms || false,
+      secret: chosenSecret(),
     });
     if (handleError(up).error) {
       toaster({
@@ -73,7 +75,11 @@ export const ProfileNotifications = () => {
               </div>
               <div className="col-span-2">
                 {loadingType === `${notificationType.id}-email` ? (
-                  <SimpleLoader  size={20} />
+                  <SimpleLoader
+                    className="m-auto"
+                    style={{ margin: "auto" }}
+                    size={20}
+                  />
                 ) : (
                   <Switch
                     checked={settings?.email || false}
@@ -89,7 +95,11 @@ export const ProfileNotifications = () => {
               </div>
               <div className="col-span-2">
                 {loadingType === `${notificationType.id}-push` ? (
-                  <SimpleLoader className="mx-auto !flex-none" size={20} />
+                  <SimpleLoader
+                    style={{ margin: "auto" }}
+                    className="mx-auto !flex-none"
+                    size={20}
+                  />
                 ) : (
                   <Switch
                     checked={settings?.push || false}

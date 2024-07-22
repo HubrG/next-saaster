@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Opnieuw laden van {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "E-mailadres al geverifieerd",
+        "token-not-created": "Token niet gemaakt",
+        "unknown-error": "Onbekende fout. \nControleer de console.",
+        "user-not-found": "Niet-bestaande gebruiker"
+      },
+      "success": "Email verzonden"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Je hebt nog geen producten gekocht op onze site!",
           "title": "Inkoop",
           "no-name": "Credits herladen",
-          "features": "Functies"
+          "features": "Functies",
+          "next": "Als vervolg op",
+          "previous": "vorig"
+        },
+        "Notifications": {
+          "title": "Meldingen"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Welkom!",
       "text": "Klik op onderstaande knop om je registratie te bevestigen.",
       "verifyEmail": "Mijn account valideren"
+    },
+    "NotificationTemplate": {
+      "heading": "Nieuwe melding"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Geen notificaties"
+        "noNotifications": "Geen notificaties",
+        "view": "zien"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Juridische kennisgeving"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Het verifiëren van uw e-mailadres"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Er zijn geen actieve abonnementen voor u gevonden. \nProbeer het opnieuw of neem contact op met de technische ondersteuning.",
+        "Error": "Operatie geannuleerd: het gebruik van de functionaliteit kon niet worden uitgesteld. \nNeem contact op met de technische ondersteuning.",
+        "FeatureNotActive": "Functie uitgeschakeld voor het abonnement waarop de gebruiker zich heeft geabonneerd",
+        "FeatureNotFound": "Functie niet gevonden",
+        "FeatureNotLinkedToPlan": "Functionaliteit die niet gekoppeld is aan het abonnement van de gebruiker",
+        "NotEnoughCreditRemainingToUseFeature": "U heeft niet langer genoeg {varIntlCreditName} om deze functie te gebruiken. \nJe hebt nog maar {varIntlCreditRemaining} over en je hebt {varIntlCreditAlloued} {varIntlCreditName} nodig om het te gebruiken.",
+        "NotEnoughCreditToUseFeature": "U heeft de maandelijkse gebruikslimiet van {varIntlCreditAlloued} voor deze functie bereikt.",
+        "SaasSettingsNotFound": "Belangrijke website-instellingen kunnen niet worden gevonden. \nProbeer het nog eens.",
+        "StripeSubscriptionItemIdNotFound": "Geen Stripe-abonnementen gevonden. \nProbeer het opnieuw of neem contact op met de technische ondersteuning.",
+        "StripeUsageNotReported": "Bewerking geannuleerd. \nHet gebruik van de functie kan om de volgende reden niet worden gerapporteerd aan onze factureringsservice (Stripe): {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Bewerking geannuleerd. \nDe voorwaarden van uw abonnement staan ​​niet toe dat het gebruik van deze functionaliteit wordt meegeteld. \nNeem contact op met de technische ondersteuning.",
+        "SubscriptionStartDateNotFound": "Er is geen abonnementsdatum gevonden voor deze gebruiker",
+        "UserIncludeNotFound": "Inclusief niet gevonden",
+        "UserNotFound": "Gebruiker niet gevonden",
+        "UserSessionNotFound": "Gebruikerssessie niet gevonden"
+      }
     }
   }
 }

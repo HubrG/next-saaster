@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Επαναφόρτωση {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Το email έχει ήδη επαληθευτεί",
+        "token-not-created": "Το διακριτικό δεν δημιουργήθηκε",
+        "unknown-error": "Αγνωστο σφάλμα. \nΕλέγξτε την κονσόλα.",
+        "user-not-found": "Ανύπαρκτος χρήστης"
+      },
+      "success": "Το μήνυμα ηλεκτρονικού ταχυδρομείου εστάλη"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Δεν έχετε αγοράσει κανένα προϊόν από τον ιστότοπό μας ακόμα!",
           "title": "Αγορές",
           "no-name": "Πιστώσεις επαναγέμισης",
-          "features": "Χαρακτηριστικά"
+          "features": "Χαρακτηριστικά",
+          "next": "ΕΠΟΜΕΝΟ",
+          "previous": "Προηγούμενος"
+        },
+        "Notifications": {
+          "title": "Ειδοποιήσεις"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Καλώς ήρθατε!",
       "text": "Για να επιβεβαιώσετε την εγγραφή σας, κάντε κλικ στο παρακάτω κουμπί.",
       "verifyEmail": "Επικύρωση του λογαριασμού μου"
+    },
+    "NotificationTemplate": {
+      "heading": "Νέα ειδοποίηση"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Δεν υπάρχουν ειδοποιήσεις"
+        "noNotifications": "Δεν υπάρχουν ειδοποιήσεις",
+        "view": "βλέπω"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Νομική ειδοποίηση"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Επαλήθευση της διεύθυνσης email σας"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Δεν βρέθηκαν ενεργές συνδρομές για εσάς. \nΔοκιμάστε ξανά ή επικοινωνήστε με την τεχνική υποστήριξη.",
+        "Error": "Η λειτουργία ακυρώθηκε: δεν ήταν δυνατή η αναβολή της χρήσης της λειτουργικότητας. \nΕπικοινωνήστε με την τεχνική υποστήριξη.",
+        "FeatureNotActive": "Η δυνατότητα είναι απενεργοποιημένη στο πρόγραμμα που έχει εγγραφεί από τον χρήστη",
+        "FeatureNotFound": "Το χαρακτηριστικό δεν βρέθηκε",
+        "FeatureNotLinkedToPlan": "Η λειτουργικότητα δεν συνδέεται με το πρόγραμμα που έχει εγγραφεί από τον χρήστη",
+        "NotEnoughCreditRemainingToUseFeature": "Δεν έχετε πλέον αρκετό {varIntlCreditName} για να χρησιμοποιήσετε αυτήν τη δυνατότητα. \nΣας απομένει μόνο το {varIntlCreditRemaining} και χρειάζεστε το {varIntlCreditAlloued} {varIntlCreditName} για να το χρησιμοποιήσετε.",
+        "NotEnoughCreditToUseFeature": "Έχετε συμπληρώσει το μηνιαίο όριο χρήσης {varIntlCreditAlloued} για αυτήν τη λειτουργία.",
+        "SaasSettingsNotFound": "Δεν ήταν δυνατή η εύρεση σημαντικών ρυθμίσεων ιστότοπου. \nΠροσπάθησε ξανά.",
+        "StripeSubscriptionItemIdNotFound": "Δεν βρέθηκαν συνδρομές Stripe. \nΔοκιμάστε ξανά ή επικοινωνήστε με την τεχνική υποστήριξη.",
+        "StripeUsageNotReported": "Η λειτουργία ακυρώθηκε. \nΗ χρήση της δυνατότητας δεν μπορεί να αναφερθεί στην υπηρεσία χρέωσης (Stripe) για τον ακόλουθο λόγο: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Η λειτουργία ακυρώθηκε. \nΟι όροι της συνδρομής σας δεν επιτρέπουν την καταμέτρηση της χρήσης αυτής της λειτουργικότητας. \nΕπικοινωνήστε με την τεχνική υποστήριξη.",
+        "SubscriptionStartDateNotFound": "Δεν βρέθηκε ημερομηνία εγγραφής για αυτόν τον χρήστη",
+        "UserIncludeNotFound": "Συμπεριλάβετε δεν βρέθηκε",
+        "UserNotFound": "Ο χρήστης δεν βρέθηκε",
+        "UserSessionNotFound": "Η συνεδρία χρήστη δεν βρέθηκε"
+      }
     }
   }
 }

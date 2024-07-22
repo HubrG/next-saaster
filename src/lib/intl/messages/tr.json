@@ -296,7 +296,12 @@
           "no-purchase-history-description": "Sitemizden henüz herhangi bir ürün satın almadınız!",
           "title": "Satın Alma",
           "no-name": "Yeniden yükleme kredileri",
-          "features": "Özellikler"
+          "features": "Özellikler",
+          "next": "Takip etme",
+          "previous": "Öncesi"
+        },
+        "Notifications": {
+          "title": "Bildirimler"
         }
       }
     },
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "{varIntlRefill} {varIntlCreditName} yeniden yükleniyor"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "E-posta zaten doğrulandı",
+        "token-not-created": "Jeton oluşturulmadı",
+        "unknown-error": "Bilinmeyen hata. \nLütfen konsolu kontrol edin.",
+        "user-not-found": "Mevcut olmayan kullanıcı"
+      },
+      "success": "E-posta gönderildi"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "Hoş geldiniz!",
       "text": "Kaydınızı onaylamak için lütfen aşağıdaki butona tıklayınız.",
       "verifyEmail": "Hesabımı doğrulayın"
+    },
+    "NotificationTemplate": {
+      "heading": "Yeni bildirim"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Bildirim yok"
+        "noNotifications": "Bildirim yok",
+        "view": "Görmek"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Yasal Uyarı"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "E-posta adresinizi doğrulama"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Sizin için aktif abonelik bulunamadı. \nLütfen tekrar deneyin veya teknik destekle iletişime geçin.",
+        "Error": "İşlem iptal edildi: İşlevselliğin kullanımı ertelenemedi. \nLütfen teknik destekle iletişime geçin.",
+        "FeatureNotActive": "Kullanıcının abone olduğu planda özellik devre dışı bırakıldı",
+        "FeatureNotFound": "Özellik bulunamadı",
+        "FeatureNotLinkedToPlan": "Kullanıcının abone olduğu planla bağlantılı olmayan işlevsellik",
+        "NotEnoughCreditRemainingToUseFeature": "Artık bu özelliği kullanmak için yeterli {varIntlCreditName} krediniz yok. \nYalnızca {varIntlCreditRemaining} hakkınız kaldı ve bunu kullanmak için {varIntlCreditAlloued} {varIntlCreditName}'ye ihtiyacınız var.",
+        "NotEnoughCreditToUseFeature": "Bu özellik için {varIntlCreditAlloued} aylık kullanım sınırına ulaştınız.",
+        "SaasSettingsNotFound": "Önemli web sitesi ayarları bulunamadı. \nTekrar deneyin.",
+        "StripeSubscriptionItemIdNotFound": "Stripe aboneliği bulunamadı. \nLütfen tekrar deneyin veya teknik destekle iletişime geçin.",
+        "StripeUsageNotReported": "İşlem iptal edildi. \nÖzelliğin kullanımı şu nedenden dolayı faturalandırma hizmetimize (Stripe) bildirilemez: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "İşlem iptal edildi. \nAboneliğinizin koşulları bu işlevin kullanımının sayılmasına izin vermemektedir. \nLütfen teknik destekle iletişime geçin.",
+        "SubscriptionStartDateNotFound": "Bu kullanıcı için abonelik tarihi bulunamadı",
+        "UserIncludeNotFound": "Dahil edilmedi",
+        "UserNotFound": "Kullanıcı bulunamadı",
+        "UserSessionNotFound": "Kullanıcı oturumu bulunamadı"
+      }
     }
   }
 }

@@ -10,17 +10,11 @@ export function handleError<T extends ErrorData>(
   if (data.data && data.data.error) {
     console.error("Error: ", data.data.error);
     return { error: true, message: data.data.error };
-  } else if (data.serverError && Object.keys(data.serverError).length > 0) {
-    const message =
-      typeof data.serverError === "string"
-        ? data.serverError
-        : JSON.stringify(data.serverError);
+  } else if (data.serverError) {
+    const message = data.serverError.toString();
     console.error("Server error: ", data.serverError);
     return { error: true, message };
-  } else if (
-    data.validationErrors &&
-    Object.keys(data.validationErrors).length > 0
-  ) {
+  } else if (data.validationErrors) {
     const firstValidationErrorKey = Object.keys(data.validationErrors)[0];
     const firstValidationError = data.validationErrors[firstValidationErrorKey];
     console.error("Validation error: ", data.validationErrors);

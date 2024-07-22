@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Memuat ulang {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Email sudah terverifikasi",
+        "token-not-created": "Token tidak dibuat",
+        "unknown-error": "Kesalahan yang tidak diketahui. \nSilakan periksa konsol.",
+        "user-not-found": "Pengguna tidak ada"
+      },
+      "success": "Email terkirim"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Anda belum membeli produk apa pun dari situs kami!",
           "title": "Pembelian",
           "no-name": "Memuat ulang kredit",
-          "features": "Fitur"
+          "features": "Fitur",
+          "next": "Mengikuti",
+          "previous": "Sebelumnya"
+        },
+        "Notifications": {
+          "title": "Pemberitahuan"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Selamat datang!",
       "text": "Untuk mengonfirmasi pendaftaran Anda, silakan klik tombol di bawah ini.",
       "verifyEmail": "Memvalidasi akun saya"
+    },
+    "NotificationTemplate": {
+      "heading": "Pemberitahuan baru"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Tidak ada pemberitahuan"
+        "noNotifications": "Tidak ada pemberitahuan",
+        "view": "melihat"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Pemberitahuan Hukum"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Memverifikasi alamat email Anda"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Tidak ada langganan aktif yang ditemukan untuk Anda. \nSilakan coba lagi atau hubungi dukungan teknis.",
+        "Error": "Operasi dibatalkan: penggunaan fungsi tersebut tidak dapat ditunda. \nSilakan hubungi dukungan teknis.",
+        "FeatureNotActive": "Fitur dinonaktifkan pada paket yang dilanggani oleh pengguna",
+        "FeatureNotFound": "Fitur tidak ditemukan",
+        "FeatureNotLinkedToPlan": "Fungsionalitas tidak ditautkan ke paket yang dilanggani oleh pengguna",
+        "NotEnoughCreditRemainingToUseFeature": "Anda tidak lagi memiliki cukup {varIntlCreditName} untuk menggunakan fitur ini. \nAnda hanya memiliki {varIntlCreditRemaining} tersisa dan Anda memerlukan {varIntlCreditAlloued} {varIntlCreditName} untuk menggunakannya.",
+        "NotEnoughCreditToUseFeature": "Anda telah mencapai batas penggunaan bulanan sebesar {varIntlCreditAlloued} untuk fitur ini.",
+        "SaasSettingsNotFound": "Setelan situs web penting tidak dapat ditemukan. \nCoba lagi.",
+        "StripeSubscriptionItemIdNotFound": "Tidak ditemukan langganan Stripe. \nSilakan coba lagi atau hubungi dukungan teknis.",
+        "StripeUsageNotReported": "Operasi dibatalkan. \nPenggunaan fitur ini tidak dapat dilaporkan ke layanan penagihan kami (Stripe) karena alasan berikut: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Operasi dibatalkan. \nKetentuan langganan Anda tidak mengizinkan penggunaan fungsi ini dihitung. \nSilakan hubungi dukungan teknis.",
+        "SubscriptionStartDateNotFound": "Tidak ditemukan tanggal berlangganan untuk pengguna ini",
+        "UserIncludeNotFound": "Sertakan tidak ditemukan",
+        "UserNotFound": "Pengguna tidak ditemukan",
+        "UserSessionNotFound": "Sesi pengguna tidak ditemukan"
+      }
     }
   }
 }

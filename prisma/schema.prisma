@@ -136,20 +136,21 @@ model UserSubscription {
 
 // This model is used to track the usage of the user for each action or feature used in the app.
 model UserUsage {
-  id                          String         @id @default(cuid())
-  userId                      String
-  featureId                   String?
-  planToFeatureId             String?
-  quantityForFeature          Int?           @default(0) // Quantity for feature (about limit by feature/month)
-  ConsumeCreditAllouedByMonth Int?           @default(0) // Consume credit alloued by month (about credit alloued by month)
-  ConsumeCredit               Int?           @default(0) // Consume credit (metered usage)
-  output                      Int?           @default(0) // Output (IA)
-  input                       Int?           @default(0) // Input (IA)
-  createdAt                   DateTime?      @default(now())
-  updatedAt                   DateTime?      @updatedAt
-  user                        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feature                     Feature?       @relation(fields: [featureId], references: [id], onDelete: Cascade)
-  planToFeature               PlanToFeature? @relation(fields: [planToFeatureId], references: [id], onDelete: Cascade)
+  id                         String         @id @default(cuid())
+  userId                     String
+  featureId                  String?
+  planToFeatureId            String?
+  quantityForFeature         Int?           @default(0) // Quantity for feature (about limit by feature/month. Eg: 1000 emails sent by month max)
+  consumeCredit              Int?           @default(0) // Consume credit remaining simple or alloued by month (about credit alloued by month. Eg: 1000 credits by month)
+  consumeStripeMeteredCredit Int?           @default(0) // Consume credit (for Stripe billing on metered usage)
+  outputTokenAI              Int?           @default(0) // Output (AI - GPT, Mistral, Claude etc.)
+  inputTokenAI               Int?           @default(0) // Input (AI - GPT, Mistral, Claude etc.)
+  AIProvider                 String?        @default("")
+  createdAt                  DateTime?      @default(now())
+  updatedAt                  DateTime?      @updatedAt
+  user                       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature                    Feature?       @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  planToFeature              PlanToFeature? @relation(fields: [planToFeatureId], references: [id], onDelete: Cascade)
 }
 
 model appSettings {

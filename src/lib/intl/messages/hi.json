@@ -192,7 +192,12 @@
           "title": "खरीद",
           "no-purchase-history-description": "आपने अभी तक हमारी साइट पर कोई उत्पाद नहीं खरीदा है!",
           "no-name": "क्रेडिट पुनः लोड हो रहा है",
-          "features": "विशेषताएँ"
+          "features": "विशेषताएँ",
+          "next": "अगले",
+          "previous": "पहले का"
+        },
+        "Notifications": {
+          "title": "सूचनाएं"
         }
       },
       "Navbar": {
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "{varIntlRefill} {varIntlCreditName} पुनः लोड हो रहा है"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "ईमेल पहले ही सत्यापित है",
+        "token-not-created": "टोकन नहीं बनाया गया",
+        "unknown-error": "अज्ञात त्रुटि। \nकृपया कंसोल की जांच करें.",
+        "user-not-found": "अस्तित्वहीन उपयोगकर्ता"
+      },
+      "success": "ईमेल भेजा"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "स्वागत !",
       "text": "अपने पंजीकरण को निश्चित रूप से सत्यापित करने के लिए, कृपया नीचे दिए गए बटन पर क्लिक करें।",
       "verifyEmail": "मेरे खाते को मान्य करें"
+    },
+    "NotificationTemplate": {
+      "heading": "नई अधिसूचना"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "कोई सूचनाएं नहीं"
+        "noNotifications": "कोई सूचनाएं नहीं",
+        "view": "देखना"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "कानूनी नोटिस"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "आपका ईमेल पता सत्यापित किया जा रहा है"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "आपके लिए कोई सक्रिय सदस्यता नहीं मिली. \nकृपया पुनः प्रयास करें या तकनीकी सहायता से संपर्क करें।",
+        "Error": "ऑपरेशन रद्द किया गया: कार्यक्षमता का उपयोग स्थगित नहीं किया जा सका। \nकृपया तकनीकी सहायता से संपर्क करें.",
+        "FeatureNotActive": "उपयोगकर्ता द्वारा सब्सक्राइब किए गए प्लान पर सुविधा अक्षम कर दी गई है",
+        "FeatureNotFound": "सुविधा नहीं मिली",
+        "FeatureNotLinkedToPlan": "कार्यक्षमता उपयोगकर्ता द्वारा सदस्यता ली गई योजना से जुड़ी नहीं है",
+        "NotEnoughCreditRemainingToUseFeature": "इस सुविधा का उपयोग करने के लिए अब आपके पास पर्याप्त {varIntlCreditName} नहीं है। \nआपके पास केवल {varIntlCreditRemaining} बचा है और इसका उपयोग करने के लिए आपको {varIntlCreditAlloued} {varIntlCreditName} की आवश्यकता है।",
+        "NotEnoughCreditToUseFeature": "आप इस सुविधा के लिए {varIntlCreditAlloued} मासिक उपयोग सीमा तक पहुंच गए हैं।",
+        "SaasSettingsNotFound": "महत्वपूर्ण वेबसाइट सेटिंग नहीं मिल सकीं. \nपुनः प्रयास करें।",
+        "StripeSubscriptionItemIdNotFound": "कोई स्ट्राइप सदस्यता नहीं मिली. \nकृपया पुनः प्रयास करें या तकनीकी सहायता से संपर्क करें।",
+        "StripeUsageNotReported": "ऑपरेशन रद्द कर दिया गया. \nनिम्नलिखित कारण से सुविधा के उपयोग की सूचना हमारी बिलिंग सेवा (स्ट्राइप) को नहीं दी जा सकती: {varIntlError}।",
+        "SubscriptionRecurringUsageTypeNotMetered": "ऑपरेशन रद्द कर दिया गया. \nआपकी सदस्यता की शर्तें इस कार्यक्षमता के उपयोग को गिनने की अनुमति नहीं देती हैं। \nकृपया तकनीकी सहायता से संपर्क करें.",
+        "SubscriptionStartDateNotFound": "इस उपयोगकर्ता के लिए कोई सदस्यता तिथि नहीं मिली",
+        "UserIncludeNotFound": "शामिल नहीं मिला",
+        "UserNotFound": "उपयोगकर्ता नहीं मिला",
+        "UserSessionNotFound": "उपयोगकर्ता सत्र नहीं मिला"
+      }
     }
   }
 }

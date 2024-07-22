@@ -296,7 +296,12 @@
           "no-purchase-history-description": "您尚未从我们的网站购买任何产品！",
           "title": "采购",
           "no-name": "重装学分",
-          "features": "特征"
+          "features": "特征",
+          "next": "下列的",
+          "previous": "以前的"
+        },
+        "Notifications": {
+          "title": "通知"
         }
       }
     },
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "正在重新加载 {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "电子邮件已验证",
+        "token-not-created": "令牌未创建",
+        "unknown-error": "未知错误。\n请检查控制台。",
+        "user-not-found": "用户不存在"
+      },
+      "success": "邮件已发送"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "欢迎 ！",
       "text": "要最终验证您的注册，请单击下面的按钮。",
       "verifyEmail": "验证我的帐户"
+    },
+    "NotificationTemplate": {
+      "heading": "新通知"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "没有通知"
+        "noNotifications": "没有通知",
+        "view": "看"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "法律声明"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "验证您的电子邮件地址"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "没有找到适合您的有效订阅。\n请重试或联系技术支持。",
+        "Error": "操作已取消：无法推迟功能的使用。\n请联系技术支持。",
+        "FeatureNotActive": "用户订阅的套餐中禁用的功能",
+        "FeatureNotFound": "未找到功能",
+        "FeatureNotLinkedToPlan": "与用户订阅的计划无关的功能",
+        "NotEnoughCreditRemainingToUseFeature": "您不再有足够的 {varIntlCreditName} 来使用此功能。\n您只剩下 {varIntlCreditRemaining}，并且需要 {varIntlCreditAlloued} {varIntlCreditName} 才能使用它。",
+        "NotEnoughCreditToUseFeature": "您已达到此功能的每月 {varIntlCreditAlloued} 使用限制。",
+        "SaasSettingsNotFound": "找不到重要的网站设置。\n再试一次。",
+        "StripeSubscriptionItemIdNotFound": "未找到 Stripe 订阅。\n请重试或联系技术支持。",
+        "StripeUsageNotReported": "操作已取消。\n由于以下原因，无法向我们的计费服务 (Stripe) 报告该功能的使用情况：{varIntlError}。",
+        "SubscriptionRecurringUsageTypeNotMetered": "操作已取消。\n您的订阅条款不允许使用此功能。\n请联系技术支持。",
+        "SubscriptionStartDateNotFound": "找不到该用户的订阅日期",
+        "UserIncludeNotFound": "包括未找到的内容",
+        "UserNotFound": "未找到用户",
+        "UserSessionNotFound": "未找到用户会话"
+      }
     }
   }
 }

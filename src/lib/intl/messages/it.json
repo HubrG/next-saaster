@@ -296,7 +296,12 @@
           "no-purchase-history-description": "Non hai ancora acquistato alcun prodotto dal nostro sito!",
           "title": "Acquisto",
           "no-name": "Crediti per la ricarica",
-          "features": "Caratteristiche"
+          "features": "Caratteristiche",
+          "next": "seguente",
+          "previous": "Precedente"
+        },
+        "Notifications": {
+          "title": "Notifiche"
         }
       }
     },
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "Ricaricamento in corso {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Email già verificata",
+        "token-not-created": "Token non creato",
+        "unknown-error": "Errore sconosciuto. \nSi prega di controllare la console.",
+        "user-not-found": "Utente inesistente"
+      },
+      "success": "Email inviata"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "Benvenuti!",
       "text": "Per confermare l'iscrizione, cliccare sul pulsante sottostante.",
       "verifyEmail": "Convalidare il mio account"
+    },
+    "NotificationTemplate": {
+      "heading": "Nuova notifica"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Nessuna notifica"
+        "noNotifications": "Nessuna notifica",
+        "view": "vedere"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Avviso legale"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Verifica il tuo indirizzo email"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Non è stato trovato alcun abbonamento attivo per te. \nRiprova o contatta il supporto tecnico.",
+        "Error": "Operazione annullata: l'utilizzo della funzionalità non può essere posticipato. \nSi prega di contattare il supporto tecnico.",
+        "FeatureNotActive": "Funzionalità disabilitata sul piano sottoscritto dall'utente",
+        "FeatureNotFound": "Caratteristica non trovata",
+        "FeatureNotLinkedToPlan": "Funzionalità non legata al piano sottoscritto dall'utente",
+        "NotEnoughCreditRemainingToUseFeature": "Non hai più abbastanza {varIntlCreditName} per utilizzare questa funzione. \nTi restano solo {varIntlCreditRemaining} e ti servono {varIntlCreditAlloued} {varIntlCreditName} per utilizzarlo.",
+        "NotEnoughCreditToUseFeature": "Hai raggiunto il limite di utilizzo mensile di {varIntlCreditAlloued} per questa funzione.",
+        "SaasSettingsNotFound": "Impossibile trovare impostazioni importanti del sito Web. \nRiprova.",
+        "StripeSubscriptionItemIdNotFound": "Nessun abbonamento Stripe trovato. \nRiprova o contatta il supporto tecnico.",
+        "StripeUsageNotReported": "Operazione annullata. \nL'utilizzo della funzione non può essere segnalato al nostro servizio di fatturazione (Stripe) per il seguente motivo: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Operazione annullata. \nI termini del tuo abbonamento non consentono il conteggio dell'utilizzo di questa funzionalità. \nSi prega di contattare il supporto tecnico.",
+        "SubscriptionStartDateNotFound": "Nessuna data di abbonamento trovata per questo utente",
+        "UserIncludeNotFound": "Includi non trovato",
+        "UserNotFound": "Utente non trovato",
+        "UserSessionNotFound": "Sessione utente non trovata"
+      }
     }
   }
 }

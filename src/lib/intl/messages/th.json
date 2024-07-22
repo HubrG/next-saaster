@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "กำลังโหลด {varIntlRefill} {varIntlCreditName} อีกครั้ง"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "อีเมลได้รับการยืนยันแล้ว",
+        "token-not-created": "ไม่ได้สร้างโทเค็น",
+        "unknown-error": "ข้อผิดพลาดที่ไม่รู้จัก. \nโปรดตรวจสอบคอนโซล",
+        "user-not-found": "ผู้ใช้ที่ไม่มีอยู่จริง"
+      },
+      "success": "ส่งอีเมลแล้ว"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "คุณยังไม่ได้ซื้อผลิตภัณฑ์ใด ๆ บนเว็บไซต์ของเรา!",
           "title": "การซื้อ",
           "no-name": "กำลังโหลดเครดิตซ้ำ",
-          "features": "คุณสมบัติ"
+          "features": "คุณสมบัติ",
+          "next": "กำลังติดตาม",
+          "previous": "ก่อนหน้า"
+        },
+        "Notifications": {
+          "title": "การแจ้งเตือน"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "ยินดีต้อนรับ !",
       "text": "หากต้องการตรวจสอบการลงทะเบียนของคุณให้แน่ชัด โปรดคลิกที่ปุ่มด้านล่าง",
       "verifyEmail": "ตรวจสอบบัญชีของฉัน"
+    },
+    "NotificationTemplate": {
+      "heading": "การแจ้งเตือนใหม่"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "ไม่มีการแจ้งเตือน"
+        "noNotifications": "ไม่มีการแจ้งเตือน",
+        "view": "ดู"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "ประกาศทางกฎหมาย"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "กำลังยืนยันที่อยู่อีเมลของคุณ"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "ไม่พบการสมัครรับข้อมูลที่ใช้งานอยู่สำหรับคุณ \nโปรดลองอีกครั้งหรือติดต่อฝ่ายสนับสนุนด้านเทคนิค",
+        "Error": "การดำเนินการถูกยกเลิก: ไม่สามารถเลื่อนการใช้ฟังก์ชันการทำงานได้ \nโปรดติดต่อฝ่ายสนับสนุนด้านเทคนิค",
+        "FeatureNotActive": "ฟีเจอร์ถูกปิดใช้งานในแผนที่ผู้ใช้สมัครเป็นสมาชิก",
+        "FeatureNotFound": "ไม่พบคุณสมบัติ",
+        "FeatureNotLinkedToPlan": "ฟังก์ชั่นไม่เชื่อมโยงกับแผนที่ผู้ใช้สมัครเป็นสมาชิก",
+        "NotEnoughCreditRemainingToUseFeature": "คุณมี {varIntlCreditName} ไม่เพียงพอที่จะใช้ฟีเจอร์นี้อีกต่อไป \nคุณเหลือเพียง {varIntlCreditRemaining} และคุณต้องมี {varIntlCreditAlloued} {varIntlCreditName} จึงจะใช้งานได้",
+        "NotEnoughCreditToUseFeature": "คุณมีการใช้งานถึงขีดจำกัดรายเดือน {varIntlCreditAloued} สำหรับฟีเจอร์นี้แล้ว",
+        "SaasSettingsNotFound": "ไม่พบการตั้งค่าเว็บไซต์ที่สำคัญ \nลองอีกครั้ง.",
+        "StripeSubscriptionItemIdNotFound": "ไม่พบการสมัครสมาชิก Stripe \nโปรดลองอีกครั้งหรือติดต่อฝ่ายสนับสนุนด้านเทคนิค",
+        "StripeUsageNotReported": "การดำเนินการถูกยกเลิก \nไม่สามารถรายงานการใช้คุณลักษณะนี้ไปยังบริการเรียกเก็บเงินของเรา (Stripe) ได้ด้วยเหตุผลต่อไปนี้: {varIntlError}",
+        "SubscriptionRecurringUsageTypeNotMetered": "การดำเนินการถูกยกเลิก \nเงื่อนไขการสมัครของคุณไม่อนุญาตให้นับการใช้ฟังก์ชันนี้ \nโปรดติดต่อฝ่ายสนับสนุนด้านเทคนิค",
+        "SubscriptionStartDateNotFound": "ไม่พบวันที่สมัครสมาชิกสำหรับผู้ใช้รายนี้",
+        "UserIncludeNotFound": "ไม่พบรวม",
+        "UserNotFound": "ไม่พบชื่อผู้ใช้",
+        "UserSessionNotFound": "ไม่พบเซสชันผู้ใช้"
+      }
     }
   }
 }

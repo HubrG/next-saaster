@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Ladataan uudelleen {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Sähköposti on jo vahvistettu",
+        "token-not-created": "Tunnusta ei luotu",
+        "unknown-error": "Tuntematon virhe. \nTarkista konsoli.",
+        "user-not-found": "Olematon käyttäjä"
+      },
+      "success": "Sähköposti lähetetty"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Et ole vielä ostanut yhtään tuotetta sivustoltamme!",
           "title": "Ostaminen",
           "no-name": "Uudelleenlataushyvitykset",
-          "features": "ominaisuudet"
+          "features": "ominaisuudet",
+          "next": "Seurata",
+          "previous": "Edellinen"
+        },
+        "Notifications": {
+          "title": "Ilmoitukset"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Tervetuloa!",
       "text": "Vahvistaaksesi ilmoittautumisesi klikkaa alla olevaa painiketta.",
       "verifyEmail": "Vahvista tilini"
+    },
+    "NotificationTemplate": {
+      "heading": "Uusi ilmoitus"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Ei ilmoituksia"
+        "noNotifications": "Ei ilmoituksia",
+        "view": "katso"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Oikeudellinen huomautus"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Vahvistaa sähköpostiosoitettasi"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Sinulle ei löytynyt aktiivisia tilauksia. \nYritä uudelleen tai ota yhteyttä tekniseen tukeen.",
+        "Error": "Toiminto peruttu: toiminnon käyttöä ei voitu lykätä. \nOta yhteyttä tekniseen tukeen.",
+        "FeatureNotActive": "Ominaisuus on poistettu käytöstä käyttäjän tilaamassa paketissa",
+        "FeatureNotFound": "Ominaisuutta ei löydy",
+        "FeatureNotLinkedToPlan": "Toiminnot, joita ei ole yhdistetty käyttäjän tilaamaan sopimukseen",
+        "NotEnoughCreditRemainingToUseFeature": "Sinulla ei ole enää tarpeeksi {varIntlCreditName} tämän ominaisuuden käyttämiseen. \nSinulla on vain {varIntlCreditRemaining} jäljellä ja tarvitset {varIntlCreditAlloued} {varIntlCreditName} käyttääksesi sitä.",
+        "NotEnoughCreditToUseFeature": "Olet saavuttanut tämän ominaisuuden kuukausittaisen käyttörajan {varIntlCreditAlloued}.",
+        "SaasSettingsNotFound": "Tärkeitä verkkosivuston asetuksia ei löytynyt. \nYritä uudelleen.",
+        "StripeSubscriptionItemIdNotFound": "Stripe-tilauksia ei löytynyt. \nYritä uudelleen tai ota yhteyttä tekniseen tukeen.",
+        "StripeUsageNotReported": "Toiminto peruttu. \nOminaisuuden käytöstä ei voida ilmoittaa laskutuspalveluumme (Stripe) seuraavasta syystä: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Toiminto peruttu. \nTilauksesi ehdot eivät salli tämän toiminnon käytön laskemista. \nOta yhteyttä tekniseen tukeen.",
+        "SubscriptionStartDateNotFound": "Tälle käyttäjälle ei löytynyt tilauspäivää",
+        "UserIncludeNotFound": "Sisällytä ei löydy",
+        "UserNotFound": "Käyttäjää ei löydy",
+        "UserSessionNotFound": "Käyttäjäistuntoa ei löydy"
+      }
     }
   }
 }

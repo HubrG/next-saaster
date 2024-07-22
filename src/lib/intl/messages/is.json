@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Endurhleður {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Tölvupóstur hefur þegar verið staðfestur",
+        "token-not-created": "Auðkenni ekki búið til",
+        "unknown-error": "Óþekkt villa. \nVinsamlegast athugaðu stjórnborðið.",
+        "user-not-found": "Notandi sem ekki er til"
+      },
+      "success": "Tölvupóstur sentur"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Þú hefur ekki enn keypt neinar vörur á síðunni okkar!",
           "title": "Innkaup",
           "no-name": "Endurhleðsla inneigna",
-          "features": "Eiginleikar"
+          "features": "Eiginleikar",
+          "next": "Á eftir",
+          "previous": "Fyrri"
+        },
+        "Notifications": {
+          "title": "Tilkynningar"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Velkominn !",
       "text": "Til að staðfesta skráningu þína endanlega skaltu smella á hnappinn hér að neðan.",
       "verifyEmail": "Staðfestu reikninginn minn"
+    },
+    "NotificationTemplate": {
+      "heading": "Ný tilkynning"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Engar tilkynningar"
+        "noNotifications": "Engar tilkynningar",
+        "view": "sjáðu"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Lagatilkynning"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Staðfestir netfangið þitt"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Engar virkar áskriftir fundust fyrir þig. \nVinsamlegast reyndu aftur eða hafðu samband við tækniaðstoð.",
+        "Error": "Hætt við aðgerð: ekki var hægt að fresta notkun virkninnar. \nVinsamlegast hafðu samband við tækniaðstoð.",
+        "FeatureNotActive": "Eiginleiki óvirkur á áætlun sem notandinn gerist áskrifandi að",
+        "FeatureNotFound": "Eiginleiki fannst ekki",
+        "FeatureNotLinkedToPlan": "Virkni sem er ekki tengd áætluninni sem notandinn er áskrifandi að",
+        "NotEnoughCreditRemainingToUseFeature": "Þú hefur ekki lengur nóg af {varIntlCreditName} til að nota þennan eiginleika. \nÞú átt aðeins {varIntlCreditRemaining} eftir og þú þarft {varIntlCreditAlloued} {varIntlCreditName} til að nota það.",
+        "NotEnoughCreditToUseFeature": "Þú hefur náð {varIntlCreditAlloued} mánaðarlegu notkunarhámarki þessa eiginleika.",
+        "SaasSettingsNotFound": "Mikilvægar vefsíðustillingar fundust ekki. \nReyndu aftur.",
+        "StripeSubscriptionItemIdNotFound": "Engar Stripe áskriftir fundust. \nVinsamlegast reyndu aftur eða hafðu samband við tækniaðstoð.",
+        "StripeUsageNotReported": "Aðgerð hætt. \nEkki er hægt að tilkynna notkun eiginleikans til innheimtuþjónustu okkar (Stripe) af eftirfarandi ástæðu: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Aðgerð hætt. \nSkilmálar áskriftar þinnar leyfa ekki að notkun þessarar virkni sé talin með. \nVinsamlegast hafðu samband við tækniaðstoð.",
+        "SubscriptionStartDateNotFound": "Engin áskriftardagsetning fannst fyrir þennan notanda",
+        "UserIncludeNotFound": "Innifalið fannst ekki",
+        "UserNotFound": "Notandi finnst ekki",
+        "UserSessionNotFound": "Notandalota fannst ekki"
+      }
     }
   }
 }

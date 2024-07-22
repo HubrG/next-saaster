@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Đang tải lại {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Email đã được xác minh",
+        "token-not-created": "Mã thông báo chưa được tạo",
+        "unknown-error": "Lỗi không rõ. \nVui lòng kiểm tra bảng điều khiển.",
+        "user-not-found": "Người dùng không tồn tại"
+      },
+      "success": "Đã gửi email"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Bạn chưa mua bất kỳ sản phẩm nào trên trang web của chúng tôi!",
           "title": "Mua hàng",
           "no-name": "Đang tải lại tín dụng",
-          "features": "Đặc trưng"
+          "features": "Đặc trưng",
+          "next": "Tiếp theo",
+          "previous": "Trước"
+        },
+        "Notifications": {
+          "title": "Thông báo"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Chào mừng !",
       "text": "Để xác thực dứt khoát việc đăng ký của bạn, vui lòng nhấp vào nút bên dưới.",
       "verifyEmail": "Xác thực tài khoản của tôi"
+    },
+    "NotificationTemplate": {
+      "heading": "Thông báo mới"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Không có thông báo"
+        "noNotifications": "Không có thông báo",
+        "view": "nhìn thấy"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Thông báo pháp lý"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Xác minh địa chỉ email của bạn"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Không có đăng ký hoạt động nào được tìm thấy cho bạn. \nVui lòng thử lại hoặc liên hệ với bộ phận hỗ trợ kỹ thuật.",
+        "Error": "Hoạt động đã bị hủy: việc sử dụng chức năng không thể bị trì hoãn. \nVui lòng liên hệ với bộ phận hỗ trợ kỹ thuật.",
+        "FeatureNotActive": "Tính năng bị vô hiệu hóa trên gói do người dùng đăng ký",
+        "FeatureNotFound": "Không tìm thấy tính năng",
+        "FeatureNotLinkedToPlan": "Chức năng không được liên kết với gói mà người dùng đã đăng ký",
+        "NotEnoughCreditRemainingToUseFeature": "Bạn không còn đủ {varIntlCreditName} để sử dụng tính năng này nữa. \nBạn chỉ còn lại {varIntlCreditRemaining} và bạn cần có {varIntlCreditAlloued} {varIntlCreditName} để sử dụng số tiền đó.",
+        "NotEnoughCreditToUseFeature": "Bạn đã đạt đến giới hạn sử dụng hàng tháng {varIntlCreditAlloued} cho tính năng này.",
+        "SaasSettingsNotFound": "Không thể tìm thấy cài đặt trang web quan trọng. \nThử lại.",
+        "StripeSubscriptionItemIdNotFound": "Không tìm thấy đăng ký Stripe. \nVui lòng thử lại hoặc liên hệ với bộ phận hỗ trợ kỹ thuật.",
+        "StripeUsageNotReported": "Hoạt động bị hủy bỏ. \nKhông thể báo cáo việc sử dụng tính năng này cho dịch vụ thanh toán (Stripe) của chúng tôi vì lý do sau: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Hoạt động bị hủy bỏ. \nCác điều khoản đăng ký của bạn không cho phép tính việc sử dụng chức năng này. \nVui lòng liên hệ với bộ phận hỗ trợ kỹ thuật.",
+        "SubscriptionStartDateNotFound": "Không tìm thấy ngày đăng ký cho người dùng này",
+        "UserIncludeNotFound": "Bao gồm không tìm thấy",
+        "UserNotFound": "Không tìm thấy người dùng",
+        "UserSessionNotFound": "Không tìm thấy phiên người dùng"
+      }
     }
   }
 }

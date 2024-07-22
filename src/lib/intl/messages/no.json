@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Laster inn {varIntlRefill} {varIntlCreditName} på nytt"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "E-posten er allerede bekreftet",
+        "token-not-created": "Token er ikke opprettet",
+        "unknown-error": "Ukjent feil. \nVennligst sjekk konsollen.",
+        "user-not-found": "Ikke-eksisterende bruker"
+      },
+      "success": "Epost sendt"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Du har ennå ikke kjøpt noen produkter på siden vår!",
           "title": "Kjøp",
           "no-name": "Laster inn kreditter på nytt",
-          "features": "Egenskaper"
+          "features": "Egenskaper",
+          "next": "Følgende",
+          "previous": "Tidligere"
+        },
+        "Notifications": {
+          "title": "Varsler"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Velkommen !",
       "text": "For definitivt å validere registreringen din, vennligst klikk på knappen nedenfor.",
       "verifyEmail": "Bekreft kontoen min"
+    },
+    "NotificationTemplate": {
+      "heading": "Ny melding"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Ingen varsler"
+        "noNotifications": "Ingen varsler",
+        "view": "se"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Juridisk varsel"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Bekrefter e-postadressen din"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Ingen aktive abonnementer ble funnet for deg. \nVennligst prøv igjen eller kontakt teknisk støtte.",
+        "Error": "Operasjonen avbrutt: bruken av funksjonaliteten kunne ikke utsettes. \nVennligst kontakt teknisk støtte.",
+        "FeatureNotActive": "Funksjonen er deaktivert på abonnementet som brukeren abonnerer på",
+        "FeatureNotFound": "Funksjonen ble ikke funnet",
+        "FeatureNotLinkedToPlan": "Funksjonalitet som ikke er knyttet til planen som brukeren abonnerer på",
+        "NotEnoughCreditRemainingToUseFeature": "Du har ikke lenger nok {varIntlCreditName} til å bruke denne funksjonen. \nDu har bare {varIntlCreditRemaining} igjen, og du trenger {varIntlCreditAlloued} {varIntlCreditName} for å bruke den.",
+        "NotEnoughCreditToUseFeature": "Du har nådd den månedlige bruksgrensen for {varIntlCreditAlloued} for denne funksjonen.",
+        "SaasSettingsNotFound": "Viktige nettstedinnstillinger ble ikke funnet. \nPrøv igjen.",
+        "StripeSubscriptionItemIdNotFound": "Ingen Stripe-abonnementer funnet. \nVennligst prøv igjen eller kontakt teknisk støtte.",
+        "StripeUsageNotReported": "Operasjonen avbrutt. \nBruk av funksjonen kan ikke rapporteres til vår faktureringstjeneste (Stripe) av følgende grunn: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Operasjonen avbrutt. \nVilkårene for abonnementet ditt tillater ikke at bruken av denne funksjonaliteten telles. \nVennligst kontakt teknisk støtte.",
+        "SubscriptionStartDateNotFound": "Fant ingen abonnementsdato for denne brukeren",
+        "UserIncludeNotFound": "Inkluder ikke funnet",
+        "UserNotFound": "Bruker ikke funnet",
+        "UserSessionNotFound": "Finner ikke brukerøkt"
+      }
     }
   }
 }

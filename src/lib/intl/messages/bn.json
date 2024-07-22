@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "রিলোড হচ্ছে {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "ইমেল ইতিমধ্যে যাচাই করা হয়েছে",
+        "token-not-created": "টোকেন তৈরি করা হয়নি",
+        "unknown-error": "অজানা ত্রুটি। \nকনসোল চেক করুন.",
+        "user-not-found": "অস্তিত্বহীন ব্যবহারকারী"
+      },
+      "success": "ইমেইল পাঠানো"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "আপনি এখনও আমাদের সাইটে কোন পণ্য ক্রয় করেননি!",
           "title": "ক্রয়",
           "no-name": "ক্রেডিট পুনরায় লোড করা হচ্ছে",
-          "features": "বৈশিষ্ট্য"
+          "features": "বৈশিষ্ট্য",
+          "next": "অনুসরণ করছে",
+          "previous": "আগে"
+        },
+        "Notifications": {
+          "title": "বিজ্ঞপ্তি"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "স্বাগত !",
       "text": "আপনার রেজিস্ট্রেশন নিশ্চিতভাবে যাচাই করতে, অনুগ্রহ করে নীচের বোতামে ক্লিক করুন।",
       "verifyEmail": "আমার অ্যাকাউন্ট যাচাই করুন"
+    },
+    "NotificationTemplate": {
+      "heading": "নতুন বিজ্ঞপ্তি"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "বিজ্ঞপ্তি নেই"
+        "noNotifications": "বিজ্ঞপ্তি নেই",
+        "view": "দেখা"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "আইনি নোটিশ"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "আপনার ইমেল ঠিকানা যাচাই করা হচ্ছে"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "আপনার জন্য কোনো সক্রিয় সদস্যতা পাওয়া যায়নি। \nঅনুগ্রহ করে আবার চেষ্টা করুন বা প্রযুক্তিগত সহায়তার সাথে যোগাযোগ করুন।",
+        "Error": "অপারেশন বাতিল করা হয়েছে: কার্যকারিতা ব্যবহার স্থগিত করা যাবে না। \nপ্রযুক্তিগত সহায়তার সাথে যোগাযোগ করুন.",
+        "FeatureNotActive": "ব্যবহারকারীর সাবস্ক্রাইব করা প্ল্যানে বৈশিষ্ট্য অক্ষম করা হয়েছে",
+        "FeatureNotFound": "বৈশিষ্ট্য পাওয়া যায়নি",
+        "FeatureNotLinkedToPlan": "ব্যবহারকারীর সাবস্ক্রাইব করা প্ল্যানের সাথে কার্যকারিতা লিঙ্ক করা হয়নি",
+        "NotEnoughCreditRemainingToUseFeature": "এই বৈশিষ্ট্যটি ব্যবহার করার জন্য আপনার কাছে আর পর্যাপ্ত {varIntlCreditName} নেই৷ \nআপনার কাছে শুধুমাত্র {varIntlCreditRemaining} বাকি আছে এবং এটি ব্যবহার করার জন্য আপনার {varIntlCreditAlloued} {varIntlCreditName} প্রয়োজন৷",
+        "NotEnoughCreditToUseFeature": "আপনি এই বৈশিষ্ট্যটির জন্য {varIntlCreditAlloued} মাসিক ব্যবহারের সীমাতে পৌঁছেছেন।",
+        "SaasSettingsNotFound": "গুরুত্বপূর্ণ ওয়েবসাইট সেটিংস খুঁজে পাওয়া যায়নি. \nআবার চেষ্টা কর।",
+        "StripeSubscriptionItemIdNotFound": "কোন স্ট্রাইপ সদস্যতা পাওয়া যায়নি. \nঅনুগ্রহ করে আবার চেষ্টা করুন বা প্রযুক্তিগত সহায়তার সাথে যোগাযোগ করুন।",
+        "StripeUsageNotReported": "অপারেশন বাতিল করা হয়েছে। \nনিম্নলিখিত কারণে আমাদের বিলিং পরিষেবায় (স্ট্রাইপ) বৈশিষ্ট্যটির ব্যবহার রিপোর্ট করা যাবে না: {varIntlError}।",
+        "SubscriptionRecurringUsageTypeNotMetered": "অপারেশন বাতিল করা হয়েছে। \nআপনার সাবস্ক্রিপশনের শর্তাবলী এই কার্যকারিতা ব্যবহারকে গণনা করার অনুমতি দেয় না। \nপ্রযুক্তিগত সহায়তার সাথে যোগাযোগ করুন.",
+        "SubscriptionStartDateNotFound": "এই ব্যবহারকারীর জন্য কোন সদস্যতা তারিখ পাওয়া যায়নি",
+        "UserIncludeNotFound": "অন্তর্ভুক্ত পাওয়া যায়নি",
+        "UserNotFound": "ব্যবহারকারী খুঁজে পাওয়া যায় না",
+        "UserSessionNotFound": "ব্যবহারকারী সেশন পাওয়া যায়নি"
+      }
     }
   }
 }

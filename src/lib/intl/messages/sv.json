@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "Laddar om {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "E-postadressen har redan verifierats",
+        "token-not-created": "Token har inte skapats",
+        "unknown-error": "Okänt fel. \nKontrollera konsolen.",
+        "user-not-found": "Befintlig användare"
+      },
+      "success": "Email skickat"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Du har ännu inte köpt några produkter på vår sida!",
           "title": "Inköp",
           "no-name": "Omladdningskrediter",
-          "features": "Funktioner"
+          "features": "Funktioner",
+          "next": "Följande",
+          "previous": "Tidigare"
+        },
+        "Notifications": {
+          "title": "Aviseringar"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Välkommen !",
       "text": "För att definitivt validera din registrering, klicka på knappen nedan.",
       "verifyEmail": "Validera mitt konto"
+    },
+    "NotificationTemplate": {
+      "heading": "Ny anmälan"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Inga notifikationer"
+        "noNotifications": "Inga notifikationer",
+        "view": "ser"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Rättsligt meddelande"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Verifierar din e-postadress"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Inga aktiva prenumerationer hittades för dig. \nFörsök igen eller kontakta teknisk support.",
+        "Error": "Åtgärden avbröts: användningen av funktionen kunde inte skjutas upp. \nKontakta teknisk support.",
+        "FeatureNotActive": "Funktionen inaktiverad på planen som användaren prenumererar på",
+        "FeatureNotFound": "Funktionen hittades inte",
+        "FeatureNotLinkedToPlan": "Funktionalitet som inte är kopplad till planen som användaren abonnerar på",
+        "NotEnoughCreditRemainingToUseFeature": "Du har inte längre tillräckligt med {varIntlCreditName} för att använda den här funktionen. \nDu har bara {varIntlCreditRemaining} kvar och du behöver {varIntlCreditAlloued} {varIntlCreditName} för att använda den.",
+        "NotEnoughCreditToUseFeature": "Du har nått den månatliga användningsgränsen för {varIntlCreditAlloued} för den här funktionen.",
+        "SaasSettingsNotFound": "Det gick inte att hitta viktiga webbplatsinställningar. \nFörsök igen.",
+        "StripeSubscriptionItemIdNotFound": "Inga Stripe-prenumerationer hittades. \nFörsök igen eller kontakta teknisk support.",
+        "StripeUsageNotReported": "Åtgärden avbröts. \nAnvändning av funktionen kan inte rapporteras till vår faktureringstjänst (Stripe) av följande anledning: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Åtgärden avbröts. \nVillkoren för ditt abonnemang tillåter inte att användningen av denna funktionalitet räknas. \nKontakta teknisk support.",
+        "SubscriptionStartDateNotFound": "Inget prenumerationsdatum hittades för denna användare",
+        "UserIncludeNotFound": "Inkludera hittades inte",
+        "UserNotFound": "Användaren hittades inte",
+        "UserSessionNotFound": "Användarsession hittades inte"
+      }
     }
   }
 }

@@ -43,26 +43,32 @@ function handleSuccess<T>(data: T, statusCode: number): HandleResponseProps<T> {
   };
 }
 
-function handleError<T>(
-  error: unknown,
-  statusCode: number,
-  serverError?: string,
-  validationErrors?: Record<string, string | string[]> // Modification ici
-): HandleResponseProps<T> {
-  return {
-    success: undefined,
-    error: getErrorMessage(error),
-    statusCode,
-    serverError,
-    validationErrors,
-  };
-}
+// function handleError<T>(
+//   error: unknown,
+//   statusCode: number,
+//   serverError?: string,
+//   validationErrors?: Record<string, string | string[]> // Modification ici
+// ): HandleResponseProps<T> {
+//   return {
+//     success: undefined,
+//     error: getErrorMessage(error),
+//     statusCode,
+//     serverError,
+//     validationErrors,
+//   };
+// }
 
 export function handleRes<T>(args: ResponseProps<T>): HandleResponseProps<T> {
   const { data, error, success, statusCode = 200 } = args;
 
   if (error) {
-    return handleError(error, statusCode);
+    return {
+      success: undefined,
+      error: getErrorMessage(error),
+      statusCode: 500,
+      serverError: getErrorMessage(error),
+      validationErrors: undefined,
+    };
   }
 
   return handleSuccess(success!, statusCode);

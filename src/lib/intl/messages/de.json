@@ -296,7 +296,12 @@
           "no-purchase-history-description": "Sie haben noch kein Produkt auf unserer Seite gekauft!",
           "title": "Einkaufen",
           "no-name": "Aufladen von Guthaben",
-          "features": "Merkmale"
+          "features": "Merkmale",
+          "next": "Nachfolgend",
+          "previous": "Vorherige"
+        },
+        "Notifications": {
+          "title": "Benachrichtigungen"
         }
       }
     },
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "{varIntlRefill} {varIntlCreditName} wird neu geladen"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "E-Mail bereits bestätigt",
+        "token-not-created": "Token nicht erstellt",
+        "unknown-error": "Unbekannter Fehler. \nBitte überprüfen Sie die Konsole.",
+        "user-not-found": "Nicht vorhandener Benutzer"
+      },
+      "success": "E-Mail gesendet"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "Willkommen!",
       "text": "Um Ihre Anmeldung endgültig zu bestätigen, klicken Sie bitte auf die untenstehende Schaltfläche.",
       "verifyEmail": "Mein Konto bestätigen"
+    },
+    "NotificationTemplate": {
+      "heading": "Neue Benachrichtigung"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Keine Benachrichtigungen"
+        "noNotifications": "Keine Benachrichtigungen",
+        "view": "sehen"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Impressum"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Verifizierung Ihrer E-Mail-Adresse"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Für Sie wurden keine aktiven Abonnements gefunden. \nBitte versuchen Sie es erneut oder wenden Sie sich an den technischen Support.",
+        "Error": "Vorgang abgebrochen: Die Nutzung der Funktionalität konnte nicht verschoben werden. \nBitte wenden Sie sich an den technischen Support.",
+        "FeatureNotActive": "Die Funktion ist in dem vom Benutzer abonnierten Plan deaktiviert",
+        "FeatureNotFound": "Funktion nicht gefunden",
+        "FeatureNotLinkedToPlan": "Funktionalität, die nicht mit dem vom Benutzer abonnierten Plan verknüpft ist",
+        "NotEnoughCreditRemainingToUseFeature": "Sie haben nicht mehr genügend {varIntlCreditName}, um diese Funktion zu nutzen. \nSie haben nur noch {varIntlCreditRemaining} übrig und benötigen {varIntlCreditAlloued} {varIntlCreditName}, um es zu verwenden.",
+        "NotEnoughCreditToUseFeature": "Sie haben das monatliche Nutzungslimit von {varIntlCreditAlloued} für diese Funktion erreicht.",
+        "SaasSettingsNotFound": "Wichtige Website-Einstellungen konnten nicht gefunden werden. \nVersuchen Sie es erneut.",
+        "StripeSubscriptionItemIdNotFound": "Keine Stripe-Abonnements gefunden. \nBitte versuchen Sie es erneut oder wenden Sie sich an den technischen Support.",
+        "StripeUsageNotReported": "Vorgang abgebrochen. \nDie Nutzung der Funktion kann aus folgendem Grund nicht an unseren Abrechnungsdienst (Stripe) gemeldet werden: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Vorgang abgebrochen. \nDie Bedingungen Ihres Abonnements erlauben keine Anrechnung der Nutzung dieser Funktionalität. \nBitte wenden Sie sich an den technischen Support.",
+        "SubscriptionStartDateNotFound": "Für diesen Benutzer wurde kein Abonnementdatum gefunden",
+        "UserIncludeNotFound": "Einschließen nicht gefunden",
+        "UserNotFound": "Benutzer nicht gefunden",
+        "UserSessionNotFound": "Benutzersitzung nicht gefunden"
+      }
     }
   }
 }

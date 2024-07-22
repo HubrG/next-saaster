@@ -296,7 +296,12 @@
           "no-purchase-history-description": "لم تشتري أي منتجات من موقعنا بعد!",
           "title": "الشراء",
           "no-name": "إعادة تعبئة الاعتمادات",
-          "features": "سمات"
+          "features": "سمات",
+          "next": "التالي",
+          "previous": "سابق"
+        },
+        "Notifications": {
+          "title": "إشعارات"
         }
       }
     },
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "إعادة تحميل {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "تم التحقق من البريد الإلكتروني بالفعل",
+        "token-not-created": "لم يتم إنشاء الرمز المميز",
+        "unknown-error": "خطأ غير معروف. \nيرجى التحقق من وحدة التحكم.",
+        "user-not-found": "مستخدم غير موجود"
+      },
+      "success": "أرسل البريد الإلكتروني"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "مرحبا !",
       "text": "للتحقق بشكل نهائي من صحة تسجيلك، يرجى النقر على الزر أدناه.",
       "verifyEmail": "التحقق من صحة حسابي"
+    },
+    "NotificationTemplate": {
+      "heading": "إشعار جديد"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "لا إشعارات"
+        "noNotifications": "لا إشعارات",
+        "view": "يرى"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "إشعار قانوني"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "التحقق من عنوان بريدك الإلكتروني"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "لم يتم العثور على اشتراكات نشطة لك. \nيرجى المحاولة مرة أخرى أو الاتصال بالدعم الفني.",
+        "Error": "تم إلغاء العملية: لا يمكن تأجيل استخدام الوظيفة. \nيرجى الاتصال بالدعم الفني.",
+        "FeatureNotActive": "تم تعطيل الميزة في الخطة التي اشترك فيها المستخدم",
+        "FeatureNotFound": "لم يتم العثور على الميزة",
+        "FeatureNotLinkedToPlan": "الوظيفة غير مرتبطة بالخطة التي اشترك فيها المستخدم",
+        "NotEnoughCreditRemainingToUseFeature": "لم يعد لديك ما يكفي من {varIntlCreditName} لاستخدام هذه الميزة. \nلم يتبق لديك سوى {varIntlCreditRemaining} وتحتاج إلى {varIntlCreditAlloued} {varIntlCreditName} لاستخدامه.",
+        "NotEnoughCreditToUseFeature": "لقد وصلت إلى حد الاستخدام الشهري {varIntlCreditAlloued} لهذه الميزة.",
+        "SaasSettingsNotFound": "لا يمكن العثور على إعدادات موقع الويب الهامة. \nالمرجو اعادة المحاولة.",
+        "StripeSubscriptionItemIdNotFound": "لم يتم العثور على اشتراكات Stripe. \nيرجى المحاولة مرة أخرى أو الاتصال بالدعم الفني.",
+        "StripeUsageNotReported": "تم إلغاء العملية. \nلا يمكن الإبلاغ عن استخدام هذه الميزة إلى خدمة الفوترة لدينا (Stripe) للسبب التالي: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "تم إلغاء العملية. \nلا تسمح شروط اشتراكك باحتساب استخدام هذه الوظيفة. \nيرجى الاتصال بالدعم الفني.",
+        "SubscriptionStartDateNotFound": "لم يتم العثور على تاريخ الاشتراك لهذا المستخدم",
+        "UserIncludeNotFound": "لم يتم العثور على تضمين",
+        "UserNotFound": "لم يتم العثور على المستخدم",
+        "UserSessionNotFound": "لم يتم العثور على جلسة المستخدم"
+      }
     }
   }
 }

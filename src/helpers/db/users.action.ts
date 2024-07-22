@@ -47,6 +47,8 @@ export const getUser = action(
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
     try {
+      const include = await UserDbInclude();
+
       const user = await prisma.user.findUnique({
         where: { email },
         include,
@@ -75,6 +77,8 @@ export const getUsers = action(
     if (!secret || (secret && !verifySecretRequest(secret)))
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
+    const include = await UserDbInclude();
+
     try {
       const users = await prisma.user.findMany({
         include,
@@ -152,6 +156,7 @@ export const updateUser = action(
     )
       throw new ActionError("Unauthorized");
     // 🔓 Unlocked
+    const include = await UserDbInclude();
     try {
       const user = await prisma.user.update({
         where: { email: data.email },
@@ -280,32 +285,34 @@ export const deleteUser = authAction(
   }
 );
 
-const include = {
-  accounts: true,
-  organization: {
-    include: {
-      owner: true,
-      members: true,
+export const UserDbInclude = async () => {
+  return {
+    accounts: true,
+    organization: {
+      include: {
+        owner: true,
+        members: true,
+      },
     },
-  },
-  subscriptions: {
-    // where: { isActive: true },
-    include: {
-      subscription: {
-        include: {
-          SubscriptionPayments: true,
-          price: {
-            include: {
-              productRelation: {
-                include: {
-                  PlanRelation: {
-                    include: {
-                      Features: {
-                        include: { feature: true },
-                      },
-                      coupons: {
-                        include: {
-                          coupon: true,
+    subscriptions: {
+      // where: { isActive: true },
+      include: {
+        subscription: {
+          include: {
+            SubscriptionPayments: true,
+            price: {
+              include: {
+                productRelation: {
+                  include: {
+                    PlanRelation: {
+                      include: {
+                        Features: {
+                          include: { feature: true },
+                        },
+                        coupons: {
+                          include: {
+                            coupon: true,
+                          },
                         },
                       },
                     },
@@ -317,28 +324,28 @@ const include = {
         },
       },
     },
-  },
-  contacts: true,
-  usage: {
-    include: {
-      feature: true,
-      planToFeature: true,
+    contacts: true,
+    usage: {
+      include: {
+        feature: true,
+        planToFeature: true,
+      },
     },
-  },
-  oneTimePayments: {
-    include: {
-      price: {
-        include: {
-          productRelation: {
-            include: {
-              PlanRelation: {
-                include: {
-                  Features: {
-                    include: { feature: true },
-                  },
-                  coupons: {
-                    include: {
-                      coupon: true,
+    oneTimePayments: {
+      include: {
+        price: {
+          include: {
+            productRelation: {
+              include: {
+                PlanRelation: {
+                  include: {
+                    Features: {
+                      include: { feature: true },
+                    },
+                    coupons: {
+                      include: {
+                        coupon: true,
+                      },
                     },
                   },
                 },
@@ -348,5 +355,5 @@ const include = {
         },
       },
     },
-  },
+  };
 };

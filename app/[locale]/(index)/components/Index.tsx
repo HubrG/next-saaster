@@ -1,8 +1,13 @@
 "use client";
 import { ContainerScroll } from "@/src/components/ui/@aceternity/container-scroll-animation";
+import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Button } from "@/src/components/ui/button";
+import { addUserUsage } from "@/src/helpers/db/userUsage.action";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { handleError } from "@/src/lib/error-handling/handleError";
 import { getLucideComponents } from "@/src/lib/lucideComponents";
 import { useUserInfoStore } from "@/src/stores/userInfoStore";
+import { CircleOff } from "lucide-react";
 import { FeaturesSection } from "./@subcomponents/FeaturesSection";
 import { HeroSection } from "./@subcomponents/HeroSection";
 import { TestimonialsSection } from "./@subcomponents/TestimonialsSection";
@@ -14,9 +19,30 @@ export default function HomePage() {
     decrementCredit,
     isUserInfoStoreLoading,
     setUserInfoStore,
+    fetchUserInfoStore,
     setProperty,
   } = useUserInfoStore();
 
+
+  const handleClick = async () => {
+    const click = await addUserUsage({
+      featureAlias: "gpt3",
+      consumeCredit: 100,
+      // consumeStripeMeteredCredit: 100,
+      // quantityForFeature: 2,
+      secret: chosenSecret(),
+    });
+    const { error, message } = handleError(click);
+    if (error) {
+      toaster({
+        description: message,
+        type: "error",
+        icon: <CircleOff />,
+      });
+    } else {
+      decrementCredit(click.data?.success?.consumeCredit ?? 0);
+    }
+  };
   // useEffect(() => {
   //   setProperty("info", { ...userInfoStore.info, email: "caco@gg.com" });
   // }, []);
@@ -25,14 +51,11 @@ export default function HomePage() {
     <>
       {/* <HeroParallax products={[]} />
       <BackgroundBeamsDemo /> */}
-      <div>
-        <Button onClick={() => incrementCredit(1000)}>Reset</Button>
+      <div className="flex flex-col">
+        <Button onClick={handleClick}>Reset</Button>
         <div>
           <h1>Liste des composants Lucide</h1>
-          <ul>
-          
-            
-          </ul>
+          <ul></ul>
         </div>
         {userInfoStore?.info?.email}
         <HeroSection />

@@ -296,7 +296,12 @@
           "no-purchase-history-description": "あなたはまだ当サイトで商品を購入していません！",
           "title": "購買",
           "no-name": "リローディング・クレジット",
-          "features": "特徴"
+          "features": "特徴",
+          "next": "続く",
+          "previous": "前の"
+        },
+        "Notifications": {
+          "title": "通知"
         }
       }
     },
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "{varIntlRefill} {varIntlCreditName} をリロードしています"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "メールアドレスはすでに確認済みです",
+        "token-not-created": "トークンが作成されていません",
+        "unknown-error": "不明なエラー。\nコンソールを確認してください。",
+        "user-not-found": "存在しないユーザー"
+      },
+      "success": "メールを送信しました"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "いらっしゃいませ ！",
       "text": "登録を最終的に確認するには、下のボタンをクリックしてください。",
       "verifyEmail": "私のアカウントを認証してください"
+    },
+    "NotificationTemplate": {
+      "heading": "新しい通知"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "通知はありません"
+        "noNotifications": "通知はありません",
+        "view": "見る"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "法的通知"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "メールアドレスの認証"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "アクティブなサブスクリプションは見つかりませんでした。\nもう一度試すか、テクニカル サポートにお問い合わせください。",
+        "Error": "操作がキャンセルされました: 機能の使用を延期できませんでした。\nテクニカルサポートにお問い合わせください。",
+        "FeatureNotActive": "ユーザーが契約したプランでは機能が無効になっています",
+        "FeatureNotFound": "機能が見つかりません",
+        "FeatureNotLinkedToPlan": "ユーザーが加入しているプラ​​ンにリンクされていない機能",
+        "NotEnoughCreditRemainingToUseFeature": "この機能を使用するのに十分な {varIntlCreditName} がなくなりました。\n残っているのは {varIntlCreditRemaining} だけです。それを使用するには、{varIntlCreditAlloued} {varIntlCreditName} が必要です。",
+        "NotEnoughCreditToUseFeature": "この機能の月間使用制限 {varIntlCreditAlloued} に達しました。",
+        "SaasSettingsNotFound": "重要な Web サイト設定が見つかりませんでした。\nもう一度やり直してください。",
+        "StripeSubscriptionItemIdNotFound": "Stripe サブスクリプションが見つかりません。\nもう一度試すか、テクニカル サポートにお問い合わせください。",
+        "StripeUsageNotReported": "操作がキャンセルされました。\n次の理由により、この機能の使用を請求サービス (Stripe) に報告できません: {varIntlError}。",
+        "SubscriptionRecurringUsageTypeNotMetered": "操作がキャンセルされました。\nサブスクリプションの条件では、この機能の使用をカウントすることは許可されていません。\nテクニカルサポートにお問い合わせください。",
+        "SubscriptionStartDateNotFound": "このユーザーのサブスクリプション日付が見つかりません",
+        "UserIncludeNotFound": "見つからないものを含める",
+        "UserNotFound": "ユーザーが見つかりません",
+        "UserSessionNotFound": "ユーザーセッションが見つかりません"
+      }
     }
   }
 }

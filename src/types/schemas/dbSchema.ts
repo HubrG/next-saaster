@@ -278,3 +278,27 @@ export const updateUserSchema = z.object({
   stripeSignature: z.string().optional(),
   secret: z.string().optional(),
 });
+
+export const addUserUsageSchema = z
+  .object({
+    userIdFirst: z.string().cuid().optional(),
+    featureAlias: z.string().optional(),
+    quantityForFeature: z.number().optional(),
+    consumeCredit: z.number().optional(),
+    consumeStripeMeteredCredit: z.number().optional(),
+    outputTokenAI: z.number().optional(),
+    inputTokenAI: z.number().optional(),
+    AIProvider: z.string().optional(),
+    secret: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      return (
+        data.quantityForFeature === undefined || data.featureAlias !== undefined
+      );
+    },
+    {
+      message: "quantityForFeature requires featureAlias to be defined",
+      path: ["quantityForFeature"],
+    }
+  );

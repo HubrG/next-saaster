@@ -656,5 +656,26 @@
     "UserDialogInfo": {
       "ResendEmail": "Vérification de votre adresse email"
     }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "UserSessionNotFound": "Session utilisateur non trouvée",
+        "UserIncludeNotFound": "Include non trouvée",
+        "UserNotFound": "Utilisateur non trouvé",
+        "FeatureNotFound": "Fonctionnalité non trouvée",
+        "FeatureNotLinkedToPlan": "Fonctionnalité non reliée au plan souscrit par l'utilisateur",
+        "FeatureNotActive": "Fonctionnalité désactivée sur le plan souscrit par l'utilisateur",
+        "SubscriptionStartDateNotFound": "Aucune date de souscription n'a été trouvée pour cet utilisateur",
+        "NotEnoughCreditToUseFeature": "Vous avez atteint la limite de {varIntlCreditAlloued} utilisations mensuelle pour cette fonctionnalité.",
+        "NotEnoughCreditRemainingToUseFeature": "Vous n'avez plus assez de {varIntlCreditName} pour utiliser cette fonctionnalité. Il ne vous en reste que {varIntlCreditRemaining} et vous avez besoin de {varIntlCreditAlloued} {varIntlCreditName} pour l'utiliser.",
+        "SaasSettingsNotFound": "Des paramètres importants du site internet n'ont pas pu être trouvé. Veuillez réessayer.",
+        "ActiveSubscriptionNotFoundForUser": "Aucun souscription active n'a été trouvée vous concernant. Veuillez réessayer ou contacter le support technique.",
+        "StripeSubscriptionItemIdNotFound": "Aucune souscription Stripe n'a été trouvée. Veuillez réessayer ou contacter le support technique.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Opération annulée. Les modalités de votre souscription ne permettent pas de comptabiliser l'utilisation de cette fonctionnalité. Veuillez contacter le support technique.",
+        "StripeUsageNotReported": "Opération annulée. L'utilisation de la fonctionnalité ne peut être reportée à notre service de facturation (Stripe) pour la raison suivante : {varIntlError}.",
+        "Error": "Opéraiton annulée : l'utilisation de la fonctionnalité n'a pas pu être reportée. Veuillez contacter le support technique."
+      }
+    }
   }
 }

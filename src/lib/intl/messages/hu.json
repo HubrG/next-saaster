@@ -18,6 +18,15 @@
     },
     "Refill": {
       "name": "{varIntlRefill} {varIntlCreditName} újratöltése"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Az e-mail cím már ellenőrizve",
+        "token-not-created": "Token nincs létrehozva",
+        "unknown-error": "Ismeretlen hiba. \nKérjük, ellenőrizze a konzolt.",
+        "user-not-found": "Nem létező felhasználó"
+      },
+      "success": "Email elküldve"
     }
   },
   "Components": {
@@ -317,7 +326,12 @@
           "no-purchase-history-description": "Még nem vásároltál terméket az oldalunkon!",
           "title": "Vásárlás",
           "no-name": "Újratöltési kreditek",
-          "features": "Jellemzők"
+          "features": "Jellemzők",
+          "next": "Következő",
+          "previous": "Előző"
+        },
+        "Notifications": {
+          "title": "Értesítések"
         }
       }
     },
@@ -352,6 +366,9 @@
       "heading": "Üdvözöljük!",
       "text": "Regisztrációjának megerősítéséhez kattintson az alábbi gombra.",
       "verifyEmail": "Érvényesítse a fiókomat"
+    },
+    "NotificationTemplate": {
+      "heading": "Új értesítés"
     }
   },
   "Footer": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Nincsenek értesítések"
+        "noNotifications": "Nincsenek értesítések",
+        "view": "lát"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Jogi nyilatkozat"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Az e-mail cím ellenőrzése"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Nem található aktív előfizetés az Ön számára. \nKérjük, próbálja újra, vagy lépjen kapcsolatba a műszaki támogatással.",
+        "Error": "A művelet megszakítva: a funkció használatát nem lehetett elhalasztani. \nKérjük, lépjen kapcsolatba a műszaki támogatással.",
+        "FeatureNotActive": "A szolgáltatás le van tiltva a felhasználó által előfizetett előfizetésen",
+        "FeatureNotFound": "A funkció nem található",
+        "FeatureNotLinkedToPlan": "A felhasználó által előfizetett csomaghoz nem kapcsolódó funkcionalitás",
+        "NotEnoughCreditRemainingToUseFeature": "Már nincs elég {varIntlCreditName} összege a funkció használatához. \nMár csak {varIntlCreditRemaining} van hátra, és a használatához {varIntlCreditAlloued} {varIntlCreditName} szükséges.",
+        "NotEnoughCreditToUseFeature": "Elérte a funkció {varIntlCreditAlloued} havi használati korlátját.",
+        "SaasSettingsNotFound": "A webhely fontos beállításai nem találhatók. \nPróbáld újra.",
+        "StripeSubscriptionItemIdNotFound": "Nem található Stripe-előfizetés. \nKérjük, próbálja újra, vagy lépjen kapcsolatba a műszaki támogatással.",
+        "StripeUsageNotReported": "A művelet megszakítva. \nA funkció használatát a következő ok miatt nem lehet jelenteni a számlázási szolgáltatásunknak (Stripe): {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "A művelet megszakítva. \nAz előfizetés feltételei nem teszik lehetővé ennek a funkciónak a beszámítását. \nKérjük, lépjen kapcsolatba a műszaki támogatással.",
+        "SubscriptionStartDateNotFound": "Nem található előfizetés dátuma ennél a felhasználónál",
+        "UserIncludeNotFound": "Nem található benne",
+        "UserNotFound": "Felhasználó nem található",
+        "UserSessionNotFound": "Felhasználói munkamenet nem található"
+      }
     }
   }
 }

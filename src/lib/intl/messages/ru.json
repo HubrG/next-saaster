@@ -296,7 +296,12 @@
           "no-purchase-history-description": "Вы еще не купили ни одного товара на нашем сайте!",
           "title": "Закупки",
           "no-name": "Кредиты на перезарядку",
-          "features": "Функции"
+          "features": "Функции",
+          "next": "Следующий",
+          "previous": "Предыдущий"
+        },
+        "Notifications": {
+          "title": "Уведомления"
         }
       }
     },
@@ -527,6 +532,15 @@
     },
     "Refill": {
       "name": "Перезагрузка {varIntlRefill} {varIntlCreditName}"
+    },
+    "ResendVerificationEmail": {
+      "error": {
+        "email-already-verified": "Электронная почта уже подтверждена",
+        "token-not-created": "Токен не создан",
+        "unknown-error": "Неизвестная ошибка. \nПожалуйста, проверьте консоль.",
+        "user-not-found": "Несуществующий пользователь"
+      },
+      "success": "Письмо отправлено"
     }
   },
   "Emails": {
@@ -544,6 +558,9 @@
       "heading": "Добро пожаловать!",
       "text": "Чтобы подтвердить свою регистрацию, нажмите на кнопку ниже.",
       "verifyEmail": "Подтвердите мою учетную запись"
+    },
+    "NotificationTemplate": {
+      "heading": "Новое уведомление"
     }
   },
   "ForgotPassword": {
@@ -590,7 +607,8 @@
   "Header": {
     "Navbar": {
       "Notifications": {
-        "noNotifications": "Нет уведомлений"
+        "noNotifications": "Нет уведомлений",
+        "view": "видеть"
       }
     }
   },
@@ -632,6 +650,32 @@
   "Terms": {
     "metadatas": {
       "title": "Официальное уведомление"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Проверка вашего адреса электронной почты"
+    }
+  },
+  "Helpers": {
+    "DB": {
+      "UserUsage": {
+        "ActiveSubscriptionNotFoundForUser": "Для вас не обнаружено активных подписок. \nПожалуйста, попробуйте еще раз или обратитесь в техническую поддержку.",
+        "Error": "Операция отменена: использование функционала не удалось отложить. \nПожалуйста, свяжитесь со службой технической поддержки.",
+        "FeatureNotActive": "Функция отключена в плане, на который подписан пользователь.",
+        "FeatureNotFound": "Функция не найдена",
+        "FeatureNotLinkedToPlan": "Функциональность, не связанная с планом, на который подписался пользователь",
+        "NotEnoughCreditRemainingToUseFeature": "У вас больше недостаточно {varIntlCreditName} для использования этой функции. \nУ вас осталось только {varIntlCreditRemaining}, и вам нужно {varIntlCreditAlloued} {varIntlCreditName}, чтобы его использовать.",
+        "NotEnoughCreditToUseFeature": "Вы достигли месячного лимита использования этой функции {varIntlCreditAlloued}.",
+        "SaasSettingsNotFound": "Не удалось найти важные настройки веб-сайта. \nПопробуйте еще раз.",
+        "StripeSubscriptionItemIdNotFound": "Подписки Stripe не найдены. \nПожалуйста, попробуйте еще раз или обратитесь в техническую поддержку.",
+        "StripeUsageNotReported": "Операция отменена. \nОб использовании этой функции невозможно сообщить в нашу службу выставления счетов (Stripe) по следующей причине: {varIntlError}.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Операция отменена. \nУсловия вашей подписки не позволяют засчитывать использование данного функционала. \nПожалуйста, свяжитесь со службой технической поддержки.",
+        "SubscriptionStartDateNotFound": "Для этого пользователя не найдена дата подписки",
+        "UserIncludeNotFound": "Включить не найдено",
+        "UserNotFound": "Пользователь не найден",
+        "UserSessionNotFound": "Сеанс пользователя не найден"
+      }
     }
   }
 }

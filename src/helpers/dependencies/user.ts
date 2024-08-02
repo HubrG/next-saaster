@@ -136,7 +136,7 @@ export const getUserInfos = ({ user, email }: { user: iUsers, email?:string }) =
           creditAllouedByMonth:
             activeSubscription?.subscription?.price?.productRelation
               ?.PlanRelation?.creditAllouedByMonth ?? 0, // Credit alloued by month
-          creditRemaining: activeSubscription?.creditRemaining ?? 0, // Credit remaining for the current month
+          creditRemaining: activeSubscription?.creditRemaining ?? 0, // Remaining credit for the current month
           priceObject: activeSubscription?.subscription?.price ?? null,
           productObject:
             (activeSubscription?.subscription?.price
@@ -164,7 +164,7 @@ export const getUserInfos = ({ user, email }: { user: iUsers, email?:string }) =
                   ?.PlanRelation?.creditAllouedByMonth ?? 0)) *
                 100 *
                 100
-            ) / 100, // Credit remaining in percentage
+            ) / 100, // Remaining credit in percentage
           isTrial: activeSubscription?.subscription?.status === "trialing",
           trialDateEnd: activeSubscriptionData?.trial_end ?? null,
           trialDaysRemaining:

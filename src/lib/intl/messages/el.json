@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Ειδοποιήσεις"
+        },
+        "Usage": {
+          "credit-spent": "δαπανήθηκαν {varIntlCreditName}",
+          "date": "Ημερομηνία",
+          "feature": "Λειτουργικότητα",
+          "metered-credit": "Μετρητής τιμολόγησης",
+          "next": "ΕΠΟΜΕΝΟ",
+          "no-usage-history": "Χωρίς ιστορικό χρήσης. \nΕλα αργότερα!",
+          "previous": "Προηγούμενος",
+          "title": "Χρήση",
+          "usage-count": "Χρήση (όριο)"
         }
       }
     },

@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Meldingen"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} uitgegeven",
+          "date": "Datum",
+          "feature": "Functionaliteit",
+          "metered-credit": "Facturatieteller",
+          "next": "Als vervolg op",
+          "no-usage-history": "Geen gebruiksgeschiedenis. \nKom later terug!",
+          "previous": "vorig",
+          "title": "Gebruik",
+          "usage-count": "Gebruik (limiet)"
         }
       }
     },

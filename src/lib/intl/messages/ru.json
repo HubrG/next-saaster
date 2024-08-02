@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "Уведомления"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} потрачено",
+          "date": "Дата",
+          "feature": "Функциональность",
+          "metered-credit": "Биллинговый счетчик",
+          "next": "Следующий",
+          "no-usage-history": "Нет истории использования. \nВернуться позже!",
+          "previous": "Предыдущий",
+          "title": "Использовать",
+          "usage-count": "Использование (ограничение)"
         }
       }
     },

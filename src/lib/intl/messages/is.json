@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Tilkynningar"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} varið",
+          "date": "Dagsetning",
+          "feature": "Virkni",
+          "metered-credit": "Innheimtuteljari",
+          "next": "Á eftir",
+          "no-usage-history": "Enginn notkunarsaga. \nKomdu aftur seinna!",
+          "previous": "Fyrri",
+          "title": "Notaðu",
+          "usage-count": "Notkun (takmörk)"
         }
       }
     },

@@ -28,6 +28,11 @@
     --radius: var(--rad);
     --text-primary: var(--text-900);
     --background-bg: var(--background-50);
+    --chart-1: 220 70% 50%;
+    --chart-5: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-2: 340 75% 55%;
   }
   .dark {
     --background-25: 7%;
@@ -53,6 +58,11 @@
     --radius: var(--rad);
     --gradient1: var(--grad1);
     --gradient2: var(--grad2);
+    --chart-1: 220 70% 50%;
+    --chart-5: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-2: 340 75% 55%;
   }
 }
 * {
@@ -1020,4 +1030,18 @@ article .task-list-item {
 
 .user-dialog-info-tab td {
   @apply !text-sm;
+}
+/* NOTE : Recharts */
+.recharts-text tspan {
+  @apply !fill-theming-text-800 dark:!fill-theming-text-800 !text-xs !important;
+}
+
+path.recharts-rectangle {
+  @apply rounded-t-default dark:!fill-theming-background-400 dark:!border-theming-background-300 !border-theming-background-200 fill-theming-background-300 !important;
+}
+.recharts-bar-rectangle  {
+  @apply fill-transparent bg-transparent !important;
+}
+.custom-recharts-tooltip {
+  @apply bg-theming-background-100 dark:bg-theming-background-100/90 dark:text-theming-text-900 text-theming-text-900 p-2 rounded-default !important;
 }

@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "বিজ্ঞপ্তি"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} খরচ হয়েছে",
+          "date": "তারিখ",
+          "feature": "কার্যকারিতা",
+          "metered-credit": "বিলিং কাউন্টার",
+          "next": "অনুসরণ করছে",
+          "no-usage-history": "কোনো ব্যবহারের ইতিহাস নেই। \nদ্রুত ফিরে আসো!",
+          "previous": "আগে",
+          "title": "ব্যবহার করুন",
+          "usage-count": "ব্যবহার (সীমা)"
         }
       }
     },

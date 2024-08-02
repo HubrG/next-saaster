@@ -68,7 +68,7 @@ export async function todoWhenPaymentSuceeded(event: Stripe.Checkout.Session) {
         },
       });
       if (!updateCreditRemaining) {
-        throw new Error("Failed to update user credit remaining");
+        throw new Error("Failed to update user remaining credit");
       }
     } else {
       const creditRemaining = ((user.data?.success?.creditRemaining ?? 0) +
@@ -88,7 +88,7 @@ export async function todoWhenPaymentSuceeded(event: Stripe.Checkout.Session) {
       });
 
       if (!updateCreditRemaining) {
-        throw new Error("Failed to update user credit remaining");
+        throw new Error("Failed to update user remaining credit");
       }
     }
   } catch (error) {

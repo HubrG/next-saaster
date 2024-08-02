@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "Notificações"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} gasto",
+          "date": "Data",
+          "feature": "Funcionalidade",
+          "metered-credit": "Contador de cobrança",
+          "next": "Seguindo",
+          "no-usage-history": "Sem histórico de uso. \nVolte mais tarde!",
+          "previous": "Anterior",
+          "title": "Usar",
+          "usage-count": "Uso (limite)"
         }
       }
     },

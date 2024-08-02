@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Ilmoitukset"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} käytetty",
+          "date": "Päivämäärä",
+          "feature": "Toiminnallisuus",
+          "metered-credit": "Laskutuslaskuri",
+          "next": "Seurata",
+          "no-usage-history": "Ei käyttöhistoriaa. \nTule takaisin myöhemmin!",
+          "previous": "Edellinen",
+          "title": "Käyttää",
+          "usage-count": "Käyttö (rajoitus)"
         }
       }
     },

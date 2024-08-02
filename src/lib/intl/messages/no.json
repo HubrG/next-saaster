@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Varsler"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} brukt",
+          "date": "Dato",
+          "feature": "Funksjonalitet",
+          "metered-credit": "Faktureringsteller",
+          "next": "Følgende",
+          "no-usage-history": "Ingen brukshistorikk. \nKom tilbake senere!",
+          "previous": "Tidligere",
+          "title": "Bruk",
+          "usage-count": "Bruk (grense)"
         }
       }
     },

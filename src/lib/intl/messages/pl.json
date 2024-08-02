@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Powiadomienia"
+        },
+        "Usage": {
+          "credit-spent": "Wydano {varIntlCreditName}",
+          "date": "Data",
+          "feature": "Funkcjonalność",
+          "metered-credit": "Licznik rozliczeniowy",
+          "next": "Następny",
+          "no-usage-history": "Brak historii użytkowania. \nWróć później!",
+          "previous": "Poprzedni",
+          "title": "Używać",
+          "usage-count": "Wykorzystanie (limit)"
         }
       }
     },

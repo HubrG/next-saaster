@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Pemberitahuan"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} dibelanjakan",
+          "date": "Tanggal",
+          "feature": "Kegunaan",
+          "metered-credit": "Penghitung penagihan",
+          "next": "Mengikuti",
+          "no-usage-history": "Tidak ada riwayat penggunaan. \nKembali lagi nanti!",
+          "previous": "Sebelumnya",
+          "title": "Menggunakan",
+          "usage-count": "Penggunaan (batas)"
         }
       }
     },

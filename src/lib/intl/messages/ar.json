@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "إشعارات"
+        },
+        "Usage": {
+          "credit-spent": "تم إنفاق {varIntlCreditName}.",
+          "date": "تاريخ",
+          "feature": "وظائف",
+          "metered-credit": "عداد الفواتير",
+          "next": "التالي",
+          "no-usage-history": "لا يوجد سجل الاستخدام. \nعد لاحقا!",
+          "previous": "سابق",
+          "title": "يستخدم",
+          "usage-count": "الاستخدام (الحد)"
         }
       }
     },

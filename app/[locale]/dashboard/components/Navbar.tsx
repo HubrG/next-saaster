@@ -8,14 +8,14 @@ import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
-  BarChart2,
+  BarChartBig,
   Bell,
   Building2,
   CircleUser,
   Cog,
   CreditCard,
   Mail,
-  UserRoundCog,
+  UserRoundCog
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -85,15 +85,18 @@ export const DashboardNavbar = () => {
                 sectionObserve="Billing"
                 handleScroll={handleScroll}
               />
-              <MenuItem
-                activeSection={activeSection}
-                text={t("links.usage")}
-                icon={<BarChart2 className="icon" />}
-                sectionObserve="Usage"
-                handleScroll={handleScroll}
-              />
             </>
           )}
+          {saasSettings.activeCreditSystem && (
+            <MenuItem
+              activeSection={activeSection}
+              text={t("links.usage")}
+              icon={<BarChartBig className="icon" />}
+              sectionObserve="Usage"
+              handleScroll={handleScroll}
+            />
+          )}
+
           <MenuItem
             activeSection={activeSection}
             text={t("links.purchases")}

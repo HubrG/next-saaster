@@ -6,12 +6,13 @@ import { useNotificationSettingsStore } from "@/src/stores/admin/notificationSet
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import {
+  BarChartBig,
   Bell,
   Building2,
   CircleUser,
   CreditCard,
   Mail,
-  UserRoundCog,
+  UserRoundCog
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ProfileAccount } from "./account/ProfileAccount";
@@ -21,6 +22,7 @@ import { ProfileNotifications } from "./notifications/Notifications";
 import { ProfileOrganization } from "./organization/ProfileOrganization";
 import { ProfileSetup } from "./profile/ProfileSetup";
 import { ProfilePurchase } from "./purchase/ProfilePurchase";
+import ProfileUsage from "./usage/ProfileUsage";
 
 type DashboardProfileProps = {};
 
@@ -66,6 +68,15 @@ export const DashboardProfile = ({}: DashboardProfileProps) => {
             <ProfileBilling />
           </SectionWrapper>
         </>
+      )}
+      {saasSettings.activeCreditSystem && (
+        <SectionWrapper
+          id="Usage"
+          sectionName={t("Usage.title")}
+          // mainSectionName="Credit"
+          icon={<BarChartBig className="icon" />}>
+          <ProfileUsage />
+        </SectionWrapper>
       )}
       <SectionWrapper
         id="Purchase"

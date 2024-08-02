@@ -219,6 +219,17 @@
         },
         "Notifications": {
           "title": "Notifications"
+        },
+        "Usage": {
+          "title": "Utilisation",
+          "credit-spent": "{varIntlCreditName} dépensés",
+          "previous": "Précédent",
+          "next": "Suivant",
+          "no-usage-history": "Aucun historique d'utilisation. Revenez plus tard !",
+          "feature": "Fonctionnalité",
+          "date": "Date",
+          "usage-count": "Utilisation (limite)",
+          "metered-credit": "Compteur de facturation"
         }
       }
     },

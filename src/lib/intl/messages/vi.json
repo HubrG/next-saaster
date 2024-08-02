@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Thông báo"
+        },
+        "Usage": {
+          "credit-spent": "đã chi tiêu {varIntlCreditName}",
+          "date": "Ngày",
+          "feature": "Chức năng",
+          "metered-credit": "quầy thanh toán",
+          "next": "Tiếp theo",
+          "no-usage-history": "Không có lịch sử sử dụng. \nQuay lại sau!",
+          "previous": "Trước",
+          "title": "Sử dụng",
+          "usage-count": "Mức sử dụng (giới hạn)"
         }
       }
     },

@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "通知"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} 已花费",
+          "date": "日期",
+          "feature": "功能性",
+          "metered-credit": "计费柜台",
+          "next": "下列的",
+          "no-usage-history": "没有使用历史。\n晚一点回来！",
+          "previous": "以前的",
+          "title": "使用",
+          "usage-count": "使用量（限制）"
         }
       }
     },

@@ -201,7 +201,7 @@
           "no-purchase-history-description": "You haven't purchased any products on our site yet!",
           "no-name": "Credit refill",
           "features": "Features",
-          "next": "Following",
+          "next": "Next",
           "previous": "Previous"
         },
         "Emails": {
@@ -219,6 +219,17 @@
         },
         "Notifications": {
           "title": "Notifications"
+        },
+        "Usage": {
+          "title": "Usage",
+          "credit-spent": "{varIntlCreditName} spent",
+          "next": "Next",
+          "previous": "Previous",
+          "no-usage-history": "No usage history. \nCome back later!",
+          "date": "Date",
+          "feature": "Feature",
+          "metered-credit": "Billing counter",
+          "usage-count": "Usage (limit)"
         }
       }
     },
@@ -662,13 +673,13 @@
         "FeatureNotActive": "Feature is not active in the user's plan",
         "SubscriptionStartDateNotFound": "No subscription start date found for this user",
         "NotEnoughCreditToUseFeature": "You have reached the limit of {varIntlCreditAlloued} usage by month for it.",
-        "NotEnoughCreditRemainingToUseFeature": "You don't have enough credit to use this feature. You are missing {varIntlCreditMissing} credits to use this feature, you have {varIntlCreditRemaining} credit remaining",
+        "NotEnoughCreditRemainingToUseFeature": "You don't have enough credit to use this feature. You are missing {varIntlCreditMissing} credits to use this feature, you have {varIntlCreditRemaining} remaining credit",
         "ActiveSubscriptionNotFoundForUser": "No active subscriptions were found for you. \nPlease try again or contact technical support.",
-        "Error": "Operation canceled: the use of the functionality could not be postponed. \nPlease contact technical support.",
+        "Error": "Operation canceled: the use of the feature could not be postponed. \nPlease contact technical support.",
         "SaasSettingsNotFound": "Important website settings could not be found. \nTry Again.",
         "StripeSubscriptionItemIdNotFound": "No Stripe subscriptions found. \nPlease try again or contact technical support.",
         "StripeUsageNotReported": "Operation canceled. \nUse of the feature cannot be reported to our billing service (Stripe) for the following reason: {varIntlError}.",
-        "SubscriptionRecurringUsageTypeNotMetered": "Operation canceled. \nThe terms of your subscription do not allow the use of this functionality to be counted. \nPlease contact technical support.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Operation canceled. \nThe terms of your subscription do not allow the use of this feature to be counted. \nPlease contact technical support.",
         "UserSessionNotFound": "User session not found"
       }
     }

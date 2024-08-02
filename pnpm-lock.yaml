@@ -233,6 +233,9 @@ dependencies:
   react-filepond:
     specifier: ^7.1.2
     version: 7.1.2(filepond@4.31.1)(react-dom@18.3.1)(react@18.3.1)
+  react-flip-numbers:
+    specifier: ^3.0.8
+    version: 3.0.8(react-dom@18.3.1)(react-simple-animate@3.5.2)(react@18.3.1)
   react-hook-form:
     specifier: ^7.52.1
     version: 7.52.1(react@18.3.1)
@@ -385,6 +388,9 @@ devDependencies:
   prisma:
     specifier: ^5.16.2
     version: 5.16.2
+  react-animated-number:
+    specifier: ^0.4.4
+    version: 0.4.4(react@18.3.1)
   react-table:
     specifier: link:@types/@tanstack/react-table
     version: link:@types/@tanstack/react-table
@@ -6829,6 +6835,10 @@ packages:
     resolution: {integrity: sha512-XIxfHpEuSJbITd1H3EeQwpcZbTLHc+VVr8ANI9t5sit565tsI4/xK3KWTUFE2e6QiangUkh3B0jihzmGnNrRsQ==}
     dev: false
 
+  /performance-now@2.1.0:
+    resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
+    dev: true
+
   /periscopic@3.1.0:
     resolution: {integrity: sha512-vKiQ8RRtkl9P+r/+oefh25C3fhybptkHKCZSPlcXiJux2tJF55GnEj3BVn4A5gKfq9NWWXXrxkHBwVPUfH0opw==}
     dependencies:
@@ -7052,6 +7062,12 @@ packages:
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
+  /raf@3.4.1:
+    resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
+    dependencies:
+      performance-now: 2.1.0
+    dev: true
+
   /ranges-apply@7.0.16:
     resolution: {integrity: sha512-4rGJHOyA7qatiMDg3vcETkc/TVBPU86/xZRTXff6o7a2neYLmj0EXUUAlhLVuiWAzTPHDPHOQxtk8EDrIF4ohg==}
     engines: {node: '>=14.18.0'}
@@ -7092,6 +7108,17 @@ packages:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
     dev: false
+
+  /react-animated-number@0.4.4(react@18.3.1):
+    resolution: {integrity: sha512-C+c00nF0Zv6a0o+k3Isc37+SzctFuY5/hx2A9NRyMF9vbxgZZ1gsntflfQ35nCPuS7bsMsqI+2TOQX+JpEHYzQ==}
+    engines: {node: '>=4.0.0'}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.1 || ^16.0.0
+    dependencies:
+      prop-types: 15.8.1
+      raf: 3.4.1
+      react: 18.3.1
+    dev: true
 
   /react-confetti@6.1.0(react@18.3.1):
     resolution: {integrity: sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==}
@@ -7159,6 +7186,18 @@ packages:
       filepond: 4.31.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
+  /react-flip-numbers@3.0.8(react-dom@18.3.1)(react-simple-animate@3.5.2)(react@18.3.1):
+    resolution: {integrity: sha512-iEh4WScZFiGYkIWw3ATA352+XVWBsiKLg97CQHGXvpBetJFYazaYWMqv/mR2fGHdoDLA/2uES74e2wdEgy69BQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+      react-dom: ^16.8.0 || ^17 || ^18
+      react-simple-animate: ^3.0.1
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-simple-animate: 3.5.2(react-dom@18.3.1)
     dev: false
 
   /react-hook-form@7.52.1(react@18.3.1):
@@ -7306,6 +7345,14 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
+    dev: false
+
+  /react-simple-animate@3.5.2(react-dom@18.3.1):
+    resolution: {integrity: sha512-xLE65euP920QMTOmv5haPlml+hmOPDkbIr5WeF7ADIXWBYt5kW/vwpNfWg8EKMab8aeDxIZ6QjffVh8v2dUyhg==}
+    peerDependencies:
+      react-dom: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /react-slugify@4.0.1:

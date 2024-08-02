@@ -198,6 +198,17 @@
         },
         "Notifications": {
           "title": "सूचनाएं"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} खर्च किया गया",
+          "date": "तारीख",
+          "feature": "कार्यक्षमता",
+          "metered-credit": "बिलिंग काउंटर",
+          "next": "अगले",
+          "no-usage-history": "कोई उपयोग इतिहास नहीं. \nबाद में वापस आना!",
+          "previous": "पहले का",
+          "title": "उपयोग",
+          "usage-count": "उपयोग (सीमा)"
         }
       },
       "Navbar": {

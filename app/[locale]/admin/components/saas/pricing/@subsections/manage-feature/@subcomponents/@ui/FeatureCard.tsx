@@ -6,6 +6,7 @@ import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
 import { Switch } from "@/src/components/ui/switch";
 import { updateFeature } from "@/src/helpers/db/features.action";
 import { sliced } from "@/src/helpers/functions/slice";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { iFeature } from "@/src/types/db/iFeatures";
 import { Feature } from "@prisma/client";
@@ -75,6 +76,7 @@ export const FeatureCard = ({ feature }: Props) => {
         id: feature.id,
         ["active"]: !feature.active,
       },
+      secret: chosenSecret(),
     });
     // If there is an error, we display a toaster and revert the change in the store
     if (dataToSet.serverError || dataToSet.validationErrors) {
@@ -95,7 +97,9 @@ export const FeatureCard = ({ feature }: Props) => {
     }
     return toaster({
       type: "success",
-      description: `« ${feature.name} » ${!feature.active ? "activated" : "deactivated"} successfully`,
+      description: `« ${feature.name} » ${
+        !feature.active ? "activated" : "deactivated"
+      } successfully`,
       duration: 1000,
     });
   };

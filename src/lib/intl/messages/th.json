@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "การแจ้งเตือน"
+        },
+        "Usage": {
+          "credit-spent": "ใช้จ่ายไปแล้ว {varIntlCreditName}",
+          "date": "วันที่",
+          "feature": "ฟังก์ชั่นการทำงาน",
+          "metered-credit": "เคาน์เตอร์วางบิล",
+          "next": "กำลังติดตาม",
+          "no-usage-history": "ไม่มีประวัติการใช้งาน \nกลับมาในภายหลัง!",
+          "previous": "ก่อนหน้า",
+          "title": "ใช้",
+          "usage-count": "การใช้งาน (ขีดจำกัด)"
         }
       }
     },

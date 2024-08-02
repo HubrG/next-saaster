@@ -34,5 +34,6 @@ declare module "isomorphic-fetch";
 declare module "unified";
 declare module "remark-parse";
 declare module "uuid";
-
+declare module "react-animated-number";
+declare module "react-smooth-counter";
 declare module "@adobe/helix-md2docx";

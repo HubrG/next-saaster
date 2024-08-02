@@ -24,9 +24,14 @@ export default function HomePage() {
   } = useUserInfoStore();
 
 
+  const handleIncreaseCredit = async () => {
+    incrementCredit(100);
+  }
+
+
   const handleClick = async () => {
     const click = await addUserUsage({
-      featureAlias: "gpt3",
+      // featureAlias: "gpt3",
       consumeCredit: 100,
       // consumeStripeMeteredCredit: 100,
       // quantityForFeature: 2,
@@ -52,7 +57,7 @@ export default function HomePage() {
       {/* <HeroParallax products={[]} />
       <BackgroundBeamsDemo /> */}
       <div className="flex flex-col">
-        <Button onClick={handleClick}>Reset</Button>
+        <Button onClick={handleIncreaseCredit}>Reset</Button>
         <div>
           <h1>Liste des composants Lucide</h1>
           <ul></ul>

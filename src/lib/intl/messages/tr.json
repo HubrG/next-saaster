@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "Bildirimler"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} harcandı",
+          "date": "Tarih",
+          "feature": "İşlevsellik",
+          "metered-credit": "Fatura sayacı",
+          "next": "Takip etme",
+          "no-usage-history": "Kullanım geçmişi yok. \nDaha sonra gel!",
+          "previous": "Öncesi",
+          "title": "Kullanmak",
+          "usage-count": "Kullanım (sınır)"
         }
       }
     },

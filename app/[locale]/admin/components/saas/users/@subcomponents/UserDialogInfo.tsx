@@ -324,7 +324,7 @@ export const UserDialogInfo = ({ user, setUpdate }: UserDialogInfoProps) => {
             <TableBody className="py-5">
               <TableRow>
                 <TableCell className="font-bold">
-                  Credit remaining without subscription
+                  Remaining without subscription
                 </TableCell>
                 <TableCell>
                   <div className="grid grid-cols-4">
@@ -354,7 +354,7 @@ export const UserDialogInfo = ({ user, setUpdate }: UserDialogInfoProps) => {
               </TableRow>
               <TableRow className={cn({ hidden: !user.activeSubscription })}>
                 <TableCell className="font-bold">
-                  Credit remaining with subscription
+                  Remaining credit with subscription
                 </TableCell>
                 <TableCell>
                   <div className="grid grid-cols-4">

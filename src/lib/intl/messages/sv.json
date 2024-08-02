@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Aviseringar"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} spenderat",
+          "date": "Datum",
+          "feature": "Funktionalitet",
+          "metered-credit": "Faktureringsräknare",
+          "next": "Följande",
+          "no-usage-history": "Ingen användningshistorik. \nKom tillbaka senare!",
+          "previous": "Tidigare",
+          "title": "Använda sig av",
+          "usage-count": "Användning (gräns)"
         }
       }
     },

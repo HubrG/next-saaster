@@ -73,7 +73,7 @@ export const ProfilePurchase = () => {
             <Button
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
-              className="flex items-center gap-2 md:col-span-2 col-span-4 pointer-events-none">
+              className="flex items-center gap-2 md:col-span-2 col-span-4 select-none ">
               <ChevronLeft className="icon" />
               {t("previous")}
             </Button>
@@ -86,7 +86,7 @@ export const ProfilePurchase = () => {
               disabled={
                 currentPage * itemsPerPage >= (sortedPayments?.length ?? 0)
               }
-              className="flex items-center justify-between gap-2 md:col-span-2 col-span-4  pointer-events-none">
+              className="flex items-center justify-between gap-2 md:col-span-2 col-span-4  select-none">
               {t("next")}
               <ChevronRight className="icon" />
             </Button>

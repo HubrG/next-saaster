@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "알림"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName}을(를) 지출했습니다.",
+          "date": "날짜",
+          "feature": "기능성",
+          "metered-credit": "청구 카운터",
+          "next": "수행원",
+          "no-usage-history": "이용내역이 없습니다. \n나중에 다시 오세요!",
+          "previous": "이전의",
+          "title": "사용",
+          "usage-count": "사용량(한도)"
         }
       }
     },

@@ -10,12 +10,11 @@ import { ActionError, authAction } from "@/src/lib/safe-actions";
 import { iUserUsage } from "@/src/types/db/iUserUsage";
 import { addUserUsageSchema } from "@/src/types/schemas/dbSchema";
 import { addMonths, differenceInMonths } from "date-fns";
+import { lowerCase } from "lodash";
 import { getTranslations } from "next-intl/server";
 import Stripe from "stripe";
 import { reportUsage } from "../functions/ReportMeteredUsage";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
-
-
 
 /**
  * Add a user usage
@@ -155,12 +154,11 @@ export const addUserUsage = authAction(
               },
             }
           );
-          console.log(userUsageForFeatureThisMonth._sum.quantityForFeature);
           if (
             (userUsageForFeatureThisMonth._sum.quantityForFeature ?? 0) >=
             (featureInPlan.creditAllouedByMonth ?? 0)
           ) {
-            // ❕ Credit remaining spent by one usage of this feature (if no limit usage by month)
+            // ❕ Remaining creditspent by one usage of this feature (if no limit usage by month)
             // We verify if the user has enough credit to use this feature
             if (featureInPlan.creditCost === 0) {
               console.log("Feature is free, no credit needed");
@@ -186,7 +184,9 @@ export const addUserUsage = authAction(
                         (featureInPlan.creditCost ?? 0) -
                         (userSubscription.creditRemaining ?? 0),
                       varIntlCreditRemaining: userSubscription.creditRemaining,
-                      varIntlCreditName: saasSettings.creditName,
+                      varIntlCreditName: lowerCase(
+                        saasSettings.creditName ?? ""
+                      ),
                     }
                   )
                 );
@@ -236,7 +236,7 @@ export const addUserUsage = authAction(
                 );
               if (otPlanToFeature) {
                 featureInPlan = otPlanToFeature;
-                // ❕ Credit remaining spent by one usage of this feature
+                // ❕ Remaining creditspent by one usage of this feature
                 // We verify if the user has enough credit to use this feature
                 if (otPlanToFeature?.creditCost === 0) {
                   creditAllouedByMonth = 0;
@@ -247,7 +247,7 @@ export const addUserUsage = authAction(
                 ) {
                   creditAllouedByMonth = otPlanToFeature.creditCost;
 
-                  // We sousctract the credit from the user's credit remaining
+                  // We sousctract the credit from the user's Remaining credit
                   const userCreditRemaining =
                     (user.creditRemaining ?? 0) -
                     (otPlanToFeature.creditCost ?? 0);
@@ -268,7 +268,9 @@ export const addUserUsage = authAction(
                           (otPlanToFeature.creditCost ?? 0) -
                           (user.creditRemaining ?? 0),
                         varIntlCreditRemaining: user.creditRemaining,
-                        varIntlCreditName: saasSettings.creditName,
+                        varIntlCreditName: lowerCase(
+                          saasSettings.creditName ?? ""
+                        ),
                       }
                     )
                   );
@@ -295,11 +297,11 @@ export const addUserUsage = authAction(
               t("Helpers.DB.UserUsage.NotEnoughCreditRemainingToUseFeature", {
                 varIntlCreditAlloued: consumeCredit,
                 varIntlCreditRemaining: userCredit,
-                varIntlCreditName: saasSettings.creditName,
+                varIntlCreditName: lowerCase(saasSettings.creditName ?? ""),
               })
             );
           } else {
-            // We sousctract the credit from the user's credit remaining
+            // We sousctract the credit from the user's Remaining credit
             const userCreditRemaining = userCredit - consumeCredit;
             await prisma.user.update({
               where: {
@@ -318,11 +320,11 @@ export const addUserUsage = authAction(
               t("Helpers.DB.UserUsage.NotEnoughCreditRemainingToUseFeature", {
                 varIntlCreditAlloued: consumeCredit,
                 varIntlCreditRemaining: userCredit,
-                varIntlCreditName: saasSettings.creditName,
+                varIntlCreditName: lowerCase(saasSettings.creditName ?? ""),
               })
             );
           } else {
-            // We sousctract the credit from the user's credit remaining
+            // We sousctract the credit from the user's Remaining credit
             const userCreditRemaining = userCredit - consumeCredit;
             console.log(userCreditRemaining);
             await prisma.userSubscription.update({

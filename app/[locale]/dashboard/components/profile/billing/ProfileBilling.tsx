@@ -21,6 +21,7 @@ import {
   Check,
   CreditCard,
   ReceiptText,
+  Rocket,
   RotateCcw,
   XCircle,
 } from "lucide-react";
@@ -428,8 +429,8 @@ export const ProfileBilling = ({}: ProfileBillingProps) => {
         </>
       ) : (
         <div className="flex flex-col w-full items-center mt-10 justify-center">
-          <h2 className="text-2xl mb-2"> {t("no-plan-subscribed-yet")}</h2>
-          <Button onClick={handleGoToPricingPage}> {t("subscribe-now")}</Button>
+          <h2 className="text-2xl mb-5"> {t("no-plan-subscribed-yet")}</h2>
+          <Button onClick={handleGoToPricingPage}><Rocket className="icon" /> {t("subscribe-now")}</Button>
         </div>
       )}
     </div>

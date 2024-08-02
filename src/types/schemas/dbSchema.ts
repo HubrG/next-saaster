@@ -22,6 +22,7 @@ export const updateFeatureSchema = z.object({
     displayOnCard: z.boolean().optional(),
     onlyOnSelectedPlans: z.boolean().optional(),
   }),
+  secret: z.string().optional(),
 });
 
 export const updateFeaturesCategorySchema = z.object({

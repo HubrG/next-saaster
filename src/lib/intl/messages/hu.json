@@ -332,6 +332,17 @@
         },
         "Notifications": {
           "title": "Értesítések"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} elköltött",
+          "date": "Dátum",
+          "feature": "Funkcionalitás",
+          "metered-credit": "Számlázási számláló",
+          "next": "Következő",
+          "no-usage-history": "Nincs használati előzmény. \nGyere vissza később!",
+          "previous": "Előző",
+          "title": "Használat",
+          "usage-count": "Használat (korlát)"
         }
       }
     },

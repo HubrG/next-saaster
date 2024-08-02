@@ -5,12 +5,14 @@ import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Keybd } from "@/src/components/ui/kbd";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Textarea } from "@/src/components/ui/textarea";
 import { sliced } from "@/src/helpers/functions/slice";
+import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { Feature } from "@prisma/client";
@@ -39,7 +41,14 @@ export const FeatureCardInfoPopover = ({
   const handleSave = async () => {
     // We update the feature in the store to reflect the change immediately
     setSaasFeatures(
-      saasFeatures.map((feat) => (feat.id === feature.id ? {...feature, [toChange]: toChange === "alias" ? slugify(data) : data }  : feat))
+      saasFeatures.map((feat) =>
+        feat.id === feature.id
+          ? {
+              ...feature,
+              [toChange]: toChange === "alias" ? slugify(data) : data,
+            }
+          : feat
+      )
     );
     // We update the feature in the database
     const dataToSet = await dbUpdateFeature({
@@ -47,19 +56,17 @@ export const FeatureCardInfoPopover = ({
         id: feature.id,
         [toChange]: toChange === "alias" ? slugify(data) : data,
       },
+      secret: chosenSecret(),
     });
     // if there is an error, we revert the feature in the store to its initial state
-    if (dataToSet.serverError || dataToSet.validationErrors) {
+    if (handleError(dataToSet).error) {
       setSaasFeatures(
         saasFeatures.map((feat) =>
           feat.id === feature.id ? initialFeatureState : feat
         )
       );
       return toaster({
-        description:
-          dataToSet.serverError ||
-          dataToSet.validationErrors?.data ||
-          "An error occurred",
+        description: handleError(dataToSet).message,
         type: "error",
       });
     }

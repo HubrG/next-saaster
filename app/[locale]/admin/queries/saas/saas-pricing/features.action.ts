@@ -6,9 +6,19 @@ import {
   updateFeature,
 } from "@/src/helpers/db/features.action";
 import { isSuperAdmin } from "@/src/helpers/functions/isUserRole";
-import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import {
+  chosenSecret,
+  verifySecretRequest,
+} from "@/src/helpers/functions/verifySecretRequest";
+import {
+  HandleResponseProps,
+  handleRes,
+} from "@/src/lib/error-handling/handleResponse";
 import { prisma } from "@/src/lib/prisma";
+import { adminAction } from "@/src/lib/safe-actions";
+import { iFeature } from "@/src/types/db/iFeatures";
 import { iPlanToFeature } from "@/src/types/db/iPlanToFeature";
+import { updateFeatureSchema } from "@/src/types/schemas/dbSchema";
 
 export const updateLinkPlanToFeature = async (
   dataToUpdate: iPlanToFeature[]
@@ -50,8 +60,8 @@ export const updateLinkPlanToFeature = async (
 };
 
 export const addNewMMRSFeature = async () => {
-    const session = await isSuperAdmin();
-    if (!session) throw new Error("Unauthorized access");
+  const session = await isSuperAdmin();
+  if (!session) throw new Error("Unauthorized access");
   // Créer une nouvelle fonctionnalité
   const newFeature = await createFeature();
   if (newFeature.serverError) {
@@ -85,32 +95,44 @@ export const addNewMMRSFeature = async () => {
 };
 
 export const dbGetFeatures = async () => {
-  const features = await getFeatures({secret: chosenSecret()});
+  const features = await getFeatures({ secret: chosenSecret() });
   return features;
 };
 
-export const dbUpdateFeature = async ({ data }: { data: any }) => {
-  const update = await updateFeature({
-    data,
-  });
-  return update;
-};
-
-export const dbUpdateFeatureAll = async ({
-  data,
-  newSaasFeatures,
-}: {
-  data?: any;
-  newSaasFeatures: any;
-}) => {
-  const updatePromises = newSaasFeatures.map((feature: any) =>
-    dbUpdateFeature({
-      data: {
-        id: feature.id,
-        position: feature.position ?? 9999,
-      },
-    })
-  );
-  const results = await Promise.all(updatePromises);
-  return results;
-};
+export const dbUpdateFeature = adminAction(
+  updateFeatureSchema,
+  async ({ data, secret }): Promise<HandleResponseProps<iFeature>> => {
+    if (!secret || verifySecretRequest(secret) === false) {
+      throw new Error("Unauthorized access");
+    }
+    let feature;
+    try {
+      // If data.alias already on another feature, throw an error
+      if (data.alias) {
+        const featureWithAlias = await prisma.feature.findFirst({
+          where: {
+            alias: data.alias,
+            id: {
+              not: data.id,
+            },
+          },
+        });
+        if (featureWithAlias) {
+          throw new Error("Alias already used by another feature. Each feature must have a unique alias.");
+        } else {
+          // We update the feature
+          feature = await updateFeature({ data });
+        }
+      } else {
+        // We update the feature
+        feature = await updateFeature({ data });
+      }
+      return handleRes<iFeature>({
+        success: feature as iFeature,
+        statusCode: 200,
+      });
+    } catch (ActionError) {
+      return handleRes<iFeature>({ error: ActionError, statusCode: 500 });
+    }
+  }
+);

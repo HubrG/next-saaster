@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "通知"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} が費やされました",
+          "date": "日付",
+          "feature": "機能性",
+          "metered-credit": "会計カウンター",
+          "next": "続く",
+          "no-usage-history": "使用履歴はありません。\n後で戻ってきます！",
+          "previous": "前の",
+          "title": "使用",
+          "usage-count": "使用量（制限）"
         }
       }
     },

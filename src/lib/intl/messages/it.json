@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "Notifiche"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} spesi",
+          "date": "Data",
+          "feature": "Funzionalità",
+          "metered-credit": "Contatore di fatturazione",
+          "next": "seguente",
+          "no-usage-history": "Nessuna cronologia di utilizzo. \nTorna più tardi!",
+          "previous": "Precedente",
+          "title": "Utilizzo",
+          "usage-count": "Utilizzo (limite)"
         }
       }
     },

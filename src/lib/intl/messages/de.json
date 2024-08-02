@@ -302,6 +302,17 @@
         },
         "Notifications": {
           "title": "Benachrichtigungen"
+        },
+        "Usage": {
+          "credit-spent": "{varIntlCreditName} ausgegeben",
+          "date": "Datum",
+          "feature": "Funktionalität",
+          "metered-credit": "Abrechnungsschalter",
+          "next": "Nachfolgend",
+          "no-usage-history": "Keine Nutzungshistorie. \nKomme später wieder!",
+          "previous": "Vorherige",
+          "title": "Verwenden",
+          "usage-count": "Nutzung (Limit)"
         }
       }
     },

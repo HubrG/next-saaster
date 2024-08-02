@@ -10,6 +10,7 @@ type ProfileUsageHistory = {
   lastDays: number;
 };
 
+
 const ProfileUsageHistory = ({ startDate, lastDays }: ProfileUsageHistory) => {
   const { userInfoStore } = useUserInfoStore();
   const { saasSettings } = useSaasSettingsStore();

@@ -1,8 +1,8 @@
 "use client";
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Card } from "@/src/components/ui/card";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import { Link, useRouter } from "@/src/lib/intl/navigation";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";

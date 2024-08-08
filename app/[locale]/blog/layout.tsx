@@ -1,4 +1,4 @@
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
 import { ReactNode } from "react";
 import SideBar from "./@components/SideBar";
 

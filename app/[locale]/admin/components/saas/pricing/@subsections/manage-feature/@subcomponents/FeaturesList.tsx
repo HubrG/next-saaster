@@ -1,8 +1,8 @@
 "use client";
 import { dbGetFeatures } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { ScrollArea, ScrollBar } from "@/src/components/ui/@shadcn/scroll-area";
 import { updateFeature } from "@/src/helpers/db/features.action";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";

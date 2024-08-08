@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { cn } from "@/src/lib/utils";
 import { ThemeVariants } from "@/src/types/admin/cssThemes";
 import { Tooltip } from "react-tooltip";
@@ -60,7 +60,7 @@ export const ThemeCard = ({
         }}></Button>
       <Tooltip
         id={`cssThemeName${themeKey}`}
-        opacity={1}
+        
         variant="dark"
         place={"bottom"}
         className="card-tooltip"

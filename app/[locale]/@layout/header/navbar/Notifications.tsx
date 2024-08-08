@@ -1,15 +1,15 @@
 "use client";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import { Skeleton } from "@/src/components/ui/skeleton";
-import { useNotifications } from "@/src/hooks/useNotification";
+} from "@/src/components/ui/@shadcn/dropdown-menu";
+import { Skeleton } from "@/src/components/ui/@shadcn/skeleton";
+import { useNotifications } from "@/src/hooks/utils/useNotification";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";

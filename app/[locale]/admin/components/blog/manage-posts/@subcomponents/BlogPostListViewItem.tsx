@@ -1,8 +1,8 @@
 "use client";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Switch } from "@/src/components/ui/switch";
-import { TableCell, TableRow } from "@/src/components/ui/table";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
+import { TableCell, TableRow } from "@/src/components/ui/@shadcn/table";
 import { Link } from "@/src/lib/intl/navigation";
 import useBlogStore from "@/src/stores/blogStore";
 import { BlogPost } from "@prisma/client";

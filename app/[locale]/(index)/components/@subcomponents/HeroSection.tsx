@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 
 export const HeroSection = () => (
   <div className="hero   text-center py-20">

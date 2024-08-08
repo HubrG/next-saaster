@@ -1,5 +1,5 @@
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { Button } from "@/src/components/ui/button";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";

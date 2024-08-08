@@ -1,13 +1,13 @@
 "use client";
 import { updateAppSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import useSaveAndCancel, {
   GenericDataObject,
-} from "@/src/hooks/useSaveAndCancel";
+} from "@/src/hooks/utils/useSaveAndCancel";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

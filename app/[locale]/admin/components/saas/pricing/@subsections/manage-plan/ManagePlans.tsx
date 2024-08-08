@@ -1,5 +1,5 @@
 "use client";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
 import { Suspense } from "react";
 import { AddPlan } from "./plans/AddPlan";
 import { PlansList } from "./plans/PlansList";

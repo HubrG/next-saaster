@@ -1,11 +1,11 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { NewsletterForm } from "@/src/components/ui/@fairysaas/newsletter-form/newsletter-form";
+import { NewsletterForm } from "@/src/components/ui/@blitzinit/newsletter-form/newsletter-form";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
+} from "@/src/components/ui/@shadcn/avatar";
 import links from "@/src/jsons/main-menu.json";
 import { Link } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";

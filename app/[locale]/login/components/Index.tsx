@@ -1,8 +1,8 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Card } from "@/src/components/ui/card";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import { Link, useRouter } from "@/src/lib/intl/navigation";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useTranslations } from "next-intl";

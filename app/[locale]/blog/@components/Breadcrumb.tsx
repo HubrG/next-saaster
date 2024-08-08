@@ -1,5 +1,5 @@
 "use client";
-import { Badge } from "@/src/components/ui/badge";
+import { Badge } from "@/src/components/ui/@shadcn/badge";
 import { iBlog } from "@/src/types/db/iBlog";
 import { CaretRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";

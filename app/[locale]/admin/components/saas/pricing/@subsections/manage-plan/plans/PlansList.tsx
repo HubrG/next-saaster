@@ -2,7 +2,7 @@
 import { sortAdminPlans } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@functions/sortAdminPlans";
 import { PlanCard } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@ui/PlanCard";
 import { updatePlanPosition } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
 import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";

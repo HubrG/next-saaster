@@ -1,7 +1,7 @@
 import { Bookmark, Tag } from "lucide-react";
 import Image from "next/image";
 
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import { Link } from "@/src/lib/intl/navigation";
 import { iBlog } from "@/src/types/db/iBlog";
 import React, { Suspense } from "react";

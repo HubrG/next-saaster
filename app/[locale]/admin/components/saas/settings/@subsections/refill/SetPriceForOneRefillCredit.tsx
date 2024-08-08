@@ -1,9 +1,8 @@
 "use client";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Label } from "@/src/components/ui/@shadcn/label";
+import { useConvertCurrency } from "@/src/hooks/utils/useConvertCurrency";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
-import { useFormatter } from "next-intl";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -14,13 +13,22 @@ type Props = {
 export const SetPriceForOneRefillCredit = ({ set, disabled }: Props) => {
   const { saasSettings } = useSaasSettingsStore();
   const [price, setPrice] = useState<number>(1);
-  const format = useFormatter();
+  const [currencySymbol, setCurrencySymbol] = useState<string>("");
+
   useEffect(() => {
     set(saasSettings.priceForOneRefillCredit ?? 1);
   }, [saasSettings, set]);
 
   useEffect(() => {
     setPrice(saasSettings.priceForOneRefillCredit ?? 1);
+
+    const convertCurrency = useConvertCurrency({
+      currency: saasSettings.currency ?? "usd",
+      to: "sigle",
+    });
+
+    const symbol = convertCurrency("sigle");
+    setCurrencySymbol(symbol ?? "");
   }, [saasSettings]);
 
   return (
@@ -41,9 +49,7 @@ export const SetPriceForOneRefillCredit = ({ set, disabled }: Props) => {
           }}
           className="w-full"
         />
-        <p className="text-sm text-app-600">
-          {convertCurrencyName(saasSettings.currency ?? "", "sigle")}
-        </p>
+        <p className="text-sm text-app-600">{currencySymbol}</p>
       </div>
     </div>
   );

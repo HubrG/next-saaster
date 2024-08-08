@@ -1,21 +1,21 @@
 "use client";
 import { applyCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Label } from "@/src/components/ui/label";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Label } from "@/src/components/ui/@shadcn/label";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/src/components/ui/@shadcn/popover";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { SaasTypes } from "@prisma/client";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { BadgePercent } from "lucide-react";
+import { useFormatter } from "next-intl";
 import { Tooltip } from "react-tooltip";
 type Props = {
   type: SaasTypes;
@@ -25,7 +25,7 @@ type Props = {
 export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { setSaasPlans } = useSaasPlansStore();
-
+  const format = useFormatter();
   const handleApplyCoupon = async (couponId: string) => {
     const apply = await applyCoupon(couponId, planId, recurrence ?? "monthly");
     if (apply) {
@@ -89,9 +89,13 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
                   <div className="col-span-5 p-0 flex flex-col gap-2">
                     <small className="text-sm text-center">
                       {coupon.percent_off
-                        ? coupon.percent_off + "%"
-                        : (coupon.amount_off??0)/100 +
-                          `${convertCurrencyName(coupon.currency ?? "usd","sigle")}`}{" "}
+                        ? format.number(coupon.percent_off, {
+                            style: "percent",
+                          })
+                        : format.number((coupon.amount_off ?? 0) / 100, {
+                            currency: coupon.currency ?? "usd",
+                            style: "currency",
+                          })}{" "}
                       / {coupon.duration}{" "}
                       {coupon.duration === "repeating" &&
                         `${coupon.duration_in_months} month${
@@ -122,7 +126,7 @@ export const PopoverCoupon = ({ planId, recurrence, type }: Props) => {
       </Popover>
       <Tooltip
         className="tooltip"
-        opacity={100}
+        
         id="tt-apply-coupon"
         place="top">
         Apply coupon

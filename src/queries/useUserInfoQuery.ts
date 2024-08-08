@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "../helpers/db/users.action";
-import { ReturnUserDependencyProps, getUserInfos } from "../helpers/dependencies/user";
+import { ReturnUserDependencyProps, getUserInfos } from "../helpers/dependencies/user-info";
 import { chosenSecret } from "../helpers/functions/verifySecretRequest";
 import { handleError } from "../lib/error-handling/handleError";
 

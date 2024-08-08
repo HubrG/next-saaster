@@ -1,13 +1,13 @@
 "use client";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
-import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
+import { SubSectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SubSectionWrapper";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/src/components/ui/tabs";
-import { useIsClient } from "@/src/hooks/useIsClient";
+} from "@/src/components/ui/@shadcn/tabs";
+import { useIsClient } from "@/src/hooks/utils/useIsClient";
 import { Suspense } from "react";
 import { AlertFrame } from "./@subcomponents/AlertFrame";
 import { Features } from "./@subsections/manage-feature/Features";

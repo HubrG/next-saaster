@@ -1,5 +1,5 @@
 "use client";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import { useUserStore } from "@/src/stores/userStore";
 import SwitchNewsletter from "./@subcomponents/SwitchNewsletter";
 

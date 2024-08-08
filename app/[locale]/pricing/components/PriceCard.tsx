@@ -1,7 +1,7 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";

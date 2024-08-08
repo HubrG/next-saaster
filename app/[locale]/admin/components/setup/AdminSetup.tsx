@@ -1,7 +1,7 @@
 "use client";
 import { SetupDesign } from "@/app/[locale]/admin/components/setup/design-settings/SetupDesign";
 import { InfoApp } from "@/app/[locale]/admin/components/setup/info-settings/InfoApp";
-import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
+import { SectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SectionWrapper";
 import { BellDot, Building2, Languages, LayoutDashboard, Palette } from "lucide-react";
 import Internationalization from "./internationalization/Internationalization";
 import { Layout } from "./layout-settings/Layout";

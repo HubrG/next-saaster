@@ -1,9 +1,9 @@
 /**
- * Convertit la valeur d'un champ en un entier si le nom du champ est inclus dans un tableau spécifié.
- * @param {string[]} inputs - Un tableau de noms de champs à convertir en entiers.
- * @param {string} input - Le nom du champ actuel.
- * @param {string} value - La valeur du champ à convertir.
- * @returns {number} - La valeur convertie ou la valeur initiale si le nom du champ n'est pas inclus.
+ * Converts the value of a field to an integer if the field name is included in a specified array.
+ * @param {string[]} inputs - An array of field names to convert to integers.
+ * @param {string} input - The current field name.
+ * @param {string} value - The field value to convert.
+ * @returns {number} - The converted value or the initial value if the field name is not included.
  */
 export const parseIntInput = (
   inputs: string[],
@@ -21,11 +21,11 @@ export const parseIntInput = (
 };
 
 /**
- * Convertit la valeur d'un champ en un nombre à virgule flottante si le nom du champ est inclus dans un tableau spécifié.
- * @param {string[]} inputs - Un tableau de noms de champs à convertir en nombres à virgule flottante.
- * @param {string} input - Le nom du champ actuel.
- * @param {string} value - La valeur du champ à convertir.
- * @returns {number} - La valeur convertie ou la valeur initiale si le nom du champ n'est pas inclus.
+ * Converts the value of a field to a floating-point number if the field name is included in a specified array.
+ * @param {string[]} inputs - An array of field names to convert to floating-point numbers.
+ * @param {string} input - The current field name.
+ * @param {string} value - The field value to convert.
+ * @returns {number} - The converted value or the initial value if the field name is not included.
  */
 export const parseFloatInput = (
   inputs: string[],

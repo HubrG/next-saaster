@@ -1,5 +1,5 @@
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import createMetadata from "@/src/lib/metadatas";
 import { env } from "@/src/lib/zodEnv";

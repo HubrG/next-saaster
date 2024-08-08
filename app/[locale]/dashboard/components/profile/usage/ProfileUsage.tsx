@@ -1,9 +1,9 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { Button } from "@/src/components/ui/button";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";

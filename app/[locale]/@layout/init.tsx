@@ -1,5 +1,5 @@
 "use client";
-import { useIsClient } from "@/src/hooks/useIsClient";
+import { useIsClient } from "@/src/hooks/utils/useIsClient";
 import { useBlogPostsQuery } from "@/src/queries/useBlogPostsQuery";
 import { useSaasPlanQuery } from "@/src/queries/useSaasPlanQuery";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";

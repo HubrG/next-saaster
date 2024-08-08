@@ -1,6 +1,6 @@
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Label } from "@/src/components/ui/@shadcn/label";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import React from "react";

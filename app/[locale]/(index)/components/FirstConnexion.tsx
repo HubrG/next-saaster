@@ -1,9 +1,9 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
-import { Button } from "@/src/components/ui/button";
-import { Card } from "@/src/components/ui/card";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import { isEmptyUser } from "@/src/helpers/db/emptyUser.action";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { HandMetal } from "lucide-react";

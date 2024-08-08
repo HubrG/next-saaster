@@ -1,9 +1,9 @@
 "use client";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
-} from "@/src/helpers/dependencies/user";
+} from "@/src/helpers/dependencies/user-info";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useUserStore } from "@/src/stores/userStore";
 import { useTranslations } from "next-intl";
@@ -32,8 +32,8 @@ if (!userInfo) return (
     </div>
   </div>
 );
-  if (!userInfo) return <h1 className="!bg-gradient2 mb-14">{t("title")}</h1>;
+  if (!userInfo) return <h1 className="!bg-gradient2 mb-2">{t("title")}</h1>;
   else if (userInfo.activeSubscription)
-    return <h1 className="!bg-gradient2 mb-14">{t("update")}</h1>;
-  else return <h1 className="!bg-gradient2 mb-14">{t("title")}</h1>;
+    return <h1 className="!bg-gradient2 mb-2">{t("update")}</h1>;
+  else return <h1 className="!bg-gradient2 mb-2">{t("title")}</h1>;
 };

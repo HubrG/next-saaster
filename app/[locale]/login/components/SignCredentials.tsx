@@ -1,7 +1,7 @@
 "use client";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";

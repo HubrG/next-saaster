@@ -1,6 +1,6 @@
 "use client";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { Button } from "@/src/components/ui/button";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { LogIn } from "lucide-react";
 import { useTranslations } from "next-intl";

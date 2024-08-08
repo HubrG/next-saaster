@@ -1,5 +1,5 @@
 "use client";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import { cn } from "@/src/lib/utils";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { iPlan } from "@/src/types/db/iPlans";

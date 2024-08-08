@@ -3,15 +3,15 @@
 import { PriceCardFeatures } from "@/app/[locale]/pricing/components/PriceCardFeatures";
 import { portailclient } from "@/app/[locale]/refill/queries/refill.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
 import {
   SimpleLoader,
   SkeletonLoader,
-} from "@/src/components/ui/@fairysaas/loader";
-import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+} from "@/src/components/ui/@blitzinit/loader";
+import { PopoverConfirm } from "@/src/components/ui/@blitzinit/popover-confirm";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

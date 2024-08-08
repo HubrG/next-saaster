@@ -1,4 +1,5 @@
 "use server";
+import { useSendEmail } from "@/src/hooks/@blitzinit/useSendEmail";
 import {
   HandleResponseProps,
   handleRes,
@@ -17,7 +18,6 @@ import {
   iNotificationType,
 } from "@/src/types/db/iNotifications";
 import { z } from "zod";
-import { sendEmail } from "../emails/sendEmail";
 import { verifySecretRequest } from "../functions/verifySecretRequest";
 
 /**
@@ -509,7 +509,7 @@ export const sendNotification = action(
         throw new ActionError("Error fetching notification settings");
       }
       if (notificationSettings.email) {
-        sendEmail({
+        useSendEmail({
           to: user.email ?? "",
           subject: title,
           type: "notification",
@@ -523,7 +523,7 @@ export const sendNotification = action(
               actionText: content,
             },
           },
-        }).catch((err) => console.error("Failed to send email:", err));
+        });
       }
       return handleRes<iNotification>({
         success: notification as unknown as iNotification,

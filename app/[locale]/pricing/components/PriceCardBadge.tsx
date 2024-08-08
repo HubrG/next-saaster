@@ -1,5 +1,5 @@
 "use client";
-import { Badge } from "@/src/components/ui/badge";
+import { Badge } from "@/src/components/ui/@shadcn/badge";
 
 type PriceCardBadgeProps = {
   text: string | null;

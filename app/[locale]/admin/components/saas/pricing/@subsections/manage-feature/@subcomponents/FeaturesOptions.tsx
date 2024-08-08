@@ -1,13 +1,13 @@
 import { updateSaasSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { Separator } from "@/src/components/ui/separator";
-import { Switch } from "@/src/components/ui/switch";
+} from "@/src/components/ui/@shadcn/popover";
+import { Separator } from "@/src/components/ui/@shadcn/separator";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -72,7 +72,7 @@ export const FeaturesOptions = () => {
                 </Label>
                 <Tooltip
                   className="tooltip"
-                  opacity={100}
+                  
                   id="saas-features-option-button"
                   place="top">
                   test
@@ -111,7 +111,7 @@ export const FeaturesOptions = () => {
                 </Label>
                 <Tooltip
                   className="tooltip"
-                  opacity={100}
+                  
                   id="saas-features-option-button"
                   place="top">
                   test
@@ -146,7 +146,7 @@ export const FeaturesOptions = () => {
                 </Label>
                 <Tooltip
                   className="tooltip"
-                  opacity={100}
+                  
                   id="saas-features-option-button"
                   place="top">
                   test

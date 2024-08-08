@@ -1,14 +1,14 @@
 "use client";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { PopoverDelete } from "@/src/components/ui/@blitzinit/popover-delete";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/src/components/ui/@shadcn/popover";
 import { useBlogStore } from "@/src/stores/blogStore";
 import { BlogCategory } from "@prisma/client";
 import { random } from "lodash";
@@ -65,7 +65,7 @@ export const ManageBlogCategories = () => {
         </PopoverContent>
       </Popover>
       <Tooltip
-        opacity={1}
+        
         id="manage-categories-tt"
         className="tooltip"
         place="top">
@@ -151,7 +151,7 @@ export const CategoryCard = ({ category }: Props) => {
             )}
             <Tooltip
               className="tooltip"
-              opacity={100}
+              
               id={`${category.id}tt-save-button`}
               place="top">
               Save update

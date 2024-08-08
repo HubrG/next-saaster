@@ -1,6 +1,6 @@
 import { Index as LoginForm } from "@/app/[locale]/login/components/Index";
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
 import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";

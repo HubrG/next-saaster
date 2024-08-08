@@ -1,5 +1,7 @@
 "use client";
-import PercentageCalculator from "@/src/helpers/functions/maths/calcPercentage";
+import {
+  usePercentageCalculator,
+} from "@/src/hooks/utils/usePercentageCalc";
 import { iPlan } from "@/src/types/db/iPlans";
 
 type PriceCardPayOnceProps = {
@@ -20,7 +22,7 @@ export const MRRPricesAndFeatures = ({
   monthlyPriceWithDiscount?: number | undefined;
   yearlyPriceWithDiscount?: number | undefined;
 } => {
-  const percentage = new PercentageCalculator();
+  const { decreaseValueByPercentage } = usePercentageCalculator();
   let price;
   if (plan.isFree) {
     price = 0;
@@ -53,16 +55,13 @@ export const MRRPricesAndFeatures = ({
   let priceWithDiscount;
 
   if (amount_off) {
-    priceWithDiscount = price - (amount_off??0)/100;
+    priceWithDiscount = price - (amount_off ?? 0) / 100;
   } else if (percent_off) {
-   priceWithDiscount = percentage.decreaseValueByPercentage(
-     price,
-     percent_off ?? 0
-   );
+    priceWithDiscount = decreaseValueByPercentage(price, percent_off ?? 0);
   } else {
     priceWithDiscount = price;
   }
-// 
+  //
   const data = {
     price,
     percent_off: percent_off ? percent_off : undefined,

@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/src/components/ui/@shadcn/select";
 import { SaasTypeList } from "@/src/helpers/functions/SaasTypes";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";

@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { useTranslations } from "next-intl";
 

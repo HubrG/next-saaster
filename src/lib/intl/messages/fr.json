@@ -28,8 +28,8 @@
           "connectedWith": "Vous êtes connecté avec votre compte {varIntlProvider}",
           "manage-password": "Gérer votre mot de passe",
           "create-password": "Vous n'avez pas créé de mot de passe car vous êtes automatiquement connecté avec un compte {varIntlProvider}.",
-          "close-account": "Désactiver mon compte...",
-          "close-account-popover-message": "supprimer votre compte ? Cette action est irréversible. Si vous avez souscrit un abonnement, il sera annulé.",
+          "close-account": "Désactiver votre compte...",
+          "close-account-popover-message": "désactiver votre compte ? Cette action est irréversible. Si vous avez souscrit un abonnement, il sera annulé.",
           "Components": {
             "UpdatePassword": {
               "title": "Mettre à jour votre mot de passe",

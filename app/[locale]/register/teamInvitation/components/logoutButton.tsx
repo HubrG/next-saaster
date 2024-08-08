@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 type LogoutInviteButtonProps = {};

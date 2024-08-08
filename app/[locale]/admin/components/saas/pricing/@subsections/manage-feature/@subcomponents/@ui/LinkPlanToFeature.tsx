@@ -1,18 +1,18 @@
 "use client";
 import { updateLinkPlanToFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Label } from "@/src/components/ui/@shadcn/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { Separator } from "@/src/components/ui/separator";
-import { Switch } from "@/src/components/ui/switch";
+} from "@/src/components/ui/@shadcn/popover";
+import { Separator } from "@/src/components/ui/@shadcn/separator";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
 import { parseIntInput } from "@/src/helpers/functions/parse";
-import { sliced } from "@/src/helpers/functions/slice";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
@@ -215,7 +215,7 @@ export const LinkPlanToFeature = ({ feature }: Props) => {
                     {linksState[linkId].plan.name}
                   </span>
                   <small className="-mt-2">
-                    {sliced(linksState[linkId].plan.id, 13)}
+                    {useSlice(linksState[linkId].plan.id, 13)}
                   </small>
                 </div>
                 <div>

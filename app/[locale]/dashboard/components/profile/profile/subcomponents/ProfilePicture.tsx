@@ -1,14 +1,14 @@
 "use client";
 
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
+} from "@/src/components/ui/@shadcn/avatar";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
 import { updateUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";

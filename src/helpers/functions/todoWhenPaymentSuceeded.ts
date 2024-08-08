@@ -2,7 +2,7 @@ import { prisma } from "@/src/lib/prisma";
 import { iUsers } from "@/src/types/db/iUsers";
 import Stripe from "stripe";
 import { getUser, getUserByCustomerId } from "../db/users.action";
-import { getUserInfos } from "../dependencies/user";
+import { getUserInfos } from "../dependencies/user-info";
 import { chosenSecret } from "./verifySecretRequest";
 
 export async function todoWhenPaymentSuceeded(event: Stripe.Checkout.Session) {

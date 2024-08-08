@@ -1,12 +1,12 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { Credenza, CredenzaContent, CredenzaDescription, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "@/src/components/ui/@fairysaas/credenza";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
-import { sendEmail } from "@/src/helpers/emails/sendEmail";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { Credenza, CredenzaContent, CredenzaDescription, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "@/src/components/ui/@blitzinit/credenza";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
+import { useSendEmail } from "@/src/hooks/@blitzinit/useSendEmail";
 import { cn } from "@/src/lib/utils";
 import { iUsers } from "@/src/types/db/iUsers";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,7 +50,7 @@ export const ForgotPassword = ({ className, user }: ForgotPasswordProps) => {
     if (!responseData.error) {
       try {
         // Resend API (mail)
-        const send = await sendEmail({
+        const send = await useSendEmail({
           to: formData.email,
           type: "forgotPassword",
           subject: t("emailSent.subject"),

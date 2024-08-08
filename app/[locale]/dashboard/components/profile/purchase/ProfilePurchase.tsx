@@ -1,12 +1,12 @@
 "use client";
 
 import { PriceCardFeatures } from "@/app/[locale]/pricing/components/PriceCardFeatures";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { Button } from "@/src/components/ui/button";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
-} from "@/src/helpers/dependencies/user";
+} from "@/src/helpers/dependencies/user-info";
 import { useUserStore } from "@/src/stores/userStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { Box, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";

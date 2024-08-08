@@ -1,20 +1,20 @@
 "use client";
 
 import { updatePassword } from "@/app/[locale]/dashboard/queries/profile.action";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
 import {
-    Credenza,
-    CredenzaContent,
-    CredenzaHeader,
-    CredenzaTitle,
-    CredenzaTrigger,
-} from "@/src/components/ui/@fairysaas/credenza";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
+  Credenza,
+  CredenzaContent,
+  CredenzaHeader,
+  CredenzaTitle,
+  CredenzaTrigger,
+} from "@/src/components/ui/@blitzinit/credenza";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
 import { updateUser } from "@/src/helpers/db/users.action";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { zodResolver } from "@hookform/resolvers/zod";

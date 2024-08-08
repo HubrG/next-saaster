@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   Command,
   CommandEmpty,
@@ -7,12 +7,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/src/components/ui/command";
+} from "@/src/components/ui/@shadcn/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/src/components/ui/@shadcn/popover";
 import currencies from "@/src/jsons/currencies.json";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

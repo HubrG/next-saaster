@@ -1,17 +1,17 @@
 "use client";
 import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Keybd } from "@/src/components/ui/kbd";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Keybd } from "@/src/components/ui/@shadcn/kbd";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { Textarea } from "@/src/components/ui/textarea";
-import { sliced } from "@/src/helpers/functions/slice";
+} from "@/src/components/ui/@shadcn/popover";
+import { Textarea } from "@/src/components/ui/@shadcn/textarea";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
@@ -94,11 +94,11 @@ export const FeatureCardInfoPopover = ({
               "text-wrap	hover:cursor-pointer hover:underline hover:decoration-dashed hover:underline-offset-4"
             )}
             data-tooltip-id={"tt-feat-" + toChange + feature.id}>
-            {sliced(toChangeValue, 30)}
+            {useSlice(toChangeValue, 30)}
             {toChangeValue.length > 30 && (
               <Tooltip
                 className="tooltip z-50"
-                opacity={100}
+                
                 id={"tt-feat-" + toChange + feature.id}
                 place="top">
                 {toChangeValue}

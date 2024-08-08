@@ -1,7 +1,7 @@
 "use client";
-import { Loader } from '@/src/components/ui/@fairysaas/loader';
-import { Card } from '@/src/components/ui/card';
-import { useIsClient } from '@/src/hooks/useIsClient';
+import { Loader } from '@/src/components/ui/@blitzinit/loader';
+import { Card } from '@/src/components/ui/@shadcn/card';
+import { useIsClient } from '@/src/hooks/utils/useIsClient';
 import { Link } from '@/src/lib/intl/navigation';
 import { useTranslations } from 'next-intl';
 import dynamic from "next/dynamic";

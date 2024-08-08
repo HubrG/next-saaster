@@ -1,17 +1,17 @@
 "use client";
-import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { PopoverConfirm } from "@/src/components/ui/@blitzinit/popover-confirm";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/src/components/ui/@shadcn/popover";
 import {
   removeUserFromOrganization,
   updateOrganization,
 } from "@/src/helpers/db/organization.action";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import {
   Crown,

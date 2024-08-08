@@ -13,7 +13,7 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTrigger,
-} from "@/src/components/ui/sheet";
+} from "@/src/components/ui/@shadcn/sheet";
 import { appSettings } from "@prisma/client";
 import ChangeLanguage from "./ChangeLanguage";
 import MainMenu from "./MainMenu";

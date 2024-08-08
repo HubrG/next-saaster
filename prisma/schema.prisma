@@ -155,7 +155,7 @@ model UserUsage {
 
 model appSettings {
   id                         String    @id @default(cuid())
-  name                       String?   @default("Fairysaas")
+  name                       String?   @default("Blitzinit")
   baseline                   String?   @default("Just develop your best feature, the rest is already done and well done.")
   description                String?   @default("NextJS SaaS starter kit for rapid development: only focus on main features, rest assured with a modern frontend, scalable and secure backend. Save effort & money.")
   theme                      String?   @default("purple")

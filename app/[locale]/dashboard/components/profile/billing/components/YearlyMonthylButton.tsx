@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/src/components/ui/popover";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/src/components/ui/@shadcn/popover";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 

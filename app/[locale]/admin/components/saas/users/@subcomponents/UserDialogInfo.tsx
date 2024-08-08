@@ -1,21 +1,21 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
-import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+import { CopySomething } from "@/src/components/ui/@blitzinit/copy-something";
+import { PopoverConfirm } from "@/src/components/ui/@blitzinit/popover-confirm";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import {
   Table,
   TableBody,
   TableCell,
   TableRow,
-} from "@/src/components/ui/table";
+} from "@/src/components/ui/@shadcn/table";
 import { updateUserSubscription } from "@/src/helpers/db/userSubscription.action";
 import { deleteUser, updateUser } from "@/src/helpers/db/users.action";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
-import { sendEmail } from "@/src/helpers/emails/sendEmail";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { useSendEmail } from "@/src/hooks/@blitzinit/useSendEmail";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -142,7 +142,7 @@ export const UserDialogInfo = ({ user, setUpdate }: UserDialogInfoProps) => {
 
       const { token } = await response.json();
 
-      await sendEmail({
+      useSendEmail({
         to: email,
         type: "verifyEmail",
         subject: t("ResendEmail"),

@@ -1,12 +1,12 @@
 "use client";
-import { useIsClient } from "@/src/hooks/useIsClient";
+import { useIsClient } from "@/src/hooks/utils/useIsClient";
 import links from "@/src/jsons/main-menu.json";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { appSettings } from "@prisma/client";
 import { ShoppingBagIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Button } from "../../../../src/components/ui/button";
+import { Button } from "../../../../src/components/ui/@shadcn/button";
 import BurgerMenu from "./navbar/BurgerMenu";
 import ChangeLanguage from "./navbar/ChangeLanguage";
 import Logo from "./navbar/Logo";
@@ -53,7 +53,7 @@ export const Navbar = ({ settings }: NavbarProps) => {
            </div>
          </div>
          <div className="flex gap-x-4 lg:order-2 items-center lg:text-base">
-           <div className="flex items-center gap-x-2">
+           <div className="flex items-center gap-x-3">
              <TryUsButton
                value={t("buy-now")}
                icon={<ShoppingBagIcon className="icon mx-0 mr-2" />}

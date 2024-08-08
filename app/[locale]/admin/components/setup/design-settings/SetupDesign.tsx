@@ -2,13 +2,13 @@
 import { RoundedCornerChange } from "@/app/[locale]/admin/components/setup/design-settings/@subsections/RoundedCornerChange";
 import { ThemeColorChange } from "@/app/[locale]/admin/components/setup/design-settings/@subsections/ThemeColorChange";
 import { updateAppSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { SubSectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SubSectionWrapper";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import useSaveAndCancel, {
   GenericDataObject,
-} from "@/src/hooks/useSaveAndCancel";
+} from "@/src/hooks/utils/useSaveAndCancel";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useEffect, useState } from "react";
 

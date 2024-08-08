@@ -1,7 +1,7 @@
 "use client";
 
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { DropdownMenuItem } from "@/src/components/ui/dropdown-menu";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { DropdownMenuItem } from "@/src/components/ui/@shadcn/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";

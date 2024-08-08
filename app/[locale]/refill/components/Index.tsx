@@ -1,14 +1,14 @@
 "use client";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { Badge } from "@/src/components/ui/badge";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { Badge } from "@/src/components/ui/@shadcn/badge";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Slider } from "@/src/components/ui/slider";
+} from "@/src/components/ui/@shadcn/card";
+import { Slider } from "@/src/components/ui/@shadcn/slider";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
@@ -17,7 +17,7 @@ import { Coins } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
 import { toUpper } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import Confetti from "react-confetti";

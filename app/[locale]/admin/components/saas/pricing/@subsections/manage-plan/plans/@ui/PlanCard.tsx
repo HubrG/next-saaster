@@ -1,20 +1,20 @@
 "use client";
 import { manageClashes } from "@/app/[locale]/admin/components/saas/pricing/@subsections/manage-plan/plans/@functions/manageClashes";
 import { updatePlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
-import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+import { CopySomething } from "@/src/components/ui/@blitzinit/copy-something";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Badge } from "@/src/components/ui/@shadcn/badge";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/src/components/ui/collapsible";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
-import { Separator } from "@/src/components/ui/separator";
-import { Switch } from "@/src/components/ui/switch";
-import { Textarea } from "@/src/components/ui/textarea";
+} from "@/src/components/ui/@shadcn/collapsible";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Label } from "@/src/components/ui/@shadcn/label";
+import { Separator } from "@/src/components/ui/@shadcn/separator";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
+import { Textarea } from "@/src/components/ui/@shadcn/textarea";
 import { parseFloatInput, parseIntInput } from "@/src/helpers/functions/parse";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";

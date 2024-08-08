@@ -1,7 +1,7 @@
 "use client";
 import { Link } from "@/src/lib/intl/navigation";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
-import { Button } from "../../../../../src/components/ui/button";
+import { Button } from "../../../../../src/components/ui/@shadcn/button";
 
 type TryUsButtonProps = {
   className?: string;

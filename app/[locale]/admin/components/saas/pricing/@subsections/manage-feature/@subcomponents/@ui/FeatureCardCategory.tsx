@@ -1,8 +1,8 @@
 "use client";
 
 import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   Command,
   CommandEmpty,
@@ -10,14 +10,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/src/components/ui/command";
+} from "@/src/components/ui/@shadcn/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/src/components/ui/@shadcn/popover";
 import { createFeaturesCategory } from "@/src/helpers/db/featuresCategories.action";
-import { sliced } from "@/src/helpers/functions/slice";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
@@ -163,7 +163,7 @@ export const FeatureCardCategory = ({ feature }: Props) => {
               "text-sm justify-between w-full"
             )}>
             {feature.categoryId
-              ? sliced(
+              ? useSlice(
                   capitalize(
                     saasFeaturesCategories.find(
                       (category) => category.name === value

@@ -1,6 +1,6 @@
 "use client";
 
-import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
+import { SubSectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SubSectionWrapper";
 
 import { DefaultLocale } from "./@subsections/DefaultLocale";
 import { Glossary } from "./@subsections/Glossary";

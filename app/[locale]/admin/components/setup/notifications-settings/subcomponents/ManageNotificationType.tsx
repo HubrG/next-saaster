@@ -1,16 +1,16 @@
 "use client";
 
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { PopoverDelete } from "@/src/components/ui/@blitzinit/popover-delete";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { Textarea } from "@/src/components/ui/textarea";
+} from "@/src/components/ui/@shadcn/popover";
+import { Textarea } from "@/src/components/ui/@shadcn/textarea";
 import {
   addNotificationType,
   deleteNotificationType,
@@ -191,7 +191,7 @@ export const NotificationTypeCard = ({ type }: Props) => {
           )}
           <Tooltip
             className="tooltip"
-            opacity={100}
+            
             id={`${type.id}tt-save-button`}
             place="top">
             Save

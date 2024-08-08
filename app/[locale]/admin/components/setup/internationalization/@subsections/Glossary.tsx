@@ -1,14 +1,14 @@
 "use client";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { PopoverDelete } from "@/src/components/ui/@blitzinit/popover-delete";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/src/components/ui/@shadcn/popover";
 import { useInternationalizationStore } from "@/src/stores/internationalizationStore";
 import { InternationalizationDictionary } from "@prisma/client";
 import { random } from "lodash";
@@ -61,7 +61,7 @@ export const Glossary = () => {
         </PopoverContent>
       </Popover>
       <Tooltip
-        opacity={1}
+        
         id="manage-glossary-tt"
         className="tooltip"
         place="top">
@@ -147,7 +147,7 @@ export const GlossaryCard = ({ dictionary }: Props) => {
             )}
             <Tooltip
               className="tooltip"
-              opacity={100}
+              
               id={`${dictionary.id}tt-save-button`}
               place="top">
               Enregistrer

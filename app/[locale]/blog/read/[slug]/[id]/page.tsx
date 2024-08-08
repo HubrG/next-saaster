@@ -56,7 +56,7 @@ export const generateMetadata = async ({
     publishedTime: blogPost?.publishedAt?.toISOString(),
     modifiedTime: blogPost?.updatedAt?.toISOString(),
     authors: [blogPost.author?.name || t("Blog.no-author")],
-    twitterCreator: "@FairySaas",
+    twitterCreator: "@Blitzinit",
   } as MetadataParams);
 };
 

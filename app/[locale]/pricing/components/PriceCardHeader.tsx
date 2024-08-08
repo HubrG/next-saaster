@@ -1,8 +1,7 @@
 "use client";
-import { DotBlurredAndGradient } from "@/src/components/ui/@fairysaas/layout-elements/dot-blured-and-gradient";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { Input } from "@/src/components/ui/input";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
+import { DotBlurredAndGradient } from "@/src/components/ui/@blitzinit/layout-elements/dot-blured-and-gradient";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import { translateTextWithDeepL } from "@/src/lib/translate-api";
 import { cn } from "@/src/lib/utils";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -37,7 +36,7 @@ const GenerateRecurrenceText = ({
   t,
 }: GenerateProps) => {
   const { seatQuantity } = usePublicSaasPricingStore();
-
+  const format = useFormatter();
   const renderMRRSimple = () => {
     if (plan.saasType === "MRR_SIMPLE" && !plan.isFree) {
       return ` / ${isYearly ? t("yearly") : t("monthly")}`;
@@ -71,10 +70,10 @@ const GenerateRecurrenceText = ({
             <NumberOfSeat className="col-span-5" />
             <div className="col-span-7 font-normal">
               seat{seatQuantity > 1 && "s"} -{" "}
-              {price ? (price * seatQuantity).toString() : "0"}
-              {saasSettings.currency
-                ? convertCurrencyName(saasSettings.currency, "sigle")
-                : ""}
+              {format.number(price ? price * seatQuantity : 0, {
+                style: "currency",
+                currency: saasSettings.currency ?? "usd",
+              })}
             </div>
           </div>
         </>
@@ -271,7 +270,8 @@ export const PriceCardHeader = ({
                     {saasSettings.creditName &&
                       plan.creditAllouedByMonth > 1 &&
                       "s"}{" "}
-                    {saasSettings.saasType !== "PAY_ONCE" && `/ ${t("by-month")}`}
+                    {saasSettings.saasType !== "PAY_ONCE" &&
+                      `/ ${t("by-month")}`}
                   </span>
                 ) : null}
               </>

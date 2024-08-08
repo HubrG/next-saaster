@@ -1,14 +1,14 @@
 "use client";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/src/components/ui/select";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/components/ui/@shadcn/select";
 import { updateUser } from "@/src/helpers/db/users.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";

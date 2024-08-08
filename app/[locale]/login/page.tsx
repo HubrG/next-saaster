@@ -1,6 +1,6 @@
 import { Index } from "@/app/[locale]/login/components/Index";
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import createMetadata from "@/src/lib/metadatas";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";

@@ -1,5 +1,5 @@
 "use client";
-import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
+import { CopySomething } from "@/src/components/ui/@blitzinit/copy-something";
 import {
   Table,
   TableBody,
@@ -8,9 +8,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
+} from "@/src/components/ui/@shadcn/table";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import {
   calculateDifferenceBetweenUnixDates,
   formatUnixDate,
@@ -94,12 +93,15 @@ export const SubscriptionHistory = ({ user }: SubscriptionHistoryProps) => {
                             <>
                               {" "}
                               (
-                              {convertCurrencyName(
-                                user.activeSubscription.currency,
-                                "sigle"
+                              {format.number(
+                                (sub.subscription?.price?.unit_amount ?? 0) /
+                                  100 ?? 0,
+                                {
+                                  style: "currency",
+                                  currency: sub.subscription?.price?.currency,
+                                }
                               )}
-                              {user.activeSubscription.priceWithDiscount}/
-                              {user.activeSubscription.recurring})
+                              /{user.activeSubscription.recurring})
                             </>
                           )}
                       </CopySomething>

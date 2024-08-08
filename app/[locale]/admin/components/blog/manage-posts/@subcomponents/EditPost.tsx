@@ -1,9 +1,9 @@
 "use client";
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Label } from "@/src/components/ui/@shadcn/label";
 import {
   Select,
   SelectContent,
@@ -11,9 +11,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
-import { Switch } from "@/src/components/ui/switch";
-import { Textarea } from "@/src/components/ui/textarea";
+} from "@/src/components/ui/@shadcn/select";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
+import { Textarea } from "@/src/components/ui/@shadcn/textarea";
 import useBlogStore from "@/src/stores/blogStore";
 import { BlogCategory, BlogPost, BlogTag, BlogTagOnPost } from "@prisma/client";
 import { Rss, Save, Trash } from "lucide-react";

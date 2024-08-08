@@ -1,12 +1,12 @@
 "use client";
 import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
-import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
-import { PopoverArchive } from "@/src/components/ui/@fairysaas/popover-archive";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Switch } from "@/src/components/ui/switch";
+import { CopySomething } from "@/src/components/ui/@blitzinit/copy-something";
+import { PopoverArchive } from "@/src/components/ui/@blitzinit/popover-archive";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
 import { updateFeature } from "@/src/helpers/db/features.action";
-import { sliced } from "@/src/helpers/functions/slice";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { iFeature } from "@/src/types/db/iFeatures";
 import { Feature } from "@prisma/client";
@@ -161,7 +161,7 @@ export const FeatureCard = ({ feature }: Props) => {
           what="Feature ID"
           copyText={feature.id}
           id={"full-id" + feature.id}>
-          {sliced(feature.id, 10)}
+          {useSlice(feature.id, 10)}
         </CopySomething>
       </td>
     </>

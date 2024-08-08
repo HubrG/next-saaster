@@ -1,11 +1,11 @@
 "use client";
 import { createNewPlan } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-plan.action";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
-import useScrollToSection from "@/src/hooks/useScrollToSection";
+import useScrollToSection from "@/src/hooks/utils/useScrollToSection";
 import { cn } from "@/src/lib/utils";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";

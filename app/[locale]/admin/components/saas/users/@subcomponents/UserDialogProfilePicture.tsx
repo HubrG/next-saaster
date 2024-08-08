@@ -1,16 +1,16 @@
 "use client";
 
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-} from "@/src/components/ui/avatar";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/@shadcn/avatar";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
 import { updateUser } from "@/src/helpers/db/users.action";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { UploadFile } from "@/src/lib/storage.action";
@@ -173,7 +173,7 @@ export const UserDialogProfilePicture = ({
       <Tooltip
         id={"changeAvatar" + userStore.id}
         className="tooltip z-[99999]"
-        opacity={100}
+        
         place="top">
         Change profile picture
       </Tooltip>

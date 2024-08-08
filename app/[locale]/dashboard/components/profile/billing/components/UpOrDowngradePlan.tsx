@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
-import { Separator } from "@/src/components/ui/separator";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Separator } from "@/src/components/ui/@shadcn/separator";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { useTranslations } from "next-intl";
 

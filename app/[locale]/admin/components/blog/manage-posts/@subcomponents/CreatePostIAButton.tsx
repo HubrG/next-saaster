@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { useRef, useState, useTransition } from "react";
 
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Input } from "@/src/components/ui/input";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { Computer, Loader } from "lucide-react";
 

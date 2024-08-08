@@ -1,23 +1,23 @@
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { CopySomething } from "@/src/components/ui/@blitzinit/copy-something";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
+} from "@/src/components/ui/@shadcn/avatar";
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/src/components/ui/drawer";
+} from "@/src/components/ui/@shadcn/drawer";
 import { getUser } from "@/src/helpers/db/users.action";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
-} from "@/src/helpers/dependencies/user";
+} from "@/src/helpers/dependencies/user-info";
 import { formatDateWithFns } from "@/src/helpers/functions/convertDate";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { cn } from "@/src/lib/utils";

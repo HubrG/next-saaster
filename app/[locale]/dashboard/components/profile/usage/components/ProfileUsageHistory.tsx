@@ -1,5 +1,5 @@
-import { ScrollArea } from "@/src/components/ui/scroll-area";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { ScrollArea } from "@/src/components/ui/@shadcn/scroll-area";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { useFormatter, useTranslations } from "next-intl";
@@ -9,7 +9,6 @@ type ProfileUsageHistory = {
   startDate: Date;
   lastDays: number;
 };
-
 
 const ProfileUsageHistory = ({ startDate, lastDays }: ProfileUsageHistory) => {
   const { userInfoStore } = useUserInfoStore();
@@ -56,31 +55,37 @@ const ProfileUsageHistory = ({ startDate, lastDays }: ProfileUsageHistory) => {
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
-            {filteredData?.map((item, index) => (
-              <tr
-                key={index}
-                className={` dark:hover:bg-theming-background-200/50 hover:bg-theming-background-200/20 text-theming-text-800 dark:text-theming-text-800`}>
-                <td className="py-3 px-6 text-left whitespace-nowrap">
-                  {item.feature?.name || "-"}
-                </td>
-                <td className="py-3 px-6 text-left whitespace-nowrap">
-                  {format.dateTime(new Date(item.createdAt ?? Date()), {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </td>
-                <td className="py-3 px-6 text-left whitespace-nowrap">
-                  {item.quantityForFeature || 0}
-                </td>
-                <td className="py-3 px-6 text-left whitespace-nowrap">
-                  {item.consumeStripeMeteredCredit || 0}
-                </td>
-                <td className="py-3 px-6 text-left whitespace-nowrap">
-                  {item.consumeCredit || 0}
-                </td>
-              </tr>
-            ))}
+            {filteredData
+              ?.sort(
+                (a, b) =>
+                  new Date(b.createdAt ?? Date()).getTime() -
+                  new Date(a.createdAt ?? Date()).getTime()
+              )
+              .map((item, index) => (
+                <tr
+                  key={index}
+                  className={` dark:hover:bg-theming-background-200/50 hover:bg-theming-background-200/20 text-theming-text-800 dark:text-theming-text-800`}>
+                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                    {item.feature?.name || "-"}
+                  </td>
+                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                    {format.dateTime(new Date(item.createdAt ?? Date()), {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
+                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                    {item.quantityForFeature || 0}
+                  </td>
+                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                    {item.consumeStripeMeteredCredit || 0}
+                  </td>
+                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                    {item.consumeCredit || 0}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </ScrollArea>

@@ -1,10 +1,10 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { useState } from "react";
 import { createNewPost } from "../../../../queries/blog/blog.action";
 
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import useBlogStore from "@/src/stores/blogStore";
 import { FilePlus } from "lucide-react";
 import { useRouter } from "next/navigation";

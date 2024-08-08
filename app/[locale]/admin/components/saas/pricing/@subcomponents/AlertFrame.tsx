@@ -1,5 +1,5 @@
 "use client";
-import { Alert, AlertDescription, AlertTitle } from "@/src/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/src/components/ui/@shadcn/alert";
 import { isStripeSetted } from "@/src/helpers/functions/isStripeSetted";
 import { FileWarning } from "lucide-react";
 

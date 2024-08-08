@@ -1,9 +1,9 @@
 "use client";
-import { MenuItem } from "@/src/components/ui/@fairysaas/user-interface/MenuItem";
-import { Badge } from "@/src/components/ui/badge";
-import { Separator } from "@/src/components/ui/separator";
-import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
-import useScrollToSection from "@/src/hooks/useScrollToSection";
+import { MenuItem } from "@/src/components/ui/@blitzinit/user-interface/MenuItem";
+import { Badge } from "@/src/components/ui/@shadcn/badge";
+import { Separator } from "@/src/components/ui/@shadcn/separator";
+import { useIntersectionObserver } from "@/src/hooks/utils/useIntersectionObserver";
+import useScrollToSection from "@/src/hooks/utils/useScrollToSection";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

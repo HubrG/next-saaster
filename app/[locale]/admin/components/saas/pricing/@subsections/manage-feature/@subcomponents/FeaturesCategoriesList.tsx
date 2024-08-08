@@ -1,12 +1,12 @@
 "use client";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/src/components/ui/@shadcn/popover";
 import {
   createFeaturesCategory,
   getFeaturesCategories,
@@ -123,7 +123,7 @@ export const FeaturesCategoriesList = () => {
         </PopoverContent>
       </Popover>
       <Tooltip
-        opacity={1}
+        
         id="manage-category-tt"
         className="tooltip"
         place="top">

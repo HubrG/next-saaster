@@ -4,7 +4,7 @@
     "first-connexion": "First connection",
     "metadatas": {
       "title": "Home",
-      "description": "NextJS SaaS starter kit for rapid development: focus only on the main features, be reassured with a modern frontend, scalable and secure backend. Save effort"
+      "description": "NextJS SaaS starter kit for rapid development: focus solely on the core features, be assured with a modern frontend, scalable and secure backend. Save effort"
     }
   },
   "Dashboard": {
@@ -27,18 +27,18 @@
           "title": "Account",
           "connectedWith": "You are connected with your {varIntlProvider} account",
           "manage-password": "Manage your password",
-          "create-password": "You haven't created a password because you are automatically connected with a {varIntlProvider} account.",
+          "create-password": "You have not created a password as you are automatically connected with a {varIntlProvider} account.",
           "close-account": "Deactivate my account...",
-          "close-account-popover-message": "delete your account? This action is irreversible. If you have subscribed to a plan, it will be canceled.",
+          "close-account-popover-message": "deactivate your account? This action is irreversible. If you have a subscription, it will be canceled.",
           "Components": {
             "UpdatePassword": {
               "title": "Update your password",
               "form": {
                 "actual-password": "Current password",
                 "new-password": "New password",
-                "password-confirmation": "Password confirmation",
+                "password-confirmation": "Confirm password",
                 "submit": "Update password",
-                "password-error": "Password must be at least {varIntlMin} characters long.",
+                "password-error": "The password must be at least {varIntlMin} characters long.",
                 "passwords-not-matching": "Passwords do not match.",
                 "required-message": "Required"
               },
@@ -65,12 +65,12 @@
             },
             "CreatePassword": {
               "title": "Create a password",
-              "description": "You haven't created a password because you are connected with a {varIntlProvider} account. You can create one here.",
+              "description": "You have not created a password as you are connected with a {varIntlProvider} account. You can create one here.",
               "form": {
                 "password": "Password",
-                "password-confirmation": "Password confirmation",
+                "password-confirmation": "Confirm password",
                 "submit": "Create password",
-                "password-error": "Password must be at least {varIntlMin} characters long.",
+                "password-error": "The password must be at least {varIntlMin} characters long.",
                 "passwords-not-matching": "Passwords do not match."
               },
               "toasters": {
@@ -90,9 +90,9 @@
           "toasters": {
             "success": "Profile updated",
             "no-file-provided": "No file provided",
-            "file-is-empty": "File is empty",
-            "file-is-too-large": "File is too large (max 2MB)",
-            "file-is-not-an-image": "File is not an image",
+            "file-is-empty": "The file is empty",
+            "file-is-too-large": "The file is too large (maximum 2 MB)",
+            "file-is-not-an-image": "The file is not an image",
             "success-file-uploaded": "Profile picture successfully changed"
           }
         },
@@ -102,7 +102,7 @@
             "organization-created": "Organization created",
             "pendin-user-removed": "Pending user removed",
             "organization-left": "Organization left",
-            "organization-deleted": "Organization deleted. All members have been removed and their rights revoked."
+            "organization-deleted": "Organization deleted. All members have been excluded and their rights have been lost."
           },
           "members": "Members",
           "buttons": {
@@ -120,7 +120,7 @@
           "UI": {
             "InviteMember": {
               "form": {
-                "error-you-cant-invite-yourself": "You can't invite yourself!",
+                "error-you-cant-invite-yourself": "You cannot invite yourself!",
                 "field-invite-new-member": "Invite a new member",
                 "placeholder-email": "Email",
                 "submit": "Invite"
@@ -128,7 +128,7 @@
               "toasters": {
                 "invitation-sent": "Invitation sent to"
               },
-              "note": "You have an active subscription. Adding a new member to your organization will be billed pro-rata if the member accepts this invitation."
+              "note": "You have an active subscription. Adding a new member to your organization will be charged pro-rata if the member accepts this invitation"
             },
             "RenameOrganization": {
               "toasters": {
@@ -137,7 +137,7 @@
               "organization-renamed": "Organization renamed",
               "form": {
                 "field-organization-name": "Organization name",
-                "error-name-min": "The name must be at least {varIntlMin} character long",
+                "error-name-min": "The name must be at least {varIntlMin} character",
                 "submit": "Rename"
               }
             },
@@ -147,7 +147,7 @@
                 "user-promoted": "User promoted. You are no longer the owner of this organization"
               },
               "popover": {
-                "promote-member": "promote this member to owner? There can only be one owner, in which case you will lose all publishing rights for this organization.",
+                "promote-member": "promote this member as owner? There can only be one owner, in which case you will lose all your publishing rights to this organization.",
                 "promote-member-display": "Promote this member",
                 "revoke-member": "revoke this member from the organization",
                 "revoke-member-display": "Revoke this user"
@@ -157,16 +157,16 @@
         },
         "Billing": {
           "id": "Billing",
-          "title": "Billing",
+          "title": "Subscription",
           "your-plan": "Your subscription",
           "users": "users",
           "daily": "day",
           "weekly": "week",
           "yearly": "year",
           "monthly": "month",
-          "trial-days-remaining": "You have {varIntlDays} trial day(s) left",
+          "trial-days-remaining": "You have {varIntlDays} day(s) of trial remaining",
           "billed-each": "billed each",
-          "according-to-use": "according to use",
+          "according-to-use": "according to usage",
           "per-user": "per user",
           "you-save": "You save {varIntlSave} on this subscription",
           "your-trial-ends-at": "Your trial period ends on",
@@ -175,31 +175,31 @@
           "features-title": "Features",
           "buttons": {
             "update-plan": "Downgrade or upgrade",
-            "update-payment": "Update payment method",
+            "update-payment": "Change payment method",
             "cancel-subscription": "Cancel subscription",
             "restart-subscription": "Restart subscription",
             "update-from-portail": "Manage my subscription",
             "cancel-subscription-popover": "cancel your subscription?"
           },
           "tooltips": {
-            "cancel-subscription": "Your subscription will be permanently canceled at the end of the billing period on {varIntlDate}. You can continue using your features until this date. Besides, you can always reactivate your subscription in the meantime, without any additional cost.",
-            "restart-subscription": "Your subscription will restart without additional billing."
+            "cancel-subscription": "Your subscription will be permanently canceled at the end of the billing period on {varIntlDate}. You can continue to use your features until this date. Furthermore, you can always reactivate your subscription in the meantime at no extra cost.",
+            "restart-subscription": "Your subscription will restart without any additional charge."
           },
-          "no-plan-subscribed-yet": "You haven't subscribed to any plan",
+          "no-plan-subscribed-yet": "You have not subscribed to any plan yet",
           "subscribe-now": "I want to subscribe!",
           "UpOrDowngradePlan": {
             "buttons": {
               "update-plan": "Downgrade or upgrade"
             },
             "monthly": "Monthly",
-            "yearly": "Annual"
+            "yearly": "Yearly"
           }
         },
         "Purchases": {
           "title": "Purchases",
           "no-purchase-history": "No purchase history",
-          "no-purchase-history-description": "You haven't purchased any products on our site yet!",
-          "no-name": "Credit refill",
+          "no-purchase-history-description": "You have not purchased any products on our site yet!",
+          "no-name": "Credit reload",
           "features": "Features",
           "next": "Next",
           "previous": "Previous"
@@ -209,7 +209,7 @@
           "SwitchNewsletter": {
             "switch-newsletter": "Newsletter subscription",
             "toasters": {
-              "error-delete-contact": "Error deleting the contact from the newsletter audience",
+              "error-delete-contact": "Error during the deletion of the contact from the newsletter audience",
               "newsletter-enabled": "enabled",
               "newsletter-disabled": "disabled",
               "error-update-newsletter": "An error occurred while updating your newsletter preference. Please try again.",
@@ -223,13 +223,13 @@
         "Usage": {
           "title": "Usage",
           "credit-spent": "{varIntlCreditName} spent",
-          "next": "Next",
           "previous": "Previous",
-          "no-usage-history": "No usage history. \nCome back later!",
-          "date": "Date",
+          "next": "Next",
+          "no-usage-history": "No usage history. Come back later!",
           "feature": "Feature",
-          "metered-credit": "Billing counter",
-          "usage-count": "Usage (limit)"
+          "date": "Date",
+          "usage-count": "Usage (limit)",
+          "metered-credit": "Billing meter"
         }
       }
     },
@@ -239,12 +239,12 @@
         "invalid-token": "Invalid token",
         "password-not-updated": "A problem occurred while updating your password. Please try again.",
         "token-not-found": "Reset token not found.",
-        "email-not-found": "Email address not found"
+        "email-not-found": "Unknown email address"
       }
     },
     "title": "Dashboard",
     "description": "Welcome to your dashboard!",
-    "button": "Go to dashboard",
+    "button": "Go to the dashboard",
     "metadatas": {
       "title": "My account"
     }
@@ -265,7 +265,7 @@
         "form": {
           "email": "Your email address",
           "email-exemple": "example",
-          "submit": "Subscribe to the newsletter"
+          "submit": "Sign up for the newsletter"
         }
       }
     },
@@ -275,8 +275,8 @@
           "deleteUser": {
             "throws": {
               "delete": "You cannot delete your account because you are the owner of your organization. Please transfer your rights to another user, otherwise, delete the organization.",
-              "cancel": "A problem occurred while deleting your account. Please contact us.",
-              "cancel-subscription": "A problem occurred while canceling the subscription"
+              "cancel": "A problem occurred during the deletion of your account. Please contact us.",
+              "cancel-subscription": "A problem occurred during the subscription cancellation"
             }
           }
         },
@@ -289,7 +289,7 @@
               "no-organization-found": "No organization found. This is likely an error. Please try again."
             },
             "mailing": {
-              "subject": "You have been invited to join the organization ",
+              "subject": "You have been invited to join the organization",
               "subject-end": "and its team",
               "subject-middle": "'"
             }
@@ -303,7 +303,7 @@
           "organization-created": "Organization created",
           "pendin-user-removed": "Pending user removed",
           "organization-left": "Organization left",
-          "organization-deleted": "Organization deleted. All members have been removed and their rights revoked."
+          "organization-deleted": "Organization deleted. All members have been excluded and their rights have been lost."
         },
         "members": "Members",
         "buttons": {
@@ -321,7 +321,7 @@
         "UI": {
           "InviteMember": {
             "form": {
-              "error-you-cant-invite-yourself": "You can't invite yourself!",
+              "error-you-cant-invite-yourself": "You cannot invite yourself!",
               "field-invite-new-member": "Invite a new member",
               "placeholder-email": "Email",
               "submit": "Invite"
@@ -329,7 +329,7 @@
             "toasters": {
               "invitation-sent": "Invitation sent to"
             },
-            "note": "You have an active subscription. Adding a new member to your organization will be billed pro-rata if the member accepts this invitation."
+            "note": "You have an active subscription. Adding a new member to your organization will be charged pro-rata if the member accepts this invitation"
           },
           "RenameOrganization": {
             "toasters": {
@@ -343,12 +343,12 @@
   "Layout": {
     "Header": {
       "Navbar": {
-        "buy-now": "Buy now",
+        "buy-now": "Buy",
         "UserProfile": {
           "refill": "Refill your",
           "my-account": "My account",
-          "login": "Login",
-          "logout": "Logout"
+          "login": "Log in",
+          "logout": "Log out"
         },
         "MainMenu": {
           "howItWorks": "How it works?",
@@ -370,14 +370,14 @@
     "toasters": {
       "bad-credentials": "Incorrect credentials"
     },
-    "title": "Login to your account",
+    "title": "Log in to your account",
     "button": {
       "no-account": "No account?",
       "register": "Click here to sign up."
     },
     "WithGitbub": {
       "button": {
-        "login-with-github": "Login with Github"
+        "login-with-github": "Log in with Github"
       }
     },
     "WithGoogle": {
@@ -385,7 +385,7 @@
         "continue-with-google": "Continue with Google"
       },
       "buttons": {
-        "continue-with-google": "Login with Google"
+        "continue-with-google": "Log in with Google"
       }
     },
     "Credentials": {
@@ -424,11 +424,11 @@
     },
     "already-account-sentence": "Already have an account?",
     "button": {
-      "login": "Login"
+      "login": "Log in"
     },
     "TeamInvitationPage": {
       "invited-with-different-email": "You are logged in with a different email address than the one that received the invitation.",
-      "please-logout": "Please log in with the corresponding email address and return to this page. If you don't have an account with the invited address, log out and return to this page to create one.",
+      "please-logout": "Please log in with the corresponding email address and return to this page. If you do not have an account with the invited address, log out and return to this page to create it.",
       "invitation-not-found": "Organization not found.",
       "logged-in-with-right-email": "You are logged in with the correct email address, but you need to log out and log back in to accept the invitation.",
       "Register": {
@@ -438,9 +438,9 @@
           "invitation-accepted": "Invitation accepted, please create an account and log in to finalize the invitation. You will be redirected to the account creation page.",
           "invitation-accepted-2": "Invitation accepted, please log in to your account to finalize it.",
           "invitation-declined": "Invitation declined",
-          "join": "Join the organization \"{varIntlOrganization}\"",
+          "join": "Join the organization « {varIntlOrganization} »",
           "already-accept": "You have already accepted the invitation.",
-          "invited": "You have been invited to join the team of \"{varIntlOrganization}\"",
+          "invited": "You have been invited to join the team of « {varIntlOrganization} »",
           "do-you-accept": "Do you accept to join this organization?",
           "accept": "Accept",
           "decline": "Decline"
@@ -465,9 +465,9 @@
     },
     "Legal": {
       "title": "Legal",
-      "terms": "Legal notices",
+      "terms": "Legal mentions",
       "privacy": "Privacy policy",
-      "newsletter": "Don't miss our news! Subscribe to our newsletter"
+      "newsletter": "Don't miss our news! Sign up for our newsletter"
     }
   },
   "Pricing": {
@@ -487,22 +487,22 @@
         "trial": "days trial, then...",
         "by-month": "month",
         "contact-us": "Contact us to customize your offer.",
-        "billed": "billed each",
+        "weekly": "week",
         "daily": "day",
-        "depending-on-usage": "depending on use",
-        "each": "each",
+        "billed": "billed each",
+        "depending-on-usage": "depending on usage",
         "earned": "{varIntlEarned} {varIntlCreditName} received every {varIntlEach}",
-        "readLess": "Collapse description",
-        "readMore": "Read the description",
-        "weekly": "week"
+        "each": "each",
+        "readLess": "Read less",
+        "readMore": "Read more"
       },
       "PriceCardBuyButton": {
         "buyNow": "Buy now",
         "startTrial": "Try for {varIntlTrialDays} days",
-        "subscribeNow": "Subscribe",
+        "subscribeNow": "Subscribe now",
+        "upgrade": "Select",
         "currentPlan": "Current plan",
-        "updateSuccess": "Your subscription has been successfully updated!",
-        "upgrade": "Select"
+        "updateSuccess": "Your subscription has been successfully updated!"
       },
       "PriceCardContactUsButton": {
         "contact-us": "Contact us"
@@ -514,7 +514,7 @@
     "Success": {
       "Components": {
         "Index": {
-          "success": "Thank you for your trust! Your purchase has been validated.",
+          "success": "Thank you for your trust! Your purchase has been successfully validated.",
           "go-to": "Go to my account"
         }
       }
@@ -527,17 +527,17 @@
   "Emails": {
     "ForgotPasswordTemplate": {
       "heading": "Reset your password",
-      "text": "You have requested to reset your password. To do so, please click the button below.",
+      "text": "You requested to reset your password. To do so, please click on the button below.",
       "resetPassword": "Reset password"
     },
     "InviteUserTemplate": {
       "heading": "You have been invited to join the team of {varIntlTeamName}",
-      "text": "To accept the invitation, please click the button below.",
+      "text": "To accept the invitation, please click on the button below.",
       "buttonText": "Accept invitation"
     },
     "VerifyEmailTemplate": {
-      "verifyEmail": "Verify my account",
-      "text": "To finalize your registration, please click the button below.",
+      "verifyEmail": "Validate my account",
+      "text": "To permanently validate your registration, please click on the button below.",
       "heading": "Welcome!"
     },
     "NotificationTemplate": {
@@ -546,38 +546,38 @@
   },
   "API": {
     "ForgotPassword": {
-      "success": "A link to reset your password has been sent to {varIntlEmail}. Please check your email."
+      "success": "A link to reset your password has been sent to {varIntlEmail}. Please check your email inbox."
     },
     "Register": {
       "error": {
-        "user-already-exists": "This email address is already registered. If you are the owner, please log in or request a password reset.",
+        "user-already-exists": "This email address is already registered. If you are the owner, please log in with it, or request a password reset if necessary.",
         "user-not-created": "An error occurred while creating the account. Please try again.",
         "token-not-created": "An error occurred while creating the verification token. Please try again.",
         "unknown-error": "We encountered an unknown error. Please try again or contact us."
       },
-      "success": "Welcome {varIntlName}! Thank you for your trust. You will receive an email with a link to confirm its validity.\n\n You can already log in with your credentials."
+      "success": "Welcome {varIntlName}! Thank you for your trust. You will receive an email with a link to confirm its validity. \n\n You can already log in with your credentials."
     },
     "VerifyEmail": {
-      "expired-token": "Verification token already validated, expired, or not found.",
+      "expired-token": "Verification token already validated, expired or not found.",
       "success": "Your email address has been verified."
     },
     "Refill": {
-      "name": "Top up {varIntlRefill} {varIntlCreditName}"
+      "name": "Reloading {varIntlRefill} {varIntlCreditName}"
     },
     "ResendVerificationEmail": {
       "error": {
-        "email-already-verified": "Email already verified",
         "token-not-created": "Token not created",
-        "unknown-error": "Unknown error. \nPlease check the console.",
-        "user-not-found": "Non-existent user"
+        "unknown-error": "Unknown error. Please check the console.",
+        "email-already-verified": "Email already verified",
+        "user-not-found": "User not found"
       },
       "success": "Email sent"
     }
   },
   "ForgotPassword": {
-    "token-expired": "Reset token unknown.",
-    "reset-password": "Reset your password",
-    "invalid-token": "Invalid reset token. Please try again or request a new one.",
+    "token-expired": "The reset token is unknown.",
+    "reset-password": "Resetting your password",
+    "invalid-token": "Invalid reset token. Please start over or request a new one.",
     "Components": {
       "Index": {
         "form": {
@@ -587,22 +587,22 @@
           "submit": "Reset",
           "email-error": "Email address is in the wrong format.",
           "password-error": "Must be at least {varIntlMin} characters long.",
-          "password-match-error": "Passwords must match.",
+          "password-match-error": "Both passwords must match.",
           "success": "Password successfully changed."
         }
       }
     },
     "metadatas": {
-      "title": "Forgot password"
+      "title": "Forgotten password"
     }
   },
   "NotFound": {
-    "erreur-404": "404 Error",
+    "erreur-404": "Error 404",
     "page-not-found": "We cannot find the requested page.",
-    "back-link": "Return to home page"
+    "back-link": "Return to the home page"
   },
   "Blog": {
-    "404": "No article found",
+    "404": "No articles found",
     "category": "Categories",
     "tags": "Tags",
     "no-title": "Untitled article",
@@ -619,7 +619,7 @@
     "Navbar": {
       "Notifications": {
         "noNotifications": "No notifications",
-        "view": "see"
+        "view": "view"
       }
     }
   },
@@ -645,48 +645,48 @@
   },
   "Refill": {
     "metadatas": {
-      "title": "Credit refill"
+      "title": "Credit reload"
     },
     "Components": {
       "Index": {
-        "button": {
-          "refill-credits": "Top up"
-        },
         "choose-credits-number": "Choose the number of credits",
+        "button": {
+          "refill-credits": "Refill"
+        },
         "discount-applied": "Discount applied",
-        "discount-off": "Reduction of"
+        "discount-off": "Discount of"
       }
     }
   },
   "Terms": {
     "metadatas": {
-      "title": "Legal notices"
+      "title": "Legal mentions"
+    }
+  },
+  "Admin": {
+    "UserDialogInfo": {
+      "ResendEmail": "Verify your email address"
     }
   },
   "Helpers": {
     "DB": {
       "UserUsage": {
-        "UserIncludeNotFound": "User include not found",
+        "UserSessionNotFound": "User session not found",
+        "UserIncludeNotFound": "Include not found",
         "UserNotFound": "User not found",
         "FeatureNotFound": "Feature not found",
-        "FeatureNotLinkedToPlan": "Feature not linked to a plan",
-        "FeatureNotActive": "Feature is not active in the user's plan",
+        "FeatureNotLinkedToPlan": "Feature not linked to the user's subscribed plan",
+        "FeatureNotActive": "Feature disabled on the user's subscribed plan",
         "SubscriptionStartDateNotFound": "No subscription start date found for this user",
-        "NotEnoughCreditToUseFeature": "You have reached the limit of {varIntlCreditAlloued} usage by month for it.",
-        "NotEnoughCreditRemainingToUseFeature": "You don't have enough credit to use this feature. You are missing {varIntlCreditMissing} credits to use this feature, you have {varIntlCreditRemaining} remaining credit",
-        "ActiveSubscriptionNotFoundForUser": "No active subscriptions were found for you. \nPlease try again or contact technical support.",
-        "Error": "Operation canceled: the use of the feature could not be postponed. \nPlease contact technical support.",
-        "SaasSettingsNotFound": "Important website settings could not be found. \nTry Again.",
-        "StripeSubscriptionItemIdNotFound": "No Stripe subscriptions found. \nPlease try again or contact technical support.",
-        "StripeUsageNotReported": "Operation canceled. \nUse of the feature cannot be reported to our billing service (Stripe) for the following reason: {varIntlError}.",
-        "SubscriptionRecurringUsageTypeNotMetered": "Operation canceled. \nThe terms of your subscription do not allow the use of this feature to be counted. \nPlease contact technical support.",
-        "UserSessionNotFound": "User session not found"
+        "NotEnoughCreditToUseFeature": "You have reached the limit of {varIntlCreditAlloued} monthly uses for this feature.",
+        "NotEnoughCreditRemainingToUseFeature": "You do not have enough {varIntlCreditName} to use this feature. You only have {varIntlCreditRemaining} left and you need {varIntlCreditAlloued} {varIntlCreditName} to use it.",
+        "SaasSettingsNotFound": "Important site settings could not be found. Please try again.",
+        "ActiveSubscriptionNotFoundForUser": "No active subscription was found for you. Please try again or contact technical support.",
+        "StripeSubscriptionItemIdNotFound": "No Stripe subscription found. Please try again or contact technical support.",
+        "SubscriptionRecurringUsageTypeNotMetered": "Operation canceled. Your subscription terms do not allow for the usage of this feature to be metered. Please contact technical support.",
+        "StripeUsageNotReported": "Operation canceled. The feature usage could not be reported to our billing service (Stripe) for the following reason: {varIntlError}.",
+        "Error": "Operation canceled: the feature usage could not be reported. Please contact technical support."
       }
-    }
-  },
-  "Admin": {
-    "UserDialogInfo": {
-      "ResendEmail": "Verifying your email address"
     }
   }
 }

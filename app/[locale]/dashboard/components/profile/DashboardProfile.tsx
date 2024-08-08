@@ -1,7 +1,7 @@
 "use client";
 
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { SectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SectionWrapper";
 import { useNotificationSettingsStore } from "@/src/stores/admin/notificationSettingsStore";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

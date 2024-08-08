@@ -1,6 +1,6 @@
 import { FirstConnexion } from "@/app/[locale]/(index)/components/FirstConnexion";
 import HomePage from "@/app/[locale]/(index)/components/Index";
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { getServerSession } from "next-auth/next";

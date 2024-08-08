@@ -1,4 +1,4 @@
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
 import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import { redirect } from "@/src/lib/intl/navigation";
 import createMetadata from "@/src/lib/metadatas";

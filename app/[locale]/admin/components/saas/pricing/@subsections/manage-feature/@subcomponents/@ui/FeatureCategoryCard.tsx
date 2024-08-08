@@ -1,9 +1,9 @@
 "use client";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { PopoverDelete } from "@/src/components/ui/@blitzinit/popover-delete";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import {
   deleteFeaturesCategory,
   updateFeaturesCategory,
@@ -131,7 +131,7 @@ export const FeatureCategoryCard = ({ category }: Props) => {
             )}
             <Tooltip
               className="tooltip"
-              opacity={100}
+              
               id={`${category.id}tt-save-button`}
               place="top">
               Save

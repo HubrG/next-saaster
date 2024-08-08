@@ -1,10 +1,10 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
-} from "@/src/helpers/dependencies/user";
+} from "@/src/helpers/dependencies/user-info";
 import { cn } from "@/src/lib/utils";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";

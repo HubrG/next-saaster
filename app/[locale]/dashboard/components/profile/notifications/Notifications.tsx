@@ -1,7 +1,7 @@
 "use client";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Switch } from "@/src/components/ui/switch";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
 import { updateNotificationSettings } from "@/src/helpers/db/notifications.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { handleError } from "@/src/lib/error-handling/handleError";

@@ -1,5 +1,5 @@
 "use client";
-import { Input } from "@/src/components/ui/input";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useEffect, useState } from "react";
 type Props = {

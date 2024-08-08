@@ -1,8 +1,8 @@
 "use client";
 import { dbUpdateFeature } from "@/app/[locale]/admin/queries/saas/saas-pricing/features.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Switch } from "@/src/components/ui/switch";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
 import { useSaasFeaturesStore } from "@/src/stores/admin/saasFeaturesStore";
 import { iFeature } from "@/src/types/db/iFeatures";
 import { Feature } from "@prisma/client";
@@ -70,7 +70,7 @@ export const LinkPlanToFeatureOptions = ({ feature }: Props) => {
           name="onlyOnSelectedPlans"
         />
       </div>
-      <Tooltip className="tooltip !w-[95%]" opacity={100} id={randUuid} place="top">
+      <Tooltip className="tooltip !w-[95%]"  id={randUuid} place="top">
         By default, features activated on a higher-level plane are displayed
         and grayed out on lower planes for information purposes. If you do not
         wish to display this feature on the lower planes, enable this option.

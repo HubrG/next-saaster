@@ -1,6 +1,6 @@
 "use client";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { SwitchWrapper } from "@/src/components/ui/@fairysaas/user-interface/ui/SwitchWrapper";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { SwitchWrapper } from "@/src/components/ui/@blitzinit/user-interface/ui/SwitchWrapper";
 import languages from "@/src/lib/intl/languages.json";
 import useInternationalizationStore from "@/src/stores/internationalizationStore";
 import { useEffect, useState } from "react";

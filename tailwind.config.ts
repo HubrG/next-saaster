@@ -22,6 +22,21 @@ module.exports = {
       display: ["var(--font-display)", "Comic Sans MS"],
     },
     extend: {
+       fontSize: {
+        xs: "0.75rem",
+        sm: "0.875rem",
+        base: "1rem",
+        lg: "1.125rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+        "5xl": "3rem",
+        "6xl": "3.75rem",
+        "7xl": "4.5rem",
+        "8xl": "6rem",
+        "9xl": "8rem",
+      },
       fontWeight: {
         light: "200",
         normal: "300",
@@ -237,6 +252,17 @@ module.exports = {
         default: "var(--radius)",
       },
       keyframes: {
+        "shine-pulse": {
+          "0%": {
+            "background-position": "0% 0%",
+          },
+          "50%": {
+            "background-position": "100% 100%",
+          },
+          to: {
+            "background-position": "0% 0%",
+          },
+        },
         "accordion-down": {
           from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },

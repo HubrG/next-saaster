@@ -1,6 +1,6 @@
 "use client";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   Command,
   CommandEmpty,
@@ -8,12 +8,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/src/components/ui/command";
+} from "@/src/components/ui/@shadcn/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/src/components/ui/@shadcn/popover";
 import { updateAppSettings } from "@/src/helpers/db/appSettings.action";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import languages from "@/src/lib/intl/languages.json";

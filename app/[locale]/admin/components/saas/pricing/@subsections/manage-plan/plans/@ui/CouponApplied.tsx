@@ -1,13 +1,13 @@
 "use client";
 
 import { revokeCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import { useSaasPlansStore } from "@/src/stores/admin/saasPlansStore";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { MinusCircle } from "lucide-react";
+import { useFormatter } from "next-intl";
 import { Tooltip } from "react-tooltip";
 
 type Props = {
@@ -31,7 +31,7 @@ export const CouponApplied = ({
   const { saasStripeCoupons } = useSaasStripeCoupons();
   const { saasSettings } = useSaasSettingsStore();
   const planCoupons = saasPlans.find((p) => p.id === plan.id)?.coupons;
-
+  const format = useFormatter();
   const calculatePriceWithDiscount = (
     price: number,
     discount: number,
@@ -44,22 +44,26 @@ export const CouponApplied = ({
     }
     return price;
   };
- const calculatePrice = (price: number, coupon: any) => {
-   let discount = 0;
-   let mode = "fixed"; 
+  const calculatePrice = (price: number, coupon: any) => {
+    let discount = 0;
+    let mode = "fixed";
 
-   if (coupon?.percent_off) {
-     discount = coupon.percent_off;
-     mode = "percent";
-   } else if (coupon?.amount_off) {
-     discount = coupon.amount_off;
-     mode = "fixed";
-   }
+    if (coupon?.percent_off) {
+      discount = coupon.percent_off;
+      mode = "percent";
+    } else if (coupon?.amount_off) {
+      discount = coupon.amount_off;
+      mode = "fixed";
+    }
 
-   const discountedPrice =
-     calculatePriceWithDiscount(price * 100, discount, mode as "percent" | "fixed") / 100;
-   return discountedPrice.toFixed(2);
- };
+    const discountedPrice =
+      calculatePriceWithDiscount(
+        price * 100,
+        discount,
+        mode as "percent" | "fixed"
+      ) / 100;
+    return discountedPrice.toFixed(2);
+  };
   const handleRevokeCoupon = async (couponId: string) => {
     const revoke = await revokeCoupon(couponId);
     if (revoke) {
@@ -114,10 +118,16 @@ export const CouponApplied = ({
               />
               <p className="text-xs flex flex-row font-light self-center">
                 <span>
-                  - {stripeCoupon?.percent_off
-                        ? stripeCoupon?.percent_off + "%"
-                        : ((stripeCoupon?.amount_off??0)/100) +
-                          `${convertCurrencyName(stripeCoupon?.currency ?? "usd","sigle")}`}{" "}
+                  -{" "}
+                  {stripeCoupon?.percent_off
+                    ? format.number(stripeCoupon?.percent_off, {
+                        currency: stripeCoupon?.currency ?? "usd",
+                        style: "percent",
+                      })
+                    : format.number((stripeCoupon?.amount_off ?? 0) / 100, {
+                        currency: stripeCoupon?.currency ?? "usd",
+                        style: "currency",
+                      })}
                   {stripeCoupon?.duration === "once"
                     ? "for once"
                     : stripeCoupon?.duration === "repeating"
@@ -144,7 +154,7 @@ export const CouponApplied = ({
 
               <Tooltip
                 id={`revoke-coupon-${plan.id}${coupon.id}`}
-                opacity={100}
+                
                 place="top"
                 className="tooltip">
                 Revoke {recurrence} coupon

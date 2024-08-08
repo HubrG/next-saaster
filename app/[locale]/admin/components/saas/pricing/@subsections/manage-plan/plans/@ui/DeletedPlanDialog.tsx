@@ -1,15 +1,15 @@
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/src/components/ui/dialog";
-import { Separator } from "@/src/components/ui/separator";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/src/components/ui/@shadcn/dialog";
+import { Separator } from "@/src/components/ui/@shadcn/separator";
 import { updatePlan } from "@/src/helpers/db/plans.action";
 import { SaasTypeReadableName } from "@/src/helpers/functions/SaasTypes";
 import { useSaasPlanToFeatureStore } from "@/src/stores/admin/saasPlanToFeatureStore";

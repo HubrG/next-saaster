@@ -4,8 +4,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import { Skeleton } from "@/src/components/ui/skeleton";
+} from "@/src/components/ui/@shadcn/dropdown-menu";
+import { Skeleton } from "@/src/components/ui/@shadcn/skeleton";
 import languages from "@/src/lib/intl/languages.json";
 import { usePathname, useRouter } from "@/src/lib/intl/navigation";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
@@ -67,15 +67,15 @@ const ChangeLanguage = () => {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger className="ml-1" asChild>
+      <DropdownMenuTrigger  asChild>
         <div
           role="img"
           aria-label={`${localeState} flag`}
-          className="w-8 h-8 rounded-full push-effect border-theming-text-400/20 dark:border-theming-text-800/20 cursor-pointer border-4 overflow-hidden">
+          className="w-8 h-8 rounded-full !z-40 !bg-transparent push-effect border-theming-text-400/20 dark:border-theming-text-800/20 cursor-pointer border-4 overflow-hidden">
           <Flag
             alt={`${localeState} flag`}
             code={getFlagCode(localeState)}
-            className="h-full push-effect  w-full object-cover object-center"
+            className="h-full push-effect  !z-50 w-full object-cover object-center"
           />
         </div>
       </DropdownMenuTrigger>
@@ -116,7 +116,6 @@ const ChangeLanguage = () => {
                 <Tooltip
                   id={locale.code}
                   className="tooltip z-50"
-                  opacity={100}
                   place="bottom">
                   {language?.name_native || language?.name_en}
                 </Tooltip>

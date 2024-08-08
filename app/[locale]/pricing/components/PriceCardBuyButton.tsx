@@ -1,10 +1,10 @@
 "use client";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
-} from "@/src/helpers/dependencies/user";
+} from "@/src/helpers/dependencies/user-info";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { useSessionQuery } from "@/src/queries/useSessionQuery";

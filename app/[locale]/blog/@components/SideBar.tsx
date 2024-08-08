@@ -1,5 +1,5 @@
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { ScrollArea } from "@/src/components/ui/scroll-area";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { ScrollArea } from "@/src/components/ui/@shadcn/scroll-area";
 import {
   getCategoriesForPublishedPosts,
   getTagsForPublishedPosts,

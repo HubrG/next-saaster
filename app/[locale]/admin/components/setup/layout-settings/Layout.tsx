@@ -1,4 +1,4 @@
-import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
+import { SubSectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SubSectionWrapper";
 import SwitchActiveDarkMode from "./switches/SwitchActiveDarkMode";
 import SwitchCtaOnNavbar from "./switches/SwitchCtaOnNavbar";
 import SwitchDefaultDarkMode from "./switches/SwitchDefaultDarkMode";

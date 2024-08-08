@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from "@/src/components/ui/table";
+} from "@/src/components/ui/@shadcn/table";
 import { BlogPost } from "@prisma/client";
 import React from "react";
 import { v4 } from 'uuid';

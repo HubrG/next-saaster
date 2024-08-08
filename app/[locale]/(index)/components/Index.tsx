@@ -1,68 +1,37 @@
 "use client";
 import { ContainerScroll } from "@/src/components/ui/@aceternity/container-scroll-animation";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Button } from "@/src/components/ui/button";
-import { addUserUsage } from "@/src/helpers/db/userUsage.action";
-import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
-import { handleError } from "@/src/lib/error-handling/handleError";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { AnimatedList } from "@/src/components/ui/@magic-ui/animated-list";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { useCredit } from "@/src/hooks/@blitzinit/useCredit";
 import { getLucideComponents } from "@/src/lib/lucideComponents";
-import { useUserInfoStore } from "@/src/stores/userInfoStore";
-import { CircleOff } from "lucide-react";
 import { FeaturesSection } from "./@subcomponents/FeaturesSection";
 import { HeroSection } from "./@subcomponents/HeroSection";
 import { TestimonialsSection } from "./@subcomponents/TestimonialsSection";
 
 export default function HomePage() {
-  const {
-    userInfoStore,
-    incrementCredit,
-    decrementCredit,
-    isUserInfoStoreLoading,
-    setUserInfoStore,
-    fetchUserInfoStore,
-    setProperty,
-  } = useUserInfoStore();
-
-
-  const handleIncreaseCredit = async () => {
-    incrementCredit(100);
-  }
-
-
-  const handleClick = async () => {
-    const click = await addUserUsage({
-      // featureAlias: "gpt3",
-      consumeCredit: 100,
-      // consumeStripeMeteredCredit: 100,
-      // quantityForFeature: 2,
-      secret: chosenSecret(),
+  const iconNames = getLucideComponents();
+  const credit = async () => {
+    const caca = await useCredit({
+      credits: 50,
+      decrement: true,
+      type: "Credit",
     });
-    const { error, message } = handleError(click);
-    if (error) {
+    if (caca === true) {
       toaster({
-        description: message,
-        type: "error",
-        icon: <CircleOff />,
+        description: "Credit consumed",
+        type: "success",
       });
-    } else {
-      decrementCredit(click.data?.success?.consumeCredit ?? 0);
     }
   };
-  // useEffect(() => {
-  //   setProperty("info", { ...userInfoStore.info, email: "caco@gg.com" });
-  // }, []);
-  const iconNames = getLucideComponents();
   return (
     <>
       {/* <HeroParallax products={[]} />
       <BackgroundBeamsDemo /> */}
       <div className="flex flex-col">
-        <Button onClick={handleIncreaseCredit}>Reset</Button>
-        <div>
-          <h1>Liste des composants Lucide</h1>
-          <ul></ul>
-        </div>
-        {userInfoStore?.info?.email}
+        <Button onClick={() => credit()}>Reset</Button>
+        <AnimatedList>coucou</AnimatedList>
+
         <HeroSection />
       </div>
       <FeaturesSection />

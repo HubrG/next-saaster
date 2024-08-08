@@ -1,5 +1,5 @@
 "use client";
-import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
+import { SectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SectionWrapper";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Rss } from "lucide-react";
 import { ManageBlogCategories } from "./manage-categories/Categories";

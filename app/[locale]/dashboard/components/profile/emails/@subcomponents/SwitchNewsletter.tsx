@@ -1,6 +1,6 @@
 "use client";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { SwitchWrapper } from "@/src/components/ui/@fairysaas/user-interface/ui/SwitchWrapper";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { SwitchWrapper } from "@/src/components/ui/@blitzinit/user-interface/ui/SwitchWrapper";
 import { updateUser } from "@/src/helpers/db/users.action";
 import {
   createAudience,

@@ -1,6 +1,6 @@
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { Card } from "@/src/components/ui/card";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import createMetadata from "@/src/lib/metadatas";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { prisma } from "@/src/lib/prisma";

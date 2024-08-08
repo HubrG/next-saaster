@@ -1,6 +1,6 @@
 "use client";
-import { SectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SectionWrapper";
-import { useIsClient } from "@/src/hooks/useIsClient";
+import { SectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SectionWrapper";
+import { useIsClient } from "@/src/hooks/utils/useIsClient";
 import { Coins, Settings2, UsersRound } from "lucide-react";
 import { SaasPricing } from "./pricing/SaasPricing";
 import { AdminSaasSettings } from "./settings/AdminSaasSettings";

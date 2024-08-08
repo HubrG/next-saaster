@@ -1,7 +1,7 @@
 import { Navbar } from "@/app/[locale]/@layout/header/Navbar";
 import { TopLoader } from "@/app/[locale]/@layout/header/TopLoader";
 import { Init } from "@/app/[locale]/@layout/init";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
 import { getSaasSettings } from "@/src/helpers/db/saasSettings.action";
 import { authOptions } from "@/src/lib/next-auth/auth";
 import { cn } from "@/src/lib/utils";
@@ -11,12 +11,12 @@ import SessProvider from "@/src/providers/SessionProvider";
 import { ThemeProvider } from "@/src/providers/ThemeProvider";
 import { Session } from "next-auth";
 import { getServerSession } from "next-auth/next";
-import { Caveat, Playfair_Display, Rethink_Sans } from "next/font/google";
+import { Caveat, Nunito_Sans, Playfair_Display } from "next/font/google";
 import { Toaster } from "sonner";
 import { getAppSettings } from "../../src/helpers/db/appSettings.action";
 import Footer from "./@layout/footer/Footer";
 
-const sans = Rethink_Sans({
+const sans = Nunito_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",

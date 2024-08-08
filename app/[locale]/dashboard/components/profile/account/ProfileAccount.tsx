@@ -1,14 +1,14 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Card } from "@/src/components/ui/card";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { PopoverConfirm } from "@/src/components/ui/@blitzinit/popover-confirm";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import { deleteUser } from "@/src/helpers/db/users.action";
 import {
   ReturnUserDependencyProps
-} from "@/src/helpers/dependencies/user";
+} from "@/src/helpers/dependencies/user-info";
 import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { capitalize } from "lodash";

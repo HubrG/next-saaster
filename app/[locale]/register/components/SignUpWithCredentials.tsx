@@ -1,10 +1,10 @@
 "use client";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { SimpleLoader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
-import { sendEmail } from "@/src/helpers/emails/sendEmail";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { SimpleLoader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
+import { useSendEmail } from "@/src/hooks/@blitzinit/useSendEmail";
 import { useRouter } from "@/src/lib/intl/navigation";
 import { cn } from "@/src/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -59,7 +59,7 @@ export default function Credentials() {
     if (response.ok) {
       try {
         // Resend API (mail)
-        await sendEmail({
+        await useSendEmail({
           to: formData.email,
           type: "verifyEmail",
           subject: t("emailSent.subject"),

@@ -1,7 +1,7 @@
 "use client";
 import { updatePassword } from "@/app/[locale]/dashboard/queries/profile.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
 import {
   Credenza,
   CredenzaContent,
@@ -9,10 +9,10 @@ import {
   CredenzaHeader,
   CredenzaTitle,
   CredenzaTrigger,
-} from "@/src/components/ui/@fairysaas/credenza";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Form } from "@/src/components/ui/form";
-import { Field } from "@/src/components/ui/form-field";
+} from "@/src/components/ui/@blitzinit/credenza";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Form } from "@/src/components/ui/@shadcn/form";
+import { Field } from "@/src/components/ui/@shadcn/form-field";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useUserStore } from "@/src/stores/userStore";

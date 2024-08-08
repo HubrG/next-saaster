@@ -1,5 +1,6 @@
 "use server";
 import { StripeManager } from "@/app/[locale]/admin/classes/stripeManager";
+import { useSendEmail } from "@/src/hooks/@blitzinit/useSendEmail";
 import {
   HandleResponseProps,
   handleRes,
@@ -9,7 +10,6 @@ import { ActionError, action, authAction } from "@/src/lib/safe-actions";
 import { iOrganization } from "@/src/types/db/iOrganization";
 import { getTranslations } from "next-intl/server";
 import { z } from "zod";
-import { sendEmail } from "../emails/sendEmail";
 import { isOrganizationOwner } from "../functions/isUserRole";
 import {
   chosenSecret,
@@ -228,7 +228,7 @@ export const inviteMemberToOrganization = authAction(
         getOrganization.name === ""
           ? getOrganization.owner.name + "'s"
           : getOrganization.name;
-      const sendmail = await sendEmail({
+      const sendmail = await useSendEmail({
         to: email,
         type: "inviteUserInOrganization",
         subject: `${t("Components.Helpers.DB.Organization.inviteMemberToOrganization.mailing.subject")} ${

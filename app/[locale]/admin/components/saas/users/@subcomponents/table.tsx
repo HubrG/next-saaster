@@ -24,21 +24,21 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
+import { CopySomething } from "@/src/components/ui/@blitzinit/copy-something";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
-import { Button } from "@/src/components/ui/button";
+} from "@/src/components/ui/@shadcn/avatar";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import { Input } from "@/src/components/ui/input";
+} from "@/src/components/ui/@shadcn/dropdown-menu";
+import { Input } from "@/src/components/ui/@shadcn/input";
 import {
   Table,
   TableBody,
@@ -46,22 +46,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
-import { getUserInfos } from "@/src/helpers/dependencies/user";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
-import { sliced } from "@/src/helpers/functions/slice";
+} from "@/src/components/ui/@shadcn/table";
+import { getUserInfos } from "@/src/helpers/dependencies/user-info";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useUserStore } from "@/src/stores/userStore";
 import { iUsers } from "@/src/types/db/iUsers";
 import { UserRole } from "@prisma/client";
 import { round, upperCase } from "lodash";
+import { useFormatter } from "next-intl";
 import { Tooltip } from "react-tooltip";
 import { UserDialog } from "./UserDialog";
 
-export const CurrencyComponentStore = () => {
-  const currency = useSaasSettingsStore((state) => state.saasSettings.currency);
-  return convertCurrencyName(currency ?? "", "sigle");
-};
 export const columns: ColumnDef<iUsers>[] = [
   {
     id: "actions",
@@ -115,7 +111,7 @@ export const columns: ColumnDef<iUsers>[] = [
           id={row.getValue("email") + "cs"}
           copyText={row.getValue("email")}>
           <span className="cursor-pointer">
-            {sliced(row.getValue("email"), 14)}
+            {useSlice(row.getValue("email"), 14)}
           </span>
         </CopySomething>
       </div>
@@ -163,6 +159,7 @@ export const columns: ColumnDef<iUsers>[] = [
       );
     },
     cell: ({ row }) => {
+      const format = useFormatter();
       const userInfo = getUserInfos({ user: row.original as iUsers });
       return (
         <>
@@ -178,12 +175,11 @@ export const columns: ColumnDef<iUsers>[] = [
                   <Check className="text-green-500 icon" />
                 )}
                 {userInfo.activeSubscription.planObject.name} (
-                {convertCurrencyName(
-                  userInfo.activeSubscription.currency,
-                  "sigle"
-                )}
-                {userInfo.activeSubscription.priceWithDiscount}/
-                {userInfo.activeSubscription.recurring})
+                {format.number(userInfo.activeSubscription.priceWithDiscount, {
+                  style: "currency",
+                  currency: userInfo.activeSubscription.currency,
+                })}
+                /{userInfo.activeSubscription.recurring})
               </div>
               <Tooltip
                 id={userInfo.info.id + "trial"}
@@ -214,6 +210,9 @@ export const columns: ColumnDef<iUsers>[] = [
       return <>Total spent</>;
     },
     cell: ({ row }) => {
+      const { saasSettings } = useSaasSettingsStore.getState();
+
+      const format = useFormatter();
       const userInfo = getUserInfos({ user: row.original as iUsers });
       const totalOneTime = userInfo.payments.total_amount_ontime_payments ?? 0;
       const totalSubscriptions =
@@ -222,8 +221,10 @@ export const columns: ColumnDef<iUsers>[] = [
       return (
         <>
           <div className="text-sm">
-            <CurrencyComponentStore />
-            {round(total, 3)}
+            {format.number(round(total, 3), {
+              style: "currency",
+              currency: saasSettings.currency ?? "usd",
+            })}
           </div>
         </>
       );

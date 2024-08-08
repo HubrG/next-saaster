@@ -247,8 +247,9 @@ div.progressToken {
 
 /* NOTE - Tooltip */
 .tooltip {
-  @apply absolute !text-sm my-little-shadow  font-semibold !rounded-default  max-w-md dark:bg-theming-background-400 bg-theming-background-900 !opacity-100 !important;
+  @apply absolute !text-sm my-little-shadow backdrop-blur-lg  font-semibold !rounded-default py-1  max-w-sm dark:bg-theming-background-400 bg-theming-background-900 !opacity-100  !important;
   z-index: 9999999999;
+  opacity: 0.9 !important;
 }
 .tooltip span {
   @apply text-white font-normal float-right;
@@ -335,13 +336,13 @@ ol li:not(.blog-breadcrumb) {
   @apply flex flex-row  items-center justify-between text-primary-foreground/80 hover:bg-primary-foreground/10   !w-full !font-semibold p-0.5  rounded-default cursor-pointer;
 }
 .user-interface aside.user-inteface-aside nav ul li div span {
-  @apply flex flex-row  items-center text-theming-text-900 font-semibold;
+  @apply flex flex-row  items-center text-theming-text-900 ml-1 font-semibold;
 }
 .user-interface aside.user-inteface-aside nav ul li.active div {
   @apply bg-primary-foreground/10 font-bold !important;
 }
 .user-interface aside.user-inteface-aside nav ul li.active div span {
-  @apply font-bold !important;
+  @apply font-bold  !important;
 }
 .user-interface aside.user-inteface-aside nav ul li ul li.subactive {
   @apply bg-primary-foreground/5  font-bold flex flex-row !important;
@@ -729,7 +730,7 @@ footer a {
   @apply rounded-default my-shadow bg-theming-background-200/20  !important;
 }
 .my-card {
-  @apply rounded-default border-b-2 dark:border-b dark:border-r border-r-2  border-theming-text-600/20 bg-white !important;
+  @apply rounded-default border-b dark:border-b dark:border-r border-r  border-theming-text-600/20 bg-white !important;
 }
 .border-grain {
   @apply opacity-100 bg-background !important;
@@ -1039,7 +1040,7 @@ article .task-list-item {
 path.recharts-rectangle {
   @apply rounded-t-default dark:!fill-theming-background-400 dark:!border-theming-background-300 !border-theming-background-200 fill-theming-background-300 !important;
 }
-.recharts-bar-rectangle  {
+.recharts-bar-rectangle {
   @apply fill-transparent bg-transparent !important;
 }
 .custom-recharts-tooltip {

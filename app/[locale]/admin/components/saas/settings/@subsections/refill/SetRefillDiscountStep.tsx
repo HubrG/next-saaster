@@ -1,6 +1,6 @@
 "use client";
-import { Label } from "@/src/components/ui/label";
-import { Slider } from "@/src/components/ui/slider";
+import { Label } from "@/src/components/ui/@shadcn/label";
+import { Slider } from "@/src/components/ui/@shadcn/slider";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useEffect, useState } from "react";
 

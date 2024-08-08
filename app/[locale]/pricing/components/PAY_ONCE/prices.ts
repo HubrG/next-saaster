@@ -1,5 +1,5 @@
 "use client";
-import PercentageCalculator from "@/src/helpers/functions/maths/calcPercentage";
+import { usePercentageCalculator } from "@/src/hooks/utils/usePercentageCalc";
 import { iPlan } from "@/src/types/db/iPlans";
 
 type PriceCardPayOnceProps = {
@@ -14,7 +14,8 @@ export const payOncePricesAndFeatures = ({
   priceWithDiscount: number | undefined;
   price: number | undefined;
 } => {
-  const percentage = new PercentageCalculator();
+  const { decreaseValueByPercentage } = usePercentageCalculator();
+  const percentage = {};
   const price = plan.oncePrice ?? 0;
   const coupon = plan.coupons;
   let percent_off, amount_off;
@@ -26,12 +27,9 @@ export const payOncePricesAndFeatures = ({
 
   let priceWithDiscount;
   if (amount_off !== undefined && amount_off !== null) {
-    priceWithDiscount = price - (amount_off??0)/100;
+    priceWithDiscount = price - (amount_off ?? 0) / 100;
   } else if (percent_off !== undefined && percent_off !== null) {
-    priceWithDiscount = percentage.decreaseValueByPercentage(
-      price,
-      percent_off
-    );
+    priceWithDiscount = decreaseValueByPercentage(price, percent_off ?? 0);
   } else {
     priceWithDiscount = price;
   }

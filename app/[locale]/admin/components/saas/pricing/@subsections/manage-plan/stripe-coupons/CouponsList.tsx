@@ -1,15 +1,15 @@
 "use client";
 import { deleteCoupon } from "@/app/[locale]/admin/queries/saas/saas-pricing/stripe-coupon.action";
-import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
+import { PopoverDelete } from "@/src/components/ui/@blitzinit/popover-delete";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import { useSaasStripeCoupons } from "@/src/stores/admin/stripeCouponsStore";
 import { iStripeCoupon } from "@/src/types/db/iStripeCoupons";
 import capitalize from "lodash/capitalize";
+import { useFormatter } from "next-intl";
 
 export const CouponsList = () => {
   const { saasStripeCoupons, setSaasStripeCoupons } = useSaasStripeCoupons();
-
+  const format = useFormatter();
   const handleDelete = async (couponId: string) => {
     const deleteResponse = await deleteCoupon(couponId);
     if (deleteResponse) {
@@ -33,14 +33,18 @@ export const CouponsList = () => {
       {saasStripeCoupons.map((coupon, index) => {
         return (
           <div key={index} className="grid grid-cols-7 items-center">
-            <div className="font-bold text-left">{capitalize(coupon.name ?? "")}</div>
+            <div className="font-bold text-left">
+              {capitalize(coupon.name ?? "")}
+            </div>
             <div className="italic opacity-50">apply</div>
             {coupon.percent_off ? (
               <div className="font-bold">{coupon.percent_off}%</div>
             ) : (
               <div className="font-bold">
-                {(coupon.amount_off ?? 0)/100}
-                {convertCurrencyName(coupon.currency ?? "usd","sigle")}
+                {format.number((coupon.amount_off ?? 0) / 100, {
+                  currency: coupon.currency || "usd",
+                  style: "currency",
+                })}
               </div>
             )}
             <div className="italic opacity-50">

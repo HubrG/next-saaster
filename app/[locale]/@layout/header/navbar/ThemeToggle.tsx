@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
-import { Skeleton } from "@/src/components/ui/skeleton";
+import { Button } from "@/src/components/ui/@shadcn/button";
+import { Skeleton } from "@/src/components/ui/@shadcn/skeleton";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";

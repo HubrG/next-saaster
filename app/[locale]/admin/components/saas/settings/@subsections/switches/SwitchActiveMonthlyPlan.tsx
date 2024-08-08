@@ -1,7 +1,7 @@
 "use client";
 import { updateSaasSettings } from "@/app/[locale]/admin/queries/app-saas-settings.action";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { SwitchWrapper } from "@/src/components/ui/@fairysaas/user-interface/ui/SwitchWrapper";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { SwitchWrapper } from "@/src/components/ui/@blitzinit/user-interface/ui/SwitchWrapper";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { CalendarDays } from "lucide-react";

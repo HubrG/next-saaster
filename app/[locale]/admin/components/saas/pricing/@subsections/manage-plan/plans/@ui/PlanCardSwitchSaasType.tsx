@@ -1,18 +1,18 @@
 "use client";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/src/components/ui//popover";
-import { Button } from "@/src/components/ui/button";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/src/components/ui/@shadcn/popover";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/src/components/ui/select";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/components/ui/@shadcn/select";
 import { SaasTypeList } from "@/src/helpers/functions/SaasTypes";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
@@ -101,7 +101,7 @@ export const PlanCardSwitchSaasType = ({
           </div>
         </PopoverContent>
       </Popover>
-      <Tooltip id={randomId} className="tooltip" opacity={100}>
+      <Tooltip id={randomId} className="tooltip" >
         <span>Switch to another business model...</span>
       </Tooltip>
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
 import { cn } from "@/src/lib/utils";
 import { useUserInfoStore } from "@/src/stores/userInfoStore";
 import { SaasSettings } from "@prisma/client";
@@ -13,9 +13,10 @@ import { Tooltip } from "react-tooltip";
 
 type CreditLineProps = {
   saasSettings: SaasSettings;
+  className?: string;
 };
 
-export const CreditLine = ({ saasSettings }: CreditLineProps) => {
+export const CreditLine = ({ saasSettings, className }: CreditLineProps) => {
   const { userInfoStore: userStore } = useUserInfoStore();
   const [iconColor, setIconColor] = useState<string>("");
   const [getUserProfile, setGetUserProfile] =
@@ -72,7 +73,7 @@ export const CreditLine = ({ saasSettings }: CreditLineProps) => {
     if (creditRemaining) {
       return (
         <>
-          <div className="w-full userNavbarDiv">
+          <div className={` userNavbarDiv ${className}`}>
             <div
               className="relative w-full flex flex-col gap-1 justify-center"
               data-tooltip-id="remainingTooltip">
@@ -116,7 +117,7 @@ export const CreditLine = ({ saasSettings }: CreditLineProps) => {
           </div>
           <Tooltip
             id="remainingTooltip"
-            opacity={1}
+            
             place="bottom"
             className="tooltip flex flex-col">
             {creditPercentage !== Infinity && activeSubscription ? (

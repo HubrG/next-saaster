@@ -1,4 +1,4 @@
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import { Link } from "@/src/lib/intl/navigation";
 import { useTranslations } from "next-intl";
 

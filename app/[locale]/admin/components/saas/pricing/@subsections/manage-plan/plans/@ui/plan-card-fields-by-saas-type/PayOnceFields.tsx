@@ -1,8 +1,8 @@
 "use client";
 
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
-import { sliced } from "@/src/helpers/functions/slice";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Label } from "@/src/components/ui/@shadcn/label";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { PopoverCoupon } from "../../../stripe-coupons/@ui/PopoverCoupon";
@@ -69,7 +69,7 @@ export const PayOnceFields = ({
                   />
                   <p className="!col-span-1 flex flex-col items-start justify-end">
                     <span>
-                      {sliced(saasSettings.creditName ?? "credits", 6)}
+                      {useSlice(saasSettings.creditName ?? "credits", 6)}
                     </span>
                     <span>{planState.saasType === "PER_SEAT" && <>/user</>}</span>
                   </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Slider } from "@/src/components/ui/slider";
+import { Slider } from "@/src/components/ui/@shadcn/slider";
 import { cn } from "@/src/lib/utils";
 import { useAppSettingsStore } from "@/src/stores/appSettingsStore";
 import { useEffect, useState } from "react";

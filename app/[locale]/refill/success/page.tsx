@@ -1,5 +1,5 @@
-import { DivFullScreenGradient } from "@/src/components/ui/@fairysaas/layout-elements/gradient-background";
-import { Card } from "@/src/components/ui/card";
+import { DivFullScreenGradient } from "@/src/components/ui/@blitzinit/layout-elements/gradient-background";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import createMetadata from "@/src/lib/metadatas";
 import { StripeManager } from "../../admin/classes/stripeManager";
 import { Index } from "./components/Index";

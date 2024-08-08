@@ -1,9 +1,9 @@
 "use client";
-import { convertCurrencyName } from "@/src/helpers/functions/convertCurencies";
 import { usePublicSaasPricingStore } from "@/src/stores/publicSaasPricingStore";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { AnimatePresence, motion } from "framer-motion";
+import { useFormatter } from "next-intl";
 import { useState } from "react";
 import { cn } from "../../../lib/utils";
 
@@ -17,7 +17,7 @@ export const HoverEffect = ({
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { isYearly } = usePublicSaasPricingStore();
   const { saasSettings } = useSaasSettingsStore();
-
+  const format = useFormatter();
   return (
     <>
       {items.map((item, idx) => (
@@ -46,10 +46,21 @@ export const HoverEffect = ({
           <Card>
             <CardTitle>{item.name}</CardTitle>
             <h3 className="!text-primary-foreground mt-5">
-              {isYearly ? item.yearlyPrice : item.monthlyPrice}{" "}
-              {saasSettings.currency
-                ? convertCurrencyName(saasSettings.currency,"sigle")
-                : ""}
+              {isYearly ? (
+                <>
+                  {format.number(item.yearlyPrice ?? 0, {
+                    currency: saasSettings.currency ?? "usd",
+                    style: "currency",
+                  })}
+                </>
+              ) : (
+                <>
+                  {format.number(item.monthlyPrice ?? 0, {
+                    currency: saasSettings.currency ?? "usd",
+                    style: "currency",
+                  })}
+                </>
+              )}{" "}
               /{isYearly ? "year" : "month"}
             </h3>
             <CardDescription>{item.description}</CardDescription>

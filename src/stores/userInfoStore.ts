@@ -4,7 +4,7 @@ import { getUser, updateUser } from "../helpers/db/users.action";
 import {
   ReturnUserDependencyProps,
   getUserInfos,
-} from "../helpers/dependencies/user";
+} from "../helpers/dependencies/user-info";
 import { chosenSecret } from "../helpers/functions/verifySecretRequest";
 
 type Store = {

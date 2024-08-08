@@ -1,8 +1,8 @@
 "use client";
-import { MenuItem } from "@/src/components/ui/@fairysaas/user-interface/MenuItem";
-import { MenuSubItem } from "@/src/components/ui/@fairysaas/user-interface/MenuSubItem";
-import { useIntersectionObserver } from "@/src/hooks/useIntersectionObserver";
-import useScrollToSection from "@/src/hooks/useScrollToSection";
+import { MenuItem } from "@/src/components/ui/@blitzinit/user-interface/MenuItem";
+import { MenuSubItem } from "@/src/components/ui/@blitzinit/user-interface/MenuSubItem";
+import { useIntersectionObserver } from "@/src/hooks/utils/useIntersectionObserver";
+import useScrollToSection from "@/src/hooks/utils/useScrollToSection";
 import {
   BadgeDollarSign,
   BellDot,

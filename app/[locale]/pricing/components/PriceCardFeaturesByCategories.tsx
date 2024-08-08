@@ -1,7 +1,7 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import {
   Table,
   TableBody,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
+} from "@/src/components/ui/@shadcn/table";
 import { cn } from "@/src/lib/utils";
 import { useSaasFeaturesCategoriesStore } from "@/src/stores/admin/saasFeatureCategoriesStore";
 import useSaasPlansStore from "@/src/stores/admin/saasPlansStore";
@@ -164,7 +164,7 @@ export const PriceCardsFeaturesByCategories = ({
                               place="left"
                               className="tooltip"
                               id={feature.id}
-                              opacity={1}>
+                              >
                               <PriceCardFeatureNameAndDesc
                                 onlyFeatureDesc
                                 featName={feature.id}

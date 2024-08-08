@@ -1,6 +1,6 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import { Link } from "@/src/lib/intl/navigation";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";

@@ -1,6 +1,6 @@
 "use client";
-import { Label } from "@/src/components/ui/label";
-import { Switch } from "@/src/components/ui/switch";
+import { Label } from "@/src/components/ui/@shadcn/label";
+import { Switch } from "@/src/components/ui/@shadcn/switch";
 import { iPlan } from "@/src/types/db/iPlans";
 type Props = {
   plan: iPlan;

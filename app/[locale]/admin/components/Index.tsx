@@ -1,9 +1,9 @@
 "use client";
 import { AdminNavbar } from "@/app/[locale]/admin/components/Navbar";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { UserInterfaceMainWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceMainWrapper";
-import { UserInterfaceNavWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceNavWrapper";
-import { UserInterfaceWrapper } from "@/src/components/ui/@fairysaas/user-interface/UserInterfaceWrapper";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { UserInterfaceMainWrapper } from "@/src/components/ui/@blitzinit/user-interface/UserInterfaceMainWrapper";
+import { UserInterfaceNavWrapper } from "@/src/components/ui/@blitzinit/user-interface/UserInterfaceNavWrapper";
+import { UserInterfaceWrapper } from "@/src/components/ui/@blitzinit/user-interface/UserInterfaceWrapper";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { useEffect } from "react";
 import { AdminBlog } from "./blog/AdminBlog";

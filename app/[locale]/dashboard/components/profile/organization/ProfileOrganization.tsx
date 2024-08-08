@@ -1,11 +1,11 @@
 "use client";
 
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { SkeletonLoader } from "@/src/components/ui/@fairysaas/loader";
-import { PopoverConfirm } from "@/src/components/ui/@fairysaas/popover-confirm";
-import { PopoverDelete } from "@/src/components/ui/@fairysaas/popover-delete";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { SkeletonLoader } from "@/src/components/ui/@blitzinit/loader";
+import { PopoverConfirm } from "@/src/components/ui/@blitzinit/popover-confirm";
+import { PopoverDelete } from "@/src/components/ui/@blitzinit/popover-delete";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
 import {
   createOrganization,
   deleteOrganization,
@@ -15,8 +15,8 @@ import {
 import {
   ReturnUserDependencyProps,
   getUserInfos,
-} from "@/src/helpers/dependencies/user";
-import { sliced } from "@/src/helpers/functions/slice";
+} from "@/src/helpers/dependencies/user-info";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { handleError } from "@/src/lib/error-handling/handleError";
 import { cn } from "@/src/lib/utils";
 import { useOrganizationStore } from "@/src/stores/organizationStore";
@@ -153,7 +153,7 @@ export const ProfileOrganization = ({ }: ProfileOrganizationProps) => {
                         </AvatarFallback>
                       </Avatar>
                       <p className="flex flex-row justify-between w-full pr-10 gap-x-2">
-                        {sliced(member.email, 30)}
+                        {useSlice(member.email, 30)}
                         {userProfile?.info.organization?.ownerId ===
                           member.id && (
                           <Crown
@@ -164,7 +164,7 @@ export const ProfileOrganization = ({ }: ProfileOrganizationProps) => {
                       </p>
                       <Tooltip
                         className="tooltip z-50"
-                        opacity={100}
+                        
                         id="ownerID">
                         {t("tooltip.owner")}
                       </Tooltip>
@@ -193,7 +193,7 @@ export const ProfileOrganization = ({ }: ProfileOrganizationProps) => {
                           <li
                             key={invitation.id}
                             className="flex flex-row justify-between items-center !pt-0 !pb-0 !py-0">
-                            <p>{sliced(invitation.email, 30)}</p>
+                            <p>{useSlice(invitation.email, 30)}</p>
                             {userProfile?.info.organization?.ownerId ===
                               userProfile?.info.id &&
                               userProfile?.info.email !== invitation.email && (

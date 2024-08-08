@@ -1,9 +1,9 @@
 "use client";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { Loader } from "@/src/components/ui/@fairysaas/loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { SubSectionWrapper } from "@/src/components/ui/@fairysaas/user-interface/SubSectionWrapper";
-import { Button } from "@/src/components/ui/button";
+import { Loader } from "@/src/components/ui/@blitzinit/loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { SubSectionWrapper } from "@/src/components/ui/@blitzinit/user-interface/SubSectionWrapper";
+import { Button } from "@/src/components/ui/@shadcn/button";
 import { chosenSecret } from "@/src/helpers/functions/verifySecretRequest";
 import { cn } from "@/src/lib/utils";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";

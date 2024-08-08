@@ -1,9 +1,9 @@
 "use client";
 import { isUserExists } from "@/app/[locale]/dashboard/queries/organization.action";
 import { Goodline } from "@/src/components/ui/@aceternity/good-line";
-import { ButtonWithLoader } from "@/src/components/ui/@fairysaas/button-with-loader";
-import { toaster } from "@/src/components/ui/@fairysaas/toaster/ToastConfig";
-import { Card } from "@/src/components/ui/card";
+import { ButtonWithLoader } from "@/src/components/ui/@blitzinit/button-with-loader";
+import { toaster } from "@/src/components/ui/@blitzinit/toaster/ToastConfig";
+import { Card } from "@/src/components/ui/@shadcn/card";
 import {
   acceptInvitationToOrganization,
   removePendingUser,

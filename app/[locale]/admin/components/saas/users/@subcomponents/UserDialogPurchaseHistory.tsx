@@ -1,5 +1,5 @@
 "use client";
-import { CopySomething } from "@/src/components/ui/@fairysaas/copy-something";
+import { CopySomething } from "@/src/components/ui/@blitzinit/copy-something";
 import {
   Table,
   TableBody,
@@ -8,9 +8,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
-import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user";
-import { sliced } from "@/src/helpers/functions/slice";
+} from "@/src/components/ui/@shadcn/table";
+import { ReturnUserDependencyProps } from "@/src/helpers/dependencies/user-info";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { round } from "lodash";
@@ -82,7 +82,7 @@ export const PurchaseHistory = ({ user }: SubscriptionHistoryProps) => {
                           id={sub.priceId + user.info.id + "priceId"}
                           what="Price ID"
                           copyText={sub.priceId ?? "No price ID found"}>
-                          {sliced(sub.priceId ?? "", 10)}
+                          {useSlice(sub.priceId ?? "", 10)}
                         </CopySomething>
                       }
                     </TableCell>

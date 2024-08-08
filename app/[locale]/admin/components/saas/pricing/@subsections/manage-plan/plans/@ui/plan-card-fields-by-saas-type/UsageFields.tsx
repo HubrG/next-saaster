@@ -1,7 +1,7 @@
 "use client";
 
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/@shadcn/input";
+import { Label } from "@/src/components/ui/@shadcn/label";
 import {
   Select,
   SelectContent,
@@ -10,9 +10,9 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
-import { Separator } from "@/src/components/ui/separator";
-import { sliced } from "@/src/helpers/functions/slice";
+} from "@/src/components/ui/@shadcn/select";
+import { Separator } from "@/src/components/ui/@shadcn/separator";
+import { useSlice } from "@/src/hooks/utils/useSlice";
 import { useSaasSettingsStore } from "@/src/stores/saasSettingsStore";
 import { iPlan } from "@/src/types/db/iPlans";
 import { Plan } from "@prisma/client";
@@ -130,7 +130,7 @@ export const UsageInputFields = ({
             value={planState.meteredUnit ?? ""}
             onChange={(e) => handleInputChange(e, "meteredUnit")}
           />
-          <p>{sliced(saasSettings.creditName ?? "credits", 5)}</p>
+          <p>{useSlice(saasSettings.creditName ?? "credits", 5)}</p>
         </div>
       )}
     </>
